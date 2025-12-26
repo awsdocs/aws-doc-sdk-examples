@@ -16,7 +16,7 @@ CLASS ltc_awsex_cl_ppt_actions DEFINITION FOR TESTING DURATION SHORT RISK LEVEL 
     CLASS-DATA av_origination_number TYPE /aws1/ppt__string.
     CLASS-DATA av_destination_number TYPE /aws1/ppt__string.
     CLASS-DATA av_lv_uuid TYPE string.
-    CLASS-DATA av_iam_role_arn TYPE /aws1/rt_arn.
+    CLASS-DATA av_iam_role_arn TYPE /aws1/iamarntype.
 
     CLASS-DATA ao_ppt TYPE REF TO /aws1/if_ppt.
     CLASS-DATA ao_iam TYPE REF TO /aws1/if_iam.
@@ -31,7 +31,7 @@ CLASS ltc_awsex_cl_ppt_actions DEFINITION FOR TESTING DURATION SHORT RISK LEVEL 
     CLASS-METHODS class_setup RAISING /aws1/cx_rt_generic.
     CLASS-METHODS class_teardown RAISING /aws1/cx_rt_generic.
     CLASS-METHODS create_iam_role
-      RETURNING VALUE(rv_role_arn) TYPE /aws1/rt_arn
+      RETURNING VALUE(rv_role_arn) TYPE /aws1/iamarntype
       RAISING   /aws1/cx_rt_generic.
     CLASS-METHODS wait_for_app_ready
       IMPORTING iv_app_id TYPE /aws1/ppt__string
