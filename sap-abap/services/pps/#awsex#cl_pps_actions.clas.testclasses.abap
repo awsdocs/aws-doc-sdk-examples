@@ -86,28 +86,48 @@ CLASS ltc_awsex_cl_pps_actions IMPLEMENTATION.
         " PPS service access denied - likely missing IAM permissions
         " Tests will catch access denied and pass gracefully
         DATA(lv_error_msg) = lo_pps_client_ex->get_text( ).
-        MESSAGE |PPS Access Denied. Required IAM permissions:| TYPE 'I'.
-        MESSAGE |  - sms-voice:CreateConfigurationSet| TYPE 'I'.
-        MESSAGE |  - sms-voice:DeleteConfigurationSet| TYPE 'I'.
-        MESSAGE |  - sms-voice:ListConfigurationSets| TYPE 'I'.
-        MESSAGE |  - sms-voice:CreateConfigurationSetEventDestination| TYPE 'I'.
-        MESSAGE |  - sms-voice:UpdateConfigurationSetEventDestination| TYPE 'I'.
-        MESSAGE |  - sms-voice:DeleteConfigurationSetEventDestination| TYPE 'I'.
-        MESSAGE |  - sms-voice:GetConfigurationSetEventDestinations| TYPE 'I'.
-        MESSAGE |  - sms-voice:SendVoiceMessage| TYPE 'I'.
-        MESSAGE |Error: { lv_error_msg }| TYPE 'I'.
-        MESSAGE |Tests will pass gracefully if access is denied| TYPE 'I'.
+        IF lv_error_msg CS 'AccessDenied' OR lv_error_msg CS 'UnauthorizedOperation' OR
+           lv_error_msg CS 'Forbidden' OR lv_error_msg CS 'not authorized'.
+          MESSAGE |PPS Access Denied. Required IAM permissions:| TYPE 'I'.
+          MESSAGE |  - sms-voice:CreateConfigurationSet| TYPE 'I'.
+          MESSAGE |  - sms-voice:DeleteConfigurationSet| TYPE 'I'.
+          MESSAGE |  - sms-voice:ListConfigurationSets| TYPE 'I'.
+          MESSAGE |  - sms-voice:CreateConfigurationSetEventDestination| TYPE 'I'.
+          MESSAGE |  - sms-voice:UpdateConfigurationSetEventDestination| TYPE 'I'.
+          MESSAGE |  - sms-voice:DeleteConfigurationSetEventDestination| TYPE 'I'.
+          MESSAGE |  - sms-voice:GetConfigurationSetEventDestinations| TYPE 'I'.
+          MESSAGE |  - sms-voice:SendVoiceMessage| TYPE 'I'.
+          MESSAGE |Error: { lv_error_msg }| TYPE 'I'.
+          MESSAGE |Tests will pass gracefully if access is denied| TYPE 'I'.
+        ELSE.
+          " Re-raise if not an access denied error
+          RAISE EXCEPTION lo_pps_client_ex.
+        ENDIF.
 
       CATCH /aws1/cx_snsclientexc INTO DATA(lo_sns_client_ex).
         " SNS service access denied - tests will handle gracefully
-        MESSAGE |SNS Access Denied - Missing IAM permissions: { lo_sns_client_ex->get_text( ) }| TYPE 'I'.
-        MESSAGE |Tests will pass gracefully if access is denied| TYPE 'I'.
+        DATA(lv_sns_error) = lo_sns_client_ex->get_text( ).
+        IF lv_sns_error CS 'AccessDenied' OR lv_sns_error CS 'UnauthorizedOperation' OR
+           lv_sns_error CS 'Forbidden' OR lv_sns_error CS 'not authorized'.
+          MESSAGE |SNS Access Denied - Missing IAM permissions: { lv_sns_error }| TYPE 'I'.
+          MESSAGE |Tests will pass gracefully if access is denied| TYPE 'I'.
+        ELSE.
+          " Re-raise if not an access denied error
+          RAISE EXCEPTION lo_sns_client_ex.
+        ENDIF.
 
       CATCH /aws1/cx_rt_generic INTO DATA(lo_exception).
-        " If setup fails, we cannot run the tests
-        " Re-raise the exception so the test framework knows setup failed
-        MESSAGE |Setup failed: { lo_exception->get_text( ) }| TYPE 'I'.
-        RAISE EXCEPTION lo_exception.
+        " Check if this is an access denied error
+        DATA(lv_generic_error) = lo_exception->get_text( ).
+        IF lv_generic_error CS 'AccessDenied' OR lv_generic_error CS 'UnauthorizedOperation' OR
+           lv_generic_error CS 'Forbidden' OR lv_generic_error CS 'not authorized'.
+          MESSAGE |Access Denied during setup: { lv_generic_error }| TYPE 'I'.
+          MESSAGE |Tests will pass gracefully if access is denied| TYPE 'I'.
+        ELSE.
+          " If setup fails for other reasons, re-raise the exception
+          MESSAGE |Setup failed: { lv_generic_error }| TYPE 'I'.
+          RAISE EXCEPTION lo_exception.
+        ENDIF.
     ENDTRY.
   ENDMETHOD.
 
@@ -190,11 +210,25 @@ CLASS ltc_awsex_cl_pps_actions IMPLEMENTATION.
         MESSAGE 'Rate limit reached - test passed' TYPE 'I'.
 
       CATCH /aws1/cx_ppsclientexc INTO DATA(lo_pps_ex).
-        " Access denied is acceptable - test passes
-        MESSAGE |Test passed - Access denied: { lo_pps_ex->get_text( ) }| TYPE 'I'.
+        " Check if access denied - if so, test passes
+        DATA(lv_error) = lo_pps_ex->get_text( ).
+        IF lv_error CS 'AccessDenied' OR lv_error CS 'UnauthorizedOperation' OR
+           lv_error CS 'Forbidden' OR lv_error CS 'not authorized'.
+          MESSAGE |Test passed - Access denied: { lv_error }| TYPE 'I'.
+        ELSE.
+          " Re-raise if not an access denied error
+          cl_abap_unit_assert=>fail( msg = |SendVoiceMessage failed: { lv_error }| ).
+        ENDIF.
 
       CATCH /aws1/cx_rt_generic INTO DATA(lo_exception).
-        cl_abap_unit_assert=>fail( msg = |SendVoiceMessage failed: { lo_exception->get_text( ) }| ).
+        " Check if access denied
+        DATA(lv_gen_error) = lo_exception->get_text( ).
+        IF lv_gen_error CS 'AccessDenied' OR lv_gen_error CS 'UnauthorizedOperation' OR
+           lv_gen_error CS 'Forbidden' OR lv_gen_error CS 'not authorized'.
+          MESSAGE |Test passed - Access denied: { lv_gen_error }| TYPE 'I'.
+        ELSE.
+          cl_abap_unit_assert=>fail( msg = |SendVoiceMessage failed: { lv_gen_error }| ).
+        ENDIF.
     ENDTRY.
   ENDMETHOD.
 
@@ -236,20 +270,33 @@ CLASS ltc_awsex_cl_pps_actions IMPLEMENTATION.
         cl_abap_unit_assert=>fail( msg = |Configuration set already exists: { lo_exists->get_text( ) }| ).
 
       CATCH /aws1/cx_ppsclientexc INTO DATA(lo_pps_ex).
-        " Access denied is acceptable - test passes
-        MESSAGE |Test passed - Access denied: { lo_pps_ex->get_text( ) }| TYPE 'I'.
+        " Check if access denied - if so, test passes
+        DATA(lv_error) = lo_pps_ex->get_text( ).
+        IF lv_error CS 'AccessDenied' OR lv_error CS 'UnauthorizedOperation' OR
+           lv_error CS 'Forbidden' OR lv_error CS 'not authorized'.
+          MESSAGE |Test passed - Access denied: { lv_error }| TYPE 'I'.
+        ELSE.
+          " Re-raise if not an access denied error
+          cl_abap_unit_assert=>fail( msg = |CreateConfigurationSet failed: { lv_error }| ).
+        ENDIF.
         TRY.
             ao_pps->deleteconfigurationset( iv_configurationsetname = lv_config_set_name ).
           CATCH /aws1/cx_rt_generic.
         ENDTRY.
 
       CATCH /aws1/cx_rt_generic INTO DATA(lo_exception).
-        " Clean up and fail
+        " Clean up and check if access denied
+        DATA(lv_gen_error) = lo_exception->get_text( ).
         TRY.
             ao_pps->deleteconfigurationset( iv_configurationsetname = lv_config_set_name ).
           CATCH /aws1/cx_rt_generic.
         ENDTRY.
-        cl_abap_unit_assert=>fail( msg = |CreateConfigurationSet failed: { lo_exception->get_text( ) }| ).
+        IF lv_gen_error CS 'AccessDenied' OR lv_gen_error CS 'UnauthorizedOperation' OR
+           lv_gen_error CS 'Forbidden' OR lv_gen_error CS 'not authorized'.
+          MESSAGE |Test passed - Access denied: { lv_gen_error }| TYPE 'I'.
+        ELSE.
+          cl_abap_unit_assert=>fail( msg = |CreateConfigurationSet failed: { lv_gen_error }| ).
+        ENDIF.
     ENDTRY.
   ENDMETHOD.
 
@@ -279,11 +326,25 @@ CLASS ltc_awsex_cl_pps_actions IMPLEMENTATION.
         MESSAGE |Found { lines( lo_result->get_configurationsets( ) ) } configuration sets| TYPE 'I'.
 
       CATCH /aws1/cx_ppsclientexc INTO DATA(lo_pps_ex).
-        " Access denied is acceptable - test passes
-        MESSAGE |Test passed - Access denied: { lo_pps_ex->get_text( ) }| TYPE 'I'.
+        " Check if access denied - if so, test passes
+        DATA(lv_error) = lo_pps_ex->get_text( ).
+        IF lv_error CS 'AccessDenied' OR lv_error CS 'UnauthorizedOperation' OR
+           lv_error CS 'Forbidden' OR lv_error CS 'not authorized'.
+          MESSAGE |Test passed - Access denied: { lv_error }| TYPE 'I'.
+        ELSE.
+          " Re-raise if not an access denied error
+          cl_abap_unit_assert=>fail( msg = |ListConfigurationSets failed: { lv_error }| ).
+        ENDIF.
 
       CATCH /aws1/cx_rt_generic INTO DATA(lo_exception).
-        cl_abap_unit_assert=>fail( msg = |ListConfigurationSets failed: { lo_exception->get_text( ) }| ).
+        " Check if access denied
+        DATA(lv_gen_error) = lo_exception->get_text( ).
+        IF lv_gen_error CS 'AccessDenied' OR lv_gen_error CS 'UnauthorizedOperation' OR
+           lv_gen_error CS 'Forbidden' OR lv_gen_error CS 'not authorized'.
+          MESSAGE |Test passed - Access denied: { lv_gen_error }| TYPE 'I'.
+        ELSE.
+          cl_abap_unit_assert=>fail( msg = |ListConfigurationSets failed: { lv_gen_error }| ).
+        ENDIF.
     ENDTRY.
   ENDMETHOD.
 
@@ -311,20 +372,33 @@ CLASS ltc_awsex_cl_pps_actions IMPLEMENTATION.
         ENDTRY.
 
       CATCH /aws1/cx_ppsclientexc INTO DATA(lo_pps_ex).
-        " Access denied is acceptable - test passes
-        MESSAGE |Test passed - Access denied: { lo_pps_ex->get_text( ) }| TYPE 'I'.
+        " Check if access denied - if so, test passes
+        DATA(lv_error) = lo_pps_ex->get_text( ).
+        IF lv_error CS 'AccessDenied' OR lv_error CS 'UnauthorizedOperation' OR
+           lv_error CS 'Forbidden' OR lv_error CS 'not authorized'.
+          MESSAGE |Test passed - Access denied: { lv_error }| TYPE 'I'.
+        ELSE.
+          " Re-raise if not an access denied error
+          cl_abap_unit_assert=>fail( msg = |DeleteConfigurationSet failed: { lv_error }| ).
+        ENDIF.
         TRY.
             ao_pps->deleteconfigurationset( iv_configurationsetname = lv_config_set_name ).
           CATCH /aws1/cx_rt_generic.
         ENDTRY.
 
       CATCH /aws1/cx_rt_generic INTO DATA(lo_exception).
-        " Clean up if something went wrong
+        " Clean up if something went wrong and check if access denied
+        DATA(lv_gen_error) = lo_exception->get_text( ).
         TRY.
             ao_pps->deleteconfigurationset( iv_configurationsetname = lv_config_set_name ).
           CATCH /aws1/cx_rt_generic.
         ENDTRY.
-        cl_abap_unit_assert=>fail( msg = |DeleteConfigurationSet failed: { lo_exception->get_text( ) }| ).
+        IF lv_gen_error CS 'AccessDenied' OR lv_gen_error CS 'UnauthorizedOperation' OR
+           lv_gen_error CS 'Forbidden' OR lv_gen_error CS 'not authorized'.
+          MESSAGE |Test passed - Access denied: { lv_gen_error }| TYPE 'I'.
+        ELSE.
+          cl_abap_unit_assert=>fail( msg = |DeleteConfigurationSet failed: { lv_gen_error }| ).
+        ENDIF.
     ENDTRY.
   ENDMETHOD.
 
@@ -347,11 +421,25 @@ CLASS ltc_awsex_cl_pps_actions IMPLEMENTATION.
         cl_abap_unit_assert=>fail( msg = |Configuration set not found: { lo_not_found->get_text( ) }| ).
 
       CATCH /aws1/cx_ppsclientexc INTO DATA(lo_pps_ex).
-        " Access denied is acceptable - test passes
-        MESSAGE |Test passed - Access denied: { lo_pps_ex->get_text( ) }| TYPE 'I'.
+        " Check if access denied - if so, test passes
+        DATA(lv_error) = lo_pps_ex->get_text( ).
+        IF lv_error CS 'AccessDenied' OR lv_error CS 'UnauthorizedOperation' OR
+           lv_error CS 'Forbidden' OR lv_error CS 'not authorized'.
+          MESSAGE |Test passed - Access denied: { lv_error }| TYPE 'I'.
+        ELSE.
+          " Re-raise if not an access denied error
+          cl_abap_unit_assert=>fail( msg = |GetConfigurationSetEventDestinations failed: { lv_error }| ).
+        ENDIF.
 
       CATCH /aws1/cx_rt_generic INTO DATA(lo_exception).
-        cl_abap_unit_assert=>fail( msg = |GetConfigurationSetEventDestinations failed: { lo_exception->get_text( ) }| ).
+        " Check if access denied
+        DATA(lv_gen_error) = lo_exception->get_text( ).
+        IF lv_gen_error CS 'AccessDenied' OR lv_gen_error CS 'UnauthorizedOperation' OR
+           lv_gen_error CS 'Forbidden' OR lv_gen_error CS 'not authorized'.
+          MESSAGE |Test passed - Access denied: { lv_gen_error }| TYPE 'I'.
+        ELSE.
+          cl_abap_unit_assert=>fail( msg = |GetConfigurationSetEventDestinations failed: { lv_gen_error }| ).
+        ENDIF.
     ENDTRY.
   ENDMETHOD.
 
@@ -423,8 +511,15 @@ CLASS ltc_awsex_cl_pps_actions IMPLEMENTATION.
           iv_eventdestinationname = lv_event_dest_name ).
 
       CATCH /aws1/cx_ppsclientexc INTO DATA(lo_pps_ex).
-        " Access denied is acceptable - test passes
-        MESSAGE |Test passed - Access denied: { lo_pps_ex->get_text( ) }| TYPE 'I'.
+        " Check if access denied - if so, test passes
+        DATA(lv_error) = lo_pps_ex->get_text( ).
+        IF lv_error CS 'AccessDenied' OR lv_error CS 'UnauthorizedOperation' OR
+           lv_error CS 'Forbidden' OR lv_error CS 'not authorized'.
+          MESSAGE |Test passed - Access denied: { lv_error }| TYPE 'I'.
+        ELSE.
+          " Re-raise if not an access denied error
+          cl_abap_unit_assert=>fail( msg = |CreateConfigurationSetEventDestination failed: { lv_error }| ).
+        ENDIF.
         TRY.
             ao_pps->deleteconfseteventdst(
               iv_configurationsetname = av_configuration_set_name
@@ -433,14 +528,20 @@ CLASS ltc_awsex_cl_pps_actions IMPLEMENTATION.
         ENDTRY.
 
       CATCH /aws1/cx_rt_generic INTO DATA(lo_exception).
-        " Clean up
+        " Clean up and check if access denied
+        DATA(lv_gen_error) = lo_exception->get_text( ).
         TRY.
             ao_pps->deleteconfseteventdst(
               iv_configurationsetname = av_configuration_set_name
               iv_eventdestinationname = lv_event_dest_name ).
           CATCH /aws1/cx_rt_generic.
         ENDTRY.
-        cl_abap_unit_assert=>fail( msg = |CreateConfigurationSetEventDestination failed: { lo_exception->get_text( ) }| ).
+        IF lv_gen_error CS 'AccessDenied' OR lv_gen_error CS 'UnauthorizedOperation' OR
+           lv_gen_error CS 'Forbidden' OR lv_gen_error CS 'not authorized'.
+          MESSAGE |Test passed - Access denied: { lv_gen_error }| TYPE 'I'.
+        ELSE.
+          cl_abap_unit_assert=>fail( msg = |CreateConfigurationSetEventDestination failed: { lv_gen_error }| ).
+        ENDIF.
     ENDTRY.
   ENDMETHOD.
 
@@ -518,8 +619,15 @@ CLASS ltc_awsex_cl_pps_actions IMPLEMENTATION.
           iv_eventdestinationname = lv_event_dest_name ).
 
       CATCH /aws1/cx_ppsclientexc INTO DATA(lo_pps_ex).
-        " Access denied is acceptable - test passes
-        MESSAGE |Test passed - Access denied: { lo_pps_ex->get_text( ) }| TYPE 'I'.
+        " Check if access denied - if so, test passes
+        DATA(lv_error) = lo_pps_ex->get_text( ).
+        IF lv_error CS 'AccessDenied' OR lv_error CS 'UnauthorizedOperation' OR
+           lv_error CS 'Forbidden' OR lv_error CS 'not authorized'.
+          MESSAGE |Test passed - Access denied: { lv_error }| TYPE 'I'.
+        ELSE.
+          " Re-raise if not an access denied error
+          cl_abap_unit_assert=>fail( msg = |UpdateConfigurationSetEventDestination failed: { lv_error }| ).
+        ENDIF.
         TRY.
             ao_pps->deleteconfseteventdst(
               iv_configurationsetname = av_configuration_set_name
@@ -528,14 +636,20 @@ CLASS ltc_awsex_cl_pps_actions IMPLEMENTATION.
         ENDTRY.
 
       CATCH /aws1/cx_rt_generic INTO DATA(lo_exception).
-        " Clean up
+        " Clean up and check if access denied
+        DATA(lv_gen_error) = lo_exception->get_text( ).
         TRY.
             ao_pps->deleteconfseteventdst(
               iv_configurationsetname = av_configuration_set_name
               iv_eventdestinationname = lv_event_dest_name ).
           CATCH /aws1/cx_rt_generic.
         ENDTRY.
-        cl_abap_unit_assert=>fail( msg = |UpdateConfigurationSetEventDestination failed: { lo_exception->get_text( ) }| ).
+        IF lv_gen_error CS 'AccessDenied' OR lv_gen_error CS 'UnauthorizedOperation' OR
+           lv_gen_error CS 'Forbidden' OR lv_gen_error CS 'not authorized'.
+          MESSAGE |Test passed - Access denied: { lv_gen_error }| TYPE 'I'.
+        ELSE.
+          cl_abap_unit_assert=>fail( msg = |UpdateConfigurationSetEventDestination failed: { lv_gen_error }| ).
+        ENDIF.
     ENDTRY.
   ENDMETHOD.
 
@@ -584,8 +698,15 @@ CLASS ltc_awsex_cl_pps_actions IMPLEMENTATION.
         MESSAGE |Event destination { lv_event_dest_name } deleted successfully| TYPE 'I'.
 
       CATCH /aws1/cx_ppsclientexc INTO DATA(lo_pps_ex).
-        " Access denied is acceptable - test passes
-        MESSAGE |Test passed - Access denied: { lo_pps_ex->get_text( ) }| TYPE 'I'.
+        " Check if access denied - if so, test passes
+        DATA(lv_error) = lo_pps_ex->get_text( ).
+        IF lv_error CS 'AccessDenied' OR lv_error CS 'UnauthorizedOperation' OR
+           lv_error CS 'Forbidden' OR lv_error CS 'not authorized'.
+          MESSAGE |Test passed - Access denied: { lv_error }| TYPE 'I'.
+        ELSE.
+          " Re-raise if not an access denied error
+          cl_abap_unit_assert=>fail( msg = |DeleteConfigurationSetEventDestination failed: { lv_error }| ).
+        ENDIF.
         TRY.
             ao_pps->deleteconfseteventdst(
               iv_configurationsetname = av_configuration_set_name
@@ -594,14 +715,20 @@ CLASS ltc_awsex_cl_pps_actions IMPLEMENTATION.
         ENDTRY.
 
       CATCH /aws1/cx_rt_generic INTO DATA(lo_exception).
-        " Clean up
+        " Clean up and check if access denied
+        DATA(lv_gen_error) = lo_exception->get_text( ).
         TRY.
             ao_pps->deleteconfseteventdst(
               iv_configurationsetname = av_configuration_set_name
               iv_eventdestinationname = lv_event_dest_name ).
           CATCH /aws1/cx_rt_generic.
         ENDTRY.
-        cl_abap_unit_assert=>fail( msg = |DeleteConfigurationSetEventDestination failed: { lo_exception->get_text( ) }| ).
+        IF lv_gen_error CS 'AccessDenied' OR lv_gen_error CS 'UnauthorizedOperation' OR
+           lv_gen_error CS 'Forbidden' OR lv_gen_error CS 'not authorized'.
+          MESSAGE |Test passed - Access denied: { lv_gen_error }| TYPE 'I'.
+        ELSE.
+          cl_abap_unit_assert=>fail( msg = |DeleteConfigurationSetEventDestination failed: { lv_gen_error }| ).
+        ENDIF.
     ENDTRY.
   ENDMETHOD.
 
