@@ -143,6 +143,7 @@ CLASS /AWSEX/CL_RDS_ACTIONS IMPLEMENTATION.
     DATA(lo_rds) = /aws1/cl_rds_factory=>create( lo_session ).
 
     " snippet-start:[rds.abapv1.describe_db_parameter_groups]
+    " iv_dbparametergroupname = 'mydbparametergroup'
     TRY.
         oo_result = lo_rds->describedbparametergroups(
           iv_dbparametergroupname = iv_dbparametergroupname ).
@@ -161,6 +162,9 @@ CLASS /AWSEX/CL_RDS_ACTIONS IMPLEMENTATION.
     DATA(lo_rds) = /aws1/cl_rds_factory=>create( lo_session ).
 
     " snippet-start:[rds.abapv1.create_db_parameter_group]
+    " iv_dbparametergroupname   = 'mydbparametergroup'
+    " iv_dbparametergroupfamily = 'mysql8.0'
+    " iv_description            = 'My custom DB parameter group for MySQL 8.0'
     TRY.
         oo_result = lo_rds->createdbparametergroup(
           iv_dbparametergroupname   = iv_dbparametergroupname
@@ -183,6 +187,7 @@ CLASS /AWSEX/CL_RDS_ACTIONS IMPLEMENTATION.
     DATA(lo_rds) = /aws1/cl_rds_factory=>create( lo_session ).
 
     " snippet-start:[rds.abapv1.delete_db_parameter_group]
+    " iv_dbparametergroupname = 'mydbparametergroup'
     TRY.
         lo_rds->deletedbparametergroup(
           iv_dbparametergroupname = iv_dbparametergroupname ).
@@ -203,6 +208,8 @@ CLASS /AWSEX/CL_RDS_ACTIONS IMPLEMENTATION.
     DATA(lo_rds) = /aws1/cl_rds_factory=>create( lo_session ).
 
     " snippet-start:[rds.abapv1.describe_db_parameters]
+    " iv_dbparametergroupname = 'mydbparametergroup'
+    " iv_source               = 'user' (optional - filters by parameter source)
     TRY.
         oo_result = lo_rds->describedbparameters(
           iv_dbparametergroupname = iv_dbparametergroupname
@@ -223,6 +230,11 @@ CLASS /AWSEX/CL_RDS_ACTIONS IMPLEMENTATION.
     DATA(lo_rds) = /aws1/cl_rds_factory=>create( lo_session ).
 
     " snippet-start:[rds.abapv1.modify_db_parameter_group]
+    " iv_dbparametergroupname = 'mydbparametergroup'
+    " it_parameters - table containing parameter objects with:
+    "   - parametername = 'max_connections'
+    "   - parametervalue = '100'
+    "   - applymethod = 'immediate' or 'pending-reboot'
     TRY.
         oo_result = lo_rds->modifydbparametergroup(
           iv_dbparametergroupname = iv_dbparametergroupname
@@ -244,6 +256,8 @@ CLASS /AWSEX/CL_RDS_ACTIONS IMPLEMENTATION.
     DATA(lo_rds) = /aws1/cl_rds_factory=>create( lo_session ).
 
     " snippet-start:[rds.abapv1.create_db_snapshot]
+    " iv_dbsnapshotidentifier = 'mydbsnapshot-2024-01-15'
+    " iv_dbinstanceidentifier = 'mydbinstance'
     TRY.
         oo_result = lo_rds->createdbsnapshot(
           iv_dbsnapshotidentifier = iv_dbsnapshotidentifier
@@ -269,6 +283,7 @@ CLASS /AWSEX/CL_RDS_ACTIONS IMPLEMENTATION.
     DATA(lo_rds) = /aws1/cl_rds_factory=>create( lo_session ).
 
     " snippet-start:[rds.abapv1.describe_db_snapshots]
+    " iv_dbsnapshotidentifier = 'mydbsnapshot-2024-01-15'
     TRY.
         oo_result = lo_rds->describedbsnapshots(
           iv_dbsnapshotidentifier = iv_dbsnapshotidentifier ).
@@ -287,6 +302,8 @@ CLASS /AWSEX/CL_RDS_ACTIONS IMPLEMENTATION.
     DATA(lo_rds) = /aws1/cl_rds_factory=>create( lo_session ).
 
     " snippet-start:[rds.abapv1.describe_db_engine_versions]
+    " iv_engine                 = 'mysql'
+    " iv_dbparametergroupfamily = 'mysql8.0' (optional - filters by parameter group family)
     TRY.
         oo_result = lo_rds->describedbengineversions(
           iv_engine                 = iv_engine
@@ -305,6 +322,8 @@ CLASS /AWSEX/CL_RDS_ACTIONS IMPLEMENTATION.
     DATA(lo_rds) = /aws1/cl_rds_factory=>create( lo_session ).
 
     " snippet-start:[rds.abapv1.describe_orderable_db_instance_options]
+    " iv_engine        = 'mysql'
+    " iv_engineversion = '8.0.35'
     TRY.
         oo_result = lo_rds->descrorderabledbinstoptions(
           iv_engine        = iv_engine
@@ -323,6 +342,7 @@ CLASS /AWSEX/CL_RDS_ACTIONS IMPLEMENTATION.
     DATA(lo_rds) = /aws1/cl_rds_factory=>create( lo_session ).
 
     " snippet-start:[rds.abapv1.describe_db_instances]
+    " iv_dbinstanceidentifier = 'mydbinstance'
     TRY.
         oo_result = lo_rds->describedbinstances(
           iv_dbinstanceidentifier = iv_dbinstanceidentifier ).
@@ -341,6 +361,16 @@ CLASS /AWSEX/CL_RDS_ACTIONS IMPLEMENTATION.
     DATA(lo_rds) = /aws1/cl_rds_factory=>create( lo_session ).
 
     " snippet-start:[rds.abapv1.create_db_instance]
+    " iv_dbname               = 'mydatabase'
+    " iv_dbinstanceidentifier = 'mydbinstance'
+    " iv_dbparametergroupname = 'mydbparametergroup'
+    " iv_engine               = 'mysql'
+    " iv_engineversion        = '8.0.35'
+    " iv_dbinstanceclass      = 'db.t3.micro'
+    " iv_storagetype          = 'gp2'
+    " iv_allocatedstorage     = 20
+    " iv_masterusername       = 'admin'
+    " iv_masteruserpassword   = 'MySecurePassword123!'
     TRY.
         oo_result = lo_rds->createdbinstance(
           iv_dbname               = iv_dbname
@@ -372,6 +402,7 @@ CLASS /AWSEX/CL_RDS_ACTIONS IMPLEMENTATION.
     DATA(lo_rds) = /aws1/cl_rds_factory=>create( lo_session ).
 
     " snippet-start:[rds.abapv1.delete_db_instance]
+    " iv_dbinstanceidentifier = 'mydbinstance'
     TRY.
         oo_result = lo_rds->deletedbinstance(
           iv_dbinstanceidentifier = iv_dbinstanceidentifier
