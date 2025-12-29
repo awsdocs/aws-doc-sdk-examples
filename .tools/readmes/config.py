@@ -214,6 +214,7 @@ language = {
                 "pinpoint": "sap-abap/services/ppt",
                 "polly": "sap-abap/services/ply",
                 "rekognition": "sap-abap/services/rek",
+                "route53-recovery-cluster": "sap-abap/services/r5v",
                 "sagemaker": "sap-abap/services/sgm",
                 "scheduler": "sap-abap/services/scd",
                 "secrets-manager": "sap-abap/services/smr",
