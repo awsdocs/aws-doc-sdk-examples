@@ -210,6 +210,7 @@ language = {
                 "iotsitewise": "sap-abap/services/ios",
                 "kinesis": "sap-abap/services/kns",
                 "lambda": "sap-abap/services/lmd",
+                "pinpoint": "sap-abap/services/ppt",
                 "polly": "sap-abap/services/ply",
                 "rekognition": "sap-abap/services/rek",
                 "sagemaker": "sap-abap/services/sgm",
