@@ -82,6 +82,15 @@ medical-imaging_CreateDatastore:
             - description:
               snippet_tags:
                 - medical-imaging.JavaScript.datastore.createDatastoreV3
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/mig
+          github_note_at_bottom: true
+          excerpts:
+            - description:
+              snippet_tags:
+                - mig.abapv1.createdatastore
   services:
     medical-imaging: {CreateDatastore}
 medical-imaging_DeleteDatastore:
@@ -127,6 +136,15 @@ medical-imaging_DeleteDatastore:
             - description:
               snippet_tags:
                 - medical-imaging.JavaScript.datastore.deleteDatastoreV3
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/mig
+          github_note_at_bottom: true
+          excerpts:
+            - description:
+              snippet_tags:
+                - mig.abapv1.deletedatastore
   services:
     medical-imaging: {DeleteDatastore}
 medical-imaging_ListDatastores:
@@ -173,6 +191,15 @@ medical-imaging_ListDatastores:
             - description:
               snippet_tags:
                 - medical-imaging.JavaScript.datastore.listDatastoresV3
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/mig
+          github_note_at_bottom: true
+          excerpts:
+            - description:
+              snippet_tags:
+                - mig.abapv1.listdatastores
   services:
     medical-imaging: {ListDatastores}
 medical-imaging_GetDatastore:
@@ -219,6 +246,15 @@ medical-imaging_GetDatastore:
             - description:
               snippet_tags:
                 - medical-imaging.JavaScript.datastore.getDatastoreV3
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/mig
+          github_note_at_bottom: true
+          excerpts:
+            - description:
+              snippet_tags:
+                - mig.abapv1.getdatastore
   services:
     medical-imaging: {GetDatastore}
 medical-imaging_StartDICOMImportJob:
@@ -264,6 +300,15 @@ medical-imaging_StartDICOMImportJob:
             - description:
               snippet_tags:
                 - cpp.example_code.medical_imaging.StartDICOMImportJob
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/mig
+          github_note_at_bottom: true
+          excerpts:
+            - description:
+              snippet_tags:
+                - mig.abapv1.startdicomimportjob
   services:
     medical-imaging: {StartDICOMImportJob}
 medical-imaging_GetDICOMImportJob:
@@ -309,6 +354,15 @@ medical-imaging_GetDICOMImportJob:
             - description:
               snippet_tags:
                 - cpp.example_code.medical_imaging.GetDICOMImportJob
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/mig
+          github_note_at_bottom: true
+          excerpts:
+            - description:
+              snippet_tags:
+                - mig.abapv1.getdicomimportjob
   services:
     medical-imaging: {GetDICOMImportJob}
 medical-imaging_ListDICOMImportJobs:
@@ -345,6 +399,15 @@ medical-imaging_ListDICOMImportJobs:
             - description:
               snippet_tags:
                 - medicalimaging.java2.list_dicom_import_jobs.main
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/mig
+          github_note_at_bottom: true
+          excerpts:
+            - description:
+              snippet_tags:
+                - mig.abapv1.listdicomimportjobs
   services:
     medical-imaging: {ListDICOMImportJobs}
 medical-imaging_SearchImageSets:
@@ -470,6 +533,15 @@ medical-imaging_SearchImageSets:
                 updatedAt field.
               snippet_tags:
                 - cpp.example_code.medical_imaging.SearchImageSets.use_case4
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/mig
+          github_note_at_bottom: true
+          excerpts:
+            - description:
+              snippet_tags:
+                - mig.abapv1.searchimagesets
   services:
     medical-imaging: {SearchImageSets}
 medical-imaging_GetImageSet:
@@ -506,6 +578,15 @@ medical-imaging_GetImageSet:
             - description:
               snippet_tags:
                 - medicalimaging.java2.get_imageset.main
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/mig
+          github_note_at_bottom: true
+          excerpts:
+            - description:
+              snippet_tags:
+                - mig.abapv1.getimageset
   services:
     medical-imaging: {GetImageSet}
 medical-imaging_GetImageSetMetadata:
@@ -569,6 +650,15 @@ medical-imaging_GetImageSetMetadata:
             - description: Get image set metadata with version.
               snippet_tags:
                 - cpp.example_code.medical_imaging.GetImageSetMetadata.with_version
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/mig
+          github_note_at_bottom: true
+          excerpts:
+            - description:
+              snippet_tags:
+                - mig.abapv1.getimagesetmetadata
   services:
     medical-imaging: {GetImageSetMetadata}
 medical-imaging_GetImageFrame:
@@ -614,6 +704,15 @@ medical-imaging_GetImageFrame:
             - description:
               snippet_tags:
                 - cpp.example_code.medical-imaging.GetImageFrame
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/mig
+          github_note_at_bottom: true
+          excerpts:
+            - description:
+              snippet_tags:
+                - mig.abapv1.getimageframe
   services:
     medical-imaging: {GetImageFrame}
 medical-imaging_ListImageSetVersions:
@@ -650,6 +749,15 @@ medical-imaging_ListImageSetVersions:
             - description:
               snippet_tags:
                 - medicalimaging.java2.list_imageset_versions.main
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/mig
+          github_note_at_bottom: true
+          excerpts:
+            - description:
+              snippet_tags:
+                - mig.abapv1.listimagesetversions
   services:
     medical-imaging: {ListImageSetVersions}
 medical-imaging_UpdateImageSetMetadata:
@@ -725,6 +833,15 @@ medical-imaging_UpdateImageSetMetadata:
             - description: 'Use case #4: Revert to a previous version.'
               snippet_tags:
                 - medicalimaging.java2.update_image_set_metadata.revert
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/mig
+          github_note_at_bottom: true
+          excerpts:
+            - description:
+              snippet_tags:
+                - mig.abapv1.updateimagesetmetadata
   services:
     medical-imaging: {UpdateImageSetMetadata}
 medical-imaging_CopyImageSet:
@@ -790,6 +907,15 @@ medical-imaging_CopyImageSet:
             - description: Utility function to create copiable attributes.
               snippet_tags:
                 - medicalimaging.java2.copy_imageset.copiable_attributes
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/mig
+          github_note_at_bottom: true
+          excerpts:
+            - description:
+              snippet_tags:
+                - mig.abapv1.copyimageset
   services:
     medical-imaging: {CopyImageSet}
 medical-imaging_DeleteImageSet:
@@ -835,6 +961,15 @@ medical-imaging_DeleteImageSet:
             - description:
               snippet_tags:
                 - cpp.example_code.medical_imaging.DeleteImageSet
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/mig
+          github_note_at_bottom: true
+          excerpts:
+            - description:
+              snippet_tags:
+                - mig.abapv1.deleteimageset
   services:
     medical-imaging: {DeleteImageSet}
 medical-imaging_TagResource:
@@ -871,6 +1006,15 @@ medical-imaging_TagResource:
             - description:
               snippet_tags:
                 - medicalimaging.java2.tag_resource.main
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/mig
+          github_note_at_bottom: true
+          excerpts:
+            - description:
+              snippet_tags:
+                - mig.abapv1.tagresource
   services:
     medical-imaging: {TagResource}
 medical-imaging_UntagResource:
@@ -907,6 +1051,15 @@ medical-imaging_UntagResource:
             - description:
               snippet_tags:
                 - medicalimaging.java2.untag_resource.main
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/mig
+          github_note_at_bottom: true
+          excerpts:
+            - description:
+              snippet_tags:
+                - mig.abapv1.untagresource
   services:
     medical-imaging: {UntagResource}
 medical-imaging_ListTagsForResource:
@@ -943,6 +1096,15 @@ medical-imaging_ListTagsForResource:
             - description:
               snippet_tags:
                 - medicalimaging.java2.list_tags_for_resource.main
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/mig
+          github_note_at_bottom: true
+          excerpts:
+            - description:
+              snippet_tags:
+                - mig.abapv1.listtagsforresource
   services:
     medical-imaging: {ListTagsForResource}
 medical-imaging_Scenario_TaggingDataStores:
