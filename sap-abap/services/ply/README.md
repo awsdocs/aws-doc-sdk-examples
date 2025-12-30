@@ -1,0 +1,86 @@
+# Amazon Polly code examples for the SDK for SAP ABAP
+
+## Overview
+
+Shows how to use the AWS SDK for SAP ABAP to work with Amazon Polly.
+
+<!--custom.overview.start-->
+<!--custom.overview.end-->
+
+_Amazon Polly is a Text-to-Speech (TTS) cloud service that converts text into lifelike speech._
+
+## ⚠ Important
+
+* Running this code might result in charges to your AWS account. For more details, see [AWS Pricing](https://aws.amazon.com/pricing/) and [Free Tier](https://aws.amazon.com/free/).
+* Running the tests might result in charges to your AWS account.
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
+* This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
+
+<!--custom.important.start-->
+<!--custom.important.end-->
+
+## Code examples
+
+### Prerequisites
+
+For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-abap` folder.
+
+
+<!--custom.prerequisites.start-->
+<!--custom.prerequisites.end-->
+
+### Single actions
+
+Code excerpts that show you how to call individual service functions.
+
+- [DeleteLexicon](#awsex#cl_ply_actions.clas.abap#L355)
+- [DescribeVoices](#awsex#cl_ply_actions.clas.abap#L102)
+- [GetLexicon](#awsex#cl_ply_actions.clas.abap#L313)
+- [GetSpeechSynthesisTask](#awsex#cl_ply_actions.clas.abap#L226)
+- [ListLexicons](#awsex#cl_ply_actions.clas.abap#L335)
+- [ListSpeechSynthesisTasks](#awsex#cl_ply_actions.clas.abap#L250)
+- [PutLexicon](#awsex#cl_ply_actions.clas.abap#L283)
+- [StartSpeechSynthesisTask](#awsex#cl_ply_actions.clas.abap#L169)
+- [SynthesizeSpeech](#awsex#cl_ply_actions.clas.abap#L133)
+
+
+<!--custom.examples.start-->
+<!--custom.examples.end-->
+
+## Run the examples
+
+### Instructions
+
+
+<!--custom.instructions.start-->
+<!--custom.instructions.end-->
+
+
+
+### Tests
+
+⚠ Running tests might result in charges to your AWS account.
+
+
+To find instructions for running these tests, see the [README](../../README.md#Tests)
+in the `sap-abap` folder.
+
+
+
+<!--custom.tests.start-->
+<!--custom.tests.end-->
+
+## Additional resources
+
+- [Amazon Polly Developer Guide](https://docs.aws.amazon.com/polly/latest/dg/what-is.html)
+- [Amazon Polly API Reference](https://docs.aws.amazon.com/polly/latest/dg/API_Reference.html)
+- [SDK for SAP ABAP Amazon Polly reference](https://docs.aws.amazon.com/sdk-for-sap-abap/v1/api/latest/polly/index.html)
+
+<!--custom.resources.start-->
+<!--custom.resources.end-->
+
+---
+
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+SPDX-License-Identifier: Apache-2.0
