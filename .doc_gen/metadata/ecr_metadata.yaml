@@ -87,6 +87,14 @@ ecr_SetRepositoryPolicy:
             - description: Example that grants an IAM role download access.
               snippet_tags:
                 - python.example_code.ecr.grant_role_download_access
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ecr
+          excerpts:
+            - description:
+              snippet_tags:
+                - ecr.abapv1.set_repository_policy
   services:
     ecr: {SetRepositoryPolicy}
 ecr_GetRepositoryPolicy:
@@ -118,6 +126,14 @@ ecr_GetRepositoryPolicy:
               snippet_tags:
                 - python.example_code.ecr.ECRWrapper.decl
                 - python.example_code.ecr.ECRWrapper.GetRepositoryPolicy
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ecr
+          excerpts:
+            - description:
+              snippet_tags:
+                - ecr.abapv1.get_repository_policy
   services:
     ecr: {GetRepositoryPolicy}
 ecr_GetAuthorizationToken:
@@ -149,6 +165,14 @@ ecr_GetAuthorizationToken:
               snippet_tags:
                 - python.example_code.ecr.ECRWrapper.decl
                 - python.example_code.ecr.ECRWrapper.GetAuthorizationToken
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ecr
+          excerpts:
+            - description:
+              snippet_tags:
+                - ecr.abapv1.get_authorization_token
   services:
     ecr: {GetAuthorizationToken}
 ecr_StartLifecyclePolicyPreview:
@@ -187,6 +211,14 @@ ecr_PutLifeCyclePolicy:
             - description: Example that puts an expiration date policy.
               snippet_tags:
                 - python.example_code.ecr.put_expiration_policy
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ecr
+          excerpts:
+            - description:
+              snippet_tags:
+                - ecr.abapv1.put_lifecycle_policy
   services:
     ecr: {PutLifeCyclePolicy}
 ecr_DescribeImages:
@@ -218,6 +250,14 @@ ecr_DescribeImages:
               snippet_tags:
                 - python.example_code.ecr.ECRWrapper.decl
                 - python.example_code.ecr.ECRWrapper.DescribeImages
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ecr
+          excerpts:
+            - description:
+              snippet_tags:
+                - ecr.abapv1.describe_images
   services:
     ecr: {DescribeImages}
 ecr_DeleteRepository:
@@ -249,6 +289,14 @@ ecr_DeleteRepository:
               snippet_tags:
                 - python.example_code.ecr.ECRWrapper.decl
                 - python.example_code.ecr.ECRWrapper.DeleteRepository
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ecr
+          excerpts:
+            - description:
+              snippet_tags:
+                - ecr.abapv1.delete_repository
   services:
     ecr: {DeleteRepository}
 ecr_CreateRepository:
@@ -280,6 +328,14 @@ ecr_CreateRepository:
               snippet_tags:
                 - python.example_code.ecr.ECRWrapper.decl
                 - python.example_code.ecr.ECRWrapper.CreateRepository
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ecr
+          excerpts:
+            - description:
+              snippet_tags:
+                - ecr.abapv1.create_repository
   services:
     ecr: {CreateRepository}
 ecr_DescribeRepositories:
@@ -320,6 +376,14 @@ ecr_DescribeRepositories:
               snippet_tags:
                 - python.example_code.ecr.ECRWrapper.decl
                 - python.example_code.ecr.ECRWrapper.DescribeRepositories
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ecr
+          excerpts:
+            - description:
+              snippet_tags:
+                - ecr.abapv1.describe_repositories
   services:
     ecr: {DescribeRepositories}
 ecr_ListImages:
