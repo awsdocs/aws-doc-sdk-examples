@@ -1,5 +1,14 @@
 sesv2_CreateContactList:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/se2
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - se2.abapv1.create_contact_list
     .NET:
       versions:
         - sdk_version: 3
@@ -42,6 +51,15 @@ sesv2_CreateContactList:
     sesv2: {CreateContactList}
 sesv2_CreateContact:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/se2
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - se2.abapv1.create_contact
     .NET:
       versions:
         - sdk_version: 3
@@ -107,6 +125,15 @@ sesv2_ListContactLists:
     sesv2: {ListContactLists}
 sesv2_ListContacts:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/se2
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - se2.abapv1.list_contacts
     .NET:
       versions:
         - sdk_version: 3
@@ -148,6 +175,19 @@ sesv2_ListContacts:
     sesv2: {ListContacts}
 sesv2_SendEmail:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/se2
+          excerpts:
+            - description: Sends a message.
+              genai: most
+              snippet_tags:
+                - se2.abapv1.send_email
+            - description: Sends a message using a template.
+              genai: most
+              snippet_tags:
+                - se2.abapv1.send_email_template
     .NET:
       versions:
         - sdk_version: 3
@@ -212,6 +252,15 @@ sesv2_SendEmail:
     sesv2: {SendEmail}
 sesv2_CreateEmailIdentity:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/se2
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - se2.abapv1.create_email_identity
     .NET:
       versions:
         - sdk_version: 3
@@ -254,6 +303,15 @@ sesv2_CreateEmailIdentity:
     sesv2: {CreateEmailIdentity}
 sesv2_CreateEmailTemplate:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/se2
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - se2.abapv1.create_email_template
     .NET:
       versions:
         - sdk_version: 3
@@ -296,6 +354,15 @@ sesv2_CreateEmailTemplate:
     sesv2: {CreateEmailTemplate}
 sesv2_DeleteContactList:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/se2
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - se2.abapv1.delete_contact_list
     .NET:
       versions:
         - sdk_version: 3
@@ -338,6 +405,15 @@ sesv2_DeleteContactList:
     sesv2: {DeleteContactList}
 sesv2_DeleteEmailIdentity:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/se2
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - se2.abapv1.delete_email_identity
     .NET:
       versions:
         - sdk_version: 3
@@ -380,6 +456,15 @@ sesv2_DeleteEmailIdentity:
     sesv2: {DeleteEmailIdentity}
 sesv2_DeleteEmailTemplate:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/se2
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - se2.abapv1.delete_email_template
     .NET:
       versions:
         - sdk_version: 3
