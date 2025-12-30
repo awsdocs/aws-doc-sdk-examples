@@ -82,6 +82,24 @@ pinpoint_SendMessages:
             - description: Send an SMS message.
               snippet_tags:
                 - pinpoint.javascript.pinpoint_send_sms_message_api.complete
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ppt
+          sdkguide:
+          excerpts:
+            - description: Send an email message.
+              snippet_tags:
+                - ppt.abapv1.send_email_message
+            - description: Send an SMS message.
+              snippet_tags:
+                - ppt.abapv1.send_sms_message
+            - description: Send an email message with an existing email template.
+              snippet_tags:
+                - ppt.abapv1.send_templated_email_message
+            - description: Send a text message with an existing SMS template.
+              snippet_tags:
+                - ppt.abapv1.send_templated_sms_message
   services:
     pinpoint: {SendMessages}
 pinpoint_CreateApp:
