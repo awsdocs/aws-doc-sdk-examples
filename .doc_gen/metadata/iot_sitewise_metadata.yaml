@@ -30,6 +30,14 @@ iotsitewise_Hello:
             - description:
               snippet_tags:
                 - iotsitewise.JavaScript.Basics.hello
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ios
+          excerpts:
+            - description:
+              snippet_tags:
+                - ios.abapv1.list_asset_models
   services:
     iotsitewise: {ListAssetModels}
 iotsitewise_DescribeGateway:
@@ -59,6 +67,14 @@ iotsitewise_DescribeGateway:
             - description:
               snippet_tags:
                 - iotsitewise.JavaScript.Basics.describeGateway
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ios
+          excerpts:
+            - description:
+              snippet_tags:
+                - ios.abapv1.describe_gateway
   services:
     iotsitewise: {DescribeGateway}
 iotsitewise_DeleteGateway:
@@ -88,6 +104,14 @@ iotsitewise_DeleteGateway:
             - description:
               snippet_tags:
                 - iotsitewise.JavaScript.Basics.deleteGateway
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ios
+          excerpts:
+            - description:
+              snippet_tags:
+                - ios.abapv1.delete_gateway
   services:
     iotsitewise: {DeleteGateway}
 iotsitewise_CreateGateway:
@@ -117,6 +141,14 @@ iotsitewise_CreateGateway:
             - description:
               snippet_tags:
                 - iotsitewise.JavaScript.Basics.createGateway
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ios
+          excerpts:
+            - description:
+              snippet_tags:
+                - ios.abapv1.create_gateway
   services:
     iotsitewise: {CreateGateway}
 iotsitewise_ListAssetModels:
@@ -146,6 +178,14 @@ iotsitewise_ListAssetModels:
             - description:
               snippet_tags:
                 - iotsitewise.JavaScript.Basics.listAssetModels
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ios
+          excerpts:
+            - description:
+              snippet_tags:
+                - ios.abapv1.list_asset_models
   services:
     iotsitewise: {ListAssetModels}
 iotsitewise_DeleteAssetModel:
@@ -175,6 +215,14 @@ iotsitewise_DeleteAssetModel:
             - description:
               snippet_tags:
                 - iotsitewise.JavaScript.Basics.deleteAssetModel
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ios
+          excerpts:
+            - description:
+              snippet_tags:
+                - ios.abapv1.delete_asset_model
   services:
     iotsitewise: {DeleteAssetModel}
 iotsitewise_DeleteAsset:
@@ -204,6 +252,14 @@ iotsitewise_DeleteAsset:
             - description:
               snippet_tags:
                 - iotsitewise.JavaScript.Basics.deleteAsset
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ios
+          excerpts:
+            - description:
+              snippet_tags:
+                - ios.abapv1.delete_asset
   services:
     iotsitewise: {DeleteAsset}
 iotsitewise_DescribeAssetModel:
@@ -253,6 +309,14 @@ iotsitewise_GetAssetPropertyValue:
             - description:
               snippet_tags:
                 - iotsitewise.JavaScript.Basics.getAssetPropertyValue
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ios
+          excerpts:
+            - description:
+              snippet_tags:
+                - ios.abapv1.get_asset_property_value
   services:
     iotsitewise: {GetAssetPropertyValue}
 iotsitewise_BatchPutAssetPropertyValue:
@@ -292,6 +356,14 @@ iotsitewise_BatchPutAssetPropertyValue:
             - description:
               snippet_tags:
                 - iotsitewise.JavaScript.Basics.batchPutAssetPropertyValue
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ios
+          excerpts:
+            - description:
+              snippet_tags:
+                - ios.abapv1.batch_put_asset_property_value
   services:
     iotsitewise: {BatchPutAssetPropertyValue}
 iotsitewise_CreateAsset:
@@ -321,6 +393,14 @@ iotsitewise_CreateAsset:
             - description:
               snippet_tags:
                 - iotsitewise.JavaScript.Basics.createAsset
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ios
+          excerpts:
+            - description:
+              snippet_tags:
+                - ios.abapv1.create_asset
   services:
     iotsitewise: {CreateAsset}
 iotsitewise_CreateAssetModel:
@@ -354,8 +434,28 @@ iotsitewise_CreateAssetModel:
             - description:
               snippet_tags:
                 - iotsitewise.JavaScript.Basics.createAssetModel
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ios
+          excerpts:
+            - description:
+              snippet_tags:
+                - ios.abapv1.create_asset_model
   services:
     iotsitewise: {CreateAssetModel}
+iotsitewise_ListAssetModelProperties:
+  languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ios
+          excerpts:
+            - description:
+              snippet_tags:
+                - ios.abapv1.list_asset_model_properties
+  services:
+    iotsitewise: {ListAssetModelProperties}
 iotsitewise_Scenario:
   synopsis_list:
     - Create an &ITSWlong; Asset Model.
