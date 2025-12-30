@@ -61,6 +61,14 @@ scheduler_CreateSchedule:
               snippet_tags:
                 - python.example_code.scheduler.EventSchedulerWrapper.decl
                 - python.example_code.scheduler.CreateSchedule
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/scd
+          excerpts:
+            - description:
+              snippet_tags:
+                - scd.abapv1.create_schedule
   services:
     scheduler: {CreateSchedule}
 scheduler_CreateScheduleGroup:
@@ -92,6 +100,14 @@ scheduler_CreateScheduleGroup:
               snippet_tags:
                 - python.example_code.scheduler.EventSchedulerWrapper.decl
                 - python.example_code.scheduler.CreateScheduleGroup
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/scd
+          excerpts:
+            - description:
+              snippet_tags:
+                - scd.abapv1.create_schedule_group
   services:
     scheduler: {CreateScheduleGroup}
 scheduler_DeleteSchedule:
@@ -123,6 +139,14 @@ scheduler_DeleteSchedule:
             - description:
               snippet_tags:
                 - scheduler.javav2.delete.schedule.main
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/scd
+          excerpts:
+            - description:
+              snippet_tags:
+                - scd.abapv1.delete_schedule
   services:
     scheduler: {DeleteSchedule}
 scheduler_DeleteScheduleGroup:
@@ -154,6 +178,14 @@ scheduler_DeleteScheduleGroup:
               snippet_tags:
                 - python.example_code.scheduler.EventSchedulerWrapper.decl
                 - python.example_code.scheduler.DeleteScheduleGroup
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/scd
+          excerpts:
+            - description:
+              snippet_tags:
+                - scd.abapv1.delete_schedule_group
   services:
     scheduler: {DeleteScheduleGroup}
 scheduler_ScheduledEventsScenario:
