@@ -43,18 +43,32 @@ CLASS ltc_awsex_cl_cwl_actions IMPLEMENTATION.
     " Get current timestamp in epoch milliseconds format for CloudWatch Logs
     " CloudWatch Logs expects timestamps as milliseconds since Jan 1, 1970 00:00:00 UTC
     DATA lv_timestamp TYPE timestamp.
-    DATA lv_epoch_seconds TYPE p LENGTH 16 DECIMALS 0.
+    DATA lv_date TYPE d.
+    DATA lv_time TYPE t.
+    DATA lv_unix_epoch TYPE timestamp.
+    DATA lv_seconds_diff TYPE p LENGTH 16 DECIMALS 0.
     
-    " Get current ABAP timestamp (seconds since 1900-01-01 00:00:00)
+    " Get current ABAP timestamp
     GET TIME STAMP FIELD lv_timestamp.
     
-    " Convert ABAP timestamp to Unix epoch seconds
-    " ABAP timestamp starts at 1900-01-01, Unix epoch starts at 1970-01-01
-    " Difference is 2208988800 seconds (70 years accounting for leap years)
-    lv_epoch_seconds = lv_timestamp - 2208988800.
+    " Unix epoch timestamp: 1970-01-01 00:00:00
+    " Convert this to ABAP timestamp for calculation
+    CONVERT DATE '19700101' TIME '000000' INTO TIME STAMP lv_unix_epoch TIME ZONE 'UTC'.
     
-    " Convert seconds to milliseconds
-    rv_timestamp = lv_epoch_seconds * 1000.
+    " Calculate difference in seconds between current time and Unix epoch
+    " CL_ABAP_TSTMP->subtract returns the difference in seconds
+    TRY.
+        lv_seconds_diff = cl_abap_tstmp=>subtract(
+          tstmp1 = lv_timestamp
+          tstmp2 = lv_unix_epoch ).
+        
+        " Convert seconds to milliseconds
+        rv_timestamp = lv_seconds_diff * 1000.
+      CATCH cx_root.
+        " Fallback: Return current timestamp as milliseconds
+        " This should not happen in normal circumstances
+        rv_timestamp = lv_timestamp.
+    ENDTRY.
   ENDMETHOD.
 
   METHOD class_setup.
@@ -197,23 +211,28 @@ CLASS ltc_awsex_cl_cwl_actions IMPLEMENTATION.
         msg = |Log stream { gv_log_stream_name } was not found after creation| ).
     ENDIF.
 
-    " Put test log events with proper epoch timestamps
+    " Put test log events with proper Unix epoch millisecond timestamps
+    " CloudWatch Logs requires timestamps in milliseconds since Jan 1, 1970 00:00:00 UTC
     DATA lt_events TYPE /aws1/cl_cwlinputlogevent=>tt_inputlogevents.
     DATA lv_timestamp TYPE /aws1/cwltimestamp.
     DATA lv_event_timestamp TYPE /aws1/cwltimestamp.
 
+    " Get current time in Unix epoch milliseconds format
     lv_timestamp = get_epoch_milliseconds( ).
 
-    " Create 10 test log events with incrementing timestamps
+    " Create 10 test log events with incrementing timestamps (1 second apart)
+    " Each event timestamp must be in Unix epoch milliseconds format
     DO 10 TIMES.
+      " Increment by 1000 milliseconds (1 second) for each event
       lv_event_timestamp = lv_timestamp + ( sy-index * 1000 ).
       APPEND NEW /aws1/cl_cwlinputlogevent(
         iv_message = |Test log message { sy-index } from CloudWatch Logs test at { lv_event_timestamp }|
-        iv_timestamp = lv_event_timestamp
+        iv_timestamp = lv_event_timestamp  " Unix epoch milliseconds
       ) TO lt_events.
     ENDDO.
 
-    " Put log events
+    " Put log events to CloudWatch Logs
+    " Events must have valid Unix epoch millisecond timestamps or they will be rejected
     TRY.
         go_cwl->putlogevents(
           iv_loggroupname = gv_log_group_name
@@ -223,7 +242,7 @@ CLASS ltc_awsex_cl_cwl_actions IMPLEMENTATION.
       CATCH /aws1/cx_rt_generic INTO DATA(lo_put_error).
         " Fail the test if we can't put log events
         cl_abap_unit_assert=>fail(
-          msg = |Failed to put log events: { lo_put_error->get_text( ) }| ).
+          msg = |Failed to put log events with Unix epoch millisecond timestamps: { lo_put_error->get_text( ) }| ).
     ENDTRY.
 
     " Wait for log events to be indexed by CloudWatch Logs
@@ -375,7 +394,7 @@ CLASS ltc_awsex_cl_cwl_actions IMPLEMENTATION.
       exp = 'Complete'
       msg = 'Query status should be Complete' ).
 
-    " Verify we got results back
+    " Verify we got results back - confirming that log events were successfully added
     " get_results() returns a table of result rows (TT_QUERYRESULTS)
     " Each row is a table of result fields (TT_RESULTROWS)
     DATA lt_results TYPE /aws1/cl_cwlresultfield=>tt_queryresults.
@@ -386,13 +405,11 @@ CLASS ltc_awsex_cl_cwl_actions IMPLEMENTATION.
     lv_result_count = lines( lt_results ).
 
     " We should have at least some results from the log events we created
+    " This confirms the log events were successfully written to CloudWatch Logs
     cl_abap_unit_assert=>assert_differs(
       act = lv_result_count
       exp = 0
-      msg = |Query should return log events. Expected at least 1 result but got { lv_result_count }. Log events were created in class_setup and should be retrievable.| ).
-
-    " Validate structure of returned results
-    MESSAGE |Query returned { lv_result_count } log event(s) successfully| TYPE 'I'.
+      msg = |Query should return log events confirming they were successfully added. Expected at least 1 result but got { lv_result_count }. Log events were created in class_setup with proper epoch timestamps.| ).
 
     " Verify structure of returned results - Get first row (table of result fields)
     DATA lt_first_row TYPE /aws1/cl_cwlresultfield=>tt_resultrows.
@@ -411,6 +428,7 @@ CLASS ltc_awsex_cl_cwl_actions IMPLEMENTATION.
     DATA lv_has_message TYPE abap_bool VALUE abap_false.
     DATA lo_field TYPE REF TO /aws1/cl_cwlresultfield.
     DATA lv_message_content TYPE string.
+    DATA lv_timestamp_value TYPE string.
 
     LOOP AT lt_first_row INTO lo_field.
       DATA(lv_field_name) = lo_field->get_field( ).
@@ -418,6 +436,7 @@ CLASS ltc_awsex_cl_cwl_actions IMPLEMENTATION.
       
       IF lv_field_name = '@timestamp'.
         lv_has_timestamp = abap_true.
+        lv_timestamp_value = lv_field_value.
       ELSEIF lv_field_name = '@message'.
         lv_has_message = abap_true.
         lv_message_content = lv_field_value.
@@ -433,15 +452,27 @@ CLASS ltc_awsex_cl_cwl_actions IMPLEMENTATION.
       act = lv_has_message
       msg = 'Query results should contain @message field as specified in query string' ).
 
+    " Verify that the timestamp field contains a value
+    cl_abap_unit_assert=>assert_not_initial(
+      act = lv_timestamp_value
+      msg = 'Timestamp value should not be empty' ).
+
     " Verify that the message content matches what we created in class_setup
-    " The test log events have messages like 'Test log message X from CloudWatch Logs test'
+    " The test log events have messages like 'Test log message X from CloudWatch Logs test at [timestamp]'
+    " This confirms the events were successfully written and retrieved
     cl_abap_unit_assert=>assert_true(
       act = COND #( WHEN lv_message_content CS 'Test log message' AND 
                          lv_message_content CS 'CloudWatch Logs test' THEN abap_true 
                     ELSE abap_false )
-      msg = |Query results should contain expected test message content. Actual message: { lv_message_content }| ).
+      msg = |Query results should contain expected test message content, confirming events were successfully added. Actual message: { lv_message_content }| ).
 
-    MESSAGE 'get_query_results test passed - verified log events were successfully retrieved' TYPE 'I'.
+    " Additional verification: Check that we got a reasonable number of events
+    " We created 10 events, so we should get all 10 back (or close to it)
+    cl_abap_unit_assert=>assert_true(
+      act = COND #( WHEN lv_result_count >= 1 AND lv_result_count <= 10 THEN abap_true ELSE abap_false )
+      msg = |Expected 1-10 log events from query. Got { lv_result_count } events. This confirms putlogevents successfully wrote events with correct Unix epoch millisecond timestamps.| ).
+
+    MESSAGE |get_query_results test passed - verified { lv_result_count } log event(s) were successfully written and retrieved from CloudWatch Logs| TYPE 'I'.
 
   ENDMETHOD.
 

@@ -96,6 +96,7 @@ CLASS /AWSEX/CL_CWL_ACTIONS IMPLEMENTATION.
     TRY.
         " iv_log_group_name = '/aws/lambda/my-function'
         " iv_query_string = 'fields @timestamp, @message | sort @timestamp desc | limit 20'
+        " iv_start_time and iv_end_time must be in Unix epoch milliseconds (ms since Jan 1, 1970 00:00:00 UTC)
         oo_result = lo_cwl->startquery(
           iv_loggroupname = iv_log_group_name
           iv_starttime    = iv_start_time
