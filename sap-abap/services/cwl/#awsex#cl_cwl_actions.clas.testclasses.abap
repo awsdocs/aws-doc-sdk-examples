@@ -41,17 +41,20 @@ CLASS ltc_awsex_cl_cwl_actions IMPLEMENTATION.
 
   METHOD get_epoch_milliseconds.
     " Get current timestamp in epoch milliseconds format for CloudWatch Logs
+    " CloudWatch Logs expects timestamps as milliseconds since Jan 1, 1970 00:00:00 UTC
     DATA lv_timestamp TYPE timestamp.
-    DATA lv_seconds TYPE p LENGTH 16 DECIMALS 0.
-
+    DATA lv_epoch_seconds TYPE p LENGTH 16 DECIMALS 0.
+    
+    " Get current ABAP timestamp (seconds since 1900-01-01 00:00:00)
     GET TIME STAMP FIELD lv_timestamp.
-
-    " Convert ABAP timestamp to seconds
-    lv_seconds = lv_timestamp.
-
-    " Convert to Unix epoch (subtract seconds between 1900-01-01 and 1970-01-01)
-    " Then convert to milliseconds
-    rv_timestamp = ( lv_seconds - 2208988800 ) * 1000.
+    
+    " Convert ABAP timestamp to Unix epoch seconds
+    " ABAP timestamp starts at 1900-01-01, Unix epoch starts at 1970-01-01
+    " Difference is 2208988800 seconds (70 years accounting for leap years)
+    lv_epoch_seconds = lv_timestamp - 2208988800.
+    
+    " Convert seconds to milliseconds
+    rv_timestamp = lv_epoch_seconds * 1000.
   ENDMETHOD.
 
   METHOD class_setup.
@@ -378,59 +381,67 @@ CLASS ltc_awsex_cl_cwl_actions IMPLEMENTATION.
     DATA lt_results TYPE /aws1/cl_cwlresultfield=>tt_queryresults.
     lt_results = lo_result->get_results( ).
 
-    " Check that we have log entries (we created 10 test events)
+    " Verify that we have log entries (we created 10 test events in class_setup)
     DATA lv_result_count TYPE i.
     lv_result_count = lines( lt_results ).
 
-    " CloudWatch Logs Insights queries may not return results immediately
-    " If no results, provide informative message but don't fail the test
-    " as the API calls themselves are working correctly
-    IF lv_result_count = 0.
-      MESSAGE |Query completed but returned 0 results. This may be due to CloudWatch Logs indexing delays. Log group: { gv_log_group_name }| TYPE 'I'.
-      " Don't fail the test - the query API is working, just no results yet
-      " In production, queries should be retried or time ranges adjusted
-    ELSE.
-      " We got results - validate structure
-      MESSAGE |Query returned { lv_result_count } results| TYPE 'I'.
+    " We should have at least some results from the log events we created
+    cl_abap_unit_assert=>assert_differs(
+      act = lv_result_count
+      exp = 0
+      msg = |Query should return log events. Expected at least 1 result but got { lv_result_count }. Log events were created in class_setup and should be retrievable.| ).
 
-      " Verify structure of returned results
-      " Get first row (which is a table of result fields)
-      DATA lt_first_row TYPE /aws1/cl_cwlresultfield=>tt_resultrows.
-      READ TABLE lt_results INDEX 1 INTO lt_first_row.
+    " Validate structure of returned results
+    MESSAGE |Query returned { lv_result_count } log event(s) successfully| TYPE 'I'.
 
-      DATA lv_first_row_count TYPE i.
-      lv_first_row_count = lines( lt_first_row ).
+    " Verify structure of returned results - Get first row (table of result fields)
+    DATA lt_first_row TYPE /aws1/cl_cwlresultfield=>tt_resultrows.
+    READ TABLE lt_results INDEX 1 INTO lt_first_row.
 
-      cl_abap_unit_assert=>assert_differs(
-        act = lv_first_row_count
-        exp = 0
-        msg = 'First result row should contain fields' ).
+    DATA lv_first_row_count TYPE i.
+    lv_first_row_count = lines( lt_first_row ).
 
-      " Check fields in the result
-      DATA lv_has_timestamp TYPE abap_bool VALUE abap_false.
-      DATA lv_has_message TYPE abap_bool VALUE abap_false.
-      DATA lo_field TYPE REF TO /aws1/cl_cwlresultfield.
+    cl_abap_unit_assert=>assert_differs(
+      act = lv_first_row_count
+      exp = 0
+      msg = 'First result row should contain fields' ).
 
-      LOOP AT lt_first_row INTO lo_field.
-        DATA(lv_field_name) = lo_field->get_field( ).
-        IF lv_field_name = '@timestamp'.
-          lv_has_timestamp = abap_true.
-        ELSEIF lv_field_name = '@message'.
-          lv_has_message = abap_true.
-        ENDIF.
-      ENDLOOP.
+    " Verify that results contain the expected fields from our query
+    DATA lv_has_timestamp TYPE abap_bool VALUE abap_false.
+    DATA lv_has_message TYPE abap_bool VALUE abap_false.
+    DATA lo_field TYPE REF TO /aws1/cl_cwlresultfield.
+    DATA lv_message_content TYPE string.
 
-      cl_abap_unit_assert=>assert_true(
-        act = lv_has_timestamp
-        msg = 'Query results should contain @timestamp field' ).
+    LOOP AT lt_first_row INTO lo_field.
+      DATA(lv_field_name) = lo_field->get_field( ).
+      DATA(lv_field_value) = lo_field->get_value( ).
+      
+      IF lv_field_name = '@timestamp'.
+        lv_has_timestamp = abap_true.
+      ELSEIF lv_field_name = '@message'.
+        lv_has_message = abap_true.
+        lv_message_content = lv_field_value.
+      ENDIF.
+    ENDLOOP.
 
-      cl_abap_unit_assert=>assert_true(
-        act = lv_has_message
-        msg = 'Query results should contain @message field' ).
+    " Assert that query returned the expected fields
+    cl_abap_unit_assert=>assert_true(
+      act = lv_has_timestamp
+      msg = 'Query results should contain @timestamp field as specified in query string' ).
 
-    ENDIF.
+    cl_abap_unit_assert=>assert_true(
+      act = lv_has_message
+      msg = 'Query results should contain @message field as specified in query string' ).
 
-    MESSAGE 'get_query_results test passed successfully' TYPE 'I'.
+    " Verify that the message content matches what we created in class_setup
+    " The test log events have messages like 'Test log message X from CloudWatch Logs test'
+    cl_abap_unit_assert=>assert_true(
+      act = COND #( WHEN lv_message_content CS 'Test log message' AND 
+                         lv_message_content CS 'CloudWatch Logs test' THEN abap_true 
+                    ELSE abap_false )
+      msg = |Query results should contain expected test message content. Actual message: { lv_message_content }| ).
+
+    MESSAGE 'get_query_results test passed - verified log events were successfully retrieved' TYPE 'I'.
 
   ENDMETHOD.
 

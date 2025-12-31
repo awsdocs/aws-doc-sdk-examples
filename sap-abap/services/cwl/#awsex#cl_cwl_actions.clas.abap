@@ -55,7 +55,13 @@ CLASS /AWSEX/CL_CWL_ACTIONS IMPLEMENTATION.
     TRY.
         oo_result = lo_cwl->getqueryresults(
           iv_queryid = iv_query_id ).
-        MESSAGE 'Query results retrieved.' TYPE 'I'.
+        
+        " Display query status and result count
+        DATA(lv_status) = oo_result->get_status( ).
+        DATA(lt_results) = oo_result->get_results( ).
+        DATA(lv_result_count) = lines( lt_results ).
+        
+        MESSAGE |Query status: { lv_status }. Retrieved { lv_result_count } log event(s).| TYPE 'I'.
       CATCH /aws1/cx_cwlinvalidparameterex.
         MESSAGE 'Invalid parameter.' TYPE 'E'.
       CATCH /aws1/cx_cwlresourcenotfoundex.
@@ -96,7 +102,10 @@ CLASS /AWSEX/CL_CWL_ACTIONS IMPLEMENTATION.
           iv_endtime      = iv_end_time
           iv_querystring  = iv_query_string
           iv_limit        = iv_limit ).
-        MESSAGE 'Query started successfully.' TYPE 'I'.
+        
+        " Display the query ID for tracking
+        DATA(lv_query_id) = oo_result->get_queryid( ).
+        MESSAGE |Query started successfully with ID: { lv_query_id }| TYPE 'I'.
       CATCH /aws1/cx_cwlinvalidparameterex.
         MESSAGE 'Invalid parameter.' TYPE 'E'.
       CATCH /aws1/cx_cwllimitexceededex.
