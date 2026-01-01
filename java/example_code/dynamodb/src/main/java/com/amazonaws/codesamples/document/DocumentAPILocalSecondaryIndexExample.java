@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// snippet-start:[dynamodb.java.codeexample.DocumentAPILocalSecondaryIndexExample] 
+// snippet-start:[dynamodb.java.codeexample.DocumentAPILocalSecondaryIndexExampleV1] 
 
 package com.amazonaws.codesamples.document;
 
@@ -326,4 +326,4 @@ public class DocumentAPILocalSecondaryIndexExample {
 
 }
 
-// snippet-end:[dynamodb.java.codeexample.DocumentAPILocalSecondaryIndexExample]
+// snippet-end:[dynamodb.java.codeexample.DocumentAPILocalSecondaryIndexExampleV1]
