@@ -175,11 +175,19 @@ CLASS /awsex/cl_acm_actions IMPLEMENTATION.
 
     " snippet-start:[acm.abapv1.importcertificate]
     TRY.
-        DATA(lo_result) = lo_acm->importcertificate(
-          iv_certificate = iv_certificate
-          iv_privatekey = iv_private_key
-          iv_certificatechain = iv_certificate_chain
-        ).
+        " Only pass certificate chain if it's provided (it's optional)
+        IF iv_certificate_chain IS NOT INITIAL.
+          DATA(lo_result) = lo_acm->importcertificate(
+            iv_certificate = iv_certificate
+            iv_privatekey = iv_private_key
+            iv_certificatechain = iv_certificate_chain
+          ).
+        ELSE.
+          lo_result = lo_acm->importcertificate(
+            iv_certificate = iv_certificate
+            iv_privatekey = iv_private_key
+          ).
+        ENDIF.
         ov_certificate_arn = lo_result->get_certificatearn( ).
         MESSAGE 'Certificate imported successfully.' TYPE 'I'.
       CATCH /aws1/cx_acminvalidparameterex.
