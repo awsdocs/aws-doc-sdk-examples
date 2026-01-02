@@ -9,13 +9,13 @@ CLASS ltc_awsex_cl_cwl_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
   PRIVATE SECTION.
     CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
-    CLASS-DATA gv_log_group_name TYPE /aws1/cwlloggroupname.
-    CLASS-DATA gv_log_stream_name TYPE /aws1/cwllogstreamname.
-    CLASS-DATA gv_setup_complete TYPE abap_bool.
+    CLASS-DATA av_log_group_name TYPE /aws1/cwlloggroupname.
+    CLASS-DATA av_log_stream_name TYPE /aws1/cwllogstreamname.
+    CLASS-DATA av_setup_complete TYPE abap_bool.
 
-    CLASS-DATA go_cwl TYPE REF TO /aws1/if_cwl.
-    CLASS-DATA go_session TYPE REF TO /aws1/cl_rt_session_base.
-    CLASS-DATA go_cwl_actions TYPE REF TO /awsex/cl_cwl_actions.
+    CLASS-DATA ao_cwl TYPE REF TO /aws1/if_cwl.
+    CLASS-DATA ao_session TYPE REF TO /aws1/cl_rt_session_base.
+    CLASS-DATA ao_cwl_actions TYPE REF TO /awsex/cl_cwl_actions.
 
     METHODS: start_query FOR TESTING RAISING /aws1/cx_rt_generic,
       get_query_results FOR TESTING RAISING /aws1/cx_rt_generic.
@@ -83,16 +83,16 @@ CLASS ltc_awsex_cl_cwl_actions IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD class_setup.
-    go_session = /aws1/cl_rt_session_aws=>create( iv_profile_id = cv_pfl ).
-    go_cwl = /aws1/cl_cwl_factory=>create( go_session ).
-    go_cwl_actions = NEW /awsex/cl_cwl_actions( ).
+    ao_session = /aws1/cl_rt_session_aws=>create( iv_profile_id = cv_pfl ).
+    ao_cwl = /aws1/cl_cwl_factory=>create( ao_session ).
+    ao_cwl_actions = NEW /awsex/cl_cwl_actions( ).
 
     " Create unique log group name using utility function
     DATA(lv_uuid) = /awsex/cl_utils=>get_random_string( ).
-    gv_log_group_name = |/sap-abap/cwl-test-{ lv_uuid }|.
-    gv_log_stream_name = |test-stream-{ lv_uuid }|.
+    av_log_group_name = |/sap-abap/cwl-test-{ lv_uuid }|.
+    av_log_stream_name = |test-stream-{ lv_uuid }|.
 
-    gv_setup_complete = abap_false.
+    av_setup_complete = abap_false.
 
     " Create tags for resources - convert_test tag for cleanup
     DATA lt_tags TYPE /aws1/cl_cwltags_w=>tt_tags.
@@ -103,15 +103,15 @@ CLASS ltc_awsex_cl_cwl_actions IMPLEMENTATION.
 
     " Create log group
     TRY.
-        go_cwl->createloggroup(
-          iv_loggroupname = gv_log_group_name
+        ao_cwl->createloggroup(
+          iv_loggroupname = av_log_group_name
           it_tags = lt_tags
         ).
       CATCH /aws1/cx_cwlresrcalrdyexistsex.
         " Log group already exists - tag it with convert_test
         TRY.
-            go_cwl->tagloggroup(
-              iv_loggroupname = gv_log_group_name
+            ao_cwl->tagloggroup(
+              iv_loggroupname = av_log_group_name
               it_tags = lt_tags
             ).
           CATCH /aws1/cx_rt_generic.
@@ -129,12 +129,12 @@ CLASS ltc_awsex_cl_cwl_actions IMPLEMENTATION.
 
     DO 30 TIMES.
       TRY.
-          DATA(lo_describe_result) = go_cwl->describeloggroups(
-            iv_loggroupnameprefix = gv_log_group_name
+          DATA(lo_describe_result) = ao_cwl->describeloggroups(
+            iv_loggroupnameprefix = av_log_group_name
           ).
 
           LOOP AT lo_describe_result->get_loggroups( ) INTO DATA(lo_log_group).
-            IF lo_log_group->get_loggroupname( ) = gv_log_group_name.
+            IF lo_log_group->get_loggroupname( ) = av_log_group_name.
               lv_found = abap_true.
               EXIT.
             ENDIF.
@@ -158,20 +158,20 @@ CLASS ltc_awsex_cl_cwl_actions IMPLEMENTATION.
       IF lv_elapsed > 60.
         " Fail the test if log group isn't created within timeout
         cl_abap_unit_assert=>fail(
-          msg = |Log group { gv_log_group_name } was not created within 60 seconds| ).
+          msg = |Log group { av_log_group_name } was not created within 60 seconds| ).
       ENDIF.
     ENDDO.
 
     IF lv_found = abap_false.
       cl_abap_unit_assert=>fail(
-        msg = |Log group { gv_log_group_name } was not found after creation| ).
+        msg = |Log group { av_log_group_name } was not found after creation| ).
     ENDIF.
 
     " Create log stream
     TRY.
-        go_cwl->createlogstream(
-          iv_loggroupname = gv_log_group_name
-          iv_logstreamname = gv_log_stream_name
+        ao_cwl->createlogstream(
+          iv_loggroupname = av_log_group_name
+          iv_logstreamname = av_log_stream_name
         ).
       CATCH /aws1/cx_cwlresrcalrdyexistsex.
         " Log stream already exists - continue
@@ -183,13 +183,13 @@ CLASS ltc_awsex_cl_cwl_actions IMPLEMENTATION.
 
     DO 30 TIMES.
       TRY.
-          DATA(lo_stream_result) = go_cwl->describelogstreams(
-            iv_loggroupname = gv_log_group_name
-            iv_logstreamnameprefix = gv_log_stream_name
+          DATA(lo_stream_result) = ao_cwl->describelogstreams(
+            iv_loggroupname = av_log_group_name
+            iv_logstreamnameprefix = av_log_stream_name
           ).
 
           LOOP AT lo_stream_result->get_logstreams( ) INTO DATA(lo_log_stream).
-            IF lo_log_stream->get_logstreamname( ) = gv_log_stream_name.
+            IF lo_log_stream->get_logstreamname( ) = av_log_stream_name.
               lv_found = abap_true.
               EXIT.
             ENDIF.
@@ -213,13 +213,13 @@ CLASS ltc_awsex_cl_cwl_actions IMPLEMENTATION.
       IF lv_elapsed > 60.
         " Fail the test if log stream isn't created
         cl_abap_unit_assert=>fail(
-          msg = |Log stream { gv_log_stream_name } was not created within 60 seconds| ).
+          msg = |Log stream { av_log_stream_name } was not created within 60 seconds| ).
       ENDIF.
     ENDDO.
 
     IF lv_found = abap_false.
       cl_abap_unit_assert=>fail(
-        msg = |Log stream { gv_log_stream_name } was not found after creation| ).
+        msg = |Log stream { av_log_stream_name } was not found after creation| ).
     ENDIF.
 
     " Put test log events with proper Unix epoch millisecond timestamps
@@ -248,9 +248,9 @@ CLASS ltc_awsex_cl_cwl_actions IMPLEMENTATION.
     " Put log events to CloudWatch Logs
     " Events must have valid Unix epoch millisecond timestamps or they will be rejected
     TRY.
-        DATA(lo_put_result) = go_cwl->putlogevents(
-          iv_loggroupname = gv_log_group_name
-          iv_logstreamname = gv_log_stream_name
+        DATA(lo_put_result) = ao_cwl->putlogevents(
+          iv_loggroupname = av_log_group_name
+          iv_logstreamname = av_log_stream_name
           it_logevents = lt_events
         ).
         
@@ -287,9 +287,9 @@ CLASS ltc_awsex_cl_cwl_actions IMPLEMENTATION.
     
     DO 12 TIMES.
       TRY.
-          DATA(lo_get_events_result) = go_cwl->getlogevents(
-            iv_loggroupname = gv_log_group_name
-            iv_logstreamname = gv_log_stream_name
+          DATA(lo_get_events_result) = ao_cwl->getlogevents(
+            iv_loggroupname = av_log_group_name
+            iv_logstreamname = av_log_stream_name
             iv_limit = 20
           ).
           
@@ -323,16 +323,16 @@ CLASS ltc_awsex_cl_cwl_actions IMPLEMENTATION.
         msg = |Log events were not retrievable via GetLogEvents after 60 seconds. This indicates timestamp or putlogevents issues.| ).
     ENDIF.
 
-    gv_setup_complete = abap_true.
+    av_setup_complete = abap_true.
 
   ENDMETHOD.
 
   METHOD class_teardown.
     " Clean up: Delete log group (this also deletes streams and events)
-    IF gv_log_group_name IS NOT INITIAL.
+    IF av_log_group_name IS NOT INITIAL.
       TRY.
-          go_cwl->deleteloggroup(
-            iv_loggroupname = gv_log_group_name
+          ao_cwl->deleteloggroup(
+            iv_loggroupname = av_log_group_name
           ).
         CATCH /aws1/cx_cwlresourcenotfoundex.
           " Already deleted
@@ -345,7 +345,7 @@ CLASS ltc_awsex_cl_cwl_actions IMPLEMENTATION.
   METHOD start_query.
     " Verify setup was successful
     cl_abap_unit_assert=>assert_true(
-      act = gv_setup_complete
+      act = av_setup_complete
       msg = 'Test setup must complete successfully' ).
 
     " Get current time and calculate query time range
@@ -358,8 +358,8 @@ CLASS ltc_awsex_cl_cwl_actions IMPLEMENTATION.
     lv_end_time = lv_current_time.
 
     " Execute start_query
-    DATA(lo_result) = go_cwl_actions->start_query(
-      iv_log_group_name = gv_log_group_name
+    DATA(lo_result) = ao_cwl_actions->start_query(
+      iv_log_group_name = av_log_group_name
       iv_start_time = lv_start_time
       iv_end_time = lv_end_time
       iv_query_string = 'fields @timestamp, @message | sort @timestamp desc | limit 20'
@@ -383,16 +383,16 @@ CLASS ltc_awsex_cl_cwl_actions IMPLEMENTATION.
   METHOD get_query_results.
     " Verify setup was successful
     cl_abap_unit_assert=>assert_true(
-      act = gv_setup_complete
+      act = av_setup_complete
       msg = 'Test setup must complete successfully' ).
 
     " First verify that events are still available via direct GetLogEvents
     " This helps debug if the issue is with queries specifically or event availability
     DATA lv_direct_event_count TYPE i VALUE 0.
     TRY.
-        DATA(lo_direct_events) = go_cwl->getlogevents(
-          iv_loggroupname = gv_log_group_name
-          iv_logstreamname = gv_log_stream_name
+        DATA(lo_direct_events) = ao_cwl->getlogevents(
+          iv_loggroupname = av_log_group_name
+          iv_logstreamname = av_log_stream_name
           iv_limit = 20
         ).
         lv_direct_event_count = lines( lo_direct_events->get_events( ) ).
@@ -412,7 +412,7 @@ CLASS ltc_awsex_cl_cwl_actions IMPLEMENTATION.
     " Use the helper method to retry queries until we get results
     " This handles the case where CloudWatch Logs Insights needs time to index
     DATA(lo_result) = wait_for_query_results(
-      iv_log_group_name = gv_log_group_name
+      iv_log_group_name = av_log_group_name
       iv_start_time = lv_start_time
       iv_end_time = lv_end_time
       iv_query_string = 'fields @timestamp, @message | sort @timestamp desc | limit 20'
@@ -543,7 +543,7 @@ CLASS ltc_awsex_cl_cwl_actions IMPLEMENTATION.
       
       TRY.
           " Start a new query
-          DATA(lo_start_result) = go_cwl->startquery(
+          DATA(lo_start_result) = ao_cwl->startquery(
             iv_loggroupname = iv_log_group_name
             iv_starttime = iv_start_time
             iv_endtime = iv_end_time
@@ -558,7 +558,7 @@ CLASS ltc_awsex_cl_cwl_actions IMPLEMENTATION.
           
           IF lv_complete = abap_true.
             " Get results
-            ro_result = go_cwl->getqueryresults( iv_queryid = lv_query_id ).
+            ro_result = ao_cwl->getqueryresults( iv_queryid = lv_query_id ).
             
             " Check if we got any results
             DATA(lt_results) = ro_result->get_results( ).
@@ -602,7 +602,7 @@ CLASS ltc_awsex_cl_cwl_actions IMPLEMENTATION.
     " Wait up to 90 seconds for query to complete
     DO 90 TIMES.
       TRY.
-          DATA(lo_result) = go_cwl->getqueryresults(
+          DATA(lo_result) = ao_cwl->getqueryresults(
             iv_queryid = iv_query_id
           ).
 
@@ -636,4 +636,3 @@ CLASS ltc_awsex_cl_cwl_actions IMPLEMENTATION.
   ENDMETHOD.
 
 ENDCLASS.
-
