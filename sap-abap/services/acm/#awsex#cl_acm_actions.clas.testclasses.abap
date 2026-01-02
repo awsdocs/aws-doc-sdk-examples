@@ -170,10 +170,13 @@ CLASS ltc_awsex_cl_acm_actions IMPLEMENTATION.
   METHOD list_certificates.
     DATA lo_result TYPE REF TO /aws1/cl_acmlistcertsresponse.
 
-    " List certificates with PENDING_VALIDATION status
+    " List certificates with PENDING_VALIDATION and FAILED statuses
+    " Many certificates can fail validation, so we include both statuses
     DATA lt_statuses TYPE /aws1/cl_acmcertstatuses_w=>tt_certificatestatuses.
-    DATA(lo_status) = NEW /aws1/cl_acmcertstatuses_w( iv_value = 'PENDING_VALIDATION' ).
-    APPEND lo_status TO lt_statuses.
+    DATA(lo_status_pending) = NEW /aws1/cl_acmcertstatuses_w( iv_value = 'PENDING_VALIDATION' ).
+    DATA(lo_status_failed) = NEW /aws1/cl_acmcertstatuses_w( iv_value = 'FAILED' ).
+    APPEND lo_status_pending TO lt_statuses.
+    APPEND lo_status_failed TO lt_statuses.
 
     lo_result = ao_acm_actions->list_certificates(
       iv_max_items = 10
@@ -212,7 +215,8 @@ CLASS ltc_awsex_cl_acm_actions IMPLEMENTATION.
         ev_private_key = lv_private_key
     ).
 
-    " Try to import the certificate
+    " Try to import the certificate WITHOUT the certificate chain parameter
+    " since we don't have a valid certificate chain
     TRY.
         av_certificate_arn_import = ao_acm_actions->import_certificate(
           iv_certificate = lv_certificate

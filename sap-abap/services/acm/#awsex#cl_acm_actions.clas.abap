@@ -105,7 +105,7 @@ CLASS /awsex/cl_acm_actions IMPLEMENTATION.
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_acm) = /aws1/cl_acm_factory=>create( lo_session ).
 
-    " snippet-start:[acm.abapv1.describe_certificate]
+    " snippet-start:[acm.abapv1.describecertificate]
     TRY.
         " iv_certificate_arn = 'arn:aws:acm:region:123456789012:certificate/certificate-id'
         oo_result = lo_acm->describecertificate( iv_certificatearn = iv_certificate_arn ).
@@ -115,7 +115,7 @@ CLASS /awsex/cl_acm_actions IMPLEMENTATION.
       CATCH /aws1/cx_acmresourcenotfoundex.
         MESSAGE 'Certificate not found.' TYPE 'I'.
     ENDTRY.
-    " snippet-end:[acm.abapv1.describe_certificate]
+    " snippet-end:[acm.abapv1.describecertificate]
 
   ENDMETHOD.
 
@@ -126,7 +126,7 @@ CLASS /awsex/cl_acm_actions IMPLEMENTATION.
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_acm) = /aws1/cl_acm_factory=>create( lo_session ).
 
-    " snippet-start:[acm.abapv1.get_certificate]
+    " snippet-start:[acm.abapv1.getcertificate]
     TRY.
         " iv_certificate_arn = 'arn:aws:acm:region:123456789012:certificate/certificate-id'
         oo_result = lo_acm->getcertificate( iv_certificatearn = iv_certificate_arn ).
@@ -138,7 +138,7 @@ CLASS /awsex/cl_acm_actions IMPLEMENTATION.
       CATCH /aws1/cx_acmrequestinprgssex.
         MESSAGE 'Certificate request is in progress.' TYPE 'I'.
     ENDTRY.
-    " snippet-end:[acm.abapv1.get_certificate]
+    " snippet-end:[acm.abapv1.getcertificate]
 
   ENDMETHOD.
 
@@ -149,7 +149,7 @@ CLASS /awsex/cl_acm_actions IMPLEMENTATION.
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_acm) = /aws1/cl_acm_factory=>create( lo_session ).
 
-    " snippet-start:[acm.abapv1.list_certificates]
+    " snippet-start:[acm.abapv1.listcertificates]
     TRY.
         oo_result = lo_acm->listcertificates(
           iv_maxitems = iv_max_items
@@ -162,7 +162,7 @@ CLASS /awsex/cl_acm_actions IMPLEMENTATION.
       CATCH /aws1/cx_acmvalidationex.
         MESSAGE 'Validation error occurred.' TYPE 'I'.
     ENDTRY.
-    " snippet-end:[acm.abapv1.list_certificates]
+    " snippet-end:[acm.abapv1.listcertificates]
 
   ENDMETHOD.
 
@@ -173,7 +173,7 @@ CLASS /awsex/cl_acm_actions IMPLEMENTATION.
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_acm) = /aws1/cl_acm_factory=>create( lo_session ).
 
-    " snippet-start:[acm.abapv1.import_certificate]
+    " snippet-start:[acm.abapv1.importcertificate]
     TRY.
         DATA(lo_result) = lo_acm->importcertificate(
           iv_certificate = iv_certificate
@@ -187,7 +187,7 @@ CLASS /awsex/cl_acm_actions IMPLEMENTATION.
       CATCH /aws1/cx_acmlimitexceededex.
         MESSAGE 'Certificate limit exceeded.' TYPE 'I'.
     ENDTRY.
-    " snippet-end:[acm.abapv1.import_certificate]
+    " snippet-end:[acm.abapv1.importcertificate]
 
   ENDMETHOD.
 
@@ -198,7 +198,7 @@ CLASS /awsex/cl_acm_actions IMPLEMENTATION.
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_acm) = /aws1/cl_acm_factory=>create( lo_session ).
 
-    " snippet-start:[acm.abapv1.delete_certificate]
+    " snippet-start:[acm.abapv1.deletecertificate]
     TRY.
         " iv_certificate_arn = 'arn:aws:acm:region:123456789012:certificate/certificate-id'
         lo_acm->deletecertificate( iv_certificatearn = iv_certificate_arn ).
@@ -210,7 +210,7 @@ CLASS /awsex/cl_acm_actions IMPLEMENTATION.
       CATCH /aws1/cx_acmresourceinuseex.
         MESSAGE 'Certificate is in use and cannot be deleted.' TYPE 'I'.
     ENDTRY.
-    " snippet-end:[acm.abapv1.delete_certificate]
+    " snippet-end:[acm.abapv1.deletecertificate]
 
   ENDMETHOD.
 
@@ -221,7 +221,7 @@ CLASS /awsex/cl_acm_actions IMPLEMENTATION.
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_acm) = /aws1/cl_acm_factory=>create( lo_session ).
 
-    " snippet-start:[acm.abapv1.add_tags_to_certificate]
+    " snippet-start:[acm.abapv1.addtagstocertificate]
     TRY.
         " iv_certificate_arn = 'arn:aws:acm:region:123456789012:certificate/certificate-id'
         lo_acm->addtagstocertificate(
@@ -238,7 +238,7 @@ CLASS /awsex/cl_acm_actions IMPLEMENTATION.
       CATCH /aws1/cx_acmtoomanytagsex.
         MESSAGE 'Too many tags for certificate.' TYPE 'I'.
     ENDTRY.
-    " snippet-end:[acm.abapv1.add_tags_to_certificate]
+    " snippet-end:[acm.abapv1.addtagstocertificate]
 
   ENDMETHOD.
 
@@ -249,7 +249,7 @@ CLASS /awsex/cl_acm_actions IMPLEMENTATION.
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_acm) = /aws1/cl_acm_factory=>create( lo_session ).
 
-    " snippet-start:[acm.abapv1.list_tags_for_certificate]
+    " snippet-start:[acm.abapv1.listtagsforcertificate]
     TRY.
         " iv_certificate_arn = 'arn:aws:acm:region:123456789012:certificate/certificate-id'
         DATA(lo_result) = lo_acm->listtagsforcertificate(
@@ -262,7 +262,7 @@ CLASS /awsex/cl_acm_actions IMPLEMENTATION.
       CATCH /aws1/cx_acmresourcenotfoundex.
         MESSAGE 'Certificate not found.' TYPE 'I'.
     ENDTRY.
-    " snippet-end:[acm.abapv1.list_tags_for_certificate]
+    " snippet-end:[acm.abapv1.listtagsforcertificate]
 
   ENDMETHOD.
 
@@ -273,7 +273,7 @@ CLASS /awsex/cl_acm_actions IMPLEMENTATION.
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_acm) = /aws1/cl_acm_factory=>create( lo_session ).
 
-    " snippet-start:[acm.abapv1.remove_tags_from_certificate]
+    " snippet-start:[acm.abapv1.removetagsfromcertificate]
     TRY.
         " iv_certificate_arn = 'arn:aws:acm:region:123456789012:certificate/certificate-id'
         lo_acm->removetagsfromcertificate(
@@ -288,7 +288,7 @@ CLASS /awsex/cl_acm_actions IMPLEMENTATION.
       CATCH /aws1/cx_acminvalidtagex.
         MESSAGE 'Invalid tag provided.' TYPE 'I'.
     ENDTRY.
-    " snippet-end:[acm.abapv1.remove_tags_from_certificate]
+    " snippet-end:[acm.abapv1.removetagsfromcertificate]
 
   ENDMETHOD.
 
@@ -299,7 +299,7 @@ CLASS /awsex/cl_acm_actions IMPLEMENTATION.
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_acm) = /aws1/cl_acm_factory=>create( lo_session ).
 
-    " snippet-start:[acm.abapv1.request_certificate]
+    " snippet-start:[acm.abapv1.requestcertificate]
     TRY.
         " iv_domain_name = 'example.com'
         " iv_validation_method = 'DNS' or 'EMAIL'
@@ -318,7 +318,7 @@ CLASS /awsex/cl_acm_actions IMPLEMENTATION.
       CATCH /aws1/cx_acminvdomvationoptsex.
         MESSAGE 'Invalid domain validation options.' TYPE 'I'.
     ENDTRY.
-    " snippet-end:[acm.abapv1.request_certificate]
+    " snippet-end:[acm.abapv1.requestcertificate]
 
   ENDMETHOD.
 
@@ -329,7 +329,7 @@ CLASS /awsex/cl_acm_actions IMPLEMENTATION.
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_acm) = /aws1/cl_acm_factory=>create( lo_session ).
 
-    " snippet-start:[acm.abapv1.resend_validation_email]
+    " snippet-start:[acm.abapv1.resendvalidationemail]
     TRY.
         " iv_certificate_arn = 'arn:aws:acm:region:123456789012:certificate/certificate-id'
         " iv_domain = 'example.com'
@@ -349,7 +349,7 @@ CLASS /awsex/cl_acm_actions IMPLEMENTATION.
       CATCH /aws1/cx_acminvdomvationoptsex.
         MESSAGE 'Invalid domain validation options.' TYPE 'I'.
     ENDTRY.
-    " snippet-end:[acm.abapv1.resend_validation_email]
+    " snippet-end:[acm.abapv1.resendvalidationemail]
 
   ENDMETHOD.
 
