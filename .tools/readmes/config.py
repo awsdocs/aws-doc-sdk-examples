@@ -199,6 +199,7 @@ language = {
                 "bedrock-runtime": "sap-abap/services/bdr",
                 "bedrock-agent-runtime": "sap-abap/services/bdz",
                 "cloudfront": "sap-abap/services/fnt",
+                "config-service": "sap-abap/services/cfs",
                 "controltower": "sap-abap/services/ctt",
                 "cognito-identity-provider": "sap-abap/services/cgp",
                 "comprehend": "sap-abap/services/cpd",
