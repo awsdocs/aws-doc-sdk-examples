@@ -304,6 +304,14 @@ cloudwatch-logs_GetQueryResults:
             - description:
               snippet_tags:
                 - python.example_code.cloudwatch_logs.get_query_results
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/cwl
+          excerpts:
+            - description:
+              snippet_tags:
+                - cwl.abapv1.get_query_results
   services:
     cloudwatch-logs: {GetQueryResults}
 cloudwatch-logs_StartQuery:
@@ -324,6 +332,14 @@ cloudwatch-logs_StartQuery:
             - description:
               snippet_tags:
                 - python.example_code.cloudwatch_logs.start_query
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/cwl
+          excerpts:
+            - description:
+              snippet_tags:
+                - cwl.abapv1.start_query
   services:
     cloudwatch-logs: {StartQuery}
 cloudwatch-logs_Scenario_BigQuery:

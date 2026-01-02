@@ -204,6 +204,7 @@ language = {
                 "cognito-identity-provider": "sap-abap/services/cgp",
                 "comprehend": "sap-abap/services/cpd",
                 "cloudwatch": "sap-abap/services/cwt",
+                "cloudwatch-logs": "sap-abap/services/cwl",
                 "dynamodb": "sap-abap/services/dyn",
                 "firehose": "sap-abap/services/frh",
                 "glue": "sap-abap/services/glu",
