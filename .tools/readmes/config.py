@@ -214,6 +214,7 @@ language = {
                 "medical-imaging": "sap-abap/services/mig",
                 "organizations": "sap-abap/services/org",
                 "pinpoint": "sap-abap/services/ppt",
+                "pinpoint-sms-voice": "sap-abap/services/pps",
                 "polly": "sap-abap/services/ply",
                 "rekognition": "sap-abap/services/rek",
                 "route53-recovery-cluster": "sap-abap/services/r5v",
