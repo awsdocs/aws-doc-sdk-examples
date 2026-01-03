@@ -8,6 +8,7 @@ Integration tests for Topics and Queues cross-service scenario.
 import pytest
 from unittest.mock import patch
 import logging
+import json
 import boto3
 
 from topics_and_queues_scenario import TopicsAndQueuesScenario
@@ -47,10 +48,8 @@ class MockManager:
             self.queue2_name,  # Queue 2 name
             "Hello World",  # Message text
             "n",  # Send another message? (No)
-            "",  # Press Enter to continue (multiple times)
-            "",
-            "",
-            "",
+            "",  # Press Enter to continue for queue 1
+            "",  # Press Enter to continue for queue 2
             "y",  # Delete queue 1?
             "y",  # Delete queue 2?
             "y",  # Delete topic?
@@ -78,17 +77,38 @@ class MockManager:
                 self.queue1_url,
                 self.queue1_arn
             )
+            # Expected policy that allows SNS to send messages to the queue
+            expected_policy_1 = {
+                "Version": "2012-10-17",
+                "Statement": [
+                    {
+                        "Effect": "Allow",
+                        "Principal": {
+                            "Service": "sns.amazonaws.com"
+                        },
+                        "Action": "sqs:SendMessage",
+                        "Resource": self.queue1_arn,
+                        "Condition": {
+                            "ArnEquals": {
+                                "aws:SourceArn": self.topic_arn
+                            }
+                        }
+                    }
+                ]
+            }
             runner.add(
                 self.scenario_data.sqs_stubber.stub_set_queue_attributes,
                 self.queue1_url,
-                {"Policy": ""}  # Will be replaced with actual policy
+                {"Policy": json.dumps(expected_policy_1)}
             )
             runner.add(
                 self.scenario_data.sns_stubber.stub_subscribe,
                 self.topic_arn,
                 "sqs",
                 self.queue1_arn,
-                self.subscription1_arn
+                self.subscription1_arn,
+                False,  # return_arn
+                {}      # attributes (empty dict)
             )
             
             # Setup Phase - Queue creation and subscription (Queue 2)
@@ -103,17 +123,38 @@ class MockManager:
                 self.queue2_url,
                 self.queue2_arn
             )
+            # Expected policy that allows SNS to send messages to the queue
+            expected_policy_2 = {
+                "Version": "2012-10-17",
+                "Statement": [
+                    {
+                        "Effect": "Allow",
+                        "Principal": {
+                            "Service": "sns.amazonaws.com"
+                        },
+                        "Action": "sqs:SendMessage",
+                        "Resource": self.queue2_arn,
+                        "Condition": {
+                            "ArnEquals": {
+                                "aws:SourceArn": self.topic_arn
+                            }
+                        }
+                    }
+                ]
+            }
             runner.add(
                 self.scenario_data.sqs_stubber.stub_set_queue_attributes,
                 self.queue2_url,
-                {"Policy": ""}  # Will be replaced with actual policy
+                {"Policy": json.dumps(expected_policy_2)}
             )
             runner.add(
                 self.scenario_data.sns_stubber.stub_subscribe,
                 self.topic_arn,
                 "sqs", 
                 self.queue2_arn,
-                self.subscription2_arn
+                self.subscription2_arn,
+                False,  # return_arn
+                {}      # attributes (empty dict)
             )
             
             # Publishing Phase

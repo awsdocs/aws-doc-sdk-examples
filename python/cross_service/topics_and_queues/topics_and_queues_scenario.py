@@ -152,7 +152,7 @@ class TopicsAndQueuesScenario:
             self.use_content_based_deduplication
         )
 
-        print(f"✓ Your new topic with the name {self.topic_name}")
+        print(f"Your new topic with the name {self.topic_name}")
         print(f"  and Amazon Resource Name (ARN) {self.topic_arn}")
         print(f"  has been created.")
         print()
@@ -171,7 +171,7 @@ class TopicsAndQueuesScenario:
             queue_url = self.sqs_wrapper.create_queue(queue_name, self.use_fifo_topic)
             self.queue_urls.append(queue_url)
 
-            print(f"✓ Your new queue with the name {queue_name}")
+            print(f"Your new queue with the name {queue_name}")
             print(f"  and queue URL {queue_url}")
             print(f"  has been created.")
             print()
@@ -220,7 +220,7 @@ class TopicsAndQueuesScenario:
             self.topic_arn, queue_arn, filter_policy
         )
 
-        print(f"✓ The queue {queue_name} has been subscribed to the topic {self.topic_name}")
+        print(f"The queue {queue_name} has been subscribed to the topic {self.topic_name}")
         print(f"  with the subscription ARN {subscription_arn}")
 
         return subscription_arn
@@ -295,7 +295,7 @@ class TopicsAndQueuesScenario:
                 message_group_id
             )
 
-            print(f"✓ Message published with ID: {message_id}")
+            print(f"Message published with ID: {message_id}")
 
             keep_sending = q.ask("Send another message? (y/n): ", q.is_yesno)
 
@@ -309,7 +309,7 @@ class TopicsAndQueuesScenario:
             messages = self._poll_queue_for_messages(queue_url)
             
             if messages:
-                print(f"✓ {len(messages)} message(s) were received by queue #{i+1}")
+                print(f"{len(messages)} message(s) were received by queue #{i+1}")
                 for j, message in enumerate(messages, 1):
                     print(f"  Message {j}:")
                     # Parse the SNS message body to get the actual message
@@ -322,7 +322,7 @@ class TopicsAndQueuesScenario:
 
                 # Delete the messages
                 self.sqs_wrapper.delete_messages(queue_url, messages)
-                print(f"✓ Messages deleted from queue #{i+1}")
+                print(f"Messages deleted from queue #{i+1}")
             else:
                 print(f"No messages received by queue #{i+1}")
             
@@ -358,18 +358,18 @@ class TopicsAndQueuesScenario:
                 if delete_queue:
                     try:
                         self.sqs_wrapper.delete_queue(queue_url)
-                        print(f"✓ Deleted queue #{i+1}")
+                        print(f"Deleted queue #{i+1}")
                     except Exception as e:
-                        print(f"✗ Error deleting queue #{i+1}: {e}")
+                        print(f"Error deleting queue #{i+1}: {e}")
 
         # Unsubscribe from topic
         for i, subscription_arn in enumerate(self.subscription_arns):
             if subscription_arn:
                 try:
                     self.sns_wrapper.unsubscribe(subscription_arn)
-                    print(f"✓ Unsubscribed subscription #{i+1}")
+                    print(f"Unsubscribed subscription #{i+1}")
                 except Exception as e:
-                    print(f"✗ Error unsubscribing #{i+1}: {e}")
+                    print(f"Error unsubscribing #{i+1}: {e}")
 
         # Delete topic
         if self.topic_arn:
@@ -377,9 +377,9 @@ class TopicsAndQueuesScenario:
             if delete_topic:
                 try:
                     self.sns_wrapper.delete_topic(self.topic_arn)
-                    print(f"✓ Deleted topic {self.topic_name}")
+                    print(f"Deleted topic {self.topic_name}")
                 except Exception as e:
-                    print(f"✗ Error deleting topic: {e}")
+                    print(f"Error deleting topic: {e}")
 
         print("Resource cleanup complete.")
 
