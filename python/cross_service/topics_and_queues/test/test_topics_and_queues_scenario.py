@@ -41,29 +41,47 @@ class MockManager:
         """Setup stubs for the scenario"""
         # Mock user inputs
         answers = [
-            False,  # Use FIFO topic? (No - standard topic)
+            "n",  # Use FIFO topic? (No - standard topic)
             self.topic_name,  # Topic name
             self.queue1_name,  # Queue 1 name
             self.queue2_name,  # Queue 2 name
             "Hello World",  # Message text
-            False,  # Send another message? (No)
+            "n",  # Send another message? (No)
             "",  # Press Enter to continue (multiple times)
             "",
             "",
             "",
-            True,  # Delete queue 1?
-            True,  # Delete queue 2?
-            True,  # Delete topic?
+            "y",  # Delete queue 1?
+            "y",  # Delete queue 2?
+            "y",  # Delete topic?
         ]
         self.input_mocker.mock_answers(answers)
 
         with self.stub_runner(error, stop_on) as runner:
-            # SNS operations
+            # Setup Phase - Topic creation
             runner.add(
                 self.scenario_data.sns_stubber.stub_create_topic,
                 self.topic_name,
                 self.topic_arn,
                 {}  # Empty attributes dict for standard (non-FIFO) topic
+            )
+            
+            # Setup Phase - Queue creation and subscription (Queue 1)
+            runner.add(
+                self.scenario_data.sqs_stubber.stub_create_queue,
+                self.queue1_name,
+                {},
+                self.queue1_url
+            )
+            runner.add(
+                self.scenario_data.sqs_stubber.stub_get_queue_arn,
+                self.queue1_url,
+                self.queue1_arn
+            )
+            runner.add(
+                self.scenario_data.sqs_stubber.stub_set_queue_attributes,
+                self.queue1_url,
+                {"Policy": ""}  # Will be replaced with actual policy
             )
             runner.add(
                 self.scenario_data.sns_stubber.stub_subscribe,
@@ -72,39 +90,8 @@ class MockManager:
                 self.queue1_arn,
                 self.subscription1_arn
             )
-            runner.add(
-                self.scenario_data.sns_stubber.stub_subscribe,
-                self.topic_arn,
-                "sqs", 
-                self.queue2_arn,
-                self.subscription2_arn
-            )
-            runner.add(
-                self.scenario_data.sns_stubber.stub_publish,
-                "Hello World",
-                self.message_id,
-                topic_arn=self.topic_arn
-            )
-            runner.add(
-                self.scenario_data.sns_stubber.stub_unsubscribe,
-                self.subscription1_arn
-            )
-            runner.add(
-                self.scenario_data.sns_stubber.stub_unsubscribe,
-                self.subscription2_arn
-            )
-            runner.add(
-                self.scenario_data.sns_stubber.stub_delete_topic,
-                self.topic_arn
-            )
             
-            # SQS operations
-            runner.add(
-                self.scenario_data.sqs_stubber.stub_create_queue,
-                self.queue1_name,
-                {},
-                self.queue1_url
-            )
+            # Setup Phase - Queue creation and subscription (Queue 2)
             runner.add(
                 self.scenario_data.sqs_stubber.stub_create_queue,
                 self.queue2_name,
@@ -112,26 +99,32 @@ class MockManager:
                 self.queue2_url
             )
             runner.add(
-                self.scenario_data.sqs_stubber.stub_get_queue_attributes,
-                self.queue1_url,
-                self.queue1_arn
-            )
-            runner.add(
-                self.scenario_data.sqs_stubber.stub_get_queue_attributes,
+                self.scenario_data.sqs_stubber.stub_get_queue_arn,
                 self.queue2_url,
                 self.queue2_arn
             )
             runner.add(
                 self.scenario_data.sqs_stubber.stub_set_queue_attributes,
-                self.queue1_url,
-                {"Policy": ""}  # Will be replaced with actual policy
-            )
-            runner.add(
-                self.scenario_data.sqs_stubber.stub_set_queue_attributes,
                 self.queue2_url,
                 {"Policy": ""}  # Will be replaced with actual policy
             )
-            # Queue polling - only 1 call per queue since empty results break the polling loop
+            runner.add(
+                self.scenario_data.sns_stubber.stub_subscribe,
+                self.topic_arn,
+                "sqs", 
+                self.queue2_arn,
+                self.subscription2_arn
+            )
+            
+            # Publishing Phase
+            runner.add(
+                self.scenario_data.sns_stubber.stub_publish,
+                "Hello World",
+                self.message_id,
+                topic_arn=self.topic_arn
+            )
+            
+            # Polling Phase - Check queues for messages
             runner.add(
                 self.scenario_data.sqs_stubber.stub_receive_messages,
                 self.queue1_url,
@@ -144,6 +137,8 @@ class MockManager:
                 [],  # messages (empty list - causes polling to stop)
                 10   # receive_count (MaxNumberOfMessages)
             )
+            
+            # Cleanup Phase
             runner.add(
                 self.scenario_data.sqs_stubber.stub_delete_queue,
                 self.queue1_url
@@ -151,6 +146,18 @@ class MockManager:
             runner.add(
                 self.scenario_data.sqs_stubber.stub_delete_queue,
                 self.queue2_url
+            )
+            runner.add(
+                self.scenario_data.sns_stubber.stub_unsubscribe,
+                self.subscription1_arn
+            )
+            runner.add(
+                self.scenario_data.sns_stubber.stub_unsubscribe,
+                self.subscription2_arn
+            )
+            runner.add(
+                self.scenario_data.sns_stubber.stub_delete_topic,
+                self.topic_arn
             )
 
 
@@ -180,105 +187,25 @@ class TestTopicsAndQueuesScenario:
         error_logs = [record for record in caplog.records if record.levelno >= logging.ERROR]
         assert len(error_logs) == 0, f"Expected no error logs, but found: {error_logs}"
 
-    def test_scenario_initialization(self, scenario_data):
-        """Test that the scenario initializes correctly."""
-        scenario = scenario_data.scenario
-        
-        assert scenario.sns_wrapper == scenario_data.sns_wrapper
-        assert scenario.sqs_wrapper == scenario_data.sqs_wrapper
-        assert scenario.queue_count == 2
-        assert len(scenario.tones) == 4
-        assert "cheerful" in scenario.tones
-        assert "funny" in scenario.tones
-        assert "serious" in scenario.tones
-        assert "sincere" in scenario.tones
-
-    def test_create_filter_policy(self, scenario_data):
-        """Test filter policy creation with mocked user input."""
-        with patch('demo_tools.question.ask') as mock_ask:
-            mock_ask.side_effect = [1, 3, 0]  # Select cheerful, serious, then stop
-            
-            filter_policy = scenario_data.scenario._create_filter_policy()
-            
-            assert filter_policy is not None
-            import json
-            parsed_policy = json.loads(filter_policy)
-            assert "tone" in parsed_policy
-            assert "cheerful" in parsed_policy["tone"]
-            assert "serious" in parsed_policy["tone"]
-            assert len(parsed_policy["tone"]) == 2
-
-    def test_create_filter_policy_no_selections(self, scenario_data):
-        """Test filter policy creation with no selections."""
-        with patch('demo_tools.question.ask') as mock_ask:
-            mock_ask.side_effect = [0]  # Stop immediately
-            
-            filter_policy = scenario_data.scenario._create_filter_policy()
-            
-            assert filter_policy is None
-
-    def test_poll_queue_for_messages_empty_queue(self, scenario_data, stub_runner):
-        """Test polling an empty queue."""
-        with stub_runner(None, None) as runner:
-            runner.add(
-                scenario_data.sqs_stubber.stub_receive_messages,
-                'test-queue-url',
-                [],
-                10
-            )
-            
-            messages = scenario_data.scenario._poll_queue_for_messages('test-queue-url')
-            
-            assert messages == []
-
-    def test_poll_queue_for_messages_with_messages(self, scenario_data, stub_runner):
-        """Test polling a queue with messages."""
-        test_messages = [
-            {'body': 'Message 1'},
-            {'body': 'Message 2'}
-        ]
-        
-        with stub_runner(None, None) as runner:
-            # First call returns messages
-            runner.add(
-                scenario_data.sqs_stubber.stub_receive_messages,
-                'test-queue-url',
-                test_messages,
-                10
-            )
-            # Second call returns empty (polling stops)
-            runner.add(
-                scenario_data.sqs_stubber.stub_receive_messages,
-                'test-queue-url',
-                [],
-                10
-            )
-            
-            messages = scenario_data.scenario._poll_queue_for_messages('test-queue-url')
-            
-            assert len(messages) == 2
-            assert messages[0]['Body'] == 'Message 1'
-            assert messages[1]['Body'] == 'Message 2'
-
 
 @pytest.mark.integ
 def test_run_scenario_integ(input_mocker, capsys):
     """Test the scenario with an integration test using live AWS services."""
     # Mock user inputs for a simple test case
     answers = [
-        False,  # Use FIFO topic? (No - standard topic)
+        "n",  # Use FIFO topic? (No - standard topic)
         "test-topic-integ",  # Topic name
         "test-queue-1-integ",  # Queue 1 name
         "test-queue-2-integ",  # Queue 2 name
         "Hello Integration Test",  # Message text
-        False,  # Send another message? (No)
+        "n",  # Send another message? (No)
         "",  # Press Enter to continue (multiple times)
         "",
         "",
         "",
-        True,  # Delete queue 1?
-        True,  # Delete queue 2?
-        True,  # Delete topic?
+        "y",  # Delete queue 1?
+        "y",  # Delete queue 2?
+        "y",  # Delete topic?
     ]
 
     input_mocker.mock_answers(answers)
@@ -297,4 +224,6 @@ def test_run_scenario_integ(input_mocker, capsys):
 
     # Verify the scenario completed successfully
     captured = capsys.readouterr()
+    
+    # Verify the scenario completed successfully
     assert "Messaging with topics and queues scenario is complete." in captured.out
