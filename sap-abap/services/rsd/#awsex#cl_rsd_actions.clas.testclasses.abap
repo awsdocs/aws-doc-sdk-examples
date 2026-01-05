@@ -173,7 +173,14 @@ CLASS ltc_awsex_cl_rsd_actions IMPLEMENTATION.
     DATA lv_drop_sql TYPE string.
     DATA lo_drop_result TYPE REF TO /aws1/cl_rsdexecutestmtoutput.
     DATA lv_statement_id TYPE /aws1/rsduuid.
+    DATA lo_delete_cluster_result TYPE REF TO /aws1/cl_rshdelclusterresult.
+    DATA lo_describe_result TYPE REF TO /aws1/cl_rshclustersmessage.
+    DATA lt_clusters TYPE /aws1/cl_rshcluster=>tt_clusterlist.
+    DATA lo_cluster TYPE REF TO /aws1/cl_rshcluster.
+    DATA lv_status TYPE /aws1/rshstring.
+    DATA lv_cleanup_successful TYPE abap_bool VALUE abap_false.
 
+    " Drop the table first
     TRY.
         lv_drop_sql = |DROP TABLE IF EXISTS { av_table_name }|.
         lo_drop_result = ao_rsd_actions->execute_statement(
@@ -185,10 +192,59 @@ CLASS ltc_awsex_cl_rsd_actions IMPLEMENTATION.
         lv_statement_id = lo_drop_result->get_id( ).
         wait_for_statement_finished( lv_statement_id ).
       CATCH /aws1/cx_rt_generic.
-        " Ignore cleanup errors
+        " Ignore table drop errors and continue with cluster deletion
     ENDTRY.
 
-    MESSAGE 'Redshift cluster tagged with convert_test=true. Manual cleanup required.' TYPE 'I'.
+    " Delete the cluster
+    TRY.
+        lo_delete_cluster_result = ao_rsh->deletecluster(
+          iv_clusteridentifier        = av_cluster_id
+          iv_skipfinalclustersnapshot = abap_true
+        ).
+
+        " Verify deletion by checking cluster status
+        TRY.
+            lo_describe_result = ao_rsh->describeclusters(
+              iv_clusteridentifier = av_cluster_id
+            ).
+
+            lt_clusters = lo_describe_result->get_clusters( ).
+
+            IF lines( lt_clusters ) = 0.
+              " No cluster returned - deletion successful
+              lv_cleanup_successful = abap_true.
+              MESSAGE 'Redshift cluster successfully deleted.' TYPE 'I'.
+            ELSE.
+              " Check if cluster status is 'deleting'
+              READ TABLE lt_clusters INDEX 1 INTO lo_cluster.
+              IF lo_cluster IS BOUND.
+                lv_status = lo_cluster->get_clusterstatus( ).
+                IF lv_status = 'deleting'.
+                  " Cluster is in deleting status - cleanup successful
+                  lv_cleanup_successful = abap_true.
+                  MESSAGE 'Redshift cluster deletion in progress.' TYPE 'I'.
+                ELSE.
+                  MESSAGE |Cluster status: { lv_status }. Manual cleanup may be required.| TYPE 'I'.
+                ENDIF.
+              ENDIF.
+            ENDIF.
+          CATCH /aws1/cx_rshclustnotfoundfault.
+            " Cluster not found - deletion successful
+            lv_cleanup_successful = abap_true.
+            MESSAGE 'Redshift cluster successfully deleted (not found).' TYPE 'I'.
+        ENDTRY.
+
+      CATCH /aws1/cx_rshclustnotfoundfault.
+        " Cluster already deleted
+        lv_cleanup_successful = abap_true.
+        MESSAGE 'Redshift cluster not found (already deleted).' TYPE 'I'.
+      CATCH /aws1/cx_rt_generic INTO DATA(lo_delete_ex).
+        MESSAGE |Cluster deletion error: { lo_delete_ex->get_text( ) }. Manual cleanup required.| TYPE 'I'.
+    ENDTRY.
+
+    IF lv_cleanup_successful = abap_false.
+      MESSAGE 'Redshift cluster tagged with convert_test=true. Manual cleanup required.' TYPE 'I'.
+    ENDIF.
   ENDMETHOD.
 
   METHOD wait_for_cluster_available.
