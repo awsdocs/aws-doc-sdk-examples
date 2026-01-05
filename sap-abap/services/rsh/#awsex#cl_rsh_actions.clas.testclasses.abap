@@ -43,7 +43,7 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
         
     ao_rsh = /aws1/cl_rsh_factory=>create( ao_session ).
         
-    CREATE OBJECT ao_rsh_actions TYPE /awsex/cl_rsh_actions.
+    ao_rsh_actions = NEW /awsex/cl_rsh_actions( ).
 
     lv_uuid_string = /awsex/cl_utils=>get_random_string( ).
     TRANSLATE lv_uuid_string TO LOWER CASE.
