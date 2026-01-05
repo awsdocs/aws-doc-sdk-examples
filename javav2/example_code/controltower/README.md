@@ -31,31 +31,31 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 ### Get started
 
-- [Hello AWS Control Tower](src/main/java/com/example/controltower/HelloControlTower.java#L28) (`ListBaselines`)
+- [Hello AWS Control Tower](src/main/java/com/example/controltower/HelloControlTower.java#L30) (`ListBaselines`)
 
 
 ### Basics
 
 Code examples that show you how to perform the essential operations within a service.
 
-- [Learn the basics](src/main/java/com/example/controltower/ControlTowerActions.java)
+- [Learn the basics](src/main/java/com/example/controltower/scenario/ControlTowerActions.java)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [DisableBaseline](src/main/java/com/example/controltower/ControlTowerActions.java#L241)
-- [DisableControl](src/main/java/com/example/controltower/ControlTowerActions.java#L431)
-- [EnableBaseline](src/main/java/com/example/controltower/ControlTowerActions.java#L188)
-- [EnableControl](src/main/java/com/example/controltower/ControlTowerActions.java#L377)
-- [GetBaselineOperation](src/main/java/com/example/controltower/ControlTowerActions.java#L38)
-- [GetControlOperation](src/main/java/com/example/controltower/ControlTowerActions.java#L474)
-- [ListBaselines](src/main/java/com/example/controltower/ControlTowerActions.java#L88)
-- [ListEnabledBaselines](src/main/java/com/example/controltower/ControlTowerActions.java#L138)
-- [ListEnabledControls](src/main/java/com/example/controltower/ControlTowerActions.java#L324)
-- [ListLandingZones](src/main/java/com/example/controltower/ControlTowerActions.java#L38)
-- [ResetEnabledBaseline](src/main/java/com/example/controltower/ControlTowerActions.java#L548)
+- [DisableBaseline](src/main/java/com/example/controltower/scenario/ControlTowerActions.java#L480)
+- [DisableControl](src/main/java/com/example/controltower/scenario/ControlTowerActions.java#L770)
+- [EnableBaseline](src/main/java/com/example/controltower/scenario/ControlTowerActions.java#L392)
+- [EnableControl](src/main/java/com/example/controltower/scenario/ControlTowerActions.java#L680)
+- [GetBaselineOperation](src/main/java/com/example/controltower/scenario/ControlTowerActions.java#L545)
+- [GetControlOperation](src/main/java/com/example/controltower/scenario/ControlTowerActions.java#L828)
+- [ListBaselines](src/main/java/com/example/controltower/scenario/ControlTowerActions.java#L259)
+- [ListEnabledBaselines](src/main/java/com/example/controltower/scenario/ControlTowerActions.java#L320)
+- [ListEnabledControls](src/main/java/com/example/controltower/scenario/ControlTowerActions.java#L609)
+- [ListLandingZones](src/main/java/com/example/controltower/scenario/ControlTowerActions.java#L206)
+- [ResetEnabledBaseline](src/main/java/com/example/controltower/scenario/ControlTowerActions.java#L928)
 
 
 <!--custom.examples.start-->

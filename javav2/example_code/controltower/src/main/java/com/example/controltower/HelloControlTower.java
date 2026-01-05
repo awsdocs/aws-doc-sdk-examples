@@ -3,6 +3,7 @@
 
 package com.example.controltower;
 
+import com.example.controltower.scenario.ControlTowerScenario;
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.controltower.ControlTowerClient;
@@ -35,7 +36,7 @@ public class HelloControlTower {
                 .build() ;
             helloControlTower(controlTowerClient);
         } catch (ControlTowerException e) {
-            System.err.println("Control Tower error occurred: " + e.awsErrorDetails().errorMessage());
+            System.out.println("Control Tower error occurred: " + e.awsErrorDetails().errorMessage());
         }
     }
 
@@ -57,7 +58,7 @@ public class HelloControlTower {
         
         try {
             paginator.stream()
-                    .flatMap(response -> response.baselines().stream())
+                .flatMap(response -> response.baselines().stream())
                     .forEach(baseline -> baselineNames.add(baseline.name()));
 
             System.out.println(baselineNames.size() + " baseline(s) retrieved.");
