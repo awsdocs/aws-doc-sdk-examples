@@ -56,9 +56,9 @@ CLASS ltc_awsex_cl_rsd_actions IMPLEMENTATION.
     DATA lv_insert_sql TYPE string.
     DATA lo_insert_result TYPE REF TO /aws1/cl_rsdexecutestmtoutput.
     DATA lv_statement_id TYPE /aws1/rsduuid.
-    
+
     ao_session = /aws1/cl_rt_session_aws=>create( iv_profile_id = cv_pfl ).
-        
+
     ao_rsh = /aws1/cl_rsh_factory=>create( ao_session ).
     ao_rsd = /aws1/cl_rsd_factory=>create( ao_session ).
     CREATE OBJECT ao_rsd_actions.
@@ -98,13 +98,13 @@ CLASS ltc_awsex_cl_rsd_actions IMPLEMENTATION.
           lo_describe_result = ao_rsh->describeclusters(
             iv_clusteridentifier = av_cluster_id
           ).
-              
+
           lt_clusters = lo_describe_result->get_clusters( ).
-              
+
           IF lines( lt_clusters ) > 0.
             READ TABLE lt_clusters INDEX 1 INTO lo_cluster.
             lv_status = lo_cluster->get_clusterstatus( ).
-                
+
             IF lv_status = 'available'.
               EXIT.
             ELSEIF lv_status <> 'creating'.
@@ -120,49 +120,49 @@ CLASS ltc_awsex_cl_rsd_actions IMPLEMENTATION.
         ENDIF.
 
         lv_create_sql = |CREATE TABLE { av_table_name } (id INT, title VARCHAR(100), year INT)|.
-        lo_create_result = ao_rsd->executestatement(
-          iv_clusteridentifier = av_cluster_id
-          iv_database          = av_database_name
-          iv_dbuser            = av_user_name
-          iv_sql               = lv_create_sql
+        lo_create_result = ao_rsd_actions->execute_statement(
+          iv_cluster_identifier = av_cluster_id
+          iv_database_name      = av_database_name
+          iv_user_name          = av_user_name
+          iv_sql                = lv_create_sql
         ).
         lv_statement_id = lo_create_result->get_id( ).
         wait_for_statement_finished( lv_statement_id ).
 
         lv_insert_sql = |INSERT INTO { av_table_name } VALUES (1, 'Test Movie 1', 2024)|.
-        lo_insert_result = ao_rsd->executestatement(
-          iv_clusteridentifier = av_cluster_id
-          iv_database          = av_database_name
-          iv_dbuser            = av_user_name
-          iv_sql               = lv_insert_sql
+        lo_insert_result = ao_rsd_actions->execute_statement(
+          iv_cluster_identifier = av_cluster_id
+          iv_database_name      = av_database_name
+          iv_user_name          = av_user_name
+          iv_sql                = lv_insert_sql
         ).
         lv_statement_id = lo_insert_result->get_id( ).
         wait_for_statement_finished( lv_statement_id ).
 
       CATCH /aws1/cx_rshclustalrdyexfault.
         wait_for_cluster_available( av_cluster_id ).
-        
+
         TRY.
             lv_create_sql = |CREATE TABLE { av_table_name } (id INT, title VARCHAR(100), year INT)|.
-            lo_create_result = ao_rsd->executestatement(
-              iv_clusteridentifier = av_cluster_id
-              iv_database          = av_database_name
-              iv_dbuser            = av_user_name
-              iv_sql               = lv_create_sql
+            lo_create_result = ao_rsd_actions->execute_statement(
+              iv_cluster_identifier = av_cluster_id
+              iv_database_name      = av_database_name
+              iv_user_name          = av_user_name
+              iv_sql                = lv_create_sql
             ).
             lv_statement_id = lo_create_result->get_id( ).
             wait_for_statement_finished( lv_statement_id ).
-            
+
             lv_insert_sql = |INSERT INTO { av_table_name } VALUES (1, 'Test Movie 1', 2024)|.
-            lo_insert_result = ao_rsd->executestatement(
-              iv_clusteridentifier = av_cluster_id
-              iv_database          = av_database_name
-              iv_dbuser            = av_user_name
-              iv_sql               = lv_insert_sql
+            lo_insert_result = ao_rsd_actions->execute_statement(
+              iv_cluster_identifier = av_cluster_id
+              iv_database_name      = av_database_name
+              iv_user_name          = av_user_name
+              iv_sql                = lv_insert_sql
             ).
             lv_statement_id = lo_insert_result->get_id( ).
             wait_for_statement_finished( lv_statement_id ).
-          CATCH /aws1/cx_rsdexecutestatementex.
+          CATCH /aws1/cx_rt_generic.
             " Table may already exist, continue
         ENDTRY.
     ENDTRY.
@@ -172,14 +172,14 @@ CLASS ltc_awsex_cl_rsd_actions IMPLEMENTATION.
     DATA lv_drop_sql TYPE string.
     DATA lo_drop_result TYPE REF TO /aws1/cl_rsdexecutestmtoutput.
     DATA lv_statement_id TYPE /aws1/rsduuid.
-    
+
     TRY.
         lv_drop_sql = |DROP TABLE IF EXISTS { av_table_name }|.
-        lo_drop_result = ao_rsd->executestatement(
-          iv_clusteridentifier = av_cluster_id
-          iv_database          = av_database_name
-          iv_dbuser            = av_user_name
-          iv_sql               = lv_drop_sql
+        lo_drop_result = ao_rsd_actions->execute_statement(
+          iv_cluster_identifier = av_cluster_id
+          iv_database_name      = av_database_name
+          iv_user_name          = av_user_name
+          iv_sql                = lv_drop_sql
         ).
         lv_statement_id = lo_drop_result->get_id( ).
         wait_for_statement_finished( lv_statement_id ).
@@ -203,13 +203,13 @@ CLASS ltc_awsex_cl_rsd_actions IMPLEMENTATION.
           lo_describe_result = ao_rsh->describeclusters(
             iv_clusteridentifier = iv_cluster_id
           ).
-              
+
           lt_clusters = lo_describe_result->get_clusters( ).
-              
+
           IF lines( lt_clusters ) > 0.
             READ TABLE lt_clusters INDEX 1 INTO lo_cluster.
             lv_status = lo_cluster->get_clusterstatus( ).
-                
+
             IF lv_status = 'available'.
               RETURN.
             ELSEIF lv_status = 'creating' OR lv_status = 'modifying'.
@@ -240,7 +240,7 @@ CLASS ltc_awsex_cl_rsd_actions IMPLEMENTATION.
           lo_describe_result = ao_rsd_actions->describe_statement(
             iv_statement_id = iv_statement_id
           ).
-              
+
           lv_status = lo_describe_result->get_status( ).
 
           IF lv_status = 'FINISHED'.
@@ -271,7 +271,7 @@ CLASS ltc_awsex_cl_rsd_actions IMPLEMENTATION.
     DATA lv_dev_found TYPE abap_bool VALUE abap_false.
     DATA lv_database_name TYPE /aws1/rsdstring.
     FIELD-SYMBOLS <fs_database> TYPE any.
-    
+
     lo_result = ao_rsd_actions->list_databases(
       iv_cluster_identifier = av_cluster_id
       iv_database_name      = av_database_name
@@ -283,7 +283,7 @@ CLASS ltc_awsex_cl_rsd_actions IMPLEMENTATION.
       msg = |List databases failed| ).
 
     lt_databases = lo_result->get_databases( ).
-        
+
     cl_abap_unit_assert=>assert_not_initial(
       act = lt_databases
       msg = |No databases returned| ).
@@ -307,7 +307,7 @@ CLASS ltc_awsex_cl_rsd_actions IMPLEMENTATION.
     DATA lv_insert_sql TYPE string.
     DATA lo_result TYPE REF TO /aws1/cl_rsdexecutestmtoutput.
     DATA lv_statement_id TYPE /aws1/rsduuid.
-    
+
     lv_insert_sql = |INSERT INTO { av_table_name } VALUES (1, 'Test Movie', 2024)|.
     lo_result = ao_rsd_actions->execute_statement(
       iv_cluster_identifier = av_cluster_id
@@ -336,7 +336,7 @@ CLASS ltc_awsex_cl_rsd_actions IMPLEMENTATION.
     DATA lv_statement_id TYPE /aws1/rsduuid.
     DATA lo_result TYPE REF TO /aws1/cl_rsddescrstmtresponse.
     DATA lv_status TYPE /aws1/rsdstatusstring.
-    
+
     lv_query_sql = |SELECT * FROM { av_table_name } LIMIT 1|.
     lo_exec_result = ao_rsd_actions->execute_statement(
       iv_cluster_identifier = av_cluster_id
@@ -372,7 +372,7 @@ CLASS ltc_awsex_cl_rsd_actions IMPLEMENTATION.
     DATA lo_result TYPE REF TO /aws1/cl_rsdgetstmtresultrsp.
     DATA lt_columns TYPE /aws1/cl_rsdcolumnmetadata=>tt_columnmetadatalist.
     DATA lt_records TYPE /aws1/cl_rsdfield=>tt_sqlrecords.
-    
+
     CREATE OBJECT lo_param
       EXPORTING
         iv_name  = 'year'
