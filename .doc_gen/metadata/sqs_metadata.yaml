@@ -122,6 +122,12 @@ sqs_CreateQueue:
             - description:
               snippet_tags:
                 - python.example_code.sqs.CreateQueue
+        - sdk_version: 3
+          github: python/cross_service/topics_and_queues
+          excerpts:
+            - snippet_tags:
+                - python.example_code.sqs.SqsWrapper
+                - python.example_code.sqs.CreateQueue
     Ruby:
       versions:
         - sdk_version: 3
@@ -402,6 +408,12 @@ sqs_DeleteQueue:
             - description:
               snippet_tags:
                 - python.example_code.sqs.DeleteQueue
+        - sdk_version: 3
+          github: python/cross_service/topics_and_queues
+          excerpts:
+            - snippet_tags:
+                - python.example_code.sqs.SqsWrapper
+                - python.example_code.sqs.DeleteQueue
     Ruby:
       versions:
         - sdk_version: 3
@@ -645,6 +657,12 @@ sqs_ReceiveMessage:
             - description:
               snippet_tags:
                 - python.example_code.sqs.ReceiveMessage
+        - sdk_version: 3
+          github: python/cross_service/topics_and_queues
+          excerpts:
+            - snippet_tags:
+                - python.example_code.sqs.SqsWrapper
+                - python.example_code.sqs.ReceiveMessage
     Ruby:
       versions:
         - sdk_version: 3
@@ -812,6 +830,12 @@ sqs_DeleteMessageBatch:
             - description:
               snippet_tags:
                 - python.example_code.sqs.DeleteMessageBatch
+        - sdk_version: 3
+          github: python/cross_service/topics_and_queues
+          excerpts:
+            - snippet_tags:
+                - python.example_code.sqs.SqsWrapper
+                - python.example_code.sqs.DeleteMessageBatch
     C++:
       versions:
         - sdk_version: 1
@@ -909,6 +933,14 @@ sqs_GetQueueAttributes:
             - description:
               snippet_tags:
                 - TopicsAndQueues.dotnetv3.GetQueueAttributes
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/cross_service/topics_and_queues
+          excerpts:
+            - snippet_tags:
+                - python.example_code.sqs.SqsWrapper
+                - python.example_code.sqs.GetQueueAttributes
     C++:
       versions:
         - sdk_version: 1
@@ -1003,6 +1035,15 @@ sqs_SetQueueAttributes:
             - description: Set the policy attribute of a queue for a topic.
               snippet_tags:
                 - TopicsAndQueues.dotnetv3.SetQueueAttributes
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/cross_service/topics_and_queues
+          excerpts:
+            - description: Set the policy attribute of a queue for a topic.
+              snippet_tags:
+                - python.example_code.sqs.SqsWrapper
+                - python.example_code.sqs.SetQueueAttributes
     Go:
       versions:
         - sdk_version: 2
