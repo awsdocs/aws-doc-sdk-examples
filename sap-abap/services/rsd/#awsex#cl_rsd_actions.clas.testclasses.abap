@@ -346,9 +346,8 @@ CLASS ltc_awsex_cl_rsd_actions IMPLEMENTATION.
       msg = |No databases returned| ).
 
     " The 'dev' database should exist by default
-    LOOP AT lt_databases ASSIGNING <fs_database>.
-      lv_database_name = <fs_database>.
-      IF lv_database_name = 'dev'.
+    LOOP AT lt_databases into data(lo_database).
+      IF lo_database->GET_VALUE( ) = 'dev'.
         lv_dev_found = abap_true.
         EXIT.
       ENDIF.
