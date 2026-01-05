@@ -288,7 +288,7 @@ class SqsWrapper:
 
     def list_queues(self, queue_name_prefix: Optional[str] = None) -> List[str]:
         """
-        List all SQS queues in the account.
+        List all SQS queues in the account using pagination.
 
         Args:
             queue_name_prefix: Optional prefix to filter queue names
@@ -300,18 +300,25 @@ class SqsWrapper:
             ClientError: If listing queues fails
         """
         try:
-            params = {}
+            queue_urls = []
+            paginator = self.sqs_client.get_paginator('list_queues')
+            
+            page_params = {}
             if queue_name_prefix:
-                params['QueueNamePrefix'] = queue_name_prefix
+                page_params['QueueNamePrefix'] = queue_name_prefix
 
-            response = self.sqs_client.list_queues(**params)
-            queue_urls = response.get('QueueUrls', [])
+            for page in paginator.paginate(**page_params):
+                queue_urls.extend(page.get('QueueUrls', []))
             
             logger.info(f"Found {len(queue_urls)} queues")
             return queue_urls
 
         except ClientError as e:
-            logger.error(f"Error listing queues: {e}")
+            error_code = e.response.get('Error', {}).get('Code', 'Unknown')
+            if error_code == 'AccessDenied':
+                logger.error("Access denied listing queues - check IAM permissions")
+            else:
+                logger.error(f"Error listing queues: {error_code} - {e}")
             raise
 
     def send_message(self, queue_url: str, message_body: str, **kwargs) -> str:
