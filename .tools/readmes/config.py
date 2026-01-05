@@ -210,6 +210,7 @@ language = {
                 "glue": "sap-abap/services/glu",
                 "healthlake": "sap-abap/services/hll",
                 "iotsitewise": "sap-abap/services/ios",
+                "keyspaces": "sap-abap/services/kys",
                 "kinesis": "sap-abap/services/kns",
                 "lambda": "sap-abap/services/lmd",
                 "medical-imaging": "sap-abap/services/mig",

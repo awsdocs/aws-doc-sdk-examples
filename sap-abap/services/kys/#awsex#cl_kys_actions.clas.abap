@@ -6,7 +6,6 @@ CLASS /awsex/cl_kys_actions DEFINITION
   CREATE PUBLIC .
 
   PUBLIC SECTION.
-    " snippet-start:[kys.abapv1.create_keyspace]
     "! <p class="shorttext synchronized">Creates a keyspace.</p>
     "! @parameter iv_keyspace_name | The name of the keyspace to create
     "! @parameter oo_result | The output from the CreateKeyspace operation
@@ -18,9 +17,7 @@ CLASS /awsex/cl_kys_actions DEFINITION
         oo_result        TYPE REF TO /aws1/cl_kyscreatekeyspacersp
       RAISING
         /aws1/cx_rt_generic .
-    " snippet-end:[kys.abapv1.create_keyspace]
 
-    " snippet-start:[kys.abapv1.get_keyspace]
     "! <p class="shorttext synchronized">Checks if a keyspace exists.</p>
     "! @parameter iv_keyspace_name | The name of the keyspace to check
     "! @parameter oo_result | The output from the GetKeyspace operation
@@ -32,9 +29,7 @@ CLASS /awsex/cl_kys_actions DEFINITION
         oo_result        TYPE REF TO /aws1/cl_kysgetkeyspacersp
       RAISING
         /aws1/cx_rt_generic .
-    " snippet-end:[kys.abapv1.get_keyspace]
 
-    " snippet-start:[kys.abapv1.list_keyspaces]
     "! <p class="shorttext synchronized">Lists keyspaces in your account.</p>
     "! @parameter iv_max_results | Maximum number of keyspaces to return
     "! @parameter oo_result | The output from the ListKeyspaces operation
@@ -46,9 +41,7 @@ CLASS /awsex/cl_kys_actions DEFINITION
         oo_result      TYPE REF TO /aws1/cl_kyslistkeyspacesrsp
       RAISING
         /aws1/cx_rt_generic .
-    " snippet-end:[kys.abapv1.list_keyspaces]
 
-    " snippet-start:[kys.abapv1.create_table]
     "! <p class="shorttext synchronized">Creates a table in the keyspace.</p>
     "! @parameter iv_keyspace_name | The name of the keyspace
     "! @parameter iv_table_name | The name of the table to create
@@ -62,9 +55,7 @@ CLASS /awsex/cl_kys_actions DEFINITION
         oo_result        TYPE REF TO /aws1/cl_kyscreatetablersp
       RAISING
         /aws1/cx_rt_generic .
-    " snippet-end:[kys.abapv1.create_table]
 
-    " snippet-start:[kys.abapv1.get_table]
     "! <p class="shorttext synchronized">Gets information about a table.</p>
     "! @parameter iv_keyspace_name | The name of the keyspace
     "! @parameter iv_table_name | The name of the table
@@ -78,9 +69,7 @@ CLASS /awsex/cl_kys_actions DEFINITION
         oo_result        TYPE REF TO /aws1/cl_kysgettableresponse
       RAISING
         /aws1/cx_rt_generic .
-    " snippet-end:[kys.abapv1.get_table]
 
-    " snippet-start:[kys.abapv1.list_tables]
     "! <p class="shorttext synchronized">Lists tables in the keyspace.</p>
     "! @parameter iv_keyspace_name | The name of the keyspace
     "! @parameter oo_result | The output from the ListTables operation
@@ -92,9 +81,7 @@ CLASS /awsex/cl_kys_actions DEFINITION
         oo_result        TYPE REF TO /aws1/cl_kyslisttablesresponse
       RAISING
         /aws1/cx_rt_generic .
-    " snippet-end:[kys.abapv1.list_tables]
 
-    " snippet-start:[kys.abapv1.update_table]
     "! <p class="shorttext synchronized">Updates the schema of a table.</p>
     "! @parameter iv_keyspace_name | The name of the keyspace
     "! @parameter iv_table_name | The name of the table
@@ -108,9 +95,7 @@ CLASS /awsex/cl_kys_actions DEFINITION
         oo_result        TYPE REF TO /aws1/cl_kysupdatetablersp
       RAISING
         /aws1/cx_rt_generic .
-    " snippet-end:[kys.abapv1.update_table]
 
-    " snippet-start:[kys.abapv1.restore_table]
     "! <p class="shorttext synchronized">Restores a table to a previous point in time.</p>
     "! @parameter iv_source_keyspace_name | The source keyspace name
     "! @parameter iv_source_table_name | The source table name
@@ -130,9 +115,7 @@ CLASS /awsex/cl_kys_actions DEFINITION
         oo_result               TYPE REF TO /aws1/cl_kysrestoretablersp
       RAISING
         /aws1/cx_rt_generic .
-    " snippet-end:[kys.abapv1.restore_table]
 
-    " snippet-start:[kys.abapv1.delete_table]
     "! <p class="shorttext synchronized">Deletes a table from the keyspace.</p>
     "! @parameter iv_keyspace_name | The name of the keyspace
     "! @parameter iv_table_name | The name of the table to delete
@@ -143,9 +126,7 @@ CLASS /awsex/cl_kys_actions DEFINITION
         iv_table_name    TYPE /aws1/kystablename
       RAISING
         /aws1/cx_rt_generic .
-    " snippet-end:[kys.abapv1.delete_table]
 
-    " snippet-start:[kys.abapv1.delete_keyspace]
     "! <p class="shorttext synchronized">Deletes a keyspace.</p>
     "! @parameter iv_keyspace_name | The name of the keyspace to delete
     "! @raising /aws1/cx_rt_generic | Raised for any AWS SDK error
@@ -154,7 +135,6 @@ CLASS /awsex/cl_kys_actions DEFINITION
         iv_keyspace_name TYPE /aws1/kyskeyspacename
       RAISING
         /aws1/cx_rt_generic .
-    " snippet-end:[kys.abapv1.delete_keyspace]
 
   PROTECTED SECTION.
   PRIVATE SECTION.
