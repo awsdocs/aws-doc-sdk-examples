@@ -352,7 +352,7 @@ controltower_GetBaselineOperation:
           excerpts:
             - description:
               snippet_tags:
-                - controltower.java2.list_landing_zones.main
+                - controltower.java2.get_baseline_operation.main
     Python:
       versions:
         - sdk_version: 3

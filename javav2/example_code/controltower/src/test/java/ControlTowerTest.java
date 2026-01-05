@@ -23,7 +23,6 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -31,7 +30,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ControlTowerTest {
     private static ControlTowerClient controlTowerClient;
-
     @BeforeAll
     public static void setUp() {
         controlTowerClient = ControlTowerClient.builder()
@@ -66,9 +64,9 @@ public class ControlTowerTest {
             assertNotNull(baselines, "Baselines list should not be null");
             assertNotNull(controls, "Controls list should not be null");
 
-            System.out.println("Landing Zones: " + landingZones.size());
+            System.out.println("Landing Zones:  " + landingZones.size());
             System.out.println("Baselines: " + baselines.size());
-            System.out.println("Controls: " + controls.size());
+            System.out.println("Controls:  " + controls.size());
         });
 
         System.out.println("Test 2 passed");
