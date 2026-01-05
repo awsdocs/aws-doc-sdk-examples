@@ -17,7 +17,7 @@ CLASS /awsex/cl_agw_actions DEFINITION
       RAISING
         /aws1/cx_rt_generic.
 
-    METHODS add_rest_resource
+    METHODS create_resource
       IMPORTING
         VALUE(iv_rest_api_id)   TYPE /aws1/agwstring
         VALUE(iv_parent_id)     TYPE /aws1/agwstring
@@ -127,13 +127,13 @@ CLASS /AWSEX/CL_AGW_ACTIONS IMPLEMENTATION.
   ENDMETHOD.
 
 
-  METHOD add_rest_resource.
+  METHOD create_resource.
     CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_agw) = /aws1/cl_agw_factory=>create( lo_session ).
 
-    " snippet-start:[agw.abapv1.add_rest_resource]
+    " snippet-start:[agw.abapv1.create_resource]
     TRY.
         oo_result = lo_agw->createresource(
           iv_restapiid = iv_rest_api_id
@@ -148,7 +148,7 @@ CLASS /AWSEX/CL_AGW_ACTIONS IMPLEMENTATION.
       CATCH /aws1/cx_agwtoomanyrequestsex.
         MESSAGE 'Too many requests - rate limit exceeded' TYPE 'E'.
     ENDTRY.
-    " snippet-end:[agw.abapv1.add_rest_resource]
+    " snippet-end:[agw.abapv1.create_resource]
   ENDMETHOD.
 
 
