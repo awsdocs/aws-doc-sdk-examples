@@ -258,7 +258,7 @@ class SnsWrapper:
 
     def list_topics(self) -> list:
         """
-        List all SNS topics in the account.
+        List all SNS topics in the account using pagination.
 
         Returns:
             list: List of topic ARNs
@@ -267,14 +267,21 @@ class SnsWrapper:
             ClientError: If listing topics fails
         """
         try:
-            response = self.sns_client.list_topics()
-            topics = [topic['TopicArn'] for topic in response.get('Topics', [])]
+            topics = []
+            paginator = self.sns_client.get_paginator('list_topics')
+            
+            for page in paginator.paginate():
+                topics.extend([topic['TopicArn'] for topic in page.get('Topics', [])])
             
             logger.info(f"Found {len(topics)} topics")
             return topics
 
         except ClientError as e:
-            logger.error(f"Error listing topics: {e}")
+            error_code = e.response.get('Error', {}).get('Code', 'Unknown')
+            if error_code == 'AuthorizationError':
+                logger.error("Authorization error listing topics - check IAM permissions")
+            else:
+                logger.error(f"Error listing topics: {error_code} - {e}")
             raise
 
 # snippet-end:[python.example_code.sns.SnsWrapper]
