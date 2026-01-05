@@ -99,8 +99,6 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD create_cluster.
-    DATA lt_tags TYPE /aws1/cl_rshtag=>tt_taglist.
-    DATA lo_tag TYPE REF TO /aws1/cl_rshtag.
     DATA lo_result TYPE REF TO /aws1/cl_rshcreateclustresult.
     DATA lo_cluster TYPE REF TO /aws1/cl_rshcluster.
     DATA lo_describe_result TYPE REF TO /aws1/cl_rshclustersmessage.
@@ -114,22 +112,15 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
     IF strlen( lv_test_cluster_id ) > 30.
       lv_test_cluster_id = substring( val = lv_test_cluster_id len = 30 ).
     ENDIF.
-    
-    CREATE OBJECT lo_tag
-      EXPORTING
-        iv_key   = 'convert_test'
-        iv_value = 'true'.
-    APPEND lo_tag TO lt_tags.
 
     TRY.
-        lo_result = ao_rsh->createcluster(
-          iv_clusteridentifier  = lv_test_cluster_id
-          iv_nodetype           = 'ra3.xlplus'
-          iv_masterusername     = 'awsuser'
-          iv_masteruserpassword = 'AwsUser1000'
-          iv_publiclyaccessible = abap_false
-          iv_clustertype        = 'single-node'
-          it_tags               = lt_tags
+        lo_result = ao_rsh_actions->create_cluster(
+          iv_cluster_identifier  = lv_test_cluster_id
+          iv_node_type           = 'ra3.xlplus'
+          iv_master_username     = 'awsuser'
+          iv_master_password     = 'AwsUser1000'
+          iv_publicly_accessible = abap_false
+          iv_number_of_nodes     = 1
         ).
 
         cl_abap_unit_assert=>assert_bound(
@@ -145,14 +136,13 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
 
         wait_for_cluster_available( lv_test_cluster_id ).
         
-        ao_rsh->deletecluster(
-          iv_clusteridentifier = lv_test_cluster_id
-          iv_skipfinalclustersnapshot = abap_true
+        ao_rsh_actions->delete_cluster(
+          iv_cluster_identifier = lv_test_cluster_id
         ).
 
       CATCH /aws1/cx_rshclustalrdyexfault.
-        lo_describe_result = ao_rsh->describeclusters(
-          iv_clusteridentifier = lv_test_cluster_id
+        lo_describe_result = ao_rsh_actions->describe_clusters(
+          iv_cluster_identifier = lv_test_cluster_id
         ).
             
         lt_clusters = lo_describe_result->get_clusters( ).
