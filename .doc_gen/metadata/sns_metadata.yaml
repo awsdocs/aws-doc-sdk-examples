@@ -529,6 +529,12 @@ sns_CreateTopic:
             - snippet_tags:
                 - python.example_code.sns.SnsWrapper
                 - python.example_code.sns.CreateTopic
+        - sdk_version: 3
+          github: python/cross_service/topics_and_queues
+          excerpts:
+            - snippet_tags:
+                - python.example_code.sns.SnsWrapper
+                - python.example_code.sns.CreateTopic
     Ruby:
       versions:
         - sdk_version: 3
@@ -630,6 +636,12 @@ sns_DeleteTopic:
       versions:
         - sdk_version: 3
           github: python/example_code/sns
+          excerpts:
+            - snippet_tags:
+                - python.example_code.sns.SnsWrapper
+                - python.example_code.sns.DeleteTopic
+        - sdk_version: 3
+          github: python/cross_service/topics_and_queues
           excerpts:
             - snippet_tags:
                 - python.example_code.sns.SnsWrapper
@@ -765,6 +777,12 @@ sns_Publish:
               snippet_tags:
                 - python.example_code.sns.SnsWrapper
                 - python.example_code.sns.Publish_MessageStructure
+        - sdk_version: 3
+          github: python/cross_service/topics_and_queues
+          excerpts:
+            - snippet_tags:
+                - python.example_code.sns.SnsWrapper
+                - python.example_code.sns.Publish
     Ruby:
       versions:
         - sdk_version: 3
@@ -1093,6 +1111,13 @@ sns_Subscribe:
               snippet_tags:
                 - python.example_code.sns.SnsWrapper
                 - python.example_code.sns.Subscribe
+        - sdk_version: 3
+          github: python/cross_service/topics_and_queues
+          excerpts:
+            - description: Subscribe a queue to a topic with optional filters.
+              snippet_tags:
+                - python.example_code.sns.SnsWrapper
+                - python.example_code.sns.Subscribe
     Ruby:
       versions:
         - sdk_version: 3
@@ -1192,6 +1217,12 @@ sns_Unsubscribe:
       versions:
         - sdk_version: 3
           github: python/example_code/sns
+          excerpts:
+            - snippet_tags:
+                - python.example_code.sns.SnsWrapper
+                - python.example_code.sns.Unsubscribe
+        - sdk_version: 3
+          github: python/cross_service/topics_and_queues
           excerpts:
             - snippet_tags:
                 - python.example_code.sns.SnsWrapper
