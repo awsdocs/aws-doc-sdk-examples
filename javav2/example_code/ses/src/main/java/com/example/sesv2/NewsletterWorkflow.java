@@ -17,6 +17,29 @@ import software.amazon.awssdk.services.sesv2.model.*;
  * This class implements the SES v2 Coupon Newsletter Workflow.
  * It demonstrates how to use the Amazon Simple Email Service (SES) v2 to send a
  * coupon newsletter to a list of contacts.
+ *
+ * to send a coupon newsletter to a list of contacts.
+ *
+ * NOTE:
+ * To run this example, make sure the following resource files exist:
+ *   - welcome.html
+ *   - welcome.txt
+ *   - coupon-newsletter.html
+ *   - coupon-newsletter.txt
+ *   - sample_coupons.json
+ *
+ * These files are located in your project here:
+ *
+ * aws-doc-sdk-examples\scenarios\features\sesv2_weekly_mailer\resources
+ *
+ * The program expects them in:
+ *
+ * aws-doc-sdk-examples\resources\coupon_newsletter
+ *
+ * So copy the files from:
+ *   aws-doc-sdk-examples\scenarios\features\sesv2_weekly_mailer\resources
+ * To:
+ *   [your project]\resources\coupon_newsletter
  */
 public class NewsletterWorkflow {
   public static final String CONTACT_LIST_NAME = "weekly-coupons-newsletter";
