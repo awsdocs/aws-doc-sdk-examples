@@ -190,13 +190,14 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
 
     TRY.
         " Test the create_cluster action method
+        " Note: Using 2 nodes for multi-node cluster (minimum requirement)
         lo_result = ao_rsh_actions->create_cluster(
           iv_cluster_identifier  = lv_test_cluster_id
           iv_node_type           = 'ra3.xlplus'
           iv_master_username     = 'awsuser'
           iv_master_password     = 'AwsUser1000'
           iv_publicly_accessible = abap_false
-          iv_number_of_nodes     = 1
+          iv_number_of_nodes     = 2
         ).
 
         cl_abap_unit_assert=>assert_bound(
