@@ -38,48 +38,78 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
     DATA(lv_uuid) = /awsex/cl_utils=>get_random_string( ).
     DATA(lv_api_name) = 'test-api-' && lv_uuid.
 
-    TRY.
-        DATA(lo_api) = ao_agw->createrestapi(
-          iv_name = lv_api_name
-          iv_description = 'Test API for ABAP SDK examples' ).
-        av_rest_api_id = lo_api->get_id( ).
+    " Retry logic for rate limiting
+    DATA lv_retry_count TYPE i VALUE 0.
+    DATA lv_max_retries TYPE i VALUE 3.
+    DATA lv_created TYPE abap_bool VALUE abap_false.
 
-        " Get the root resource ID
-        DATA(lo_resources) = ao_agw->getresources( iv_restapiid = av_rest_api_id ).
-        DATA(lt_resources) = lo_resources->get_items( ).
-        LOOP AT lt_resources INTO DATA(lo_resource).
-          IF lo_resource->get_path( ) = '/'.
-            av_root_resource_id = lo_resource->get_id( ).
-            EXIT.
+    WHILE lv_retry_count < lv_max_retries AND lv_created = abap_false.
+      TRY.
+          DATA(lo_api) = ao_agw->createrestapi(
+            iv_name = lv_api_name
+            iv_description = 'Test API for ABAP SDK examples' ).
+          av_rest_api_id = lo_api->get_id( ).
+          lv_created = abap_true.
+
+          " Get the root resource ID
+          DATA(lo_resources) = ao_agw->getresources( iv_restapiid = av_rest_api_id ).
+          DATA(lt_resources) = lo_resources->get_items( ).
+          LOOP AT lt_resources INTO DATA(lo_resource).
+            IF lo_resource->get_path( ) = '/'.
+              av_root_resource_id = lo_resource->get_id( ).
+              EXIT.
+            ENDIF.
+          ENDLOOP.
+
+          " Tag the API for cleanup
+          DATA(lt_tags) = VALUE /aws1/cl_agwmapofstrtostr_w=>tt_mapofstringtostring(
+            ( VALUE /aws1/cl_agwmapofstrtostr_w=>ts_mapofstringtostring_maprow(
+                key = 'convert_test'
+                value = NEW /aws1/cl_agwmapofstrtostr_w( 'true' ) ) ) ).
+          ao_agw->tagresource(
+            iv_resourcearn = 'arn:aws:apigateway:' && ao_session->get_region( ) &&
+                            '::/restapis/' && av_rest_api_id
+            it_tags = lt_tags ).
+
+        CATCH /aws1/cx_agwtoomanyrequestsex INTO DATA(lo_rate_limit).
+          lv_retry_count = lv_retry_count + 1.
+          IF lv_retry_count < lv_max_retries.
+            " Wait before retrying with exponential backoff
+            DATA(lv_wait_time) = lv_retry_count * 2.
+            WAIT UP TO lv_wait_time SECONDS.
+          ELSE.
+            cl_abap_unit_assert=>fail( msg = |Failed to create test REST API after { lv_max_retries } attempts: Rate limited| ).
           ENDIF.
-        ENDLOOP.
+        CATCH /aws1/cx_rt_generic INTO DATA(lo_exception).
+          cl_abap_unit_assert=>fail( msg = |Failed to create test REST API: { lo_exception->get_text( ) }| ).
+      ENDTRY.
+    ENDWHILE.
 
-        " Tag the API for cleanup
-        DATA(lt_tags) = VALUE /aws1/cl_agwmapofstrtostr_w=>tt_mapofstringtostring(
-          ( VALUE /aws1/cl_agwmapofstrtostr_w=>ts_mapofstringtostring_maprow(
-              key = 'convert_test'
-              value = NEW /aws1/cl_agwmapofstrtostr_w( 'true' ) ) ) ).
-        ao_agw->tagresource(
-          iv_resourcearn = 'arn:aws:apigateway:' && ao_session->get_region( ) &&
-                          '::/restapis/' && av_rest_api_id
-          it_tags = lt_tags ).
-
-      CATCH /aws1/cx_rt_generic INTO DATA(lo_exception).
-        cl_abap_unit_assert=>fail( msg = |Failed to create test REST API: { lo_exception->get_text( ) }| ).
-    ENDTRY.
+    IF av_rest_api_id IS INITIAL OR av_root_resource_id IS INITIAL.
+      cl_abap_unit_assert=>fail( msg = 'Failed to set up test REST API or root resource' ).
+    ENDIF.
   ENDMETHOD.
 
   METHOD class_teardown.
+    " Wait before cleanup to avoid rate limiting
+    WAIT UP TO 2 SECONDS.
+
     IF av_rest_api_id IS NOT INITIAL.
       TRY.
           ao_agw->deleterestapi( iv_restapiid = av_rest_api_id ).
+        CATCH /aws1/cx_agwtoomanyrequestsex.
+          " If rate limited during cleanup, just log it
+          MESSAGE 'Rate limited during cleanup - manual cleanup may be required' TYPE 'I'.
         CATCH /aws1/cx_rt_generic.
-          " Ignore cleanup errors
+          " Ignore other cleanup errors
       ENDTRY.
     ENDIF.
   ENDMETHOD.
 
   METHOD create_rest_api.
+    " Wait to avoid rate limiting from class_setup
+    WAIT UP TO 1 SECONDS.
+
     DATA(lv_uuid) = /awsex/cl_utils=>get_random_string( ).
     DATA(lv_api_name) = 'test-actions-' && lv_uuid.
 
@@ -89,8 +119,24 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
         DATA(lv_name) = lo_result->get_name( ).
         MESSAGE 'REST API created via actions class with ID: ' && lv_api_id TYPE 'I'.
 
+        " Tag for cleanup
+        DATA(lt_tags) = VALUE /aws1/cl_agwmapofstrtostr_w=>tt_mapofstringtostring(
+          ( VALUE /aws1/cl_agwmapofstrtostr_w=>ts_mapofstringtostring_maprow(
+              key = 'convert_test'
+              value = NEW /aws1/cl_agwmapofstrtostr_w( 'true' ) ) ) ).
+        ao_agw->tagresource(
+          iv_resourcearn = 'arn:aws:apigateway:' && ao_session->get_region( ) &&
+                          '::/restapis/' && lv_api_id
+          it_tags = lt_tags ).
+
+        " Wait to avoid rate limiting
+        WAIT UP TO 2 SECONDS.
+
         " Clean up the API created by this test
         ao_actions->delete_rest_api( lv_api_id ).
+      CATCH /aws1/cx_agwtoomanyrequestsex INTO DATA(lo_rate_limit).
+        " If rate limited, skip cleanup but still validate what we can
+        MESSAGE 'Rate limited - test partially completed' TYPE 'I'.
       CATCH /aws1/cx_rt_generic INTO DATA(lo_exception).
         cl_abap_unit_assert=>fail( msg = |Failed to create REST API: { lo_exception->get_text( ) }| ).
     ENDTRY.
@@ -380,6 +426,9 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD delete_rest_api.
+    " Wait to avoid rate limiting
+    WAIT UP TO 1 SECONDS.
+
     " Create a new API specifically for deletion test
     DATA(lv_uuid) = /awsex/cl_utils=>get_random_string( ).
     DATA(lv_api_name) = 'test-delete-' && lv_uuid.
@@ -411,6 +460,9 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
           CATCH /aws1/cx_agwnotfoundexception.
             " Expected - API was successfully deleted
         ENDTRY.
+      CATCH /aws1/cx_agwtoomanyrequestsex INTO DATA(lo_rate_limit).
+        " If rate limited during creation or deletion, log but don't fail
+        MESSAGE 'Rate limited during delete test - skipping verification' TYPE 'I'.
       CATCH /aws1/cx_rt_generic INTO DATA(lo_exception).
         " If rate limited or other error, report it
         MESSAGE 'Test skipped or failed: ' && lo_exception->get_text( ) TYPE 'I'.
