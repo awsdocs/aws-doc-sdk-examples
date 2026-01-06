@@ -44,6 +44,14 @@ keyspaces_Hello:
     keyspaces: {ListKeyspaces}
 keyspaces_CreateKeyspace:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/kys
+          excerpts:
+            - description:
+              snippet_tags:
+                - kys.abapv1.create_keyspace
     .NET:
       versions:
         - sdk_version: 3
@@ -85,6 +93,14 @@ keyspaces_CreateKeyspace:
     keyspaces: {CreateKeyspace}
 keyspaces_GetKeyspace:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/kys
+          excerpts:
+            - description:
+              snippet_tags:
+                - kys.abapv1.get_keyspace
     .NET:
       versions:
         - sdk_version: 3
@@ -126,6 +142,14 @@ keyspaces_GetKeyspace:
     keyspaces: {GetKeyspace}
 keyspaces_ListKeyspaces:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/kys
+          excerpts:
+            - description:
+              snippet_tags:
+                - kys.abapv1.list_keyspaces
     .NET:
       versions:
         - sdk_version: 3
@@ -167,6 +191,14 @@ keyspaces_ListKeyspaces:
     keyspaces: {ListKeyspaces}
 keyspaces_CreateTable:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/kys
+          excerpts:
+            - description:
+              snippet_tags:
+                - kys.abapv1.create_table
     .NET:
       versions:
         - sdk_version: 3
@@ -208,6 +240,14 @@ keyspaces_CreateTable:
     keyspaces: {CreateTable}
 keyspaces_GetTable:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/kys
+          excerpts:
+            - description:
+              snippet_tags:
+                - kys.abapv1.get_table
     .NET:
       versions:
         - sdk_version: 3
@@ -249,6 +289,14 @@ keyspaces_GetTable:
     keyspaces: {GetTable}
 keyspaces_ListTables:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/kys
+          excerpts:
+            - description:
+              snippet_tags:
+                - kys.abapv1.list_tables
     .NET:
       versions:
         - sdk_version: 3
@@ -290,6 +338,14 @@ keyspaces_ListTables:
     keyspaces: {ListTables}
 keyspaces_UpdateTable:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/kys
+          excerpts:
+            - description:
+              snippet_tags:
+                - kys.abapv1.update_table
     .NET:
       versions:
         - sdk_version: 3
@@ -331,6 +387,14 @@ keyspaces_UpdateTable:
     keyspaces: {UpdateTable}
 keyspaces_RestoreTable:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/kys
+          excerpts:
+            - description:
+              snippet_tags:
+                - kys.abapv1.restore_table
     .NET:
       versions:
         - sdk_version: 3
@@ -372,6 +436,14 @@ keyspaces_RestoreTable:
     keyspaces: {RestoreTable}
 keyspaces_DeleteTable:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/kys
+          excerpts:
+            - description:
+              snippet_tags:
+                - kys.abapv1.delete_table
     .NET:
       versions:
         - sdk_version: 3
@@ -413,6 +485,14 @@ keyspaces_DeleteTable:
     keyspaces: {DeleteTable}
 keyspaces_DeleteKeyspace:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/kys
+          excerpts:
+            - description:
+              snippet_tags:
+                - kys.abapv1.delete_keyspace
     .NET:
       versions:
         - sdk_version: 3

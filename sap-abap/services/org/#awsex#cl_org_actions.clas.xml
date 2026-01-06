@@ -3,9 +3,9 @@
  <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
   <asx:values>
    <VSEOCLASS>
-    <CLSNAME>/AWSEX/CL_RDS_ACTIONS</CLSNAME>
+    <CLSNAME>/AWSEX/CL_ORG_ACTIONS</CLSNAME>
     <LANGU>E</LANGU>
-    <DESCRIPT>RDS and Aurora Code Examples</DESCRIPT>
+    <DESCRIPT>Organizations Code Example</DESCRIPT>
     <STATE>1</STATE>
     <CLSCCINCL>X</CLSCCINCL>
     <FIXPT>X</FIXPT>
