@@ -125,36 +125,167 @@ CLASS ltc_awsex_cl_ec2_actions IMPLEMENTATION.
 
   ENDMETHOD.
   METHOD associate_address.
-    " This test is skipped as it takes too long waiting for instance to be in running state.
-    RETURN.
+    DATA(lv_internet_gateway_id) = ao_ec2->createinternetgateway( )->get_internetgateway( )->get_internetgatewayid( ).
+    ao_ec2->attachinternetgateway( iv_internetgatewayid = lv_internet_gateway_id
+                                   iv_vpcid = av_vpc_id ).
+    wait_until_status_change( iv_instance_id = av_instance_id
+                              iv_required_status = 'running' ).
+    DATA(lv_allocation_id) = ao_ec2->allocateaddress( iv_domain = 'vpc' )->get_allocationid( ).
+
+    DATA(lo_result) = ao_ec2_actions->associate_address(
+        iv_instance_id = av_instance_id
+        iv_allocation_id = lv_allocation_id ).
+
+    cl_abap_unit_assert=>assert_not_initial(
+          act = lo_result->get_associationid( )
+          msg = |Failed to associate Elastic IP address with EC2 instancce| ).
+
+    ao_ec2->disassociateaddress( iv_associationid = lo_result->get_associationid( ) ).
+    ao_ec2->releaseaddress( iv_allocationid = lv_allocation_id ).
+    ao_ec2->detachinternetgateway( iv_internetgatewayid = lv_internet_gateway_id
+                                   iv_vpcid = av_vpc_id ).
+    ao_ec2->deleteinternetgateway( iv_internetgatewayid = lv_internet_gateway_id ).
   ENDMETHOD.
   METHOD describe_addresses.
-    " This test is skipped as it takes too long waiting for instance to be in running state.
-    RETURN.
+    DATA(lv_internet_gateway_id) = ao_ec2->createinternetgateway( )->get_internetgateway( )->get_internetgatewayid( ).
+    ao_ec2->attachinternetgateway( iv_internetgatewayid = lv_internet_gateway_id
+                                   iv_vpcid = av_vpc_id ).
+    wait_until_status_change( iv_instance_id = av_instance_id
+                              iv_required_status = 'running' ).
+
+    DATA(lo_allocate_result) = ao_ec2->allocateaddress( iv_domain = 'vpc' ).
+    DATA(lo_associate_result) = ao_ec2->associateaddress( iv_allocationid = lo_allocate_result->get_allocationid( )
+                                                          iv_instanceid = av_instance_id ).
+
+    DATA(lo_describe_result) = ao_ec2_actions->describe_addresses( ).
+
+    LOOP AT lo_describe_result->get_addresses( ) INTO DATA(lo_address).
+      IF lo_address->get_instanceid( ) = av_instance_id AND lo_address->get_publicip( ) = lo_allocate_result->get_publicip( ).
+        DATA(lv_found) = abap_true.
+      ENDIF.
+    ENDLOOP.
+
+    cl_abap_unit_assert=>assert_true(
+      act = lv_found
+      msg = |Elastic IP address associated with EC2 instance should have been included in the address list| ).
+
+    ao_ec2->disassociateaddress( iv_associationid = lo_associate_result->get_associationid( ) ).
+    ao_ec2->releaseaddress( iv_allocationid = lo_allocate_result->get_allocationid( ) ).
+    ao_ec2->detachinternetgateway( iv_internetgatewayid = lv_internet_gateway_id
+                                   iv_vpcid = av_vpc_id ).
+    ao_ec2->deleteinternetgateway( iv_internetgatewayid = lv_internet_gateway_id ).
   ENDMETHOD.
   METHOD release_address.
-    " This test is skipped as it takes too long waiting for instance to be in running state.
-    RETURN.
+    DATA(lv_internet_gateway_id) = ao_ec2->createinternetgateway( )->get_internetgateway( )->get_internetgatewayid( ).
+    ao_ec2->attachinternetgateway( iv_internetgatewayid = lv_internet_gateway_id
+                                   iv_vpcid = av_vpc_id ).
+    wait_until_status_change( iv_instance_id = av_instance_id
+                              iv_required_status = 'running' ).
+
+    DATA(lo_allocate_result) = ao_ec2->allocateaddress( iv_domain = 'vpc' ).
+    DATA(lo_associate_result) = ao_ec2->associateaddress( iv_allocationid = lo_allocate_result->get_allocationid( )
+                                                          iv_instanceid = av_instance_id ).
+
+    ao_ec2->disassociateaddress( iv_associationid = lo_associate_result->get_associationid( ) ).
+    ao_ec2_actions->release_address( lo_allocate_result->get_allocationid( ) ).
+
+    DATA(lo_describe_result) = ao_ec2_actions->describe_addresses( ).
+
+    LOOP AT lo_describe_result->get_addresses( ) INTO DATA(lo_address).
+      IF lo_address->get_publicip( ) = lo_allocate_result->get_publicip( ).
+        DATA(lv_found) = abap_true.
+      ENDIF.
+    ENDLOOP.
+
+    cl_abap_unit_assert=>assert_false(
+      act = lv_found
+      msg = |Elastic IP address should have been released| ).
+
+    ao_ec2->detachinternetgateway( iv_internetgatewayid = lv_internet_gateway_id
+                                   iv_vpcid = av_vpc_id ).
+    ao_ec2->deleteinternetgateway( iv_internetgatewayid = lv_internet_gateway_id ).
   ENDMETHOD.
   METHOD create_instance.
-    " This test is skipped as it takes too long due to instance state transitions.
-    RETURN.
+    DATA(lo_create_result) = ao_ec2_actions->create_instance(
+        iv_ami_id = get_ami_id( )
+        iv_tag_value = 'code-example-create-instance'
+        iv_subnet_id = av_subnet_id ).
+    READ TABLE lo_create_result->get_instances( ) INTO DATA(lo_instance) INDEX 1.
+    DATA(lv_current_status) = wait_until_status_change( iv_instance_id = lo_instance->get_instanceid( )
+                                                        iv_required_status = 'running' ).
+
+    cl_abap_unit_assert=>assert_equals(
+      act = lv_current_status
+      exp = 'running'
+      msg = |EC2 instance { lo_instance->get_instanceid( ) } should have been in 'running' state| ).
+    APPEND lo_instance->get_instanceid( ) TO at_instance_id.
   ENDMETHOD.
   METHOD monitor_instance.
-    " This test is skipped as it takes too long due to instance state transitions.
-    RETURN.
+    ao_ec2_actions->monitor_instance( av_instance_id ).
+    WAIT UP TO 5 SECONDS.
+    DATA(lo_describe_result) = ao_ec2->describeinstances(
+      it_instanceids = VALUE /aws1/cl_ec2instidstringlist_w=>tt_instanceidstringlist(
+       ( NEW /aws1/cl_ec2instidstringlist_w( av_instance_id ) )
+      ) ).
+    READ TABLE lo_describe_result->get_reservations( ) INTO DATA(lo_reservation) INDEX 1.
+    READ TABLE lo_reservation->get_instances( ) INTO DATA(lo_describe_instance) INDEX 1.
+    cl_abap_unit_assert=>assert_equals(
+          exp = lo_describe_instance->get_monitoring( )->get_state( )
+          act = 'enabled'
+          msg = |Detailed monitoring should have been enabled| ).
   ENDMETHOD.
   METHOD reboot_instance.
-    " This test is skipped as it takes too long due to instance state transitions.
-    RETURN.
+    wait_until_status_change( iv_instance_id = av_instance_id
+                              iv_required_status = 'running' ).
+    ao_ec2_actions->reboot_instance( av_instance_id ).
+    DATA(lv_current_status) = wait_until_status_change( iv_instance_id = av_instance_id
+                                                        iv_required_status = 'running' ).
+
+    cl_abap_unit_assert=>assert_equals(
+          exp = lv_current_status
+          act = 'running'
+          msg = |Failed to reboot the specified instance| ).
   ENDMETHOD.
   METHOD start_instances.
-    " This test is skipped as it takes too long due to instance state transitions.
-    RETURN.
+    ao_ec2->stopinstances(
+      it_instanceids = VALUE /aws1/cl_ec2instidstringlist_w=>tt_instanceidstringlist(
+        ( NEW /aws1/cl_ec2instidstringlist_w( av_instance_id ) )
+      ) ).
+    wait_until_status_change( iv_instance_id = av_instance_id
+                              iv_required_status = 'stopped' ).
+
+    DATA(lo_start_result) = ao_ec2_actions->start_instance( av_instance_id ).
+    READ TABLE lo_start_result->get_startinginstances( ) INTO DATA(lo_start_instance) INDEX 1.
+    cl_abap_unit_assert=>assert_equals(
+          exp = lo_start_instance->get_currentstate( )->get_name( )
+          act = 'pending'
+          msg = |Instance should have been in 'pending' state when a request is made to start a stopped instance| ).
+
+    DATA(lv_current_status) = wait_until_status_change( iv_instance_id = av_instance_id
+                                                        iv_required_status = 'running' ).
+    cl_abap_unit_assert=>assert_equals(
+          exp = lv_current_status
+          act = 'running'
+          msg = |Failed to start a stopped instance| ).
   ENDMETHOD.
   METHOD stop_instances.
-    " This test is skipped as it takes too long due to instance state transitions.
-    RETURN.
+    DATA(lo_start_result) = ao_ec2_actions->start_instance( av_instance_id ).
+    wait_until_status_change( iv_instance_id = av_instance_id
+                              iv_required_status = 'running' ).
+    DATA(lo_stop_result) = ao_ec2_actions->stop_instance( av_instance_id ).
+    READ TABLE lo_stop_result->get_stoppinginstances( ) INTO DATA(lo_stop_instance) INDEX 1.
+    cl_abap_unit_assert=>assert_equals(
+          exp = lo_stop_instance->get_currentstate( )->get_name( )
+          act = 'stopping'
+          msg = |Instance should have been in 'stopping' state when a request is made to stop a running instance| ).
+
+    DATA(lv_current_status) = wait_until_status_change( iv_instance_id = av_instance_id
+                                                        iv_required_status = 'stopped' ).
+    cl_abap_unit_assert=>assert_equals(
+          exp = lv_current_status
+          act = 'stopped'
+          msg = |Failed to stop a running instance| ).
+
   ENDMETHOD.
   METHOD describe_instances.
     DATA(lo_describe_result) = ao_ec2_actions->describe_instances( ).
