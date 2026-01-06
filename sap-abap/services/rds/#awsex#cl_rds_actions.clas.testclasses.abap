@@ -286,7 +286,7 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
     DATA lo_result TYPE REF TO /aws1/cl_rdsdbclustparamgroup.
 
     TRY.
-        lo_result = ao_rds_actions->create_parameter_group(
+        lo_result = ao_rds_actions->create_db_cluster_parameter_group(
           iv_param_group_name = gv_param_group_name_2
           iv_param_group_family = 'aurora-mysql8.0'
           iv_description = 'ABAP test parameter group 2'
@@ -317,7 +317,7 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
     DATA lo_result TYPE REF TO /aws1/cl_rdsdbclustparamgroup.
 
     TRY.
-        lo_result = ao_rds_actions->get_parameter_group(
+        lo_result = ao_rds_actions->describe_db_cluster_parameter_groups(
           iv_param_group_name = gv_param_group_name
         ).
 
@@ -346,7 +346,7 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
     DATA lt_parameters TYPE /aws1/cl_rdsparameter=>tt_parameterslist.
 
     TRY.
-        lt_parameters = ao_rds_actions->get_parameters(
+        lt_parameters = ao_rds_actions->describe_db_cluster_parameters(
           iv_param_group_name = gv_param_group_name
           iv_source = 'engine-default'
         ).
@@ -379,7 +379,7 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
         ).
         APPEND lo_param TO lt_parameters.
 
-        lo_result = ao_rds_actions->update_parameters(
+        lo_result = ao_rds_actions->modify_db_cluster_parameter_group(
           iv_param_group_name = gv_param_group_name
           it_update_parameters = lt_parameters
         ).
@@ -409,7 +409,7 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
     DATA lt_versions TYPE /aws1/cl_rdsdbengineversion=>tt_dbengineversionlist.
 
     TRY.
-        lt_versions = ao_rds_actions->get_engine_versions(
+        lt_versions = ao_rds_actions->describe_db_engine_versions(
           iv_engine = 'aurora-mysql'
           iv_param_group_family = 'aurora-mysql8.0'
         ).
@@ -433,7 +433,7 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
     DATA lt_options TYPE /aws1/cl_rdsorderabledbinsto01=>tt_orderabledbinstoptionslist.
 
     TRY.
-        lt_options = ao_rds_actions->get_orderable_instances(
+        lt_options = ao_rds_actions->describe_orderable_db_instance_options(
           iv_db_engine = 'aurora-mysql'
           iv_db_engine_version = gv_engine_version
         ).
@@ -456,7 +456,7 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
   METHOD delete_parameter_group.
     TRY.
         " Delete the second parameter group created in create_parameter_group test
-        ao_rds_actions->delete_parameter_group(
+        ao_rds_actions->delete_db_cluster_parameter_group(
           iv_param_group_name = gv_param_group_name_2
         ).
 
@@ -464,7 +464,7 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
         WAIT UP TO 5 SECONDS.
         
         TRY.
-            DATA(lo_result) = ao_rds_actions->get_parameter_group(
+            DATA(lo_result) = ao_rds_actions->describe_db_cluster_parameter_groups(
               iv_param_group_name = gv_param_group_name_2
             ).
             " If we reach here, deletion failed
