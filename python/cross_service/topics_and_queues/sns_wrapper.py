@@ -15,17 +15,16 @@ from botocore.exceptions import ClientError
 logger = logging.getLogger(__name__)
 
 
-# snippet-start:[python.example_code.sns.SnsWrapper]
+# snippet-start:[python.example_code.sns.SnsWrapper.class]
+# snippet-start:[python.example_code.sns.SnsWrapper.decl]
 class SnsWrapper:
     """Wrapper class for managing Amazon SNS operations."""
 
     def __init__(self, sns_client: Any) -> None:
         """
         Initialize the SnsWrapper.
-        
-        Args:
-            sns_client: A Boto3 Amazon SNS client. This client provides low-level
-                       access to AWS SNS services.
+
+        :param sns_client: A Boto3 Amazon SNS client.
         """
         self.sns_client = sns_client
 
@@ -33,14 +32,15 @@ class SnsWrapper:
     def from_client(cls) -> 'SnsWrapper':
         """
         Create an SnsWrapper instance using a default boto3 client.
-        
-        Returns:
-            SnsWrapper: An instance of this class.
+
+        :return: An instance of this class.
         """
         sns_client = boto3.client('sns')
         return cls(sns_client)
 
-    # snippet-start:[python.example_code.sns.CreateTopic]
+    # snippet-end:[python.example_code.sns.SnsWrapper.decl]
+
+    # snippet-start:[python.example_code.sns.CreateFifoTopic]
     def create_topic(
         self, 
         topic_name: str, 
@@ -50,16 +50,11 @@ class SnsWrapper:
         """
         Create an SNS topic.
 
-        Args:
-            topic_name: The name of the topic to create
-            is_fifo: Whether to create a FIFO topic
-            content_based_deduplication: Whether to use content-based deduplication for FIFO topics
-
-        Returns:
-            str: The ARN of the created topic
-
-        Raises:
-            ClientError: If the topic creation fails
+        :param topic_name: The name of the topic to create.
+        :param is_fifo: Whether to create a FIFO topic.
+        :param content_based_deduplication: Whether to use content-based deduplication for FIFO topics.
+        :return: The ARN of the created topic.
+        :raises ClientError: If the topic creation fails.
         """
         try:
             # Add .fifo suffix for FIFO topics
@@ -86,9 +81,9 @@ class SnsWrapper:
             logger.error(f"Error creating topic {topic_name}: {error_code} - {e}")
             raise
 
-    # snippet-end:[python.example_code.sns.CreateTopic]
+    # snippet-end:[python.example_code.sns.CreateFifoTopic]
 
-    # snippet-start:[python.example_code.sns.Subscribe]
+    # snippet-start:[python.example_code.sns.SubscribeWithFilters]
     def subscribe_queue_to_topic(
         self, 
         topic_arn: str, 
@@ -98,16 +93,11 @@ class SnsWrapper:
         """
         Subscribe an SQS queue to an SNS topic.
 
-        Args:
-            topic_arn: The ARN of the SNS topic
-            queue_arn: The ARN of the SQS queue
-            filter_policy: Optional JSON filter policy for message filtering
-
-        Returns:
-            str: The ARN of the subscription
-
-        Raises:
-            ClientError: If the subscription fails
+        :param topic_arn: The ARN of the SNS topic.
+        :param queue_arn: The ARN of the SQS queue.
+        :param filter_policy: Optional JSON filter policy for message filtering.
+        :return: The ARN of the subscription.
+        :raises ClientError: If the subscription fails.
         """
         try:
             attributes = {}
@@ -130,7 +120,7 @@ class SnsWrapper:
             logger.error(f"Error subscribing queue to topic: {error_code} - {e}")
             raise
 
-    # snippet-end:[python.example_code.sns.Subscribe]
+    # snippet-end:[python.example_code.sns.SubscribeWithFilters]
 
     # snippet-start:[python.example_code.sns.Publish]
     def publish_message(
@@ -144,18 +134,13 @@ class SnsWrapper:
         """
         Publish a message to an SNS topic.
 
-        Args:
-            topic_arn: The ARN of the SNS topic
-            message: The message content to publish
-            tone_attribute: Optional tone attribute for message filtering
-            deduplication_id: Optional deduplication ID for FIFO topics
-            message_group_id: Optional message group ID for FIFO topics
-
-        Returns:
-            str: The message ID of the published message
-
-        Raises:
-            ClientError: If the message publication fails
+        :param topic_arn: The ARN of the SNS topic.
+        :param message: The message content to publish.
+        :param tone_attribute: Optional tone attribute for message filtering.
+        :param deduplication_id: Optional deduplication ID for FIFO topics.
+        :param message_group_id: Optional message group ID for FIFO topics.
+        :return: The message ID of the published message.
+        :raises ClientError: If the message publication fails.
         """
         try:
             publish_args = {
@@ -192,19 +177,14 @@ class SnsWrapper:
 
     # snippet-end:[python.example_code.sns.Publish]
 
-    # snippet-start:[python.example_code.sns.Unsubscribe]
+    # snippet-start:[python.example_code.sns.UnsubscribeTopic]
     def unsubscribe(self, subscription_arn: str) -> bool:
         """
         Unsubscribe from an SNS topic.
 
-        Args:
-            subscription_arn: The ARN of the subscription to remove
-
-        Returns:
-            bool: True if successful
-
-        Raises:
-            ClientError: If the unsubscribe operation fails
+        :param subscription_arn: The ARN of the subscription to remove.
+        :return: True if successful.
+        :raises ClientError: If the unsubscribe operation fails.
         """
         try:
             self.sns_client.unsubscribe(SubscriptionArn=subscription_arn)
@@ -222,21 +202,16 @@ class SnsWrapper:
                 logger.error(f"Error unsubscribing: {error_code} - {e}")
                 raise
 
-    # snippet-end:[python.example_code.sns.Unsubscribe]
+    # snippet-end:[python.example_code.sns.UnsubscribeTopic]
 
-    # snippet-start:[python.example_code.sns.DeleteTopic]
+    # snippet-start:[python.example_code.sns.DeleteFifoTopic]
     def delete_topic(self, topic_arn: str) -> bool:
         """
         Delete an SNS topic.
 
-        Args:
-            topic_arn: The ARN of the topic to delete
-
-        Returns:
-            bool: True if successful
-
-        Raises:
-            ClientError: If the topic deletion fails
+        :param topic_arn: The ARN of the topic to delete.
+        :return: True if successful.
+        :raises ClientError: If the topic deletion fails.
         """
         try:
             self.sns_client.delete_topic(TopicArn=topic_arn)
@@ -254,17 +229,14 @@ class SnsWrapper:
                 logger.error(f"Error deleting topic: {error_code} - {e}")
                 raise
 
-    # snippet-end:[python.example_code.sns.DeleteTopic]
+    # snippet-end:[python.example_code.sns.DeleteFifoTopic]
 
     def list_topics(self) -> list:
         """
         List all SNS topics in the account using pagination.
 
-        Returns:
-            list: List of topic ARNs
-
-        Raises:
-            ClientError: If listing topics fails
+        :return: List of topic ARNs.
+        :raises ClientError: If listing topics fails.
         """
         try:
             topics = []
@@ -284,4 +256,4 @@ class SnsWrapper:
                 logger.error(f"Error listing topics: {error_code} - {e}")
             raise
 
-# snippet-end:[python.example_code.sns.SnsWrapper]
+# snippet-end:[python.example_code.sns.SnsWrapper.class]

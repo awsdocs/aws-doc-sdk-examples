@@ -119,15 +119,14 @@ sqs_CreateQueue:
           github: python/example_code/sqs
           sdkguide:
           excerpts:
-            - description:
+            - description: Usage in the Basics scenario.
               snippet_tags:
-                - python.example_code.sqs.CreateQueue
-        - sdk_version: 3
-          github: python/cross_service/topics_and_queues
-          excerpts:
-            - snippet_tags:
                 - python.example_code.sqs.SqsWrapper
                 - python.example_code.sqs.CreateQueue
+            - description: Usage in the Topics and Queues scenario.
+              snippet_tags:
+                - python.example_code.sqs.SqsWrapper.decl
+                - python.example_code.sqs.CreateFifoQueue
     Ruby:
       versions:
         - sdk_version: 3
@@ -405,15 +404,14 @@ sqs_DeleteQueue:
           github: python/example_code/sqs
           sdkguide:
           excerpts:
-            - description:
+            - description: Usage in the Basics scenario.
               snippet_tags:
-                - python.example_code.sqs.DeleteQueue
-        - sdk_version: 3
-          github: python/cross_service/topics_and_queues
-          excerpts:
-            - snippet_tags:
                 - python.example_code.sqs.SqsWrapper
                 - python.example_code.sqs.DeleteQueue
+            - description: Usage in the Topics and Queues scenario.
+              snippet_tags:
+                - python.example_code.sqs.SqsWrapper.decl
+                - python.example_code.sqs.DeleteTopicQueue
     Ruby:
       versions:
         - sdk_version: 3
@@ -654,15 +652,14 @@ sqs_ReceiveMessage:
           github: python/example_code/sqs
           sdkguide:
           excerpts:
-            - description:
+            - description: Usage in the Basics scenario.
               snippet_tags:
-                - python.example_code.sqs.ReceiveMessage
-        - sdk_version: 3
-          github: python/cross_service/topics_and_queues
-          excerpts:
-            - snippet_tags:
                 - python.example_code.sqs.SqsWrapper
                 - python.example_code.sqs.ReceiveMessage
+            - description: Usage in the Topics and Queues scenario.
+              snippet_tags:
+                - python.example_code.sqs.SqsWrapper.decl
+                - python.example_code.sqs.ReceiveTopicMessage
     Ruby:
       versions:
         - sdk_version: 3
@@ -827,15 +824,14 @@ sqs_DeleteMessageBatch:
           github: python/example_code/sqs
           sdkguide:
           excerpts:
-            - description:
+            - description: Usage in the Basics scenario.
               snippet_tags:
-                - python.example_code.sqs.DeleteMessageBatch
-        - sdk_version: 3
-          github: python/cross_service/topics_and_queues
-          excerpts:
-            - snippet_tags:
                 - python.example_code.sqs.SqsWrapper
                 - python.example_code.sqs.DeleteMessageBatch
+            - description: Usage in the Topics and Queues scenario.
+              snippet_tags:
+                - python.example_code.sqs.SqsWrapper.decl
+                - python.example_code.sqs.DeleteTopicMessageBatch
     C++:
       versions:
         - sdk_version: 1
@@ -939,7 +935,7 @@ sqs_GetQueueAttributes:
           github: python/cross_service/topics_and_queues
           excerpts:
             - snippet_tags:
-                - python.example_code.sqs.SqsWrapper
+                - python.example_code.sqs.SqsWrapper.decl
                 - python.example_code.sqs.GetQueueAttributes
     C++:
       versions:
@@ -1042,7 +1038,7 @@ sqs_SetQueueAttributes:
           excerpts:
             - description: Set the policy attribute of a queue for a topic.
               snippet_tags:
-                - python.example_code.sqs.SqsWrapper
+                - python.example_code.sqs.SqsWrapper.decl
                 - python.example_code.sqs.SetQueueAttributes
     Go:
       versions:
@@ -1187,6 +1183,18 @@ sqs_Scenario_TopicsAndQueues:
           excerpts:
             - snippet_tags:
                 - sns.kotlin.workflow.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/cross_service/topics_and_queues
+          excerpts:
+            - description: Create classes that wrap &SNS; and &SQS; operations for use in the scenario.
+              snippet_tags:
+                - python.example_code.sns.SnsWrapper.class
+                - python.example_code.sqs.SqsWrapper.class
+            - description: Run an interactive scenario at a command prompt.
+              snippet_tags:
+                - python.example_code.cross_service.topics_and_queues.TopicsAndQueuesScenario
     Swift:
       versions:
         - sdk_version: 1

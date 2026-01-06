@@ -775,6 +775,137 @@ class CloudFormationHelper:
 
 ## Wrapper Class Pattern
 
+### Snippet Tag Requirements
+
+**CRITICAL**: Wrapper classes MUST use the correct snippet tag structure to ensure proper metadata integration and test compatibility.
+
+#### Required Snippet Tag Structure
+
+**For Wrapper Class Declaration:**
+```python
+# snippet-start:[python.example_code.{service}.{Service}Wrapper.decl]
+class {Service}Wrapper:
+    """Wrapper class for managing {Service} operations."""
+    # Class implementation...
+# snippet-end:[python.example_code.{service}.{Service}Wrapper.decl]
+```
+
+**For Individual Methods:**
+```python
+# snippet-start:[python.example_code.{service}.MethodName]
+def method_name(self, parameter: str) -> bool:
+    """Method implementation."""
+    # Method code...
+# snippet-end:[python.example_code.{service}.MethodName]
+```
+
+#### Cross-Service Scenario Requirements
+
+**MANDATORY**: When wrapper classes are used in cross-service scenarios (e.g., topics_and_queues), the metadata files MUST reference the `.decl` tag pattern:
+
+**Correct Metadata Reference:**
+```yaml
+python/cross_service/example_scenario:
+  excerpts:
+    - snippet_tags:
+        - python.example_code.{service}.{Service}Wrapper.decl  # ✓ CORRECT
+        - python.example_code.{service}.MethodName
+```
+
+**Incorrect Metadata Reference:**
+```yaml
+python/cross_service/example_scenario:
+  excerpts:
+    - snippet_tags:
+        - python.example_code.{service}.{Service}Wrapper      # ✗ INCORRECT
+        - python.example_code.{service}.MethodName
+```
+
+#### Why This Pattern Is Required
+
+1. **Stub Test Compatibility**: The `.decl` pattern ensures stubbed tests can properly mock wrapper class declarations
+2. **Metadata Consistency**: Follows established patterns from control-tower and other cross-service scenarios  
+3. **Documentation Generation**: Enables proper extraction of class declarations for documentation
+4. **Parameter Matching**: Prevents "Unexpected API Call" errors in stubbed tests
+
+#### Implementation Example
+
+**In Wrapper File (`{service}_wrapper.py`):**
+```python
+# snippet-start:[python.example_code.{service}.{Service}Wrapper.decl]
+class {Service}Wrapper:
+    """Wrapper class for managing {AWS Service} operations."""
+
+    def __init__(self, {service}_client: Any) -> None:
+        """Initialize the {Service}Wrapper."""
+        self.{service}_client = {service}_client
+# snippet-end:[python.example_code.{service}.{Service}Wrapper.decl]
+
+    # snippet-start:[python.example_code.{service}.CreateResource]
+    def create_resource(self, name: str) -> str:
+        """Create a resource."""
+        # Method implementation...
+    # snippet-end:[python.example_code.{service}.CreateResource]
+```
+
+**In Metadata File (`.doc_gen/metadata/{service}_metadata.yaml`):**
+
+**For Individual Service Operations:**
+```yaml
+{service}_CreateResource:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/cross_service/example_scenario
+          excerpts:
+            - snippet_tags:
+                - python.example_code.{service}.{Service}Wrapper.decl
+                - python.example_code.{service}.CreateResource
+```
+
+**For Scenario Sections (CRITICAL - Must Include Both Scenario and Wrapper Classes):**
+```yaml
+{service}_Scenario_CrossService:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/cross_service/example_scenario
+          excerpts:
+            - description: Run an interactive scenario at a command prompt.
+              snippet_tags:
+                - python.example_code.cross_service.example_scenario.ExampleScenario
+            - description: Create classes that wrap service operations.
+              snippet_tags:
+                - python.example_code.{service}.{Service}Wrapper.decl
+                - python.example_code.{other_service}.{OtherService}Wrapper.decl
+```
+
+**Why Both Are Required in Scenario Sections:**
+1. **Complete Documentation**: Scenarios demonstrate both the orchestration logic and the underlying service operations
+2. **Pattern Consistency**: Follows established patterns from controltower and other cross-service scenarios
+3. **User Understanding**: Helps readers understand both the high-level workflow and individual service operations
+4. **Documentation Generation**: Ensures complete code examples are extracted for documentation
+
+**Example Based on Topics and Queues:**
+```yaml
+sqs_Scenario_TopicsAndQueues:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/cross_service/topics_and_queues
+          excerpts:
+            - description: Run an interactive scenario at a command prompt.
+              snippet_tags:
+                - python.example_code.cross_service.topics_and_queues.TopicsAndQueuesScenario
+            - description: Create classes that wrap &SNS; and &SQS; operations.
+              snippet_tags:
+                - python.example_code.sns.SnsWrapper.decl
+                - python.example_code.sqs.SqsWrapper.decl
+```
+
 ### Wrapper Class Structure
 ```python
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -793,7 +924,7 @@ from botocore.exceptions import ClientError
 logger = logging.getLogger(__name__)
 
 
-# snippet-start:[python.example_code.{service}.{Service}Wrapper]
+# snippet-start:[python.example_code.{service}.{Service}Wrapper.decl]
 class {Service}Wrapper:
     """Wrapper class for managing {AWS Service} operations."""
 

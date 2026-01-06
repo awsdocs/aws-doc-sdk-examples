@@ -42,11 +42,13 @@ Code excerpts that show you how to call individual service functions.
 - [DeleteMessage](message_wrapper.py#L132)
 - [DeleteMessageBatch](message_wrapper.py#L153)
 - [DeleteQueue](queue_wrapper.py#L95)
+- [GetQueueAttributes](../../cross_service/topics_and_queues/sqs_wrapper.py#L83)
 - [GetQueueUrl](queue_wrapper.py#L50)
 - [ListQueues](queue_wrapper.py#L71)
 - [ReceiveMessage](message_wrapper.py#L100)
 - [SendMessage](message_wrapper.py#L24)
 - [SendMessageBatch](message_wrapper.py#L52)
+- [SetQueueAttributes](../../cross_service/topics_and_queues/sqs_wrapper.py#L114)
 
 ### Scenarios
 

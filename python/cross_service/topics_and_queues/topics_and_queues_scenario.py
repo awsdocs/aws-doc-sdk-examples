@@ -47,9 +47,8 @@ class TopicsAndQueuesScenario:
         """
         Initialize the Topics and Queues scenario.
 
-        Args:
-            sns_wrapper: SnsWrapper instance for SNS operations
-            sqs_wrapper: SqsWrapper instance for SQS operations
+        :param sns_wrapper: SnsWrapper instance for SNS operations.
+        :param sqs_wrapper: SqsWrapper instance for SQS operations.
         """
         self.sns_wrapper = sns_wrapper
         self.sqs_wrapper = sqs_wrapper
