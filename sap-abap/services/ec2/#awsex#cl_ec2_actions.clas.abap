@@ -122,7 +122,7 @@ CLASS /awsex/cl_ec2_actions DEFINITION
         !iv_association_id TYPE /aws1/ec2elasticipassociatio00
       RAISING
         /aws1/cx_rt_generic .
-    METHODS authorize_security_group_ingress
+    METHODS authorize_sec_group_ingress
       IMPORTING
         !iv_group_id    TYPE /aws1/ec2securitygroupid
         !iv_cidr_ip     TYPE /aws1/ec2string
@@ -659,14 +659,15 @@ CLASS /AWSEX/CL_EC2_ACTIONS IMPLEMENTATION.
   ENDMETHOD.
 
 
-  METHOD authorize_security_group_ingress.
+  METHOD authorize_sec_group_ingress.
     CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_ec2) = /aws1/cl_ec2_factory=>create( lo_session ).
 
-    " snippet-start:[ec2.abapv1.authorize_security_group_ingress]
+    " snippet-start:[ec2.abapv1.authorize_sec_group_ingress]
     " Create IP permissions for SSH access (port 22)
+    " iv_cidr_ip = '192.0.2.0/24'
     DATA lt_ip_permissions TYPE /aws1/cl_ec2ippermission=>tt_ippermissionlist.
     DATA(lo_ip_permission) = NEW /aws1/cl_ec2ippermission(
       iv_ipprotocol = 'tcp'
@@ -687,7 +688,7 @@ CLASS /AWSEX/CL_EC2_ACTIONS IMPLEMENTATION.
         DATA(lv_error) = |"{ lo_exception->av_err_code }" - { lo_exception->av_err_msg }|.
         MESSAGE lv_error TYPE 'E'.
     ENDTRY.
-    " snippet-end:[ec2.abapv1.authorize_security_group_ingress]
+    " snippet-end:[ec2.abapv1.authorize_sec_group_ingress]
   ENDMETHOD.
 
 
