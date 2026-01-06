@@ -6,9 +6,6 @@ CLASS /awsex/cl_agw_actions DEFINITION
   CREATE PUBLIC .
 
   PUBLIC SECTION.
-  PROTECTED SECTION.
-  PRIVATE SECTION.
-
     METHODS create_rest_api
       IMPORTING
         VALUE(iv_api_name) TYPE /aws1/agwstring
@@ -96,6 +93,8 @@ CLASS /awsex/cl_agw_actions DEFINITION
         VALUE(iv_rest_api_id) TYPE /aws1/agwstring
       RAISING
         /aws1/cx_rt_generic.
+  PROTECTED SECTION.
+  PRIVATE SECTION.
 ENDCLASS.
 
 
