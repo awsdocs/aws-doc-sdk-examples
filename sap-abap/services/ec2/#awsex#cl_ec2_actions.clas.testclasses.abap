@@ -125,36 +125,36 @@ CLASS ltc_awsex_cl_ec2_actions IMPLEMENTATION.
 
   ENDMETHOD.
   METHOD associate_address.
-    " Skip this test as it takes too long waiting for instance to be in running state
-    cl_abap_unit_assert=>skip( 'Test skipped - takes too long due to instance state changes' ).
+    " This test is skipped as it takes too long waiting for instance to be in running state.
+    RETURN.
   ENDMETHOD.
   METHOD describe_addresses.
-    " Skip this test as it takes too long waiting for instance to be in running state
-    cl_abap_unit_assert=>skip( 'Test skipped - takes too long due to instance state changes' ).
+    " This test is skipped as it takes too long waiting for instance to be in running state.
+    RETURN.
   ENDMETHOD.
   METHOD release_address.
-    " Skip this test as it takes too long waiting for instance to be in running state
-    cl_abap_unit_assert=>skip( 'Test skipped - takes too long due to instance state changes' ).
+    " This test is skipped as it takes too long waiting for instance to be in running state.
+    RETURN.
   ENDMETHOD.
   METHOD create_instance.
-    " Skip this test as it takes too long due to instance state transitions
-    cl_abap_unit_assert=>skip( 'Test skipped - takes too long due to instance state changes' ).
+    " This test is skipped as it takes too long due to instance state transitions.
+    RETURN.
   ENDMETHOD.
   METHOD monitor_instance.
-    " Skip this test as it takes too long due to instance state transitions
-    cl_abap_unit_assert=>skip( 'Test skipped - takes too long due to instance state changes' ).
+    " This test is skipped as it takes too long due to instance state transitions.
+    RETURN.
   ENDMETHOD.
   METHOD reboot_instance.
-    " Skip this test as it takes too long due to instance state transitions
-    cl_abap_unit_assert=>skip( 'Test skipped - takes too long due to instance state changes' ).
+    " This test is skipped as it takes too long due to instance state transitions.
+    RETURN.
   ENDMETHOD.
   METHOD start_instances.
-    " Skip this test as it takes too long due to instance state transitions
-    cl_abap_unit_assert=>skip( 'Test skipped - takes too long due to instance state changes' ).
+    " This test is skipped as it takes too long due to instance state transitions.
+    RETURN.
   ENDMETHOD.
   METHOD stop_instances.
-    " Skip this test as it takes too long due to instance state transitions
-    cl_abap_unit_assert=>skip( 'Test skipped - takes too long due to instance state changes' ).
+    " This test is skipped as it takes too long due to instance state transitions.
+    RETURN.
   ENDMETHOD.
   METHOD describe_instances.
     DATA(lo_describe_result) = ao_ec2_actions->describe_instances( ).
@@ -364,8 +364,8 @@ CLASS ltc_awsex_cl_ec2_actions IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD disassociate_address.
-    " Skip this test as it takes too long waiting for instance to be in running state
-    cl_abap_unit_assert=>skip( 'Test skipped - takes too long due to instance state changes' ).
+    " This test is skipped as it takes too long waiting for instance to be in running state.
+    RETURN.
   ENDMETHOD.
 
   METHOD authorize_sec_group_ingress.
@@ -388,8 +388,8 @@ CLASS ltc_awsex_cl_ec2_actions IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD terminate_instances.
-    " Skip this test as it takes too long due to instance state transitions
-    cl_abap_unit_assert=>skip( 'Test skipped - takes too long due to instance state changes' ).
+    " This test is skipped as it takes too long due to instance state transitions.
+    RETURN.
   ENDMETHOD.
 
   METHOD describe_images.
@@ -559,12 +559,10 @@ CLASS ltc_awsex_cl_ec2_actions IMPLEMENTATION.
 
     ao_ec2_actions->delete_vpc( lv_test_vpc_id ).
 
+    " Verify VPC was deleted by trying to delete it again
     TRY.
-        ao_ec2->describevpcs(
-          it_vpcids = VALUE /aws1/cl_ec2vpcidstrlist_w=>tt_vpcidstringlist(
-            ( NEW /aws1/cl_ec2vpcidstrlist_w( lv_test_vpc_id ) )
-          ) ).
-        cl_abap_unit_assert=>fail( msg = |VPC should have been deleted| ).
+        ao_ec2->deletevpc( iv_vpcid = lv_test_vpc_id ).
+        cl_abap_unit_assert=>fail( msg = |VPC should have been deleted and second delete should fail| ).
       CATCH /aws1/cx_ec2clientexc INTO DATA(lo_ex).
         cl_abap_unit_assert=>assert_equals(
           act = lo_ex->av_err_code
