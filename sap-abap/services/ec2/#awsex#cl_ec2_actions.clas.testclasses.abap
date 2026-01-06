@@ -443,10 +443,7 @@ CLASS ltc_awsex_cl_ec2_actions IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD describe_route_tables.
-    DATA lt_vpc_ids TYPE /aws1/cl_ec2vpcidstrlist_w=>tt_vpcidstringlist.
-    APPEND NEW /aws1/cl_ec2vpcidstrlist_w( av_vpc_id ) TO lt_vpc_ids.
-
-    DATA(lo_result) = ao_ec2_actions->describe_route_tables( lt_vpc_ids ).
+    DATA(lo_result) = ao_ec2_actions->describe_route_tables( av_vpc_id ).
 
     cl_abap_unit_assert=>assert_not_initial(
       act = lo_result->get_routetables( )

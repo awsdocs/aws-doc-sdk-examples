@@ -160,7 +160,7 @@ CLASS /awsex/cl_ec2_actions DEFINITION
         /aws1/cx_rt_generic .
     METHODS describe_route_tables
       IMPORTING
-        !it_vpc_ids      TYPE /aws1/cl_ec2vpcidstrlist_w=>tt_vpcidstringlist
+        !iv_vpc_id       TYPE /aws1/ec2vpcid
       RETURNING
         VALUE(oo_result) TYPE REF TO /aws1/cl_ec2descrroutetblsrslt
       RAISING
@@ -793,15 +793,14 @@ CLASS /AWSEX/CL_EC2_ACTIONS IMPLEMENTATION.
     DATA(lo_ec2) = /aws1/cl_ec2_factory=>create( lo_session ).
 
     " snippet-start:[ec2.abapv1.describe_route_tables]
-    " Create filter for VPC IDs
+    " Create filter for VPC ID
+    " iv_vpc_id = 'vpc-abc123'
     DATA lt_filters TYPE /aws1/cl_ec2filter=>tt_filterlist.
-    DATA lt_vpc_id_values TYPE /aws1/cl_ec2valuestringlist_w=>tt_valuestringlist.
-    LOOP AT it_vpc_ids INTO DATA(lo_vpc_id).
-      APPEND NEW /aws1/cl_ec2valuestringlist_w( lo_vpc_id->get_value( ) ) TO lt_vpc_id_values.
-    ENDLOOP.
     APPEND NEW /aws1/cl_ec2filter(
       iv_name = 'vpc-id'
-      it_values = lt_vpc_id_values
+      it_values = VALUE /aws1/cl_ec2valuestringlist_w=>tt_valuestringlist(
+        ( NEW /aws1/cl_ec2valuestringlist_w( iv_vpc_id ) )
+      )
     ) TO lt_filters.
 
     TRY.
