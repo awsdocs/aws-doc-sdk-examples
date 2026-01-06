@@ -117,10 +117,13 @@ CLASS /AWSEX/CL_AGW_ACTIONS IMPLEMENTATION.
         MESSAGE 'REST API created with ID: ' && lv_api_id TYPE 'I'.
       CATCH /aws1/cx_agwbadrequestex INTO DATA(lo_bad_request).
         MESSAGE lo_bad_request->get_text( ) TYPE 'I'.
+        RAISE EXCEPTION lo_bad_request.
       CATCH /aws1/cx_agwtoomanyrequestsex INTO DATA(lo_too_many).
         MESSAGE lo_too_many->get_text( ) TYPE 'I'.
+        RAISE EXCEPTION lo_too_many.
       CATCH /aws1/cx_agwunauthorizedex INTO DATA(lo_unauthorized).
         MESSAGE lo_unauthorized->get_text( ) TYPE 'I'.
+        RAISE EXCEPTION lo_unauthorized.
     ENDTRY.
     " snippet-end:[agw.abapv1.create_rest_api]
   ENDMETHOD.
@@ -142,10 +145,13 @@ CLASS /AWSEX/CL_AGW_ACTIONS IMPLEMENTATION.
         MESSAGE 'Resource created with ID: ' && lv_resource_id TYPE 'I'.
       CATCH /aws1/cx_agwbadrequestex INTO DATA(lo_bad_request).
         MESSAGE lo_bad_request->get_text( ) TYPE 'I'.
+        RAISE EXCEPTION lo_bad_request.
       CATCH /aws1/cx_agwnotfoundexception INTO DATA(lo_not_found).
         MESSAGE lo_not_found->get_text( ) TYPE 'I'.
+        RAISE EXCEPTION lo_not_found.
       CATCH /aws1/cx_agwtoomanyrequestsex INTO DATA(lo_too_many).
         MESSAGE lo_too_many->get_text( ) TYPE 'I'.
+        RAISE EXCEPTION lo_too_many.
     ENDTRY.
     " snippet-end:[agw.abapv1.create_resource]
   ENDMETHOD.
@@ -167,10 +173,13 @@ CLASS /AWSEX/CL_AGW_ACTIONS IMPLEMENTATION.
         MESSAGE 'Method ' && iv_http_method && ' added to resource' TYPE 'I'.
       CATCH /aws1/cx_agwbadrequestex INTO DATA(lo_bad_request).
         MESSAGE lo_bad_request->get_text( ) TYPE 'I'.
+        RAISE EXCEPTION lo_bad_request.
       CATCH /aws1/cx_agwnotfoundexception INTO DATA(lo_not_found).
         MESSAGE lo_not_found->get_text( ) TYPE 'I'.
+        RAISE EXCEPTION lo_not_found.
       CATCH /aws1/cx_agwtoomanyrequestsex INTO DATA(lo_too_many).
         MESSAGE lo_too_many->get_text( ) TYPE 'I'.
+        RAISE EXCEPTION lo_too_many.
     ENDTRY.
     " snippet-end:[agw.abapv1.put_method]
   ENDMETHOD.
@@ -192,10 +201,13 @@ CLASS /AWSEX/CL_AGW_ACTIONS IMPLEMENTATION.
         MESSAGE 'Method response configured for status 200' TYPE 'I'.
       CATCH /aws1/cx_agwbadrequestex INTO DATA(lo_bad_request).
         MESSAGE lo_bad_request->get_text( ) TYPE 'I'.
+        RAISE EXCEPTION lo_bad_request.
       CATCH /aws1/cx_agwnotfoundexception INTO DATA(lo_not_found).
         MESSAGE lo_not_found->get_text( ) TYPE 'I'.
+        RAISE EXCEPTION lo_not_found.
       CATCH /aws1/cx_agwtoomanyrequestsex INTO DATA(lo_too_many).
         MESSAGE lo_too_many->get_text( ) TYPE 'I'.
+        RAISE EXCEPTION lo_too_many.
     ENDTRY.
     " snippet-end:[agw.abapv1.put_method_response]
   ENDMETHOD.
@@ -219,10 +231,13 @@ CLASS /AWSEX/CL_AGW_ACTIONS IMPLEMENTATION.
         MESSAGE 'Integration configured for method' TYPE 'I'.
       CATCH /aws1/cx_agwbadrequestex INTO DATA(lo_bad_request).
         MESSAGE lo_bad_request->get_text( ) TYPE 'I'.
+        RAISE EXCEPTION lo_bad_request.
       CATCH /aws1/cx_agwnotfoundexception INTO DATA(lo_not_found).
         MESSAGE lo_not_found->get_text( ) TYPE 'I'.
+        RAISE EXCEPTION lo_not_found.
       CATCH /aws1/cx_agwtoomanyrequestsex INTO DATA(lo_too_many).
         MESSAGE lo_too_many->get_text( ) TYPE 'I'.
+        RAISE EXCEPTION lo_too_many.
     ENDTRY.
     " snippet-end:[agw.abapv1.put_integration]
   ENDMETHOD.
@@ -244,10 +259,13 @@ CLASS /AWSEX/CL_AGW_ACTIONS IMPLEMENTATION.
         MESSAGE 'Integration response configured for status 200' TYPE 'I'.
       CATCH /aws1/cx_agwbadrequestex INTO DATA(lo_bad_request).
         MESSAGE lo_bad_request->get_text( ) TYPE 'I'.
+        RAISE EXCEPTION lo_bad_request.
       CATCH /aws1/cx_agwnotfoundexception INTO DATA(lo_not_found).
         MESSAGE lo_not_found->get_text( ) TYPE 'I'.
+        RAISE EXCEPTION lo_not_found.
       CATCH /aws1/cx_agwtoomanyrequestsex INTO DATA(lo_too_many).
         MESSAGE lo_too_many->get_text( ) TYPE 'I'.
+        RAISE EXCEPTION lo_too_many.
     ENDTRY.
     " snippet-end:[agw.abapv1.put_integration_response]
   ENDMETHOD.
@@ -269,10 +287,13 @@ CLASS /AWSEX/CL_AGW_ACTIONS IMPLEMENTATION.
         MESSAGE 'Deployment created with ID: ' && lv_deployment_id TYPE 'I'.
       CATCH /aws1/cx_agwbadrequestex INTO DATA(lo_bad_request).
         MESSAGE lo_bad_request->get_text( ) TYPE 'I'.
+        RAISE EXCEPTION lo_bad_request.
       CATCH /aws1/cx_agwnotfoundexception INTO DATA(lo_not_found).
         MESSAGE lo_not_found->get_text( ) TYPE 'I'.
+        RAISE EXCEPTION lo_not_found.
       CATCH /aws1/cx_agwtoomanyrequestsex INTO DATA(lo_too_many).
         MESSAGE lo_too_many->get_text( ) TYPE 'I'.
+        RAISE EXCEPTION lo_too_many.
     ENDTRY.
     " snippet-end:[agw.abapv1.create_deployment]
   ENDMETHOD.
@@ -292,8 +313,10 @@ CLASS /AWSEX/CL_AGW_ACTIONS IMPLEMENTATION.
         MESSAGE 'Found ' && lv_count && ' REST APIs' TYPE 'I'.
       CATCH /aws1/cx_agwbadrequestex INTO DATA(lo_bad_request).
         MESSAGE lo_bad_request->get_text( ) TYPE 'I'.
+        RAISE EXCEPTION lo_bad_request.
       CATCH /aws1/cx_agwtoomanyrequestsex INTO DATA(lo_too_many).
         MESSAGE lo_too_many->get_text( ) TYPE 'I'.
+        RAISE EXCEPTION lo_too_many.
     ENDTRY.
     " snippet-end:[agw.abapv1.get_rest_apis]
   ENDMETHOD.
@@ -314,10 +337,13 @@ CLASS /AWSEX/CL_AGW_ACTIONS IMPLEMENTATION.
         MESSAGE 'Found ' && lv_count && ' resources' TYPE 'I'.
       CATCH /aws1/cx_agwbadrequestex INTO DATA(lo_bad_request).
         MESSAGE lo_bad_request->get_text( ) TYPE 'I'.
+        RAISE EXCEPTION lo_bad_request.
       CATCH /aws1/cx_agwnotfoundexception INTO DATA(lo_not_found).
         MESSAGE lo_not_found->get_text( ) TYPE 'I'.
+        RAISE EXCEPTION lo_not_found.
       CATCH /aws1/cx_agwtoomanyrequestsex INTO DATA(lo_too_many).
         MESSAGE lo_too_many->get_text( ) TYPE 'I'.
+        RAISE EXCEPTION lo_too_many.
     ENDTRY.
     " snippet-end:[agw.abapv1.get_resources]
   ENDMETHOD.
@@ -336,10 +362,13 @@ CLASS /AWSEX/CL_AGW_ACTIONS IMPLEMENTATION.
         MESSAGE 'REST API deleted successfully' TYPE 'I'.
       CATCH /aws1/cx_agwbadrequestex INTO DATA(lo_bad_request).
         MESSAGE lo_bad_request->get_text( ) TYPE 'I'.
+        RAISE EXCEPTION lo_bad_request.
       CATCH /aws1/cx_agwnotfoundexception INTO DATA(lo_not_found).
         MESSAGE lo_not_found->get_text( ) TYPE 'I'.
+        RAISE EXCEPTION lo_not_found.
       CATCH /aws1/cx_agwtoomanyrequestsex INTO DATA(lo_too_many).
         MESSAGE lo_too_many->get_text( ) TYPE 'I'.
+        RAISE EXCEPTION lo_too_many.
     ENDTRY.
     " snippet-end:[agw.abapv1.delete_rest_api]
   ENDMETHOD.
