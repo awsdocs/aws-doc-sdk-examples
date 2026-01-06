@@ -106,13 +106,25 @@ CLASS /AWSEX/CL_RSD_ACTIONS IMPLEMENTATION.
         " Example values: iv_user_name = 'awsuser'
         " Example values: iv_sql = 'SELECT * FROM movies WHERE year = :year'
         " Example values: it_parameter_list - SQL parameters for parameterized queries
-        oo_result = lo_rsd->executestatement(
-          iv_clusteridentifier = iv_cluster_identifier
-          iv_database = iv_database_name
-          iv_dbuser = iv_user_name
-          iv_sql = iv_sql
-          it_parameters = it_parameter_list
-        ).
+        
+        " Only pass parameters if the list is not empty
+        IF it_parameter_list IS NOT INITIAL.
+          oo_result = lo_rsd->executestatement(
+            iv_clusteridentifier = iv_cluster_identifier
+            iv_database = iv_database_name
+            iv_dbuser = iv_user_name
+            iv_sql = iv_sql
+            it_parameters = it_parameter_list
+          ).
+        ELSE.
+          oo_result = lo_rsd->executestatement(
+            iv_clusteridentifier = iv_cluster_identifier
+            iv_database = iv_database_name
+            iv_dbuser = iv_user_name
+            iv_sql = iv_sql
+          ).
+        ENDIF.
+        
         lv_statement_id = oo_result->get_id( ).
         MESSAGE |Statement executed. ID: { lv_statement_id }| TYPE 'I'.
       CATCH /aws1/cx_rsdexecutestatementex.
