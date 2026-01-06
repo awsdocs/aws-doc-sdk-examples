@@ -173,7 +173,7 @@ CLASS ltc_awsex_cl_rsd_actions IMPLEMENTATION.
     DATA lv_drop_sql TYPE string.
     DATA lo_drop_result TYPE REF TO /aws1/cl_rsdexecutestmtoutput.
     DATA lv_statement_id TYPE /aws1/rsduuid.
-    DATA lo_delete_cluster_result TYPE REF TO /aws1/cl_rshdelclusterresult.
+    DATA lo_delete_cluster_result TYPE REF TO /aws1/cl_rshdeleteclustresult.
     DATA lo_describe_result TYPE REF TO /aws1/cl_rshclustersmessage.
     DATA lt_clusters TYPE /aws1/cl_rshcluster=>tt_clusterlist.
     DATA lo_cluster TYPE REF TO /aws1/cl_rshcluster.
