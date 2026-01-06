@@ -6,7 +6,7 @@ CLASS /awsex/cl_rds_actions DEFINITION
   CREATE PUBLIC .
 
   PUBLIC SECTION.
-    METHODS describe_db_cluster_parameter_groups
+    METHODS descr_db_clust_param_groups
       IMPORTING
         !iv_param_group_name        TYPE /aws1/rdsstring
       RETURNING
@@ -14,7 +14,7 @@ CLASS /awsex/cl_rds_actions DEFINITION
       RAISING
         /aws1/cx_rt_generic.
 
-    METHODS create_db_cluster_parameter_group
+    METHODS create_db_clust_param_group
       IMPORTING
         !iv_param_group_name        TYPE /aws1/rdsstring
         !iv_param_group_family      TYPE /aws1/rdsstring
@@ -24,13 +24,13 @@ CLASS /awsex/cl_rds_actions DEFINITION
       RAISING
         /aws1/cx_rt_generic.
 
-    METHODS delete_db_cluster_parameter_group
+    METHODS delete_db_clust_param_group
       IMPORTING
         !iv_param_group_name        TYPE /aws1/rdsstring
       RAISING
         /aws1/cx_rt_generic.
 
-    METHODS describe_db_cluster_parameters
+    METHODS descr_db_cluster_parameters
       IMPORTING
         !iv_param_group_name        TYPE /aws1/rdsstring
         !iv_name_prefix             TYPE /aws1/rdsstring OPTIONAL
@@ -40,7 +40,7 @@ CLASS /awsex/cl_rds_actions DEFINITION
       RAISING
         /aws1/cx_rt_generic.
 
-    METHODS modify_db_cluster_parameter_group
+    METHODS modify_db_clust_param_group
       IMPORTING
         !iv_param_group_name        TYPE /aws1/rdsstring
         !it_update_parameters       TYPE /aws1/cl_rdsparameter=>tt_parameterslist
@@ -196,13 +196,13 @@ CLASS /AWSEX/CL_RDS_ACTIONS IMPLEMENTATION.
     " snippet-end:[rds.abapv1.describe_db_parameter_groups]
   ENDMETHOD.
 
-  METHOD describe_db_cluster_parameter_groups.
+  METHOD descr_db_clust_param_groups.
     CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_rds) = /aws1/cl_rds_factory=>create( lo_session ).
 
-    " snippet-start:[rds.abapv1.describe_db_cluster_parameter_groups]
+    " snippet-start:[rds.abapv1.descr_db_clust_param_groups]
     TRY.
         DATA(lo_output) = lo_rds->describedbclusterparamgroups(
           iv_dbclusterparamgroupname = iv_param_group_name
@@ -213,7 +213,7 @@ CLASS /AWSEX/CL_RDS_ACTIONS IMPLEMENTATION.
         ENDIF.
       CATCH /aws1/cx_rdsdbprmgrnotfndfault.
     ENDTRY.
-    " snippet-end:[rds.abapv1.describe_db_cluster_parameter_groups]
+    " snippet-end:[rds.abapv1.descr_db_clust_param_groups]
   ENDMETHOD.
 
   METHOD create_db_parameter_group.
@@ -241,13 +241,13 @@ CLASS /AWSEX/CL_RDS_ACTIONS IMPLEMENTATION.
   ENDMETHOD.
 
 
-  METHOD create_db_cluster_parameter_group.
+  METHOD create_db_clust_param_group.
     CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_rds) = /aws1/cl_rds_factory=>create( lo_session ).
 
-    " snippet-start:[rds.abapv1.create_db_cluster_parameter_group]
+    " snippet-start:[rds.abapv1.create_db_clust_param_group]
     TRY.
         DATA(lo_output) = lo_rds->createdbclusterparamgroup(
           iv_dbclusterparamgroupname = iv_param_group_name
@@ -262,7 +262,7 @@ CLASS /AWSEX/CL_RDS_ACTIONS IMPLEMENTATION.
         " Re-raise exception - quota exceeded
         RAISE EXCEPTION TYPE /aws1/cx_rdsdbprmgrquotaexcd00.
     ENDTRY.
-    " snippet-end:[rds.abapv1.create_db_cluster_parameter_group]
+    " snippet-end:[rds.abapv1.create_db_clust_param_group]
   ENDMETHOD.
 
   METHOD delete_db_parameter_group.
@@ -286,13 +286,13 @@ CLASS /AWSEX/CL_RDS_ACTIONS IMPLEMENTATION.
   ENDMETHOD.
 
 
-  METHOD delete_db_cluster_parameter_group.
+  METHOD delete_db_clust_param_group.
     CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_rds) = /aws1/cl_rds_factory=>create( lo_session ).
 
-    " snippet-start:[rds.abapv1.delete_db_cluster_parameter_group]
+    " snippet-start:[rds.abapv1.delete_db_clust_param_group]
     TRY.
         lo_rds->deletedbclusterparamgroup(
           iv_dbclusterparamgroupname = iv_param_group_name
@@ -304,7 +304,7 @@ CLASS /AWSEX/CL_RDS_ACTIONS IMPLEMENTATION.
         " Re-raise exception - invalid state
         RAISE EXCEPTION TYPE /aws1/cx_rdsinvdbprmgrstatef00.
     ENDTRY.
-    " snippet-end:[rds.abapv1.delete_db_cluster_parameter_group]
+    " snippet-end:[rds.abapv1.delete_db_clust_param_group]
   ENDMETHOD.
 
   METHOD describe_db_parameters.
@@ -328,13 +328,13 @@ CLASS /AWSEX/CL_RDS_ACTIONS IMPLEMENTATION.
     " snippet-end:[rds.abapv1.describe_db_parameters]
   ENDMETHOD.
 
-  METHOD describe_db_cluster_parameters.
+  METHOD descr_db_cluster_parameters.
     CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_rds) = /aws1/cl_rds_factory=>create( lo_session ).
 
-    " snippet-start:[rds.abapv1.describe_db_cluster_parameters]
+    " snippet-start:[rds.abapv1.descr_db_cluster_parameters]
     TRY.
         DATA lv_marker TYPE /aws1/rdsstring VALUE ''.
         DATA lt_all_parameters TYPE /aws1/cl_rdsparameter=>tt_parameterslist.
@@ -364,7 +364,7 @@ CLASS /AWSEX/CL_RDS_ACTIONS IMPLEMENTATION.
         " Re-raise exception - parameter group not found
         RAISE EXCEPTION TYPE /aws1/cx_rdsdbprmgrnotfndfault.
     ENDTRY.
-    " snippet-end:[rds.abapv1.describe_db_cluster_parameters]
+    " snippet-end:[rds.abapv1.descr_db_cluster_parameters]
   ENDMETHOD.
 
   METHOD modify_db_parameter_group.
@@ -392,13 +392,13 @@ CLASS /AWSEX/CL_RDS_ACTIONS IMPLEMENTATION.
     " snippet-end:[rds.abapv1.modify_db_parameter_group]
   ENDMETHOD.
 
-  METHOD modify_db_cluster_parameter_group.
+  METHOD modify_db_clust_param_group.
     CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_rds) = /aws1/cl_rds_factory=>create( lo_session ).
 
-    " snippet-start:[rds.abapv1.modify_db_cluster_parameter_group]
+    " snippet-start:[rds.abapv1.modify_db_clust_param_group]
     TRY.
         oo_result = lo_rds->modifydbclusterparamgroup(
           iv_dbclusterparamgroupname = iv_param_group_name
@@ -411,7 +411,7 @@ CLASS /AWSEX/CL_RDS_ACTIONS IMPLEMENTATION.
         " Re-raise exception - invalid state
         RAISE EXCEPTION TYPE /aws1/cx_rdsinvdbprmgrstatef00.
     ENDTRY.
-    " snippet-end:[rds.abapv1.modify_db_cluster_parameter_group]
+    " snippet-end:[rds.abapv1.modify_db_clust_param_group]
   ENDMETHOD.
 
   METHOD create_db_snapshot.

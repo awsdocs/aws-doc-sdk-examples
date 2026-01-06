@@ -28,11 +28,11 @@ CLASS ltc_awsex_cl_rds_actions DEFINITION FOR TESTING DURATION MEDIUM RISK LEVEL
       delete_db_parameter_group FOR TESTING RAISING /aws1/cx_rt_generic.
 
     " Cluster parameter group tests (Aurora MySQL)
-    METHODS: describe_db_cluster_parameter_groups FOR TESTING RAISING /aws1/cx_rt_generic,
-      create_db_cluster_parameter_group FOR TESTING RAISING /aws1/cx_rt_generic,
-      describe_db_cluster_parameters FOR TESTING RAISING /aws1/cx_rt_generic,
-      modify_db_cluster_parameter_group FOR TESTING RAISING /aws1/cx_rt_generic,
-      delete_db_cluster_parameter_group FOR TESTING RAISING /aws1/cx_rt_generic.
+    METHODS: descr_db_clust_param_groups FOR TESTING RAISING /aws1/cx_rt_generic,
+      create_db_clust_param_group FOR TESTING RAISING /aws1/cx_rt_generic,
+      descr_db_cluster_parameters FOR TESTING RAISING /aws1/cx_rt_generic,
+      modify_db_clust_param_group FOR TESTING RAISING /aws1/cx_rt_generic,
+      delete_db_clust_param_group FOR TESTING RAISING /aws1/cx_rt_generic.
 
     " Engine version and instance option tests
     METHODS: describe_db_engine_versions FOR TESTING RAISING /aws1/cx_rt_generic,
@@ -326,7 +326,7 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
 
   ENDMETHOD.
 
-  METHOD describe_db_cluster_parameter_groups.
+  METHOD descr_db_clust_param_groups.
     DATA lo_result TYPE REF TO /aws1/cl_rdsdbclustparamgroup.
     DATA lv_uuid TYPE string.
     DATA lv_cluster_pg_name TYPE /aws1/rdsstring.
@@ -346,7 +346,7 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
     ENDTRY.
 
     " Test describe
-    lo_result = ao_rds_actions->describe_db_cluster_parameter_groups(
+    lo_result = ao_rds_actions->descr_db_clust_param_groups(
       iv_param_group_name = lv_cluster_pg_name ).
 
     cl_abap_unit_assert=>assert_bound(
@@ -366,7 +366,7 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
 
   ENDMETHOD.
 
-  METHOD create_db_cluster_parameter_group.
+  METHOD create_db_clust_param_group.
     DATA lo_result TYPE REF TO /aws1/cl_rdsdbclustparamgroup.
     DATA lv_uuid TYPE string.
     DATA lv_cluster_pg_name TYPE /aws1/rdsstring.
@@ -374,7 +374,7 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
     lv_uuid = /awsex/cl_utils=>get_random_string( ).
     lv_cluster_pg_name = |test-cpg-cr-{ lv_uuid }|.
 
-    lo_result = ao_rds_actions->create_db_cluster_parameter_group(
+    lo_result = ao_rds_actions->create_db_clust_param_group(
       iv_param_group_name = lv_cluster_pg_name
       iv_param_group_family = 'aurora-mysql8.0'
       iv_description = 'Test cluster parameter group creation' ).
@@ -396,7 +396,7 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
 
   ENDMETHOD.
 
-  METHOD describe_db_cluster_parameters.
+  METHOD descr_db_cluster_parameters.
     DATA lt_parameters TYPE /aws1/cl_rdsparameter=>tt_parameterslist.
     DATA lv_uuid TYPE string.
     DATA lv_cluster_pg_name TYPE /aws1/rdsstring.
@@ -416,7 +416,7 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
     ENDTRY.
 
     " Test describe parameters
-    lt_parameters = ao_rds_actions->describe_db_cluster_parameters(
+    lt_parameters = ao_rds_actions->descr_db_cluster_parameters(
       iv_param_group_name = lv_cluster_pg_name
       iv_source = 'engine-default' ).
 
@@ -433,7 +433,7 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
 
   ENDMETHOD.
 
-  METHOD modify_db_cluster_parameter_group.
+  METHOD modify_db_clust_param_group.
     DATA lo_result TYPE REF TO /aws1/cl_rdsdbclstprmgrnamemsg.
     DATA lt_parameters TYPE /aws1/cl_rdsparameter=>tt_parameterslist.
     DATA lv_uuid TYPE string.
@@ -460,7 +460,7 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
       iv_applymethod = 'immediate' ).
     APPEND lo_param TO lt_parameters.
 
-    lo_result = ao_rds_actions->modify_db_cluster_parameter_group(
+    lo_result = ao_rds_actions->modify_db_clust_param_group(
       iv_param_group_name = lv_cluster_pg_name
       it_update_parameters = lt_parameters ).
 
@@ -481,7 +481,7 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
 
   ENDMETHOD.
 
-  METHOD delete_db_cluster_parameter_group.
+  METHOD delete_db_clust_param_group.
     DATA lv_uuid TYPE string.
     DATA lv_cluster_pg_name TYPE /aws1/rdsstring.
 
@@ -503,7 +503,7 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
     ENDTRY.
 
     " Delete it using the action method
-    ao_rds_actions->delete_db_cluster_parameter_group( iv_param_group_name = lv_cluster_pg_name ).
+    ao_rds_actions->delete_db_clust_param_group( iv_param_group_name = lv_cluster_pg_name ).
 
     " Verify deletion
     TRY.
