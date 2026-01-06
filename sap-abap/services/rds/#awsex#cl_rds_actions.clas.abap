@@ -191,7 +191,7 @@ CLASS /AWSEX/CL_RDS_ACTIONS IMPLEMENTATION.
           iv_dbparametergroupname = iv_dbparametergroupname ).
         MESSAGE 'DB parameter group retrieved.' TYPE 'I'.
       CATCH /aws1/cx_rdsdbprmgrnotfndfault.
-        MESSAGE 'DB parameter group not found.' TYPE 'E'.
+        MESSAGE 'DB parameter group not found.' TYPE 'I'.
     ENDTRY.
     " snippet-end:[rds.abapv1.describe_db_parameter_groups]
   ENDMETHOD.
@@ -233,9 +233,9 @@ CLASS /AWSEX/CL_RDS_ACTIONS IMPLEMENTATION.
           iv_description            = iv_description ).
         MESSAGE 'DB parameter group created.' TYPE 'I'.
       CATCH /aws1/cx_rdsdbparmgralrexfault.
-        MESSAGE 'DB parameter group already exists.' TYPE 'E'.
+        MESSAGE 'DB parameter group already exists.' TYPE 'I'.
       CATCH /aws1/cx_rdsdbprmgrquotaexcd00.
-        MESSAGE 'DB parameter group quota exceeded.' TYPE 'E'.
+        MESSAGE 'DB parameter group quota exceeded.' TYPE 'I'.
     ENDTRY.
     " snippet-end:[rds.abapv1.create_db_parameter_group]
   ENDMETHOD.
@@ -278,9 +278,9 @@ CLASS /AWSEX/CL_RDS_ACTIONS IMPLEMENTATION.
           iv_dbparametergroupname = iv_dbparametergroupname ).
         MESSAGE 'DB parameter group deleted.' TYPE 'I'.
       CATCH /aws1/cx_rdsdbprmgrnotfndfault.
-        MESSAGE 'DB parameter group not found.' TYPE 'E'.
+        MESSAGE 'DB parameter group not found.' TYPE 'I'.
       CATCH /aws1/cx_rdsinvdbprmgrstatef00.
-        MESSAGE 'DB parameter group is in an invalid state.' TYPE 'E'.
+        MESSAGE 'DB parameter group is in an invalid state.' TYPE 'I'.
     ENDTRY.
     " snippet-end:[rds.abapv1.delete_db_parameter_group]
   ENDMETHOD.
@@ -323,7 +323,7 @@ CLASS /AWSEX/CL_RDS_ACTIONS IMPLEMENTATION.
         DATA(lv_param_count) = lines( oo_result->get_parameters( ) ).
         MESSAGE |Retrieved { lv_param_count } parameters.| TYPE 'I'.
       CATCH /aws1/cx_rdsdbprmgrnotfndfault.
-        MESSAGE 'DB parameter group not found.' TYPE 'E'.
+        MESSAGE 'DB parameter group not found.' TYPE 'I'.
     ENDTRY.
     " snippet-end:[rds.abapv1.describe_db_parameters]
   ENDMETHOD.
@@ -385,9 +385,9 @@ CLASS /AWSEX/CL_RDS_ACTIONS IMPLEMENTATION.
           it_parameters           = it_parameters ).
         MESSAGE 'DB parameter group modified.' TYPE 'I'.
       CATCH /aws1/cx_rdsdbprmgrnotfndfault.
-        MESSAGE 'DB parameter group not found.' TYPE 'E'.
+        MESSAGE 'DB parameter group not found.' TYPE 'I'.
       CATCH /aws1/cx_rdsinvdbprmgrstatef00.
-        MESSAGE 'DB parameter group is in an invalid state.' TYPE 'E'.
+        MESSAGE 'DB parameter group is in an invalid state.' TYPE 'I'.
     ENDTRY.
     " snippet-end:[rds.abapv1.modify_db_parameter_group]
   ENDMETHOD.
@@ -429,13 +429,13 @@ CLASS /AWSEX/CL_RDS_ACTIONS IMPLEMENTATION.
           iv_dbinstanceidentifier = iv_dbinstanceidentifier ).
         MESSAGE 'DB snapshot created.' TYPE 'I'.
       CATCH /aws1/cx_rdsdbinstnotfndfault.
-        MESSAGE 'DB instance not found.' TYPE 'E'.
+        MESSAGE 'DB instance not found.' TYPE 'I'.
       CATCH /aws1/cx_rdsdbsnapalrdyexfault.
-        MESSAGE 'DB snapshot already exists.' TYPE 'E'.
+        MESSAGE 'DB snapshot already exists.' TYPE 'I'.
       CATCH /aws1/cx_rdsinvdbinststatefa00.
-        MESSAGE 'DB instance is in an invalid state.' TYPE 'E'.
+        MESSAGE 'DB instance is in an invalid state.' TYPE 'I'.
       CATCH /aws1/cx_rdssnapquotaexcdfault.
-        MESSAGE 'Snapshot quota exceeded.' TYPE 'E'.
+        MESSAGE 'Snapshot quota exceeded.' TYPE 'I'.
     ENDTRY.
     " snippet-end:[rds.abapv1.create_db_snapshot]
   ENDMETHOD.
@@ -453,7 +453,7 @@ CLASS /AWSEX/CL_RDS_ACTIONS IMPLEMENTATION.
           iv_dbsnapshotidentifier = iv_dbsnapshotidentifier ).
         MESSAGE 'DB snapshot retrieved.' TYPE 'I'.
       CATCH /aws1/cx_rdsdbsnapnotfndfault.
-        MESSAGE 'DB snapshot not found.' TYPE 'E'.
+        MESSAGE 'DB snapshot not found.' TYPE 'I'.
     ENDTRY.
     " snippet-end:[rds.abapv1.describe_db_snapshots]
   ENDMETHOD.
@@ -509,7 +509,7 @@ CLASS /AWSEX/CL_RDS_ACTIONS IMPLEMENTATION.
           iv_dbinstanceidentifier = iv_dbinstanceidentifier ).
         MESSAGE 'DB instance retrieved.' TYPE 'I'.
       CATCH /aws1/cx_rdsdbinstnotfndfault.
-        MESSAGE 'DB instance not found.' TYPE 'E'.
+        MESSAGE 'DB instance not found.' TYPE 'I'.
     ENDTRY.
     " snippet-end:[rds.abapv1.describe_db_instances]
   ENDMETHOD.
@@ -546,11 +546,11 @@ CLASS /AWSEX/CL_RDS_ACTIONS IMPLEMENTATION.
           iv_masteruserpassword   = iv_masteruserpassword ).
         MESSAGE 'DB instance created.' TYPE 'I'.
       CATCH /aws1/cx_rdsdbinstalrdyexfault.
-        MESSAGE 'DB instance already exists.' TYPE 'E'.
+        MESSAGE 'DB instance already exists.' TYPE 'I'.
       CATCH /aws1/cx_rdsinstquotaexcdfault.
-        MESSAGE 'DB instance quota exceeded.' TYPE 'E'.
+        MESSAGE 'DB instance quota exceeded.' TYPE 'I'.
       CATCH /aws1/cx_rdsdbprmgrnotfndfault.
-        MESSAGE 'DB parameter group not found.' TYPE 'E'.
+        MESSAGE 'DB parameter group not found.' TYPE 'I'.
     ENDTRY.
     " snippet-end:[rds.abapv1.create_db_instance]
   ENDMETHOD.
@@ -571,9 +571,9 @@ CLASS /AWSEX/CL_RDS_ACTIONS IMPLEMENTATION.
           iv_deleteautomatedbackups = abap_true ).
         MESSAGE 'DB instance deleted.' TYPE 'I'.
       CATCH /aws1/cx_rdsdbinstnotfndfault.
-        MESSAGE 'DB instance not found.' TYPE 'E'.
+        MESSAGE 'DB instance not found.' TYPE 'I'.
       CATCH /aws1/cx_rdsinvdbinststatefa00.
-        MESSAGE 'DB instance is in an invalid state.' TYPE 'E'.
+        MESSAGE 'DB instance is in an invalid state.' TYPE 'I'.
     ENDTRY.
     " snippet-end:[rds.abapv1.delete_db_instance]
   ENDMETHOD.
