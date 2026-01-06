@@ -116,12 +116,12 @@ CLASS /AWSEX/CL_AGW_ACTIONS IMPLEMENTATION.
           iv_description = 'Sample REST API created by ABAP SDK' ).
         DATA(lv_api_id) = oo_result->get_id( ).
         MESSAGE 'REST API created with ID: ' && lv_api_id TYPE 'I'.
-      CATCH /aws1/cx_agwbadrequestex.
-        MESSAGE 'Bad request - invalid parameters' TYPE 'E'.
-      CATCH /aws1/cx_agwtoomanyrequestsex.
-        MESSAGE 'Too many requests - rate limit exceeded' TYPE 'E'.
-      CATCH /aws1/cx_agwunauthorizedex.
-        MESSAGE 'Unauthorized - check credentials' TYPE 'E'.
+      CATCH /aws1/cx_agwbadrequestex INTO DATA(lo_bad_request).
+        MESSAGE lo_bad_request->get_text( ) TYPE 'I'.
+      CATCH /aws1/cx_agwtoomanyrequestsex INTO DATA(lo_too_many).
+        MESSAGE lo_too_many->get_text( ) TYPE 'I'.
+      CATCH /aws1/cx_agwunauthorizedex INTO DATA(lo_unauthorized).
+        MESSAGE lo_unauthorized->get_text( ) TYPE 'I'.
     ENDTRY.
     " snippet-end:[agw.abapv1.create_rest_api]
   ENDMETHOD.
@@ -141,12 +141,12 @@ CLASS /AWSEX/CL_AGW_ACTIONS IMPLEMENTATION.
           iv_pathpart = iv_resource_path ).
         DATA(lv_resource_id) = oo_result->get_id( ).
         MESSAGE 'Resource created with ID: ' && lv_resource_id TYPE 'I'.
-      CATCH /aws1/cx_agwbadrequestex.
-        MESSAGE 'Bad request - invalid parameters' TYPE 'E'.
-      CATCH /aws1/cx_agwnotfoundexception.
-        MESSAGE 'REST API or parent resource not found' TYPE 'E'.
-      CATCH /aws1/cx_agwtoomanyrequestsex.
-        MESSAGE 'Too many requests - rate limit exceeded' TYPE 'E'.
+      CATCH /aws1/cx_agwbadrequestex INTO DATA(lo_bad_request).
+        MESSAGE lo_bad_request->get_text( ) TYPE 'I'.
+      CATCH /aws1/cx_agwnotfoundexception INTO DATA(lo_not_found).
+        MESSAGE lo_not_found->get_text( ) TYPE 'I'.
+      CATCH /aws1/cx_agwtoomanyrequestsex INTO DATA(lo_too_many).
+        MESSAGE lo_too_many->get_text( ) TYPE 'I'.
     ENDTRY.
     " snippet-end:[agw.abapv1.create_resource]
   ENDMETHOD.
@@ -166,12 +166,12 @@ CLASS /AWSEX/CL_AGW_ACTIONS IMPLEMENTATION.
           iv_httpmethod = iv_http_method
           iv_authorizationtype = 'NONE' ).
         MESSAGE 'Method ' && iv_http_method && ' added to resource' TYPE 'I'.
-      CATCH /aws1/cx_agwbadrequestex.
-        MESSAGE 'Bad request - invalid parameters' TYPE 'E'.
-      CATCH /aws1/cx_agwnotfoundexception.
-        MESSAGE 'Resource not found' TYPE 'E'.
-      CATCH /aws1/cx_agwtoomanyrequestsex.
-        MESSAGE 'Too many requests - rate limit exceeded' TYPE 'E'.
+      CATCH /aws1/cx_agwbadrequestex INTO DATA(lo_bad_request).
+        MESSAGE lo_bad_request->get_text( ) TYPE 'I'.
+      CATCH /aws1/cx_agwnotfoundexception INTO DATA(lo_not_found).
+        MESSAGE lo_not_found->get_text( ) TYPE 'I'.
+      CATCH /aws1/cx_agwtoomanyrequestsex INTO DATA(lo_too_many).
+        MESSAGE lo_too_many->get_text( ) TYPE 'I'.
     ENDTRY.
     " snippet-end:[agw.abapv1.put_method]
   ENDMETHOD.
@@ -191,12 +191,12 @@ CLASS /AWSEX/CL_AGW_ACTIONS IMPLEMENTATION.
           iv_httpmethod = iv_http_method
           iv_statuscode = '200' ).
         MESSAGE 'Method response configured for status 200' TYPE 'I'.
-      CATCH /aws1/cx_agwbadrequestex.
-        MESSAGE 'Bad request - invalid parameters' TYPE 'E'.
-      CATCH /aws1/cx_agwnotfoundexception.
-        MESSAGE 'Method not found' TYPE 'E'.
-      CATCH /aws1/cx_agwtoomanyrequestsex.
-        MESSAGE 'Too many requests - rate limit exceeded' TYPE 'E'.
+      CATCH /aws1/cx_agwbadrequestex INTO DATA(lo_bad_request).
+        MESSAGE lo_bad_request->get_text( ) TYPE 'I'.
+      CATCH /aws1/cx_agwnotfoundexception INTO DATA(lo_not_found).
+        MESSAGE lo_not_found->get_text( ) TYPE 'I'.
+      CATCH /aws1/cx_agwtoomanyrequestsex INTO DATA(lo_too_many).
+        MESSAGE lo_too_many->get_text( ) TYPE 'I'.
     ENDTRY.
     " snippet-end:[agw.abapv1.put_method_response]
   ENDMETHOD.
@@ -218,12 +218,12 @@ CLASS /AWSEX/CL_AGW_ACTIONS IMPLEMENTATION.
           iv_integrationhttpmethod = 'POST'
           iv_uri = iv_integration_uri ).
         MESSAGE 'Integration configured for method' TYPE 'I'.
-      CATCH /aws1/cx_agwbadrequestex.
-        MESSAGE 'Bad request - invalid parameters' TYPE 'E'.
-      CATCH /aws1/cx_agwnotfoundexception.
-        MESSAGE 'Method not found' TYPE 'E'.
-      CATCH /aws1/cx_agwtoomanyrequestsex.
-        MESSAGE 'Too many requests - rate limit exceeded' TYPE 'E'.
+      CATCH /aws1/cx_agwbadrequestex INTO DATA(lo_bad_request).
+        MESSAGE lo_bad_request->get_text( ) TYPE 'I'.
+      CATCH /aws1/cx_agwnotfoundexception INTO DATA(lo_not_found).
+        MESSAGE lo_not_found->get_text( ) TYPE 'I'.
+      CATCH /aws1/cx_agwtoomanyrequestsex INTO DATA(lo_too_many).
+        MESSAGE lo_too_many->get_text( ) TYPE 'I'.
     ENDTRY.
     " snippet-end:[agw.abapv1.put_integration]
   ENDMETHOD.
@@ -243,12 +243,12 @@ CLASS /AWSEX/CL_AGW_ACTIONS IMPLEMENTATION.
           iv_httpmethod = iv_http_method
           iv_statuscode = '200' ).
         MESSAGE 'Integration response configured for status 200' TYPE 'I'.
-      CATCH /aws1/cx_agwbadrequestex.
-        MESSAGE 'Bad request - invalid parameters' TYPE 'E'.
-      CATCH /aws1/cx_agwnotfoundexception.
-        MESSAGE 'Integration not found' TYPE 'E'.
-      CATCH /aws1/cx_agwtoomanyrequestsex.
-        MESSAGE 'Too many requests - rate limit exceeded' TYPE 'E'.
+      CATCH /aws1/cx_agwbadrequestex INTO DATA(lo_bad_request).
+        MESSAGE lo_bad_request->get_text( ) TYPE 'I'.
+      CATCH /aws1/cx_agwnotfoundexception INTO DATA(lo_not_found).
+        MESSAGE lo_not_found->get_text( ) TYPE 'I'.
+      CATCH /aws1/cx_agwtoomanyrequestsex INTO DATA(lo_too_many).
+        MESSAGE lo_too_many->get_text( ) TYPE 'I'.
     ENDTRY.
     " snippet-end:[agw.abapv1.put_integration_response]
   ENDMETHOD.
@@ -268,12 +268,12 @@ CLASS /AWSEX/CL_AGW_ACTIONS IMPLEMENTATION.
           iv_description = 'Deployment created by ABAP SDK' ).
         DATA(lv_deployment_id) = oo_result->get_id( ).
         MESSAGE 'Deployment created with ID: ' && lv_deployment_id TYPE 'I'.
-      CATCH /aws1/cx_agwbadrequestex.
-        MESSAGE 'Bad request - invalid parameters' TYPE 'E'.
-      CATCH /aws1/cx_agwnotfoundexception.
-        MESSAGE 'REST API not found' TYPE 'E'.
-      CATCH /aws1/cx_agwtoomanyrequestsex.
-        MESSAGE 'Too many requests - rate limit exceeded' TYPE 'E'.
+      CATCH /aws1/cx_agwbadrequestex INTO DATA(lo_bad_request).
+        MESSAGE lo_bad_request->get_text( ) TYPE 'I'.
+      CATCH /aws1/cx_agwnotfoundexception INTO DATA(lo_not_found).
+        MESSAGE lo_not_found->get_text( ) TYPE 'I'.
+      CATCH /aws1/cx_agwtoomanyrequestsex INTO DATA(lo_too_many).
+        MESSAGE lo_too_many->get_text( ) TYPE 'I'.
     ENDTRY.
     " snippet-end:[agw.abapv1.create_deployment]
   ENDMETHOD.
@@ -291,10 +291,10 @@ CLASS /AWSEX/CL_AGW_ACTIONS IMPLEMENTATION.
         DATA(lt_apis) = oo_result->get_items( ).
         DATA(lv_count) = lines( lt_apis ).
         MESSAGE 'Found ' && lv_count && ' REST APIs' TYPE 'I'.
-      CATCH /aws1/cx_agwbadrequestex.
-        MESSAGE 'Bad request - invalid parameters' TYPE 'E'.
-      CATCH /aws1/cx_agwtoomanyrequestsex.
-        MESSAGE 'Too many requests - rate limit exceeded' TYPE 'E'.
+      CATCH /aws1/cx_agwbadrequestex INTO DATA(lo_bad_request).
+        MESSAGE lo_bad_request->get_text( ) TYPE 'I'.
+      CATCH /aws1/cx_agwtoomanyrequestsex INTO DATA(lo_too_many).
+        MESSAGE lo_too_many->get_text( ) TYPE 'I'.
     ENDTRY.
     " snippet-end:[agw.abapv1.get_rest_apis]
   ENDMETHOD.
@@ -313,12 +313,12 @@ CLASS /AWSEX/CL_AGW_ACTIONS IMPLEMENTATION.
         DATA(lt_resources) = oo_result->get_items( ).
         DATA(lv_count) = lines( lt_resources ).
         MESSAGE 'Found ' && lv_count && ' resources' TYPE 'I'.
-      CATCH /aws1/cx_agwbadrequestex.
-        MESSAGE 'Bad request - invalid parameters' TYPE 'E'.
-      CATCH /aws1/cx_agwnotfoundexception.
-        MESSAGE 'REST API not found' TYPE 'E'.
-      CATCH /aws1/cx_agwtoomanyrequestsex.
-        MESSAGE 'Too many requests - rate limit exceeded' TYPE 'E'.
+      CATCH /aws1/cx_agwbadrequestex INTO DATA(lo_bad_request).
+        MESSAGE lo_bad_request->get_text( ) TYPE 'I'.
+      CATCH /aws1/cx_agwnotfoundexception INTO DATA(lo_not_found).
+        MESSAGE lo_not_found->get_text( ) TYPE 'I'.
+      CATCH /aws1/cx_agwtoomanyrequestsex INTO DATA(lo_too_many).
+        MESSAGE lo_too_many->get_text( ) TYPE 'I'.
     ENDTRY.
     " snippet-end:[agw.abapv1.get_resources]
   ENDMETHOD.
@@ -335,12 +335,12 @@ CLASS /AWSEX/CL_AGW_ACTIONS IMPLEMENTATION.
         lo_agw->deleterestapi(
           iv_restapiid = iv_rest_api_id ).
         MESSAGE 'REST API deleted successfully' TYPE 'I'.
-      CATCH /aws1/cx_agwbadrequestex.
-        MESSAGE 'Bad request - invalid parameters' TYPE 'E'.
-      CATCH /aws1/cx_agwnotfoundexception.
-        MESSAGE 'REST API not found' TYPE 'E'.
-      CATCH /aws1/cx_agwtoomanyrequestsex.
-        MESSAGE 'Too many requests - rate limit exceeded' TYPE 'E'.
+      CATCH /aws1/cx_agwbadrequestex INTO DATA(lo_bad_request).
+        MESSAGE lo_bad_request->get_text( ) TYPE 'I'.
+      CATCH /aws1/cx_agwnotfoundexception INTO DATA(lo_not_found).
+        MESSAGE lo_not_found->get_text( ) TYPE 'I'.
+      CATCH /aws1/cx_agwtoomanyrequestsex INTO DATA(lo_too_many).
+        MESSAGE lo_too_many->get_text( ) TYPE 'I'.
     ENDTRY.
     " snippet-end:[agw.abapv1.delete_rest_api]
   ENDMETHOD.
