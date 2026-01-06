@@ -36,65 +36,6 @@ CLASS ltc_awsex_cl_rsh_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
     CLASS-METHODS cleanup_existing_test_clusters
       RAISING /aws1/cx_rt_generic.
 
-  METHOD cleanup_existing_test_clusters.
-    DATA lo_describe_result TYPE REF TO /aws1/cl_rshclustersmessage.
-    DATA lt_clusters TYPE /aws1/cl_rshcluster=>tt_clusterlist.
-    DATA lo_cluster TYPE REF TO /aws1/cl_rshcluster.
-    DATA lt_tags TYPE /aws1/cl_rshtag=>tt_taglist.
-    DATA lo_tag TYPE REF TO /aws1/cl_rshtag.
-    DATA lv_cluster_id TYPE /aws1/rshstring.
-    DATA lv_has_test_tag TYPE abap_bool.
-    DATA lv_status TYPE /aws1/rshstring.
-
-    " Get all clusters in the account
-    TRY.
-        lo_describe_result = ao_rsh->describeclusters( ).
-        lt_clusters = lo_describe_result->get_clusters( ).
-
-        LOOP AT lt_clusters INTO lo_cluster.
-          lv_has_test_tag = abap_false.
-          lv_cluster_id = lo_cluster->get_clusteridentifier( ).
-          lv_status = lo_cluster->get_clusterstatus( ).
-
-          " Skip clusters that are already being deleted
-          IF lv_status = 'deleting'.
-            CONTINUE.
-          ENDIF.
-
-          " Check if cluster has convert_test tag
-          lt_tags = lo_cluster->get_tags( ).
-          LOOP AT lt_tags INTO lo_tag.
-            IF lo_tag->get_key( ) = 'convert_test' AND lo_tag->get_value( ) = 'true'.
-              lv_has_test_tag = abap_true.
-              EXIT.
-            ENDIF.
-          ENDLOOP.
-
-          " Delete clusters with test tag
-          IF lv_has_test_tag = abap_true.
-            TRY.
-                ao_rsh->deletecluster(
-                  iv_clusteridentifier = lv_cluster_id
-                  iv_skipfinalclustersnapshot = abap_true
-                ).
-              CATCH /aws1/cx_rshclustnotfoundfault.
-                " Already deleted
-              CATCH /aws1/cx_rshinvcluststatefault.
-                " Invalid state - skip
-            ENDTRY.
-          ENDIF.
-        ENDLOOP.
-
-        " Wait briefly for deletions to initiate
-        IF lv_has_test_tag = abap_true.
-          WAIT UP TO 5 SECONDS.
-        ENDIF.
-
-      CATCH /aws1/cx_rt_generic.
-        " If we can't list clusters, continue anyway
-    ENDTRY.
-  ENDMETHOD.
-
 ENDCLASS.
 
 CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
