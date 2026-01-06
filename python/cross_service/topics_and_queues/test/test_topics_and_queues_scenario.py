@@ -213,10 +213,9 @@ class TestTopicsAndQueuesScenario:
     def test_scenario_standard_topic_no_errors_logged(self, mock_mgr, caplog):
         """
         Verify the scenario runs without logging any errors for standard topic.
-        
-        Args:
-            mock_mgr: Mock manager with stubbed AWS clients
-            caplog: Pytest log capture fixture
+
+        :param mock_mgr: Mock manager with stubbed AWS clients.
+        :param caplog: Pytest log capture fixture.
         """
         mock_mgr.setup_stubs(None, None)
 

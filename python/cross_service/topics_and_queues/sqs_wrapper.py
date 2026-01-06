@@ -15,17 +15,16 @@ from botocore.exceptions import ClientError
 logger = logging.getLogger(__name__)
 
 
-# snippet-start:[python.example_code.sqs.SqsWrapper]
+# snippet-start:[python.example_code.sqs.SqsWrapper.class]
+# snippet-start:[python.example_code.sqs.SqsWrapper.decl]
 class SqsWrapper:
     """Wrapper class for managing Amazon SQS operations."""
 
     def __init__(self, sqs_client: Any) -> None:
         """
         Initialize the SqsWrapper.
-        
-        Args:
-            sqs_client: A Boto3 Amazon SQS client. This client provides low-level
-                       access to AWS SQS services.
+
+        :param sqs_client: A Boto3 Amazon SQS client.
         """
         self.sqs_client = sqs_client
 
@@ -33,27 +32,23 @@ class SqsWrapper:
     def from_client(cls) -> 'SqsWrapper':
         """
         Create an SqsWrapper instance using a default boto3 client.
-        
-        Returns:
-            SqsWrapper: An instance of this class.
+
+        :return: An instance of this class.
         """
         sqs_client = boto3.client('sqs')
         return cls(sqs_client)
 
-    # snippet-start:[python.example_code.sqs.CreateQueue]
+    # snippet-end:[python.example_code.sqs.SqsWrapper.decl]
+
+    # snippet-start:[python.example_code.sqs.CreateFifoQueue]
     def create_queue(self, queue_name: str, is_fifo: bool = False) -> str:
         """
         Create an SQS queue.
 
-        Args:
-            queue_name: The name of the queue to create
-            is_fifo: Whether to create a FIFO queue
-
-        Returns:
-            str: The URL of the created queue
-
-        Raises:
-            ClientError: If the queue creation fails
+        :param queue_name: The name of the queue to create.
+        :param is_fifo: Whether to create a FIFO queue.
+        :return: The URL of the created queue.
+        :raises ClientError: If the queue creation fails.
         """
         try:
             # Add .fifo suffix for FIFO queues
@@ -78,21 +73,16 @@ class SqsWrapper:
             logger.error(f"Error creating queue {queue_name}: {error_code} - {e}")
             raise
 
-    # snippet-end:[python.example_code.sqs.CreateQueue]
+    # snippet-end:[python.example_code.sqs.CreateFifoQueue]
 
     # snippet-start:[python.example_code.sqs.GetQueueAttributes]
     def get_queue_arn(self, queue_url: str) -> str:
         """
         Get the ARN of an SQS queue.
 
-        Args:
-            queue_url: The URL of the queue
-
-        Returns:
-            str: The ARN of the queue
-
-        Raises:
-            ClientError: If getting queue attributes fails
+        :param queue_url: The URL of the queue.
+        :return: The ARN of the queue.
+        :raises ClientError: If getting queue attributes fails.
         """
         try:
             response = self.sqs_client.get_queue_attributes(
@@ -116,16 +106,11 @@ class SqsWrapper:
         """
         Set the queue policy to allow SNS to send messages to the queue.
 
-        Args:
-            queue_arn: The ARN of the SQS queue
-            topic_arn: The ARN of the SNS topic
-            queue_url: The URL of the SQS queue
-
-        Returns:
-            bool: True if successful
-
-        Raises:
-            ClientError: If setting the queue policy fails
+        :param queue_arn: The ARN of the SQS queue.
+        :param topic_arn: The ARN of the SNS topic.
+        :param queue_url: The URL of the SQS queue.
+        :return: True if successful.
+        :raises ClientError: If setting the queue policy fails.
         """
         try:
             # Create policy that allows SNS to send messages to the queue
@@ -165,20 +150,15 @@ class SqsWrapper:
 
     # snippet-end:[python.example_code.sqs.SetQueueAttributes]
 
-    # snippet-start:[python.example_code.sqs.ReceiveMessage]
+    # snippet-start:[python.example_code.sqs.ReceiveTopicMessage]
     def receive_messages(self, queue_url: str, max_messages: int = 10) -> List[Dict[str, Any]]:
         """
         Receive messages from an SQS queue.
 
-        Args:
-            queue_url: The URL of the queue to receive messages from
-            max_messages: Maximum number of messages to receive (1-10)
-
-        Returns:
-            List[Dict[str, Any]]: List of received messages
-
-        Raises:
-            ClientError: If receiving messages fails
+        :param queue_url: The URL of the queue to receive messages from.
+        :param max_messages: Maximum number of messages to receive (1-10).
+        :return: List of received messages.
+        :raises ClientError: If receiving messages fails.
         """
         try:
             # Ensure max_messages is within valid range
@@ -200,22 +180,17 @@ class SqsWrapper:
             logger.error(f"Error receiving messages: {error_code} - {e}")
             raise
 
-    # snippet-end:[python.example_code.sqs.ReceiveMessage]
+    # snippet-end:[python.example_code.sqs.ReceiveTopicMessage]
 
-    # snippet-start:[python.example_code.sqs.DeleteMessageBatch]
+    # snippet-start:[python.example_code.sqs.DeleteTopicMessageBatch]
     def delete_messages(self, queue_url: str, messages: List[Dict[str, Any]]) -> bool:
         """
         Delete messages from an SQS queue in batches.
 
-        Args:
-            queue_url: The URL of the queue
-            messages: List of messages to delete
-
-        Returns:
-            bool: True if successful
-
-        Raises:
-            ClientError: If deleting messages fails
+        :param queue_url: The URL of the queue.
+        :param messages: List of messages to delete.
+        :return: True if successful.
+        :raises ClientError: If deleting messages fails.
         """
         try:
             if not messages:
@@ -252,21 +227,16 @@ class SqsWrapper:
             logger.error(f"Error deleting messages: {error_code} - {e}")
             raise
 
-    # snippet-end:[python.example_code.sqs.DeleteMessageBatch]
+    # snippet-end:[python.example_code.sqs.DeleteTopicMessageBatch]
 
-    # snippet-start:[python.example_code.sqs.DeleteQueue]
+    # snippet-start:[python.example_code.sqs.DeleteTopicQueue]
     def delete_queue(self, queue_url: str) -> bool:
         """
         Delete an SQS queue.
 
-        Args:
-            queue_url: The URL of the queue to delete
-
-        Returns:
-            bool: True if successful
-
-        Raises:
-            ClientError: If the queue deletion fails
+        :param queue_url: The URL of the queue to delete.
+        :return: True if successful.
+        :raises ClientError: If the queue deletion fails.
         """
         try:
             self.sqs_client.delete_queue(QueueUrl=queue_url)
@@ -284,20 +254,15 @@ class SqsWrapper:
                 logger.error(f"Error deleting queue: {error_code} - {e}")
                 raise
 
-    # snippet-end:[python.example_code.sqs.DeleteQueue]
+    # snippet-end:[python.example_code.sqs.DeleteTopicQueue]
 
     def list_queues(self, queue_name_prefix: Optional[str] = None) -> List[str]:
         """
         List all SQS queues in the account using pagination.
 
-        Args:
-            queue_name_prefix: Optional prefix to filter queue names
-
-        Returns:
-            List[str]: List of queue URLs
-
-        Raises:
-            ClientError: If listing queues fails
+        :param queue_name_prefix: Optional prefix to filter queue names.
+        :return: List of queue URLs.
+        :raises ClientError: If listing queues fails.
         """
         try:
             queue_urls = []
@@ -325,16 +290,11 @@ class SqsWrapper:
         """
         Send a message to an SQS queue.
 
-        Args:
-            queue_url: The URL of the queue
-            message_body: The message content
-            **kwargs: Additional message parameters (DelaySeconds, MessageAttributes, etc.)
-
-        Returns:
-            str: The message ID
-
-        Raises:
-            ClientError: If sending the message fails
+        :param queue_url: The URL of the queue.
+        :param message_body: The message content.
+        :param kwargs: Additional message parameters (DelaySeconds, MessageAttributes, etc.).
+        :return: The message ID.
+        :raises ClientError: If sending the message fails.
         """
         try:
             send_params = {
@@ -354,4 +314,4 @@ class SqsWrapper:
             logger.error(f"Error sending message: {error_code} - {e}")
             raise
 
-# snippet-end:[python.example_code.sqs.SqsWrapper]
+# snippet-end:[python.example_code.sqs.SqsWrapper.class]
