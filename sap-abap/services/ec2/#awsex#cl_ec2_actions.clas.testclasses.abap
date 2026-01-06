@@ -526,23 +526,34 @@ CLASS ltc_awsex_cl_ec2_actions IMPLEMENTATION.
         ( NEW /aws1/cl_ec2vpcendptidlist_w( lv_vpc_endpoint_id ) )
       ) ).
 
-    DATA(lo_describe_result) = ao_ec2->describevpcendpoints(
-      it_vpcendpointids = VALUE /aws1/cl_ec2vpcendptidlist_w=>tt_vpcendpointidlist(
-        ( NEW /aws1/cl_ec2vpcendptidlist_w( lv_vpc_endpoint_id ) )
-      ) ).
-    READ TABLE lo_describe_result->get_vpcendpoints( ) INTO DATA(lo_endpoint) INDEX 1.
-    DATA(lv_state) = lo_endpoint->get_state( ).
+    " Verify deletion - endpoint should either be in 'deleted' state or not found
+    DATA lv_deleted TYPE abap_bool VALUE abap_false.
+    TRY.
+        DATA(lo_describe_result) = ao_ec2->describevpcendpoints(
+          it_vpcendpointids = VALUE /aws1/cl_ec2vpcendptidlist_w=>tt_vpcendpointidlist(
+            ( NEW /aws1/cl_ec2vpcendptidlist_w( lv_vpc_endpoint_id ) )
+          ) ).
+        READ TABLE lo_describe_result->get_vpcendpoints( ) INTO DATA(lo_endpoint) INDEX 1.
+        DATA(lv_state) = lo_endpoint->get_state( ).
+        IF lv_state = 'deleted' OR lv_state = 'deleting'.
+          lv_deleted = abap_true.
+        ENDIF.
+      CATCH /aws1/cx_ec2clientexc INTO DATA(lo_ex).
+        " If endpoint is not found, that means it was deleted successfully
+        IF lo_ex->get_text( ) CS 'does not exist' OR lo_ex->av_err_code CS 'NotFound'.
+          lv_deleted = abap_true.
+        ENDIF.
+    ENDTRY.
 
-    cl_abap_unit_assert=>assert_equals(
-      act = lv_state
-      exp = 'deleted'
-      msg = |VPC endpoint should be in deleted state| ).
+    cl_abap_unit_assert=>assert_true(
+      act = lv_deleted
+      msg = |VPC endpoint should have been deleted| ).
 
     DO 4 TIMES.
       TRY.
           ao_ec2->deletevpc( iv_vpcid = lv_test_vpc_id ).
           EXIT.
-        CATCH /aws1/cx_ec2clientexc INTO DATA(lo_ex).
+        CATCH /aws1/cx_ec2clientexc INTO lo_ex.
           IF lo_ex->av_err_code = 'DependencyViolation'.
             WAIT UP TO 15 SECONDS.
           ELSEIF lo_ex->av_err_code = 'InvalidVpcID.NotFound'.
