@@ -92,10 +92,84 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD class_teardown.
-    " Note: Redshift clusters take a long time to delete, so we tag them with 'convert_test'
-    " and let the user clean them up manually based on the tag.
-    " This prevents test timeout issues.
-    MESSAGE 'Redshift clusters tagged with convert_test=true should be manually cleaned up.' TYPE 'I'.
+    DATA lo_describe_result TYPE REF TO /aws1/cl_rshclustersmessage.
+    DATA lt_clusters TYPE /aws1/cl_rshcluster=>tt_clusterlist.
+    DATA lo_cluster TYPE REF TO /aws1/cl_rshcluster.
+    DATA lv_status TYPE /aws1/rshstring.
+
+    " Delete main cluster
+    IF av_cluster_id IS NOT INITIAL.
+      TRY.
+          ao_rsh->deletecluster(
+            iv_clusteridentifier = av_cluster_id
+            iv_skipfinalclustersnapshot = abap_true
+          ).
+          
+          " Wait a moment for deletion to begin
+          WAIT UP TO 10 SECONDS.
+          
+          " Verify deletion status
+          TRY.
+              lo_describe_result = ao_rsh->describeclusters(
+                iv_clusteridentifier = av_cluster_id
+              ).
+              
+              lt_clusters = lo_describe_result->get_clusters( ).
+              
+              IF lines( lt_clusters ) > 0.
+                READ TABLE lt_clusters INDEX 1 INTO lo_cluster.
+                lv_status = lo_cluster->get_clusterstatus( ).
+                
+                " Cluster is deleting - this is acceptable
+                IF lv_status = 'deleting'.
+                  MESSAGE |Cluster { av_cluster_id } deletion initiated successfully.| TYPE 'I'.
+                ELSE.
+                  MESSAGE |Cluster { av_cluster_id } status: { lv_status }| TYPE 'I'.
+                ENDIF.
+              ENDIF.
+            CATCH /aws1/cx_rshclustnotfoundfault.
+              " Cluster not found - already deleted successfully
+              MESSAGE |Cluster { av_cluster_id } deleted successfully.| TYPE 'I'.
+          ENDTRY.
+        CATCH /aws1/cx_rshclustnotfoundfault.
+          MESSAGE |Cluster { av_cluster_id } already deleted.| TYPE 'I'.
+      ENDTRY.
+    ENDIF.
+
+    " Delete test cluster for delete operation (if not already deleted in test)
+    IF av_delete_test_cluster IS NOT INITIAL.
+      TRY.
+          ao_rsh->deletecluster(
+            iv_clusteridentifier = av_delete_test_cluster
+            iv_skipfinalclustersnapshot = abap_true
+          ).
+          
+          WAIT UP TO 10 SECONDS.
+          
+          TRY.
+              lo_describe_result = ao_rsh->describeclusters(
+                iv_clusteridentifier = av_delete_test_cluster
+              ).
+              
+              lt_clusters = lo_describe_result->get_clusters( ).
+              
+              IF lines( lt_clusters ) > 0.
+                READ TABLE lt_clusters INDEX 1 INTO lo_cluster.
+                lv_status = lo_cluster->get_clusterstatus( ).
+                
+                IF lv_status = 'deleting'.
+                  MESSAGE |Cluster { av_delete_test_cluster } deletion initiated successfully.| TYPE 'I'.
+                ELSE.
+                  MESSAGE |Cluster { av_delete_test_cluster } status: { lv_status }| TYPE 'I'.
+                ENDIF.
+              ENDIF.
+            CATCH /aws1/cx_rshclustnotfoundfault.
+              MESSAGE |Cluster { av_delete_test_cluster } deleted successfully.| TYPE 'I'.
+          ENDTRY.
+        CATCH /aws1/cx_rshclustnotfoundfault.
+          MESSAGE |Cluster { av_delete_test_cluster } already deleted.| TYPE 'I'.
+      ENDTRY.
+    ENDIF.
   ENDMETHOD.
 
   METHOD create_cluster.
@@ -105,6 +179,7 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
     DATA lt_clusters TYPE /aws1/cl_rshcluster=>tt_clusterlist.
     DATA lv_uuid_string TYPE string.
     DATA lv_test_cluster_id TYPE /aws1/rshstring.
+    DATA lv_status TYPE /aws1/rshstring.
     
     lv_uuid_string = /awsex/cl_utils=>get_random_string( ).
     TRANSLATE lv_uuid_string TO LOWER CASE.
@@ -114,6 +189,7 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
     ENDIF.
 
     TRY.
+        " Test the create_cluster action method
         lo_result = ao_rsh_actions->create_cluster(
           iv_cluster_identifier  = lv_test_cluster_id
           iv_node_type           = 'ra3.xlplus'
@@ -134,13 +210,41 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
           act = lo_cluster->get_clusteridentifier( )
           msg = |Cluster identifier mismatch| ).
 
+        " Wait for cluster to become available before deletion
         wait_for_cluster_available( lv_test_cluster_id ).
         
-        ao_rsh_actions->delete_cluster(
-          iv_cluster_identifier = lv_test_cluster_id
+        " Clean up the test cluster
+        ao_rsh->deletecluster(
+          iv_clusteridentifier = lv_test_cluster_id
+          iv_skipfinalclustersnapshot = abap_true
         ).
 
+        " Verify cleanup
+        WAIT UP TO 10 SECONDS.
+        
+        TRY.
+            lo_describe_result = ao_rsh->describeclusters(
+              iv_clusteridentifier = lv_test_cluster_id
+            ).
+            
+            lt_clusters = lo_describe_result->get_clusters( ).
+            
+            IF lines( lt_clusters ) > 0.
+              READ TABLE lt_clusters INDEX 1 INTO lo_cluster.
+              lv_status = lo_cluster->get_clusterstatus( ).
+              
+              " Verify cluster is deleting
+              cl_abap_unit_assert=>assert_equals(
+                exp = 'deleting'
+                act = lv_status
+                msg = |Cluster should be in deleting state after deletion| ).
+            ENDIF.
+          CATCH /aws1/cx_rshclustnotfoundfault.
+            " Cluster not found - already deleted
+        ENDTRY.
+
       CATCH /aws1/cx_rshclustalrdyexfault.
+        " If cluster already exists, describe it and verify
         lo_describe_result = ao_rsh_actions->describe_clusters(
           iv_cluster_identifier = lv_test_cluster_id
         ).
@@ -150,6 +254,16 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
         cl_abap_unit_assert=>assert_not_initial(
           act = lt_clusters
           msg = |Cluster should exist but not found| ).
+          
+        " Clean up even if it already existed
+        TRY.
+            ao_rsh->deletecluster(
+              iv_clusteridentifier = lv_test_cluster_id
+              iv_skipfinalclustersnapshot = abap_true
+            ).
+          CATCH /aws1/cx_rshclustnotfoundfault.
+            " Already deleted
+        ENDTRY.
     ENDTRY.
   ENDMETHOD.
 
@@ -269,13 +383,17 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
     DATA lt_clusters TYPE /aws1/cl_rshcluster=>tt_clusterlist.
     DATA lo_cluster TYPE REF TO /aws1/cl_rshcluster.
     DATA lv_status TYPE /aws1/rshstring.
+    DATA lv_cleanup_success TYPE abap_bool.
     
+    " Call the delete_cluster action method
     ao_rsh_actions->delete_cluster(
       iv_cluster_identifier = av_delete_test_cluster
     ).
 
-    WAIT UP TO 5 SECONDS.
+    " Wait for deletion to begin processing
+    WAIT UP TO 10 SECONDS.
 
+    " Verify cleanup using DescribeClusters
     TRY.
         lo_result = ao_rsh->describeclusters(
           iv_clusteridentifier = av_delete_test_cluster
@@ -283,18 +401,33 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
             
         lt_clusters = lo_result->get_clusters( ).
             
-        IF lines( lt_clusters ) > 0.
+        IF lines( lt_clusters ) = 0.
+          " No cluster returned - deletion successful
+          lv_cleanup_success = abap_true.
+        ELSE.
+          " Cluster returned - check if status is 'deleting'
           READ TABLE lt_clusters INDEX 1 INTO lo_cluster.
           lv_status = lo_cluster->get_clusterstatus( ).
               
-          cl_abap_unit_assert=>assert_equals(
-            exp = 'deleting'
-            act = lv_status
-            msg = |Cluster should be in deleting state| ).
+          IF lv_status = 'deleting'.
+            " Cluster is in deleting state - cleanup is in progress
+            lv_cleanup_success = abap_true.
+          ELSE.
+            " Unexpected status
+            cl_abap_unit_assert=>fail(
+              msg = |Unexpected cluster status: { lv_status }. Expected 'deleting' or cluster not found.| ).
+          ENDIF.
         ENDIF.
       CATCH /aws1/cx_rshclustnotfoundfault.
-        " Cluster already deleted - this is expected
+        " Cluster not found - deletion completed successfully
+        lv_cleanup_success = abap_true.
     ENDTRY.
+
+    " Assert that cleanup was successful
+    cl_abap_unit_assert=>assert_equals(
+      exp = abap_true
+      act = lv_cleanup_success
+      msg = |Cluster deletion verification failed for { av_delete_test_cluster }| ).
   ENDMETHOD.
 
 ENDCLASS.
