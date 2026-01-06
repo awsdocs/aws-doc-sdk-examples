@@ -12,6 +12,8 @@ CLASS ltc_awsex_cl_rsh_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
     CLASS-DATA ao_rsh TYPE REF TO /aws1/if_rsh.
     CLASS-DATA ao_session TYPE REF TO /aws1/cl_rt_session_base.
     CLASS-DATA ao_rsh_actions TYPE REF TO /awsex/cl_rsh_actions.
+    CLASS-DATA av_setup_failed TYPE abap_bool.
+    CLASS-DATA av_setup_error_msg TYPE string.
 
     METHODS: create_cluster FOR TESTING RAISING /aws1/cx_rt_generic,
       modify_cluster FOR TESTING RAISING /aws1/cx_rt_generic,
@@ -30,6 +32,68 @@ CLASS ltc_awsex_cl_rsh_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
       IMPORTING
                 iv_cluster_id TYPE /aws1/rshstring
       RAISING   /aws1/cx_rt_generic.
+    
+    CLASS-METHODS cleanup_existing_test_clusters
+      RAISING /aws1/cx_rt_generic.
+
+  METHOD cleanup_existing_test_clusters.
+    DATA lo_describe_result TYPE REF TO /aws1/cl_rshclustersmessage.
+    DATA lt_clusters TYPE /aws1/cl_rshcluster=>tt_clusterlist.
+    DATA lo_cluster TYPE REF TO /aws1/cl_rshcluster.
+    DATA lt_tags TYPE /aws1/cl_rshtag=>tt_taglist.
+    DATA lo_tag TYPE REF TO /aws1/cl_rshtag.
+    DATA lv_cluster_id TYPE /aws1/rshstring.
+    DATA lv_has_test_tag TYPE abap_bool.
+    DATA lv_status TYPE /aws1/rshstring.
+
+    " Get all clusters in the account
+    TRY.
+        lo_describe_result = ao_rsh->describeclusters( ).
+        lt_clusters = lo_describe_result->get_clusters( ).
+
+        LOOP AT lt_clusters INTO lo_cluster.
+          lv_has_test_tag = abap_false.
+          lv_cluster_id = lo_cluster->get_clusteridentifier( ).
+          lv_status = lo_cluster->get_clusterstatus( ).
+
+          " Skip clusters that are already being deleted
+          IF lv_status = 'deleting'.
+            CONTINUE.
+          ENDIF.
+
+          " Check if cluster has convert_test tag
+          lt_tags = lo_cluster->get_tags( ).
+          LOOP AT lt_tags INTO lo_tag.
+            IF lo_tag->get_key( ) = 'convert_test' AND lo_tag->get_value( ) = 'true'.
+              lv_has_test_tag = abap_true.
+              EXIT.
+            ENDIF.
+          ENDLOOP.
+
+          " Delete clusters with test tag
+          IF lv_has_test_tag = abap_true.
+            TRY.
+                ao_rsh->deletecluster(
+                  iv_clusteridentifier = lv_cluster_id
+                  iv_skipfinalclustersnapshot = abap_true
+                ).
+              CATCH /aws1/cx_rshclustnotfoundfault.
+                " Already deleted
+              CATCH /aws1/cx_rshinvcluststatefault.
+                " Invalid state - skip
+            ENDTRY.
+          ENDIF.
+        ENDLOOP.
+
+        " Wait briefly for deletions to initiate
+        IF lv_has_test_tag = abap_true.
+          WAIT UP TO 5 SECONDS.
+        ENDIF.
+
+      CATCH /aws1/cx_rt_generic.
+        " If we can't list clusters, continue anyway
+    ENDTRY.
+  ENDMETHOD.
 
 ENDCLASS.
 
@@ -44,6 +108,17 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
         
     ao_rsh_actions = NEW /awsex/cl_rsh_actions( ).
 
+    " Initialize setup status
+    av_setup_failed = abap_false.
+    CLEAR av_setup_error_msg.
+
+    " First, cleanup any existing test clusters to free up quota
+    TRY.
+        cleanup_existing_test_clusters( ).
+      CATCH /aws1/cx_rt_generic.
+        " Continue even if cleanup fails
+    ENDTRY.
+
     lv_uuid_string = /awsex/cl_utils=>get_random_string( ).
     TRANSLATE lv_uuid_string TO LOWER CASE.
     
@@ -54,8 +129,16 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
     ENDIF.
 
     " Create single shared cluster
-    create_cluster_with_tags( av_cluster_id ).
-    wait_for_cluster_available( av_cluster_id ).
+    TRY.
+        create_cluster_with_tags( av_cluster_id ).
+        wait_for_cluster_available( av_cluster_id ).
+      CATCH /aws1/cx_rshnoofnodesquotaex00 INTO DATA(lx_quota).
+        " Set flag to skip tests if quota exceeded
+        av_setup_failed = abap_true.
+        av_setup_error_msg = |Redshift node quota exceeded. Please clean up existing clusters with 'convert_test' tag or increase quota.|.
+        " Fail the setup explicitly
+        cl_abap_unit_assert=>fail( msg = av_setup_error_msg ).
+    ENDTRY.
   ENDMETHOD.
 
   METHOD create_cluster_with_tags.
@@ -80,7 +163,7 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
           it_tags               = lt_tags
         ).
       CATCH /aws1/cx_rshclustalrdyexfault.
-        MESSAGE 'Cluster already exists, continuing with existing cluster.' TYPE 'I'.
+        " Cluster already exists, continue with existing cluster
     ENDTRY.
   ENDMETHOD.
 
@@ -89,6 +172,11 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
     DATA lt_clusters TYPE /aws1/cl_rshcluster=>tt_clusterlist.
     DATA lo_cluster TYPE REF TO /aws1/cl_rshcluster.
     DATA lv_status TYPE /aws1/rshstring.
+
+    " Only attempt cleanup if setup succeeded
+    IF av_setup_failed = abap_true.
+      RETURN.
+    ENDIF.
 
     " Delete shared cluster
     IF av_cluster_id IS NOT INITIAL.
@@ -99,7 +187,7 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
           ).
           
           " Wait a moment for deletion to begin
-          WAIT UP TO 10 SECONDS.
+          WAIT UP TO 5 SECONDS.
           
           " Verify deletion status
           TRY.
@@ -112,20 +200,12 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
               IF lines( lt_clusters ) > 0.
                 READ TABLE lt_clusters INDEX 1 INTO lo_cluster.
                 lv_status = lo_cluster->get_clusterstatus( ).
-                
-                " Cluster is deleting - this is acceptable
-                IF lv_status = 'deleting'.
-                  MESSAGE |Cluster { av_cluster_id } deletion initiated successfully.| TYPE 'I'.
-                ELSE.
-                  MESSAGE |Cluster { av_cluster_id } status: { lv_status }| TYPE 'I'.
-                ENDIF.
               ENDIF.
             CATCH /aws1/cx_rshclustnotfoundfault.
               " Cluster not found - already deleted successfully
-              MESSAGE |Cluster { av_cluster_id } deleted successfully.| TYPE 'I'.
           ENDTRY.
         CATCH /aws1/cx_rshclustnotfoundfault.
-          MESSAGE |Cluster { av_cluster_id } already deleted.| TYPE 'I'.
+          " Cluster already deleted
       ENDTRY.
     ENDIF.
   ENDMETHOD.
@@ -139,6 +219,11 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
     DATA lv_test_cluster_id TYPE /aws1/rshstring.
     DATA lv_status TYPE /aws1/rshstring.
     
+    " Check if setup failed due to quota
+    IF av_setup_failed = abap_true.
+      cl_abap_unit_assert=>fail( msg = av_setup_error_msg ).
+    ENDIF.
+
     lv_uuid_string = /awsex/cl_utils=>get_random_string( ).
     TRANSLATE lv_uuid_string TO LOWER CASE.
     lv_test_cluster_id = |rsh-crt-{ lv_uuid_string }|.
@@ -148,7 +233,7 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
 
     TRY.
         " Test the create_cluster action method
-        " Note: Using single node to avoid quota issues, demonstrates multi-node with 2 nodes
+        " Note: Using 2 nodes to demonstrate multi-node cluster creation
         lo_result = ao_rsh_actions->create_cluster(
           iv_cluster_identifier  = lv_test_cluster_id
           iv_node_type           = 'ra3.xlplus'
@@ -179,7 +264,7 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
         ).
 
         " Verify cleanup
-        WAIT UP TO 10 SECONDS.
+        WAIT UP TO 5 SECONDS.
         
         TRY.
             lo_describe_result = ao_rsh->describeclusters(
@@ -224,9 +309,9 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
             " Already deleted
         ENDTRY.
       CATCH /aws1/cx_rshnoofnodesquotaex00.
-        " Quota exceeded - this test requires creating an additional cluster
-        " Skip this test if quota is exceeded
-        MESSAGE 'Skipping create_cluster test due to node quota limits' TYPE 'I'.
+        " Quota exceeded - fail the test with clear message
+        cl_abap_unit_assert=>fail(
+          msg = |Cannot create test cluster: Redshift node quota exceeded. Please clean up existing clusters.| ).
     ENDTRY.
   ENDMETHOD.
 
@@ -276,6 +361,11 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
     DATA lo_cluster TYPE REF TO /aws1/cl_rshcluster.
     DATA lv_maintenance_window TYPE /aws1/rshstring.
     
+    " Check if setup failed due to quota
+    IF av_setup_failed = abap_true.
+      cl_abap_unit_assert=>fail( msg = av_setup_error_msg ).
+    ENDIF.
+
     ao_rsh_actions->modify_cluster(
       iv_cluster_identifier = av_cluster_id
       iv_pref_maintenance_wn = 'wed:07:30-wed:08:00'
@@ -310,6 +400,11 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
     DATA lt_all_clusters TYPE /aws1/cl_rshcluster=>tt_clusterlist.
     DATA lv_cluster_id TYPE /aws1/rshstring.
     
+    " Check if setup failed due to quota
+    IF av_setup_failed = abap_true.
+      cl_abap_unit_assert=>fail( msg = av_setup_error_msg ).
+    ENDIF.
+
     lo_result = ao_rsh_actions->describe_clusters(
       iv_cluster_identifier = av_cluster_id
     ).
@@ -353,6 +448,11 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
     DATA lo_tag TYPE REF TO /aws1/cl_rshtag.
     DATA lo_create_result TYPE REF TO /aws1/cl_rshcreateclustresult.
     
+    " Check if setup failed due to quota
+    IF av_setup_failed = abap_true.
+      cl_abap_unit_assert=>fail( msg = av_setup_error_msg ).
+    ENDIF.
+
     " Create a unique cluster ID for this test
     lv_uuid_string = /awsex/cl_utils=>get_random_string( ).
     TRANSLATE lv_uuid_string TO LOWER CASE.
@@ -382,11 +482,11 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
         " Wait for cluster to be available
         wait_for_cluster_available( lv_delete_cluster_id ).
       CATCH /aws1/cx_rshclustalrdyexfault.
-        MESSAGE 'Cluster already exists, continuing with existing cluster.' TYPE 'I'.
+        " Cluster already exists, continue with existing cluster
       CATCH /aws1/cx_rshnoofnodesquotaex00.
-        " Quota exceeded - skip this test
-        MESSAGE 'Skipping delete_cluster test due to node quota limits' TYPE 'I'.
-        RETURN.
+        " Quota exceeded - fail the test with clear message
+        cl_abap_unit_assert=>fail(
+          msg = |Cannot create test cluster for deletion: Redshift node quota exceeded.| ).
     ENDTRY.
     
     " Now test the delete_cluster action method
@@ -395,7 +495,7 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
     ).
 
     " Wait for deletion to begin processing
-    WAIT UP TO 10 SECONDS.
+    WAIT UP TO 5 SECONDS.
 
     " Verify cleanup using DescribeClusters
     TRY.
@@ -432,6 +532,65 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
       exp = abap_true
       act = lv_cleanup_success
       msg = |Cluster deletion verification failed for { lv_delete_cluster_id }| ).
+  ENDMETHOD.
+
+  METHOD cleanup_existing_test_clusters.
+    DATA lo_describe_result TYPE REF TO /aws1/cl_rshclustersmessage.
+    DATA lt_clusters TYPE /aws1/cl_rshcluster=>tt_clusterlist.
+    DATA lo_cluster TYPE REF TO /aws1/cl_rshcluster.
+    DATA lt_tags TYPE /aws1/cl_rshtag=>tt_taglist.
+    DATA lo_tag TYPE REF TO /aws1/cl_rshtag.
+    DATA lv_cluster_id TYPE /aws1/rshstring.
+    DATA lv_has_test_tag TYPE abap_bool.
+    DATA lv_status TYPE /aws1/rshstring.
+
+    " Get all clusters in the account
+    TRY.
+        lo_describe_result = ao_rsh->describeclusters( ).
+        lt_clusters = lo_describe_result->get_clusters( ).
+
+        LOOP AT lt_clusters INTO lo_cluster.
+          lv_has_test_tag = abap_false.
+          lv_cluster_id = lo_cluster->get_clusteridentifier( ).
+          lv_status = lo_cluster->get_clusterstatus( ).
+
+          " Skip clusters that are already being deleted
+          IF lv_status = 'deleting'.
+            CONTINUE.
+          ENDIF.
+
+          " Check if cluster has convert_test tag
+          lt_tags = lo_cluster->get_tags( ).
+          LOOP AT lt_tags INTO lo_tag.
+            IF lo_tag->get_key( ) = 'convert_test' AND lo_tag->get_value( ) = 'true'.
+              lv_has_test_tag = abap_true.
+              EXIT.
+            ENDIF.
+          ENDLOOP.
+
+          " Delete clusters with test tag
+          IF lv_has_test_tag = abap_true.
+            TRY.
+                ao_rsh->deletecluster(
+                  iv_clusteridentifier = lv_cluster_id
+                  iv_skipfinalclustersnapshot = abap_true
+                ).
+              CATCH /aws1/cx_rshclustnotfoundfault.
+                " Already deleted
+              CATCH /aws1/cx_rshinvcluststatefault.
+                " Invalid state - skip
+            ENDTRY.
+          ENDIF.
+        ENDLOOP.
+
+        " Wait briefly for deletions to initiate
+        IF lv_has_test_tag = abap_true.
+          WAIT UP TO 5 SECONDS.
+        ENDIF.
+
+      CATCH /aws1/cx_rt_generic.
+        " If we can't list clusters, continue anyway
+    ENDTRY.
   ENDMETHOD.
 
 ENDCLASS.
