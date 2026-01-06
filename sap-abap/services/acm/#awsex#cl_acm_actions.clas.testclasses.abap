@@ -21,8 +21,8 @@ CLASS ltc_awsex_cl_acm_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
       list_certificates FOR TESTING RAISING /aws1/cx_rt_generic,
       import_certificate FOR TESTING RAISING /aws1/cx_rt_generic,
       add_tags_to_certificate FOR TESTING RAISING /aws1/cx_rt_generic,
-      list_tags_for_cert FOR TESTING RAISING /aws1/cx_rt_generic,
-      remove_tags_from_cert FOR TESTING RAISING /aws1/cx_rt_generic,
+      list_tags_for_certificate FOR TESTING RAISING /aws1/cx_rt_generic,
+      remove_tags_from_certificate FOR TESTING RAISING /aws1/cx_rt_generic,
       delete_certificate FOR TESTING RAISING /aws1/cx_rt_generic,
       request_certificate FOR TESTING RAISING /aws1/cx_rt_generic,
       resend_validation_email FOR TESTING RAISING /aws1/cx_rt_generic.
@@ -279,7 +279,7 @@ CLASS ltc_awsex_cl_acm_actions IMPLEMENTATION.
       msg = 'At least 2 tags should be present' ).
   ENDMETHOD.
 
-  METHOD list_tags_for_cert.
+  METHOD list_tags_for_certificate.
     " First add some tags
     DATA lt_tags TYPE /aws1/cl_acmtag=>tt_taglist.
     DATA(lo_tag) = NEW /aws1/cl_acmtag( iv_key = 'TestTag' iv_value = 'TestValue' ).
@@ -291,7 +291,7 @@ CLASS ltc_awsex_cl_acm_actions IMPLEMENTATION.
     ).
 
     " List tags
-    DATA(lt_result_tags) = ao_acm_actions->list_tags_for_cert( av_certificate_arn_tags ).
+    DATA(lt_result_tags) = ao_acm_actions->list_tags_for_certificate( av_certificate_arn_tags ).
 
     cl_abap_unit_assert=>assert_not_initial(
       act = lt_result_tags
@@ -315,7 +315,7 @@ CLASS ltc_awsex_cl_acm_actions IMPLEMENTATION.
       msg = 'TestTag should be present' ).
   ENDMETHOD.
 
-  METHOD remove_tags_from_cert.
+  METHOD remove_tags_from_certificate.
     " First add a tag
     DATA lt_tags TYPE /aws1/cl_acmtag=>tt_taglist.
     DATA(lo_tag) = NEW /aws1/cl_acmtag( iv_key = 'RemoveMe' iv_value = 'ToBeRemoved' ).
@@ -327,7 +327,7 @@ CLASS ltc_awsex_cl_acm_actions IMPLEMENTATION.
     ).
 
     " Now remove it
-    ao_acm_actions->remove_tags_from_cert(
+    ao_acm_actions->remove_tags_from_certificate(
       iv_certificate_arn = av_certificate_arn_tags
       it_tags = lt_tags
     ).

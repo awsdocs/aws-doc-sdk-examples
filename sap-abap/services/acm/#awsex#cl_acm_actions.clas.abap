@@ -57,7 +57,7 @@ CLASS /awsex/cl_acm_actions DEFINITION
       RAISING
         /aws1/cx_rt_generic .
 
-    METHODS list_tags_for_cert
+    METHODS list_tags_for_certificate
       IMPORTING
         !iv_certificate_arn        TYPE /aws1/acmarn
       RETURNING
@@ -65,7 +65,7 @@ CLASS /awsex/cl_acm_actions DEFINITION
       RAISING
         /aws1/cx_rt_generic .
 
-    METHODS remove_tags_from_cert
+    METHODS remove_tags_from_certificate
       IMPORTING
         !iv_certificate_arn        TYPE /aws1/acmarn
         !it_tags                   TYPE /aws1/cl_acmtag=>tt_taglist
@@ -250,7 +250,7 @@ CLASS /awsex/cl_acm_actions IMPLEMENTATION.
 
   ENDMETHOD.
 
-  METHOD list_tags_for_cert.
+  METHOD list_tags_for_certificate.
 
     CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
@@ -274,7 +274,7 @@ CLASS /awsex/cl_acm_actions IMPLEMENTATION.
 
   ENDMETHOD.
 
-  METHOD remove_tags_from_cert.
+  METHOD remove_tags_from_certificate.
 
     CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
