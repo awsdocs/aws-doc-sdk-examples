@@ -18,9 +18,7 @@ CLASS ltc_awsex_cl_ec2_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
 
     METHODS: allocate_address FOR TESTING RAISING /aws1/cx_rt_generic,
       associate_address FOR TESTING RAISING /aws1/cx_rt_generic,
-      disassociate_address FOR TESTING RAISING /aws1/cx_rt_generic,
       authorize_sec_group_ingress FOR TESTING RAISING /aws1/cx_rt_generic,
-      terminate_instances FOR TESTING RAISING /aws1/cx_rt_generic,
       describe_images FOR TESTING RAISING /aws1/cx_rt_generic,
       describe_instance_types FOR TESTING RAISING /aws1/cx_rt_generic,
       create_vpc FOR TESTING RAISING /aws1/cx_rt_generic,
@@ -494,10 +492,6 @@ CLASS ltc_awsex_cl_ec2_actions IMPLEMENTATION.
                               iv_required_status = 'terminated' ).
   ENDMETHOD.
 
-  METHOD disassociate_address.
-    " This test is skipped as it takes too long waiting for instance to be in running state.
-    RETURN.
-  ENDMETHOD.
 
   METHOD authorize_sec_group_ingress.
     CONSTANTS cv_security_group_name TYPE /aws1/ec2string VALUE 'code-ex-auth-sec-grp'.
@@ -518,10 +512,6 @@ CLASS ltc_awsex_cl_ec2_actions IMPLEMENTATION.
     ao_ec2->deletesecuritygroup( iv_groupid = lv_group_id ).
   ENDMETHOD.
 
-  METHOD terminate_instances.
-    " This test is skipped as it takes too long due to instance state transitions.
-    RETURN.
-  ENDMETHOD.
 
   METHOD describe_images.
     DATA(lv_ami_id) = get_ami_id( ).

@@ -117,24 +117,12 @@ CLASS /awsex/cl_ec2_actions DEFINITION
         VALUE(oo_result) TYPE REF TO /aws1/cl_ec2describeazsresult
       RAISING
         /aws1/cx_rt_generic .
-    METHODS disassociate_address
-      IMPORTING
-        !iv_association_id TYPE /aws1/ec2elasticipassociatio00
-      RAISING
-        /aws1/cx_rt_generic .
     METHODS authorize_sec_group_ingress
       IMPORTING
         !iv_group_id    TYPE /aws1/ec2securitygroupid
         !iv_cidr_ip     TYPE /aws1/ec2string
       RETURNING
         VALUE(oo_result) TYPE REF TO /aws1/cl_ec2authsecgrpingrslt
-      RAISING
-        /aws1/cx_rt_generic .
-    METHODS terminate_instances
-      IMPORTING
-        !it_instance_ids TYPE /aws1/cl_ec2instidstringlist_w=>tt_instanceidstringlist
-      RETURNING
-        VALUE(oo_result) TYPE REF TO /aws1/cl_ec2terminateinstsrslt
       RAISING
         /aws1/cx_rt_generic .
     METHODS describe_images
@@ -641,24 +629,6 @@ CLASS /AWSEX/CL_EC2_ACTIONS IMPLEMENTATION.
   ENDMETHOD.
 
 
-  METHOD disassociate_address.
-    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
-
-    DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
-    DATA(lo_ec2) = /aws1/cl_ec2_factory=>create( lo_session ).
-
-    " snippet-start:[ec2.abapv1.disassociate_address]
-    TRY.
-        lo_ec2->disassociateaddress( iv_associationid = iv_association_id ).
-        MESSAGE 'Disassociated Elastic IP address from EC2 instance.' TYPE 'I'.
-      CATCH /aws1/cx_rt_service_generic INTO DATA(lo_exception).
-        DATA(lv_error) = |"{ lo_exception->av_err_code }" - { lo_exception->av_err_msg }|.
-        MESSAGE lv_error TYPE 'E'.
-    ENDTRY.
-    " snippet-end:[ec2.abapv1.disassociate_address]
-  ENDMETHOD.
-
-
   METHOD authorize_sec_group_ingress.
     CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
@@ -689,24 +659,6 @@ CLASS /AWSEX/CL_EC2_ACTIONS IMPLEMENTATION.
         MESSAGE lv_error TYPE 'E'.
     ENDTRY.
     " snippet-end:[ec2.abapv1.authorize_sec_group_ingress]
-  ENDMETHOD.
-
-
-  METHOD terminate_instances.
-    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
-
-    DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
-    DATA(lo_ec2) = /aws1/cl_ec2_factory=>create( lo_session ).
-
-    " snippet-start:[ec2.abapv1.terminate_instances]
-    TRY.
-        oo_result = lo_ec2->terminateinstances00( it_instanceids = it_instance_ids ).             " oo_result is returned for testing purposes. "
-        MESSAGE 'Terminated EC2 instance(s).' TYPE 'I'.
-      CATCH /aws1/cx_rt_service_generic INTO DATA(lo_exception).
-        DATA(lv_error) = |"{ lo_exception->av_err_code }" - { lo_exception->av_err_msg }|.
-        MESSAGE lv_error TYPE 'E'.
-    ENDTRY.
-    " snippet-end:[ec2.abapv1.terminate_instances]
   ENDMETHOD.
 
 
