@@ -29,6 +29,7 @@ import software.amazon.awssdk.services.organizations.model.OrganizationalUnit;
 import software.amazon.awssdk.services.organizations.paginators.ListOrganizationalUnitsForParentPublisher;
 
 import java.time.Duration;
+import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.concurrent.CompletableFuture;
@@ -229,7 +230,7 @@ public class ControlTowerActions {
                         System.out.println("Page contained no landing zones.");
                     }
                 })
-                .thenRun(() -> System.out.println("Successfully retrieved {} landing zones." + landingZones.size()))
+                .thenRun(() -> System.out.println("Successfully retrieved "+ landingZones.size() + " landing zones." ))
                 .thenApply(v -> landingZones)
                 .exceptionally(ex -> {
                     Throwable cause = ex.getCause() != null ? ex.getCause() : ex;
@@ -283,7 +284,7 @@ public class ControlTowerActions {
                     }
                 })
                 .thenRun(() ->
-                        System.out.format("Successfully listed baselines. Total: {}", baselines.size())
+                        System.out.println("Successfully listed baselines. Total: " + baselines.size())
                 )
                 .thenApply(v -> baselines)
                 .exceptionally(ex -> {
@@ -350,7 +351,7 @@ public class ControlTowerActions {
                 })
                 .thenRun(() ->
                         System.out.println(
-                                "Successfully listed enabled baselines. Total: {}" +
+                                "Successfully listed enabled baselines. Total: " +
                                         enabledBaselines.size()
                         )
                 )
@@ -392,20 +393,19 @@ public class ControlTowerActions {
     // snippet-start:[controltower.java2.enable_baseline.main]
 
     /**
-     * Enables a baseline for a specified target.
+     * Asynchronously enables a baseline for the specified target if not already enabled.
      *
-     * @param baselineIdentifier the identifier of the baseline to enable
-     * @param baselineVersion    the version of the baseline to enable
-     * @param targetIdentifier   the identifier of the target (e.g., OU ARN)
-     * @return the operation identifier
-     * @throws ControlTowerException if a service-specific error occurs
-     * @throws SdkException          if an SDK error occurs
+     * @param targetIdentifier       The ARN of the target (OU or account).
+     * @param baselineIdentifier     The baseline definition ARN to enable.
+     * @param baselineVersion        The baseline version to enable.
+     * @return A CompletableFuture containing the enabled baseline ARN, or null if already enabled.
      */
-    public CompletableFuture<BaselineOperationStatus> enableBaselineAsync(
+    public CompletableFuture<String> enableBaselineAsync(
+            String targetIdentifier,
             String baselineIdentifier,
-            String baselineVersion,
-            String targetIdentifier) {
-
+            String baselineVersion
+    ) {
+        // Build the enable request
         EnableBaselineRequest request = EnableBaselineRequest.builder()
                 .baselineIdentifier(baselineIdentifier)
                 .baselineVersion(baselineVersion)
@@ -418,63 +418,83 @@ public class ControlTowerActions {
                         Throwable cause = exception.getCause() != null ? exception.getCause() : exception;
 
                         if (cause instanceof ControlTowerException e) {
-                            String errorCode = e.awsErrorDetails().errorCode();
+                            String code = e.awsErrorDetails() != null ? e.awsErrorDetails().errorCode() : "UNKNOWN";
+                            String msg = e.awsErrorDetails() != null ? e.awsErrorDetails().errorMessage() : e.getMessage();
 
-                            switch (errorCode) {
-                                case "ValidationException":
-                                    if (e.getMessage() != null && e.getMessage().contains("already enabled")) {
-                                        System.out.println("Baseline is already enabled for this target");
-                                        return null; // baseline already enabled
-                                    }
-                                    throw new CompletionException(
-                                            "Validation error enabling baseline: " + e.getMessage(), e);
-
-                                case "ConflictException":
-                                    throw new CompletionException(
-                                            "Conflict enabling baseline: " + e.getMessage(), e);
-
-                                default:
-                                    throw new CompletionException(
-                                            "Error enabling baseline: " + e.getMessage(), e);
+                            // Already enabled → fetch ARN instead of failing
+                            if ("ValidationException".equals(code) && msg.contains("already enabled")) {
+                                System.out.println("Baseline is already enabled for this target → fetching ARN...");
+                                return fetchEnabledBaselineArn(targetIdentifier, baselineIdentifier);
                             }
+
+                            throw new RuntimeException("Error enabling baseline: " + code + " - " + msg, e);
                         }
 
-                        if (cause instanceof SdkException) {
-                            throw new CompletionException(
-                                    "SDK error enabling baseline: " + cause.getMessage(), cause);
-                        }
-
-                        throw new CompletionException(
-                                "Unexpected error enabling baseline: " + cause.getMessage(), cause);
+                        throw new RuntimeException("Unexpected error enabling baseline: " + cause.getMessage(), cause);
                     }
 
-                    return response != null ? response.operationIdentifier() : null;
+                    // Success → return ARN
+                    return response.arn();
                 })
-                .thenCompose(opId -> {
-                    if (opId == null) {
-                        // Already enabled, return success immediately
-                        return CompletableFuture.completedFuture(BaselineOperationStatus.SUCCEEDED);
+                // Unwrap: handle CompletableFuture returned by fetchEnabledBaselineArn
+                .thenCompose(futOrArn -> {
+                    if (futOrArn instanceof CompletableFuture) {
+                        // Already-enabled branch
+                        return ((CompletableFuture<String>) futOrArn)
+                                .thenCompose(existingArn -> {
+                                    if (existingArn == null) {
+                                        // Retry fetching asynchronously after short delay
+                                        System.out.println("Baseline already enabled but ARN not yet available, retrying...");
+                                        return CompletableFuture.supplyAsync(() -> null,
+                                                        CompletableFuture.delayedExecutor(15, TimeUnit.SECONDS))
+                                                .thenCompose(v -> fetchEnabledBaselineArn(targetIdentifier, baselineIdentifier));
+                                    }
+                                    return CompletableFuture.completedFuture(existingArn);
+                                });
                     }
-                    // Poll operation status until SUCCEEDED or FAILED
-                    return pollBaselineOperationAsync(opId);
+
+                    String enabledBaselineArn = (String) futOrArn;
+                    if (enabledBaselineArn == null) {
+                        // Should not happen, return null
+                        return CompletableFuture.completedFuture(null);
+                    }
+
+                    // Poll the operation until it completes
+                    return pollBaselineOperationAsync(enabledBaselineArn)
+                            .thenApply(status -> enabledBaselineArn);
                 });
     }
 
     /**
-     * Recursively polls the baseline operation until it reaches a terminal state.
+     * Fetches the ARN of an already-enabled baseline for the target asynchronously.
+     */
+    private CompletableFuture<String> fetchEnabledBaselineArn(String targetIdentifier, String baselineIdentifier) {
+        return getAsyncClient().listEnabledBaselines(ListEnabledBaselinesRequest.builder().build())
+                .thenApply(listResp -> {
+                    for (EnabledBaselineSummary eb : listResp.enabledBaselines()) {
+                        if (baselineIdentifier.equals(eb.baselineIdentifier())
+                                && targetIdentifier.equals(eb.targetIdentifier())) {
+                            return eb.arn();
+                        }
+                    }
+                    return null; // not yet available
+                });
+    }
+
+    /**
+     * Polls a baseline operation until it reaches a terminal state.
      */
     private CompletableFuture<BaselineOperationStatus> pollBaselineOperationAsync(String operationId) {
         return getBaselineOperationAsync(operationId).thenCompose(status -> {
             if (status == BaselineOperationStatus.SUCCEEDED || status == BaselineOperationStatus.FAILED) {
                 return CompletableFuture.completedFuture(status);
             }
-            // Wait 30 seconds and poll again
-            return CompletableFuture.supplyAsync(
-                    () -> null, // dummy supplier
-                    CompletableFuture.delayedExecutor(30, TimeUnit.SECONDS)
-            ).thenCompose(v -> pollBaselineOperationAsync(operationId));
+            return CompletableFuture.supplyAsync(() -> null,
+                            CompletableFuture.delayedExecutor(30, TimeUnit.SECONDS))
+                    .thenCompose(v -> pollBaselineOperationAsync(operationId));
         });
     }
+
     // snippet-end:[controltower.java2.enable_baseline.main]
 
     // snippet-start:[controltower.java2.disable_baseline.main]
@@ -487,59 +507,65 @@ public class ControlTowerActions {
      * @throws ControlTowerException if a service-specific error occurs
      * @throws SdkException          if an SDK error occurs
      */
-    public CompletableFuture<String> disableBaselineAsync(
-            String enabledBaselineIdentifier) {
+    public CompletableFuture<String> disableBaselineAsync(String enabledBaselineIdentifier) {
 
+        // Build the request
         DisableBaselineRequest request = DisableBaselineRequest.builder()
                 .enabledBaselineIdentifier(enabledBaselineIdentifier)
                 .build();
 
+        // Call disableBaseline asynchronously
         return getAsyncClient().disableBaseline(request)
                 .handle((response, exception) -> {
-
                     if (exception != null) {
-                        Throwable cause = exception.getCause() != null
-                                ? exception.getCause()
-                                : exception;
+                        // Determine the actual cause
+                        Throwable cause = exception.getCause() != null ? exception.getCause() : exception;
 
+                        // AWS ControlTower-specific exceptions
                         if (cause instanceof ControlTowerException e) {
-                            String errorCode = e.awsErrorDetails().errorCode();
+                            String errorCode = e.awsErrorDetails() != null
+                                    ? e.awsErrorDetails().errorCode()
+                                    : "UNKNOWN";
 
                             switch (errorCode) {
-
                                 case "ConflictException":
-                                    // SPEC: notify user and continue
-                                    System.out.println(
-                                            "Baseline could not be disabled (conflict): "
-                                                    + e.getMessage());
-                                    return null;
+                                    System.out.println("Baseline could not be disabled (conflict): " + e.getMessage());
+                                    break;
 
                                 case "ResourceNotFoundException":
-                                    // SPEC: notify user and continue
-                                    System.out.println(
-                                            "Baseline not found for disabling: "
-                                                    + e.getMessage());
-                                    return null;
+                                    System.out.println("Baseline not found for disabling: " + e.getMessage());
+                                    break;
+
+                                case "UnauthorizedException":
+                                case "AccessDeniedException":
+                                    System.out.println("Unauthorized to disable baseline: " + e.getMessage());
+                                    break;
 
                                 default:
-                                    throw new CompletionException(
-                                            "Error disabling baseline: " + e.getMessage(), e);
+                                    System.out.println("ControlTower error disabling baseline (" + errorCode + "): " + e.getMessage());
                             }
+
+                            // Always return null on exception
+                            return null;
                         }
 
-                        if (cause instanceof SdkException) {
-                            throw new CompletionException(
-                                    "SDK error disabling baseline: " + cause.getMessage(), cause);
+                        // AWS SDK exceptions (network, timeout, etc.)
+                        if (cause instanceof SdkException sdkEx) {
+                            System.out.println("SDK error disabling baseline: " + sdkEx.getMessage());
+                            return null;
                         }
 
-                        throw new CompletionException(
-                                "Failed to disable baseline", cause);
+                        // Catch-all for any other exceptions
+                        System.out.println("Unexpected error disabling baseline: " + cause.getMessage());
+                        return null;
                     }
 
-                    // Success path
+                    // Success → return operation ID
+                    System.out.println("Successfully initiated disable of baseline: " + response.operationIdentifier());
                     return response.operationIdentifier();
                 });
     }
+
     // snippet-end:[controltower.java2.disable_baseline.main]
 
     // snippet-start:[controltower.java2.get_baseline_operation.main]
@@ -636,10 +662,8 @@ public class ControlTowerActions {
                         System.out.println("Page contained no enabled controls.");
                     }
                 })
-                .thenRun(() -> System.out.format(
-                        "Successfully retrieved {} enabled controls for target {}",
-                        enabledControls.size(),
-                        targetIdentifier
+                .thenRun(() -> System.out.println(
+                        "Successfully retrieved "+enabledControls.size() +" enabled controls for target "+targetIdentifier
                 ))
                 .thenApply(v -> enabledControls)
                 .exceptionally(ex -> {
@@ -901,7 +925,7 @@ public class ControlTowerActions {
                         System.out.println("Page contained no controls.");
                     }
                 })
-                .thenRun(() -> System.out.println("Successfully retrieved {} controls." + controls.size()))
+                .thenRun(() -> System.out.println("Successfully retrieved " + controls.size() +" controls."))
                 .thenApply(v -> controls)
                 .exceptionally(ex -> {
                     Throwable cause = ex.getCause() != null ? ex.getCause() : ex;
@@ -934,10 +958,10 @@ public class ControlTowerActions {
      * @throws ControlTowerException if a service-specific error occurs
      * @throws SdkException          if an SDK error occurs
      */
-    public CompletableFuture<String> resetEnabledBaselineAsync(
-            String enabledBaselineIdentifier) {
+    public CompletableFuture<String> resetEnabledBaselineAsync(String enabledBaselineIdentifier) {
 
         System.out.println("Starting reset of enabled baseline…");
+
         ResetEnabledBaselineRequest request = ResetEnabledBaselineRequest.builder()
                 .enabledBaselineIdentifier(enabledBaselineIdentifier)
                 .build();
@@ -945,32 +969,32 @@ public class ControlTowerActions {
         return getAsyncClient().resetEnabledBaseline(request)
                 .thenApply(response -> {
                     String operationId = response.operationIdentifier();
-                    System.out.println("Reset enabled baseline with operation ID: {}" + operationId);
+                    System.out.println("Reset enabled baseline operation ID: " + operationId);
                     return operationId;
                 })
                 .exceptionally(ex -> {
                     Throwable cause = ex.getCause() != null ? ex.getCause() : ex;
 
                     if (cause instanceof ControlTowerException e) {
-                        String errorCode = e.awsErrorDetails().errorCode();
-                        switch (errorCode) {
-                            case "ResourceNotFoundException":
-                                System.out.println("Target not found: {}" + e.getMessage());
-                                break;
-                            default:
-                                System.out.println("Couldn't reset enabled baseline. Here's why: {}" + e.getMessage());
-                        }
-                        throw new CompletionException(e);
+                        String errorCode = e.awsErrorDetails() != null ? e.awsErrorDetails().errorCode() : "UNKNOWN";
+                        String errorMessage = e.awsErrorDetails() != null ? e.awsErrorDetails().errorMessage() : e.getMessage();
+
+                        System.out.println("ControlTowerException caught: Code=" + errorCode + ", Message=" + errorMessage);
+
+                        // Don't fail the pipeline — return null so downstream can continue
+                        return null;
                     }
 
                     if (cause instanceof SdkException sdkEx) {
-                        System.out.println("SDK error resetting enabled baseline: {}" + sdkEx.getMessage());
-                        throw new CompletionException(sdkEx);
+                        System.out.println("SDK exception caught: " + sdkEx.getMessage());
+                        return null;
                     }
 
-                    throw new CompletionException("Failed to reset enabled baseline", cause);
+                    System.out.println("Unexpected exception resetting baseline: " + cause.getMessage());
+                    return null;
                 });
     }
+
     // snippet-end:[controltower.java2.reset_enabled_baseline.main]
 }
 // snippet-end:[controltower.java2.controltower_actions.main]

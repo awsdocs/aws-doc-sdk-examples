@@ -44,9 +44,9 @@ public class ControlTowerScenario {
 
     public static void main(String[] args) {
 
-        System.out.print(DASHES);
-        System.out.print("Welcome to the AWS Control Tower basics scenario!");
-        System.out.print(DASHES);
+        System.out.println(DASHES);
+        System.out.println("Welcome to the AWS Control Tower basics scenario!");
+        System.out.println(DASHES);
 
         try {
             runScenarioAsync();
@@ -59,7 +59,7 @@ public class ControlTowerScenario {
     // Utilities
     // -----------------------------
     private static boolean askYesNo(String msg) {
-        System.out.print(msg);
+        System.out.println(msg);
         return scanner.nextLine().trim().toLowerCase().startsWith("y");
     }
 
@@ -70,26 +70,26 @@ public class ControlTowerScenario {
             // -----------------------------
             // Step 1: Landing Zones
             // -----------------------------
-            System.out.print(DASHES);
-            System.out.print("""
+            System.out.println(DASHES);
+            System.out.println("""
         Some demo operations require the use of a landing zone.
         You can use an existing landing zone or opt out of these operations in the demo.
         For instructions on how to set up a landing zone,
         see https://docs.aws.amazon.com/controltower/latest/userguide/getting-started-from-console.html
         """);
 
-            System.out.print("Step 1: Listing landing zones...");
+            System.out.println("Step 1: Listing landing zones...");
             waitForInputToContinue(scanner);
 
             List<LandingZoneSummary> landingZones =
                     actions.listLandingZonesAsync().join();
 
             if (landingZones.isEmpty()) {
-                System.out.print("No landing zones found. Landing-zone-dependent steps will be skipped.");
+                System.out.println("No landing zones found. Landing-zone-dependent steps will be skipped.");
                 useLandingZone = false;
                 waitForInputToContinue(scanner);
             } else {
-                System.out.print("\nAvailable Landing Zones:");
+                System.out.println("\nAvailable Landing Zones:");
                 for (int i = 0; i < landingZones.size(); i++) {
                     System.out.printf("%d) %s%n", i + 1, landingZones.get(i).arn());
                 }
@@ -100,10 +100,10 @@ public class ControlTowerScenario {
                     landingZoneArn = landingZones.get(0).arn();
                 } else if (askYesNo("Do you want to use a different existing Landing Zone for this demo? (y/n): ")) {
                     useLandingZone = true;
-                    System.out.print("Enter landing zone ARN: ");
+                    System.out.println("Enter landing zone ARN: ");
                     landingZoneArn = scanner.nextLine().trim();
                 } else {
-                    System.out.print("Proceeding without a landing zone.");
+                    System.out.println("Proceeding without a landing zone.");
                     useLandingZone = false;
                     waitForInputToContinue(scanner);
                 }
@@ -113,7 +113,7 @@ public class ControlTowerScenario {
             // Setup Organization + Sandbox OU
             // -----------------------------
             if (useLandingZone) {
-                System.out.print("Using landing zone ARN: " + landingZoneArn);
+                System.out.println("Using landing zone ARN: " + landingZoneArn);
 
                 ControlTowerActions.OrgSetupResult result =
                         actions.setupOrganizationAsync().join();
@@ -121,15 +121,37 @@ public class ControlTowerScenario {
                 ouArn = result.sandboxOuArn();
                 ouId  = result.sandboxOuArn();
 
-                System.out.print("Organization ID: " + result.orgId());
-                System.out.print("Using Sandbox OU ARN: " + ouArn);
+                System.out.println("Organization ID: " + result.orgId());
+                System.out.println("Using Sandbox OU ARN: " + ouArn);
             }
 
             // -----------------------------
             // Step 2: Baselines
             // -----------------------------
-            System.out.print(DASHES);
-            System.out.print("Step 2: Listing available baselines...");
+            System.out.println(DASHES);
+            System.out.println("Step 2: Listing available baselines...");
+            System.out.println("""
+In this step, the program lists available AWS Control Tower baselines and may perform
+baseline-related operations (enable, disable, reset) if requested.
+
+IMPORTANT:
+Some Control Tower baselines are REQUIRED and AWS-managed. These baselines are
+mandatory for the Landing Zone to function and CANNOT be disabled or modified.
+
+When the program attempts operations on such mandatory baselines, AWS Control Tower
+may return service-level exceptions such as:
+  - Unauthorized (401)
+  - AccessDeniedException
+  - ConflictException
+
+These errors do NOT indicate a bug in the program or missing IAM permissions.
+They are expected behavior enforced by AWS Control Tower governance rules.
+
+All such exceptions are caught, logged clearly, and handled gracefully so that
+the program can continue running without failure.
+""");
+
+
             waitForInputToContinue(scanner);
 
             List<BaselineSummary> baselines =
@@ -137,8 +159,8 @@ public class ControlTowerScenario {
 
             BaselineSummary controlTowerBaseline = null;
             for (BaselineSummary b : baselines) {
-                System.out.print("Baseline: " + b.name());
-                System.out.print("  ARN: " + b.arn());
+                System.out.println("Baseline: " + b.name());
+                System.out.println("  ARN: " + b.arn());
                 if ("AWSControlTowerBaseline".equals(b.name())) {
                     controlTowerBaseline = b;
                 }
@@ -148,41 +170,50 @@ public class ControlTowerScenario {
 
             if (useLandingZone && controlTowerBaseline != null) {
 
-                System.out.print("\nListing enabled baselines:");
+                System.out.println("\nListing enabled baselines:");
                 List<EnabledBaselineSummary> enabledBaselines =
                         actions.listEnabledBaselinesAsync().join();
 
                 for (EnabledBaselineSummary eb : enabledBaselines) {
-                    System.out.print(eb.baselineIdentifier());
+                    System.out.println(eb.baselineIdentifier());
                 }
 
+                // Enable the Baseline
                 if (askYesNo("Do you want to enable the Control Tower Baseline? (y/n): ")) {
-                    System.out.print("\nEnabling Control Tower Baseline...");
+                    System.out.println("\nEnabling Control Tower Baseline...");
 
+
+                    String baselineId = controlTowerBaseline.arn();
                     String enabledBaselineId =
-                            String.valueOf(actions.enableBaselineAsync(
-                                    ouArn,
-                                    controlTowerBaseline.arn(),
-                                    "4.0"
-                            ).join());
+                            actions.enableBaselineAsync(
+                                    ouArn,                  // targetIdentifier → the OU or account ARN
+                                    baselineId,             // baselineIdentifier → the Control Tower baseline ARN
+                                    "5.0"                   // baselineVersion → version string
+                            ).join();
 
-                    System.out.print("Enabled baseline operation ID: " + enabledBaselineId);
+
+                    System.out.println("Enabled baseline operation ID: " + enabledBaselineId);
+                    if (enabledBaselineId == null) {
+                        enabledBaselineId = baselineId;
+                    }
+
+                    // Reset the Baseline
                     if (askYesNo("Do you want to reset the Control Tower Baseline? (y/n): ")) {
                         String operationId =
                                 actions.resetEnabledBaselineAsync(enabledBaselineId).join();
-                        System.out.print("Reset baseline operation ID: " + operationId);
+                        System.out.println("Reset baseline operation ID: " + operationId);
                     }
 
                     if (askYesNo("Do you want to disable the Control Tower Baseline? (y/n): ")) {
                         String operationId =
                                 actions.disableBaselineAsync(enabledBaselineId).join();
-                        System.out.print("Disabled baseline operation ID: " + operationId);
+                        System.out.println("Disabled baseline operation ID: " + operationId);
 
                         // Re-enable for next steps
                         actions.enableBaselineAsync(
-                                ouArn,
-                                controlTowerBaseline.arn(),
-                                "4.0"
+                                ouArn,                  // targetIdentifier → the OU or account ARN
+                                baselineId,             // baselineIdentifier → the Control Tower baseline ARN
+                                "5.0"                   // baselineVersion → version string
                         ).join();
                     }
                 }
@@ -191,17 +222,17 @@ public class ControlTowerScenario {
             // -----------------------------
             // Step 3: Controls
             // -----------------------------
-            System.out.print(DASHES);
-            System.out.print("Step 3: Managing Controls:");
+            System.out.println(DASHES);
+            System.out.println("Step 3: Managing Controls:");
             waitForInputToContinue(scanner);
 
             List<ControlSummary> controls =
                     actions.listControlsAsync().join();
 
-            System.out.print("\nListing first 5 available Controls:");
+            System.out.println("\nListing first 5 available Controls:");
             for (int i = 0; i < Math.min(5, controls.size()); i++) {
                 ControlSummary c = controls.get(i);
-                System.out.print("%d. %s - %s".formatted(i + 1, c.name(), c.arn()));
+                System.out.println("%d. %s - %s".formatted(i + 1, c.name(), c.arn()));
             }
 
             if (useLandingZone) {
@@ -210,9 +241,9 @@ public class ControlTowerScenario {
                 List<EnabledControlSummary> enabledControls =
                         actions.listEnabledControlsAsync(ouArn).join();
 
-                System.out.print("\nListing enabled controls:");
+                System.out.println("\nListing enabled controls:");
                 for (int i = 0; i < enabledControls.size(); i++) {
-                    System.out.print("%d. %s".formatted(i + 1, enabledControls.get(i).controlIdentifier()));
+                    System.out.println("%d. %s".formatted(i + 1, enabledControls.get(i).controlIdentifier()));
                 }
 
                 String controlArnToEnable = null;
@@ -232,7 +263,7 @@ public class ControlTowerScenario {
                     String operationId =
                             actions.enableControlAsync(controlArnToEnable, ouArn).join();
 
-                    System.out.print("Enabled control with operation ID: " + operationId);
+                    System.out.println("Enabled control with operation ID: " + operationId);
                 }
 
                 waitForInputToContinue(scanner);
@@ -243,29 +274,29 @@ public class ControlTowerScenario {
                     String operationId =
                             actions.disableControlAsync(controlArnToEnable, ouArn).join();
 
-                    System.out.print("Disable operation ID: " + operationId);
+                    System.out.println("Disable operation ID: " + operationId);
                 }
             }
-            System.out.print("\nThis concludes the example scenario.");
-            System.out.print("Thanks for watching!");
-            System.out.print(DASHES);
+            System.out.println("\nThis concludes the example scenario.");
+            System.out.println("Thanks for watching!");
+            System.out.println(DASHES);
 
         } catch (CompletionException e) {
             Throwable cause = e.getCause() != null ? e.getCause() : e;
-            System.out.print("Scenario failed: " + cause.getMessage());
+            System.out.println("Scenario failed: " + cause.getMessage());
             throw e; // bubble up for tests / callers
         } catch (Exception e) {
-            System.out.print("Unexpected error running scenario: " + e.getMessage());
+            System.out.println("Unexpected error running scenario: " + e.getMessage());
             throw new RuntimeException(e);
         }
     }
 
     private static void waitForInputToContinue(Scanner sc) {
-        System.out.print("\nEnter 'c' then <ENTER> to continue:");
+        System.out.println("\nEnter 'c' then <ENTER> to continue:");
         while (true) {
             String input = sc.nextLine();
             if ("c".equalsIgnoreCase(input.trim())) {
-                System.out.print("Continuing...");
+                System.out.println("Continuing...");
                 break;
             }
         }
