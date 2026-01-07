@@ -121,7 +121,7 @@ class ControlTowerScenario:
                     else None
                 )
                 baseline_arn = self.controltower_wrapper.enable_baseline(
-                    self.ou_arn, ic_baseline_arn, control_tower_baseline["arn"], "4.0"
+                    self.ou_arn, ic_baseline_arn, control_tower_baseline["arn"], "5.0"
                 )
                 if baseline_arn:
                     print(f"Enabled baseline ARN: {baseline_arn}")
@@ -133,9 +133,10 @@ class ControlTowerScenario:
                             == control_tower_baseline["arn"]
                         ):
                             baseline_arn = enabled_baseline["arn"]
-                    print("No change, the selected baseline was already enabled.")
+                    if baseline_arn:
+                        print("No change, the selected baseline was already enabled.")
 
-                if q.ask(
+                if baseline_arn and q.ask(
                     f"Do you want to reset the Control Tower Baseline? (y/n) ",
                     q.is_yesno,
                 ):
@@ -161,7 +162,7 @@ class ControlTowerScenario:
                         self.ou_arn,
                         ic_baseline_arn,
                         control_tower_baseline["arn"],
-                        "4.0",
+                        "5.0",
                     )
 
         # List and Enable Controls.
