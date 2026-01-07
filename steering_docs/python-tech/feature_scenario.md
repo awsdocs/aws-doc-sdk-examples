@@ -832,14 +832,14 @@ python/cross_service/example_scenario:
 
 **In Wrapper File (`{service}_wrapper.py`):**
 ```python
-# snippet-start:[python.example_code.{service}.{Service}Wrapper.decl]
+# snippet-start:[python.example_code.{servicename}.{Service}Wrapper.decl]
 class {Service}Wrapper:
     """Wrapper class for managing {AWS Service} operations."""
 
     def __init__(self, {service}_client: Any) -> None:
         """Initialize the {Service}Wrapper."""
         self.{service}_client = {service}_client
-# snippet-end:[python.example_code.{service}.{Service}Wrapper.decl]
+# snippet-end:[python.example_code.{servicename}.{Service}Wrapper.decl]
 
     # snippet-start:[python.example_code.{service}.CreateResource]
     def create_resource(self, name: str) -> str:
@@ -888,23 +888,6 @@ class {Service}Wrapper:
 3. **User Understanding**: Helps readers understand both the high-level workflow and individual service operations
 4. **Documentation Generation**: Ensures complete code examples are extracted for documentation
 
-**Example Based on Topics and Queues:**
-```yaml
-sqs_Scenario_TopicsAndQueues:
-  languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/cross_service/topics_and_queues
-          excerpts:
-            - description: Run an interactive scenario at a command prompt.
-              snippet_tags:
-                - python.example_code.cross_service.topics_and_queues.TopicsAndQueuesScenario
-            - description: Create classes that wrap &SNS; and &SQS; operations.
-              snippet_tags:
-                - python.example_code.sns.SnsWrapper.decl
-                - python.example_code.sqs.SqsWrapper.decl
-```
 
 ### Wrapper Class Structure
 ```python
@@ -923,8 +906,8 @@ from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)
 
-
-# snippet-start:[python.example_code.{service}.{Service}Wrapper.decl]
+# snippet-start:[python.example_code.{serviceExample}.{Service}Wrapper.class]
+# snippet-start:[python.example_code.{serviceExample}.{Service}Wrapper.decl]
 class {Service}Wrapper:
     """Wrapper class for managing {AWS Service} operations."""
 
@@ -948,6 +931,7 @@ class {Service}Wrapper:
         """
         {service}_client = boto3.client('{service}')
         return cls({service}_client)
+# snippet-end:[python.example_code.{serviceExample}.{Service}Wrapper.decl]
 
     # snippet-start:[python.example_code.{service}.operation_name]
     def operation_name(self, parameter: str) -> bool:
@@ -1036,7 +1020,7 @@ class {Service}Wrapper:
             print(f"Error during cleanup: {e}")
             return False
 
-# snippet-end:[python.example_code.{service}.{Service}Wrapper]
+# snippet-end:[python.example_code.{serviceExample}.{Service}Wrapper.class]
 ```
 
 ### Wrapper Method Guidelines
