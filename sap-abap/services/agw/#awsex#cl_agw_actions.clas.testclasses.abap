@@ -136,9 +136,9 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
         " Wait to avoid rate limiting
         WAIT UP TO 2 SECONDS.
 
-        " Clean up the API created by this test
+        " Clean up the API created by this test (using ao_agw for cleanup)
         TRY.
-            ao_actions->delete_rest_api( lv_api_id ).
+            ao_agw->deleterestapi( iv_restapiid = lv_api_id ).
           CATCH /aws1/cx_agwtoomanyrequestsex.
             " Ignore rate limit on cleanup
             MESSAGE 'Rate limited during cleanup - resource tagged for manual cleanup' TYPE 'I'.
@@ -292,16 +292,17 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
     DATA(lv_uuid) = /awsex/cl_utils=>get_random_string( ).
     DATA(lv_resource_path) = 'integ' && lv_uuid(6).
 
-    DATA(lo_resource) = ao_actions->create_resource(
-      iv_rest_api_id = av_rest_api_id
-      iv_parent_id = av_root_resource_id
-      iv_resource_path = lv_resource_path ).
+    DATA(lo_resource) = ao_agw->createresource(
+      iv_restapiid = av_rest_api_id
+      iv_parentid = av_root_resource_id
+      iv_pathpart = lv_resource_path ).
     DATA(lv_test_resource_id) = lo_resource->get_id( ).
 
-    ao_actions->put_method(
-      iv_rest_api_id = av_rest_api_id
-      iv_resource_id = lv_test_resource_id
-      iv_http_method = 'POST' ).
+    ao_agw->putmethod(
+      iv_restapiid = av_rest_api_id
+      iv_resourceid = lv_test_resource_id
+      iv_httpmethod = 'POST'
+      iv_authorizationtype = 'NONE' ).
 
     " Create a mock Lambda ARN
     DATA(lv_region) = ao_session->get_region( ).
@@ -336,16 +337,17 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
     DATA(lv_uuid) = /awsex/cl_utils=>get_random_string( ).
     DATA(lv_resource_path) = 'intrs' && lv_uuid(6).
 
-    DATA(lo_resource) = ao_actions->create_resource(
-      iv_rest_api_id = av_rest_api_id
-      iv_parent_id = av_root_resource_id
-      iv_resource_path = lv_resource_path ).
+    DATA(lo_resource) = ao_agw->createresource(
+      iv_restapiid = av_rest_api_id
+      iv_parentid = av_root_resource_id
+      iv_pathpart = lv_resource_path ).
     DATA(lv_test_resource_id) = lo_resource->get_id( ).
 
-    ao_actions->put_method(
-      iv_rest_api_id = av_rest_api_id
-      iv_resource_id = lv_test_resource_id
-      iv_http_method = 'POST' ).
+    ao_agw->putmethod(
+      iv_restapiid = av_rest_api_id
+      iv_resourceid = lv_test_resource_id
+      iv_httpmethod = 'POST'
+      iv_authorizationtype = 'NONE' ).
 
     " Create integration first
     DATA(lv_region) = ao_session->get_region( ).
@@ -353,11 +355,13 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
     DATA(lv_integration_uri) = 'arn:aws:apigateway:' && lv_region &&
                                ':lambda:path/2015-03-31/functions/' && lv_lambda_arn && '/invocations'.
 
-    ao_actions->put_integration(
-      iv_rest_api_id = av_rest_api_id
-      iv_resource_id = lv_test_resource_id
-      iv_http_method = 'POST'
-      iv_integration_uri = lv_integration_uri ).
+    ao_agw->putintegration(
+      iv_restapiid = av_rest_api_id
+      iv_resourceid = lv_test_resource_id
+      iv_httpmethod = 'POST'
+      iv_type = 'AWS_PROXY'
+      iv_integrationhttpmethod = 'POST'
+      iv_uri = lv_integration_uri ).
 
     TRY.
         DATA(lo_result) = ao_actions->put_integration_response(
@@ -387,27 +391,27 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
     DATA(lv_stage_name) = 'test' && lv_uuid(5).
 
     " Create resource
-    DATA(lo_resource) = ao_actions->create_resource(
-      iv_rest_api_id = av_rest_api_id
-      iv_parent_id = av_root_resource_id
-      iv_resource_path = lv_resource_path ).
+    DATA(lo_resource) = ao_agw->createresource(
+      iv_restapiid = av_rest_api_id
+      iv_parentid = av_root_resource_id
+      iv_pathpart = lv_resource_path ).
     DATA(lv_test_resource_id) = lo_resource->get_id( ).
 
     " Create method
-    ao_actions->put_method(
-      iv_rest_api_id = av_rest_api_id
-      iv_resource_id = lv_test_resource_id
-      iv_http_method = 'GET' ).
+    ao_agw->putmethod(
+      iv_restapiid = av_rest_api_id
+      iv_resourceid = lv_test_resource_id
+      iv_httpmethod = 'GET'
+      iv_authorizationtype = 'NONE' ).
 
     " Create method response
-    ao_actions->put_method_response(
-      iv_rest_api_id = av_rest_api_id
-      iv_resource_id = lv_test_resource_id
-      iv_http_method = 'GET' ).
+    ao_agw->putmethodresponse(
+      iv_restapiid = av_rest_api_id
+      iv_resourceid = lv_test_resource_id
+      iv_httpmethod = 'GET'
+      iv_statuscode = '200' ).
 
     " Create integration with MOCK type (simpler than Lambda)
-    " Note: put_integration in actions class requires integration_uri parameter
-    " We need to use SDK directly for MOCK type integration
     ao_agw->putintegration(
       iv_restapiid = av_rest_api_id
       iv_resourceid = lv_test_resource_id
@@ -415,10 +419,11 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
       iv_type = 'MOCK' ).
 
     " Create integration response
-    ao_actions->put_integration_response(
-      iv_rest_api_id = av_rest_api_id
-      iv_resource_id = lv_test_resource_id
-      iv_http_method = 'GET' ).
+    ao_agw->putintegrationresponse(
+      iv_restapiid = av_rest_api_id
+      iv_resourceid = lv_test_resource_id
+      iv_httpmethod = 'GET'
+      iv_statuscode = '200' ).
 
     TRY.
         DATA(lo_result) = ao_actions->create_deployment(
@@ -450,7 +455,9 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
     DATA lv_rate_limited TYPE abap_bool VALUE abap_false.
 
     TRY.
-        DATA(lo_api) = ao_actions->create_rest_api( lv_api_name ).
+        DATA(lo_api) = ao_agw->createrestapi(
+          iv_name = lv_api_name
+          iv_description = 'Test API for deletion' ).
         lv_api_id = lo_api->get_id( ).
 
         " Tag for cleanup (using SDK directly for tagging)
