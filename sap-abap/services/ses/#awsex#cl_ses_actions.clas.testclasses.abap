@@ -25,7 +25,7 @@ CLASS ltc_awsex_cl_ses_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
 
     METHODS verify_email_identity FOR TESTING RAISING /aws1/cx_rt_generic.
     METHODS verify_domain_identity FOR TESTING RAISING /aws1/cx_rt_generic.
-    METHODS get_identity_verification_attributes FOR TESTING RAISING /aws1/cx_rt_generic.
+    METHODS get_id_verification_attrs FOR TESTING RAISING /aws1/cx_rt_generic.
     METHODS list_identities FOR TESTING RAISING /aws1/cx_rt_generic.
     METHODS send_email FOR TESTING RAISING /aws1/cx_rt_generic.
     METHODS create_template FOR TESTING RAISING /aws1/cx_rt_generic.
@@ -227,7 +227,7 @@ CLASS ltc_awsex_cl_ses_actions IMPLEMENTATION.
     ENDTRY.
   ENDMETHOD.
 
-  METHOD get_identity_verification_attributes.
+  METHOD get_id_verification_attrs.
     " Ensure identity exists
     TRY.
         ao_ses->verifyemailidentity( iv_emailaddress = av_email ).
@@ -238,7 +238,7 @@ CLASS ltc_awsex_cl_ses_actions IMPLEMENTATION.
     WAIT UP TO 2 SECONDS.
 
     " av_email = 'test@example.com'
-    DATA(lv_status) = ao_ses_actions->get_identity_verification_attributes( iv_identity = av_email ).
+    DATA(lv_status) = ao_ses_actions->get_id_verification_attrs( iv_identity = av_email ).
 
     cl_abap_unit_assert=>assert_not_initial(
       act = lv_status

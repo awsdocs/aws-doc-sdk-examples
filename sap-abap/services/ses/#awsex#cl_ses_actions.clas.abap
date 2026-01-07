@@ -51,7 +51,7 @@ CLASS /awsex/cl_ses_actions DEFINITION
         /aws1/cx_rt_generic.
 
     " Get identity verification attributes
-    METHODS get_identity_verification_attributes
+    METHODS get_id_verification_attrs
       IMPORTING
         iv_identity        TYPE /aws1/sesidentity
       RETURNING
@@ -312,7 +312,7 @@ CLASS /AWSEX/CL_SES_ACTIONS IMPLEMENTATION.
   ENDMETHOD.
 
 
-  METHOD get_identity_verification_attributes.
+  METHOD get_id_verification_attrs.
     CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
