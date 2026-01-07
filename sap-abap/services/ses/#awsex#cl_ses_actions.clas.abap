@@ -50,8 +50,8 @@ CLASS /awsex/cl_ses_actions DEFINITION
       RAISING
         /aws1/cx_rt_generic.
 
-    " Get identity verification status
-    METHODS get_identity_status
+    " Get identity verification attributes
+    METHODS get_identity_verification_attributes
       IMPORTING
         iv_identity        TYPE /aws1/sesidentity
       RETURNING
@@ -151,8 +151,8 @@ CLASS /awsex/cl_ses_actions DEFINITION
       RAISING
         /aws1/cx_rt_generic.
 
-    " Create S3 copy rule
-    METHODS create_s3_copy_rule
+    " Create receipt rule
+    METHODS create_receipt_rule
       IMPORTING
         iv_rule_set_name TYPE /aws1/sesreceiptrulesetname
         iv_rule_name     TYPE /aws1/sesreceiptrulename
@@ -312,7 +312,7 @@ CLASS /AWSEX/CL_SES_ACTIONS IMPLEMENTATION.
   ENDMETHOD.
 
 
-  METHOD get_identity_status.
+  METHOD get_identity_verification_attributes.
     CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
@@ -619,7 +619,7 @@ CLASS /AWSEX/CL_SES_ACTIONS IMPLEMENTATION.
   ENDMETHOD.
 
 
-  METHOD create_s3_copy_rule.
+  METHOD create_receipt_rule.
     CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).

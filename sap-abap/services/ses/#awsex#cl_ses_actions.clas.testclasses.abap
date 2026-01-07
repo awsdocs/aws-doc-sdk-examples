@@ -25,7 +25,7 @@ CLASS ltc_awsex_cl_ses_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
 
     METHODS verify_email_identity FOR TESTING RAISING /aws1/cx_rt_generic.
     METHODS verify_domain_identity FOR TESTING RAISING /aws1/cx_rt_generic.
-    METHODS get_identity_status FOR TESTING RAISING /aws1/cx_rt_generic.
+    METHODS get_identity_verification_attributes FOR TESTING RAISING /aws1/cx_rt_generic.
     METHODS list_identities FOR TESTING RAISING /aws1/cx_rt_generic.
     METHODS send_email FOR TESTING RAISING /aws1/cx_rt_generic.
     METHODS create_template FOR TESTING RAISING /aws1/cx_rt_generic.
@@ -38,16 +38,11 @@ CLASS ltc_awsex_cl_ses_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
     METHODS list_receipt_filters FOR TESTING RAISING /aws1/cx_rt_generic.
     METHODS delete_receipt_filter FOR TESTING RAISING /aws1/cx_rt_generic.
     METHODS create_receipt_rule_set FOR TESTING RAISING /aws1/cx_rt_generic.
-    METHODS create_s3_copy_rule FOR TESTING RAISING /aws1/cx_rt_generic.
+    METHODS create_receipt_rule FOR TESTING RAISING /aws1/cx_rt_generic.
     METHODS describe_receipt_rule_set FOR TESTING RAISING /aws1/cx_rt_generic.
     METHODS delete_receipt_rule FOR TESTING RAISING /aws1/cx_rt_generic.
     METHODS delete_receipt_rule_set FOR TESTING RAISING /aws1/cx_rt_generic.
     METHODS delete_identity FOR TESTING RAISING /aws1/cx_rt_generic.
-
-    METHODS wait_for_identity_verification
-      IMPORTING
-        iv_identity TYPE /aws1/sesidentity
-        iv_timeout  TYPE i DEFAULT 300.
 ENDCLASS.
 
 CLASS ltc_awsex_cl_ses_actions IMPLEMENTATION.
@@ -232,7 +227,7 @@ CLASS ltc_awsex_cl_ses_actions IMPLEMENTATION.
     ENDTRY.
   ENDMETHOD.
 
-  METHOD get_identity_status.
+  METHOD get_identity_verification_attributes.
     " Ensure identity exists
     TRY.
         ao_ses->verifyemailidentity( iv_emailaddress = av_email ).
@@ -243,7 +238,7 @@ CLASS ltc_awsex_cl_ses_actions IMPLEMENTATION.
     WAIT UP TO 2 SECONDS.
 
     " av_email = 'test@example.com'
-    DATA(lv_status) = ao_ses_actions->get_identity_status( iv_identity = av_email ).
+    DATA(lv_status) = ao_ses_actions->get_identity_verification_attributes( iv_identity = av_email ).
 
     cl_abap_unit_assert=>assert_not_initial(
       act = lv_status
@@ -617,7 +612,7 @@ CLASS ltc_awsex_cl_ses_actions IMPLEMENTATION.
     ).
   ENDMETHOD.
 
-  METHOD create_s3_copy_rule.
+  METHOD create_receipt_rule.
     " Ensure rule set exists
     TRY.
         ao_ses->createreceiptruleset( iv_rulesetname = av_rule_set_name ).
@@ -633,7 +628,7 @@ CLASS ltc_awsex_cl_ses_actions IMPLEMENTATION.
 
     " iv_bucket_name = 'test-bucket'
     " iv_prefix = 'emails/'
-    ao_ses_actions->create_s3_copy_rule(
+    ao_ses_actions->create_receipt_rule(
       iv_rule_set_name = av_rule_set_name
       iv_rule_name = 'test-s3-rule'
       it_recipients = lt_recipients
@@ -790,34 +785,6 @@ CLASS ltc_awsex_cl_ses_actions IMPLEMENTATION.
       act = lt_attrs
       msg = |Identity { av_email } should have been deleted|
     ).
-  ENDMETHOD.
-
-  METHOD wait_for_identity_verification.
-    " Helper method to wait for identity verification
-    " Note: This is not used in automated tests as email verification
-    " cannot be completed programmatically
-    DATA lv_start_time TYPE timestamp.
-    DATA lv_current_time TYPE timestamp.
-    DATA lv_elapsed TYPE i.
-
-    GET TIME STAMP FIELD lv_start_time.
-
-    DO.
-      DATA(lv_status) = ao_ses_actions->get_identity_status( iv_identity = iv_identity ).
-
-      IF lv_status = 'Success'.
-        EXIT.
-      ENDIF.
-
-      WAIT UP TO 5 SECONDS.
-
-      GET TIME STAMP FIELD lv_current_time.
-      lv_elapsed = lv_current_time - lv_start_time.
-
-      IF lv_elapsed >= iv_timeout.
-        EXIT.
-      ENDIF.
-    ENDDO.
   ENDMETHOD.
 
 ENDCLASS.
