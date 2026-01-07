@@ -130,7 +130,7 @@ public class ControlTowerBasics
                         Console.WriteLine("\nEnabling Control Tower Baseline.");
                         var icBaselineArn = identityCenterBaseline?.Arn;
                         baselineArn = await wrapper.EnableBaselineAsync(ouArn,
-                            controlTowerBaseline.Arn, "4.0", icBaselineArn ?? "");
+                            controlTowerBaseline.Arn, "5.0", icBaselineArn ?? "");
                         var alreadyEnabled = false;
                         if (baselineArn != null)
                         {
@@ -144,12 +144,11 @@ public class ControlTowerBasics
                                 if (enabled.BaselineIdentifier == controlTowerBaseline.Arn)
                                 {
                                     baselineArn = enabled.Arn;
+                                    alreadyEnabled = true;
+                                    Console.WriteLine("No change, the selected baseline was already enabled.");
                                     break;
                                 }
                             }
-
-                            alreadyEnabled = true;
-                            Console.WriteLine("No change, the selected baseline was already enabled.");
                         }
 
                         if (baselineArn != null)
@@ -173,7 +172,7 @@ public class ControlTowerBasics
                                     Console.WriteLine($"\nRe-enabling Control Tower Baseline: {baselineArn}");
                                     // Re-enable the Control Tower baseline if it was originally enabled.
                                     await wrapper.EnableBaselineAsync(ouArn,
-                                        controlTowerBaseline.Arn, "4.0", icBaselineArn ?? "");
+                                        controlTowerBaseline.Arn, "5.0", icBaselineArn ?? "");
                                 }
                             }
                         }

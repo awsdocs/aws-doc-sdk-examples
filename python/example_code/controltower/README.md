@@ -52,17 +52,17 @@ Code examples that show you how to perform the essential operations within a ser
 
 Code excerpts that show you how to call individual service functions.
 
-- [DisableBaseline](controltower_wrapper.py#L392)
-- [DisableControl](controltower_wrapper.py#L263)
+- [DisableBaseline](controltower_wrapper.py#L396)
+- [DisableControl](controltower_wrapper.py#L267)
 - [EnableBaseline](controltower_wrapper.py#L69)
-- [EnableControl](controltower_wrapper.py#L159)
-- [GetBaselineOperation](controltower_wrapper.py#L236)
-- [GetControlOperation](controltower_wrapper.py#L209)
+- [EnableControl](controltower_wrapper.py#L163)
+- [GetBaselineOperation](controltower_wrapper.py#L240)
+- [GetControlOperation](controltower_wrapper.py#L213)
 - [ListBaselines](controltower_wrapper.py#L39)
-- [ListEnabledBaselines](controltower_wrapper.py#L330)
-- [ListEnabledControls](controltower_wrapper.py#L431)
-- [ListLandingZones](controltower_wrapper.py#L300)
-- [ResetEnabledBaseline](controltower_wrapper.py#L358)
+- [ListEnabledBaselines](controltower_wrapper.py#L334)
+- [ListEnabledControls](controltower_wrapper.py#L435)
+- [ListLandingZones](controltower_wrapper.py#L304)
+- [ResetEnabledBaseline](controltower_wrapper.py#L362)
 
 
 <!--custom.examples.start-->
