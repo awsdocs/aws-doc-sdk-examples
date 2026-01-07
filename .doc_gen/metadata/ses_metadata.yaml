@@ -1,6 +1,14 @@
 # zexi 0.4.3
 ses_SendEmail:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ses
+          excerpts:
+            - description:
+              snippet_tags:
+                - ses.abapv1.send_email
     .NET:
       versions:
         - sdk_version: 3
@@ -87,6 +95,14 @@ ses_SendRawEmail:
     ses: {SendRawEmail}
 ses_SendTemplatedEmail:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ses
+          excerpts:
+            - description:
+              snippet_tags:
+                - ses.abapv1.send_templated_email
     .NET:
       versions:
         - sdk_version: 3
@@ -136,6 +152,14 @@ ses_SendTemplatedEmail:
     ses: {SendTemplatedEmail}
 ses_VerifyDomainIdentity:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ses
+          excerpts:
+            - description:
+              snippet_tags:
+                - ses.abapv1.verify_domain_identity
     Python:
       versions:
         - sdk_version: 3
@@ -159,6 +183,14 @@ ses_VerifyDomainIdentity:
     ses: {VerifyDomainIdentity}
 ses_VerifyEmailIdentity:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ses
+          excerpts:
+            - description:
+              snippet_tags:
+                - ses.abapv1.verify_email_identity
     .NET:
       versions:
         - sdk_version: 3
@@ -208,6 +240,14 @@ ses_VerifyEmailIdentity:
     ses: {VerifyEmailIdentity}
 ses_GetIdentityVerificationAttributes:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ses
+          excerpts:
+            - description:
+              snippet_tags:
+                - ses.abapv1.get_identity_verification_attributes
     .NET:
       versions:
         - sdk_version: 3
@@ -240,6 +280,14 @@ ses_GetIdentityVerificationAttributes:
     ses: {GetIdentityVerificationAttributes}
 ses_DeleteIdentity:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ses
+          excerpts:
+            - description:
+              snippet_tags:
+                - ses.abapv1.delete_identity
     .NET:
       versions:
         - sdk_version: 3
@@ -280,6 +328,14 @@ ses_DeleteIdentity:
     ses: {DeleteIdentity}
 ses_ListIdentities:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ses
+          excerpts:
+            - description:
+              snippet_tags:
+                - ses.abapv1.list_identities
     .NET:
       versions:
         - sdk_version: 3
@@ -338,6 +394,14 @@ ses_ListIdentities:
     ses: {ListIdentities}
 ses_CreateReceiptFilter:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ses
+          excerpts:
+            - description:
+              snippet_tags:
+                - ses.abapv1.create_receipt_filter
     Python:
       versions:
         - sdk_version: 3
@@ -369,6 +433,14 @@ ses_CreateReceiptFilter:
     ses: {CreateReceiptFilter}
 ses_ListReceiptFilters:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ses
+          excerpts:
+            - description:
+              snippet_tags:
+                - ses.abapv1.list_receipt_filters
     Python:
       versions:
         - sdk_version: 3
@@ -400,6 +472,14 @@ ses_ListReceiptFilters:
     ses: {ListReceiptFilters}
 ses_DeleteReceiptFilter:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ses
+          excerpts:
+            - description:
+              snippet_tags:
+                - ses.abapv1.delete_receipt_filter
     Python:
       versions:
         - sdk_version: 3
@@ -431,6 +511,14 @@ ses_DeleteReceiptFilter:
     ses: {DeleteReceiptFilter}
 ses_CreateReceiptRuleSet:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ses
+          excerpts:
+            - description:
+              snippet_tags:
+                - ses.abapv1.create_receipt_rule_set
     Python:
       versions:
         - sdk_version: 3
@@ -462,6 +550,14 @@ ses_CreateReceiptRuleSet:
     ses: {CreateReceiptRuleSet}
 ses_CreateReceiptRule:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ses
+          excerpts:
+            - description:
+              snippet_tags:
+                - ses.abapv1.create_receipt_rule
     Python:
       versions:
         - sdk_version: 3
@@ -495,6 +591,14 @@ ses_CreateReceiptRule:
     ses: {CreateReceiptRule}
 ses_DescribeReceiptRuleSet:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ses
+          excerpts:
+            - description:
+              snippet_tags:
+                - ses.abapv1.describe_receipt_rule_set
     Python:
       versions:
         - sdk_version: 3
@@ -509,6 +613,14 @@ ses_DescribeReceiptRuleSet:
     ses: {DescribeReceiptRuleSet}
 ses_DeleteReceiptRule:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ses
+          excerpts:
+            - description:
+              snippet_tags:
+                - ses.abapv1.delete_receipt_rule
     Python:
       versions:
         - sdk_version: 3
@@ -540,6 +652,14 @@ ses_DeleteReceiptRule:
     ses: {DeleteReceiptRule}
 ses_DeleteReceiptRuleSet:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ses
+          excerpts:
+            - description:
+              snippet_tags:
+                - ses.abapv1.delete_receipt_rule_set
     Python:
       versions:
         - sdk_version: 3
@@ -571,6 +691,14 @@ ses_DeleteReceiptRuleSet:
     ses: {DeleteReceiptRuleSet}
 ses_CreateTemplate:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ses
+          excerpts:
+            - description:
+              snippet_tags:
+                - ses.abapv1.create_template
     .NET:
       versions:
         - sdk_version: 3
@@ -611,6 +739,14 @@ ses_CreateTemplate:
     ses: {CreateTemplate}
 ses_DeleteTemplate:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ses
+          excerpts:
+            - description:
+              snippet_tags:
+                - ses.abapv1.delete_template
     .NET:
       versions:
         - sdk_version: 3
@@ -651,6 +787,14 @@ ses_DeleteTemplate:
     ses: {DeleteTemplate}
 ses_GetTemplate:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ses
+          excerpts:
+            - description:
+              snippet_tags:
+                - ses.abapv1.get_template
     Python:
       versions:
         - sdk_version: 3
@@ -682,6 +826,14 @@ ses_GetTemplate:
     ses: {GetTemplate}
 ses_ListTemplates:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ses
+          excerpts:
+            - description:
+              snippet_tags:
+                - ses.abapv1.list_templates
     .NET:
       versions:
         - sdk_version: 3
@@ -723,6 +875,14 @@ ses_ListTemplates:
     ses: {ListTemplates}
 ses_UpdateTemplate:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ses
+          excerpts:
+            - description:
+              snippet_tags:
+                - ses.abapv1.update_template
     Python:
       versions:
         - sdk_version: 3
