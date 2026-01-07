@@ -86,7 +86,7 @@ def method_name(self, parameter: str) -> bool:
 python/cross_service/example_scenario:
   excerpts:
     - snippet_tags:
-        - python.example_code.{service}.{Service}Wrapper.decl  # ✓ CORRECT
+        - python.example_code.{service}.{ServiceName}Wrapper.decl  # ✓ CORRECT
         - python.example_code.{service}.MethodName
 ```
 
@@ -95,7 +95,7 @@ python/cross_service/example_scenario:
 python/cross_service/example_scenario:
   excerpts:
     - snippet_tags:
-        - python.example_code.{service}.{Service}Wrapper      # ✗ INCORRECT
+        - python.example_code.{service}.{ServiceName}Wrapper      # ✗ INCORRECT
         - python.example_code.{service}.MethodName
 ```
 
@@ -110,14 +110,14 @@ python/cross_service/example_scenario:
 
 **In Wrapper File (`{service}_wrapper.py`):**
 ```python
-# snippet-start:[python.example_code.{service}.{Service}Wrapper.decl]
+# snippet-start:[python.example_code.{service_name}.{Service}Wrapper.decl]
 class {Service}Wrapper:
     """Wrapper class for managing {AWS Service} operations."""
 
     def __init__(self, {service}_client: Any) -> None:
         """Initialize the {Service}Wrapper."""
         self.{service}_client = {service}_client
-# snippet-end:[python.example_code.{service}.{Service}Wrapper.decl]
+# snippet-end:[python.example_code.{service_name}.{Service}Wrapper.decl]
 
     # snippet-start:[python.example_code.{service}.CreateResource]
     def create_resource(self, name: str) -> str:
@@ -138,8 +138,8 @@ class {Service}Wrapper:
           github: python/example_code/{service}
           excerpts:
             - snippet_tags:
-                - python.example_code.{service}.{Service}Wrapper.decl
-                - python.example_code.{service}.CreateResource
+                - python.example_code.{serviceName}.{ServiceName}Wrapper.decl
+                - python.example_code.{serviceName}.CreateResource
 ```
 
 **For Cross-Service Scenario Sections:**
@@ -152,8 +152,8 @@ class {Service}Wrapper:
           github: python/cross_service/example_scenario
           excerpts:
             - snippet_tags:
-                - python.example_code.{service}.{Service}Wrapper.decl
-                - python.example_code.{service}.CreateResource
+                - python.example_code.{serviceName}.{ServiceName}Wrapper.decl
+                - python.example_code.{serviceName}.CreateResource
 ```
 
 **For Scenario Sections (CRITICAL - Must Include Both Scenario and Wrapper Classes):**
@@ -167,10 +167,10 @@ class {Service}Wrapper:
           excerpts:
             - description: Run an interactive scenario at a command prompt.
               snippet_tags:
-                - python.example_code.{service}.{Service}Scenario
+                - python.example_code.{service}.{ServiceName}Scenario
             - description: Create a class that wraps service operations.
               snippet_tags:
-                - python.example_code.{service}.{Service}Wrapper.decl
+                - python.example_code.{service}.{ServiceName}Wrapper.decl
 ```
 
 **For Cross-Service Scenario Sections:**
@@ -204,15 +204,15 @@ sqs_Scenario_TopicsAndQueues:
     Python:
       versions:
         - sdk_version: 3
-          github: python/cross_service/topics_and_queues
+          github: python/cross_service/scenario_name
           excerpts:
             - description: Run an interactive scenario at a command prompt.
               snippet_tags:
-                - python.example_code.cross_service.topics_and_queues.TopicsAndQueuesScenario
-            - description: Create classes that wrap &SNS; and &SQS; operations.
+                - python.example_code.cross_service.scenario_name.FeatureScenario
+            - description: Create classes that wrap service operations.
               snippet_tags:
-                - python.example_code.sns.SnsWrapper.decl
-                - python.example_code.sqs.SqsWrapper.decl
+                - python.example_code.service.ServiceWrapper.decl
+                - python.example_code.service.ServiceWrapper.Action
 ```
 
 ## Scenario Class Pattern
