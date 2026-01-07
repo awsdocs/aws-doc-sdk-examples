@@ -226,6 +226,7 @@ language = {
                 "secrets-manager": "sap-abap/services/smr",
                 "sesv2": "sap-abap/services/se2",
                 "textract": "sap-abap/services/tex",
+                "transcribe": "sap-abap/services/tnb",
                 "translate": "sap-abap/services/xl8",
             },
         }
