@@ -85,16 +85,21 @@ class ControlTowerWrapper:
         :raises ClientError: If enabling the baseline fails for reasons other than it being already enabled.
         """
         try:
-            response = self.controltower_client.enable_baseline(
-                baselineIdentifier=baseline_identifier,
-                baselineVersion=baseline_version,
-                targetIdentifier=target_identifier,
-                parameters=[
+            # Only include parameters if identity_center_baseline is not empty
+            parameters = []
+            if identity_center_baseline:
+                parameters = [
                     {
                         "key": "IdentityCenterEnabledBaselineArn",
                         "value": identity_center_baseline,
                     }
-                ],
+                ]
+            
+            response = self.controltower_client.enable_baseline(
+                baselineIdentifier=baseline_identifier,
+                baselineVersion=baseline_version,
+                targetIdentifier=target_identifier,
+                parameters=parameters,
             )
 
             operation_id = response["operationIdentifier"]
@@ -110,7 +115,6 @@ class ControlTowerWrapper:
             if err.response["Error"]["Code"] == "ValidationException":
                 if "already enabled" in err.response["Error"]["Message"]:
                     print("Baseline is already enabled for this target")
-                    return None
                 else:
                     print(
                         "Unable to enable baseline due to validation exception: %s: %s",
@@ -122,7 +126,7 @@ class ControlTowerWrapper:
                 err.response["Error"]["Code"],
                 err.response["Error"]["Message"],
             )
-            raise
+            return None
 
     # snippet-end:[python.example_code.controltower.EnableBaseline]
 
