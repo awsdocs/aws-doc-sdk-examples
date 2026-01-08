@@ -24,6 +24,10 @@ import static java.lang.System.in;
  * and list all available baselines.
  * This example uses the default settings specified in your shared credentials
  * and config files.
+ *
+ * In addition, set up a landing zone by following this documentation:
+ * 
+ * https://docs.aws.amazon.com/controltower/latest/userguide/quick-start.html
  */
 
 // snippet-start:[controltower.java2.controltower_scenario.main]
@@ -151,9 +155,7 @@ All such exceptions are caught, logged clearly, and handled gracefully so that
 the program can continue running without failure.
 """);
 
-
             waitForInputToContinue(scanner);
-
             List<BaselineSummary> baselines =
                     actions.listBaselinesAsync().join();
 

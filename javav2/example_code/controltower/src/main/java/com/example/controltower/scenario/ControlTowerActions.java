@@ -27,9 +27,7 @@ import software.amazon.awssdk.services.organizations.model.Organization;
 import software.amazon.awssdk.services.organizations.model.OrganizationFeatureSet;
 import software.amazon.awssdk.services.organizations.model.OrganizationalUnit;
 import software.amazon.awssdk.services.organizations.paginators.ListOrganizationalUnitsForParentPublisher;
-
 import java.time.Duration;
-import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.concurrent.CompletableFuture;
@@ -53,7 +51,6 @@ public class ControlTowerActions {
     private static ControlCatalogAsyncClient controlCatalogAsyncClient;
     private static ControlTowerAsyncClient controlTowerAsyncClient;
     private static OrganizationsAsyncClient orgAsyncClient;
-
 
     private static OrganizationsAsyncClient getAsyncOrgClient() {
         if (orgAsyncClient == null) {
