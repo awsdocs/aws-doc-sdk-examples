@@ -28,5 +28,5 @@ shellingham==1.5.4
 typer==0.15.1
 types-PyYAML==6.0.12.12
 typing_extensions==4.12.2
-urllib3==2.6.0
+urllib3==2.6.3
 yamale==4.0.4
