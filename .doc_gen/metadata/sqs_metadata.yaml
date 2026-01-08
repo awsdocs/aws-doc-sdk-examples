@@ -121,7 +121,6 @@ sqs_CreateQueue:
           excerpts:
             - description: Usage in the Basics scenario.
               snippet_tags:
-                - python.example_code.sqs.SqsWrapper.class
                 - python.example_code.sqs.CreateQueue
             - description: Usage in the Topics and Queues scenario.
               snippet_tags:
@@ -406,7 +405,6 @@ sqs_DeleteQueue:
           excerpts:
             - description: Usage in the Basics scenario.
               snippet_tags:
-                - python.example_code.sqs.SqsWrapper.class
                 - python.example_code.sqs.DeleteQueue
             - description: Usage in the Topics and Queues scenario.
               snippet_tags:
@@ -654,7 +652,6 @@ sqs_ReceiveMessage:
           excerpts:
             - description: Usage in the Basics scenario.
               snippet_tags:
-                - python.example_code.sqs.SqsWrapper.class
                 - python.example_code.sqs.ReceiveMessage
             - description: Usage in the Topics and Queues scenario.
               snippet_tags:
@@ -826,7 +823,6 @@ sqs_DeleteMessageBatch:
           excerpts:
             - description: Usage in the Basics scenario.
               snippet_tags:
-                - python.example_code.sqs.SqsWrapper.class
                 - python.example_code.sqs.DeleteMessageBatch
             - description: Usage in the Topics and Queues scenario.
               snippet_tags:
