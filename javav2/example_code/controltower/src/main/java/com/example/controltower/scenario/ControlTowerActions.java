@@ -319,7 +319,6 @@ public class ControlTowerActions {
     // snippet-end:[controltower.java2.list_baselines.main]
 
     // snippet-start:[controltower.java2.list_enabled_baselines.main]
-
     /**
      * Lists all enabled baselines using pagination to retrieve complete results.
      *
