@@ -1188,13 +1188,14 @@ sqs_Scenario_TopicsAndQueues:
         - sdk_version: 3
           github: python/cross_service/topics_and_queues
           excerpts:
+            - description: Run an interactive scenario at a command prompt.
+              snippet_tags:
+                - python.example_code.cross_service.topics_and_queues.TopicsAndQueuesScenario
             - description: Create classes that wrap &SNS; and &SQS; operations for use in the scenario.
               snippet_tags:
                 - python.example_code.sns.SnsWrapper.class
                 - python.example_code.sqs.SqsWrapper.class
-            - description: Run an interactive scenario at a command prompt.
-              snippet_tags:
-                - python.example_code.cross_service.topics_and_queues.TopicsAndQueuesScenario
+            
     Swift:
       versions:
         - sdk_version: 1
