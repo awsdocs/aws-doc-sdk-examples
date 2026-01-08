@@ -59,7 +59,7 @@ functions within the same service.
 - [Create an Amazon Textract explorer application](../../cross_service/textract_explorer)
 - [Create and publish to a FIFO topic](../sns/sns_fifo_topic.py)
 - [Detect people and objects in a video](../../example_code/rekognition)
-- [Publish messages to queues](../../cross_service/topics_and_queues/sns_wrapper.py)
+- [Publish messages to queues](../../cross_service/topics_and_queues/topics_and_queues_scenario.py)
 - [Send and receive batches of messages](message_wrapper.py)
 
 
@@ -145,7 +145,7 @@ This example shows you how to do the following:
 Start the example by running the following at a command prompt:
 
 ```
-python ../../cross_service/topics_and_queues/sns_wrapper.py
+python ../../cross_service/topics_and_queues/topics_and_queues_scenario.py
 ```
 
 
