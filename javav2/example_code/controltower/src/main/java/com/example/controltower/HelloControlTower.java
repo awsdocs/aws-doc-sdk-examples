@@ -3,9 +3,6 @@
 
 package com.example.controltower;
 
-import com.example.controltower.scenario.ControlTowerScenario;
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
-import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.controltower.ControlTowerClient;
 import software.amazon.awssdk.services.controltower.model.ControlTowerException;
 import software.amazon.awssdk.services.controltower.model.ListBaselinesRequest;
