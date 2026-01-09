@@ -47,6 +47,13 @@ class SqsStubber(ExampleStubber):
         self._stub_bifurcator(
             "get_queue_attributes", expected_params, response, error_code=error_code
         )
+    
+    def stub_get_queue_arn(self, url, arn, error_code=None):
+        expected_params = {"AttributeNames": ["QueueArn"], "QueueUrl": url}
+        response = {"Attributes": {"QueueArn": arn}}
+        self._stub_bifurcator(
+            "get_queue_attributes", expected_params, response, error_code=error_code
+        )
 
     def stub_list_dead_letter_source_queues(self, dl_url, source_urls, error_code=None):
         expected_params = {"QueueUrl": dl_url}
