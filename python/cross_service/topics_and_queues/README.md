@@ -2,130 +2,155 @@
 
 ## Overview
 
-This scenario demonstrates messaging with topics and queues using Amazon Simple Notification Service (Amazon SNS) and Amazon Simple Queue Service (Amazon SQS). The scenario shows how to create topics, queues, subscribe queues to topics, publish messages, and handle message filtering.
+Publish and subscribe is a mechanism for passing information. It’s used in social media, and it’s also used internally in software applications. A producer publishes a message, and the subscribers receive the message. In software, publish and subscribe notifications make message passing flexible and robust. The producers of messages are decoupled from the consumers of messages.
 
-## What it demonstrates
+Use the sample code in this folder to explore publishing and subscribing to a topic by using filters and queues. This tutorial does not create a complete end-to-end application. Instead, you can use it to play around with a publish and subscribe architecture.
 
-- Create SNS topics (standard and FIFO)
-- Create SQS queues (standard and FIFO) 
-- Configure queue policies to allow SNS message delivery
-- Subscribe queues to topics with optional message filtering
-- Publish messages with attributes and FIFO-specific parameters
-- Poll queues for messages and display results
-- Clean up resources (delete queues, unsubscribe, delete topics)
+You can create an Amazon SNS topic and subscribe two Amazon SQS queues to the topic. You can enable FIFO (First-In-First-Out) queueing, and you can add filtered subscriptions. Then, you can publish messages to the topic and see the results in the queues.
 
-## Files
+You can publish and subscribe using Amazon SNS alone. But combining Amazon SNS with Amazon SQS gives you more flexibility in how the messages are consumed.
 
-- `topics_and_queues_scenario.py` - Main scenario orchestration
-- `sns_wrapper.py` - SNS operations wrapper class
-- `sqs_wrapper.py` - SQS operations wrapper class  
-- `requirements.txt` - Python dependencies
-- `test/` - Integration tests
+Amazon SNS is a push service. It pushes to endpoints such as email addresses, mobile application endpoints, or SQS queues. (For a full list of endpoints, see [SNS event destinations](https://docs.aws.amazon.com/sns/latest/dg/sns-event-destinations.html)).
 
-## Prerequisites
+With Amazon SQS, messages are received from a queue by polling. With polling, the subscriber receives messages by calling a receive message API. Any code can poll the queue. Also, the messages stay in the queue until you delete them. This gives you more flexibility in how the messages are processed.
 
-- Python 3.8 or later
-- AWS credentials configured (via AWS CLI, environment variables, or IAM roles)
-- Appropriate AWS permissions for SNS and SQS operations
+The sample code builds a command line application that asks you for input. This is implemented in multiple programming languages, and the interface can vary slightly between languages. The following shows the interface for the Python implementation.
 
-## Setup
-
-1. Install dependencies:
-```bash
-pip install -r requirements.txt
-```
-
-2. Ensure AWS credentials are configured:
-```bash
-aws configure
-```
-
-## Running the scenario
-
-```bash
-python topics_and_queues_scenario.py
-```
-
-## Scenario workflow
-
-### 1. Topic Setup
-- Choose between standard or FIFO topic
-- For FIFO topics, configure deduplication options
-- Create the SNS topic
-
-### 2. Queue Setup  
-- Create SQS queues (matching topic type)
-- Configure queue policies to allow SNS message delivery
-- Subscribe queues to the topic with optional message filtering
-
-### 3. Message Publishing
-- Publish messages to the topic
-- For FIFO topics, specify message group ID and optional deduplication ID
-- Add tone attributes for message filtering
-
-### 4. Message Polling
-- Poll each queue for messages
-- Display message contents
-- Delete messages after processing
-
-### 5. Cleanup
-- Option to delete queues
-- Unsubscribe from topics  
-- Option to delete topics
-
-## FIFO Features
-
-When using FIFO topics and queues, the scenario demonstrates:
-
-- **Message Ordering**: Messages within the same message group are delivered in order
-- **Deduplication**: Prevents duplicate message delivery using deduplication IDs or content-based deduplication
-- **Message Filtering**: Filter messages by tone attribute (cheerful, funny, serious, sincere)
-
-## Error Handling
-
-The scenario includes comprehensive error handling:
-- AWS service errors are caught and logged
-- User-friendly error messages
-- Graceful cleanup on failures
-- Validation of user inputs
-
-## Architecture
+### Create an SNS topic
 
 ```
-┌─────────────────┐    ┌─────────────────┐
-│   SNS Topic     │    │   SQS Queue 1   │
-│                 ├────┤                 │
-│  (Standard or   │    │  (with optional │
-│   FIFO)         │    │   filtering)    │
-└─────────────────┘    └─────────────────┘
-         │              
-         │              ┌─────────────────┐
-         └──────────────┤   SQS Queue 2   │
-                        │                 │
-                        │  (with optional │
-                        │   filtering)    │
-                        └─────────────────┘
+Would you like to work with FIFO topics? (y/n) 
 ```
 
-## Testing
+You configure FIFO (First-In-First-Out) topics when you create them. Choosing a FIFO topic enables other options, too. To learn more, see [FIFO topics example use case](https://docs.aws.amazon.com/sns/latest/dg/fifo-example-use-case.html).
 
-Run the integration tests:
-```bash
-cd test
-python -m pytest test_topics_and_queues_scenario.py -v
+
+```
+Use content-based deduplication instead of a deduplication ID? (y/n)
 ```
 
-## Clean up
+Deduplication is only available for FIFO topics. Deduplication prevents the subscriber from responding more than once to events that are determined to be duplicates. If a message gets published to an SNS FIFO topic and it’s found to be a duplicate within the five-minute deduplication interval, the message is accepted but not delivered. For more information, see [Message deduplication for FIFO topics](https://docs.aws.amazon.com/sns/latest/dg/fifo-message-dedup.html).
 
-The scenario provides interactive cleanup options at the end. You can also manually clean up resources:
+Content-based deduplication uses a hash of the content as a deduplication ID. If content-based deduplication is not enabled, you must include a deduplication ID with each message.
 
-1. Delete SQS queues from the AWS Console
-2. Delete SNS topics from the AWS Console
-3. Subscriptions are automatically deleted when queues are deleted
+```
+Enter a name for your SNS topic:
+```
 
-## Related AWS Services
+Topic names can have 1-256 characters. They can contain uppercase and lowercase ASCII letters, numbers, underscores, and hyphens. If you chose a FIFO topic, the application automatically adds a “.fifo” suffix, which is required for FIFO topics.
 
-- [Amazon SNS Documentation](https://docs.aws.amazon.com/sns/)
-- [Amazon SQS Documentation](https://docs.aws.amazon.com/sqs/)
-- [SNS Message Filtering](https://docs.aws.amazon.com/sns/latest/dg/sns-message-filtering.html)
-- [FIFO Topics](https://docs.aws.amazon.com/sns/latest/dg/sns-fifo-topics.html)
+### Create two SQS queues
+
+Now, configure two SQS queues to subscribe to your topic. Separate queues for each subscriber can be helpful. For 
+instance, you can customize how messages are consumed and how messages are filtered.
+
+```
+Enter a name for an SQS queue.
+```
+
+Queue names can have 1-80 characters. They can contain uppercase and lowercase ASCII letters, numbers, underscores, and hyphens. If you chose a FIFO topic, the application automatically adds a “.fifo” suffix, which is required for FIFO queues.
+
+
+```
+Filter messages for "<queue name>.fifo"s subscription to 
+the topic "<topic name>.fifo"?  (y/n)
+```
+
+If you chose FIFO topics, you can add a filter to the queue’s topic subscription. There are many ways to filter a topic. In this example code, you have the option to filter by a predetermined selection of attributes. For more information about filters, see [Message filtering for FIFO topics](https://docs.aws.amazon.com/sns/latest/dg/fifo-message-filtering.html).
+
+
+```
+You can filter messages by one or more of the following "tone" attributes.
+1. cheerful
+2. funny
+3. serious
+4. sincere
+Enter a number (or enter zero to stop adding more)
+```
+
+If you add a filter, you can select one or more “tone” attributes to filter by. When you’re done, enter “0’” to continue.
+
+The application now prompts you to add the second queue. Repeat the previous steps for the second queue.
+
+The following diagram shows the topic and queue options.
+![Diagram of the options](images/fifo_topics_diagram.png)
+
+After you create the topic and subscribe both queues, the application lets you publish messages to the topic.
+
+
+```
+Enter a message text to publish.
+```
+
+All configurations include a message text.
+
+
+```
+Enter a message group ID for this message.
+```
+
+If this is a FIFO topic, then you must include a group ID. The group ID can contain up to 128 alphanumeric characters `(a-z, A-Z, 0-9)` and punctuation `(!"#$%&'()*+,-./:;<=>?@[\]^_``{|}~)`.
+For more information about group IDs, see [Message grouping for FIFO topics](https://docs.aws.amazon.com/sns/latest/dg/fifo-message-grouping.html).
+
+
+```
+Enter a deduplication ID for this message.
+```
+
+If this is a FIFO topic and content-based deduplication is not enabled, then you must enter a deduplication ID. The message deduplication ID can contain up to 128 alphanumeric characters `(a-z, A-Z, 0-9)` and punctuation `(!"#$%&'()*+,-./:;<=>?@[\]^_``{|}~)`.
+
+
+```
+Add an attribute to this message? (y/n) y
+```
+
+If you added a filter to one of the subscriptions, you can choose to add a filtering attribute to the message.
+
+
+```
+1. cheerful
+2. funny
+3. serious
+4. sincere
+Enter a number for an attribute: 
+```
+
+Select a number for an attribute.
+
+
+```
+Post another message? (y/n)
+```
+
+You can post as many messages as you want.
+
+When you are done posting messages, the application polls the queues and displays their messages.
+
+
+##  ⚠️ Important
+
+* Running this code might result in charges to your AWS account.
+* Running the tests might result in charges to your AWS account.
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
+* This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
+
+## Run the examples
+
+### Prerequisites
+
+Before using the code examples, first complete the installation and setup steps of [Getting started](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html) in the AWS SDK for
+C++ Developer Guide.
+
+
+###  Instructions
+
+
+Running this example requires AWS Identity and Access Management (IAM) permissions for both SNS and SQS.
+
+## Additional resources
+
+* [Amazon SNS Developer Guide](https://docs.aws.amazon.com/sns/latest/dg/welcome.html)
+* [Amazon SNS API Reference](https://docs.aws.amazon.com/sns/latest/api/welcome.html)
+* [Amazon SQS Developer Guide](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/welcome.html)
+* [Amazon SQS API Reference](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/Welcome.html)
+
