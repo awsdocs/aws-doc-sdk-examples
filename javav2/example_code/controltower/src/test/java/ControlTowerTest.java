@@ -21,6 +21,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
@@ -78,10 +79,35 @@ public class ControlTowerTest {
     @Order(3)
     public void testControlTowerScenarioEndToEnd() {
         assertDoesNotThrow(() -> {
-            String simulatedInput = String.join("\n",
-                    Arrays.asList(
-                            "c", "y", "c", "c", "y", "n", "n", "c", "y", "n", "c"
-                    )) + "\n";
+
+            // Build simulated input:
+            // - "c" for all waitForInputToContinue calls
+            // - "y"/"n" for Yes/No prompts
+            List<String> simulatedInputs = new ArrayList<>();
+
+            // Step 1: Landing zone
+            simulatedInputs.add("c"); // waitForInput
+            simulatedInputs.add("y"); // use first landing zone
+            // If it asks for another landing zone, we choose no (automatically continue)
+            simulatedInputs.add("c"); // continue
+
+            // Step 2: Baselines
+            simulatedInputs.add("c"); // waitForInput
+            simulatedInputs.add("c"); // waitForInput after listing baselines
+            simulatedInputs.add("y"); // enable baseline
+            simulatedInputs.add("y"); // reset baseline
+            simulatedInputs.add("n"); // disable baseline
+            simulatedInputs.add("c"); // continue for re-enable prompt
+
+            // Step 3: Controls
+            simulatedInputs.add("c"); // waitForInput
+            simulatedInputs.add("c"); // continue after listing controls
+            simulatedInputs.add("y"); // enable first control
+            simulatedInputs.add("c"); // waitForInput before disable
+            simulatedInputs.add("n"); // do not disable control
+
+            // Convert all to single input string
+            String simulatedInput = String.join("\n", simulatedInputs) + "\n";
 
             InputStream originalIn = System.in;
             PrintStream originalOut = System.out;
@@ -91,7 +117,7 @@ public class ControlTowerTest {
                 ByteArrayInputStream testIn = new ByteArrayInputStream(simulatedInput.getBytes());
                 System.setIn(testIn);
 
-                // Capture output
+                // Capture output (optional)
                 System.setOut(new PrintStream(new ByteArrayOutputStream()));
 
                 // Run the scenario
@@ -106,4 +132,5 @@ public class ControlTowerTest {
 
         System.out.println("Test 3 (Control Tower scenario end-to-end) passed");
     }
+
 }

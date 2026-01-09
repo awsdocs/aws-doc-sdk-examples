@@ -7,6 +7,8 @@ import software.amazon.awssdk.services.controlcatalog.ControlCatalogClient;
 import software.amazon.awssdk.services.controlcatalog.model.ControlSummary;
 import software.amazon.awssdk.services.controltower.model.*;
 import software.amazon.awssdk.services.organizations.OrganizationsClient;
+
+import java.time.Duration;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.CompletionException;
@@ -26,7 +28,7 @@ import static java.lang.System.in;
  * and config files.
  *
  * In addition, set up a landing zone by following this documentation:
- * 
+ *
  * https://docs.aws.amazon.com/controltower/latest/userguide/quick-start.html
  */
 
@@ -138,22 +140,21 @@ public class ControlTowerScenario {
 In this step, the program lists available AWS Control Tower baselines and may perform
 baseline-related operations (enable, disable, reset) if requested.
 
-IMPORTANT:
-Some Control Tower baselines are REQUIRED and AWS-managed. These baselines are
-mandatory for the Landing Zone to function and CANNOT be disabled or modified.
+NOTE:
+AWS Control Tower enforces governance through baselines and mandatory controls
+(guardrails). Mandatory controls are required for landing zone governance and may
+restrict certain operations depending on the account, region, or organizational policy.
 
-When the program attempts operations on such mandatory baselines, AWS Control Tower
-may return service-level exceptions such as:
-  - Unauthorized (401)
-  - AccessDeniedException
-  - ConflictException
-
-These errors do NOT indicate a bug in the program or missing IAM permissions.
-They are expected behavior enforced by AWS Control Tower governance rules.
-
-All such exceptions are caught, logged clearly, and handled gracefully so that
-the program can continue running without failure.
+For more information, see:
+- Types of baselines in AWS Control Tower:
+  https://docs.aws.amazon.com/controltower/latest/userguide/types-of-baselines.html
+- Mandatory controls (guardrails) in AWS Control Tower:
+  https://docs.aws.amazon.com/controltower/latest/controlreference/mandatory-controls.html
+- Baseline API examples:
+  https://docs.aws.amazon.com/controltower/latest/userguide/baseline-api-examples.html
 """);
+
+
 
             waitForInputToContinue(scanner);
             List<BaselineSummary> baselines =
@@ -176,14 +177,25 @@ the program can continue running without failure.
                 List<EnabledBaselineSummary> enabledBaselines =
                         actions.listEnabledBaselinesAsync().join();
 
+                String enabledBaselineArn = null;
                 for (EnabledBaselineSummary eb : enabledBaselines) {
-                    System.out.println(eb.baselineIdentifier());
+                    System.out.println("Checking enabled baseline ARN: " + eb.arn());
+                    if (eb.baselineIdentifier().equals(controlTowerBaseline.arn())) {
+                        enabledBaselineArn = eb.arn(); // correct enabled ARN for this baseline
+                        break; // stop after finding the matching one
+                    }
                 }
+
+                if (enabledBaselineArn == null) {
+                    System.out.println("No enabled baseline found for " + controlTowerBaseline.arn());
+                } else {
+                    System.out.println("Selected enabled baseline ARN for reset/disable: " + enabledBaselineArn);
+                }
+
 
                 // Enable the Baseline
                 if (askYesNo("Do you want to enable the Control Tower Baseline? (y/n): ")) {
                     System.out.println("\nEnabling Control Tower Baseline...");
-
 
                     String baselineId = controlTowerBaseline.arn();
                     String enabledBaselineId =
@@ -196,7 +208,7 @@ the program can continue running without failure.
 
                     System.out.println("Enabled baseline operation ID: " + enabledBaselineId);
                     if (enabledBaselineId == null) {
-                        enabledBaselineId = baselineId;
+                       enabledBaselineId = enabledBaselineArn;
                     }
 
                     // Reset the Baseline
@@ -211,12 +223,20 @@ the program can continue running without failure.
                                 actions.disableBaselineAsync(enabledBaselineId).join();
                         System.out.println("Disabled baseline operation ID: " + operationId);
 
-                        // Re-enable for next steps
-                        actions.enableBaselineAsync(
-                                ouArn,                  // targetIdentifier → the OU or account ARN
-                                baselineId,             // baselineIdentifier → the Control Tower baseline ARN
-                                "5.0"                   // baselineVersion → version string
+                        System.out.println("Now we will re‑enable the baseline and wait 1 minute before making the call...");
+                        try {
+                            Thread.sleep(Duration.ofMinutes(1).toMillis());
+                        } catch (InterruptedException e) {
+                            Thread.currentThread().interrupt();
+                            System.out.println("Wait interrupted");
+                        }
+                        String reEnabledBaselineId = actions.enableBaselineAsync(
+                                ouArn,
+                                baselineId,  // reuse baseline definition ARN
+                                "5.0"
                         ).join();
+
+                        System.out.println("Re-enabled baseline operation ID: " + reEnabledBaselineId);
                     }
                 }
             }
