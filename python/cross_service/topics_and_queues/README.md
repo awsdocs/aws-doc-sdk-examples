@@ -134,16 +134,35 @@ When you are done posting messages, the application polls the queues and display
 * We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
 * This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
-## Run the examples
+## Prerequisites
 
-### Prerequisites
+For general prerequisites, see the [README](../../README.md#prerequisites) in the `python` folder.
 
-Before using the code examples, first complete the installation and setup steps of [Getting started](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html) in the AWS SDK for
-C++ Developer Guide.
+### Install Python dependencies
 
+The requirements for this example are listed in the accompanying `requirements.txt` file.
 
-###  Instructions
+Install the requirements by running the following in a virtual environment:
 
+```
+python -m pip install -r requirements.txt
+```
+
+This installs the AWS SDK for Python (Boto3) and other required packages.
+
+## Instructions
+
+For general instructions to run the examples, see the
+[README](../../README.md#run-the-examples) in the `python` folder.
+
+Run this example by running the following command in the folder that contains this README:
+
+```
+python topics_and_queues_scenario.py
+```
+
+This starts an interactive scenario that walks you through creating topics and queues,
+publishing messages with filters, and viewing the results.
 
 Running this example requires AWS Identity and Access Management (IAM) permissions for both SNS and SQS.
 
@@ -153,4 +172,3 @@ Running this example requires AWS Identity and Access Management (IAM) permissio
 * [Amazon SNS API Reference](https://docs.aws.amazon.com/sns/latest/api/welcome.html)
 * [Amazon SQS Developer Guide](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/welcome.html)
 * [Amazon SQS API Reference](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/Welcome.html)
-
