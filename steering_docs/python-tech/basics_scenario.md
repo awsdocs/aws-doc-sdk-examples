@@ -77,9 +77,7 @@ def method_name(self, parameter: str) -> bool:
 # snippet-end:[python.example_code.{service}.MethodName]
 ```
 
-### Cross-Service Scenario Requirements
-
-**MANDATORY**: When wrapper classes are used in cross-service scenarios (e.g., topics_and_queues), the metadata files MUST reference the `.decl` tag pattern:
+**MANDATORY**: When wrapper classes are used in scenarios, the metadata files MUST reference the `.decl` tag pattern:
 
 **Correct Metadata Reference:**
 ```yaml
@@ -98,11 +96,10 @@ python/cross_service/example_scenario:
         - python.example_code.{service}.{ServiceName}Wrapper      # ✗ INCORRECT
         - python.example_code.{service}.MethodName
 ```
-
 ### Why This Pattern Is Required
 
 1. **Stub Test Compatibility**: The `.decl` pattern ensures stubbed tests can properly mock wrapper class declarations
-2. **Metadata Consistency**: Follows established patterns from control-tower and other cross-service scenarios  
+2. **Metadata Consistency**: Follows established patterns from control-tower and other scenarios  
 3. **Documentation Generation**: Enables proper extraction of class declarations for documentation
 4. **Parameter Matching**: Prevents "Unexpected API Call" errors in stubbed tests
 
@@ -142,20 +139,6 @@ class {Service}Wrapper:
                 - python.example_code.{serviceName}.CreateResource
 ```
 
-**For Cross-Service Scenario Sections:**
-```yaml
-{service}_Scenario_CrossService:
-  languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/cross_service/example_scenario
-          excerpts:
-            - snippet_tags:
-                - python.example_code.{serviceName}.{ServiceName}Wrapper.decl
-                - python.example_code.{serviceName}.CreateResource
-```
-
 **For Scenario Sections (CRITICAL - Must Include Both Scenario and Wrapper Classes):**
 ```yaml
 {service}_Scenario_Basics:
@@ -173,27 +156,10 @@ class {Service}Wrapper:
                 - python.example_code.{service}.{ServiceName}Wrapper.decl
 ```
 
-**For Cross-Service Scenario Sections:**
-```yaml
-{service}_Scenario_CrossService:
-  languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/cross_service/example_scenario
-          excerpts:
-            - description: Run an interactive scenario at a command prompt.
-              snippet_tags:
-                - python.example_code.cross_service.example_scenario.ExampleScenario
-            - description: Create classes that wrap service operations.
-              snippet_tags:
-                - python.example_code.{service}.{Service}Wrapper.decl
-                - python.example_code.{other_service}.{OtherService}Wrapper.decl
-```
 
 **Why Both Are Required in Scenario Sections:**
 1. **Complete Documentation**: Scenarios demonstrate both the orchestration logic and the underlying service operations
-2. **Pattern Consistency**: Follows established patterns from controltower and other cross-service scenarios
+2. **Pattern Consistency**: Follows established patterns from controltower and other scenarios
 3. **User Understanding**: Helps readers understand both the high-level workflow and individual service operations
 4. **Documentation Generation**: Ensures complete code examples are extracted for documentation
 
@@ -465,6 +431,376 @@ except ClientError as e:
         print(f"Unexpected error: {e}")
     raise
 ```
+
+## Dependencies
+
+### Requirements Files
+
+#### requirements.txt (Main Dependencies)
+```txt
+boto3>=1.26.137
+botocore>=1.29.137
+```
+
+#### test/test_requirements.txt (Test Dependencies)
+```txt
+pytest>=7.0.0
+pytest-mock>=3.10.0
+moto>=4.0.0
+```
+
+## Integration Tests
+
+### Requirements
+
+**MANDATORY**: All feature scenarios MUST include both stubbed unit tests and live integration tests:
+
+1. **Stubbed Tests** - Use the established stubbing pattern from `test_tools` for fast, reliable unit testing
+2. **Live Integration Tests** - Use `@pytest.mark.integ` decorator to test against real AWS services
+
+### Stubber Method Verification
+
+**CRITICAL**: Before implementing tests, verify that all wrapper methods have corresponding stubber methods available in `python/test_tools/{service}_stubber.py`. 
+
+#### Available Service Stubbers
+Common service stubbers available in `python/test_tools/`:
+- `sns_stubber.py` - Amazon SNS operations
+- `sqs_stubber.py` - Amazon SQS operations  
+- `s3_stubber.py` - Amazon S3 operations
+- `dynamodb_stubber.py` - Amazon DynamoDB operations
+- `lambda_stubber.py` - AWS Lambda operations
+- `iam_stubber.py` - AWS IAM operations
+- `cloudformation_stubber.py` - AWS CloudFormation operations
+- And many more...
+
+#### Verification Process
+
+1. **Check Stubber Availability**: Verify `{service}_stubber.py` exists in `python/test_tools/`
+2. **Review Available Methods**: Examine the stubber class to see what methods are available
+3. **Map Wrapper to Stubber Methods**: Ensure each wrapper method has a corresponding stub method
+
+#### Example Method Mapping
+
+**SNS Wrapper → SNS Stubber Mapping:**
+```python
+# SNS Wrapper Methods → Available Stubber Methods
+create_topic()              → stub_create_topic()
+subscribe_queue_to_topic()  → stub_subscribe() 
+publish_message()           → stub_publish()
+unsubscribe()              → stub_unsubscribe()
+delete_topic()             → stub_delete_topic()
+list_topics()              → stub_list_topics()
+```
+
+**SQS Wrapper → SQS Stubber Mapping:**
+```python
+# SQS Wrapper Methods → Available Stubber Methods  
+create_queue()             → stub_create_queue()
+get_queue_arn()            → stub_get_queue_attributes()
+set_queue_policy_for_topic() → stub_set_queue_attributes()
+receive_messages()         → stub_receive_messages()
+delete_messages()          → stub_delete_message_batch()
+delete_queue()             → stub_delete_queue()
+list_queues()              → stub_list_queues()
+send_message()             → stub_send_message()
+```
+
+#### Missing Stubber Methods
+
+If a wrapper method doesn't have a corresponding stubber method:
+
+1. **Check Other Services**: Some operations may be available in related service stubbers
+2. **Create Custom Stub**: Add the missing stub method to the appropriate stubber class
+3. **Use Generic Stubs**: For simple operations, use `_stub_bifurcator` directly
+4. **Update Test Strategy**: Consider alternative testing approaches for complex operations
+
+#### Stubber Method Parameters
+
+**CRITICAL**: Always verify that stubber method parameters match the actual wrapper implementation calls. Mismatched parameters will cause "Unexpected API Call" errors.
+
+##### Common Parameter Matching Issues
+
+**Problem**: `Error getting response stub for operation CreateTopic: Unexpected API Call: A call was made but no additional calls expected.`
+
+**Root Cause**: The wrapper method passes different parameters than what the stubber expects.
+
+##### Parameter Verification Process
+
+1. **Check Wrapper Implementation**: Examine how the wrapper method calls the AWS client
+2. **Check Stubber Signature**: Review the stubber method parameter requirements
+3. **Match Parameters Exactly**: Ensure stub parameters match wrapper call parameters
+
+##### Example: SNS CreateTopic Parameter Matching
+
+**Wrapper Implementation Analysis:**
+```python
+# From sns_wrapper.py create_topic method:
+attributes = {}
+if is_fifo:
+    attributes['FifoTopic'] = 'true'
+    if content_based_deduplication:
+        attributes['ContentBasedDeduplication'] = 'true'
+
+response = self.sns_client.create_topic(
+    Name=topic_name,
+    Attributes=attributes  # ALWAYS passed, even if empty for standard topics
+)
+```
+
+**Stubber Method Signature:**
+```python
+# From sns_stubber.py:
+def stub_create_topic(self, topic_name, topic_arn, topic_attributes=None, error_code=None):
+    expected_params = {"Name": topic_name}
+    if topic_attributes is not None:
+        expected_params["Attributes"] = topic_attributes
+```
+
+**Correct Test Stub Usage:**
+```python
+# For standard (non-FIFO) topic - MUST include empty attributes
+runner.add(
+    mock_mgr.sns_stubber.stub_create_topic,
+    "test-topic",                                    # topic_name
+    "arn:aws:sns:us-east-1:123456789012:test-topic", # topic_arn
+    {},                                             # topic_attributes (empty dict for standard)
+)
+
+# For FIFO topic - include FIFO attributes
+runner.add(
+    mock_mgr.sns_stubber.stub_create_topic,
+    "test-topic.fifo",                               # topic_name  
+    "arn:aws:sns:us-east-1:123456789012:test-topic.fifo", # topic_arn
+    {"FifoTopic": "true"},                          # topic_attributes (FIFO settings)
+)
+```
+
+##### Debugging Parameter Mismatches
+
+**Step 1**: Enable detailed logging to see actual vs expected parameters:
+```python
+import logging
+logging.basicConfig(level=logging.DEBUG)
+```
+
+**Step 2**: Compare wrapper client call with stubber expected_params:
+- Print wrapper parameters before AWS client call
+- Check stubber `expected_params` dictionary construction
+- Ensure all parameters match exactly (including optional ones)
+
+**Step 3**: Common parameter patterns:
+```python
+# SNS Operations
+create_topic()    → Always passes Attributes (even if empty dict)
+subscribe()       → May include Attributes for filter policies  
+publish()         → May include MessageAttributes, MessageGroupId, etc.
+
+# SQS Operations  
+create_queue()    → Always passes Attributes (even if empty dict)
+receive_message() → Always passes MessageAttributeNames, WaitTimeSeconds
+send_message()    → May include MessageAttributes, DelaySeconds, etc.
+```
+
+### Pytest Integration Test Pattern with Stubbing
+
+Integration tests should use the established stubbing pattern from `test_tools` and verify no errors are logged:
+
+```python
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+"""
+Integration tests for {Service} scenario.
+"""
+
+import pytest
+from unittest.mock import patch
+import logging
+import boto3
+
+import sys
+import os
+
+# Add parent directory to path to import scenario modules
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+# Add test_tools to path
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "..", "test_tools"))
+
+from {scenario_name}_scenario import {Service}Scenario
+from {service}_wrapper import {Service}Wrapper
+
+
+class MockManager:
+    """Mock manager for the {Service} scenario tests."""
+    
+    def __init__(self, {service}_client, {service}_stubber, stub_runner):
+        """{Service} test setup manager."""
+        self.{service}_client = {service}_client
+        self.{service}_stubber = {service}_stubber
+        self.stub_runner = stub_runner
+        self.{service}_wrapper = {Service}Wrapper({service}_client)
+        self.scenario = {Service}Scenario(self.{service}_wrapper)
+
+
+@pytest.fixture
+def mock_mgr(make_stubber, stub_runner):
+    """Create a mock manager with AWS service stubbers."""
+    {service}_client = boto3.client('{service}')
+    {service}_stubber = make_stubber({service}_client)
+    
+    return MockManager({service}_client, {service}_stubber, stub_runner)
+
+
+class TestScenarioIntegration:
+    """Integration tests for the {Service} scenario."""
+
+    @patch('demo_tools.question.ask')
+    def test_scenario_integration_no_errors_logged(self, mock_ask, mock_mgr, caplog):
+        """
+        Verify the scenario runs without logging any errors.
+        
+        Args:
+            mock_ask: Mock for user input
+            mock_mgr: Mock manager with stubbed AWS clients
+            caplog: Pytest log capture fixture
+        """
+        # Arrange user inputs
+        mock_ask.side_effect = [
+            "test-resource-name",  # Resource name input
+            "test-parameter",      # Parameter input
+            True,                  # Cleanup confirmation
+        ]
+
+        # Set up stubs for AWS operations
+        with mock_mgr.stub_runner(None, None) as runner:
+            # Add stubs for each AWS operation the scenario will perform
+            # Example for SNS operations:
+            runner.add(
+                mock_mgr.sns_stubber.stub_create_topic,
+                "test-topic",
+                "arn:aws:sns:us-east-1:123456789012:test-topic",
+            )
+            runner.add(
+                mock_mgr.sns_stubber.stub_subscribe,
+                "arn:aws:sns:us-east-1:123456789012:test-topic",
+                "sqs",
+                "arn:aws:sqs:us-east-1:123456789012:test-queue",
+                "arn:aws:sns:us-east-1:123456789012:test-topic:subscription-id",
+            )
+            runner.add(
+                mock_mgr.sns_stubber.stub_publish,
+                "Test message",
+                "message-id-123",
+                topic_arn="arn:aws:sns:us-east-1:123456789012:test-topic",
+            )
+            runner.add(
+                mock_mgr.sns_stubber.stub_delete_topic,
+                "arn:aws:sns:us-east-1:123456789012:test-topic",
+            )
+            
+            # Example for SQS operations:
+            runner.add(
+                mock_mgr.sqs_stubber.stub_create_queue,
+                "test-queue",
+                {},
+                "https://sqs.us-east-1.amazonaws.com/123456789012/test-queue",
+            )
+            runner.add(
+                mock_mgr.sqs_stubber.stub_get_queue_attributes,
+                "https://sqs.us-east-1.amazonaws.com/123456789012/test-queue",
+                "arn:aws:sqs:us-east-1:123456789012:test-queue",
+            )
+            runner.add(
+                mock_mgr.sqs_stubber.stub_receive_messages,
+                "https://sqs.us-east-1.amazonaws.com/123456789012/test-queue",
+                [{"body": "Test message"}],
+                1,
+            )
+            runner.add(
+                mock_mgr.sqs_stubber.stub_delete_queue,
+                "https://sqs.us-east-1.amazonaws.com/123456789012/test-queue",
+            )
+
+            # Act - Run the scenario
+            with caplog.at_level(logging.ERROR):
+                mock_mgr.scenario.run_scenario()
+
+            # Assert no errors logged
+            error_logs = [record for record in caplog.records if record.levelno >= logging.ERROR]
+            assert len(error_logs) == 0, f"Expected no error logs, but found: {error_logs}"
+
+    @patch('demo_tools.question.ask')
+    def test_scenario_handles_aws_errors_gracefully(self, mock_ask, mock_mgr):
+        """Test that the scenario handles AWS errors gracefully."""
+        # Arrange
+        mock_ask.side_effect = [
+            "test-resource-name",  # Resource name
+        ]
+
+        # Set up stub to simulate AWS error
+        with mock_mgr.stub_runner("TestException", 0) as runner:
+            runner.add(
+                mock_mgr.{service}_stubber.stub_create_resource,
+                "test-resource-name", 
+                "arn:aws:{service}:us-east-1:123456789012:resource/test-resource",
+            )
+
+            # Act & Assert - Should handle error gracefully
+            mock_mgr.scenario.run_scenario()
+            # Verify error was logged appropriately (scenario should continue or cleanup)
+
+
+### Live Integration Test Pattern
+
+**MANDATORY**: Always include a live integration test that uses real AWS services:
+
+```python
+@pytest.mark.integ
+def test_run_scenario_integ(input_mocker, capsys):
+    """Test the scenario with an integration test using live AWS services."""
+    # Mock user inputs for automated testing
+    answers = [
+        "test-resource-name-integ",  # Resource name
+        "test-parameter",            # Parameter input
+        True,                        # Cleanup confirmation
+    ]
+
+    input_mocker.mock_answers(answers)
+    
+    # Create real AWS clients (no stubs)
+    {service}_client = boto3.client('{service}')
+    
+    # Initialize wrappers and scenario with real clients
+    {service}_wrapper = {Service}Wrapper({service}_client)
+    scenario = {Service}Scenario({service}_wrapper)
+
+    # Run the scenario with live AWS services
+    scenario.run_scenario()
+
+    # Verify the scenario completed successfully
+    captured = capsys.readouterr()
+    assert "scenario completed successfully" in captured.out
+```
+
+**Key Features of Live Integration Tests:**
+- ✅ **`@pytest.mark.integ` decorator** - Allows selective test execution
+- ✅ **Real AWS clients** - Tests against actual AWS services
+- ✅ **User input automation** - Uses `input_mocker` to simulate user interactions  
+- ✅ **Output verification** - Checks console output for completion messages
+- ✅ **Resource cleanup** - Ensures all resources are cleaned up after testing
+
+**Running Integration Tests:**
+```bash
+# Run only unit tests (stubbed)
+pytest test/test_scenario.py
+
+# Run only integration tests (live AWS)
+pytest test/test_scenario.py -m integ
+
+# Run all tests
+pytest test/test_scenario.py -m "not integ" && pytest test/test_scenario.py -m integ
+```
+
 
 ## Scenario Requirements
 - ✅ **ALWAYS** read and implement based on `scenarios/basics/{service}/SPECIFICATION.md`

@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 """
-Topics and Queues Cross-Service Scenario
+Topics and Queues Feature Scenario
 
 This scenario demonstrates messaging with topics and queues using Amazon Simple Notification
 Service (Amazon SNS) and Amazon Simple Queue Service (Amazon SQS). The scenario includes:
@@ -39,7 +39,7 @@ logger = logging.getLogger(__name__)
 
 # snippet-start:[python.example_code.cross_service.topics_and_queues.TopicsAndQueuesScenario]
 class TopicsAndQueuesScenario:
-    """Manages the Topics and Queues cross-service scenario."""
+    """Manages the Topics and Queues feature scenario."""
 
     DASHES = "-" * 80
 
@@ -64,7 +64,7 @@ class TopicsAndQueuesScenario:
         self.tones = ["cheerful", "funny", "serious", "sincere"]
 
     def run_scenario(self) -> None:
-        """Run the Topics and Queues cross-service scenario."""
+        """Run the Topics and Queues feature scenario."""
         print(self.DASHES)
         print("Welcome to messaging with topics and queues.")
         print(self.DASHES)
@@ -387,7 +387,7 @@ class TopicsAndQueuesScenario:
 
 def main() -> None:
     """
-    Main function to run the Topics and Queues cross-service scenario.
+    Main function to run the Topics and Queues feature scenario.
     
     This example uses the default settings specified in your shared credentials
     and config files.

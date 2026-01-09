@@ -799,9 +799,9 @@ def method_name(self, parameter: str) -> bool:
 # snippet-end:[python.example_code.{service}.MethodName]
 ```
 
-#### Cross-Service Scenario Requirements
+#### Feature Scenario Requirements
 
-**MANDATORY**: When wrapper classes are used in cross-service scenarios (e.g., topics_and_queues), the metadata files MUST reference the `.decl` tag pattern:
+**MANDATORY**: When wrapper classes are used in feature scenarios (e.g., topics_and_queues), the metadata files MUST reference the `.decl` tag pattern:
 
 **Correct Metadata Reference:**
 ```yaml
@@ -824,7 +824,7 @@ python/cross_service/example_scenario:
 #### Why This Pattern Is Required
 
 1. **Stub Test Compatibility**: The `.decl` pattern ensures stubbed tests can properly mock wrapper class declarations
-2. **Metadata Consistency**: Follows established patterns from control-tower and other cross-service scenarios  
+2. **Metadata Consistency**: Follows established patterns from control-tower and other feature scenarios  
 3. **Documentation Generation**: Enables proper extraction of class declarations for documentation
 4. **Parameter Matching**: Prevents "Unexpected API Call" errors in stubbed tests
 
@@ -866,7 +866,7 @@ class {Service}Wrapper:
 
 **For Scenario Sections (CRITICAL - Must Include Both Scenario and Wrapper Classes):**
 ```yaml
-{service}_Scenario_CrossService:
+{service}_Feature_Scenario:
   languages:
     Python:
       versions:
@@ -884,7 +884,7 @@ class {Service}Wrapper:
 
 **Why Both Are Required in Scenario Sections:**
 1. **Complete Documentation**: Scenarios demonstrate both the orchestration logic and the underlying service operations
-2. **Pattern Consistency**: Follows established patterns from controltower and other cross-service scenarios
+2. **Pattern Consistency**: Follows established patterns from controltower and other scenarios
 3. **User Understanding**: Helps readers understand both the high-level workflow and individual service operations
 4. **Documentation Generation**: Ensures complete code examples are extracted for documentation
 
