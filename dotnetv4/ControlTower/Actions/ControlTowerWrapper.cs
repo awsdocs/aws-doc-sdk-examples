@@ -125,20 +125,21 @@ public class ControlTowerWrapper
     /// <param name="baselineIdentifier">The identifier of baseline to enable.</param>
     /// <param name="baselineVersion">The version of baseline to enable.</param>
     /// <param name="identityCenterBaseline">The identifier of identity center baseline if it is enabled.</param>
-    /// <returns>The enabled baseline ARN or null if already enabled.</returns>
+    /// <returns>The enabled baseline ARN or null.</returns>
     public async Task<string?> EnableBaselineAsync(string targetIdentifier, string baselineIdentifier, string baselineVersion, string identityCenterBaseline)
     {
         try
         {
-            var parameters = new List<EnabledBaselineParameter>
+            var parameters = new List<EnabledBaselineParameter>();
+            if (!string.IsNullOrEmpty(identityCenterBaseline))
             {
-                new EnabledBaselineParameter
-                {
-                    Key = "IdentityCenterEnabledBaselineArn",
-                    Value = identityCenterBaseline
-                }
-            };
-
+                parameters.Add(
+                    new EnabledBaselineParameter
+                    {
+                        Key = "IdentityCenterEnabledBaselineArn",
+                        Value = identityCenterBaseline
+                    });
+            }
             var request = new EnableBaselineRequest
             {
                 BaselineIdentifier = baselineIdentifier,
@@ -164,9 +165,12 @@ public class ControlTowerWrapper
 
             return response.Arn;
         }
-        catch (ValidationException ex) when (ex.Message.Contains("already enabled"))
+        catch (ValidationException ex)
         {
-            Console.WriteLine("Baseline is already enabled for this target");
+            if (ex.Message.Contains("already enabled"))
+                Console.WriteLine("Baseline is already enabled for this target");
+            else { Console.WriteLine(ex.Message); }
+            // Write the message and return null if baseline cannot be enabled.
             return null;
         }
         catch (AmazonControlTowerException ex)
