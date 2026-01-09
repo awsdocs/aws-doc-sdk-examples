@@ -490,21 +490,6 @@ public class ControlTowerActions {
                     return null; // not yet available
                 });
     }
-
-    /**
-     * Polls a baseline operation until it reaches a terminal state.
-     */
-    private CompletableFuture<BaselineOperationStatus> pollBaselineOperationAsync(String operationId) {
-        return getBaselineOperationAsync(operationId).thenCompose(status -> {
-            if (status == BaselineOperationStatus.SUCCEEDED || status == BaselineOperationStatus.FAILED) {
-                return CompletableFuture.completedFuture(status);
-            }
-            return CompletableFuture.supplyAsync(() -> null,
-                            CompletableFuture.delayedExecutor(30, TimeUnit.SECONDS))
-                    .thenCompose(v -> pollBaselineOperationAsync(operationId));
-        });
-    }
-
     // snippet-end:[controltower.java2.enable_baseline.main]
 
     // snippet-start:[controltower.java2.disable_baseline.main]
