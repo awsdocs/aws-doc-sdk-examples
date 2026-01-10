@@ -273,7 +273,7 @@ public class ControlTowerActions {
         return paginator.subscribe(response -> {
                     if (response.baselines() != null && !response.baselines().isEmpty()) {
                         response.baselines().forEach(baseline -> {
-                            System.out.format("Baseline: {}", baseline.name());
+                            System.out.println("Baseline name: " + baseline.name());
                             baselines.add(baseline);
                         });
                     } else {
