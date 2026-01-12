@@ -726,73 +726,80 @@ public class ControlTowerActions {
                 .build();
 
         return getAsyncClient().enableControl(request)
-                .whenComplete((response, exception) -> {
-                    if (exception != null) {
-                        Throwable cause = exception.getCause() != null
-                                ? exception.getCause()
-                                : exception;
+                .thenCompose(response -> {
+                    String operationId = response.operationIdentifier();
+                    System.out.println("Enable control operation started. Operation ID: " + operationId);
 
-                        if (cause instanceof ControlTowerException e) {
-                            String errorCode = e.awsErrorDetails().errorCode();
+                    CompletableFuture<String> resultFuture = new CompletableFuture<>();
 
-                            switch (errorCode) {
-                                case "ValidationException":
-                                    if (e.getMessage() != null
-                                            && e.getMessage().contains("already enabled")) {
-                                        // Preserve sync behavior: treat as no-op
-                                        return;
-                                    }
+                    Runnable poller = new Runnable() {
+                        @Override
+                        public void run() {
+                            getControlOperationAsync(operationId)
+                                    .thenAccept(status -> {
+                                        System.out.println("Control operation status: " + status);
 
-                                    throw new CompletionException(
-                                            "Validation error enabling control: %s"
-                                                    .formatted(e.getMessage()),
-                                            e
-                                    );
+                                        if (status == ControlOperationStatus.SUCCEEDED
+                                                || status == ControlOperationStatus.FAILED) {
+                                            resultFuture.complete(operationId);
+                                        } else {
+                                            // Poll again after 30 seconds
+                                            CompletableFuture.delayedExecutor(30, TimeUnit.SECONDS)
+                                                    .execute(this);
+                                        }
+                                    })
+                                    .exceptionally(ex -> {
+                                        resultFuture.completeExceptionally(ex);
+                                        return null;
+                                    });
+                        }
+                    };
 
-                                case "ResourceNotFoundException":
-                                    if (e.getMessage() != null
-                                            && e.getMessage().contains(
-                                            "not registered with AWS Control Tower")) {
-                                        throw new CompletionException(
-                                                "Control Tower must be enabled to work with controls",
-                                                e
-                                        );
-                                    }
+                    // Start polling immediately
+                    poller.run();
 
-                                    throw new CompletionException(
-                                            "Control not found: %s"
-                                                    .formatted(e.getMessage()),
-                                            e
-                                    );
+                    return resultFuture;
+                })
+                .exceptionally(ex -> {
+                    Throwable cause = ex.getCause() != null ? ex.getCause() : ex;
 
-                                default:
-                                    throw new CompletionException(
-                                            "Error enabling control: %s"
-                                                    .formatted(e.getMessage()),
-                                            e
-                                    );
-                            }
+                    if (cause instanceof ControlTowerException e) {
+                        String errorCode = e.awsErrorDetails().errorCode();
+                        String message = e.getMessage() != null ? e.getMessage() : "";
+
+                        if ("ValidationException".equals(errorCode)
+                                && message.contains("already enabled")) {
+                            System.out.println("Control is already enabled for this target");
+                            return null;
                         }
 
-                        if (cause instanceof SdkException) {
-                            throw new CompletionException(
-                                    "SDK error enabling control: %s"
-                                            .formatted(cause.getMessage()),
-                                    cause
-                            );
+                        if ("ResourceNotFoundException".equals(errorCode)
+                                && message.contains("not registered with AWS Control Tower")) {
+                            System.out.println(
+                                    "Control Tower must be enabled to work with controls.");
+                            return null;
                         }
 
                         throw new CompletionException(
-                                "Failed to enable control",
+                                "Couldn't enable control: %s".formatted(message),
+                                e
+                        );
+                    }
+
+                    if (cause instanceof SdkException) {
+                        throw new CompletionException(
+                                "SDK error enabling control: %s"
+                                        .formatted(cause.getMessage()),
                                 cause
                         );
                     }
-                })
-                .thenApply(response ->
-                        response != null ? response.operationIdentifier() : null
-                );
-    }
 
+                    throw new CompletionException(
+                            "Failed to enable control",
+                            cause
+                    );
+                });
+    }
     // snippet-end:[controltower.java2.enable_control.main]
 
     // snippet-start:[controltower.java2.disable_control.main]
@@ -816,41 +823,66 @@ public class ControlTowerActions {
                 .build();
 
         return getAsyncClient().disableControl(request)
-                .handle((response, exception) -> {
+                .thenCompose(response -> {
+                    String operationId = response.operationIdentifier();
+                    System.out.println("Disable control operation started. Operation ID: " + operationId);
 
-                    if (exception != null) {
-                        Throwable cause = exception.getCause() != null
-                                ? exception.getCause()
-                                : exception;
+                    CompletableFuture<String> resultFuture = new CompletableFuture<>();
 
-                        if (cause instanceof ControlTowerException e) {
-                            String errorCode = e.awsErrorDetails().errorCode();
+                    Runnable poller = new Runnable() {
+                        @Override
+                        public void run() {
+                            getControlOperationAsync(operationId)
+                                    .thenAccept(status -> {
+                                        System.out.println("Control operation status: " + status);
 
-                            if ("ResourceNotFoundException".equals(errorCode)) {
-                                // SPEC: notify user and continue
-                                System.out.println(
-                                        "Control not found for disabling: " + e.getMessage());
-                                return null;
-                            }
-
-                            throw new CompletionException(
-                                    "Error disabling control: " + e.getMessage(), e);
+                                        if (status == ControlOperationStatus.SUCCEEDED
+                                                || status == ControlOperationStatus.FAILED) {
+                                            resultFuture.complete(operationId);
+                                        } else {
+                                            // poll again after 30 seconds
+                                            CompletableFuture.delayedExecutor(30, TimeUnit.SECONDS)
+                                                    .execute(this);
+                                        }
+                                    })
+                                    .exceptionally(ex -> {
+                                        resultFuture.completeExceptionally(ex);
+                                        return null;
+                                    });
                         }
+                    };
 
-                        if (cause instanceof SdkException) {
-                            throw new CompletionException(
-                                    "SDK error disabling control: " + cause.getMessage(), cause);
+                    // start polling immediately
+                    poller.run();
+
+                    return resultFuture;
+                })
+                .exceptionally(ex -> {
+                    Throwable cause = ex.getCause() != null ? ex.getCause() : ex;
+
+                    if (cause instanceof ControlTowerException e) {
+                        String errorCode = e.awsErrorDetails().errorCode();
+
+                        if ("ResourceNotFoundException".equals(errorCode)) {
+                            // SPEC: notify user and continue
+                            System.out.println("Control not found for disabling: " + e.getMessage());
+                            return null;
                         }
 
                         throw new CompletionException(
-                                "Failed to disable control", cause);
+                                "Error disabling control: " + e.getMessage(), e);
                     }
 
-                    // Success path
-                    return response.operationIdentifier();
-                });
+                    if (cause instanceof SdkException) {
+                        throw new CompletionException(
+                                "SDK error disabling control: " + cause.getMessage(), cause);
+                    }
 
+                    throw new CompletionException(
+                            "Failed to disable control", cause);
+                });
     }
+
     // snippet-end:[controltower.java2.disable_control.main]
 
     // snippet-start:[controltower.java2.get_control_operation.main]
