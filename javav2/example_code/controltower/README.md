@@ -45,17 +45,17 @@ Code examples that show you how to perform the essential operations within a ser
 
 Code excerpts that show you how to call individual service functions.
 
-- [DisableBaseline](src/main/java/com/example/controltower/scenario/ControlTowerActions.java#L495)
-- [DisableControl](src/main/java/com/example/controltower/scenario/ControlTowerActions.java#L799)
-- [EnableBaseline](src/main/java/com/example/controltower/scenario/ControlTowerActions.java#L389)
-- [EnableControl](src/main/java/com/example/controltower/scenario/ControlTowerActions.java#L709)
-- [GetBaselineOperation](src/main/java/com/example/controltower/scenario/ControlTowerActions.java#L576)
-- [GetControlOperation](src/main/java/com/example/controltower/scenario/ControlTowerActions.java#L857)
+- [DisableBaseline](src/main/java/com/example/controltower/scenario/ControlTowerActions.java#L494)
+- [DisableControl](src/main/java/com/example/controltower/scenario/ControlTowerActions.java#L798)
+- [EnableBaseline](src/main/java/com/example/controltower/scenario/ControlTowerActions.java#L388)
+- [EnableControl](src/main/java/com/example/controltower/scenario/ControlTowerActions.java#L708)
+- [GetBaselineOperation](src/main/java/com/example/controltower/scenario/ControlTowerActions.java#L575)
+- [GetControlOperation](src/main/java/com/example/controltower/scenario/ControlTowerActions.java#L856)
 - [ListBaselines](src/main/java/com/example/controltower/scenario/ControlTowerActions.java#L257)
 - [ListEnabledBaselines](src/main/java/com/example/controltower/scenario/ControlTowerActions.java#L318)
-- [ListEnabledControls](src/main/java/com/example/controltower/scenario/ControlTowerActions.java#L640)
+- [ListEnabledControls](src/main/java/com/example/controltower/scenario/ControlTowerActions.java#L639)
 - [ListLandingZones](src/main/java/com/example/controltower/scenario/ControlTowerActions.java#L204)
-- [ResetEnabledBaseline](src/main/java/com/example/controltower/scenario/ControlTowerActions.java#L957)
+- [ResetEnabledBaseline](src/main/java/com/example/controltower/scenario/ControlTowerActions.java#L956)
 
 
 <!--custom.examples.start-->
