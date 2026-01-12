@@ -211,7 +211,7 @@ public class ControlTowerActions {
      * @throws SdkException          if an SDK error occurs
      */
     public CompletableFuture<List<LandingZoneSummary>> listLandingZonesAsync() {
-        System.out.format("Starting list landing zones paginator…");
+        System.out.println("Starting list landing zones paginator…");
 
         ListLandingZonesRequest request = ListLandingZonesRequest.builder().build();
         ListLandingZonesPublisher paginator = getAsyncClient().listLandingZonesPaginator(request);
@@ -220,7 +220,7 @@ public class ControlTowerActions {
         return paginator.subscribe(response -> {
                     if (response.landingZones() != null && !response.landingZones().isEmpty()) {
                         response.landingZones().forEach(lz -> {
-                            System.out.format("Landing zone ARN: {}", lz.arn());
+                            System.out.println("Landing zone ARN: " + lz.arn());
                             landingZones.add(lz);
                         });
                     } else {
@@ -264,7 +264,7 @@ public class ControlTowerActions {
      * @throws SdkException          if an SDK error occurs
      */
     public CompletableFuture<List<BaselineSummary>> listBaselinesAsync() {
-        System.out.format("Starting list baselines paginator…");
+        System.out.println("Starting list baselines paginator…");
         ListBaselinesRequest request = ListBaselinesRequest.builder().build();
         ListBaselinesPublisher paginator =
                 getAsyncClient().listBaselinesPaginator(request);
@@ -277,7 +277,7 @@ public class ControlTowerActions {
                             baselines.add(baseline);
                         });
                     } else {
-                        System.out.format("Page contained no baselines.");
+                        System.out.println("Page contained no baselines.");
                     }
                 })
                 .thenRun(() ->
@@ -324,7 +324,7 @@ public class ControlTowerActions {
      * @throws SdkException          if an SDK error occurs
      */
     public CompletableFuture<List<EnabledBaselineSummary>> listEnabledBaselinesAsync() {
-        System.out.format("Starting list enabled baselines paginator…");
+        System.out.println("Starting list enabled baselines paginator…");
 
         ListEnabledBaselinesRequest request =
                 ListEnabledBaselinesRequest.builder().build();
@@ -338,11 +338,10 @@ public class ControlTowerActions {
                             && !response.enabledBaselines().isEmpty()) {
 
                         response.enabledBaselines().forEach(baseline -> {
-                            System.out.format("Enabled baseline: {}", baseline.arn());
                             enabledBaselines.add(baseline);
                         });
                     } else {
-                        System.out.format("Page contained no enabled baselines.");
+                        System.out.println("Page contained no enabled baselines.");
                     }
                 })
                 .thenRun(() ->
@@ -648,7 +647,7 @@ public class ControlTowerActions {
      * @throws SdkException          if an SDK error occurs
      */
     public CompletableFuture<List<EnabledControlSummary>> listEnabledControlsAsync(String targetIdentifier) {
-        System.out.format("Starting list enabled controls paginator for target {}…", targetIdentifier);
+        System.out.println("Starting list enabled controls paginator for target " + targetIdentifier);
         ListEnabledControlsRequest request = ListEnabledControlsRequest.builder()
                 .targetIdentifier(targetIdentifier)
                 .build();
