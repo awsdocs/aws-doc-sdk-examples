@@ -33,15 +33,15 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 
 Code excerpts that show you how to call individual service functions.
 
-- [DeleteLexicon](#awsex#cl_ply_actions.clas.abap#L355)
-- [DescribeVoices](#awsex#cl_ply_actions.clas.abap#L102)
-- [GetLexicon](#awsex#cl_ply_actions.clas.abap#L313)
-- [GetSpeechSynthesisTask](#awsex#cl_ply_actions.clas.abap#L226)
-- [ListLexicons](#awsex#cl_ply_actions.clas.abap#L335)
-- [ListSpeechSynthesisTasks](#awsex#cl_ply_actions.clas.abap#L250)
-- [PutLexicon](#awsex#cl_ply_actions.clas.abap#L283)
-- [StartSpeechSynthesisTask](#awsex#cl_ply_actions.clas.abap#L169)
-- [SynthesizeSpeech](#awsex#cl_ply_actions.clas.abap#L133)
+- [DeleteLexicon](%23awsex%23cl_ply_actions.clas.abap#L355)
+- [DescribeVoices](%23awsex%23cl_ply_actions.clas.abap#L102)
+- [GetLexicon](%23awsex%23cl_ply_actions.clas.abap#L313)
+- [GetSpeechSynthesisTask](%23awsex%23cl_ply_actions.clas.abap#L226)
+- [ListLexicons](%23awsex%23cl_ply_actions.clas.abap#L335)
+- [ListSpeechSynthesisTasks](%23awsex%23cl_ply_actions.clas.abap#L250)
+- [PutLexicon](%23awsex%23cl_ply_actions.clas.abap#L283)
+- [StartSpeechSynthesisTask](%23awsex%23cl_ply_actions.clas.abap#L169)
+- [SynthesizeSpeech](%23awsex%23cl_ply_actions.clas.abap#L133)
 
 
 <!--custom.examples.start-->

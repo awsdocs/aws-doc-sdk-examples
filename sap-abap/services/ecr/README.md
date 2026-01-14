@@ -33,14 +33,14 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateRepository](#awsex#cl_ecr_actions.clas.abap#L85)
-- [DeleteRepository](#awsex#cl_ecr_actions.clas.abap#L115)
-- [DescribeImages](#awsex#cl_ecr_actions.clas.abap#L249)
-- [DescribeRepositories](#awsex#cl_ecr_actions.clas.abap#L136)
-- [GetAuthorizationToken](#awsex#cl_ecr_actions.clas.abap#L157)
-- [GetRepositoryPolicy](#awsex#cl_ecr_actions.clas.abap#L180)
-- [PutLifeCyclePolicy](#awsex#cl_ecr_actions.clas.abap#L225)
-- [SetRepositoryPolicy](#awsex#cl_ecr_actions.clas.abap#L203)
+- [CreateRepository](%23awsex%23cl_ecr_actions.clas.abap#L85)
+- [DeleteRepository](%23awsex%23cl_ecr_actions.clas.abap#L115)
+- [DescribeImages](%23awsex%23cl_ecr_actions.clas.abap#L249)
+- [DescribeRepositories](%23awsex%23cl_ecr_actions.clas.abap#L136)
+- [GetAuthorizationToken](%23awsex%23cl_ecr_actions.clas.abap#L157)
+- [GetRepositoryPolicy](%23awsex%23cl_ecr_actions.clas.abap#L180)
+- [PutLifeCyclePolicy](%23awsex%23cl_ecr_actions.clas.abap#L225)
+- [SetRepositoryPolicy](%23awsex%23cl_ecr_actions.clas.abap#L203)
 
 
 <!--custom.examples.start-->

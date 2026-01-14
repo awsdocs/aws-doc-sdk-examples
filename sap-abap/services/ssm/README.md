@@ -33,18 +33,18 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateDocument](#awsex#cl_ssm_actions.clas.abap#L290)
-- [CreateMaintenanceWindow](#awsex#cl_ssm_actions.clas.abap#L224)
-- [CreateOpsItem](#awsex#cl_ssm_actions.clas.abap#L114)
-- [DeleteDocument](#awsex#cl_ssm_actions.clas.abap#L313)
-- [DeleteMaintenanceWindow](#awsex#cl_ssm_actions.clas.abap#L247)
-- [DeleteOpsItem](#awsex#cl_ssm_actions.clas.abap#L139)
-- [DescribeDocument](#awsex#cl_ssm_actions.clas.abap#L360)
-- [DescribeOpsItems](#awsex#cl_ssm_actions.clas.abap#L157)
-- [ListCommandInvocations](#awsex#cl_ssm_actions.clas.abap#L382)
-- [SendCommand](#awsex#cl_ssm_actions.clas.abap#L333)
-- [UpdateMaintenanceWindow](#awsex#cl_ssm_actions.clas.abap#L265)
-- [UpdateOpsItem](#awsex#cl_ssm_actions.clas.abap#L200)
+- [CreateDocument](%23awsex%23cl_ssm_actions.clas.abap#L290)
+- [CreateMaintenanceWindow](%23awsex%23cl_ssm_actions.clas.abap#L224)
+- [CreateOpsItem](%23awsex%23cl_ssm_actions.clas.abap#L114)
+- [DeleteDocument](%23awsex%23cl_ssm_actions.clas.abap#L313)
+- [DeleteMaintenanceWindow](%23awsex%23cl_ssm_actions.clas.abap#L247)
+- [DeleteOpsItem](%23awsex%23cl_ssm_actions.clas.abap#L139)
+- [DescribeDocument](%23awsex%23cl_ssm_actions.clas.abap#L360)
+- [DescribeOpsItems](%23awsex%23cl_ssm_actions.clas.abap#L157)
+- [ListCommandInvocations](%23awsex%23cl_ssm_actions.clas.abap#L382)
+- [SendCommand](%23awsex%23cl_ssm_actions.clas.abap#L333)
+- [UpdateMaintenanceWindow](%23awsex%23cl_ssm_actions.clas.abap#L265)
+- [UpdateOpsItem](%23awsex%23cl_ssm_actions.clas.abap#L200)
 
 
 <!--custom.examples.start-->

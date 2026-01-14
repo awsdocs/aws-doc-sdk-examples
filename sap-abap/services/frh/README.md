@@ -33,8 +33,8 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 
 Code excerpts that show you how to call individual service functions.
 
-- [PutRecord](#awsex#cl_frh_actions.clas.abap#L38)
-- [PutRecordBatch](#awsex#cl_frh_actions.clas.abap#L63)
+- [PutRecord](%23awsex%23cl_frh_actions.clas.abap#L38)
+- [PutRecordBatch](%23awsex%23cl_frh_actions.clas.abap#L63)
 
 
 <!--custom.examples.start-->

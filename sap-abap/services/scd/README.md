@@ -33,10 +33,10 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateSchedule](#awsex#cl_scd_actions.clas.abap#L62)
-- [CreateScheduleGroup](#awsex#cl_scd_actions.clas.abap#L176)
-- [DeleteSchedule](#awsex#cl_scd_actions.clas.abap#L149)
-- [DeleteScheduleGroup](#awsex#cl_scd_actions.clas.abap#L203)
+- [CreateSchedule](%23awsex%23cl_scd_actions.clas.abap#L62)
+- [CreateScheduleGroup](%23awsex%23cl_scd_actions.clas.abap#L176)
+- [DeleteSchedule](%23awsex%23cl_scd_actions.clas.abap#L149)
+- [DeleteScheduleGroup](%23awsex%23cl_scd_actions.clas.abap#L203)
 
 
 <!--custom.examples.start-->

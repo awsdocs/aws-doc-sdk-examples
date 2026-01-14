@@ -33,17 +33,17 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 
 Code excerpts that show you how to call individual service functions.
 
-- [DisableBaseline](#awsex#cl_ctt_actions.clas.abap#L393)
-- [DisableControl](#awsex#cl_ctt_actions.clas.abap#L266)
-- [EnableBaseline](#awsex#cl_ctt_actions.clas.abap#L150)
-- [EnableControl](#awsex#cl_ctt_actions.clas.abap#L203)
-- [GetBaselineOperation](#awsex#cl_ctt_actions.clas.abap#L253)
-- [GetControlOperation](#awsex#cl_ctt_actions.clas.abap#L240)
-- [ListBaselines](#awsex#cl_ctt_actions.clas.abap#L123)
-- [ListEnabledBaselines](#awsex#cl_ctt_actions.clas.abap#L330)
-- [ListEnabledControls](#awsex#cl_ctt_actions.clas.abap#L436)
-- [ListLandingZones](#awsex#cl_ctt_actions.clas.abap#L303)
-- [ResetEnabledBaseline](#awsex#cl_ctt_actions.clas.abap#L357)
+- [DisableBaseline](%23awsex%23cl_ctt_actions.clas.abap#L393)
+- [DisableControl](%23awsex%23cl_ctt_actions.clas.abap#L266)
+- [EnableBaseline](%23awsex%23cl_ctt_actions.clas.abap#L150)
+- [EnableControl](%23awsex%23cl_ctt_actions.clas.abap#L203)
+- [GetBaselineOperation](%23awsex%23cl_ctt_actions.clas.abap#L253)
+- [GetControlOperation](%23awsex%23cl_ctt_actions.clas.abap#L240)
+- [ListBaselines](%23awsex%23cl_ctt_actions.clas.abap#L123)
+- [ListEnabledBaselines](%23awsex%23cl_ctt_actions.clas.abap#L330)
+- [ListEnabledControls](%23awsex%23cl_ctt_actions.clas.abap#L436)
+- [ListLandingZones](%23awsex%23cl_ctt_actions.clas.abap#L303)
+- [ResetEnabledBaseline](%23awsex%23cl_ctt_actions.clas.abap#L357)
 
 
 <!--custom.examples.start-->

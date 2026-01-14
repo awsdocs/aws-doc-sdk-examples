@@ -33,12 +33,12 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 
 Code excerpts that show you how to call individual service functions.
 
-- [AddJobFlowSteps](#awsex#cl_emr_actions.clas.abap#L175)
-- [DescribeCluster](#awsex#cl_emr_actions.clas.abap#L127)
-- [DescribeStep](#awsex#cl_emr_actions.clas.abap#L251)
-- [ListSteps](#awsex#cl_emr_actions.clas.abap#L226)
-- [RunJobFlow](#awsex#cl_emr_actions.clas.abap#L83)
-- [TerminateJobFlows](#awsex#cl_emr_actions.clas.abap#L152)
+- [AddJobFlowSteps](%23awsex%23cl_emr_actions.clas.abap#L175)
+- [DescribeCluster](%23awsex%23cl_emr_actions.clas.abap#L127)
+- [DescribeStep](%23awsex%23cl_emr_actions.clas.abap#L251)
+- [ListSteps](%23awsex%23cl_emr_actions.clas.abap#L226)
+- [RunJobFlow](%23awsex%23cl_emr_actions.clas.abap#L83)
+- [TerminateJobFlows](%23awsex%23cl_emr_actions.clas.abap#L152)
 
 
 <!--custom.examples.start-->

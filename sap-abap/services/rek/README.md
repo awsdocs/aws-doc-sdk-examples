@@ -33,21 +33,21 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 
 Code excerpts that show you how to call individual service functions.
 
-- [CompareFaces](#awsex#cl_rek_actions.clas.abap#L444)
-- [CreateCollection](#awsex#cl_rek_actions.clas.abap#L166)
-- [DeleteCollection](#awsex#cl_rek_actions.clas.abap#L186)
-- [DeleteFaces](#awsex#cl_rek_actions.clas.abap#L358)
-- [DescribeCollection](#awsex#cl_rek_actions.clas.abap#L206)
-- [DetectFaces](#awsex#cl_rek_actions.clas.abap#L405)
-- [DetectLabels](#awsex#cl_rek_actions.clas.abap#L497)
-- [DetectModerationLabels](#awsex#cl_rek_actions.clas.abap#L532)
-- [DetectText](#awsex#cl_rek_actions.clas.abap#L566)
-- [IndexFaces](#awsex#cl_rek_actions.clas.abap#L228)
-- [ListCollections](#awsex#cl_rek_actions.clas.abap#L383)
-- [ListFaces](#awsex#cl_rek_actions.clas.abap#L267)
-- [RecognizeCelebrities](#awsex#cl_rek_actions.clas.abap#L600)
-- [SearchFaces](#awsex#cl_rek_actions.clas.abap#L331)
-- [SearchFacesByImage](#awsex#cl_rek_actions.clas.abap#L292)
+- [CompareFaces](%23awsex%23cl_rek_actions.clas.abap#L444)
+- [CreateCollection](%23awsex%23cl_rek_actions.clas.abap#L166)
+- [DeleteCollection](%23awsex%23cl_rek_actions.clas.abap#L186)
+- [DeleteFaces](%23awsex%23cl_rek_actions.clas.abap#L358)
+- [DescribeCollection](%23awsex%23cl_rek_actions.clas.abap#L206)
+- [DetectFaces](%23awsex%23cl_rek_actions.clas.abap#L405)
+- [DetectLabels](%23awsex%23cl_rek_actions.clas.abap#L497)
+- [DetectModerationLabels](%23awsex%23cl_rek_actions.clas.abap#L532)
+- [DetectText](%23awsex%23cl_rek_actions.clas.abap#L566)
+- [IndexFaces](%23awsex%23cl_rek_actions.clas.abap#L228)
+- [ListCollections](%23awsex%23cl_rek_actions.clas.abap#L383)
+- [ListFaces](%23awsex%23cl_rek_actions.clas.abap#L267)
+- [RecognizeCelebrities](%23awsex%23cl_rek_actions.clas.abap#L600)
+- [SearchFaces](%23awsex%23cl_rek_actions.clas.abap#L331)
+- [SearchFacesByImage](%23awsex%23cl_rek_actions.clas.abap#L292)
 
 
 <!--custom.examples.start-->

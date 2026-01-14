@@ -62,14 +62,6 @@ rds_Hello:
     rds: {DescribeDBInstances}
 rds_CreateDBInstance:
   languages:
-    SAP ABAP:
-      versions:
-        - sdk_version: 1
-          github: sap-abap/services/rds
-          excerpts:
-            - description:
-              snippet_tags:
-                - rds.abapv1.create_db_instance
     .NET:
       versions:
         - sdk_version: 3
@@ -147,14 +139,6 @@ rds_CreateDBInstance:
     rds: {CreateDBInstance}
 rds_DeleteDBInstance:
   languages:
-    SAP ABAP:
-      versions:
-        - sdk_version: 1
-          github: sap-abap/services/rds
-          excerpts:
-            - description:
-              snippet_tags:
-                - rds.abapv1.delete_db_instance
     .NET:
       versions:
         - sdk_version: 3
@@ -254,14 +238,6 @@ rds_DescribeAccountAttributes:
     rds: {DescribeAccountAttributes}
 rds_DescribeDBInstances:
   languages:
-    SAP ABAP:
-      versions:
-        - sdk_version: 1
-          github: sap-abap/services/rds
-          excerpts:
-            - description:
-              snippet_tags:
-                - rds.abapv1.describe_db_instances
     .NET:
       versions:
         - sdk_version: 3
@@ -746,14 +722,6 @@ rds_ModifyDBParameterGroup:
     rds: {ModifyDBParameterGroup}
 rds_CreateDBSnapshot:
   languages:
-    SAP ABAP:
-      versions:
-        - sdk_version: 1
-          github: sap-abap/services/rds
-          excerpts:
-            - description:
-              snippet_tags:
-                - rds.abapv1.create_db_snapshot
     Java:
       versions:
         - sdk_version: 2
@@ -832,14 +800,6 @@ rds_CreateDBSnapshot:
     rds: {CreateDBSnapshot}
 rds_DescribeDBSnapshots:
   languages:
-    SAP ABAP:
-      versions:
-        - sdk_version: 1
-          github: sap-abap/services/rds
-          excerpts:
-            - description:
-              snippet_tags:
-                - rds.abapv1.describe_db_snapshots
     .NET:
       versions:
         - sdk_version: 3

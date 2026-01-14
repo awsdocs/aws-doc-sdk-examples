@@ -33,18 +33,13 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateDBInstance](#awsex#cl_rds_actions.clas.abap#L363)
-- [CreateDBParameterGroup](#awsex#cl_rds_actions.clas.abap#L164)
-- [CreateDBSnapshot](#awsex#cl_rds_actions.clas.abap#L258)
-- [DeleteDBInstance](#awsex#cl_rds_actions.clas.abap#L404)
-- [DeleteDBParameterGroup](#awsex#cl_rds_actions.clas.abap#L189)
-- [DescribeDBEngineVersions](#awsex#cl_rds_actions.clas.abap#L304)
-- [DescribeDBInstances](#awsex#cl_rds_actions.clas.abap#L344)
-- [DescribeDBParameterGroups](#awsex#cl_rds_actions.clas.abap#L145)
-- [DescribeDBParameters](#awsex#cl_rds_actions.clas.abap#L210)
-- [DescribeDBSnapshots](#awsex#cl_rds_actions.clas.abap#L285)
-- [DescribeOrderableDBInstanceOptions](#awsex#cl_rds_actions.clas.abap#L324)
-- [ModifyDBParameterGroup](#awsex#cl_rds_actions.clas.abap#L232)
+- [CreateDBParameterGroup](%23awsex%23cl_rds_actions.clas.abap#L170)
+- [DeleteDBParameterGroup](%23awsex%23cl_rds_actions.clas.abap#L219)
+- [DescribeDBEngineVersions](%23awsex%23cl_rds_actions.clas.abap#L368)
+- [DescribeDBParameterGroups](%23awsex%23cl_rds_actions.clas.abap#L132)
+- [DescribeDBParameters](%23awsex%23cl_rds_actions.clas.abap#L261)
+- [DescribeOrderableDBInstanceOptions](%23awsex%23cl_rds_actions.clas.abap#L387)
+- [ModifyDBParameterGroup](%23awsex%23cl_rds_actions.clas.abap#L321)
 
 
 <!--custom.examples.start-->

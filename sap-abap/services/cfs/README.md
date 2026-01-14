@@ -33,9 +33,9 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 
 Code excerpts that show you how to call individual service functions.
 
-- [DeleteConfigRule](#awsex#cl_cfs_actions.clas.abap#L92)
-- [DescribeConfigRules](#awsex#cl_cfs_actions.clas.abap#L72)
-- [PutConfigRule](#awsex#cl_cfs_actions.clas.abap#L40)
+- [DeleteConfigRule](%23awsex%23cl_cfs_actions.clas.abap#L92)
+- [DescribeConfigRules](%23awsex%23cl_cfs_actions.clas.abap#L72)
+- [PutConfigRule](%23awsex%23cl_cfs_actions.clas.abap#L40)
 
 
 <!--custom.examples.start-->

@@ -33,20 +33,20 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateCrawler](#awsex#cl_glu_actions.clas.abap#L155)
-- [CreateJob](#awsex#cl_glu_actions.clas.abap#L277)
-- [DeleteCrawler](#awsex#cl_glu_actions.clas.abap#L540)
-- [DeleteDatabase](#awsex#cl_glu_actions.clas.abap#L513)
-- [DeleteJob](#awsex#cl_glu_actions.clas.abap#L458)
-- [DeleteTable](#awsex#cl_glu_actions.clas.abap#L483)
-- [GetCrawler](#awsex#cl_glu_actions.clas.abap#L133)
-- [GetDatabase](#awsex#cl_glu_actions.clas.abap#L221)
-- [GetJobRun](#awsex#cl_glu_actions.clas.abap#L427)
-- [GetJobRuns](#awsex#cl_glu_actions.clas.abap#L399)
-- [GetTables](#awsex#cl_glu_actions.clas.abap#L249)
-- [ListJobs](#awsex#cl_glu_actions.clas.abap#L372)
-- [StartCrawler](#awsex#cl_glu_actions.clas.abap#L198)
-- [StartJobRun](#awsex#cl_glu_actions.clas.abap#L321)
+- [CreateCrawler](%23awsex%23cl_glu_actions.clas.abap#L155)
+- [CreateJob](%23awsex%23cl_glu_actions.clas.abap#L277)
+- [DeleteCrawler](%23awsex%23cl_glu_actions.clas.abap#L540)
+- [DeleteDatabase](%23awsex%23cl_glu_actions.clas.abap#L513)
+- [DeleteJob](%23awsex%23cl_glu_actions.clas.abap#L458)
+- [DeleteTable](%23awsex%23cl_glu_actions.clas.abap#L483)
+- [GetCrawler](%23awsex%23cl_glu_actions.clas.abap#L133)
+- [GetDatabase](%23awsex%23cl_glu_actions.clas.abap#L221)
+- [GetJobRun](%23awsex%23cl_glu_actions.clas.abap#L427)
+- [GetJobRuns](%23awsex%23cl_glu_actions.clas.abap#L399)
+- [GetTables](%23awsex%23cl_glu_actions.clas.abap#L249)
+- [ListJobs](%23awsex%23cl_glu_actions.clas.abap#L372)
+- [StartCrawler](%23awsex%23cl_glu_actions.clas.abap#L198)
+- [StartJobRun](%23awsex%23cl_glu_actions.clas.abap#L321)
 
 
 <!--custom.examples.start-->

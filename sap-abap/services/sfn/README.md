@@ -33,17 +33,17 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateActivity](#awsex#cl_sfn_actions.clas.abap#L254)
-- [CreateStateMachine](#awsex#cl_sfn_actions.clas.abap#L112)
-- [DeleteActivity](#awsex#cl_sfn_actions.clas.abap#L351)
-- [DeleteStateMachine](#awsex#cl_sfn_actions.clas.abap#L233)
-- [DescribeExecution](#awsex#cl_sfn_actions.clas.abap#L212)
-- [DescribeStateMachine](#awsex#cl_sfn_actions.clas.abap#L164)
-- [GetActivityTask](#awsex#cl_sfn_actions.clas.abap#L302)
-- [ListActivities](#awsex#cl_sfn_actions.clas.abap#L278)
-- [ListStateMachines](#awsex#cl_sfn_actions.clas.abap#L140)
-- [SendTaskSuccess](#awsex#cl_sfn_actions.clas.abap#L325)
-- [StartExecution](#awsex#cl_sfn_actions.clas.abap#L185)
+- [CreateActivity](%23awsex%23cl_sfn_actions.clas.abap#L254)
+- [CreateStateMachine](%23awsex%23cl_sfn_actions.clas.abap#L112)
+- [DeleteActivity](%23awsex%23cl_sfn_actions.clas.abap#L351)
+- [DeleteStateMachine](%23awsex%23cl_sfn_actions.clas.abap#L233)
+- [DescribeExecution](%23awsex%23cl_sfn_actions.clas.abap#L212)
+- [DescribeStateMachine](%23awsex%23cl_sfn_actions.clas.abap#L164)
+- [GetActivityTask](%23awsex%23cl_sfn_actions.clas.abap#L302)
+- [ListActivities](%23awsex%23cl_sfn_actions.clas.abap#L278)
+- [ListStateMachines](%23awsex%23cl_sfn_actions.clas.abap#L140)
+- [SendTaskSuccess](%23awsex%23cl_sfn_actions.clas.abap#L325)
+- [StartExecution](%23awsex%23cl_sfn_actions.clas.abap#L185)
 
 
 <!--custom.examples.start-->

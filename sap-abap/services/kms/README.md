@@ -31,38 +31,38 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 
 ### Get started
 
-- [Hello AWS KMS](#awsex#cl_kms_actions.clas.abap#L271) (`ListKeys`)
+- [Hello AWS KMS](%23awsex%23cl_kms_actions.clas.abap#L271) (`ListKeys`)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateAlias](#awsex#cl_kms_actions.clas.abap#L457)
-- [CreateGrant](#awsex#cl_kms_actions.clas.abap#L546)
-- [CreateKey](#awsex#cl_kms_actions.clas.abap#L225)
-- [Decrypt](#awsex#cl_kms_actions.clas.abap#L738)
-- [DeleteAlias](#awsex#cl_kms_actions.clas.abap#L526)
-- [DescribeKey](#awsex#cl_kms_actions.clas.abap#L288)
-- [DisableKey](#awsex#cl_kms_actions.clas.abap#L355)
-- [EnableKey](#awsex#cl_kms_actions.clas.abap#L335)
-- [EnableKeyRotation](#awsex#cl_kms_actions.clas.abap#L399)
-- [Encrypt](#awsex#cl_kms_actions.clas.abap#L712)
-- [GenerateDataKey](#awsex#cl_kms_actions.clas.abap#L309)
-- [GetKeyPolicy](#awsex#cl_kms_actions.clas.abap#L642)
-- [ListAliases](#awsex#cl_kms_actions.clas.abap#L485)
-- [ListGrants](#awsex#cl_kms_actions.clas.abap#L574)
-- [ListKeyPolicies](#awsex#cl_kms_actions.clas.abap#L692)
-- [ListKeys](#awsex#cl_kms_actions.clas.abap#L271)
-- [PutKeyPolicy](#awsex#cl_kms_actions.clas.abap#L665)
-- [ReEncrypt](#awsex#cl_kms_actions.clas.abap#L766)
-- [RetireGrant](#awsex#cl_kms_actions.clas.abap#L594)
-- [RevokeGrant](#awsex#cl_kms_actions.clas.abap#L616)
-- [ScheduleKeyDeletion](#awsex#cl_kms_actions.clas.abap#L375)
-- [Sign](#awsex#cl_kms_actions.clas.abap#L796)
-- [TagResource](#awsex#cl_kms_actions.clas.abap#L423)
-- [UpdateAlias](#awsex#cl_kms_actions.clas.abap#L502)
-- [Verify](#awsex#cl_kms_actions.clas.abap#L826)
+- [CreateAlias](%23awsex%23cl_kms_actions.clas.abap#L457)
+- [CreateGrant](%23awsex%23cl_kms_actions.clas.abap#L546)
+- [CreateKey](%23awsex%23cl_kms_actions.clas.abap#L225)
+- [Decrypt](%23awsex%23cl_kms_actions.clas.abap#L738)
+- [DeleteAlias](%23awsex%23cl_kms_actions.clas.abap#L526)
+- [DescribeKey](%23awsex%23cl_kms_actions.clas.abap#L288)
+- [DisableKey](%23awsex%23cl_kms_actions.clas.abap#L355)
+- [EnableKey](%23awsex%23cl_kms_actions.clas.abap#L335)
+- [EnableKeyRotation](%23awsex%23cl_kms_actions.clas.abap#L399)
+- [Encrypt](%23awsex%23cl_kms_actions.clas.abap#L712)
+- [GenerateDataKey](%23awsex%23cl_kms_actions.clas.abap#L309)
+- [GetKeyPolicy](%23awsex%23cl_kms_actions.clas.abap#L642)
+- [ListAliases](%23awsex%23cl_kms_actions.clas.abap#L485)
+- [ListGrants](%23awsex%23cl_kms_actions.clas.abap#L574)
+- [ListKeyPolicies](%23awsex%23cl_kms_actions.clas.abap#L692)
+- [ListKeys](%23awsex%23cl_kms_actions.clas.abap#L271)
+- [PutKeyPolicy](%23awsex%23cl_kms_actions.clas.abap#L665)
+- [ReEncrypt](%23awsex%23cl_kms_actions.clas.abap#L766)
+- [RetireGrant](%23awsex%23cl_kms_actions.clas.abap#L594)
+- [RevokeGrant](%23awsex%23cl_kms_actions.clas.abap#L616)
+- [ScheduleKeyDeletion](%23awsex%23cl_kms_actions.clas.abap#L375)
+- [Sign](%23awsex%23cl_kms_actions.clas.abap#L796)
+- [TagResource](%23awsex%23cl_kms_actions.clas.abap#L423)
+- [UpdateAlias](%23awsex%23cl_kms_actions.clas.abap#L502)
+- [Verify](%23awsex%23cl_kms_actions.clas.abap#L826)
 
 
 <!--custom.examples.start-->

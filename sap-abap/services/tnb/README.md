@@ -33,15 +33,15 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateVocabulary](#awsex#cl_tnb_actions.clas.abap#L221)
-- [DeleteTranscriptionJob](#awsex#cl_tnb_actions.clas.abap#L196)
-- [DeleteVocabulary](#awsex#cl_tnb_actions.clas.abap#L349)
-- [GetTranscriptionJob](#awsex#cl_tnb_actions.clas.abap#L144)
-- [GetVocabulary](#awsex#cl_tnb_actions.clas.abap#L259)
-- [ListTranscriptionJobs](#awsex#cl_tnb_actions.clas.abap#L170)
-- [ListVocabularies](#awsex#cl_tnb_actions.clas.abap#L284)
-- [StartTranscriptionJob](#awsex#cl_tnb_actions.clas.abap#L104)
-- [UpdateVocabulary](#awsex#cl_tnb_actions.clas.abap#L310)
+- [CreateVocabulary](%23awsex%23cl_tnb_actions.clas.abap#L221)
+- [DeleteTranscriptionJob](%23awsex%23cl_tnb_actions.clas.abap#L196)
+- [DeleteVocabulary](%23awsex%23cl_tnb_actions.clas.abap#L349)
+- [GetTranscriptionJob](%23awsex%23cl_tnb_actions.clas.abap#L144)
+- [GetVocabulary](%23awsex%23cl_tnb_actions.clas.abap#L259)
+- [ListTranscriptionJobs](%23awsex%23cl_tnb_actions.clas.abap#L170)
+- [ListVocabularies](%23awsex%23cl_tnb_actions.clas.abap#L284)
+- [StartTranscriptionJob](%23awsex%23cl_tnb_actions.clas.abap#L104)
+- [UpdateVocabulary](%23awsex%23cl_tnb_actions.clas.abap#L310)
 
 
 <!--custom.examples.start-->

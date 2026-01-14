@@ -33,12 +33,12 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 
 Code excerpts that show you how to call individual service functions.
 
-- [AttachPolicy](#awsex#cl_org_actions.clas.abap#L138)
-- [CreatePolicy](#awsex#cl_org_actions.clas.abap#L71)
-- [DeletePolicy](#awsex#cl_org_actions.clas.abap#L188)
-- [DescribePolicy](#awsex#cl_org_actions.clas.abap#L117)
-- [DetachPolicy](#awsex#cl_org_actions.clas.abap#L163)
-- [ListPolicies](#awsex#cl_org_actions.clas.abap#L96)
+- [AttachPolicy](%23awsex%23cl_org_actions.clas.abap#L138)
+- [CreatePolicy](%23awsex%23cl_org_actions.clas.abap#L71)
+- [DeletePolicy](%23awsex%23cl_org_actions.clas.abap#L188)
+- [DescribePolicy](%23awsex%23cl_org_actions.clas.abap#L117)
+- [DetachPolicy](%23awsex%23cl_org_actions.clas.abap#L163)
+- [ListPolicies](%23awsex%23cl_org_actions.clas.abap#L96)
 
 
 <!--custom.examples.start-->

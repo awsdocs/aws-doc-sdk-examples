@@ -33,19 +33,19 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateFHIRDatastore](#awsex#cl_hll_actions.clas.abap#L201)
-- [DeleteFHIRDatastore](#awsex#cl_hll_actions.clas.abap#L288)
-- [DescribeFHIRDatastore](#awsex#cl_hll_actions.clas.abap#L232)
-- [DescribeFHIRExportJob](#awsex#cl_hll_actions.clas.abap#L471)
-- [DescribeFHIRImportJob](#awsex#cl_hll_actions.clas.abap#L362)
-- [ListFHIRDatastores](#awsex#cl_hll_actions.clas.abap#L263)
-- [ListFHIRExportJobs](#awsex#cl_hll_actions.clas.abap#L503)
-- [ListFHIRImportJobs](#awsex#cl_hll_actions.clas.abap#L394)
-- [ListTagsForResource](#awsex#cl_hll_actions.clas.abap#L565)
-- [StartFHIRExportJob](#awsex#cl_hll_actions.clas.abap#L429)
-- [StartFHIRImportJob](#awsex#cl_hll_actions.clas.abap#L318)
-- [TagResource](#awsex#cl_hll_actions.clas.abap#L538)
-- [UntagResource](#awsex#cl_hll_actions.clas.abap#L593)
+- [CreateFHIRDatastore](%23awsex%23cl_hll_actions.clas.abap#L201)
+- [DeleteFHIRDatastore](%23awsex%23cl_hll_actions.clas.abap#L288)
+- [DescribeFHIRDatastore](%23awsex%23cl_hll_actions.clas.abap#L232)
+- [DescribeFHIRExportJob](%23awsex%23cl_hll_actions.clas.abap#L471)
+- [DescribeFHIRImportJob](%23awsex%23cl_hll_actions.clas.abap#L362)
+- [ListFHIRDatastores](%23awsex%23cl_hll_actions.clas.abap#L263)
+- [ListFHIRExportJobs](%23awsex%23cl_hll_actions.clas.abap#L503)
+- [ListFHIRImportJobs](%23awsex%23cl_hll_actions.clas.abap#L394)
+- [ListTagsForResource](%23awsex%23cl_hll_actions.clas.abap#L565)
+- [StartFHIRExportJob](%23awsex%23cl_hll_actions.clas.abap#L429)
+- [StartFHIRImportJob](%23awsex%23cl_hll_actions.clas.abap#L318)
+- [TagResource](%23awsex%23cl_hll_actions.clas.abap#L538)
+- [UntagResource](%23awsex%23cl_hll_actions.clas.abap#L593)
 
 
 <!--custom.examples.start-->

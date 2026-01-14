@@ -33,49 +33,49 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 
 Code examples that show you how to perform the essential operations within a service.
 
-- [Learn the basics](#awsex#cl_s3_scenarios.clas.abap)
+- [Learn the basics](%23awsex%23cl_s3_scenarios.clas.abap)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [CopyObject](#awsex#cl_s3_actions.clas.abap#L194)
-- [CreateBucket](#awsex#cl_s3_actions.clas.abap#L217)
-- [DeleteBucket](#awsex#cl_s3_actions.clas.abap#L250)
-- [DeleteBucketCors](#awsex#cl_s3_actions.clas.abap#L475)
-- [DeleteBucketLifecycle](#awsex#cl_s3_actions.clas.abap#L590)
-- [DeleteBucketPolicy](#awsex#cl_s3_actions.clas.abap#L533)
-- [DeleteObject](#awsex#cl_s3_actions.clas.abap#L270)
-- [DeleteObjects](#awsex#cl_s3_actions.clas.abap#L378)
-- [GetBucketAcl](#awsex#cl_s3_actions.clas.abap#L397)
-- [GetBucketCors](#awsex#cl_s3_actions.clas.abap#L436)
-- [GetBucketLifecycleConfiguration](#awsex#cl_s3_actions.clas.abap#L551)
-- [GetBucketPolicy](#awsex#cl_s3_actions.clas.abap#L493)
-- [GetObject](#awsex#cl_s3_actions.clas.abap#L289)
-- [GetObjectAcl](#awsex#cl_s3_actions.clas.abap#L608)
-- [GetObjectLegalHold](#awsex#cl_s3_actions.clas.abap#L653)
-- [GetObjectLockConfiguration](#awsex#cl_s3_actions.clas.abap#L727)
-- [HeadBucket](#awsex#cl_s3_actions.clas.abap#L808)
-- [ListObjectVersions](#awsex#cl_s3_actions.clas.abap#L789)
-- [ListObjectsV2](#awsex#cl_s3_actions.clas.abap#L330)
-- [PutBucketAcl](#awsex#cl_s3_actions.clas.abap#L415)
-- [PutBucketCors](#awsex#cl_s3_actions.clas.abap#L454)
-- [PutBucketLifecycleConfiguration](#awsex#cl_s3_actions.clas.abap#L569)
-- [PutBucketPolicy](#awsex#cl_s3_actions.clas.abap#L512)
-- [PutBucketVersioning](#awsex#cl_s3_actions.clas.abap#L767)
-- [PutObject](#awsex#cl_s3_actions.clas.abap#L349)
-- [PutObjectAcl](#awsex#cl_s3_actions.clas.abap#L629)
-- [PutObjectLegalHold](#awsex#cl_s3_actions.clas.abap#L674)
-- [PutObjectLockConfiguration](#awsex#cl_s3_actions.clas.abap#L745)
-- [PutObjectRetention](#awsex#cl_s3_actions.clas.abap#L699)
+- [CopyObject](%23awsex%23cl_s3_actions.clas.abap#L194)
+- [CreateBucket](%23awsex%23cl_s3_actions.clas.abap#L217)
+- [DeleteBucket](%23awsex%23cl_s3_actions.clas.abap#L250)
+- [DeleteBucketCors](%23awsex%23cl_s3_actions.clas.abap#L475)
+- [DeleteBucketLifecycle](%23awsex%23cl_s3_actions.clas.abap#L590)
+- [DeleteBucketPolicy](%23awsex%23cl_s3_actions.clas.abap#L533)
+- [DeleteObject](%23awsex%23cl_s3_actions.clas.abap#L270)
+- [DeleteObjects](%23awsex%23cl_s3_actions.clas.abap#L378)
+- [GetBucketAcl](%23awsex%23cl_s3_actions.clas.abap#L397)
+- [GetBucketCors](%23awsex%23cl_s3_actions.clas.abap#L436)
+- [GetBucketLifecycleConfiguration](%23awsex%23cl_s3_actions.clas.abap#L551)
+- [GetBucketPolicy](%23awsex%23cl_s3_actions.clas.abap#L493)
+- [GetObject](%23awsex%23cl_s3_actions.clas.abap#L289)
+- [GetObjectAcl](%23awsex%23cl_s3_actions.clas.abap#L608)
+- [GetObjectLegalHold](%23awsex%23cl_s3_actions.clas.abap#L653)
+- [GetObjectLockConfiguration](%23awsex%23cl_s3_actions.clas.abap#L727)
+- [HeadBucket](%23awsex%23cl_s3_actions.clas.abap#L808)
+- [ListObjectVersions](%23awsex%23cl_s3_actions.clas.abap#L789)
+- [ListObjectsV2](%23awsex%23cl_s3_actions.clas.abap#L330)
+- [PutBucketAcl](%23awsex%23cl_s3_actions.clas.abap#L415)
+- [PutBucketCors](%23awsex%23cl_s3_actions.clas.abap#L454)
+- [PutBucketLifecycleConfiguration](%23awsex%23cl_s3_actions.clas.abap#L569)
+- [PutBucketPolicy](%23awsex%23cl_s3_actions.clas.abap#L512)
+- [PutBucketVersioning](%23awsex%23cl_s3_actions.clas.abap#L767)
+- [PutObject](%23awsex%23cl_s3_actions.clas.abap#L349)
+- [PutObjectAcl](%23awsex%23cl_s3_actions.clas.abap#L629)
+- [PutObjectLegalHold](%23awsex%23cl_s3_actions.clas.abap#L674)
+- [PutObjectLockConfiguration](%23awsex%23cl_s3_actions.clas.abap#L745)
+- [PutObjectRetention](%23awsex%23cl_s3_actions.clas.abap#L699)
 
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Create a presigned URL](#awsex#cl_s3_scenarios.clas.abap)
+- [Create a presigned URL](%23awsex%23cl_s3_scenarios.clas.abap)
 
 
 <!--custom.examples.start-->

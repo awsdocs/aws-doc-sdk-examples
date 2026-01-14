@@ -33,15 +33,15 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateContact](#awsex#cl_se2_actions.clas.abap#L170)
-- [CreateContactList](#awsex#cl_se2_actions.clas.abap#L118)
-- [CreateEmailIdentity](#awsex#cl_se2_actions.clas.abap#L97)
-- [CreateEmailTemplate](#awsex#cl_se2_actions.clas.abap#L143)
-- [DeleteContactList](#awsex#cl_se2_actions.clas.abap#L307)
-- [DeleteEmailIdentity](#awsex#cl_se2_actions.clas.abap#L347)
-- [DeleteEmailTemplate](#awsex#cl_se2_actions.clas.abap#L327)
-- [ListContacts](#awsex#cl_se2_actions.clas.abap#L285)
-- [SendEmail](#awsex#cl_se2_actions.clas.abap#L192)
+- [CreateContact](%23awsex%23cl_se2_actions.clas.abap#L170)
+- [CreateContactList](%23awsex%23cl_se2_actions.clas.abap#L118)
+- [CreateEmailIdentity](%23awsex%23cl_se2_actions.clas.abap#L97)
+- [CreateEmailTemplate](%23awsex%23cl_se2_actions.clas.abap#L143)
+- [DeleteContactList](%23awsex%23cl_se2_actions.clas.abap#L307)
+- [DeleteEmailIdentity](%23awsex%23cl_se2_actions.clas.abap#L347)
+- [DeleteEmailTemplate](%23awsex%23cl_se2_actions.clas.abap#L327)
+- [ListContacts](%23awsex%23cl_se2_actions.clas.abap#L285)
+- [SendEmail](%23awsex%23cl_se2_actions.clas.abap#L192)
 
 
 <!--custom.examples.start-->

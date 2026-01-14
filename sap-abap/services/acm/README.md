@@ -33,16 +33,16 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 
 Code excerpts that show you how to call individual service functions.
 
-- [AddTagsToCertificate](#awsex#cl_acm_actions.clas.abap#L232)
-- [DeleteCertificate](#awsex#cl_acm_actions.clas.abap#L209)
-- [DescribeCertificate](#awsex#cl_acm_actions.clas.abap#L108)
-- [GetCertificate](#awsex#cl_acm_actions.clas.abap#L129)
-- [ImportCertificate](#awsex#cl_acm_actions.clas.abap#L176)
-- [ListCertificates](#awsex#cl_acm_actions.clas.abap#L152)
-- [ListTagsForCertificate](#awsex#cl_acm_actions.clas.abap#L260)
-- [RemoveTagsFromCertificate](#awsex#cl_acm_actions.clas.abap#L284)
-- [RequestCertificate](#awsex#cl_acm_actions.clas.abap#L310)
-- [ResendValidationEmail](#awsex#cl_acm_actions.clas.abap#L340)
+- [AddTagsToCertificate](%23awsex%23cl_acm_actions.clas.abap#L232)
+- [DeleteCertificate](%23awsex%23cl_acm_actions.clas.abap#L209)
+- [DescribeCertificate](%23awsex%23cl_acm_actions.clas.abap#L108)
+- [GetCertificate](%23awsex%23cl_acm_actions.clas.abap#L129)
+- [ImportCertificate](%23awsex%23cl_acm_actions.clas.abap#L176)
+- [ListCertificates](%23awsex%23cl_acm_actions.clas.abap#L152)
+- [ListTagsForCertificate](%23awsex%23cl_acm_actions.clas.abap#L260)
+- [RemoveTagsFromCertificate](%23awsex%23cl_acm_actions.clas.abap#L284)
+- [RequestCertificate](%23awsex%23cl_acm_actions.clas.abap#L310)
+- [ResendValidationEmail](%23awsex%23cl_acm_actions.clas.abap#L340)
 
 
 <!--custom.examples.start-->

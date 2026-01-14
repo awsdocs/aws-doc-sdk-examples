@@ -33,8 +33,8 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 
 Code excerpts that show you how to call individual service functions.
 
-- [BatchGetSecretValue](#awsex#cl_smr_actions.clas.abap#L66)
-- [GetSecretValue](#awsex#cl_smr_actions.clas.abap#L41)
+- [BatchGetSecretValue](%23awsex%23cl_smr_actions.clas.abap#L66)
+- [GetSecretValue](%23awsex%23cl_smr_actions.clas.abap#L41)
 
 
 <!--custom.examples.start-->

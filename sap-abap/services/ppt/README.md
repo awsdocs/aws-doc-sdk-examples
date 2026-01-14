@@ -33,7 +33,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 
 Code excerpts that show you how to call individual service functions.
 
-- [SendMessages](#awsex#cl_ppt_actions.clas.abap#L72)
+- [SendMessages](%23awsex%23cl_ppt_actions.clas.abap#L72)
 
 
 <!--custom.examples.start-->

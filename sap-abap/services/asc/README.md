@@ -33,16 +33,16 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateAutoScalingGroup](#awsex#cl_asc_actions.clas.abap#L131)
-- [DeleteAutoScalingGroup](#awsex#cl_asc_actions.clas.abap#L207)
-- [DescribeAutoScalingGroups](#awsex#cl_asc_actions.clas.abap#L231)
-- [DescribeAutoScalingInstances](#awsex#cl_asc_actions.clas.abap#L314)
-- [DescribeScalingActivities](#awsex#cl_asc_actions.clas.abap#L335)
-- [DisableMetricsCollection](#awsex#cl_asc_actions.clas.abap#L378)
-- [EnableMetricsCollection](#awsex#cl_asc_actions.clas.abap#L356)
-- [SetDesiredCapacity](#awsex#cl_asc_actions.clas.abap#L292)
-- [TerminateInstanceInAutoScalingGroup](#awsex#cl_asc_actions.clas.abap#L267)
-- [UpdateAutoScalingGroup](#awsex#cl_asc_actions.clas.abap#L183)
+- [CreateAutoScalingGroup](%23awsex%23cl_asc_actions.clas.abap#L131)
+- [DeleteAutoScalingGroup](%23awsex%23cl_asc_actions.clas.abap#L207)
+- [DescribeAutoScalingGroups](%23awsex%23cl_asc_actions.clas.abap#L231)
+- [DescribeAutoScalingInstances](%23awsex%23cl_asc_actions.clas.abap#L314)
+- [DescribeScalingActivities](%23awsex%23cl_asc_actions.clas.abap#L335)
+- [DisableMetricsCollection](%23awsex%23cl_asc_actions.clas.abap#L378)
+- [EnableMetricsCollection](%23awsex%23cl_asc_actions.clas.abap#L356)
+- [SetDesiredCapacity](%23awsex%23cl_asc_actions.clas.abap#L292)
+- [TerminateInstanceInAutoScalingGroup](%23awsex%23cl_asc_actions.clas.abap#L267)
+- [UpdateAutoScalingGroup](%23awsex%23cl_asc_actions.clas.abap#L183)
 
 
 <!--custom.examples.start-->

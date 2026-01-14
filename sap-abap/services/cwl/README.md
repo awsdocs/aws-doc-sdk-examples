@@ -33,8 +33,8 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 
 Code excerpts that show you how to call individual service functions.
 
-- [GetQueryResults](#awsex#cl_cwl_actions.clas.abap#L54)
-- [StartQuery](#awsex#cl_cwl_actions.clas.abap#L95)
+- [GetQueryResults](%23awsex%23cl_cwl_actions.clas.abap#L54)
+- [StartQuery](%23awsex%23cl_cwl_actions.clas.abap#L95)
 
 
 <!--custom.examples.start-->

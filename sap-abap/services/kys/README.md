@@ -33,16 +33,16 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateKeyspace](#awsex#cl_kys_actions.clas.abap#L153)
-- [CreateTable](#awsex#cl_kys_actions.clas.abap#L211)
-- [DeleteKeyspace](#awsex#cl_kys_actions.clas.abap#L360)
-- [DeleteTable](#awsex#cl_kys_actions.clas.abap#L341)
-- [GetKeyspace](#awsex#cl_kys_actions.clas.abap#L173)
-- [GetTable](#awsex#cl_kys_actions.clas.abap#L255)
-- [ListKeyspaces](#awsex#cl_kys_actions.clas.abap#L193)
-- [ListTables](#awsex#cl_kys_actions.clas.abap#L276)
-- [RestoreTable](#awsex#cl_kys_actions.clas.abap#L319)
-- [UpdateTable](#awsex#cl_kys_actions.clas.abap#L294)
+- [CreateKeyspace](%23awsex%23cl_kys_actions.clas.abap#L153)
+- [CreateTable](%23awsex%23cl_kys_actions.clas.abap#L211)
+- [DeleteKeyspace](%23awsex%23cl_kys_actions.clas.abap#L360)
+- [DeleteTable](%23awsex%23cl_kys_actions.clas.abap#L341)
+- [GetKeyspace](%23awsex%23cl_kys_actions.clas.abap#L173)
+- [GetTable](%23awsex%23cl_kys_actions.clas.abap#L255)
+- [ListKeyspaces](%23awsex%23cl_kys_actions.clas.abap#L193)
+- [ListTables](%23awsex%23cl_kys_actions.clas.abap#L276)
+- [RestoreTable](%23awsex%23cl_kys_actions.clas.abap#L319)
+- [UpdateTable](%23awsex%23cl_kys_actions.clas.abap#L294)
 
 
 <!--custom.examples.start-->

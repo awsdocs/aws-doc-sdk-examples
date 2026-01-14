@@ -33,16 +33,16 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateDeployment](#awsex#cl_agw_actions.clas.abap#L280)
-- [CreateResource](#awsex#cl_agw_actions.clas.abap#L138)
-- [CreateRestApi](#awsex#cl_agw_actions.clas.abap#L111)
-- [DeleteRestApi](#awsex#cl_agw_actions.clas.abap#L358)
-- [GetResources](#awsex#cl_agw_actions.clas.abap#L331)
-- [GetRestApis](#awsex#cl_agw_actions.clas.abap#L308)
-- [PutIntegration](#awsex#cl_agw_actions.clas.abap#L222)
-- [PutIntegrationResponse](#awsex#cl_agw_actions.clas.abap#L252)
-- [PutMethod](#awsex#cl_agw_actions.clas.abap#L166)
-- [PutMethodResponse](#awsex#cl_agw_actions.clas.abap#L194)
+- [CreateDeployment](%23awsex%23cl_agw_actions.clas.abap#L280)
+- [CreateResource](%23awsex%23cl_agw_actions.clas.abap#L138)
+- [CreateRestApi](%23awsex%23cl_agw_actions.clas.abap#L111)
+- [DeleteRestApi](%23awsex%23cl_agw_actions.clas.abap#L358)
+- [GetResources](%23awsex%23cl_agw_actions.clas.abap#L331)
+- [GetRestApis](%23awsex%23cl_agw_actions.clas.abap#L308)
+- [PutIntegration](%23awsex%23cl_agw_actions.clas.abap#L222)
+- [PutIntegrationResponse](%23awsex%23cl_agw_actions.clas.abap#L252)
+- [PutMethod](%23awsex%23cl_agw_actions.clas.abap#L166)
+- [PutMethodResponse](%23awsex%23cl_agw_actions.clas.abap#L194)
 
 
 <!--custom.examples.start-->

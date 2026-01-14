@@ -33,11 +33,11 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 
 Code excerpts that show you how to call individual service functions.
 
-- [AdminInitiateAuth](#awsex#cl_cgp_actions.clas.abap#L107)
-- [AdminRespondToAuthChallenge](#awsex#cl_cgp_actions.clas.abap#L218)
-- [AssociateSoftwareToken](#awsex#cl_cgp_actions.clas.abap#L159)
-- [ListUsers](#awsex#cl_cgp_actions.clas.abap#L80)
-- [VerifySoftwareToken](#awsex#cl_cgp_actions.clas.abap#L186)
+- [AdminInitiateAuth](%23awsex%23cl_cgp_actions.clas.abap#L107)
+- [AdminRespondToAuthChallenge](%23awsex%23cl_cgp_actions.clas.abap#L218)
+- [AssociateSoftwareToken](%23awsex%23cl_cgp_actions.clas.abap#L159)
+- [ListUsers](%23awsex%23cl_cgp_actions.clas.abap#L80)
+- [VerifySoftwareToken](%23awsex%23cl_cgp_actions.clas.abap#L186)
 
 
 <!--custom.examples.start-->

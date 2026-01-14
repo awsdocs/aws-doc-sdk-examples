@@ -33,8 +33,8 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 
 Code excerpts that show you how to call individual service functions.
 
-- [GetRoutingControlState](#awsex#cl_r5v_actions.clas.abap#L95)
-- [UpdateRoutingControlState](#awsex#cl_r5v_actions.clas.abap#L167)
+- [GetRoutingControlState](%23awsex%23cl_r5v_actions.clas.abap#L95)
+- [UpdateRoutingControlState](%23awsex%23cl_r5v_actions.clas.abap#L167)
 
 
 <!--custom.examples.start-->

@@ -33,14 +33,14 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateConfigurationSet](#awsex#cl_pps_actions.clas.abap#L132)
-- [CreateConfigurationSetEventDestination](#awsex#cl_pps_actions.clas.abap#L306)
-- [DeleteConfigurationSet](#awsex#cl_pps_actions.clas.abap#L169)
-- [DeleteConfigurationSetEventDestination](#awsex#cl_pps_actions.clas.abap#L348)
-- [GetConfigurationSetEventDestinations](#awsex#cl_pps_actions.clas.abap#L245)
-- [ListConfigurationSets](#awsex#cl_pps_actions.clas.abap#L203)
-- [SendVoiceMessage](#awsex#cl_pps_actions.clas.abap#L83)
-- [UpdateConfigurationSetEventDestination](#awsex#cl_pps_actions.clas.abap#L383)
+- [CreateConfigurationSet](%23awsex%23cl_pps_actions.clas.abap#L132)
+- [CreateConfigurationSetEventDestination](%23awsex%23cl_pps_actions.clas.abap#L306)
+- [DeleteConfigurationSet](%23awsex%23cl_pps_actions.clas.abap#L169)
+- [DeleteConfigurationSetEventDestination](%23awsex%23cl_pps_actions.clas.abap#L348)
+- [GetConfigurationSetEventDestinations](%23awsex%23cl_pps_actions.clas.abap#L245)
+- [ListConfigurationSets](%23awsex%23cl_pps_actions.clas.abap#L203)
+- [SendVoiceMessage](%23awsex%23cl_pps_actions.clas.abap#L83)
+- [UpdateConfigurationSetEventDestination](%23awsex%23cl_pps_actions.clas.abap#L383)
 
 
 <!--custom.examples.start-->

@@ -31,24 +31,24 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 
 ### Get started
 
-- [Hello AWS IoT SiteWise](#awsex#cl_ios_actions.clas.abap#L127) (`ListAssetModels`)
+- [Hello AWS IoT SiteWise](%23awsex%23cl_ios_actions.clas.abap#L127) (`ListAssetModels`)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [BatchPutAssetPropertyValue](#awsex#cl_ios_actions.clas.abap#L165)
-- [CreateAsset](#awsex#cl_ios_actions.clas.abap#L107)
-- [CreateAssetModel](#awsex#cl_ios_actions.clas.abap#L86)
-- [CreateGateway](#awsex#cl_ios_actions.clas.abap#L204)
-- [DeleteAsset](#awsex#cl_ios_actions.clas.abap#L274)
-- [DeleteAssetModel](#awsex#cl_ios_actions.clas.abap#L293)
-- [DeleteGateway](#awsex#cl_ios_actions.clas.abap#L255)
-- [DescribeGateway](#awsex#cl_ios_actions.clas.abap#L236)
-- [GetAssetPropertyValue](#awsex#cl_ios_actions.clas.abap#L184)
-- [ListAssetModelProperties](#awsex#cl_ios_actions.clas.abap#L145)
-- [ListAssetModels](#awsex#cl_ios_actions.clas.abap#L127)
+- [BatchPutAssetPropertyValue](%23awsex%23cl_ios_actions.clas.abap#L165)
+- [CreateAsset](%23awsex%23cl_ios_actions.clas.abap#L107)
+- [CreateAssetModel](%23awsex%23cl_ios_actions.clas.abap#L86)
+- [CreateGateway](%23awsex%23cl_ios_actions.clas.abap#L204)
+- [DeleteAsset](%23awsex%23cl_ios_actions.clas.abap#L274)
+- [DeleteAssetModel](%23awsex%23cl_ios_actions.clas.abap#L293)
+- [DeleteGateway](%23awsex%23cl_ios_actions.clas.abap#L255)
+- [DescribeGateway](%23awsex%23cl_ios_actions.clas.abap#L236)
+- [GetAssetPropertyValue](%23awsex%23cl_ios_actions.clas.abap#L184)
+- [ListAssetModelProperties](%23awsex%23cl_ios_actions.clas.abap#L145)
+- [ListAssetModels](%23awsex%23cl_ios_actions.clas.abap#L127)
 
 
 <!--custom.examples.start-->

@@ -33,8 +33,8 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 
 Code excerpts that show you how to call individual service functions.
 
-- [ListDistributions](#awsex#cl_fnt_actions.clas.abap#L40)
-- [UpdateDistribution](#awsex#cl_fnt_actions.clas.abap#L59)
+- [ListDistributions](%23awsex%23cl_fnt_actions.clas.abap#L40)
+- [UpdateDistribution](%23awsex%23cl_fnt_actions.clas.abap#L59)
 
 
 <!--custom.examples.start-->
