@@ -33,20 +33,20 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 
 Code examples that show you how to perform the essential operations within a service.
 
-- [Learn the basics](#awsex#cl_kns_scenarios.clas.abap)
+- [Learn the basics](%23awsex%23cl_kns_scenarios.clas.abap)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateStream](#awsex#cl_kns_actions.clas.abap#L75)
-- [DeleteStream](#awsex#cl_kns_actions.clas.abap#L100)
-- [DescribeStream](#awsex#cl_kns_actions.clas.abap#L122)
-- [GetRecords](#awsex#cl_kns_actions.clas.abap#L147)
-- [ListStreams](#awsex#cl_kns_actions.clas.abap#L186)
-- [PutRecord](#awsex#cl_kns_actions.clas.abap#L208)
-- [RegisterStreamConsumer](#awsex#cl_kns_actions.clas.abap#L245)
+- [CreateStream](%23awsex%23cl_kns_actions.clas.abap#L75)
+- [DeleteStream](%23awsex%23cl_kns_actions.clas.abap#L100)
+- [DescribeStream](%23awsex%23cl_kns_actions.clas.abap#L122)
+- [GetRecords](%23awsex%23cl_kns_actions.clas.abap#L147)
+- [ListStreams](%23awsex%23cl_kns_actions.clas.abap#L186)
+- [PutRecord](%23awsex%23cl_kns_actions.clas.abap#L208)
+- [RegisterStreamConsumer](%23awsex%23cl_kns_actions.clas.abap#L245)
 
 
 <!--custom.examples.start-->
