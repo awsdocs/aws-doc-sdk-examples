@@ -36,7 +36,7 @@ CLASS ltc_awsex_cl_rds_actions DEFINITION FOR TESTING DURATION MEDIUM RISK LEVEL
 
     " Engine version and instance option tests
     METHODS: describe_db_engine_versions FOR TESTING RAISING /aws1/cx_rt_generic,
-      descrorderabledbinstopts FOR TESTING RAISING /aws1/cx_rt_generic.
+      descr_orderable_db_inst_opts FOR TESTING RAISING /aws1/cx_rt_generic.
 
     CLASS-METHODS class_setup RAISING /aws1/cx_rt_generic.
     CLASS-METHODS class_teardown RAISING /aws1/cx_rt_generic.
@@ -535,10 +535,10 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
 
   ENDMETHOD.
 
-  METHOD descrorderabledbinstopts.
+  METHOD descr_orderable_db_inst_opts.
     DATA lo_result TYPE REF TO /aws1/cl_rdsorderabledbinsto00.
 
-    ao_rds_actions->descrorderabledbinstopts(
+    ao_rds_actions->descr_orderable_db_inst_opts(
       EXPORTING
         iv_engine        = av_engine
         iv_engineversion = av_engine_version
