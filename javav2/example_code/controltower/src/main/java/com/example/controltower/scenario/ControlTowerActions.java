@@ -273,7 +273,6 @@ public class ControlTowerActions {
         return paginator.subscribe(response -> {
                     if (response.baselines() != null && !response.baselines().isEmpty()) {
                         response.baselines().forEach(baseline -> {
-                            System.out.println("Baseline name: " + baseline.name());
                             baselines.add(baseline);
                         });
                     } else {
@@ -659,7 +658,6 @@ public class ControlTowerActions {
         return paginator.subscribe(response -> {
                     if (response.enabledControls() != null && !response.enabledControls().isEmpty()) {
                         response.enabledControls().forEach(control -> {
-                            System.out.println("Enabled control: {}" + control.controlIdentifier());
                             enabledControls.add(control);
                         });
                     } else {
