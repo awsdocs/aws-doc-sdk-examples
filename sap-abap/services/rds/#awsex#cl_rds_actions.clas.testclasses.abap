@@ -20,13 +20,23 @@ CLASS ltc_awsex_cl_rds_actions DEFINITION FOR TESTING DURATION MEDIUM RISK LEVEL
     CLASS-DATA ao_session TYPE REF TO /aws1/cl_rt_session_base.
     CLASS-DATA ao_rds_actions TYPE REF TO /awsex/cl_rds_actions.
 
+    " Regular DB parameter group tests (MySQL)
     METHODS: describe_db_parameter_groups FOR TESTING RAISING /aws1/cx_rt_generic,
       create_db_parameter_group FOR TESTING RAISING /aws1/cx_rt_generic,
       describe_db_parameters FOR TESTING RAISING /aws1/cx_rt_generic,
       modify_db_parameter_group FOR TESTING RAISING /aws1/cx_rt_generic,
-      describe_db_engine_versions FOR TESTING RAISING /aws1/cx_rt_generic,
-      descrorderabledbinstopts FOR TESTING RAISING /aws1/cx_rt_generic,
       delete_db_parameter_group FOR TESTING RAISING /aws1/cx_rt_generic.
+
+    " Cluster parameter group tests (Aurora MySQL)
+    METHODS: descr_db_clust_param_groups FOR TESTING RAISING /aws1/cx_rt_generic,
+      create_db_clust_param_group FOR TESTING RAISING /aws1/cx_rt_generic,
+      descr_db_cluster_parameters FOR TESTING RAISING /aws1/cx_rt_generic,
+      modify_db_clust_param_group FOR TESTING RAISING /aws1/cx_rt_generic,
+      delete_db_clust_param_group FOR TESTING RAISING /aws1/cx_rt_generic.
+
+    " Engine version and instance option tests
+    METHODS: describe_db_engine_versions FOR TESTING RAISING /aws1/cx_rt_generic,
+      descr_orderable_db_inst_opts FOR TESTING RAISING /aws1/cx_rt_generic.
 
     CLASS-METHODS class_setup RAISING /aws1/cx_rt_generic.
     CLASS-METHODS class_teardown RAISING /aws1/cx_rt_generic.
@@ -282,46 +292,6 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
 
   ENDMETHOD.
 
-  METHOD describe_db_engine_versions.
-    DATA lo_result TYPE REF TO /aws1/cl_rdsdbenginevrsmessage.
-
-    ao_rds_actions->describe_db_engine_versions(
-      EXPORTING
-        iv_engine                 = av_engine
-        iv_dbparametergroupfamily = av_param_group_family
-      IMPORTING
-        oo_result = lo_result ).
-
-    cl_abap_unit_assert=>assert_bound(
-      act = lo_result
-      msg = 'Result should not be initial' ).
-
-    cl_abap_unit_assert=>assert_not_initial(
-      act = lo_result->get_dbengineversions( )
-      msg = 'Engine versions should not be empty' ).
-
-  ENDMETHOD.
-
-  METHOD descrorderabledbinstopts.
-    DATA lo_result TYPE REF TO /aws1/cl_rdsorderabledbinsto00.
-
-    ao_rds_actions->descrorderabledbinstopts(
-      EXPORTING
-        iv_engine        = av_engine
-        iv_engineversion = av_engine_version
-      IMPORTING
-        oo_result = lo_result ).
-
-    cl_abap_unit_assert=>assert_bound(
-      act = lo_result
-      msg = 'Result should not be initial' ).
-
-    cl_abap_unit_assert=>assert_not_initial(
-      act = lo_result->get_orderabledbinstoptions( )
-      msg = 'Orderable options should not be empty' ).
-
-  ENDMETHOD.
-
   METHOD delete_db_parameter_group.
     DATA lv_uuid TYPE string.
     DATA lv_test_param_group TYPE /aws1/rdsstring.
@@ -353,6 +323,235 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
       CATCH /aws1/cx_rdsdbprmgrnotfndfault.
         " Expected - parameter group was deleted successfully
     ENDTRY.
+
+  ENDMETHOD.
+
+  METHOD descr_db_clust_param_groups.
+    DATA lo_result TYPE REF TO /aws1/cl_rdsdbclustparamgroup.
+    DATA lv_uuid TYPE string.
+    DATA lv_cluster_pg_name TYPE /aws1/rdsstring.
+
+    lv_uuid = /awsex/cl_utils=>get_random_string( ).
+    lv_cluster_pg_name = |test-cpg-{ lv_uuid }|.
+
+    " Create a cluster parameter group for testing
+    TRY.
+        ao_rds->createdbclusterparamgroup(
+          iv_dbclusterparamgroupname = lv_cluster_pg_name
+          iv_dbparametergroupfamily = 'aurora-mysql8.0'
+          iv_description = 'Test cluster parameter group'
+          it_tags = VALUE #( ( NEW /aws1/cl_rdstag( iv_key = 'convert_test' iv_value = 'true' ) ) ) ).
+      CATCH /aws1/cx_rdsdbparmgralrexfault.
+        " Already exists
+    ENDTRY.
+
+    " Test describe
+    lo_result = ao_rds_actions->descr_db_clust_param_groups(
+      iv_param_group_name = lv_cluster_pg_name ).
+
+    cl_abap_unit_assert=>assert_bound(
+      act = lo_result
+      msg = 'Cluster parameter group retrieval failed' ).
+
+    cl_abap_unit_assert=>assert_true(
+      act = boolc( lo_result->get_dbclusterparamgroupname( ) CP |{ lv_cluster_pg_name }*| )
+      msg = 'Cluster parameter group name mismatch' ).
+
+    " Cleanup
+    TRY.
+        ao_rds->deletedbclusterparamgroup( iv_dbclusterparamgroupname = lv_cluster_pg_name ).
+      CATCH /aws1/cx_rt_generic.
+        " Ignore cleanup errors
+    ENDTRY.
+
+  ENDMETHOD.
+
+  METHOD create_db_clust_param_group.
+    DATA lo_result TYPE REF TO /aws1/cl_rdsdbclustparamgroup.
+    DATA lv_uuid TYPE string.
+    DATA lv_cluster_pg_name TYPE /aws1/rdsstring.
+
+    lv_uuid = /awsex/cl_utils=>get_random_string( ).
+    lv_cluster_pg_name = |test-cpg-cr-{ lv_uuid }|.
+
+    lo_result = ao_rds_actions->create_db_clust_param_group(
+      iv_param_group_name = lv_cluster_pg_name
+      iv_param_group_family = 'aurora-mysql8.0'
+      iv_description = 'Test cluster parameter group creation' ).
+
+    cl_abap_unit_assert=>assert_bound(
+      act = lo_result
+      msg = 'Cluster parameter group creation failed' ).
+
+    cl_abap_unit_assert=>assert_true(
+      act = boolc( lo_result->get_dbclusterparamgroupname( ) CP |{ lv_cluster_pg_name }*| )
+      msg = 'Cluster parameter group name mismatch' ).
+
+    " Cleanup
+    TRY.
+        ao_rds->deletedbclusterparamgroup( iv_dbclusterparamgroupname = lv_cluster_pg_name ).
+      CATCH /aws1/cx_rt_generic.
+        " Ignore cleanup errors
+    ENDTRY.
+
+  ENDMETHOD.
+
+  METHOD descr_db_cluster_parameters.
+    DATA lt_parameters TYPE /aws1/cl_rdsparameter=>tt_parameterslist.
+    DATA lv_uuid TYPE string.
+    DATA lv_cluster_pg_name TYPE /aws1/rdsstring.
+
+    lv_uuid = /awsex/cl_utils=>get_random_string( ).
+    lv_cluster_pg_name = |test-cpg-dp-{ lv_uuid }|.
+
+    " Create a cluster parameter group for testing
+    TRY.
+        ao_rds->createdbclusterparamgroup(
+          iv_dbclusterparamgroupname = lv_cluster_pg_name
+          iv_dbparametergroupfamily = 'aurora-mysql8.0'
+          iv_description = 'Test cluster parameter group for parameters'
+          it_tags = VALUE #( ( NEW /aws1/cl_rdstag( iv_key = 'convert_test' iv_value = 'true' ) ) ) ).
+      CATCH /aws1/cx_rdsdbparmgralrexfault.
+        " Already exists
+    ENDTRY.
+
+    " Test describe parameters
+    lt_parameters = ao_rds_actions->descr_db_cluster_parameters(
+      iv_param_group_name = lv_cluster_pg_name
+      iv_source = 'engine-default' ).
+
+    cl_abap_unit_assert=>assert_not_initial(
+      act = lines( lt_parameters )
+      msg = 'No cluster parameters retrieved' ).
+
+    " Cleanup
+    TRY.
+        ao_rds->deletedbclusterparamgroup( iv_dbclusterparamgroupname = lv_cluster_pg_name ).
+      CATCH /aws1/cx_rt_generic.
+        " Ignore cleanup errors
+    ENDTRY.
+
+  ENDMETHOD.
+
+  METHOD modify_db_clust_param_group.
+    DATA lo_result TYPE REF TO /aws1/cl_rdsdbclstprmgrnamemsg.
+    DATA lt_parameters TYPE /aws1/cl_rdsparameter=>tt_parameterslist.
+    DATA lv_uuid TYPE string.
+    DATA lv_cluster_pg_name TYPE /aws1/rdsstring.
+
+    lv_uuid = /awsex/cl_utils=>get_random_string( ).
+    lv_cluster_pg_name = |test-cpg-mod-{ lv_uuid }|.
+
+    " Create a cluster parameter group for testing
+    TRY.
+        ao_rds->createdbclusterparamgroup(
+          iv_dbclusterparamgroupname = lv_cluster_pg_name
+          iv_dbparametergroupfamily = 'aurora-mysql8.0'
+          iv_description = 'Test cluster parameter group for modification'
+          it_tags = VALUE #( ( NEW /aws1/cl_rdstag( iv_key = 'convert_test' iv_value = 'true' ) ) ) ).
+      CATCH /aws1/cx_rdsdbparmgralrexfault.
+        " Already exists
+    ENDTRY.
+
+    " Create a parameter to update
+    DATA(lo_param) = NEW /aws1/cl_rdsparameter(
+      iv_parametername = 'time_zone'
+      iv_parametervalue = 'UTC'
+      iv_applymethod = 'immediate' ).
+    APPEND lo_param TO lt_parameters.
+
+    lo_result = ao_rds_actions->modify_db_clust_param_group(
+      iv_param_group_name = lv_cluster_pg_name
+      it_update_parameters = lt_parameters ).
+
+    cl_abap_unit_assert=>assert_bound(
+      act = lo_result
+      msg = 'Cluster parameter update failed' ).
+
+    cl_abap_unit_assert=>assert_true(
+      act = boolc( lo_result->get_dbclusterparamgroupname( ) CP |{ lv_cluster_pg_name }*| )
+      msg = 'Cluster parameter group name mismatch' ).
+
+    " Cleanup
+    TRY.
+        ao_rds->deletedbclusterparamgroup( iv_dbclusterparamgroupname = lv_cluster_pg_name ).
+      CATCH /aws1/cx_rt_generic.
+        " Ignore cleanup errors
+    ENDTRY.
+
+  ENDMETHOD.
+
+  METHOD delete_db_clust_param_group.
+    DATA lv_uuid TYPE string.
+    DATA lv_cluster_pg_name TYPE /aws1/rdsstring.
+
+    lv_uuid = /awsex/cl_utils=>get_random_string( ).
+    lv_cluster_pg_name = |test-cpg-del-{ lv_uuid }|.
+
+    " Create a cluster parameter group specifically for deletion
+    ao_rds->createdbclusterparamgroup(
+      iv_dbclusterparamgroupname = lv_cluster_pg_name
+      iv_dbparametergroupfamily = 'aurora-mysql8.0'
+      iv_description = 'Test cluster parameter group for deletion'
+      it_tags = VALUE #( ( NEW /aws1/cl_rdstag( iv_key = 'convert_test' iv_value = 'true' ) ) ) ).
+
+    " Verify it was created
+    TRY.
+        ao_rds->describedbclusterparamgroups( iv_dbclusterparamgroupname = lv_cluster_pg_name ).
+      CATCH /aws1/cx_rdsdbprmgrnotfndfault.
+        cl_abap_unit_assert=>fail( msg = 'Test cluster parameter group was not created' ).
+    ENDTRY.
+
+    " Delete it using the action method
+    ao_rds_actions->delete_db_clust_param_group( iv_param_group_name = lv_cluster_pg_name ).
+
+    " Verify deletion
+    TRY.
+        ao_rds->describedbclusterparamgroups( iv_dbclusterparamgroupname = lv_cluster_pg_name ).
+        cl_abap_unit_assert=>fail( msg = 'Cluster parameter group should have been deleted' ).
+      CATCH /aws1/cx_rdsdbprmgrnotfndfault.
+        " Expected - cluster parameter group was deleted successfully
+    ENDTRY.
+
+  ENDMETHOD.
+
+  METHOD describe_db_engine_versions.
+    DATA lo_result TYPE REF TO /aws1/cl_rdsdbenginevrsmessage.
+
+    ao_rds_actions->describe_db_engine_versions(
+      EXPORTING
+        iv_engine                 = av_engine
+        iv_dbparametergroupfamily = av_param_group_family
+      IMPORTING
+        oo_result = lo_result ).
+
+    cl_abap_unit_assert=>assert_bound(
+      act = lo_result
+      msg = 'Result should not be initial' ).
+
+    cl_abap_unit_assert=>assert_not_initial(
+      act = lo_result->get_dbengineversions( )
+      msg = 'Engine versions should not be empty' ).
+
+  ENDMETHOD.
+
+  METHOD descr_orderable_db_inst_opts.
+    DATA lo_result TYPE REF TO /aws1/cl_rdsorderabledbinsto00.
+
+    ao_rds_actions->descr_orderable_db_inst_opts(
+      EXPORTING
+        iv_engine        = av_engine
+        iv_engineversion = av_engine_version
+      IMPORTING
+        oo_result = lo_result ).
+
+    cl_abap_unit_assert=>assert_bound(
+      act = lo_result
+      msg = 'Result should not be initial' ).
+
+    cl_abap_unit_assert=>assert_not_initial(
+      act = lo_result->get_orderabledbinstoptions( )
+      msg = 'Orderable options should not be empty' ).
 
   ENDMETHOD.
 
