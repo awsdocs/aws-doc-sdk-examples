@@ -33,19 +33,19 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateQueue](#awsex#cl_sqs_actions.clas.abap#L72)
-- [DeleteQueue](#awsex#cl_sqs_actions.clas.abap#L91)
-- [GetQueueUrl](#awsex#cl_sqs_actions.clas.abap#L106)
-- [ListQueues](#awsex#cl_sqs_actions.clas.abap#L123)
-- [ReceiveMessage](#awsex#cl_sqs_actions.clas.abap#L184)
-- [SendMessage](#awsex#cl_sqs_actions.clas.abap#L202)
+- [CreateQueue](%23awsex%23cl_sqs_actions.clas.abap#L72)
+- [DeleteQueue](%23awsex%23cl_sqs_actions.clas.abap#L91)
+- [GetQueueUrl](%23awsex%23cl_sqs_actions.clas.abap#L106)
+- [ListQueues](%23awsex%23cl_sqs_actions.clas.abap#L123)
+- [ReceiveMessage](%23awsex%23cl_sqs_actions.clas.abap#L184)
+- [SendMessage](%23awsex%23cl_sqs_actions.clas.abap#L202)
 
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Create and publish to a FIFO topic](../sns/#awsex#cl_sns_scenarios.clas.abap)
+- [Create and publish to a FIFO topic](../sns/%23awsex%23cl_sns_scenarios.clas.abap)
 
 
 <!--custom.examples.start-->
