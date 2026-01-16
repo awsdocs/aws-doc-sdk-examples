@@ -6,15 +6,20 @@ Contains common test fixtures used to run unit tests.
 """
 
 import sys
+import os
 import boto3
 import pytest
 
-from pathlib import Path
+script_dir = os.path.dirname(os.path.abspath(__file__))
 
-# This is needed so Python can find test_tools on the path.
-sys.path.append(str(Path(__file__).parent.parent.parent.parent))
+# Add relative path to include IoTWrapper.
+sys.path.append(script_dir)
+sys.path.append(os.path.dirname(script_dir))
+
+# Add relative path to include demo_tools in this code example without need for setup.
+sys.path.append(os.path.join(script_dir, "../../.."))
+
 from test_tools.fixtures.common import *
-
 from iot_wrapper import IoTWrapper
 
 

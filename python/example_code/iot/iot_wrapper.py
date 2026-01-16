@@ -9,6 +9,7 @@ certificates, and topic rules.
 """
 
 import logging
+import boto3
 from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)
@@ -26,6 +27,12 @@ class IoTWrapper:
         self.iot_client = iot_client
         self.iot_data_client = iot_data_client
 
+    @classmethod
+    def from_client(cls):
+        iot_client = boto3.client("iot")
+        iot_data_client = boto3.client("iot-data")
+        return cls(iot_client, iot_data_client)
+
     # snippet-end:[python.example_code.iot.IoTWrapper]
 
     # snippet-start:[python.example_code.iot.CreateThing]
@@ -40,6 +47,9 @@ class IoTWrapper:
             response = self.iot_client.create_thing(thingName=thing_name)
             logger.info("Created thing %s.", thing_name)
         except ClientError as err:
+            if err.response["Error"]["Code"] == "ResourceAlreadyExistsException":
+                logger.info("Thing %s already exists. Skipping creation.", thing_name)
+                return None
             logger.error(
                 "Couldn't create thing %s. Here's why: %s: %s",
                 thing_name,
@@ -65,15 +75,18 @@ class IoTWrapper:
             for page in paginator.paginate():
                 things.extend(page["things"])
             logger.info("Retrieved %s things.", len(things))
-        except ClientError as err:
-            logger.error(
-                "Couldn't list things. Here's why: %s: %s",
-                err.response["Error"]["Code"],
-                err.response["Error"]["Message"],
-            )
-            raise
-        else:
             return things
+        except ClientError as err:
+            if err.response["Error"]["Code"] == "ThrottlingException":
+                logger.error("Request throttled. Please try again later.")
+            else:
+                logger.error(
+                    "Couldn't list things. Here's why: %s: %s",
+                    err.response["Error"]["Code"],
+                    err.response["Error"]["Message"],
+                )
+            raise
+            
 
     # snippet-end:[python.example_code.iot.ListThings]
 
@@ -88,11 +101,14 @@ class IoTWrapper:
             response = self.iot_client.create_keys_and_certificate(setAsActive=True)
             logger.info("Created certificate %s.", response["certificateId"])
         except ClientError as err:
-            logger.error(
-                "Couldn't create keys and certificate. Here's why: %s: %s",
-                err.response["Error"]["Code"],
-                err.response["Error"]["Message"],
-            )
+            if err.response["Error"]["Code"] == "ThrottlingException":
+                logger.error("Request throttled. Please try again later.")
+            else:
+                logger.error(
+                    "Couldn't create keys and certificate. Here's why: %s: %s",
+                    err.response["Error"]["Code"],
+                    err.response["Error"]["Message"],
+                )
             raise
         else:
             return response
@@ -113,6 +129,9 @@ class IoTWrapper:
             )
             logger.info("Attached principal %s to thing %s.", principal, thing_name)
         except ClientError as err:
+            if err.response["Error"]["Code"] == "ResourceNotFoundException":
+                logger.error("Cannot attach principal. Resource not found.")
+                return
             logger.error(
                 "Couldn't attach principal to thing. Here's why: %s: %s",
                 err.response["Error"]["Code"],
@@ -134,11 +153,14 @@ class IoTWrapper:
             response = self.iot_client.describe_endpoint(endpointType=endpoint_type)
             logger.info("Retrieved endpoint %s.", response["endpointAddress"])
         except ClientError as err:
-            logger.error(
-                "Couldn't describe endpoint. Here's why: %s: %s",
-                err.response["Error"]["Code"],
-                err.response["Error"]["Message"],
-            )
+            if err.response["Error"]["Code"] == "ThrottlingException":
+                logger.error("Request throttled. Please try again later.")
+            else:
+                logger.error(
+                    "Couldn't describe endpoint. Here's why: %s: %s",
+                    err.response["Error"]["Code"],
+                    err.response["Error"]["Message"],
+                )
             raise
         else:
             return response["endpointAddress"]
@@ -158,15 +180,17 @@ class IoTWrapper:
             for page in paginator.paginate():
                 certificates.extend(page["certificates"])
             logger.info("Retrieved %s certificates.", len(certificates))
-        except ClientError as err:
-            logger.error(
-                "Couldn't list certificates. Here's why: %s: %s",
-                err.response["Error"]["Code"],
-                err.response["Error"]["Message"],
-            )
-            raise
-        else:
             return certificates
+        except ClientError as err:
+            if err.response["Error"]["Code"] == "ThrottlingException":
+                logger.error("Request throttled. Please try again later.")
+            else:
+                logger.error(
+                    "Couldn't list certificates. Here's why: %s: %s",
+                    err.response["Error"]["Code"],
+                    err.response["Error"]["Message"],
+                )
+            raise
 
     # snippet-end:[python.example_code.iot.ListCertificates]
 
@@ -184,6 +208,9 @@ class IoTWrapper:
             )
             logger.info("Detached principal %s from thing %s.", principal, thing_name)
         except ClientError as err:
+            if err.response["Error"]["Code"] == "ResourceNotFoundException":
+                logger.error("Cannot detach principal. Resource not found.")
+                return
             logger.error(
                 "Couldn't detach principal from thing. Here's why: %s: %s",
                 err.response["Error"]["Code"],
@@ -207,6 +234,9 @@ class IoTWrapper:
             self.iot_client.delete_certificate(certificateId=certificate_id)
             logger.info("Deleted certificate %s.", certificate_id)
         except ClientError as err:
+            if err.response["Error"]["Code"] == "ResourceNotFoundException":
+                logger.error("Cannot delete certificate. Resource not found.")
+                return
             logger.error(
                 "Couldn't delete certificate. Here's why: %s: %s",
                 err.response["Error"]["Code"],
@@ -238,6 +268,9 @@ class IoTWrapper:
             )
             logger.info("Created topic rule %s.", rule_name)
         except ClientError as err:
+            if err.response["Error"]["Code"] == "ResourceAlreadyExistsException":
+                logger.info("Topic rule %s already exists. Skipping creation.", rule_name)
+                return
             logger.error(
                 "Couldn't create topic rule. Here's why: %s: %s",
                 err.response["Error"]["Code"],
@@ -260,15 +293,18 @@ class IoTWrapper:
             for page in paginator.paginate():
                 rules.extend(page["rules"])
             logger.info("Retrieved %s topic rules.", len(rules))
-        except ClientError as err:
-            logger.error(
-                "Couldn't list topic rules. Here's why: %s: %s",
-                err.response["Error"]["Code"],
-                err.response["Error"]["Message"],
-            )
-            raise
-        else:
             return rules
+        except ClientError as err:
+            if err.response["Error"]["Code"] == "ThrottlingException":
+                logger.error("Request throttled. Please try again later.")
+            else:
+                logger.error(
+                    "Couldn't list topic rules. Here's why: %s: %s",
+                    err.response["Error"]["Code"],
+                    err.response["Error"]["Message"],
+                )
+            raise
+            
 
     # snippet-end:[python.example_code.iot.ListTopicRules]
 
@@ -284,11 +320,14 @@ class IoTWrapper:
             response = self.iot_client.search_index(queryString=query)
             logger.info("Found %s things.", len(response.get("things", [])))
         except ClientError as err:
-            logger.error(
-                "Couldn't search index. Here's why: %s: %s",
-                err.response["Error"]["Code"],
-                err.response["Error"]["Message"],
-            )
+            if err.response["Error"]["Code"] == "ThrottlingException":
+                logger.error("Request throttled. Please try again later.")
+            else:
+                logger.error(
+                    "Couldn't search index. Here's why: %s: %s",
+                    err.response["Error"]["Code"],
+                    err.response["Error"]["Message"],
+                )
             raise
         else:
             return response.get("things", [])
@@ -326,6 +365,9 @@ class IoTWrapper:
             self.iot_client.delete_thing(thingName=thing_name)
             logger.info("Deleted thing %s.", thing_name)
         except ClientError as err:
+            if err.response["Error"]["Code"] == "ResourceNotFoundException":
+                logger.error("Cannot delete thing. Resource not found.")
+                return
             logger.error(
                 "Couldn't delete thing. Here's why: %s: %s",
                 err.response["Error"]["Code"],
@@ -370,6 +412,9 @@ class IoTWrapper:
             )
             logger.info("Updated shadow for thing %s.", thing_name)
         except ClientError as err:
+            if err.response["Error"]["Code"] == "ResourceNotFoundException":
+                logger.error("Cannot update thing shadow. Resource not found.")
+                return
             logger.error(
                 "Couldn't update thing shadow. Here's why: %s: %s",
                 err.response["Error"]["Code"],
@@ -393,6 +438,9 @@ class IoTWrapper:
             shadow = json.loads(response["payload"].read())
             logger.info("Retrieved shadow for thing %s.", thing_name)
         except ClientError as err:
+            if err.response["Error"]["Code"] == "ResourceNotFoundException":
+                logger.error("Cannot get thing shadow. Resource not found.")
+                return None
             logger.error(
                 "Couldn't get thing shadow. Here's why: %s: %s",
                 err.response["Error"]["Code"],
