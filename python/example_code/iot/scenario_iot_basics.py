@@ -124,9 +124,18 @@ class IoTScenario:
             print(f"Created thing: {response['thingName']}")
             print(f"Thing ARN: {response['thingArn']}")
 
+            input("\nNext, we'll list things. Press Enter to continue...") if self.is_interactive else None
+            print("\n" + "-" * 88)
+            print("2. List things")
+            print("-" * 88)
+            things = self.iot_wrapper.list_things()
+            print(f"Found {len(things)} thing(s) in your account")
+            for thing in things[:5]:  # Show first 5
+                print(f"  Thing name: {thing['thingName']}")
+
             input("\nNext, we'll generate a device certificate. Press Enter to continue...") if self.is_interactive else None
             print("\n" + "-" * 88)
-            print("2. Generate a device certificate")
+            print("3. Generate a device certificate")
             print("-" * 88)
             cert_response = self.iot_wrapper.create_keys_and_certificate()
             self.certificate_arn = cert_response["certificateArn"]
@@ -135,14 +144,14 @@ class IoTScenario:
 
             input("\nNext, we'll attach the certificate to the thing. Press Enter to continue...") if self.is_interactive else None
             print("\n" + "-" * 88)
-            print("3. Attach the certificate to the thing")
+            print("4. Attach the certificate to the thing")
             print("-" * 88)
             self.iot_wrapper.attach_thing_principal(thing_name, self.certificate_arn)
             print(f"Attached certificate to thing: {thing_name}")
 
             input("\nNext, we'll update the thing shadow. Press Enter to continue...") if self.is_interactive else None
             print("\n" + "-" * 88)
-            print("4. Update the thing shadow")
+            print("5. Update the thing shadow")
             print("-" * 88)
             shadow_state = {"state": {"reported": {"temperature": 25, "humidity": 50}}}
             self.iot_wrapper.update_thing_shadow(thing_name, shadow_state)
@@ -150,7 +159,7 @@ class IoTScenario:
 
             input("\nNext, we'll get the thing shadow. Press Enter to continue...") if self.is_interactive else None
             print("\n" + "-" * 88)
-            print("5. Get the thing shadow")
+            print("6. Get the thing shadow")
             print("-" * 88)
             shadow = self.iot_wrapper.get_thing_shadow(thing_name)
             print(f"Shadow state: {json.dumps(shadow['state'], indent=2)}")
@@ -164,7 +173,7 @@ class IoTScenario:
 
             input("\nNext, we'll list certificates. Press Enter to continue...") if self.is_interactive else None
             print("\n" + "-" * 88)
-            print("7. List certificates")
+            print("8. List certificates")
             print("-" * 88)
             certificates = self.iot_wrapper.list_certificates()
             print(f"Found {len(certificates)} certificate(s)")
@@ -175,7 +184,7 @@ class IoTScenario:
 
             input("\nNext, we'll create a topic rule. Press Enter to continue...") if self.is_interactive else None
             print("\n" + "-" * 88)
-            print("8. Create a topic rule")
+            print("9. Create a topic rule")
             print("-" * 88)
             self.iot_wrapper.create_topic_rule(
                 rule_name, f"device/{thing_name}/data", sns_topic_arn, role_arn
@@ -184,7 +193,7 @@ class IoTScenario:
 
             input("\nNext, we'll list topic rules. Press Enter to continue...") if self.is_interactive else None
             print("\n" + "-" * 88)
-            print("9. List topic rules")
+            print("10. List topic rules")
             print("-" * 88)
             rules = self.iot_wrapper.list_topic_rules()
             print(f"Found {len(rules)} topic rule(s)")
@@ -194,7 +203,7 @@ class IoTScenario:
 
             input("\nNext, we'll configure thing indexing. Press Enter to continue...") if self.is_interactive else None
             print("\n" + "-" * 88)
-            print("10. Configure thing indexing")
+            print("11. Configure thing indexing")
             print("-" * 88)
             self.iot_wrapper.update_indexing_configuration()
             print("Enabled thing indexing")
@@ -203,7 +212,7 @@ class IoTScenario:
 
             input("\nNext, we'll search for things. Press Enter to continue...") if self.is_interactive else None
             print("\n" + "-" * 88)
-            print("11. Search for things")
+            print("12. Search for things")
             print("-" * 88)
             try:
                 things = self.iot_wrapper.search_index(f"thingName:{thing_name}")
