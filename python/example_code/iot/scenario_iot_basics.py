@@ -35,6 +35,8 @@ logger = logging.getLogger(__name__)
 class IoTScenario:
     """Runs an interactive scenario that shows how to use AWS IoT."""
 
+    is_interactive = True
+
     def __init__(self, iot_wrapper, iot_data_client, cfn_client, stack_name="IoTBasicsStack", template_path=None):
         """
         :param iot_wrapper: An instance of the IoTWrapper class.
@@ -90,10 +92,6 @@ class IoTScenario:
         except ClientError as err:
             logger.error(f"Failed to delete stack: {err}")
 
-    def _wait(self, msg):
-        """Wait for user to press Enter."""
-        input(f"\n{msg} Press Enter to continue...")
-
     def run_scenario(self, thing_name, rule_name):
         """
         Runs the IoT basics scenario.
@@ -118,7 +116,7 @@ class IoTScenario:
             sns_topic_arn, role_arn = self._deploy_stack()
             print(f"Stack deployed. SNS Topic: {sns_topic_arn}")
 
-            self._wait("Next, we'll create an AWS IoT thing.")
+            input("\nNext, we'll create an AWS IoT thing. Press Enter to continue...") if self.is_interactive else None
             print("\n" + "-" * 88)
             print("1. Create an AWS IoT thing")
             print("-" * 88)
@@ -126,7 +124,7 @@ class IoTScenario:
             print(f"Created thing: {response['thingName']}")
             print(f"Thing ARN: {response['thingArn']}")
 
-            self._wait("Next, we'll generate a device certificate.")
+            input("\nNext, we'll generate a device certificate. Press Enter to continue...") if self.is_interactive else None
             print("\n" + "-" * 88)
             print("2. Generate a device certificate")
             print("-" * 88)
@@ -135,14 +133,14 @@ class IoTScenario:
             self.certificate_id = cert_response["certificateId"]
             print(f"Created certificate: {self.certificate_id}")
 
-            self._wait("Next, we'll attach the certificate to the thing.")
+            input("\nNext, we'll attach the certificate to the thing. Press Enter to continue...") if self.is_interactive else None
             print("\n" + "-" * 88)
             print("3. Attach the certificate to the thing")
             print("-" * 88)
             self.iot_wrapper.attach_thing_principal(thing_name, self.certificate_arn)
             print(f"Attached certificate to thing: {thing_name}")
 
-            self._wait("Next, we'll update the thing shadow.")
+            input("\nNext, we'll update the thing shadow. Press Enter to continue...") if self.is_interactive else None
             print("\n" + "-" * 88)
             print("4. Update the thing shadow")
             print("-" * 88)
@@ -150,21 +148,21 @@ class IoTScenario:
             self.iot_wrapper.update_thing_shadow(thing_name, shadow_state)
             print(f"Updated shadow for thing: {thing_name}")
 
-            self._wait("Next, we'll get the thing shadow.")
+            input("\nNext, we'll get the thing shadow. Press Enter to continue...") if self.is_interactive else None
             print("\n" + "-" * 88)
             print("5. Get the thing shadow")
             print("-" * 88)
             shadow = self.iot_wrapper.get_thing_shadow(thing_name)
             print(f"Shadow state: {json.dumps(shadow['state'], indent=2)}")
 
-            self._wait("Next, we'll get the AWS IoT endpoint.")
+            input("\nNext, we'll get the AWS IoT endpoint. Press Enter to continue...") if self.is_interactive else None
             print("\n" + "-" * 88)
-            print("6. Get the AWS IoT endpoint")
+            print("7. Get the AWS IoT endpoint")
             print("-" * 88)
             endpoint = self.iot_wrapper.describe_endpoint()
             print(f"IoT endpoint: {endpoint}")
 
-            self._wait("Next, we'll list certificates.")
+            input("\nNext, we'll list certificates. Press Enter to continue...") if self.is_interactive else None
             print("\n" + "-" * 88)
             print("7. List certificates")
             print("-" * 88)
@@ -175,7 +173,7 @@ class IoTScenario:
                 print(f"  Certificate ARN: {cert['certificateArn']}")
                 print(f"  Status: {cert['status']}")
 
-            self._wait("Next, we'll create a topic rule.")
+            input("\nNext, we'll create a topic rule. Press Enter to continue...") if self.is_interactive else None
             print("\n" + "-" * 88)
             print("8. Create a topic rule")
             print("-" * 88)
@@ -184,14 +182,17 @@ class IoTScenario:
             )
             print(f"Created topic rule: {rule_name}")
 
-            self._wait("Next, we'll list topic rules.")
+            input("\nNext, we'll list topic rules. Press Enter to continue...") if self.is_interactive else None
             print("\n" + "-" * 88)
             print("9. List topic rules")
             print("-" * 88)
             rules = self.iot_wrapper.list_topic_rules()
             print(f"Found {len(rules)} topic rule(s)")
+            for rule in rules:
+                print(f"  Rule name: {rule['ruleName']}")
+                print(f"  Rule ARN: {rule['ruleArn']}")
 
-            self._wait("Next, we'll configure thing indexing.")
+            input("\nNext, we'll configure thing indexing. Press Enter to continue...") if self.is_interactive else None
             print("\n" + "-" * 88)
             print("10. Configure thing indexing")
             print("-" * 88)
@@ -200,7 +201,7 @@ class IoTScenario:
             print("Waiting for indexing to be ready...")
             time.sleep(10)
 
-            self._wait("Next, we'll search for things.")
+            input("\nNext, we'll search for things. Press Enter to continue...") if self.is_interactive else None
             print("\n" + "-" * 88)
             print("11. Search for things")
             print("-" * 88)
@@ -282,15 +283,13 @@ class IoTScenario:
 
 if __name__ == "__main__":
     try:
-        iot_client = boto3.client("iot")
-        iot_data_client = boto3.client("iot-data")
+        wrapper = IoTWrapper.from_client()
         cfn_client = boto3.client("cloudformation")
-        wrapper = IoTWrapper(iot_client, iot_data_client)
         
         stack_name = input("Enter a name for the CloudFormation stack (default: IoTBasicsStack): ").strip() or "IoTBasicsStack"
         template_path = input("Enter path to CloudFormation template (default: ../../../scenarios/basics/iot/iot_usecase/resources/cfn_template.yaml): ").strip() or "../../../scenarios/basics/iot/iot_usecase/resources/cfn_template.yaml"
         
-        scenario = IoTScenario(wrapper, iot_data_client, cfn_client, stack_name, template_path)
+        scenario = IoTScenario(wrapper, wrapper.iot_data_client, cfn_client, stack_name, template_path)
 
         thing_name = q.ask("Enter a name for the IoT thing: ", q.non_empty)
         rule_name = q.ask("Enter a name for the topic rule: ", q.non_empty)

@@ -36,7 +36,7 @@ python -m pip install -r requirements.txt
 
 ### Get started
 
-- [Hello AWS IoT](iot_hello.py#L14) (`listThings`)
+- [Hello AWS IoT](iot_hello.py#L14) (`DescribeEndpoint`)
 
 
 ### Basics
@@ -50,19 +50,19 @@ Code examples that show you how to perform the essential operations within a ser
 
 Code excerpts that show you how to call individual service functions.
 
-- [AttachThingPrincipal](iot_wrapper.py#L102)
-- [CreateKeysAndCertificate](iot_wrapper.py#L80)
-- [CreateThing](iot_wrapper.py#L31)
-- [CreateTopicRule](iot_wrapper.py#L219)
-- [DeleteCertificate](iot_wrapper.py#L196)
-- [DeleteThing](iot_wrapper.py#L318)
-- [DeleteTopicRule](iot_wrapper.py#L338)
-- [DescribeEndpoint](iot_wrapper.py#L125)
-- [DetachThingPrincipal](iot_wrapper.py#L173)
-- [ListCertificates](iot_wrapper.py#L148)
-- [ListThings](iot_wrapper.py#L55)
-- [SearchIndex](iot_wrapper.py#L275)
-- [UpdateIndexingConfiguration](iot_wrapper.py#L298)
+- [AttachThingPrincipal](iot_wrapper.py#L118)
+- [CreateKeysAndCertificate](iot_wrapper.py#L93)
+- [CreateThing](iot_wrapper.py#L38)
+- [CreateTopicRule](iot_wrapper.py#L249)
+- [DeleteCertificate](iot_wrapper.py#L223)
+- [DeleteThing](iot_wrapper.py#L357)
+- [DeleteTopicRule](iot_wrapper.py#L380)
+- [DescribeEndpoint](iot_wrapper.py#L144)
+- [DetachThingPrincipal](iot_wrapper.py#L197)
+- [ListCertificates](iot_wrapper.py#L170)
+- [ListThings](iot_wrapper.py#L65)
+- [SearchIndex](iot_wrapper.py#L311)
+- [UpdateIndexingConfiguration](iot_wrapper.py#L337)
 
 
 <!--custom.examples.start-->
