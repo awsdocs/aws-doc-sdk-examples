@@ -34,6 +34,37 @@ python -m pip install -r requirements.txt
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Get started
+
+- [Hello AWS IoT](iot_hello.py#L14) (`DescribeEndpoint`)
+
+
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](iot_wrapper.py)
+
+
+### Single actions
+
+Code excerpts that show you how to call individual service functions.
+
+- [AttachThingPrincipal](iot_wrapper.py#L118)
+- [CreateKeysAndCertificate](iot_wrapper.py#L93)
+- [CreateThing](iot_wrapper.py#L38)
+- [CreateTopicRule](iot_wrapper.py#L249)
+- [DeleteCertificate](iot_wrapper.py#L223)
+- [DeleteThing](iot_wrapper.py#L357)
+- [DeleteTopicRule](iot_wrapper.py#L380)
+- [DescribeEndpoint](iot_wrapper.py#L144)
+- [DetachThingPrincipal](iot_wrapper.py#L197)
+- [ListCertificates](iot_wrapper.py#L170)
+- [ListThings](iot_wrapper.py#L65)
+- [SearchIndex](iot_wrapper.py#L311)
+- [UpdateIndexingConfiguration](iot_wrapper.py#L337)
+
+
 <!--custom.examples.start-->
 <!--custom.examples.end-->
 
@@ -45,6 +76,42 @@ python -m pip install -r requirements.txt
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
+#### Hello AWS IoT
+
+This example shows you how to get started using AWS IoT.
+
+```
+python iot_hello.py
+```
+
+#### Learn the basics
+
+This example shows you how to do the following:
+
+- Create an AWS IoT Thing.
+- Generate a device certificate.
+- Update an AWS IoT Thing with Attributes.
+- Return a unique endpoint.
+- List your AWS IoT certificates.
+- Update an AWS IoT shadow.
+- Write out state information.
+- Creates a rule.
+- List your rules.
+- Search things using the Thing name.
+- Delete an AWS IoT Thing.
+
+<!--custom.basic_prereqs.iot_Scenario.start-->
+<!--custom.basic_prereqs.iot_Scenario.end-->
+
+Start the example by running the following at a command prompt:
+
+```
+python iot_wrapper.py
+```
+
+
+<!--custom.basics.iot_Scenario.start-->
+<!--custom.basics.iot_Scenario.end-->
 
 
 ### Tests
