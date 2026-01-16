@@ -33,22 +33,22 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateTopic](#awsex#cl_sns_actions.clas.abap#L73)
-- [DeleteTopic](#awsex#cl_sns_actions.clas.abap#L90)
-- [GetTopicAttributes](#awsex#cl_sns_actions.clas.abap#L107)
-- [ListSubscriptions](#awsex#cl_sns_actions.clas.abap#L125)
-- [ListTopics](#awsex#cl_sns_actions.clas.abap#L143)
-- [Publish](#awsex#cl_sns_actions.clas.abap#L161)
-- [SetTopicAttributes](#awsex#cl_sns_actions.clas.abap#L180)
-- [Subscribe](#awsex#cl_sns_actions.clas.abap#L200)
-- [Unsubscribe](#awsex#cl_sns_actions.clas.abap#L223)
+- [CreateTopic](%23awsex%23cl_sns_actions.clas.abap#L73)
+- [DeleteTopic](%23awsex%23cl_sns_actions.clas.abap#L90)
+- [GetTopicAttributes](%23awsex%23cl_sns_actions.clas.abap#L107)
+- [ListSubscriptions](%23awsex%23cl_sns_actions.clas.abap#L125)
+- [ListTopics](%23awsex%23cl_sns_actions.clas.abap#L143)
+- [Publish](%23awsex%23cl_sns_actions.clas.abap#L161)
+- [SetTopicAttributes](%23awsex%23cl_sns_actions.clas.abap#L180)
+- [Subscribe](%23awsex%23cl_sns_actions.clas.abap#L200)
+- [Unsubscribe](%23awsex%23cl_sns_actions.clas.abap#L223)
 
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Create and publish to a FIFO topic](#awsex#cl_sns_scenarios.clas.abap)
+- [Create and publish to a FIFO topic](%23awsex%23cl_sns_scenarios.clas.abap)
 
 
 <!--custom.examples.start-->

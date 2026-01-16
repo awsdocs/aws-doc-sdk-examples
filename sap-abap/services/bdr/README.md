@@ -30,11 +30,11 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 <!--custom.prerequisites.end-->
 ### Anthropic Claude
 
-- [InvokeModel](#awsex#cl_bdr_actions.clas.abap#L150)
+- [InvokeModel](%23awsex%23cl_bdr_actions.clas.abap#L150)
 
 ### Stable Diffusion
 
-- [InvokeModel](#awsex#cl_bdr_actions.clas.abap#L220)
+- [InvokeModel](%23awsex%23cl_bdr_actions.clas.abap#L220)
 
 
 <!--custom.examples.start-->

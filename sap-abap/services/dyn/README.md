@@ -33,23 +33,23 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 
 Code examples that show you how to perform the essential operations within a service.
 
-- [Learn the basics](#awsex#cl_dyn_scenarios.clas.abap)
+- [Learn the basics](%23awsex%23cl_dyn_scenarios.clas.abap)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateTable](#awsex#cl_dyn_actions.clas.abap#L94)
-- [DeleteItem](#awsex#cl_dyn_actions.clas.abap#L136)
-- [DeleteTable](#awsex#cl_dyn_actions.clas.abap#L160)
-- [DescribeTable](#awsex#cl_dyn_actions.clas.abap#L183)
-- [GetItem](#awsex#cl_dyn_actions.clas.abap#L208)
-- [ListTables](#awsex#cl_dyn_actions.clas.abap#L234)
-- [PutItem](#awsex#cl_dyn_actions.clas.abap#L258)
-- [Query](#awsex#cl_dyn_actions.clas.abap#L282)
-- [Scan](#awsex#cl_dyn_actions.clas.abap#L320)
-- [UpdateItem](#awsex#cl_dyn_actions.clas.abap#L356)
+- [CreateTable](%23awsex%23cl_dyn_actions.clas.abap#L94)
+- [DeleteItem](%23awsex%23cl_dyn_actions.clas.abap#L136)
+- [DeleteTable](%23awsex%23cl_dyn_actions.clas.abap#L160)
+- [DescribeTable](%23awsex%23cl_dyn_actions.clas.abap#L183)
+- [GetItem](%23awsex%23cl_dyn_actions.clas.abap#L208)
+- [ListTables](%23awsex%23cl_dyn_actions.clas.abap#L234)
+- [PutItem](%23awsex%23cl_dyn_actions.clas.abap#L258)
+- [Query](%23awsex%23cl_dyn_actions.clas.abap#L282)
+- [Scan](%23awsex%23cl_dyn_actions.clas.abap#L320)
+- [UpdateItem](%23awsex%23cl_dyn_actions.clas.abap#L356)
 
 
 <!--custom.examples.start-->
