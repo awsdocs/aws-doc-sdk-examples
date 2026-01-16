@@ -1,6 +1,14 @@
 # zexi 0.4.3
 transcribe_StartTranscriptionJob:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/tnb
+          excerpts:
+            - description:
+              snippet_tags:
+                - tnb.abapv1.start_transcription_job
     .NET:
       versions:
         - sdk_version: 3
@@ -35,6 +43,14 @@ transcribe_StartTranscriptionJob:
     transcribe: {StartTranscriptionJob}
 transcribe_ListTranscriptionJobs:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/tnb
+          excerpts:
+            - description:
+              snippet_tags:
+                - tnb.abapv1.list_transcription_jobs
     Java:
       versions:
         - sdk_version: 2
@@ -78,6 +94,14 @@ transcribe_ListTranscriptionJobs:
     transcribe: {ListTranscriptionJobs}
 transcribe_GetTranscriptionJob:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/tnb
+          excerpts:
+            - description:
+              snippet_tags:
+                - tnb.abapv1.get_transcription_job
     .NET:
       versions:
         - sdk_version: 3
@@ -100,6 +124,14 @@ transcribe_GetTranscriptionJob:
     transcribe: {GetTranscriptionJob}
 transcribe_DeleteTranscriptionJob:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/tnb
+          excerpts:
+            - description:
+              snippet_tags:
+                - tnb.abapv1.delete_transcription_job
     .NET:
       versions:
         - sdk_version: 3
@@ -134,6 +166,14 @@ transcribe_DeleteTranscriptionJob:
     transcribe: {DeleteTranscriptionJob}
 transcribe_CreateVocabulary:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/tnb
+          excerpts:
+            - description:
+              snippet_tags:
+                - tnb.abapv1.create_vocabulary
     .NET:
       versions:
         - sdk_version: 3
@@ -156,6 +196,14 @@ transcribe_CreateVocabulary:
     transcribe: {CreateVocabulary}
 transcribe_ListVocabularies:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/tnb
+          excerpts:
+            - description:
+              snippet_tags:
+                - tnb.abapv1.list_vocabularies
     .NET:
       versions:
         - sdk_version: 3
@@ -178,6 +226,14 @@ transcribe_ListVocabularies:
     transcribe: {ListVocabularies}
 transcribe_GetVocabulary:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/tnb
+          excerpts:
+            - description:
+              snippet_tags:
+                - tnb.abapv1.get_vocabulary
     .NET:
       versions:
         - sdk_version: 3
@@ -200,6 +256,14 @@ transcribe_GetVocabulary:
     transcribe: {GetVocabulary}
 transcribe_UpdateVocabulary:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/tnb
+          excerpts:
+            - description:
+              snippet_tags:
+                - tnb.abapv1.update_vocabulary
     .NET:
       versions:
         - sdk_version: 3
@@ -222,6 +286,14 @@ transcribe_UpdateVocabulary:
     transcribe: {UpdateVocabulary}
 transcribe_DeleteVocabulary:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/tnb
+          excerpts:
+            - description:
+              snippet_tags:
+                - tnb.abapv1.delete_vocabulary
     .NET:
       versions:
         - sdk_version: 3

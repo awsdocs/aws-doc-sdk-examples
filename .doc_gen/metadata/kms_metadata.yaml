@@ -23,6 +23,14 @@ kms_Hello:
             - description:
               snippet_tags:
                 - php.example_code.kms.basics.helloService
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/kms
+          excerpts:
+            - description:
+              snippet_tags:
+                - kms.abapv1.list_keys
   services:
     kms: {ListKeys}
 kms_TagResource:
@@ -54,6 +62,14 @@ kms_TagResource:
             - description:
               snippet_tags:
                 - php.example_code.kms.service.tagResource
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/kms
+          excerpts:
+            - description:
+              snippet_tags:
+                - kms.abapv1.tag_resource
   services:
     kms: {TagResource}
 kms_Sign:
@@ -85,6 +101,14 @@ kms_Sign:
             - description:
               snippet_tags:
                 - php.example_code.kms.service.sign
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/kms
+          excerpts:
+            - description:
+              snippet_tags:
+                - kms.abapv1.sign
   services:
     kms: {Sign}
 kms_Verify:
@@ -98,6 +122,14 @@ kms_Verify:
               snippet_tags:
                 - python.example_code.kms.KeyEncrypt.decl
                 - python.example_code.kms.Verify
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/kms
+          excerpts:
+            - description:
+              snippet_tags:
+                - kms.abapv1.verify
   services:
     kms: {Verify}
 kms_CreateKey:
@@ -163,6 +195,14 @@ kms_CreateKey:
             - description:
               snippet_tags:
                 - kms.rust.create-key
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/kms
+          excerpts:
+            - description:
+              snippet_tags:
+                - kms.abapv1.create_key
   services:
     kms: {CreateKey}
 kms_Decrypt:
@@ -219,6 +259,14 @@ kms_Decrypt:
             - description:
               snippet_tags:
                 - kms.rust.decrypt
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/kms
+          excerpts:
+            - description:
+              snippet_tags:
+                - kms.abapv1.decrypt
   services:
     kms: {Decrypt}
 kms_Encrypt:
@@ -275,6 +323,14 @@ kms_Encrypt:
             - description:
               snippet_tags:
                 - kms.rust.encrypt
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/kms
+          excerpts:
+            - description:
+              snippet_tags:
+                - kms.abapv1.encrypt
   services:
     kms: {Encrypt}
 kms_GenerateDataKey:
@@ -296,6 +352,14 @@ kms_GenerateDataKey:
             - description:
               snippet_tags:
                 - kms.rust.generate-data-key
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/kms
+          excerpts:
+            - description:
+              snippet_tags:
+                - kms.abapv1.generate_data_key
   services:
     kms: {GenerateDataKey}
 kms_GenerateDataKeyWithoutPlaintext:
@@ -377,6 +441,14 @@ kms_ListKeys:
             - description:
               snippet_tags:
                 - kms.rust.list-keys
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/kms
+          excerpts:
+            - description:
+              snippet_tags:
+                - kms.abapv1.list_keys
   services:
     kms: {ListKeys}
 kms_ReEncrypt:
@@ -406,6 +478,14 @@ kms_ReEncrypt:
             - description:
               snippet_tags:
                 - kms.ruby.reEncryptData
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/kms
+          excerpts:
+            - description:
+              snippet_tags:
+                - kms.abapv1.re_encrypt
   services:
     kms: {ReEncrypt}
 kms_CreateAlias:
@@ -455,6 +535,14 @@ kms_CreateAlias:
               snippet_tags:
                 - python.example_code.kms.AliasManager.decl
                 - python.example_code.kms.CreateAlias
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/kms
+          excerpts:
+            - description:
+              snippet_tags:
+                - kms.abapv1.create_alias
   services:
     kms: {CreateAlias}
 kms_CreateGrant:
@@ -504,6 +592,14 @@ kms_CreateGrant:
               snippet_tags:
                 - python.example_code.kms.GrantManager.decl
                 - python.example_code.kms.CreateGrant
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/kms
+          excerpts:
+            - description:
+              snippet_tags:
+                - kms.abapv1.create_grant
   services:
     kms: {CreateGrant}
 kms_DescribeKey:
@@ -553,6 +649,14 @@ kms_DescribeKey:
               snippet_tags:
                 - python.example_code.kms.KeyManager.decl
                 - python.example_code.kms.DescribeKey
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/kms
+          excerpts:
+            - description:
+              snippet_tags:
+                - kms.abapv1.describe_key
   services:
     kms: {DescribeKey}
 kms_DisableKey:
@@ -602,6 +706,14 @@ kms_DisableKey:
               snippet_tags:
                 - python.example_code.kms.KeyManager.decl
                 - python.example_code.kms.DisableKey
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/kms
+          excerpts:
+            - description:
+              snippet_tags:
+                - kms.abapv1.disable_key
   services:
     kms: {DisableKey}
 kms_EnableKey:
@@ -651,6 +763,14 @@ kms_EnableKey:
               snippet_tags:
                 - python.example_code.kms.KeyManager.decl
                 - python.example_code.kms.EnableKey
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/kms
+          excerpts:
+            - description:
+              snippet_tags:
+                - kms.abapv1.enable_key
   services:
     kms: {EnableKey}
 kms_ScheduleKeyDeletion:
@@ -683,6 +803,14 @@ kms_ScheduleKeyDeletion:
               snippet_tags:
                 - python.example_code.kms.KeyManager.decl
                 - python.example_code.kms.ScheduleKeyDeletion
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/kms
+          excerpts:
+            - description:
+              snippet_tags:
+                - kms.abapv1.schedule_key_deletion
   services:
     kms: {ScheduleKeyDeletion}
 kms_ListAliases:
@@ -732,6 +860,14 @@ kms_ListAliases:
               snippet_tags:
                 - python.example_code.kms.AliasManager.decl
                 - python.example_code.kms.ListAliases
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/kms
+          excerpts:
+            - description:
+              snippet_tags:
+                - kms.abapv1.list_aliases
   services:
     kms: {ListAliases}
 kms_UpdateAlias:
@@ -746,6 +882,14 @@ kms_UpdateAlias:
               snippet_tags:
                 - python.example_code.kms.AliasManager.decl
                 - python.example_code.kms.UpdateAlias
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/kms
+          excerpts:
+            - description:
+              snippet_tags:
+                - kms.abapv1.update_alias
   services:
     kms: {UpdateAlias}
 kms_DeleteAlias:
@@ -778,6 +922,14 @@ kms_DeleteAlias:
               snippet_tags:
                 - python.example_code.kms.AliasManager.decl
                 - python.example_code.kms.DeleteAlias
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/kms
+          excerpts:
+            - description:
+              snippet_tags:
+                - kms.abapv1.delete_alias
   services:
     kms: {DeleteAlias}
 kms_ListGrants:
@@ -827,6 +979,14 @@ kms_ListGrants:
               snippet_tags:
                 - python.example_code.kms.GrantManager.decl
                 - python.example_code.kms.ListGrants
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/kms
+          excerpts:
+            - description:
+              snippet_tags:
+                - kms.abapv1.list_grants
   services:
     kms: {ListGrants}
 kms_RetireGrant:
@@ -841,6 +1001,14 @@ kms_RetireGrant:
               snippet_tags:
                 - python.example_code.kms.GrantManager.decl
                 - python.example_code.kms.RetireGrant
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/kms
+          excerpts:
+            - description:
+              snippet_tags:
+                - kms.abapv1.retire_grant
   services:
     kms: {RetireGrant}
 kms_RevokeGrant:
@@ -873,6 +1041,14 @@ kms_RevokeGrant:
               snippet_tags:
                 - python.example_code.kms.GrantManager.decl
                 - python.example_code.kms.RevokeGrant
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/kms
+          excerpts:
+            - description:
+              snippet_tags:
+                - kms.abapv1.revoke_grant
   services:
     kms: {RevokeGrant}
 kms_ListKeyPolicies:
@@ -896,6 +1072,14 @@ kms_ListKeyPolicies:
               snippet_tags:
                 - python.example_code.kms.KeyPolicy.decl
                 - python.example_code.kms.ListKeyPolicies
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/kms
+          excerpts:
+            - description:
+              snippet_tags:
+                - kms.abapv1.list_key_policies
   services:
     kms: {ListKeyPolicies}
 kms_GetKeyPolicy:
@@ -910,6 +1094,14 @@ kms_GetKeyPolicy:
               snippet_tags:
                 - python.example_code.kms.KeyPolicy.decl
                 - python.example_code.kms.GetKeyPolicy
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/kms
+          excerpts:
+            - description:
+              snippet_tags:
+                - kms.abapv1.get_key_policy
   services:
     kms: {GetKeyPolicy}
 kms_PutKeyPolicy:
@@ -933,6 +1125,14 @@ kms_PutKeyPolicy:
               snippet_tags:
                 - python.example_code.kms.KeyPolicy.decl
                 - python.example_code.kms.PutKeyPolicy
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/kms
+          excerpts:
+            - description:
+              snippet_tags:
+                - kms.abapv1.put_key_policy
   services:
     kms: {PutKeyPolicy}
 kms_EnableKeyRotation:
@@ -947,6 +1147,14 @@ kms_EnableKeyRotation:
               snippet_tags:
                 - python.example_code.kms.KeyManager.decl
                 - python.example_code.kms.EnableKeyRotation
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/kms
+          excerpts:
+            - description:
+              snippet_tags:
+                - kms.abapv1.enable_key_rotation
   services:
     kms: {EnableKeyRotation}
 kms_Scenario_Basics:

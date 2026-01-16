@@ -56,6 +56,25 @@ CLASS /awsex/cl_sqs_actions DEFINITION
       RETURNING
                 VALUE(oo_result) TYPE REF TO /aws1/cl_sqscreatequeueresult
       RAISING   /aws1/cx_rt_generic.
+    METHODS send_message_batch
+      IMPORTING
+                !iv_queue_url    TYPE /aws1/sqsstring
+                !it_messages     TYPE /aws1/cl_sqssendmsgbtcreqentry=>tt_sendmsgbatchreqentrylist
+      RETURNING
+                VALUE(oo_result) TYPE REF TO /aws1/cl_sqssendmsgbatchresult
+      RAISING   /aws1/cx_rt_generic.
+    METHODS delete_message
+      IMPORTING
+                !iv_queue_url      TYPE /aws1/sqsstring
+                !iv_receipt_handle TYPE /aws1/sqsstring
+      RAISING   /aws1/cx_rt_generic.
+    METHODS delete_message_batch
+      IMPORTING
+                !iv_queue_url    TYPE /aws1/sqsstring
+                !it_entries      TYPE /aws1/cl_sqsdelmsgbtcreqentry=>tt_deletemsgbatchreqentrylist
+      RETURNING
+                VALUE(oo_result) TYPE REF TO /aws1/cl_sqsdeletemsgbatchrslt
+      RAISING   /aws1/cx_rt_generic.
 ENDCLASS.
 
 
@@ -211,5 +230,80 @@ CLASS /AWSEX/CL_SQS_ACTIONS IMPLEMENTATION.
         MESSAGE 'Operation not supported.' TYPE 'E'.
     ENDTRY.
     " snippet-end:[sqs.abapv1.send_message]
+  ENDMETHOD.
+
+
+  METHOD send_message_batch.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+
+    DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
+    DATA(lo_sqs) = /aws1/cl_sqs_factory=>create( lo_session ).
+
+    " snippet-start:[sqs.abapv1.send_message_batch]
+    TRY.
+        oo_result = lo_sqs->sendmessagebatch(         " oo_result is returned for testing purposes. "
+           iv_queueurl = iv_queue_url
+           it_entries = it_messages ).
+        MESSAGE 'Messages sent to SQS queue.' TYPE 'I'.
+      CATCH /aws1/cx_sqsbtcentidsnotdist00.
+        MESSAGE 'Two or more batch entries in the request have the same ID.' TYPE 'E'.
+      CATCH /aws1/cx_sqsbatchreqtoolong.
+        MESSAGE 'The length of all the messages put together is more than the limit.' TYPE 'E'.
+      CATCH /aws1/cx_sqsemptybatchrequest.
+        MESSAGE 'The batch request does not contain any entries.' TYPE 'E'.
+      CATCH /aws1/cx_sqsinvbatchentryid.
+        MESSAGE 'The ID of a batch entry in a batch request is not valid.' TYPE 'E'.
+      CATCH /aws1/cx_sqstoomanyentriesin00.
+        MESSAGE 'The batch request contains more entries than allowed.' TYPE 'E'.
+      CATCH /aws1/cx_sqsunsupportedop.
+        MESSAGE 'Operation not supported.' TYPE 'E'.
+    ENDTRY.
+    " snippet-end:[sqs.abapv1.send_message_batch]
+  ENDMETHOD.
+
+
+  METHOD delete_message.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+
+    DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
+    DATA(lo_sqs) = /aws1/cl_sqs_factory=>create( lo_session ).
+
+    " snippet-start:[sqs.abapv1.delete_message]
+    TRY.
+        lo_sqs->deletemessage(
+           iv_queueurl = iv_queue_url
+           iv_receipthandle = iv_receipt_handle ).
+        MESSAGE 'Message deleted from SQS queue.' TYPE 'I'.
+      CATCH /aws1/cx_sqsinvalididformat.
+        MESSAGE 'The specified receipt handle is not valid.' TYPE 'E'.
+      CATCH /aws1/cx_sqsreceipthandleisinv.
+        MESSAGE 'The specified receipt handle is not valid for the current version.' TYPE 'E'.
+    ENDTRY.
+    " snippet-end:[sqs.abapv1.delete_message]
+  ENDMETHOD.
+
+
+  METHOD delete_message_batch.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+
+    DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
+    DATA(lo_sqs) = /aws1/cl_sqs_factory=>create( lo_session ).
+
+    " snippet-start:[sqs.abapv1.delete_message_batch]
+    TRY.
+        oo_result = lo_sqs->deletemessagebatch(       " oo_result is returned for testing purposes. "
+           iv_queueurl = iv_queue_url
+           it_entries = it_entries ).
+        MESSAGE 'Messages deleted from SQS queue.' TYPE 'I'.
+      CATCH /aws1/cx_sqsbtcentidsnotdist00.
+        MESSAGE 'Two or more batch entries in the request have the same ID.' TYPE 'E'.
+      CATCH /aws1/cx_sqsemptybatchrequest.
+        MESSAGE 'The batch request does not contain any entries.' TYPE 'E'.
+      CATCH /aws1/cx_sqsinvbatchentryid.
+        MESSAGE 'The ID of a batch entry in a batch request is not valid.' TYPE 'E'.
+      CATCH /aws1/cx_sqstoomanyentriesin00.
+        MESSAGE 'The batch request contains more entries than allowed.' TYPE 'E'.
+    ENDTRY.
+    " snippet-end:[sqs.abapv1.delete_message_batch]
   ENDMETHOD.
 ENDCLASS.

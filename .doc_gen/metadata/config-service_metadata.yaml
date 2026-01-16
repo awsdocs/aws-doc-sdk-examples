@@ -1,6 +1,14 @@
 # zexi 0.4.0
 config-service_PutConfigRule:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/cfs
+          excerpts:
+            - description:
+              snippet_tags:
+                - cfs.abapv1.put_config_rule
     Python:
       versions:
         - sdk_version: 3
@@ -15,6 +23,14 @@ config-service_PutConfigRule:
     config-service: {PutConfigRule}
 config-service_DescribeConfigRules:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/cfs
+          excerpts:
+            - description:
+              snippet_tags:
+                - cfs.abapv1.describe_config_rule
     Python:
       versions:
         - sdk_version: 3
@@ -29,6 +45,14 @@ config-service_DescribeConfigRules:
     config-service: {DescribeConfigRules}
 config-service_DeleteConfigRule:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/cfs
+          excerpts:
+            - description:
+              snippet_tags:
+                - cfs.abapv1.delete_config_rule
     Python:
       versions:
         - sdk_version: 3

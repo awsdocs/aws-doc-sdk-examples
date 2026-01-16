@@ -70,6 +70,14 @@ aurora_Hello:
     aurora: {DescribeDBClusters}
 aurora_DescribeDBClusterParameterGroups:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/rds
+          excerpts:
+            - description:
+              snippet_tags:
+                - rds.abapv1.descr_db_clust_param_groups
     .NET:
       versions:
         - sdk_version: 4
@@ -198,6 +206,14 @@ aurora_CreateDBClusterParameterGroup:
                 - rust.aurora.set_engine.usage
                 - rust.aurora.create_db_cluster_parameter_group.wrapper
                 - rust.aurora.set_engine.test
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/rds
+          excerpts:
+            - description:
+              snippet_tags:
+                - rds.abapv1.create_db_clust_param_group
   services:
     aurora: {CreateDBClusterParameterGroup}
 aurora_DeleteDBClusterParameterGroup:
@@ -268,6 +284,14 @@ aurora_DeleteDBClusterParameterGroup:
                 - rust.aurora.clean_up.usage
                 - rust.aurora.delete_db_cluster_parameter_group.wrapper
                 - rust.aurora.clean_up.test
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/rds
+          excerpts:
+            - description:
+              snippet_tags:
+                - rds.abapv1.delete_db_clust_param_group
   services:
     aurora: {DeleteDBClusterParameterGroup}
 aurora_DescribeDBClusterParameters:
@@ -338,6 +362,14 @@ aurora_DescribeDBClusterParameters:
                 - rust.aurora.cluster_parameters.usage
                 - rust.aurora.describe_db_cluster_parameters.wrapper
                 - rust.aurora.cluster_parameters.test
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/rds
+          excerpts:
+            - description:
+              snippet_tags:
+                - rds.abapv1.descr_db_cluster_parameters
   services:
     aurora: {DescribeDBClusterParameters}
 aurora_ModifyDBClusterParameterGroup:
@@ -408,6 +440,14 @@ aurora_ModifyDBClusterParameterGroup:
                 - rust.aurora.update_auto_increment.usage
                 - rust.aurora.modify_db_cluster_parameter_group.wrapper
                 - rust.aurora.update_auto_increment.test
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/rds
+          excerpts:
+            - description:
+              snippet_tags:
+                - rds.abapv1.modify_db_clust_param_group
   services:
     aurora: {ModifyDBClusterParameterGroup}
 aurora_DescribeDBClusters:
@@ -889,6 +929,14 @@ aurora_DescribeDBEngineVersions:
                 - rust.aurora.get_engines.usage
                 - rust.aurora.describe_db_engine_versions.wrapper
                 - rust.aurora.get_engines.test
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/rds
+          excerpts:
+            - description:
+              snippet_tags:
+                - rds.abapv1.describe_db_engine_versions
   services:
     aurora: {DescribeDBEngineVersions}
 aurora_DescribeOrderableDBInstanceOptions:
@@ -950,6 +998,14 @@ aurora_DescribeOrderableDBInstanceOptions:
                 - rust.aurora.get_instance_classes.usage
                 - rust.aurora.describe_orderable_db_instance_options.wrapper
                 - rust.aurora.get_instance_classes.test
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/rds
+          excerpts:
+            - description:
+              snippet_tags:
+                - rds.abapv1.describe_orderable_db_instance_options
   services:
     aurora: {DescribeOrderableDBInstanceOptions}
 aurora_DescribeDBInstances:

@@ -383,6 +383,14 @@ cognito-identity-provider_ConfirmSignUp:
     cognito-identity-provider: {ConfirmSignUp}
 cognito-identity-provider_ListUsers:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/cgp
+          excerpts:
+            - description:
+              snippet_tags:
+                - cgp.abapv1.list_users
     .NET:
       versions:
         - sdk_version: 3
@@ -442,6 +450,14 @@ cognito-identity-provider_ListUsers:
     cognito-identity-provider: {ListUsers}
 cognito-identity-provider_AdminInitiateAuth:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/cgp
+          excerpts:
+            - description:
+              snippet_tags:
+                - cgp.abapv1.start_sign_in
     .NET:
       versions:
         - sdk_version: 3
@@ -511,6 +527,14 @@ cognito-identity-provider_AdminInitiateAuth:
     cognito-identity-provider: {AdminInitiateAuth}
 cognito-identity-provider_AssociateSoftwareToken:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/cgp
+          excerpts:
+            - description:
+              snippet_tags:
+                - cgp.abapv1.get_mfa_secret
     .NET:
       versions:
         - sdk_version: 3
@@ -580,6 +604,14 @@ cognito-identity-provider_AssociateSoftwareToken:
     cognito-identity-provider: {AssociateSoftwareToken}
 cognito-identity-provider_VerifySoftwareToken:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/cgp
+          excerpts:
+            - description:
+              snippet_tags:
+                - cgp.abapv1.verify_mfa
     .NET:
       versions:
         - sdk_version: 3
@@ -649,6 +681,14 @@ cognito-identity-provider_VerifySoftwareToken:
     cognito-identity-provider: {VerifySoftwareToken}
 cognito-identity-provider_AdminRespondToAuthChallenge:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/cgp
+          excerpts:
+            - description:
+              snippet_tags:
+                - cgp.abapv1.respond_to_mfa_challenge
     .NET:
       versions:
         - sdk_version: 3

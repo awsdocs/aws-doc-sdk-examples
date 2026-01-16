@@ -18,6 +18,15 @@ organizations_CreatePolicy:
             - description:
               snippet_tags:
                 - python.example_code.organizations.CreatePolicy
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/org
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - org.abapv1.create_policy
   services:
     organizations: {CreatePolicy}
 organizations_CreateAccount:
@@ -79,6 +88,15 @@ organizations_ListPolicies:
             - description:
               snippet_tags:
                 - python.example_code.organizations.ListPolicies
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/org
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - org.abapv1.list_policies
   services:
     organizations: {ListPolicies}
 organizations_DescribePolicy:
@@ -92,6 +110,15 @@ organizations_DescribePolicy:
             - description:
               snippet_tags:
                 - python.example_code.organizations.DescribePolicy
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/org
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - org.abapv1.describe_policy
   services:
     organizations: {DescribePolicy}
 organizations_AttachPolicy:
@@ -114,6 +141,15 @@ organizations_AttachPolicy:
             - description:
               snippet_tags:
                 - python.example_code.organizations.AttachPolicy
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/org
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - org.abapv1.attach_policy
   services:
     organizations: {AttachPolicy}
 organizations_DetachPolicy:
@@ -136,6 +172,15 @@ organizations_DetachPolicy:
             - description:
               snippet_tags:
                 - python.example_code.organizations.DetachPolicy
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/org
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - org.abapv1.detach_policy
   services:
     organizations: {DetachPolicy}
 organizations_DeletePolicy:
@@ -158,6 +203,15 @@ organizations_DeletePolicy:
             - description:
               snippet_tags:
                 - python.example_code.organizations.DeletePolicy
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/org
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - org.abapv1.delete_policy
   services:
     organizations: {DeletePolicy}
 organizations_DeleteOrganizationalUnit:

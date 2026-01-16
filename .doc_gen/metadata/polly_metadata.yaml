@@ -44,6 +44,14 @@ polly_DescribeVoices:
             - description:
               snippet_tags:
                 - polly.ruby.describeVoices
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ply
+          excerpts:
+            - description:
+              snippet_tags:
+                - ply.abapv1.describe_voices
   services:
     polly: {DescribeVoices}
 polly_GetLexicon:
@@ -67,6 +75,14 @@ polly_GetLexicon:
               snippet_tags:
                 - python.example_code.polly.helper.PollyWrapper
                 - python.example_code.polly.GetLexicon
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ply
+          excerpts:
+            - description:
+              snippet_tags:
+                - ply.abapv1.get_lexicon
   services:
     polly: {GetLexicon}
 polly_ListLexicons:
@@ -114,6 +130,14 @@ polly_ListLexicons:
             - description:
               snippet_tags:
                 - polly.ruby.listLexicons
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ply
+          excerpts:
+            - description:
+              snippet_tags:
+                - ply.abapv1.list_lexicons
   services:
     polly: {ListLexicons}
 polly_PutLexicon:
@@ -145,6 +169,14 @@ polly_PutLexicon:
             - description:
               snippet_tags:
                 - polly.rust.put-lexicon
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ply
+          excerpts:
+            - description:
+              snippet_tags:
+                - ply.abapv1.put_lexicon
   services:
     polly: {PutLexicon}
 polly_SynthesizeSpeech:
@@ -195,6 +227,14 @@ polly_SynthesizeSpeech:
             - description:
               snippet_tags:
                 - polly.rust.synthesize-speech
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ply
+          excerpts:
+            - description:
+              snippet_tags:
+                - ply.abapv1.synthesize_speech
   services:
     polly: {SynthesizeSpeech}
 polly_GetSpeechSynthesisTask:
@@ -209,6 +249,14 @@ polly_GetSpeechSynthesisTask:
               snippet_tags:
                 - python.example_code.polly.helper.PollyWrapper
                 - python.example_code.polly.GetSpeechSynthesisTask
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ply
+          excerpts:
+            - description:
+              snippet_tags:
+                - ply.abapv1.get_speech_synthesis_task
   services:
     polly: {GetSpeechSynthesisTask}
 polly_StartSpeechSynthesisTask:
@@ -223,8 +271,28 @@ polly_StartSpeechSynthesisTask:
               snippet_tags:
                 - python.example_code.polly.helper.PollyWrapper
                 - python.example_code.polly.StartSpeechSynthesisTask
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ply
+          excerpts:
+            - description:
+              snippet_tags:
+                - ply.abapv1.start_speech_synthesis_task
   services:
     polly: {StartSpeechSynthesisTask}
+polly_ListSpeechSynthesisTasks:
+  languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ply
+          excerpts:
+            - description:
+              snippet_tags:
+                - ply.abapv1.list_speech_synthesis_tasks
+  services:
+    polly: {ListSpeechSynthesisTasks}
 polly_DeleteLexicon:
   languages:
     .NET:
@@ -236,6 +304,14 @@ polly_DeleteLexicon:
             - description:
               snippet_tags:
                 - Polly.dotnetv3.DeleteLexiconExample
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ply
+          excerpts:
+            - description:
+              snippet_tags:
+                - ply.abapv1.delete_lexicon
   services:
     polly: {DeleteLexicon}
 polly_LipSync:

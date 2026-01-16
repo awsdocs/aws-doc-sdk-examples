@@ -69,6 +69,14 @@ auto-scaling_Hello:
     auto-scaling: {DescribeAutoScalingGroups}
 auto-scaling_CreateAutoScalingGroup:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/asc
+          excerpts:
+            - description:
+              snippet_tags:
+                - asc.abapv1.create_group
     .NET:
       versions:
         - sdk_version: 4
@@ -133,6 +141,14 @@ auto-scaling_CreateAutoScalingGroup:
     auto-scaling: {CreateAutoScalingGroup}
 auto-scaling_DeleteAutoScalingGroup:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/asc
+          excerpts:
+            - description:
+              snippet_tags:
+                - asc.abapv1.delete_group
     .NET:
       versions:
         - sdk_version: 3
@@ -201,6 +217,14 @@ auto-scaling_DeleteAutoScalingGroup:
     auto-scaling: {DeleteAutoScalingGroup}
 auto-scaling_DescribeAutoScalingGroups:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/asc
+          excerpts:
+            - description:
+              snippet_tags:
+                - asc.abapv1.describe_group
     .NET:
       versions:
         - sdk_version: 4
@@ -264,6 +288,14 @@ auto-scaling_DescribeAutoScalingGroups:
     auto-scaling: {DescribeAutoScalingGroups}
 auto-scaling_UpdateAutoScalingGroup:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/asc
+          excerpts:
+            - description:
+              snippet_tags:
+                - asc.abapv1.update_group
     Kotlin:
       versions:
         - sdk_version: 1
@@ -328,6 +360,14 @@ auto-scaling_UpdateAutoScalingGroup:
     auto-scaling: {UpdateAutoScalingGroup}
 auto-scaling_TerminateInstanceInAutoScalingGroup:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/asc
+          excerpts:
+            - description:
+              snippet_tags:
+                - asc.abapv1.terminate_instance
     Kotlin:
       versions:
         - sdk_version: 1
@@ -395,6 +435,14 @@ auto-scaling_TerminateInstanceInAutoScalingGroup:
     auto-scaling: {TerminateInstanceInAutoScalingGroup}
 auto-scaling_SetDesiredCapacity:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/asc
+          excerpts:
+            - description:
+              snippet_tags:
+                - asc.abapv1.set_desired_capacity
     Kotlin:
       versions:
         - sdk_version: 1
@@ -461,6 +509,14 @@ auto-scaling_SetDesiredCapacity:
     auto-scaling: {SetDesiredCapacity}
 auto-scaling_DescribeAutoScalingInstances:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/asc
+          excerpts:
+            - description:
+              snippet_tags:
+                - asc.abapv1.describe_instances
     Kotlin:
       versions:
         - sdk_version: 1
@@ -527,6 +583,14 @@ auto-scaling_DescribeAutoScalingInstances:
     auto-scaling: {DescribeAutoScalingInstances}
 auto-scaling_DescribeScalingActivities:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/asc
+          excerpts:
+            - description:
+              snippet_tags:
+                - asc.abapv1.describe_scaling_activities
     Kotlin:
       versions:
         - sdk_version: 1
@@ -593,6 +657,14 @@ auto-scaling_DescribeScalingActivities:
     auto-scaling: {DescribeScalingActivities}
 auto-scaling_EnableMetricsCollection:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/asc
+          excerpts:
+            - description:
+              snippet_tags:
+                - asc.abapv1.enable_metrics
     Kotlin:
       versions:
         - sdk_version: 1
@@ -659,6 +731,14 @@ auto-scaling_EnableMetricsCollection:
     auto-scaling: {EnableMetricsCollection}
 auto-scaling_DisableMetricsCollection:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/asc
+          excerpts:
+            - description:
+              snippet_tags:
+                - asc.abapv1.disable_metrics
     Kotlin:
       versions:
         - sdk_version: 1

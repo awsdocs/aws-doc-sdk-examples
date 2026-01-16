@@ -16,6 +16,14 @@ healthlake_CreateFHIRDatastore:
                 FHIR-enabled HealthLake data store.
               snippet_tags:
                 - python.example_code.healthlake.CreateFHIRDatastore.smart
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/hll
+          excerpts:
+            - description:
+              snippet_tags:
+                - hll.abapv1.create_fhir_datastore
   services:
     healthlake: {CreateFHIRDatastore}
 healthlake_DescribeFHIRDatastore:
@@ -30,6 +38,14 @@ healthlake_DescribeFHIRDatastore:
               snippet_tags:
                 - python.example_code.healthlake.HealthLakeWrapper.decl
                 - python.example_code.healthlake.DescribeFHIRDatastore
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/hll
+          excerpts:
+            - description:
+              snippet_tags:
+                - hll.abapv1.describe_fhir_datastore
   services:
     healthlake: {DescribeFHIRDatastore}
 healthlake_ListFHIRDatastores:
@@ -44,6 +60,14 @@ healthlake_ListFHIRDatastores:
               snippet_tags:
                 - python.example_code.healthlake.HealthLakeWrapper.decl
                 - python.example_code.healthlake.ListFHIRDatastores
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/hll
+          excerpts:
+            - description:
+              snippet_tags:
+                - hll.abapv1.list_fhir_datastores
   services:
     healthlake: {ListFHIRDatastores}
 healthlake_DeleteFHIRDatastore:
@@ -58,6 +82,14 @@ healthlake_DeleteFHIRDatastore:
               snippet_tags:
                 - python.example_code.healthlake.HealthLakeWrapper.decl
                 - python.example_code.healthlake.DeleteFHIRDatastore
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/hll
+          excerpts:
+            - description:
+              snippet_tags:
+                - hll.abapv1.delete_fhir_datastore
   services:
     healthlake: {DeleteFHIRDatastore}
 healthlake_StartFHIRImportJob:
@@ -72,6 +104,14 @@ healthlake_StartFHIRImportJob:
               snippet_tags:
                 - python.example_code.healthlake.HealthLakeWrapper.decl
                 - python.example_code.healthlake.StartFHIRImportJob
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/hll
+          excerpts:
+            - description:
+              snippet_tags:
+                - hll.abapv1.start_fhir_import_job
   services:
     healthlake: {StartFHIRImportJob}
 healthlake_DescribeFHIRImportJob:
@@ -86,6 +126,14 @@ healthlake_DescribeFHIRImportJob:
               snippet_tags:
                 - python.example_code.healthlake.HealthLakeWrapper.decl
                 - python.example_code.healthlake.DescribeFHIRImportJob
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/hll
+          excerpts:
+            - description:
+              snippet_tags:
+                - hll.abapv1.describe_fhir_import_job
   services:
     healthlake: {DescribeFHIRImportJob}
 healthlake_ListFHIRImportJobs:
@@ -100,6 +148,14 @@ healthlake_ListFHIRImportJobs:
               snippet_tags:
                 - python.example_code.healthlake.HealthLakeWrapper.decl
                 - python.example_code.healthlake.ListFHIRImportJobs
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/hll
+          excerpts:
+            - description:
+              snippet_tags:
+                - hll.abapv1.list_fhir_import_jobs
   services:
     healthlake: {ListFHIRImportJobs}
 healthlake_StartFHIRExportJob:
@@ -114,6 +170,14 @@ healthlake_StartFHIRExportJob:
               snippet_tags:
                 - python.example_code.healthlake.HealthLakeWrapper.decl
                 - python.example_code.healthlake.StartFHIRExportJob
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/hll
+          excerpts:
+            - description:
+              snippet_tags:
+                - hll.abapv1.start_fhir_export_job
   services:
     healthlake: {StartFHIRExportJob}
 healthlake_DescribeFHIRExportJob:
@@ -128,6 +192,14 @@ healthlake_DescribeFHIRExportJob:
               snippet_tags:
                 - python.example_code.healthlake.HealthLakeWrapper.decl
                 - python.example_code.healthlake.DescribeFHIRExportJob
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/hll
+          excerpts:
+            - description:
+              snippet_tags:
+                - hll.abapv1.describe_fhir_export_job
   services:
     healthlake: {DescribeFHIRExportJob}
 healthlake_ListFHIRExportJobs:
@@ -142,6 +214,14 @@ healthlake_ListFHIRExportJobs:
               snippet_tags:
                 - python.example_code.healthlake.HealthLakeWrapper.decl
                 - python.example_code.healthlake.ListFHIRExportJobs
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/hll
+          excerpts:
+            - description:
+              snippet_tags:
+                - hll.abapv1.list_fhir_export_jobs
   services:
     healthlake: {ListFHIRExportJobs}
 healthlake_TagResource:
@@ -156,6 +236,14 @@ healthlake_TagResource:
               snippet_tags:
                 - python.example_code.healthlake.HealthLakeWrapper.decl
                 - python.example_code.healthlake.TagResource
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/hll
+          excerpts:
+            - description:
+              snippet_tags:
+                - hll.abapv1.tag_resource
   services:
     healthlake: {TagResource}
 healthlake_ListTagsForResource:
@@ -170,6 +258,14 @@ healthlake_ListTagsForResource:
               snippet_tags:
                 - python.example_code.healthlake.HealthLakeWrapper.decl
                 - python.example_code.healthlake.ListTagsForResource
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/hll
+          excerpts:
+            - description:
+              snippet_tags:
+                - hll.abapv1.list_tags_for_resource
   services:
     healthlake: {ListTagsForResource}
 healthlake_UntagResource:
@@ -184,5 +280,13 @@ healthlake_UntagResource:
               snippet_tags:
                 - python.example_code.healthlake.HealthLakeWrapper.decl
                 - python.example_code.healthlake.UntagResource
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/hll
+          excerpts:
+            - description:
+              snippet_tags:
+                - hll.abapv1.untag_resource
   services:
     healthlake: {UntagResource}

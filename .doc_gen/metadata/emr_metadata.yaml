@@ -1,6 +1,14 @@
 # zexi 0.4.0
 emr_RunJobFlow:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/emr
+          excerpts:
+            - description:
+              snippet_tags:
+                - emr.abapv1.run_job_flow
     Python:
       versions:
         - sdk_version: 3
@@ -14,6 +22,14 @@ emr_RunJobFlow:
     emr: {RunJobFlow}
 emr_DescribeCluster:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/emr
+          excerpts:
+            - description:
+              snippet_tags:
+                - emr.abapv1.describe_cluster
     Python:
       versions:
         - sdk_version: 3
@@ -27,6 +43,14 @@ emr_DescribeCluster:
     emr: {DescribeCluster}
 emr_TerminateJobFlows:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/emr
+          excerpts:
+            - description:
+              snippet_tags:
+                - emr.abapv1.terminate_job_flows
     Python:
       versions:
         - sdk_version: 3
@@ -40,6 +64,14 @@ emr_TerminateJobFlows:
     emr: {TerminateJobFlows}
 emr_AddJobFlowSteps:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/emr
+          excerpts:
+            - description:
+              snippet_tags:
+                - emr.abapv1.add_job_flow_steps
     Python:
       versions:
         - sdk_version: 3
@@ -57,6 +89,14 @@ emr_AddJobFlowSteps:
     emr: {AddJobFlowSteps}
 emr_ListSteps:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/emr
+          excerpts:
+            - description:
+              snippet_tags:
+                - emr.abapv1.list_steps
     Python:
       versions:
         - sdk_version: 3
@@ -70,6 +110,14 @@ emr_ListSteps:
     emr: {ListSteps}
 emr_DescribeStep:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/emr
+          excerpts:
+            - description:
+              snippet_tags:
+                - emr.abapv1.describe_step
     Python:
       versions:
         - sdk_version: 3

@@ -1176,6 +1176,14 @@ ec2_AuthorizeSecurityGroupIngress:
             - description:
               snippet_tags:
                 - javascript.v3.ec2.actions.AuthorizeSecurityGroupIngress
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.abapv1.authorize_sec_group_ingress
     Bash:
       versions:
         - sdk_version: 2
@@ -1740,6 +1748,14 @@ ec2_DescribeRouteTables:
               snippet_tags:
                 - python.example_code.ec2.VpcWrapper.decl
                 - python.example_code.ec2.DescribeRouteTables
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.abapv1.describe_route_tables
   services:
     ec2: {DescribeRouteTables}
 ec2_DescribeRegions:
@@ -1935,6 +1951,14 @@ ec2_DescribeImages:
             - description:
               snippet_tags:
                 - javascript.v3.ec2.actions.DescribeImages
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.abapv1.describe_images
     Rust:
       versions:
         - sdk_version: 1
@@ -2017,6 +2041,14 @@ ec2_DescribeInstanceTypes:
             - description:
               snippet_tags:
                 - javascript.v3.ec2.actions.DescribeInstanceTypes
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.abapv1.describe_instance_types
     Bash:
       versions:
         - sdk_version: 2
@@ -2189,6 +2221,14 @@ ec2_CreateVpc:
               snippet_tags:
                 - python.example_code.ec2.VpcWrapper.decl
                 - python.example_code.ec2.CreateVpc
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.abapv1.create_vpc
   services:
     ec2: {CreateVpc}
 ec2_DeleteVpc:
@@ -2211,6 +2251,14 @@ ec2_DeleteVpc:
               snippet_tags:
                 - python.example_code.ec2.VpcWrapper.decl
                 - python.example_code.ec2.DeleteVpc
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.abapv1.delete_vpc
   services:
     ec2: {DeleteVpc}
 ec2_CreateVpcEndpoint:
@@ -2233,6 +2281,14 @@ ec2_CreateVpcEndpoint:
               snippet_tags:
                 - python.example_code.ec2.VpcWrapper.decl
                 - python.example_code.ec2.CreateVpcEndpoint
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.abapv1.create_vpc_endpoint
   services:
     ec2: {CreateVpcEndpoint}
 ec2_DeleteVpcEndpoints:
@@ -2255,6 +2311,14 @@ ec2_DeleteVpcEndpoints:
               snippet_tags:
                 - python.example_code.ec2.VpcWrapper.decl
                 - python.example_code.ec2.DeleteVpcEndpoints
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.abapv1.delete_vpc_endpoints
   services:
     ec2: {DeleteVpcEndpoints}
 ec2_DescribeIamInstanceProfileAssociations:

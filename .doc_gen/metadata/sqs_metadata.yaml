@@ -592,6 +592,15 @@ sqs_SendMessageBatch:
             - description:
               snippet_tags:
                 - ruby.example_code.sqs.SendMessageBatch
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/sqs
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - sqs.abapv1.send_message_batch
   services:
     sqs: {SendMessageBatch}
 sqs_ReceiveMessage:
@@ -754,6 +763,15 @@ sqs_DeleteMessage:
             - description:
               snippet_tags:
                 - python.example_code.sqs.DeleteMessage
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/sqs
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - sqs.abapv1.delete_message
     JavaScript:
       versions:
         - sdk_version: 3
@@ -812,6 +830,15 @@ sqs_DeleteMessageBatch:
             - description:
               snippet_tags:
                 - python.example_code.sqs.DeleteMessageBatch
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/sqs
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - sqs.abapv1.delete_message_batch
     C++:
       versions:
         - sdk_version: 1

@@ -358,6 +358,14 @@ rds_RebootDBInstance:
     rds: {RebootDBInstance}
 rds_DescribeDBParameterGroups:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/rds
+          excerpts:
+            - description:
+              snippet_tags:
+                - rds.abapv1.describe_db_parameter_groups
     Java:
       versions:
         - sdk_version: 2
@@ -429,6 +437,14 @@ rds_DescribeDBParameterGroups:
     rds: {DescribeDBParameterGroups}
 rds_CreateDBParameterGroup:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/rds
+          excerpts:
+            - description:
+              snippet_tags:
+                - rds.abapv1.create_db_parameter_group
     Java:
       versions:
         - sdk_version: 2
@@ -490,6 +506,14 @@ rds_CreateDBParameterGroup:
     rds: {CreateDBParameterGroup}
 rds_DeleteDBParameterGroup:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/rds
+          excerpts:
+            - description:
+              snippet_tags:
+                - rds.abapv1.delete_db_parameter_group
     Java:
       versions:
         - sdk_version: 2
@@ -551,6 +575,14 @@ rds_DeleteDBParameterGroup:
     rds: {DeleteDBParameterGroup}
 rds_DescribeDBParameters:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/rds
+          excerpts:
+            - description:
+              snippet_tags:
+                - rds.abapv1.describe_db_parameters
     Java:
       versions:
         - sdk_version: 2
@@ -621,6 +653,14 @@ rds_DescribeDBParameters:
     rds: {DescribeDBParameters}
 rds_ModifyDBParameterGroup:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/rds
+          excerpts:
+            - description:
+              snippet_tags:
+                - rds.abapv1.modify_db_parameter_group
     Java:
       versions:
         - sdk_version: 2
@@ -821,6 +861,14 @@ rds_DescribeDBSnapshots:
     rds: {DescribeDBSnapshots}
 rds_DescribeDBEngineVersions:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/rds
+          excerpts:
+            - description:
+              snippet_tags:
+                - rds.abapv1.describe_db_engine_versions
     Java:
       versions:
         - sdk_version: 2
@@ -882,6 +930,14 @@ rds_DescribeDBEngineVersions:
     rds: {DescribeDBEngineVersions}
 rds_DescribeOrderableDBInstanceOptions:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/rds
+          excerpts:
+            - description:
+              snippet_tags:
+                - rds.abapv1.describe_orderable_db_instance_options
     .NET:
       versions:
         - sdk_version: 3

@@ -60,6 +60,14 @@ controltower_ListBaselines:
             - description:
               snippet_tags:
                 - ControlTower.dotnetv4.ListBaselines
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ctt
+          excerpts:
+            - description:
+              snippet_tags:
+                - ctt.abapv1.list_baselines
   services:
     controltower: {ListBaselines}
 
@@ -91,6 +99,14 @@ controltower_ListEnabledBaselines:
             - description:
               snippet_tags:
                 - ControlTower.dotnetv4.ListEnabledBaselines
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ctt
+          excerpts:
+            - description:
+              snippet_tags:
+                - ctt.abapv1.list_enabled_baselines
   services:
     controltower: {ListEnabledBaselines}
 
@@ -122,6 +138,14 @@ controltower_EnableBaseline:
             - description:
               snippet_tags:
                 - ControlTower.dotnetv4.EnableBaseline
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ctt
+          excerpts:
+            - description:
+              snippet_tags:
+                - ctt.abapv1.enable_baseline
   services:
     controltower: {EnableBaseline}
 
@@ -153,6 +177,14 @@ controltower_ResetEnabledBaseline:
             - description:
               snippet_tags:
                 - ControlTower.dotnetv4.ResetEnabledBaseline
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ctt
+          excerpts:
+            - description:
+              snippet_tags:
+                - ctt.abapv1.reset_enabled_baseline
   services:
     controltower: {ResetEnabledBaseline}
 
@@ -184,6 +216,14 @@ controltower_DisableBaseline:
             - description:
               snippet_tags:
                 - ControlTower.dotnetv4.DisableBaseline
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ctt
+          excerpts:
+            - description:
+              snippet_tags:
+                - ctt.abapv1.disable_baseline
   services:
     controltower: {DisableBaseline}
 
@@ -215,6 +255,14 @@ controltower_ListEnabledControls:
             - description:
               snippet_tags:
                 - ControlTower.dotnetv4.ListEnabledControls
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ctt
+          excerpts:
+            - description:
+              snippet_tags:
+                - ctt.abapv1.list_enabled_controls
   services:
     controltower: {ListEnabledControls}
 
@@ -246,6 +294,14 @@ controltower_EnableControl:
             - description:
               snippet_tags:
                 - ControlTower.dotnetv4.EnableControl
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ctt
+          excerpts:
+            - description:
+              snippet_tags:
+                - ctt.abapv1.enable_control
   services:
     controltower: {EnableControl}
 
@@ -277,6 +333,14 @@ controltower_GetControlOperation:
             - description:
               snippet_tags:
                 - ControlTower.dotnetv4.GetControlOperation
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ctt
+          excerpts:
+            - description:
+              snippet_tags:
+                - ctt.abapv1.get_control_operation
   services:
     controltower: {GetControlOperation}
 
@@ -308,6 +372,14 @@ controltower_DisableControl:
             - description:
               snippet_tags:
                 - ControlTower.dotnetv4.DisableControl
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ctt
+          excerpts:
+            - description:
+              snippet_tags:
+                - ctt.abapv1.disable_control
   services:
     controltower: {DisableControl}
 
@@ -339,6 +411,14 @@ controltower_ListLandingZones:
             - description:
               snippet_tags:
                 - ControlTower.dotnetv4.ListLandingZones
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ctt
+          excerpts:
+            - description:
+              snippet_tags:
+                - ctt.abapv1.list_landing_zones
   services:
     controltower: {ListLandingZones}
 
@@ -370,6 +450,14 @@ controltower_GetBaselineOperation:
             - description:
               snippet_tags:
                 - ControlTower.dotnetv4.GetBaselineOperation
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ctt
+          excerpts:
+            - description:
+              snippet_tags:
+                - ctt.abapv1.get_baseline_operation
   services:
     controltower: {GetBaselineOperation}
 

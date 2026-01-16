@@ -21,6 +21,14 @@ api-gateway_CreateDeployment:
                 - python.example_code.api-gateway.ApiGatewayToService.class
                 - python.example_code.api-gateway.CreateDeployment
                 - python.example_code.api-gateway.Helper.ApiUrl
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/agw
+          excerpts:
+            - description:
+              snippet_tags:
+                - agw.abapv1.create_deployment
   services:
     api-gateway: {CreateDeployment}
 api-gateway_CreateResource:
@@ -35,6 +43,14 @@ api-gateway_CreateResource:
               snippet_tags:
                 - python.example_code.api-gateway.ApiGatewayToService.class
                 - python.example_code.api-gateway.CreateResource
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/agw
+          excerpts:
+            - description:
+              snippet_tags:
+                - agw.abapv1.create_resource
   services:
     api-gateway: {CreateResource}
 api-gateway_CreateRestApi:
@@ -58,6 +74,14 @@ api-gateway_CreateRestApi:
               snippet_tags:
                 - python.example_code.api-gateway.ApiGatewayToService.class
                 - python.example_code.api-gateway.CreateRestApi
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/agw
+          excerpts:
+            - description:
+              snippet_tags:
+                - agw.abapv1.create_rest_api
   services:
     api-gateway: {CreateRestApi}
 api-gateway_DeleteDeployment:
@@ -94,6 +118,14 @@ api-gateway_DeleteRestApi:
               snippet_tags:
                 - python.example_code.api-gateway.ApiGatewayToService.class
                 - python.example_code.api-gateway.DeleteRestApi
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/agw
+          excerpts:
+            - description:
+              snippet_tags:
+                - agw.abapv1.delete_rest_api
   services:
     api-gateway: {DeleteRestApi}
 api-gateway_GetBasePathMapping:
@@ -121,6 +153,14 @@ api-gateway_GetResources:
               snippet_tags:
                 - python.example_code.api-gateway.ApiGatewayToService.class
                 - python.example_code.api-gateway.CreateRestApi
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/agw
+          excerpts:
+            - description:
+              snippet_tags:
+                - agw.abapv1.get_resources
   services:
     api-gateway: {GetResources}
 api-gateway_GetRestApis:
@@ -144,6 +184,14 @@ api-gateway_GetRestApis:
             - description: Displays the Amazon API Gateway REST APIs in the Region.
               snippet_tags:
                 - apigateway.rust.get_rest_apis
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/agw
+          excerpts:
+            - description:
+              snippet_tags:
+                - agw.abapv1.get_rest_apis
   services:
     api-gateway: {GetRestApis}
 api-gateway_ListBasePathMappings:
@@ -171,6 +219,14 @@ api-gateway_PutIntegration:
               snippet_tags:
                 - python.example_code.api-gateway.ApiGatewayToService.class
                 - python.example_code.api-gateway.PutIntegration
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/agw
+          excerpts:
+            - description:
+              snippet_tags:
+                - agw.abapv1.put_integration
   services:
     api-gateway: {PutIntegration}
 api-gateway_PutIntegrationResponse:
@@ -185,6 +241,14 @@ api-gateway_PutIntegrationResponse:
               snippet_tags:
                 - python.example_code.api-gateway.ApiGatewayToService.class
                 - python.example_code.api-gateway.PutIntegration
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/agw
+          excerpts:
+            - description:
+              snippet_tags:
+                - agw.abapv1.put_integration_response
   services:
     api-gateway: {PutIntegrationResponse}
 api-gateway_PutMethod:
@@ -199,6 +263,14 @@ api-gateway_PutMethod:
               snippet_tags:
                 - python.example_code.api-gateway.ApiGatewayToService.class
                 - python.example_code.api-gateway.PutIntegration
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/agw
+          excerpts:
+            - description:
+              snippet_tags:
+                - agw.abapv1.put_method
   services:
     api-gateway: {PutMethod}
 api-gateway_PutMethodResponse:
@@ -213,6 +285,14 @@ api-gateway_PutMethodResponse:
               snippet_tags:
                 - python.example_code.api-gateway.ApiGatewayToService.class
                 - python.example_code.api-gateway.PutIntegration
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/agw
+          excerpts:
+            - description:
+              snippet_tags:
+                - agw.abapv1.put_method_response
   services:
     api-gateway: {PutMethodResponse}
 api-gateway_UpdateBasePathMapping:

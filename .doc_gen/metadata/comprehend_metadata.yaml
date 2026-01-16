@@ -20,6 +20,14 @@ comprehend_CreateDocumentClassifier:
               snippet_tags:
                 - python.example_code.comprehend.ComprehendClassifier
                 - python.example_code.comprehend.CreateDocumentClassifier
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/cpd
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpd.abapv1.create_document_classifier
   services:
     comprehend: {CreateDocumentClassifier}
 comprehend_DescribeDocumentClassifier:
@@ -34,6 +42,14 @@ comprehend_DescribeDocumentClassifier:
               snippet_tags:
                 - python.example_code.comprehend.ComprehendClassifier
                 - python.example_code.comprehend.DescribeDocumentClassifier
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/cpd
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpd.abapv1.describe_document_classifier
   services:
     comprehend: {DescribeDocumentClassifier}
 comprehend_ListDocumentClassifiers:
@@ -48,6 +64,14 @@ comprehend_ListDocumentClassifiers:
               snippet_tags:
                 - python.example_code.comprehend.ComprehendClassifier
                 - python.example_code.comprehend.ListDocumentClassifiers
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/cpd
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpd.abapv1.list_document_classifiers
   services:
     comprehend: {ListDocumentClassifiers}
 comprehend_DeleteDocumentClassifier:
@@ -62,6 +86,14 @@ comprehend_DeleteDocumentClassifier:
               snippet_tags:
                 - python.example_code.comprehend.ComprehendClassifier
                 - python.example_code.comprehend.DeleteDocumentClassifier
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/cpd
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpd.abapv1.delete_document_classifier
   services:
     comprehend: {DeleteDocumentClassifier}
 comprehend_StartDocumentClassificationJob:
@@ -76,6 +108,14 @@ comprehend_StartDocumentClassificationJob:
               snippet_tags:
                 - python.example_code.comprehend.ComprehendClassifier
                 - python.example_code.comprehend.StartDocumentClassificationJob
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/cpd
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpd.abapv1.start_document_classification_job
   services:
     comprehend: {StartDocumentClassificationJob}
 comprehend_DescribeDocumentClassificationJob:
@@ -90,6 +130,14 @@ comprehend_DescribeDocumentClassificationJob:
               snippet_tags:
                 - python.example_code.comprehend.ComprehendClassifier
                 - python.example_code.comprehend.DescribeDocumentClassificationJob
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/cpd
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpd.abapv1.describe_document_classification_job
   services:
     comprehend: {DescribeDocumentClassificationJob}
 comprehend_ListDocumentClassificationJobs:
@@ -104,6 +152,14 @@ comprehend_ListDocumentClassificationJobs:
               snippet_tags:
                 - python.example_code.comprehend.ComprehendClassifier
                 - python.example_code.comprehend.ListDocumentClassificationJobs
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/cpd
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpd.abapv1.list_document_classification_jobs
   services:
     comprehend: {ListDocumentClassificationJobs}
 comprehend_Usage_ComprehendClassifier:
@@ -172,6 +228,14 @@ comprehend_DetectDominantLanguage:
               snippet_tags:
                 - python.example_code.comprehend.ComprehendDetect
                 - python.example_code.comprehend.DetectDominantLanguage
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/cpd
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpd.abapv1.detect_dominant_language
   services:
     comprehend: {DetectDominantLanguage}
 comprehend_DetectEntities:
@@ -204,6 +268,14 @@ comprehend_DetectEntities:
               snippet_tags:
                 - python.example_code.comprehend.ComprehendDetect
                 - python.example_code.comprehend.DetectEntities
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/cpd
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpd.abapv1.detect_entities
   services:
     comprehend: {DetectEntities}
 comprehend_DetectKeyPhrases:
@@ -236,6 +308,14 @@ comprehend_DetectKeyPhrases:
               snippet_tags:
                 - python.example_code.comprehend.ComprehendDetect
                 - python.example_code.comprehend.DetectKeyPhrases
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/cpd
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpd.abapv1.detect_key_phrases
   services:
     comprehend: {DetectKeyPhrases}
 comprehend_DetectPiiEntities:
@@ -259,6 +339,14 @@ comprehend_DetectPiiEntities:
               snippet_tags:
                 - python.example_code.comprehend.ComprehendDetect
                 - python.example_code.comprehend.DetectPiiEntities
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/cpd
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpd.abapv1.detect_pii_entities
   services:
     comprehend: {DetectPiiEntities}
 comprehend_DetectSentiment:
@@ -331,6 +419,14 @@ comprehend_DetectSyntax:
               snippet_tags:
                 - python.example_code.comprehend.ComprehendDetect
                 - python.example_code.comprehend.DetectSyntax
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/cpd
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpd.abapv1.detect_syntax
   services:
     comprehend: {DetectSyntax}
 comprehend_Usage_DetectApis:
@@ -385,6 +481,14 @@ comprehend_StartTopicsDetectionJob:
               snippet_tags:
                 - python.example_code.comprehend.ComprehendTopicModeler
                 - python.example_code.comprehend.StartTopicsDetectionJob
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/cpd
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpd.abapv1.start_topics_detection_job
   services:
     comprehend: {StartTopicsDetectionJob}
 comprehend_DescribeTopicsDetectionJob:
@@ -399,6 +503,14 @@ comprehend_DescribeTopicsDetectionJob:
               snippet_tags:
                 - python.example_code.comprehend.ComprehendTopicModeler
                 - python.example_code.comprehend.DescribeTopicsDetectionJob
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/cpd
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpd.abapv1.describe_topics_detection_job
   services:
     comprehend: {DescribeTopicsDetectionJob}
 comprehend_ListTopicsDetectionJobs:
@@ -413,6 +525,14 @@ comprehend_ListTopicsDetectionJobs:
               snippet_tags:
                 - python.example_code.comprehend.ComprehendTopicModeler
                 - python.example_code.comprehend.ListTopicsDetectionJobs
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/cpd
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpd.abapv1.list_topics_detection_jobs
   services:
     comprehend: {ListTopicsDetectionJobs}
 comprehend_Usage_TopicModeler:

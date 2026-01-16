@@ -32,6 +32,14 @@ rekognition_DescribeCollection:
             - description:
               snippet_tags:
                 - Rekognition.dotnetv3.DescribeCollectionExample
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/rek
+          excerpts:
+            - description:
+              snippet_tags:
+                - rek.abapv1.describecollection
     Kotlin:
       versions:
         - sdk_version: 1
@@ -76,6 +84,14 @@ rekognition_DeleteCollection:
             - description:
               snippet_tags:
                 - Rekognition.dotnetv3.DeleteCollectionExample
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/rek
+          excerpts:
+            - description:
+              snippet_tags:
+                - rek.abapv1.deletecollection
     Kotlin:
       versions:
         - sdk_version: 1
@@ -120,6 +136,14 @@ rekognition_IndexFaces:
             - description:
               snippet_tags:
                 - Rekognition.dotnetv3.AddFacesExample
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/rek
+          excerpts:
+            - description:
+              snippet_tags:
+                - rek.abapv1.indexfaces
     Kotlin:
       versions:
         - sdk_version: 1
@@ -164,6 +188,14 @@ rekognition_ListFaces:
             - description:
               snippet_tags:
                 - Rekognition.dotnetv3.ListFacesExample
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/rek
+          excerpts:
+            - description:
+              snippet_tags:
+                - rek.abapv1.listfaces
     Kotlin:
       versions:
         - sdk_version: 1
@@ -208,6 +240,14 @@ rekognition_SearchFacesByImage:
             - description:
               snippet_tags:
                 - Rekognition.dotnetv3.SearchFacesMatchingImageExample
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/rek
+          excerpts:
+            - description:
+              snippet_tags:
+                - rek.abapv1.searchfacesbyimage
     Java:
       versions:
         - sdk_version: 2
@@ -243,6 +283,14 @@ rekognition_SearchFaces:
             - description:
               snippet_tags:
                 - Rekognition.dotnetv3.SearchFacesMatchingIdExample
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/rek
+          excerpts:
+            - description:
+              snippet_tags:
+                - rek.abapv1.searchfaces
     Java:
       versions:
         - sdk_version: 2
@@ -278,6 +326,14 @@ rekognition_DeleteFaces:
             - description:
               snippet_tags:
                 - Rekognition.dotnetv3.DeleteFacesExample
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/rek
+          excerpts:
+            - description:
+              snippet_tags:
+                - rek.abapv1.deletefaces
     Kotlin:
       versions:
         - sdk_version: 1
@@ -322,6 +378,14 @@ rekognition_CreateCollection:
             - description:
               snippet_tags:
                 - Rekognition.dotnetv3.CreateCollectionExample
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/rek
+          excerpts:
+            - description:
+              snippet_tags:
+                - rek.abapv1.createcollection
     Kotlin:
       versions:
         - sdk_version: 1
@@ -366,6 +430,14 @@ rekognition_ListCollections:
             - description:
               snippet_tags:
                 - Rekognition.dotnetv3.ListCollectionsExample
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/rek
+          excerpts:
+            - description:
+              snippet_tags:
+                - rek.abapv1.listcollections
     Kotlin:
       versions:
         - sdk_version: 1
@@ -455,6 +527,14 @@ rekognition_DetectFaces:
             - description: Display bounding box information for all faces in an image.
               snippet_tags:
                 - Rekognition.dotnetv3.ImageOrientationBoundingBox
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/rek
+          excerpts:
+            - description:
+              snippet_tags:
+                - rek.abapv1.detectfaces
     Kotlin:
       versions:
         - sdk_version: 1
@@ -499,6 +579,14 @@ rekognition_CompareFaces:
             - description:
               snippet_tags:
                 - Rekognition.dotnetv3.CompareFacesExample
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/rek
+          excerpts:
+            - description:
+              snippet_tags:
+                - rek.abapv1.comparefaces
     Kotlin:
       versions:
         - sdk_version: 1
@@ -546,6 +634,14 @@ rekognition_DetectLabels:
             - description: Detect labels in an image file stored on your computer.
               snippet_tags:
                 - Rekognition.dotnetv3.DetectLabelsLocalFile
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/rek
+          excerpts:
+            - description:
+              snippet_tags:
+                - rek.abapv1.detectlabels
     Kotlin:
       versions:
         - sdk_version: 1
@@ -598,6 +694,14 @@ rekognition_DetectModerationLabels:
             - description:
               snippet_tags:
                 - Rekognition.dotnetv3.DetectModerationLabelsExample
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/rek
+          excerpts:
+            - description:
+              snippet_tags:
+                - rek.abapv1.detectmoderationlabels
     Kotlin:
       versions:
         - sdk_version: 1
@@ -642,6 +746,14 @@ rekognition_DetectText:
             - description:
               snippet_tags:
                 - Rekognition.dotnetv3.DetectTextExample
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/rek
+          excerpts:
+            - description:
+              snippet_tags:
+                - rek.abapv1.detecttext
     Kotlin:
       versions:
         - sdk_version: 1
@@ -686,6 +798,14 @@ rekognition_RecognizeCelebrities:
             - description:
               snippet_tags:
                 - Rekognition.dotnetv3.CelebritiesInImageExample
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/rek
+          excerpts:
+            - description:
+              snippet_tags:
+                - rek.abapv1.recognizecelebrities
     Kotlin:
       versions:
         - sdk_version: 1

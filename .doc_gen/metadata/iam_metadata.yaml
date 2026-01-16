@@ -81,6 +81,14 @@ iam_Hello:
     iam: {ListPolicies}
 iam_CreateAccountAlias:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.abapv1.create_account_alias
     Kotlin:
       versions:
         - sdk_version: 1
@@ -145,6 +153,14 @@ iam_CreateAccountAlias:
     iam: {CreateAccountAlias}
 iam_DeleteAccountAlias:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.abapv1.delete_account_alias
     Kotlin:
       versions:
         - sdk_version: 1
@@ -209,6 +225,14 @@ iam_DeleteAccountAlias:
     iam: {DeleteAccountAlias}
 iam_ListAccountAliases:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.abapv1.list_account_aliases
     Kotlin:
       versions:
         - sdk_version: 1
@@ -273,6 +297,14 @@ iam_ListAccountAliases:
     iam: {ListAccountAliases}
 iam_GetAccountAuthorizationDetails:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.abapv1.get_account_authorization_details
     Python:
       versions:
         - sdk_version: 3
@@ -286,6 +318,14 @@ iam_GetAccountAuthorizationDetails:
     iam: {GetAccountAuthorizationDetails}
 iam_GetAccountSummary:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.abapv1.get_account_summary
     Python:
       versions:
         - sdk_version: 3
@@ -299,6 +339,14 @@ iam_GetAccountSummary:
     iam: {GetAccountSummary}
 iam_GenerateCredentialReport:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.abapv1.generate_credential_report
     Python:
       versions:
         - sdk_version: 3
@@ -312,6 +360,14 @@ iam_GenerateCredentialReport:
     iam: {GenerateCredentialReport}
 iam_GetCredentialReport:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.abapv1.get_credential_report
     Python:
       versions:
         - sdk_version: 3
@@ -325,6 +381,14 @@ iam_GetCredentialReport:
     iam: {GetCredentialReport}
 iam_GetAccountPasswordPolicy:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.abapv1.get_account_password_policy
     .NET:
       versions:
         - sdk_version: 3
@@ -391,6 +455,14 @@ iam_GetAccountPasswordPolicy:
     iam: {GetAccountPasswordPolicy}
 iam_ListSAMLProviders:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.abapv1.list_saml_providers
     .NET:
       versions:
         - sdk_version: 3
@@ -488,6 +560,14 @@ iam_Scenario_AccountManagement:
           GetAccountAuthorizationDetails}
 iam_CreateAccessKey:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.abapv1.create_access_key
     .NET:
       versions:
         - sdk_version: 3
@@ -596,6 +676,14 @@ iam_CreateAccessKey:
     iam: {CreateAccessKey}
 iam_DeleteAccessKey:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.abapv1.delete_access_key
     .NET:
       versions:
         - sdk_version: 3
@@ -727,6 +815,14 @@ iam_DeleteRolePolicy:
     iam: {DeleteRolePolicy}
 iam_GetAccessKeyLastUsed:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.abapv1.get_access_key_last_used
     Python:
       versions:
         - sdk_version: 3
@@ -764,6 +860,14 @@ iam_GetAccessKeyLastUsed:
     iam: {GetAccessKeyLastUsed}
 iam_ListAccessKeys:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.abapv1.list_access_keys
     Kotlin:
       versions:
         - sdk_version: 1
@@ -847,6 +951,14 @@ iam_ListAccessKeys:
     iam: {ListAccessKeys}
 iam_UpdateAccessKey:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.abapv1.update_access_key
     Java:
       versions:
         - sdk_version: 2
@@ -931,6 +1043,14 @@ iam_Scenario_ManageAccessKeys:
     iam: {ListAccessKeys, CreateAccessKey, GetAccessKeyLastUsed, UpdateAccessKey, DeleteAccessKey}
 iam_CreatePolicy:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.abapv1.create_policy
     .NET:
       versions:
         - sdk_version: 3
@@ -1050,6 +1170,14 @@ iam_CreatePolicy:
     iam: {CreatePolicy}
 iam_DeletePolicy:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.abapv1.delete_policy
     .NET:
       versions:
         - sdk_version: 3
@@ -1143,6 +1271,14 @@ iam_DeletePolicy:
     iam: {DeletePolicy}
 iam_CreatePolicyVersion:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.abapv1.create_policy_version
     Python:
       versions:
         - sdk_version: 3
@@ -1156,6 +1292,14 @@ iam_CreatePolicyVersion:
     iam: {CreatePolicyVersion}
 iam_ListPolicies:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.abapv1.list_policies
     .NET:
       versions:
         - sdk_version: 3
@@ -1238,6 +1382,14 @@ iam_ListPolicies:
     iam: {ListPolicies}
 iam_GetPolicy:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.abapv1.get_policy
     .NET:
       versions:
         - sdk_version: 3
@@ -1360,6 +1512,14 @@ iam_Scenario_RollbackPolicyVersion:
     iam: {ListPolicyVersions, SetDefaultPolicyVersion, DeletePolicyVersion}
 iam_AttachRolePolicy:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.abapv1.attach_role_policy
     .NET:
       versions:
         - sdk_version: 3
@@ -1483,6 +1643,14 @@ iam_AttachRolePolicy:
     iam: {AttachRolePolicy}
 iam_ListAttachedRolePolicies:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.abapv1.list_attached_role_policies
     .NET:
       versions:
         - sdk_version: 3
@@ -1557,6 +1725,14 @@ iam_ListAttachedRolePolicies:
     iam: {ListAttachedRolePolicies}
 iam_DetachRolePolicy:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.abapv1.detach_role_policy
     .NET:
       versions:
         - sdk_version: 3
@@ -1698,8 +1874,52 @@ iam_Scenario_PolicyManagement:
   services:
     iam: {CreatePolicy, ListPolicies, CreatePolicyVersion, GetPolicyVersion, DeletePolicy, ListPolicyVersions, SetDefaultPolicyVersion,
           DeletePolicyVersion}
+iam_ListPolicyVersions:
+  languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.abapv1.list_policy_versions
+  services:
+    iam: {ListPolicyVersions}
+iam_SetDefaultPolicyVersion:
+  languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.abapv1.set_default_policy_version
+  services:
+    iam: {SetDefaultPolicyVersion}
+iam_DeletePolicyVersion:
+  languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.abapv1.delete_policy_version
+  services:
+    iam: {DeletePolicyVersion}
 iam_CreateRole:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.abapv1.create_role
     .NET:
       versions:
         - sdk_version: 3
@@ -1801,6 +2021,14 @@ iam_CreateRole:
     iam: {CreateRole}
 iam_ListRoles:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.abapv1.list_roles
     .NET:
       versions:
         - sdk_version: 3
@@ -1874,6 +2102,14 @@ iam_ListRoles:
     iam: {ListRoles}
 iam_GetRole:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.abapv1.get_role
     .NET:
       versions:
         - sdk_version: 3
@@ -1948,6 +2184,14 @@ iam_GetRole:
     iam: {GetRole}
 iam_DeleteRole:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.abapv1.delete_role
     .NET:
       versions:
         - sdk_version: 3
@@ -2053,6 +2297,14 @@ iam_PutRolePolicy:
     iam: {PutRolePolicy}
 iam_ListRolePolicies:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.abapv1.list_role_policies
     .NET:
       versions:
         - sdk_version: 3
@@ -2155,6 +2407,14 @@ iam_Scenario_RoleManagement:
     iam: {CreateRole, AttachRolePolicy, DetachRolePolicy, DeleteRole}
 iam_CreateUser:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.abapv1.create_user
     .NET:
       versions:
         - sdk_version: 3
@@ -2275,6 +2535,14 @@ iam_CreateUser:
     iam: {CreateUser}
 iam_DeleteUser:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.abapv1.delete_user
     .NET:
       versions:
         - sdk_version: 3
@@ -2433,6 +2701,14 @@ iam_GetUser:
     iam: {GetUser}
 iam_ListUsers:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.abapv1.list_users
     .NET:
       versions:
         - sdk_version: 3
@@ -2550,6 +2826,14 @@ iam_ListUsers:
     iam: {ListUsers}
 iam_UpdateUser:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.abapv1.update_user
     Kotlin:
       versions:
         - sdk_version: 1
@@ -2613,6 +2897,14 @@ iam_UpdateUser:
     iam: {UpdateUser}
 iam_AttachUserPolicy:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.abapv1.attach_user_policy
     Python:
       versions:
         - sdk_version: 3
@@ -2643,6 +2935,14 @@ iam_AttachUserPolicy:
     iam: {AttachUserPolicy}
 iam_DetachUserPolicy:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.abapv1.detach_user_policy
     Python:
       versions:
         - sdk_version: 3
@@ -3065,6 +3365,14 @@ iam_ListGroups:
               snippet_tags:
                 - iam.swift.import
                 - iam.swift.listgroups.handler.ListGroups
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.abapv1.list_groups
   services:
     iam: {ListGroups}
 iam_CreateSAMLProvider:
@@ -3152,6 +3460,14 @@ iam_CreateServiceLinkedRole:
               snippet_tags:
                 - iam.swift.import
                 - iam.swift.createservicelinkedrole.handler.CreateServiceLinkedRole
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.abapv1.list_policy_versions
   services:
     iam: {CreateServiceLinkedRole}
 iam_DeleteServiceLinkedRole:

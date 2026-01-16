@@ -18,6 +18,14 @@ firehose_PutRecord:
               snippet_tags:
                 - python.example_code.firehose.init
                 - python.example_code.firehose.put_record
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/frh
+          excerpts:
+            - description:
+              snippet_tags:
+                - frh.abapv1.put_record
   services:
     firehose: {PutRecord}
 firehose_PutRecordBatch:
@@ -48,6 +56,14 @@ firehose_PutRecordBatch:
               snippet_tags:
                 - python.example_code.firehose.init
                 - python.example_code.firehose.put_record_batch
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/frh
+          excerpts:
+            - description:
+              snippet_tags:
+                - frh.abapv1.put_record_batch
   services:
     firehose: {PutRecordBatch}
 firehose_Scenario_PutRecords:

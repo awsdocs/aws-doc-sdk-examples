@@ -117,6 +117,61 @@ CLASS /awsex/cl_ec2_actions DEFINITION
         VALUE(oo_result) TYPE REF TO /aws1/cl_ec2describeazsresult
       RAISING
         /aws1/cx_rt_generic .
+    METHODS authorize_sec_group_ingress
+      IMPORTING
+        !iv_group_id    TYPE /aws1/ec2securitygroupid
+        !iv_cidr_ip     TYPE /aws1/ec2string
+      RETURNING
+        VALUE(oo_result) TYPE REF TO /aws1/cl_ec2authsecgrpingrslt
+      RAISING
+        /aws1/cx_rt_generic .
+    METHODS describe_images
+      IMPORTING
+        !it_image_ids    TYPE /aws1/cl_ec2imageidstrlist_w=>tt_imageidstringlist
+      RETURNING
+        VALUE(oo_result) TYPE REF TO /aws1/cl_ec2descrimagesresult
+      RAISING
+        /aws1/cx_rt_generic .
+    METHODS describe_instance_types
+      IMPORTING
+        !iv_architecture TYPE /aws1/ec2string DEFAULT 'x86_64'
+      RETURNING
+        VALUE(oo_result) TYPE REF TO /aws1/cl_ec2descrinsttypesrslt
+      RAISING
+        /aws1/cx_rt_generic .
+    METHODS create_vpc
+      IMPORTING
+        !iv_cidr_block   TYPE /aws1/ec2string
+      RETURNING
+        VALUE(oo_result) TYPE REF TO /aws1/cl_ec2createvpcresult
+      RAISING
+        /aws1/cx_rt_generic .
+    METHODS describe_route_tables
+      IMPORTING
+        !iv_vpc_id       TYPE /aws1/ec2vpcid
+      RETURNING
+        VALUE(oo_result) TYPE REF TO /aws1/cl_ec2descrroutetblsrslt
+      RAISING
+        /aws1/cx_rt_generic .
+    METHODS create_vpc_endpoint
+      IMPORTING
+        !iv_vpc_id            TYPE /aws1/ec2vpcid
+        !iv_service_name      TYPE /aws1/ec2string
+        !it_route_table_ids   TYPE /aws1/cl_ec2vpcendptroutetbl00=>tt_vpcendpointroutetableidlist
+      RETURNING
+        VALUE(oo_result)      TYPE REF TO /aws1/cl_ec2createvpcendptrslt
+      RAISING
+        /aws1/cx_rt_generic .
+    METHODS delete_vpc_endpoints
+      IMPORTING
+        !it_vpc_endpoint_ids TYPE /aws1/cl_ec2vpcendptidlist_w=>tt_vpcendpointidlist
+      RAISING
+        /aws1/cx_rt_generic .
+    METHODS delete_vpc
+      IMPORTING
+        !iv_vpc_id TYPE /aws1/ec2vpcid
+      RAISING
+        /aws1/cx_rt_generic .
 ENDCLASS.
 
 
@@ -571,5 +626,203 @@ CLASS /AWSEX/CL_EC2_ACTIONS IMPLEMENTATION.
         ENDIF.
     ENDTRY.
     " snippet-end:[ec2.abapv1.stop_instance]
+  ENDMETHOD.
+
+
+  METHOD authorize_sec_group_ingress.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+
+    DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
+    DATA(lo_ec2) = /aws1/cl_ec2_factory=>create( lo_session ).
+
+    " snippet-start:[ec2.abapv1.authorize_sec_group_ingress]
+    " Create IP permissions for SSH access (port 22)
+    " iv_cidr_ip = '192.0.2.0/24'
+    DATA lt_ip_permissions TYPE /aws1/cl_ec2ippermission=>tt_ippermissionlist.
+    DATA(lo_ip_permission) = NEW /aws1/cl_ec2ippermission(
+      iv_ipprotocol = 'tcp'
+      iv_fromport = 22
+      iv_toport = 22
+      it_ipranges = VALUE /aws1/cl_ec2iprange=>tt_iprangelist(
+        ( NEW /aws1/cl_ec2iprange( iv_cidrip = iv_cidr_ip ) )
+      )
+    ).
+    APPEND lo_ip_permission TO lt_ip_permissions.
+
+    TRY.
+        oo_result = lo_ec2->authsecuritygroupingress(             " oo_result is returned for testing purposes. "
+          iv_groupid = iv_group_id
+          it_ippermissions = lt_ip_permissions ).
+        MESSAGE 'Authorized ingress rule for security group.' TYPE 'I'.
+      CATCH /aws1/cx_rt_service_generic INTO DATA(lo_exception).
+        DATA(lv_error) = |"{ lo_exception->av_err_code }" - { lo_exception->av_err_msg }|.
+        MESSAGE lv_error TYPE 'E'.
+    ENDTRY.
+    " snippet-end:[ec2.abapv1.authorize_sec_group_ingress]
+  ENDMETHOD.
+
+
+  METHOD describe_images.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+
+    DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
+    DATA(lo_ec2) = /aws1/cl_ec2_factory=>create( lo_session ).
+
+    " snippet-start:[ec2.abapv1.describe_images]
+    TRY.
+        oo_result = lo_ec2->describeimages( it_imageids = it_image_ids ).             " oo_result is returned for testing purposes. "
+        DATA(lt_images) = oo_result->get_images( ).
+        MESSAGE 'Retrieved information about Amazon Machine Images (AMIs).' TYPE 'I'.
+      CATCH /aws1/cx_rt_service_generic INTO DATA(lo_exception).
+        DATA(lv_error) = |"{ lo_exception->av_err_code }" - { lo_exception->av_err_msg }|.
+        MESSAGE lv_error TYPE 'E'.
+    ENDTRY.
+    " snippet-end:[ec2.abapv1.describe_images]
+  ENDMETHOD.
+
+
+  METHOD describe_instance_types.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+
+    DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
+    DATA(lo_ec2) = /aws1/cl_ec2_factory=>create( lo_session ).
+
+    " snippet-start:[ec2.abapv1.describe_instance_types]
+    " Create filters for architecture and instance type patterns
+    " iv_architecture = 'x86_64'
+    DATA lt_filters TYPE /aws1/cl_ec2filter=>tt_filterlist.
+    APPEND NEW /aws1/cl_ec2filter(
+      iv_name = 'processor-info.supported-architecture'
+      it_values = VALUE /aws1/cl_ec2valuestringlist_w=>tt_valuestringlist(
+        ( NEW /aws1/cl_ec2valuestringlist_w( iv_architecture ) )
+      )
+    ) TO lt_filters.
+    " Filter for instance type patterns like '*.micro', '*.small'
+    APPEND NEW /aws1/cl_ec2filter(
+      iv_name = 'instance-type'
+      it_values = VALUE /aws1/cl_ec2valuestringlist_w=>tt_valuestringlist(
+        ( NEW /aws1/cl_ec2valuestringlist_w( '*.micro' ) )
+        ( NEW /aws1/cl_ec2valuestringlist_w( '*.small' ) )
+      )
+    ) TO lt_filters.
+
+    TRY.
+        oo_result = lo_ec2->describeinstancetypes( it_filters = lt_filters ).             " oo_result is returned for testing purposes. "
+        DATA(lt_instance_types) = oo_result->get_instancetypes( ).
+        MESSAGE 'Retrieved information about EC2 instance types.' TYPE 'I'.
+      CATCH /aws1/cx_rt_service_generic INTO DATA(lo_exception).
+        DATA(lv_error) = |"{ lo_exception->av_err_code }" - { lo_exception->av_err_msg }|.
+        MESSAGE lv_error TYPE 'E'.
+    ENDTRY.
+    " snippet-end:[ec2.abapv1.describe_instance_types]
+  ENDMETHOD.
+
+
+  METHOD create_vpc.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+
+    DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
+    DATA(lo_ec2) = /aws1/cl_ec2_factory=>create( lo_session ).
+
+    " snippet-start:[ec2.abapv1.create_vpc]
+    " iv_cidr_block = '10.0.0.0/16'
+    TRY.
+        oo_result = lo_ec2->createvpc( iv_cidrblock = iv_cidr_block ).             " oo_result is returned for testing purposes. "
+        DATA(lv_vpc_id) = oo_result->get_vpc( )->get_vpcid( ).
+        MESSAGE 'Created VPC.' TYPE 'I'.
+      CATCH /aws1/cx_rt_service_generic INTO DATA(lo_exception).
+        DATA(lv_error) = |"{ lo_exception->av_err_code }" - { lo_exception->av_err_msg }|.
+        MESSAGE lv_error TYPE 'E'.
+    ENDTRY.
+    " snippet-end:[ec2.abapv1.create_vpc]
+  ENDMETHOD.
+
+
+  METHOD describe_route_tables.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+
+    DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
+    DATA(lo_ec2) = /aws1/cl_ec2_factory=>create( lo_session ).
+
+    " snippet-start:[ec2.abapv1.describe_route_tables]
+    " Create filter for VPC ID
+    " iv_vpc_id = 'vpc-abc123'
+    DATA lt_filters TYPE /aws1/cl_ec2filter=>tt_filterlist.
+    APPEND NEW /aws1/cl_ec2filter(
+      iv_name = 'vpc-id'
+      it_values = VALUE /aws1/cl_ec2valuestringlist_w=>tt_valuestringlist(
+        ( NEW /aws1/cl_ec2valuestringlist_w( iv_vpc_id ) )
+      )
+    ) TO lt_filters.
+
+    TRY.
+        oo_result = lo_ec2->describeroutetables( it_filters = lt_filters ).             " oo_result is returned for testing purposes. "
+        DATA(lt_route_tables) = oo_result->get_routetables( ).
+        MESSAGE 'Retrieved information about route tables.' TYPE 'I'.
+      CATCH /aws1/cx_rt_service_generic INTO DATA(lo_exception).
+        DATA(lv_error) = |"{ lo_exception->av_err_code }" - { lo_exception->av_err_msg }|.
+        MESSAGE lv_error TYPE 'E'.
+    ENDTRY.
+    " snippet-end:[ec2.abapv1.describe_route_tables]
+  ENDMETHOD.
+
+
+  METHOD create_vpc_endpoint.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+
+    DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
+    DATA(lo_ec2) = /aws1/cl_ec2_factory=>create( lo_session ).
+
+    " snippet-start:[ec2.abapv1.create_vpc_endpoint]
+    " iv_vpc_id = 'vpc-abc123'
+    " iv_service_name = 'com.amazonaws.region.service'
+    TRY.
+        oo_result = lo_ec2->createvpcendpoint(             " oo_result is returned for testing purposes. "
+          iv_vpcid = iv_vpc_id
+          iv_servicename = iv_service_name
+          it_routetableids = it_route_table_ids ).
+        DATA(lv_vpc_endpoint_id) = oo_result->get_vpcendpoint( )->get_vpcendpointid( ).
+        MESSAGE 'Created VPC endpoint.' TYPE 'I'.
+      CATCH /aws1/cx_rt_service_generic INTO DATA(lo_exception).
+        DATA(lv_error) = |"{ lo_exception->av_err_code }" - { lo_exception->av_err_msg }|.
+        MESSAGE lv_error TYPE 'E'.
+    ENDTRY.
+    " snippet-end:[ec2.abapv1.create_vpc_endpoint]
+  ENDMETHOD.
+
+
+  METHOD delete_vpc_endpoints.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+
+    DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
+    DATA(lo_ec2) = /aws1/cl_ec2_factory=>create( lo_session ).
+
+    " snippet-start:[ec2.abapv1.delete_vpc_endpoints]
+    TRY.
+        lo_ec2->deletevpcendpoints( it_vpcendpointids = it_vpc_endpoint_ids ).
+        MESSAGE 'Deleted VPC endpoint(s).' TYPE 'I'.
+      CATCH /aws1/cx_rt_service_generic INTO DATA(lo_exception).
+        DATA(lv_error) = |"{ lo_exception->av_err_code }" - { lo_exception->av_err_msg }|.
+        MESSAGE lv_error TYPE 'E'.
+    ENDTRY.
+    " snippet-end:[ec2.abapv1.delete_vpc_endpoints]
+  ENDMETHOD.
+
+
+  METHOD delete_vpc.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+
+    DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
+    DATA(lo_ec2) = /aws1/cl_ec2_factory=>create( lo_session ).
+
+    " snippet-start:[ec2.abapv1.delete_vpc]
+    TRY.
+        lo_ec2->deletevpc( iv_vpcid = iv_vpc_id ).
+        MESSAGE 'Deleted VPC.' TYPE 'I'.
+      CATCH /aws1/cx_rt_service_generic INTO DATA(lo_exception).
+        DATA(lv_error) = |"{ lo_exception->av_err_code }" - { lo_exception->av_err_msg }|.
+        MESSAGE lv_error TYPE 'E'.
+    ENDTRY.
+    " snippet-end:[ec2.abapv1.delete_vpc]
   ENDMETHOD.
 ENDCLASS.

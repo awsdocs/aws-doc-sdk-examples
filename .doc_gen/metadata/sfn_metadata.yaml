@@ -81,6 +81,15 @@ sfn_CreateStateMachine:
               snippet_tags:
                 - python.example_code.sfn.StateMachine_decl
                 - python.example_code.sfn.CreateStateMachine
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/sfn
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - sfn.abapv1.create_state_machine
   services:
     sfn: {CreateStateMachine}
 sfn_DeleteStateMachine:
@@ -122,6 +131,15 @@ sfn_DeleteStateMachine:
               snippet_tags:
                 - python.example_code.sfn.StateMachine_decl
                 - python.example_code.sfn.DeleteStateMachine
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/sfn
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - sfn.abapv1.delete_state_machine
   services:
     sfn: {DeleteStateMachine}
 sfn_ListStateMachines:
@@ -163,6 +181,15 @@ sfn_ListStateMachines:
               snippet_tags:
                 - python.example_code.sfn.StateMachine_decl
                 - python.example_code.sfn.ListStateMachines
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/sfn
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - sfn.abapv1.list_state_machines
   services:
     sfn: {ListStateMachines}
 sfn_DescribeStateMachine:
@@ -204,6 +231,15 @@ sfn_DescribeStateMachine:
               snippet_tags:
                 - python.example_code.sfn.StateMachine_decl
                 - python.example_code.sfn.DescribeStateMachine
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/sfn
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - sfn.abapv1.describe_state_machine
   services:
     sfn: {DescribeStateMachine}
 sfn_StartExecution:
@@ -254,6 +290,15 @@ sfn_StartExecution:
             - description:
               snippet_files:
                 - javascriptv3/example_code/sfn/actions/start-execution.js
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/sfn
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - sfn.abapv1.start_execution
   services:
     sfn: {StartExecution}
 sfn_ListExecutions:
@@ -325,6 +370,15 @@ sfn_DescribeExecution:
             - description:
               snippet_tags:
                 - python.example_code.sfn.DescribeExecution
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/sfn
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - sfn.abapv1.describe_execution
   services:
     sfn: {DescribeExecution}
 sfn_CreateActivity:
@@ -366,6 +420,15 @@ sfn_CreateActivity:
               snippet_tags:
                 - python.example_code.sfn.Activity_decl
                 - python.example_code.sfn.CreateActivity
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/sfn
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - sfn.abapv1.create_activity
   services:
     sfn: {CreateActivity}
 sfn_ListActivities:
@@ -407,6 +470,15 @@ sfn_ListActivities:
               snippet_tags:
                 - python.example_code.sfn.Activity_decl
                 - python.example_code.sfn.ListActivities
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/sfn
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - sfn.abapv1.list_activities
   services:
     sfn: {ListActivities}
 sfn_GetActivityTask:
@@ -447,6 +519,15 @@ sfn_GetActivityTask:
               snippet_tags:
                 - python.example_code.sfn.Activity_decl
                 - python.example_code.sfn.GetActivityTask
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/sfn
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - sfn.abapv1.get_activity_task
   services:
     sfn: {GetActivityTask}
 sfn_SendTaskSuccess:
@@ -488,6 +569,15 @@ sfn_SendTaskSuccess:
               snippet_tags:
                 - python.example_code.sfn.Activity_decl
                 - python.example_code.sfn.SendTaskSuccess
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/sfn
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - sfn.abapv1.send_task_success
   services:
     sfn: {SendTaskSuccess}
 sfn_DeleteActivity:
@@ -529,6 +619,15 @@ sfn_DeleteActivity:
               snippet_tags:
                 - python.example_code.sfn.Activity_decl
                 - python.example_code.sfn.DeleteActivity
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/sfn
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - sfn.abapv1.delete_activity
   services:
     sfn: {DeleteActivity}
 sfn_Scenario_GetStartedStateMachines:

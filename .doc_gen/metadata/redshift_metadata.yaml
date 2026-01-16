@@ -60,8 +60,16 @@ redshift_ListDatabases:
             - description: 
               snippet_tags:
                 - redshift.java2.list_databases.main
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/rsd
+          excerpts:
+            - description:
+              snippet_tags:
+                - rsd.abapv1.list_databases
   services:
-    redshift: {ListDatabases}    
+    redshift: {ListDatabases}
 redshift_CreateCluster:
   languages:
     .NET:
@@ -125,6 +133,14 @@ redshift_CreateCluster:
                 The following code instantiates the RedshiftWrapper object.
               snippet_tags:
                 - python.example_code.redshift.RedshiftWrapper.instantiation
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/rsh
+          excerpts:
+            - description: Create the cluster.
+              snippet_tags:
+                - rsh.abapv1.create_cluster
   services:
     redshift: {CreateCluster}
 redshift_DeleteCluster:
@@ -190,6 +206,14 @@ redshift_DeleteCluster:
                 The following code instantiates the RedshiftWrapper object.
               snippet_tags:
                 - python.example_code.redshift.RedshiftWrapper.instantiation
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/rsh
+          excerpts:
+            - description: Delete the cluster.
+              snippet_tags:
+                - rsh.abapv1.delete_cluster
   services:
     redshift: {DeleteCluster}
 redshift_DescribeClusters:
@@ -255,6 +279,14 @@ redshift_DescribeClusters:
                 The following code instantiates the RedshiftWrapper object.
               snippet_tags:
                 - python.example_code.redshift.RedshiftWrapper.instantiation
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/rsh
+          excerpts:
+            - description: Describe the cluster.
+              snippet_tags:
+                - rsh.abapv1.describe_clusters
   services:
     redshift: {DescribeClusters}
 redshift_ModifyCluster:
@@ -320,6 +352,14 @@ redshift_ModifyCluster:
                 The following code instantiates the RedshiftWrapper object.
               snippet_tags:
                 - python.example_code.redshift.RedshiftWrapper.instantiation
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/rsh
+          excerpts:
+            - description: Modify a cluster.
+              snippet_tags:
+                - rsh.abapv1.modify_cluster
   services:
     redshift: {ModifyCluster}
 redshift_DescribeStatement:
@@ -354,6 +394,14 @@ redshift_DescribeStatement:
                 The following code instantiates the RedshiftDataWrapper object.
               snippet_tags:
                 - python.example_code.redshift_data.RedshiftDataWrapper.instantiation
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/rsd
+          excerpts:
+            - description:
+              snippet_tags:
+                - rsd.abapv1.describe_statement
   services:
     redshift: {DescribeStatement}
 redshift_GetStatementResult:
@@ -388,6 +436,14 @@ redshift_GetStatementResult:
                 The following code instantiates the RedshiftDataWrapper object.
               snippet_tags:
                 - python.example_code.redshift_data.RedshiftDataWrapper.instantiation
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/rsd
+          excerpts:
+            - description: Check the statement result.
+              snippet_tags:
+                - rsd.abapv1.get_statement_result
   services:
     redshift: {GetStatementResult}
 redshift_ExecuteStatement:
@@ -406,7 +462,15 @@ redshift_ExecuteStatement:
                 - redshiftdata.java2.add.record.main 
             - description: Executes a SQL statement to query a database table.
               snippet_tags:
-                - redshiftdata.java2.query.main      
+                - redshiftdata.java2.query.main
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/rsd
+          excerpts:
+            - description:
+              snippet_tags:
+                - rsd.abapv1.execute_statement
   services:
     redshift: {ExecuteStatement}
 redshift_Scenario:

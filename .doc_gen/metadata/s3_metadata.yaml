@@ -400,6 +400,14 @@ s3_PutBucketVersioning:
             - description:
               snippet_tags:
                 - s3.java2.bucket_enable.version.main
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.abapv1.put_bucket_versioning
   services:
     s3: {PutBucketVersioning}
 s3_PutBucketReplication:
@@ -472,6 +480,14 @@ s3_DeleteBucketPolicy:
                 - ruby.example_code.s3.helper.BucketPolicyWrapper
                 - ruby.example_code.s3.DeleteBucketPolicy
                 - ruby.example_code.s3.helper.end.BucketPolicyWrapper
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.abapv1.delete_bucket_policy
   services:
     s3: {DeleteBucketPolicy}
 s3_DeleteObject:
@@ -702,6 +718,14 @@ s3_DeleteObjects:
             - description:
               snippet_tags:
                 - cpp.example_code.s3.delete_objects
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.abapv1.delete_objects
     Bash:
       versions:
         - sdk_version: 2
@@ -774,6 +798,14 @@ s3_GetObjectAcl:
               snippet_tags:
                 - python.example_code.s3.helper.ObjectWrapper
                 - python.example_code.s3.GetObjectAcl
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.abapv1.get_object_acl
   services:
     s3: {GetObjectAcl}
 s3_GetBucketPolicy:
@@ -833,6 +865,14 @@ s3_GetBucketPolicy:
                 - ruby.example_code.s3.helper.BucketPolicyWrapper
                 - ruby.example_code.s3.GetBucketPolicy
                 - ruby.example_code.s3.helper.end.BucketPolicyWrapper
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.abapv1.get_bucket_policy
   services:
     s3: {GetBucketPolicy}
 s3_HeadObject:
@@ -1065,6 +1105,14 @@ s3_GetBucketLifecycleConfiguration:
               snippet_tags:
                 - python.example_code.s3.helper.BucketWrapper
                 - python.example_code.s3.GetBucketLifecycleConfiguration
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.abapv1.get_bucket_lifecycle_configuration
   services:
     s3: {GetBucketLifecycleConfiguration}
 s3_GetObjectLegalHold:
@@ -1114,6 +1162,14 @@ s3_GetObjectLegalHold:
             - description:
               snippet_files:
                 - javascriptv3/example_code/s3/actions/get-object-legal-hold.js
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.abapv1.get_object_legal_hold
   services:
     s3: {GetObjectLegalHold}
 s3_GetObjectLockConfiguration:
@@ -1163,6 +1219,14 @@ s3_GetObjectLockConfiguration:
             - description: Get the object lock configuration.
               snippet_tags:
                 - python.s3-object-locking.s3_GetObjectLockConfiguration
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.abapv1.get_object_lock_configuration
   services:
     s3: {GetObjectLockConfiguration}
 s3_GetObjectRetention:
@@ -1248,6 +1312,14 @@ s3_PutBucketLifecycleConfiguration:
               snippet_tags:
                 - python.example_code.s3.helper.BucketWrapper
                 - python.example_code.s3.PutBucketLifecycleConfiguration
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.abapv1.put_bucket_lifecycle_configuration
   services:
     s3: {PutBucketLifecycleConfiguration}
 s3_DeleteBucketLifecycle:
@@ -1271,6 +1343,14 @@ s3_DeleteBucketLifecycle:
               snippet_tags:
                 - python.example_code.s3.helper.BucketWrapper
                 - python.example_code.s3.DeleteBucketLifecycleConfiguration
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.abapv1.delete_bucket_lifecycle
   services:
     s3: {DeleteBucketLifecycle}
 s3_AbortMultipartUpload:
@@ -1507,6 +1587,14 @@ s3_ListObjectVersions:
             - description:
               snippet_tags:
                 - s3.rust.list-object-versions
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.abapv1.list_object_versions
   services:
     s3: {ListObjectVersions}
 s3_PutObject:
@@ -1848,6 +1936,14 @@ s3_GetBucketCors:
                 - ruby.example_code.s3.helper.BucketCorsWrapper
                 - ruby.example_code.s3.GetBucketCors
                 - ruby.example_code.s3.helper.end.BucketCorsWrapper
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.abapv1.get_bucket_cors
   services:
     s3: {GetBucketCors}
 s3_PutBucketCors:
@@ -1898,6 +1994,14 @@ s3_PutBucketCors:
                 - ruby.example_code.s3.helper.BucketCorsWrapper
                 - ruby.example_code.s3.PutBucketCors
                 - ruby.example_code.s3.helper.end.BucketCorsWrapper
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.abapv1.put_bucket_cors
   services:
     s3: {PutBucketCors}
 s3_DeleteBucketCors:
@@ -1931,6 +2035,14 @@ s3_DeleteBucketCors:
                 - ruby.example_code.s3.helper.BucketCorsWrapper
                 - ruby.example_code.s3.DeleteBucketCors
                 - ruby.example_code.s3.helper.end.BucketCorsWrapper
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.abapv1.delete_bucket_cors
   services:
     s3: {DeleteBucketCors}
 s3_GetBucketAcl:
@@ -1981,6 +2093,14 @@ s3_GetBucketAcl:
             - description:
               snippet_tags:
                 - s3.cpp.get_acl_bucket.code
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.abapv1.get_bucket_acl
   services:
     s3: {GetBucketAcl}
 s3_PutBucketAcl:
@@ -2039,6 +2159,14 @@ s3_PutBucketAcl:
             - description:
               snippet_tags:
                 - s3.cpp.put_bucket_acl.code
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.abapv1.put_bucket_acl
   services:
     s3: {PutBucketAcl}
 s3_PutBucketPolicy:
@@ -2090,6 +2218,14 @@ s3_PutBucketPolicy:
                 - ruby.example_code.s3.helper.BucketPolicyWrapper
                 - ruby.example_code.s3.PutBucketPolicy
                 - ruby.example_code.s3.helper.end.BucketPolicyWrapper
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.abapv1.put_bucket_policy
   services:
     s3: {PutBucketPolicy}
 s3_PutBucketWebsite:
@@ -2192,6 +2328,14 @@ s3_HeadBucket:
               snippet_tags:
                 - python.example_code.s3.helper.BucketWrapper
                 - python.example_code.s3.HeadBucket
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.abapv1.head_bucket
     Bash:
       versions:
         - sdk_version: 2
@@ -2308,6 +2452,14 @@ s3_PutObjectAcl:
             - description:
               snippet_tags:
                 - s3.cpp.put_object_acl.code
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.abapv1.put_object_acl
   services:
     s3: {PutObjectAcl}
 s3_PutObjectLegalHold:
@@ -2357,6 +2509,14 @@ s3_PutObjectLegalHold:
             - description: Put an object legal hold.
               snippet_tags:
                 - python.example_code.s3.PutObjectLegalHold
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.abapv1.put_object_legal_hold
   services:
     s3: {PutObjectLegalHold}
 s3_PutObjectLockConfiguration:
@@ -2420,6 +2580,14 @@ s3_PutObjectLockConfiguration:
             - description: Put object lock configuration.
               snippet_tags:
                 - python.s3-object-locking.s3_PutObjectLockConfiguration
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.abapv1.put_object_lock_configuration
   services:
     s3: {PutObjectLockConfiguration}
 s3_PutObjectRetention:
@@ -2469,6 +2637,14 @@ s3_PutObjectRetention:
             - description: Put an object retention.
               snippet_tags:
                 - python.example_code.s3.PutObjectRetention
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.abapv1.put_object_retention
   services:
     s3: {PutObjectRetention}
 s3_UploadPart:

@@ -71,6 +71,14 @@ glue_Hello:
     glue: {ListJobs}
 glue_GetCrawler:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/glu
+          excerpts:
+            - description:
+              snippet_tags:
+                - glu.abapv1.get_crawler
     .NET:
       versions:
         - sdk_version: 3
@@ -166,6 +174,14 @@ glue_GetCrawler:
     glue: {GetCrawler}
 glue_CreateCrawler:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/glu
+          excerpts:
+            - description:
+              snippet_tags:
+                - glu.abapv1.create_crawler
     .NET:
       versions:
         - sdk_version: 3
@@ -263,6 +279,14 @@ glue_CreateCrawler:
     glue: {CreateCrawler}
 glue_StartCrawler:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/glu
+          excerpts:
+            - description:
+              snippet_tags:
+                - glu.abapv1.start_crawler
     .NET:
       versions:
         - sdk_version: 3
@@ -360,6 +384,14 @@ glue_StartCrawler:
     glue: {StartCrawler}
 glue_GetDatabase:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/glu
+          excerpts:
+            - description:
+              snippet_tags:
+                - glu.abapv1.get_database
     .NET:
       versions:
         - sdk_version: 3
@@ -456,6 +488,14 @@ glue_GetDatabase:
     glue: {GetDatabase}
 glue_GetTables:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/glu
+          excerpts:
+            - description:
+              snippet_tags:
+                - glu.abapv1.get_tables
     .NET:
       versions:
         - sdk_version: 3
@@ -543,6 +583,14 @@ glue_GetTables:
     glue: {GetTables}
 glue_CreateJob:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/glu
+          excerpts:
+            - description:
+              snippet_tags:
+                - glu.abapv1.create_job
     Java:
       versions:
         - sdk_version: 2
@@ -631,6 +679,14 @@ glue_CreateJob:
     glue: {CreateJob}
 glue_StartJobRun:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/glu
+          excerpts:
+            - description:
+              snippet_tags:
+                - glu.abapv1.start_job_run
     Java:
       versions:
         - sdk_version: 2
@@ -720,6 +776,14 @@ glue_StartJobRun:
     glue: {StartJobRun}
 glue_ListJobs:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/glu
+          excerpts:
+            - description:
+              snippet_tags:
+                - glu.abapv1.list_jobs
     .NET:
       versions:
         - sdk_version: 3
@@ -796,6 +860,14 @@ glue_ListJobs:
     glue: {ListJobs}
 glue_GetJobRuns:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/glu
+          excerpts:
+            - description:
+              snippet_tags:
+                - glu.abapv1.get_job_runs
     .NET:
       versions:
         - sdk_version: 3
@@ -875,6 +947,14 @@ glue_GetJobRuns:
     glue: {GetJobRuns}
 glue_GetJobRun:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/glu
+          excerpts:
+            - description:
+              snippet_tags:
+                - glu.abapv1.get_job_run
     .NET:
       versions:
         - sdk_version: 3
@@ -953,6 +1033,14 @@ glue_GetJobRun:
     glue: {GetJobRun}
 glue_DeleteJob:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/glu
+          excerpts:
+            - description:
+              snippet_tags:
+                - glu.abapv1.delete_job
     Java:
       versions:
         - sdk_version: 2
@@ -1039,6 +1127,14 @@ glue_DeleteJob:
     glue: {DeleteJob}
 glue_DeleteTable:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/glu
+          excerpts:
+            - description:
+              snippet_tags:
+                - glu.abapv1.delete_table
     .NET:
       versions:
         - sdk_version: 3
@@ -1105,6 +1201,14 @@ glue_DeleteTable:
     glue: {DeleteTable}
 glue_DeleteDatabase:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/glu
+          excerpts:
+            - description:
+              snippet_tags:
+                - glu.abapv1.delete_database
     Java:
       versions:
         - sdk_version: 2
@@ -1191,6 +1295,14 @@ glue_DeleteDatabase:
     glue: {DeleteDatabase}
 glue_DeleteCrawler:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/glu
+          excerpts:
+            - description:
+              snippet_tags:
+                - glu.abapv1.delete_crawler
     Java:
       versions:
         - sdk_version: 2
