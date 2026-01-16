@@ -1878,6 +1878,9 @@ dynamodb_Scenario_GettingStartedMovies:
             - description:
               snippet_tags:
                 - DynamoDB.dotnetv4.DynamoDB_Basics_Scenario
+            - description: Use the injected client for table operations.
+              snippet_tags:
+                - DynamoDB.dotnetv4.dynamodb-basics.DynamoDbWrapper
             - description: Creates a table to contain movie data.
               snippet_tags:
                 - DynamoDB.dotnetv4.dynamodb-basics.CreateTable

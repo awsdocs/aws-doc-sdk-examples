@@ -1,6 +1,7 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+// snippet-start:[DynamoDB.dotnetv4.dynamodb-basics.DynamoDbWrapper]
 using System.Text.Json;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
@@ -24,6 +25,8 @@ public class DynamoDbWrapper
     {
         _amazonDynamoDB = amazonDynamoDB;
     }
+    // snippet-end:[DynamoDB.dotnetv4.dynamodb-basics.DynamoDbWrapper]
+
     // snippet-start:[DynamoDB.dotnetv4.dynamodb-basics.CreateTable]
 
     /// <summary>
