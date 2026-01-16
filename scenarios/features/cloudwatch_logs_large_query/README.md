@@ -47,6 +47,7 @@ A lot of logs are needed to make a robust example. If you happen to have a log g
 
 This example is implemented in the following languages:
 
+- [.NET](../../../dotnetv4/CloudWatchLogs/LargeQuery/README.md)
 - [JavaScript](../../../javascriptv3/example_code/cloudwatch-logs/scenarios/large-query/README.md)
 - [Python](../../../python/example_code/cloudwatch-logs/scenarios/large-query/README.md)
 

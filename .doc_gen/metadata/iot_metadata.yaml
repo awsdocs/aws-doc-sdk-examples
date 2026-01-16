@@ -22,6 +22,14 @@ iot_Hello:
             - description:
               snippet_tags:
                 - iot.java2.hello_iot.main
+    .NET:
+      versions:
+        - sdk_version: 4
+          github: dotnetv4/IoT
+          excerpts:
+            - description:
+              snippet_tags:
+                - iot.dotnetv4.Hello
     C++:
       versions:
         - sdk_version: 1
@@ -55,6 +63,14 @@ iot_DescribeEndpoint:
             - description:
               snippet_tags:
                 - iot.java2.describe.endpoint.main
+    .NET:
+      versions:
+        - sdk_version: 4
+          github: dotnetv4/IoT
+          excerpts:
+            - description:
+              snippet_tags:
+                - iot.dotnetv4.DescribeEndpoint
     Rust:
       versions:
         - sdk_version: 1
@@ -75,6 +91,14 @@ iot_DescribeEndpoint:
     iot: {DescribeEndpoint}
 iot_ListThings:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 4
+          github: dotnetv4/IoT
+          excerpts:
+            - description:
+              snippet_tags:
+                - iot.dotnetv4.ListThings
     Rust:
       versions:
         - sdk_version: 1
@@ -104,6 +128,14 @@ iot_ListCertificates:
             - description:
               snippet_tags:
                 - iot.java2.list.certs.main
+    .NET:
+      versions:
+        - sdk_version: 4
+          github: dotnetv4/IoT
+          excerpts:
+            - description:
+              snippet_tags:
+                - iot.dotnetv4.ListCertificates
     C++:
       versions:
         - sdk_version: 1
@@ -133,6 +165,14 @@ iot_CreateKeysAndCertificate:
             - description:
               snippet_tags:
                 - iot.java2.create.cert.main
+    .NET:
+      versions:
+        - sdk_version: 4
+          github: dotnetv4/IoT
+          excerpts:
+            - description:
+              snippet_tags:
+                - iot.dotnetv4.CreateKeysAndCertificate
     C++:
       versions:
         - sdk_version: 1
@@ -162,6 +202,14 @@ iot_DeleteCertificate:
             - description:
               snippet_tags:
                 - iot.java2.delete.cert.main
+    .NET:
+      versions:
+        - sdk_version: 4
+          github: dotnetv4/IoT
+          excerpts:
+            - description:
+              snippet_tags:
+                - iot.dotnetv4.DeleteCertificate
     C++:
       versions:
         - sdk_version: 1
@@ -191,6 +239,14 @@ iot_SearchIndex:
             - description:
               snippet_tags:
                 - iot.java2.search.thing.main
+    .NET:
+      versions:
+        - sdk_version: 4
+          github: dotnetv4/IoT
+          excerpts:
+            - description:
+              snippet_tags:
+                - iot.dotnetv4.SearchIndex
     C++:
       versions:
         - sdk_version: 1
@@ -232,6 +288,14 @@ iot_DeleteThing:
             - description:
               snippet_tags:
                 - iot.java2.delete.thing.main
+    .NET:
+      versions:
+        - sdk_version: 4
+          github: dotnetv4/IoT
+          excerpts:
+            - description:
+              snippet_tags:
+                - iot.dotnetv4.DeleteThing
     C++:
       versions:
         - sdk_version: 1
@@ -290,6 +354,14 @@ iot_AttachThingPrincipal:
             - description:
               snippet_tags:
                 - iot.java2.attach.thing.main
+    .NET:
+      versions:
+        - sdk_version: 4
+          github: dotnetv4/IoT
+          excerpts:
+            - description:
+              snippet_tags:
+                - iot.dotnetv4.AttachThingPrincipal
     C++:
       versions:
         - sdk_version: 1
@@ -319,6 +391,14 @@ iot_DetachThingPrincipal:
             - description:
               snippet_tags:
                 - iot.java2.detach.thing.main
+    .NET:
+      versions:
+        - sdk_version: 4
+          github: dotnetv4/IoT
+          excerpts:
+            - description:
+              snippet_tags:
+                - iot.dotnetv4.DetachThingPrincipal
     C++:
       versions:
         - sdk_version: 1
@@ -340,14 +420,14 @@ iot_UpdateThing:
             - description:
               snippet_tags:
                 - iot.kotlin.update.thing.main
-    Java:
+    .NET:
       versions:
-        - sdk_version: 2
-          github: javav2/example_code/iot
+        - sdk_version: 4
+          github: dotnetv4/IoT
           excerpts:
             - description:
               snippet_tags:
-                - iot.java2.update.shadow.thing.main
+                - iot.dotnetv4.UpdateThing
     C++:
       versions:
         - sdk_version: 1
@@ -377,6 +457,14 @@ iot_CreateTopicRule:
             - description:
               snippet_tags:
                 - iot.java2.create.rule.main
+    .NET:
+      versions:
+        - sdk_version: 4
+          github: dotnetv4/IoT
+          excerpts:
+            - description:
+              snippet_tags:
+                - iot.dotnetv4.CreateTopicRule
     C++:
       versions:
         - sdk_version: 1
@@ -418,6 +506,14 @@ iot_CreateThing:
             - description:
               snippet_tags:
                 - iot.java2.create.thing.main
+    .NET:
+      versions:
+        - sdk_version: 4
+          github: dotnetv4/IoT
+          excerpts:
+            - description:
+              snippet_tags:
+                - iot.dotnetv4.CreateThing
     C++:
       versions:
         - sdk_version: 1
@@ -435,7 +531,7 @@ iot_Scenario:
     - Update an &IoT; Thing with Attributes.
     - Return a unique endpoint.
     - List your &IoT; certificates.
-    - Create an &IoT; shadow.
+    - Update an &IoT; shadow.
     - Write out state information.
     - Creates a rule.
     - List your rules.
@@ -464,6 +560,17 @@ iot_Scenario:
             - description: A wrapper class for &IoT; SDK methods.
               snippet_tags:
                 - iot.java2.scenario.actions.main   
+    .NET:
+      versions:
+        - sdk_version: 4
+          github: dotnetv4/IoT
+          excerpts:
+            - description: Run an interactive scenario demonstrating &IoT; features.
+              snippet_tags:
+                - iot.dotnetv4.IoTScenario
+            - description: A wrapper class for &IoT; SDK methods.
+              snippet_tags:
+                - iot.dotnetv4.IoTWrapper
     C++:
       versions:
         - sdk_version: 1

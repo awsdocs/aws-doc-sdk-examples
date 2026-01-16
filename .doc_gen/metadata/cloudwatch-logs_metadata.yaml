@@ -288,6 +288,14 @@ cloudwatch-logs_PutSubscriptionFilter:
     cloudwatch-logs: {PutSubscriptionFilter}
 cloudwatch-logs_GetQueryResults:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 4
+          github: dotnetv4/CloudWatchLogs/LargeQuery
+          excerpts:
+            - description:
+              snippet_tags:
+                - CloudWatchLogs.dotnetv4.GetQueryResults
     JavaScript:
       versions:
         - sdk_version: 3
@@ -316,6 +324,14 @@ cloudwatch-logs_GetQueryResults:
     cloudwatch-logs: {GetQueryResults}
 cloudwatch-logs_StartQuery:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 4
+          github: dotnetv4/CloudWatchLogs/LargeQuery
+          excerpts:
+            - description:
+              snippet_tags:
+                - CloudWatchLogs.dotnetv4.StartQuery
     JavaScript:
       versions:
         - sdk_version: 3
@@ -348,6 +364,14 @@ cloudwatch-logs_Scenario_BigQuery:
   synopsis: use &CWL; to query more than 10,000 records.
   category: Scenarios
   languages:
+    .NET:
+      versions:
+        - sdk_version: 4
+          github: dotnetv4/CloudWatchLogs/LargeQuery
+          excerpts:
+            - description: This is the main workflow that demonstrates the large query scenario.
+              snippet_tags:
+                - CloudWatchLogs.dotnetv4.LargeQueryWorkflow
     JavaScript:
       versions:
         - sdk_version: 3

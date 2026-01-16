@@ -216,6 +216,7 @@ allow_list:
   - "StopQueryWorkloadInsightsTopContributors"
   - "com/location/latest/APIReference/Welcome"
   - "1234567890123456789012345678901234567890"
+  - "LargeQuery/Actions/CloudWatchLogsWrapper"
 sample_files:
   - "README.md"
   - "chat_sfn_state_machine.json"

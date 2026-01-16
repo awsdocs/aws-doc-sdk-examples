@@ -158,7 +158,7 @@ class Scanner:
                 readme_path = Path(__file__).parent.parent.parent / readme_folder
                 # tag_path = snippet_path.relative_to(readme_path)  # Must be subpaths, no ..
                 tag_path = relpath(snippet_path, readme_path)
-                tag_path = str(tag_path).replace("\\", "/")
+                tag_path = str(tag_path).replace("\\", "/").replace("#", "%23")
                 if api_name != "":
                     tag_path += f"#L{snippet.line_start + 1}"
         return tag_path

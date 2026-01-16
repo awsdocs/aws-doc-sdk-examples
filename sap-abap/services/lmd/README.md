@@ -33,20 +33,20 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 
 Code examples that show you how to perform the essential operations within a service.
 
-- [Learn the basics](#awsex#cl_lmd_scenarios.clas.abap)
+- [Learn the basics](%23awsex%23cl_lmd_scenarios.clas.abap)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateFunction](#awsex#cl_lmd_actions.clas.abap#L68)
-- [DeleteFunction](#awsex#cl_lmd_actions.clas.abap#L107)
-- [GetFunction](#awsex#cl_lmd_actions.clas.abap#L132)
-- [Invoke](#awsex#cl_lmd_actions.clas.abap#L153)
-- [ListFunctions](#awsex#cl_lmd_actions.clas.abap#L193)
-- [UpdateFunctionCode](#awsex#cl_lmd_actions.clas.abap#L216)
-- [UpdateFunctionConfiguration](#awsex#cl_lmd_actions.clas.abap#L252)
+- [CreateFunction](%23awsex%23cl_lmd_actions.clas.abap#L68)
+- [DeleteFunction](%23awsex%23cl_lmd_actions.clas.abap#L107)
+- [GetFunction](%23awsex%23cl_lmd_actions.clas.abap#L132)
+- [Invoke](%23awsex%23cl_lmd_actions.clas.abap#L153)
+- [ListFunctions](%23awsex%23cl_lmd_actions.clas.abap#L193)
+- [UpdateFunctionCode](%23awsex%23cl_lmd_actions.clas.abap#L216)
+- [UpdateFunctionConfiguration](%23awsex%23cl_lmd_actions.clas.abap#L252)
 
 
 <!--custom.examples.start-->

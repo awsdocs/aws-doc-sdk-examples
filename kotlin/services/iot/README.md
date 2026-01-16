@@ -84,7 +84,7 @@ This example shows you how to do the following:
 - Update an AWS IoT Thing with Attributes.
 - Return a unique endpoint.
 - List your AWS IoT certificates.
-- Create an AWS IoT shadow.
+- Update an AWS IoT shadow.
 - Write out state information.
 - Creates a rule.
 - List your rules.
