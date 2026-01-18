@@ -39,6 +39,7 @@ This example is implemented in the following languages:
 * [JavaScript](../../../javascriptv3/example_code/cross-services/wkflw-topics-queues)
 * [Java](../../../javav2/usecases/topics_and_queues)
 * [Kotlin](../../../kotlin/usecases/topics_and_queues)
+* [Python](../../../python/cross_service/topics_and_queues)
 
 ## Additional reading
 
