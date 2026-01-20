@@ -36,7 +36,7 @@ python -m pip install -r requirements.txt
 
 ### Get started
 
-- [Hello AWS IoT](iot_hello.py#L14) (`DescribeEndpoint`)
+- [Hello AWS IoT](iot_hello.py#L14) (`listThings`)
 
 
 ### Basics
