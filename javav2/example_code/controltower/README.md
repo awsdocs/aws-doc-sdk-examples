@@ -1,8 +1,8 @@
-# AWS Control Tower code examples for the SDK for .NET (v4)
+# AWS Control Tower code examples for the SDK for Java 2.x
 
 ## Overview
 
-Shows how to use the AWS SDK for .NET (v4) to work with AWS Control Tower.
+Shows how to use the AWS SDK for Java 2.x to work with AWS Control Tower.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
@@ -23,7 +23,7 @@ _AWS Control Tower enables you to enforce and manage governance rules for securi
 
 ### Prerequisites
 
-For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv4` folder.
+For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav2` folder.
 
 
 <!--custom.prerequisites.start-->
@@ -31,31 +31,31 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv4
 
 ### Get started
 
-- [Hello AWS Control Tower](Actions/HelloControlTower.cs#L4) (`ListBaselines`)
+- [Hello AWS Control Tower](src/main/java/com/example/controltower/HelloControlTower.java#L27) (`ListBaselines`)
 
 
 ### Basics
 
 Code examples that show you how to perform the essential operations within a service.
 
-- [Learn the basics](Scenarios/ControlTower_Basics/ControlTowerBasics.cs)
+- [Learn the basics](src/main/java/com/example/controltower/scenario/ControlTowerActions.java)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [DisableBaseline](Actions/ControlTowerWrapper.cs#L185)
-- [DisableControl](Actions/ControlTowerWrapper.cs#L405)
-- [EnableBaseline](Actions/ControlTowerWrapper.cs#L120)
-- [EnableControl](Actions/ControlTowerWrapper.cs#L349)
-- [GetBaselineOperation](Actions/ControlTowerWrapper.cs#L277)
-- [GetControlOperation](Actions/ControlTowerWrapper.cs#L453)
-- [ListBaselines](Actions/ControlTowerWrapper.cs#L62)
-- [ListEnabledBaselines](Actions/ControlTowerWrapper.cs#L91)
-- [ListEnabledControls](Actions/ControlTowerWrapper.cs#L309)
-- [ListLandingZones](Actions/ControlTowerWrapper.cs#L33)
-- [ResetEnabledBaseline](Actions/ControlTowerWrapper.cs#L231)
+- [DisableBaseline](src/main/java/com/example/controltower/scenario/ControlTowerActions.java#L493)
+- [DisableControl](src/main/java/com/example/controltower/scenario/ControlTowerActions.java#L803)
+- [EnableBaseline](src/main/java/com/example/controltower/scenario/ControlTowerActions.java#L387)
+- [EnableControl](src/main/java/com/example/controltower/scenario/ControlTowerActions.java#L706)
+- [GetBaselineOperation](src/main/java/com/example/controltower/scenario/ControlTowerActions.java#L574)
+- [GetControlOperation](src/main/java/com/example/controltower/scenario/ControlTowerActions.java#L886)
+- [ListBaselines](src/main/java/com/example/controltower/scenario/ControlTowerActions.java#L257)
+- [ListEnabledBaselines](src/main/java/com/example/controltower/scenario/ControlTowerActions.java#L317)
+- [ListEnabledControls](src/main/java/com/example/controltower/scenario/ControlTowerActions.java#L638)
+- [ListLandingZones](src/main/java/com/example/controltower/scenario/ControlTowerActions.java#L204)
+- [ResetEnabledBaseline](src/main/java/com/example/controltower/scenario/ControlTowerActions.java#L986)
 
 
 <!--custom.examples.start-->
@@ -95,8 +95,8 @@ This example shows you how to do the following:
 ⚠ Running tests might result in charges to your AWS account.
 
 
-To find instructions for running these tests, see the [README](../README.md#Tests)
-in the `dotnetv4` folder.
+To find instructions for running these tests, see the [README](../../README.md#Tests)
+in the `javav2` folder.
 
 
 
@@ -107,7 +107,7 @@ in the `dotnetv4` folder.
 
 - [AWS Control Tower User Guide](https://docs.aws.amazon.com/controltower/latest/userguide/what-is-control-tower.html)
 - [AWS Control Tower API Reference](https://docs.aws.amazon.com/controltower/latest/APIReference/Welcome.html)
-- [SDK for .NET (v4) AWS Control Tower reference](https://docs.aws.amazon.com/sdkfornet/v4/apidocs/items/Controltower/NControltower.html)
+- [SDK for Java 2.x AWS Control Tower reference](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/controltower/package-summary.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

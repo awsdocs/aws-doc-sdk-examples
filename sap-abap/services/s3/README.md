@@ -33,27 +33,27 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 
 Code examples that show you how to perform the essential operations within a service.
 
-- [Learn the basics](#awsex#cl_s3_scenarios.clas.abap)
+- [Learn the basics](%23awsex%23cl_s3_scenarios.clas.abap)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [CopyObject](#awsex#cl_s3_actions.clas.abap#L69)
-- [CreateBucket](#awsex#cl_s3_actions.clas.abap#L92)
-- [DeleteBucket](#awsex#cl_s3_actions.clas.abap#L125)
-- [DeleteObject](#awsex#cl_s3_actions.clas.abap#L145)
-- [GetObject](#awsex#cl_s3_actions.clas.abap#L164)
-- [ListObjectsV2](#awsex#cl_s3_actions.clas.abap#L205)
-- [PutObject](#awsex#cl_s3_actions.clas.abap#L224)
+- [CopyObject](%23awsex%23cl_s3_actions.clas.abap#L69)
+- [CreateBucket](%23awsex%23cl_s3_actions.clas.abap#L92)
+- [DeleteBucket](%23awsex%23cl_s3_actions.clas.abap#L125)
+- [DeleteObject](%23awsex%23cl_s3_actions.clas.abap#L145)
+- [GetObject](%23awsex%23cl_s3_actions.clas.abap#L164)
+- [ListObjectsV2](%23awsex%23cl_s3_actions.clas.abap#L205)
+- [PutObject](%23awsex%23cl_s3_actions.clas.abap#L224)
 
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Create a presigned URL](#awsex#cl_s3_scenarios.clas.abap)
+- [Create a presigned URL](%23awsex%23cl_s3_scenarios.clas.abap)
 
 
 <!--custom.examples.start-->

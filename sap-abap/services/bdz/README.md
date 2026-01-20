@@ -33,7 +33,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 
 Code excerpts that show you how to call individual service functions.
 
-- [InvokeAgent](#awsex#cl_bdz_actions.clas.abap#L37)
+- [InvokeAgent](%23awsex%23cl_bdz_actions.clas.abap#L37)
 
 
 <!--custom.examples.start-->
