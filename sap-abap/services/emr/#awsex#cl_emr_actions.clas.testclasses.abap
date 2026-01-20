@@ -24,8 +24,8 @@ CLASS ltc_awsex_cl_emr_actions DEFINITION FOR TESTING DURATION SHORT RISK LEVEL 
     CLASS-DATA av_emr_role_arn TYPE /aws1/emrxmlstring.
     CLASS-DATA av_ec2_role_arn TYPE /aws1/emrxmlstring.
     CLASS-DATA av_default_vpc_id TYPE /aws1/ec2string.
-    CLASS-DATA av_master_sg_id TYPE /aws1/emrxmlstringmaxlen256.
-    CLASS-DATA av_slave_sg_id TYPE /aws1/emrxmlstringmaxlen256.
+    CLASS-DATA av_primary_sg_id TYPE /aws1/emrxmlstringmaxlen256.
+    CLASS-DATA av_secondary_sg_id TYPE /aws1/emrxmlstringmaxlen256.
 
     " Single combined test method to ensure execution order
     METHODS test_emr_operations FOR TESTING RAISING /aws1/cx_rt_generic.
@@ -96,9 +96,9 @@ CLASS ltc_awsex_cl_emr_actions IMPLEMENTATION.
     ENDIF.
 
     " Create security groups
-    av_master_sg_id = ao_ec2->createsecuritygroup(
-      iv_groupname = |emr-master-sg-{ lv_timestamp }|
-      iv_description = 'EMR Master Security Group'
+    av_primary_sg_id = ao_ec2->createsecuritygroup(
+      iv_groupname = |emr-primary-sg-{ lv_timestamp }|
+      iv_description = 'EMR primary Security Group'
       iv_vpcid = av_default_vpc_id
       it_tagspecifications = VALUE /aws1/cl_ec2tagspecification=>tt_tagspecificationlist(
         ( NEW /aws1/cl_ec2tagspecification(
@@ -111,9 +111,9 @@ CLASS ltc_awsex_cl_emr_actions IMPLEMENTATION.
       )
     )->get_groupid( ).
 
-    av_slave_sg_id = ao_ec2->createsecuritygroup(
-      iv_groupname = |emr-slave-sg-{ lv_timestamp }|
-      iv_description = 'EMR Slave Security Group'
+    av_secondary_sg_id = ao_ec2->createsecuritygroup(
+      iv_groupname = |emr-secondary-sg-{ lv_timestamp }|
+      iv_description = 'EMR secondary Security Group'
       iv_vpcid = av_default_vpc_id
       it_tagspecifications = VALUE /aws1/cl_ec2tagspecification=>tt_tagspecificationlist(
         ( NEW /aws1/cl_ec2tagspecification(
@@ -221,17 +221,17 @@ CLASS ltc_awsex_cl_emr_actions IMPLEMENTATION.
     " /awsex/cl_utils=>cleanup_bucket( io_s3 = ao_s3 iv_bucket = av_log_bucket ).
 
     " Clean up security groups
-    IF av_master_sg_id IS NOT INITIAL.
+    IF av_primary_sg_id IS NOT INITIAL.
       TRY.
-          ao_ec2->deletesecuritygroup( iv_groupid = av_master_sg_id ).
+          ao_ec2->deletesecuritygroup( iv_groupid = av_primary_sg_id ).
         CATCH /aws1/cx_rt_generic.
           " Ignore errors during cleanup
       ENDTRY.
     ENDIF.
 
-    IF av_slave_sg_id IS NOT INITIAL.
+    IF av_secondary_sg_id IS NOT INITIAL.
       TRY.
-          ao_ec2->deletesecuritygroup( iv_groupid = av_slave_sg_id ).
+          ao_ec2->deletesecuritygroup( iv_groupid = av_secondary_sg_id ).
         CATCH /aws1/cx_rt_generic.
           " Ignore errors during cleanup
       ENDTRY.
@@ -314,8 +314,8 @@ CLASS ltc_awsex_cl_emr_actions IMPLEMENTATION.
       it_applications = lt_applications
       iv_job_flow_role = av_ec2_role_name
       iv_service_role = av_emr_role_arn
-      iv_master_sec_grp = av_master_sg_id
-      iv_slave_sec_grp = av_slave_sg_id
+      iv_primary_sec_grp = av_primary_sg_id
+      iv_secondary_sec_grp = av_secondary_sg_id
       it_steps = lt_steps
     ).
 
