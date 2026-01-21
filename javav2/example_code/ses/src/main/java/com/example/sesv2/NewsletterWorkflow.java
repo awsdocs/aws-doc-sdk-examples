@@ -18,8 +18,6 @@ import software.amazon.awssdk.services.sesv2.model.*;
  * It demonstrates how to use the Amazon Simple Email Service (SES) v2 to send a
  * coupon newsletter to a list of contacts.
  *
- * to send a coupon newsletter to a list of contacts.
- *
  * NOTE:
  * To run this example, make sure the following resource files exist:
  *   - welcome.html
