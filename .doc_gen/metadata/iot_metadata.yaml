@@ -102,6 +102,7 @@ iot_DescribeEndpoint:
           excerpts:
             - description:
               snippet_tags:
+                - python.example_code.iot.IoTWrapper.decl
                 - python.example_code.iot.DescribeEndpoint
   services:
     iot: {DescribeEndpoint}
@@ -130,6 +131,7 @@ iot_ListThings:
           excerpts:
             - description:
               snippet_tags:
+                - python.example_code.iot.IoTWrapper.decl
                 - python.example_code.iot.ListThings
   services:
     iot: {ListThings}
@@ -175,6 +177,7 @@ iot_ListCertificates:
           excerpts:
             - description:
               snippet_tags:
+                - python.example_code.iot.IoTWrapper.decl
                 - python.example_code.iot.ListCertificates
   services:
     iot: {ListCertificates}
@@ -220,6 +223,7 @@ iot_CreateKeysAndCertificate:
           excerpts:
             - description:
               snippet_tags:
+                - python.example_code.iot.IoTWrapper.decl
                 - python.example_code.iot.CreateKeysAndCertificate
   services:
     iot: {CreateKeysAndCertificate}
@@ -265,6 +269,7 @@ iot_DeleteCertificate:
           excerpts:
             - description:
               snippet_tags:
+                - python.example_code.iot.IoTWrapper.decl
                 - python.example_code.iot.DeleteCertificate
   services:
     iot: {DeleteCertificate}
@@ -310,6 +315,7 @@ iot_SearchIndex:
           excerpts:
             - description:
               snippet_tags:
+                - python.example_code.iot.IoTWrapper.decl
                 - python.example_code.iot.SearchIndex
   services:
     iot: {SearchIndex}
@@ -330,6 +336,7 @@ iot_UpdateIndexingConfiguration:
           excerpts:
             - description:
               snippet_tags:
+                - python.example_code.iot.IoTWrapper.decl
                 - python.example_code.iot.UpdateIndexingConfiguration
   services:
     iot: {UpdateIndexingConfiguration}
@@ -375,6 +382,7 @@ iot_DeleteThing:
           excerpts:
             - description:
               snippet_tags:
+                - python.example_code.iot.IoTWrapper.decl
                 - python.example_code.iot.DeleteThing
   services:
     iot: {DeleteThing}
@@ -449,6 +457,7 @@ iot_AttachThingPrincipal:
           excerpts:
             - description:
               snippet_tags:
+                - python.example_code.iot.IoTWrapper.decl
                 - python.example_code.iot.AttachThingPrincipal
   services:
     iot: {AttachThingPrincipal}
@@ -494,6 +503,7 @@ iot_DetachThingPrincipal:
           excerpts:
             - description:
               snippet_tags:
+                - python.example_code.iot.IoTWrapper.decl
                 - python.example_code.iot.DetachThingPrincipal
   services:
     iot: {DetachThingPrincipal}
@@ -568,6 +578,7 @@ iot_CreateTopicRule:
           excerpts:
             - description:
               snippet_tags:
+                - python.example_code.iot.IoTWrapper.decl
                 - python.example_code.iot.CreateTopicRule
   services:
     iot: {CreateTopicRule}
@@ -588,6 +599,7 @@ iot_DeleteTopicRule:
           excerpts:
             - description:
               snippet_tags:
+                - python.example_code.iot.IoTWrapper.decl
                 - python.example_code.iot.DeleteTopicRule
   services:
     iot: {DeleteTopicRule}
@@ -633,6 +645,7 @@ iot_CreateThing:
           excerpts:
             - description:
               snippet_tags:
+                - python.example_code.iot.IoTWrapper.decl
                 - python.example_code.iot.CreateThing
   services:
     iot: {CreateThing}

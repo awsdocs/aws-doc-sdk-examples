@@ -50,19 +50,19 @@ Code examples that show you how to perform the essential operations within a ser
 
 Code excerpts that show you how to call individual service functions.
 
-- [AttachThingPrincipal](iot_wrapper.py#L118)
-- [CreateKeysAndCertificate](iot_wrapper.py#L93)
-- [CreateThing](iot_wrapper.py#L38)
-- [CreateTopicRule](iot_wrapper.py#L249)
-- [DeleteCertificate](iot_wrapper.py#L223)
-- [DeleteThing](iot_wrapper.py#L357)
-- [DeleteTopicRule](iot_wrapper.py#L380)
-- [DescribeEndpoint](iot_wrapper.py#L144)
-- [DetachThingPrincipal](iot_wrapper.py#L197)
-- [ListCertificates](iot_wrapper.py#L170)
-- [ListThings](iot_wrapper.py#L65)
-- [SearchIndex](iot_wrapper.py#L311)
-- [UpdateIndexingConfiguration](iot_wrapper.py#L337)
+- [AttachThingPrincipal](iot_wrapper.py#L119)
+- [CreateKeysAndCertificate](iot_wrapper.py#L94)
+- [CreateThing](iot_wrapper.py#L39)
+- [CreateTopicRule](iot_wrapper.py#L250)
+- [DeleteCertificate](iot_wrapper.py#L224)
+- [DeleteThing](iot_wrapper.py#L358)
+- [DeleteTopicRule](iot_wrapper.py#L381)
+- [DescribeEndpoint](iot_wrapper.py#L145)
+- [DetachThingPrincipal](iot_wrapper.py#L198)
+- [ListCertificates](iot_wrapper.py#L171)
+- [ListThings](iot_wrapper.py#L66)
+- [SearchIndex](iot_wrapper.py#L312)
+- [UpdateIndexingConfiguration](iot_wrapper.py#L338)
 
 
 <!--custom.examples.start-->

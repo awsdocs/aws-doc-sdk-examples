@@ -16,6 +16,7 @@ logger = logging.getLogger(__name__)
 
 
 # snippet-start:[python.example_code.iot.IoTWrapper]
+# snippet-start:[python.example_code.iot.IoTWrapper.decl]
 class IoTWrapper:
     """Encapsulates AWS IoT actions."""
 
@@ -32,8 +33,8 @@ class IoTWrapper:
         iot_client = boto3.client("iot")
         iot_data_client = boto3.client("iot-data")
         return cls(iot_client, iot_data_client)
-
-    # snippet-end:[python.example_code.iot.IoTWrapper]
+# snippet-end:[python.example_code.iot.IoTWrapper.decl]
+    
 
     # snippet-start:[python.example_code.iot.CreateThing]
     def create_thing(self, thing_name):
@@ -451,3 +452,4 @@ class IoTWrapper:
             return shadow
 
     # snippet-end:[python.example_code.iot.GetThingShadow]
+# snippet-end:[python.example_code.iot.IoTWrapper]
