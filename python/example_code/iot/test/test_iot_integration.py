@@ -35,6 +35,7 @@ def test_scenario_complete_integration(capsys):
                         scenario.run_scenario(thing_name, rule_name)
 
     captured = capsys.readouterr()
+    print(captured.out)
     assert "Thanks for using AWS IoT" in captured.out
 
 
