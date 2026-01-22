@@ -88,6 +88,14 @@ ssm_PutParameter:
     ssm: {PutParameter}
 ssm_CreateOpsItem:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ssm
+          excerpts:
+            - description:
+              snippet_tags:
+                - ssm.abapv1.create_ops_item
     Java:
       versions:
         - sdk_version: 2
@@ -120,6 +128,14 @@ ssm_CreateOpsItem:
     ssm: {CreateOpsItem}
 ssm_UpdateMaintenanceWindow:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ssm
+          excerpts:
+            - description:
+              snippet_tags:
+                - ssm.abapv1.update_maintenance_window
     Java:
       versions:
         - sdk_version: 2
@@ -152,6 +168,14 @@ ssm_UpdateMaintenanceWindow:
     ssm: {UpdateMaintenanceWindow}
 ssm_CreateMaintenanceWindow:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ssm
+          excerpts:
+            - description:
+              snippet_tags:
+                - ssm.abapv1.create_maintenance_window
     Java:
       versions:
         - sdk_version: 2
@@ -184,6 +208,14 @@ ssm_CreateMaintenanceWindow:
     ssm: {CreateMaintenanceWindow}
 ssm_SendCommand:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ssm
+          excerpts:
+            - description:
+              snippet_tags:
+                - ssm.abapv1.send_command
     Java:
       versions:
         - sdk_version: 2
@@ -216,6 +248,14 @@ ssm_SendCommand:
     ssm: {SendCommand}
 ssm_ListCommandInvocations:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ssm
+          excerpts:
+            - description:
+              snippet_tags:
+                - ssm.abapv1.list_command_invocations
     JavaScript:
       versions:
         - sdk_version: 3
@@ -239,6 +279,14 @@ ssm_ListCommandInvocations:
     ssm: {ListCommandInvocations}
 ssm_CreateDocument:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ssm
+          excerpts:
+            - description:
+              snippet_tags:
+                - ssm.abapv1.create_document
     Java:
       versions:
         - sdk_version: 2
@@ -271,6 +319,14 @@ ssm_CreateDocument:
     ssm: {CreateDocument}
 ssm_DescribeOpsItems:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ssm
+          excerpts:
+            - description:
+              snippet_tags:
+                - ssm.abapv1.describe_ops_items
     Java:
       versions:
         - sdk_version: 2
@@ -303,6 +359,14 @@ ssm_DescribeOpsItems:
     ssm: {DescribeOpsItems}
 ssm_DeleteOpsItem:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ssm
+          excerpts:
+            - description:
+              snippet_tags:
+                - ssm.abapv1.delete_ops_item
     Python:
       versions:
         - sdk_version: 3
@@ -317,6 +381,14 @@ ssm_DeleteOpsItem:
     ssm: {DeleteOpsItem}
 ssm_DeleteMaintenanceWindow:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ssm
+          excerpts:
+            - description:
+              snippet_tags:
+                - ssm.abapv1.delete_maintenance_window
     Java:
       versions:
         - sdk_version: 2
@@ -349,6 +421,14 @@ ssm_DeleteMaintenanceWindow:
     ssm: {DeleteMaintenanceWindow}
 ssm_DeleteDocument:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ssm
+          excerpts:
+            - description:
+              snippet_tags:
+                - ssm.abapv1.delete_document
     Java:
       versions:
         - sdk_version: 2
@@ -379,8 +459,28 @@ ssm_DeleteDocument:
                 - python.example_code.ssm.DeleteDocument
   services:
     ssm: {DeleteDocument}
+ssm_DescribeDocument:
+  languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ssm
+          excerpts:
+            - description:
+              snippet_tags:
+                - ssm.abapv1.describe_document
+  services:
+    ssm: {DescribeDocument}
 ssm_UpdateOpsItem:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/ssm
+          excerpts:
+            - description:
+              snippet_tags:
+                - ssm.abapv1.update_ops_item
     Java:
       versions:
         - sdk_version: 2

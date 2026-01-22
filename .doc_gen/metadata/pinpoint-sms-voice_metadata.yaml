@@ -27,5 +27,112 @@ pinpoint-sms-voice_SendVoiceMessage:
             - description:
               snippet_tags:
                 - pinpoint.javascript.pinpoint_send_voice_message_sms_voice_api.complete
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/pps
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - pps.abapv1.send_voice_message
   services:
     pinpoint-sms-voice: {SendVoiceMessage}
+
+pinpoint-sms-voice_CreateConfigurationSet:
+  languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/pps
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - pps.abapv1.create_configuration_set
+  services:
+    pinpoint-sms-voice: {CreateConfigurationSet}
+
+pinpoint-sms-voice_DeleteConfigurationSet:
+  languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/pps
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - pps.abapv1.delete_configuration_set
+  services:
+    pinpoint-sms-voice: {DeleteConfigurationSet}
+
+pinpoint-sms-voice_ListConfigurationSets:
+  languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/pps
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - pps.abapv1.list_configuration_sets
+  services:
+    pinpoint-sms-voice: {ListConfigurationSets}
+
+pinpoint-sms-voice_GetConfigurationSetEventDestinations:
+  languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/pps
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - pps.abapv1.get_configuration_set_event_destinations
+  services:
+    pinpoint-sms-voice: {GetConfigurationSetEventDestinations}
+
+pinpoint-sms-voice_CreateConfigurationSetEventDestination:
+  languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/pps
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - pps.abapv1.create_configuration_set_event_destination
+  services:
+    pinpoint-sms-voice: {CreateConfigurationSetEventDestination}
+
+pinpoint-sms-voice_DeleteConfigurationSetEventDestination:
+  languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/pps
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - pps.abapv1.delete_configuration_set_event_destination
+  services:
+    pinpoint-sms-voice: {DeleteConfigurationSetEventDestination}
+
+pinpoint-sms-voice_UpdateConfigurationSetEventDestination:
+  languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/pps
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - pps.abapv1.update_configuration_set_event_destination
+  services:
+    pinpoint-sms-voice: {UpdateConfigurationSetEventDestination}
