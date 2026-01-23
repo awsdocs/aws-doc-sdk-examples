@@ -526,11 +526,11 @@ sns_CreateTopic:
         - sdk_version: 3
           github: python/example_code/sns
           excerpts:
-            - description: Usage in the Basics scenario.
+            - description: 
               snippet_tags:
                 - python.example_code.sns.SnsWrapper
                 - python.example_code.sns.CreateTopic
-            - description: Usage in the Topics and Queues scenario.
+            - description: 
               snippet_tags:
                 - python.example_code.sns.SnsWrapper.decl
                 - python.example_code.sns.CreateFifoTopic
@@ -636,11 +636,11 @@ sns_DeleteTopic:
         - sdk_version: 3
           github: python/example_code/sns
           excerpts:
-            - description: Usage in the Basics scenario.
+            - description: 
               snippet_tags:
                 - python.example_code.sns.SnsWrapper
                 - python.example_code.sns.DeleteTopic
-            - description: Usage in the Topics and Queues scenario.
+            - description: 
               snippet_tags:
                 - python.example_code.sns.SnsWrapper.decl
                 - python.example_code.sns.DeleteFifoTopic
@@ -775,7 +775,7 @@ sns_Publish:
               snippet_tags:
                 - python.example_code.sns.SnsWrapper
                 - python.example_code.sns.Publish_MessageStructure
-            - description: Usage in the Topics and Queues scenario.
+            - description: 
               snippet_tags:
                 - python.example_code.sns.SnsWrapper.decl
                 - python.example_code.sns.Publish
@@ -1211,11 +1211,11 @@ sns_Unsubscribe:
         - sdk_version: 3
           github: python/example_code/sns
           excerpts:
-            - description: Usage in the Basics scenario.
+            - description: 
               snippet_tags:
                 - python.example_code.sns.SnsWrapper
                 - python.example_code.sns.Unsubscribe
-            - description: Usage in the Topics and Queues scenario.
+            - description: 
               snippet_tags:
                 - python.example_code.sns.SnsWrapper.decl
                 - python.example_code.sns.UnsubscribeTopic
