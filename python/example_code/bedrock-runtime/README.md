@@ -64,10 +64,6 @@ functions within the same service.
 
 - [InvokeModel](models/amazon_titan_image_generator/invoke_model.py#L4)
 
-### Amazon Titan Text
-
-- [InvokeModel](models/amazon_titan_text/invoke_model.py#L4)
-
 ### Amazon Titan Text Embeddings
 
 - [InvokeModel](models/amazon_titan_text_embeddings/invoke_model.py#L4)
