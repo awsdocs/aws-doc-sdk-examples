@@ -18,7 +18,7 @@ import (
 )
 
 const CLAUDE_MODEL_ID = "anthropic.claude-v2"
-const TITAN_IMAGE_MODEL_ID = "amazon.titan-image-generator-v1"
+const TITAN_IMAGE_MODEL_ID = "amazon.titan-image-generator-v2:0"
 
 const prompt = "A test prompt"
 

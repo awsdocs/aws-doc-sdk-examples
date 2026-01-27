@@ -14,7 +14,7 @@ import random
 client = boto3.client("bedrock-runtime", region_name="us-east-1")
 
 # Set the model ID, e.g., Titan Image Generator G1.
-model_id = "amazon.titan-image-generator-v1"
+model_id = "amazon.titan-image-generator-v2:0"
 
 # Define the image generation prompt for the model.
 prompt = "A stylized picture of a cute old steampunk robot."

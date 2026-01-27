@@ -47,7 +47,7 @@ func StubInvokeModel(params StubInvokeModelParams) testtools.Stub {
 //         OperationName: "InvokeModel",
 //         Input:	&bedrockruntime.InvokeModelInput{
 //             Body:        requestBytes,
-//             ModelId:     aws.String("amazon.titan-image-generator-v1"),
+//             ModelId:     aws.String("amazon.titan-image-generator-v2:0"),
 //             ContentType: aws.String("application/json"),
 //         },
 //         Output:	&bedrockruntime.InvokeModelOutput{

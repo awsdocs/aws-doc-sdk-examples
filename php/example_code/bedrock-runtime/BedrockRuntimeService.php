@@ -109,7 +109,7 @@ class BedrockRuntimeService extends AWSServiceClass
 
         $base64_image_data = "";
         try {
-            $modelId = 'amazon.titan-image-generator-v1';
+            $modelId = 'amazon.titan-image-generator-v2:0';
             $request = json_encode([
                 'taskType' => 'TEXT_IMAGE',
                 'textToImageParams' => [

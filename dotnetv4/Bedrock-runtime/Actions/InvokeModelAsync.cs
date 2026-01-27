@@ -461,7 +461,7 @@ namespace BedrockRuntimeActions
         /// </remarks>
         public static async Task<string?> InvokeTitanImageGeneratorG1Async(string prompt, int seed)
         {
-            string titanImageGeneratorG1ModelId = "amazon.titan-image-generator-v1";
+            string titanImageGeneratorG1ModelId = "amazon.titan-image-generator-v2:0";
 
             AmazonBedrockRuntimeClient client = new(RegionEndpoint.USEast1);
 
