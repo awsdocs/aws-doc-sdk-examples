@@ -811,6 +811,12 @@ sns_Publish:
             - description:
               snippet_tags:
                 - sns.abapv1.publish_to_topic
+            - description: Publish a message with attributes to a topic.
+              snippet_tags:
+                - sns.abapv1.publish_message
+            - description: Publish a multi-format message to a topic.
+              snippet_tags:
+                - sns.abapv1.publish_multi_message
   services:
     sns: {Publish}
 sns_PublishTextSMS:
@@ -866,6 +872,15 @@ sns_PublishTextSMS:
             - snippet_tags:
                 - python.example_code.sns.SnsWrapper
                 - python.example_code.sns.Publish_TextMessage
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/sns
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - sns.abapv1.publish_text_message
   services:
     sns: {Publish}
 sns_SetSMSAttributes:
@@ -926,6 +941,15 @@ sns_SetSubscriptionAttributes:
             - snippet_tags:
                 - python.example_code.sns.SnsWrapper
                 - python.example_code.sns.SetSubscriptionAttributes
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/sns
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - sns.abapv1.add_subscription_filter
   services:
     sns: {SetSubscriptionAttributes}
 sns_SetTopicAttributes:

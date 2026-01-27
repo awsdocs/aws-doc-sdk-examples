@@ -18,6 +18,14 @@ CLASS ltc_awsex_cl_ec2_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
 
     METHODS: allocate_address FOR TESTING RAISING /aws1/cx_rt_generic,
       associate_address FOR TESTING RAISING /aws1/cx_rt_generic,
+      authorize_sec_group_ingress FOR TESTING RAISING /aws1/cx_rt_generic,
+      describe_images FOR TESTING RAISING /aws1/cx_rt_generic,
+      describe_instance_types FOR TESTING RAISING /aws1/cx_rt_generic,
+      create_vpc FOR TESTING RAISING /aws1/cx_rt_generic,
+      describe_route_tables FOR TESTING RAISING /aws1/cx_rt_generic,
+      create_vpc_endpoint FOR TESTING RAISING /aws1/cx_rt_generic,
+      delete_vpc_endpoints FOR TESTING RAISING /aws1/cx_rt_generic,
+      delete_vpc FOR TESTING RAISING /aws1/cx_rt_generic,
       create_instance FOR TESTING RAISING /aws1/cx_rt_generic,
       create_key_pair FOR TESTING RAISING /aws1/cx_rt_generic,
       create_security_group FOR TESTING RAISING /aws1/cx_rt_generic,
@@ -482,5 +490,216 @@ CLASS ltc_awsex_cl_ec2_actions IMPLEMENTATION.
         ) ).
     wait_until_status_change( iv_instance_id = iv_instance_id
                               iv_required_status = 'terminated' ).
+  ENDMETHOD.
+
+
+  METHOD authorize_sec_group_ingress.
+    CONSTANTS cv_security_group_name TYPE /aws1/ec2string VALUE 'code-ex-auth-sec-grp'.
+    DATA(lo_create_result) = ao_ec2->createsecuritygroup(
+        iv_groupname = cv_security_group_name
+        iv_description = |security group for authorize test|
+        iv_vpcid = av_vpc_id ).
+    DATA(lv_group_id) = lo_create_result->get_groupid( ).
+
+    DATA(lo_auth_result) = ao_ec2_actions->authorize_sec_group_ingress(
+      iv_group_id = lv_group_id
+      iv_cidr_ip = '192.0.2.0/24' ).
+
+    cl_abap_unit_assert=>assert_not_initial(
+      act = lo_auth_result->get_return( )
+      msg = |Failed to authorize security group ingress rule| ).
+
+    ao_ec2->deletesecuritygroup( iv_groupid = lv_group_id ).
+  ENDMETHOD.
+
+
+  METHOD describe_images.
+    DATA(lv_ami_id) = get_ami_id( ).
+    DATA lt_image_ids TYPE /aws1/cl_ec2imageidstrlist_w=>tt_imageidstringlist.
+    APPEND NEW /aws1/cl_ec2imageidstrlist_w( lv_ami_id ) TO lt_image_ids.
+
+    DATA(lo_result) = ao_ec2_actions->describe_images( lt_image_ids ).
+
+    cl_abap_unit_assert=>assert_not_initial(
+      act = lo_result->get_images( )
+      msg = |Failed to describe images| ).
+    READ TABLE lo_result->get_images( ) INTO DATA(lo_image) INDEX 1.
+    cl_abap_unit_assert=>assert_equals(
+      act = lo_image->get_imageid( )
+      exp = lv_ami_id
+      msg = |Image ID should match requested AMI| ).
+  ENDMETHOD.
+
+  METHOD describe_instance_types.
+    DATA(lo_result) = ao_ec2_actions->describe_instance_types( ).
+
+    cl_abap_unit_assert=>assert_not_initial(
+      act = lo_result->get_instancetypes( )
+      msg = |Failed to describe instance types| ).
+  ENDMETHOD.
+
+  METHOD create_vpc.
+    CONSTANTS cv_cidr_block TYPE /aws1/ec2string VALUE '10.20.0.0/16'.
+    DATA(lo_result) = ao_ec2_actions->create_vpc( cv_cidr_block ).
+    DATA(lv_vpc_id) = lo_result->get_vpc( )->get_vpcid( ).
+
+    cl_abap_unit_assert=>assert_not_initial(
+      act = lv_vpc_id
+      msg = |Failed to create VPC| ).
+
+    DO 4 TIMES.
+      TRY.
+          ao_ec2->deletevpc( iv_vpcid = lv_vpc_id ).
+          EXIT.
+        CATCH /aws1/cx_ec2clientexc INTO DATA(lo_ex).
+          IF lo_ex->av_err_code = 'DependencyViolation'.
+            WAIT UP TO 15 SECONDS.
+          ELSEIF lo_ex->av_err_code = 'InvalidVpcID.NotFound'.
+            EXIT.
+          ELSE.
+            RAISE EXCEPTION lo_ex.
+          ENDIF.
+      ENDTRY.
+    ENDDO.
+  ENDMETHOD.
+
+  METHOD describe_route_tables.
+    DATA(lo_result) = ao_ec2_actions->describe_route_tables( av_vpc_id ).
+
+    cl_abap_unit_assert=>assert_not_initial(
+      act = lo_result->get_routetables( )
+      msg = |Failed to describe route tables| ).
+  ENDMETHOD.
+
+  METHOD create_vpc_endpoint.
+    DATA(lv_test_vpc_id) = ao_ec2->createvpc( iv_cidrblock = '10.30.0.0/16' )->get_vpc( )->get_vpcid( ).
+    DATA(lo_route_table_result) = ao_ec2->describeroutetables(
+      it_filters = VALUE /aws1/cl_ec2filter=>tt_filterlist(
+        ( NEW /aws1/cl_ec2filter(
+          iv_name = 'vpc-id'
+          it_values = VALUE /aws1/cl_ec2valuestringlist_w=>tt_valuestringlist(
+            ( NEW /aws1/cl_ec2valuestringlist_w( lv_test_vpc_id ) )
+          )
+        ) )
+      ) ).
+    READ TABLE lo_route_table_result->get_routetables( ) INTO DATA(lo_route_table) INDEX 1.
+    DATA(lv_route_table_id) = lo_route_table->get_routetableid( ).
+    DATA lt_route_table_ids TYPE /aws1/cl_ec2vpcendptroutetbl00=>tt_vpcendpointroutetableidlist.
+    APPEND NEW /aws1/cl_ec2vpcendptroutetbl00( lv_route_table_id ) TO lt_route_table_ids.
+    DATA(lv_region) = CONV string( ao_session->get_region( ) ).
+    DATA(lv_service_name) = |com.amazonaws.{ lv_region }.s3|.
+
+    DATA(lo_result) = ao_ec2_actions->create_vpc_endpoint(
+      iv_vpc_id = lv_test_vpc_id
+      iv_service_name = lv_service_name
+      it_route_table_ids = lt_route_table_ids ).
+    DATA(lv_vpc_endpoint_id) = lo_result->get_vpcendpoint( )->get_vpcendpointid( ).
+
+    cl_abap_unit_assert=>assert_not_initial(
+      act = lv_vpc_endpoint_id
+      msg = |Failed to create VPC endpoint| ).
+
+    ao_ec2->deletevpcendpoints(
+      it_vpcendpointids = VALUE /aws1/cl_ec2vpcendptidlist_w=>tt_vpcendpointidlist(
+        ( NEW /aws1/cl_ec2vpcendptidlist_w( lv_vpc_endpoint_id ) )
+      ) ).
+    DO 4 TIMES.
+      TRY.
+          ao_ec2->deletevpc( iv_vpcid = lv_test_vpc_id ).
+          EXIT.
+        CATCH /aws1/cx_ec2clientexc INTO DATA(lo_ex).
+          IF lo_ex->av_err_code = 'DependencyViolation'.
+            WAIT UP TO 15 SECONDS.
+          ELSEIF lo_ex->av_err_code = 'InvalidVpcID.NotFound'.
+            EXIT.
+          ELSE.
+            RAISE EXCEPTION lo_ex.
+          ENDIF.
+      ENDTRY.
+    ENDDO.
+  ENDMETHOD.
+
+  METHOD delete_vpc_endpoints.
+    DATA(lv_test_vpc_id) = ao_ec2->createvpc( iv_cidrblock = '10.40.0.0/16' )->get_vpc( )->get_vpcid( ).
+    DATA(lo_route_table_result) = ao_ec2->describeroutetables(
+      it_filters = VALUE /aws1/cl_ec2filter=>tt_filterlist(
+        ( NEW /aws1/cl_ec2filter(
+          iv_name = 'vpc-id'
+          it_values = VALUE /aws1/cl_ec2valuestringlist_w=>tt_valuestringlist(
+            ( NEW /aws1/cl_ec2valuestringlist_w( lv_test_vpc_id ) )
+          )
+        ) )
+      ) ).
+    READ TABLE lo_route_table_result->get_routetables( ) INTO DATA(lo_route_table) INDEX 1.
+    DATA(lv_route_table_id) = lo_route_table->get_routetableid( ).
+    DATA(lv_region) = CONV string( ao_session->get_region( ) ).
+    DATA(lv_service_name) = |com.amazonaws.{ lv_region }.s3|.
+    DATA(lo_endpoint_result) = ao_ec2->createvpcendpoint(
+      iv_vpcid = lv_test_vpc_id
+      iv_servicename = lv_service_name
+      it_routetableids = VALUE /aws1/cl_ec2vpcendptroutetbl00=>tt_vpcendpointroutetableidlist(
+        ( NEW /aws1/cl_ec2vpcendptroutetbl00( lv_route_table_id ) )
+      ) ).
+    DATA(lv_vpc_endpoint_id) = lo_endpoint_result->get_vpcendpoint( )->get_vpcendpointid( ).
+
+    ao_ec2_actions->delete_vpc_endpoints(
+      VALUE /aws1/cl_ec2vpcendptidlist_w=>tt_vpcendpointidlist(
+        ( NEW /aws1/cl_ec2vpcendptidlist_w( lv_vpc_endpoint_id ) )
+      ) ).
+
+    " Verify deletion - endpoint should either be in 'deleted' state or not found
+    DATA lv_deleted TYPE abap_bool VALUE abap_false.
+    TRY.
+        DATA(lo_describe_result) = ao_ec2->describevpcendpoints(
+          it_vpcendpointids = VALUE /aws1/cl_ec2vpcendptidlist_w=>tt_vpcendpointidlist(
+            ( NEW /aws1/cl_ec2vpcendptidlist_w( lv_vpc_endpoint_id ) )
+          ) ).
+        READ TABLE lo_describe_result->get_vpcendpoints( ) INTO DATA(lo_endpoint) INDEX 1.
+        DATA(lv_state) = lo_endpoint->get_state( ).
+        IF lv_state = 'deleted' OR lv_state = 'deleting'.
+          lv_deleted = abap_true.
+        ENDIF.
+      CATCH /aws1/cx_ec2clientexc INTO DATA(lo_ex).
+        " If endpoint is not found, that means it was deleted successfully
+        IF lo_ex->get_text( ) CS 'does not exist' OR lo_ex->av_err_code CS 'NotFound'.
+          lv_deleted = abap_true.
+        ENDIF.
+    ENDTRY.
+
+    cl_abap_unit_assert=>assert_true(
+      act = lv_deleted
+      msg = |VPC endpoint should have been deleted| ).
+
+    DO 4 TIMES.
+      TRY.
+          ao_ec2->deletevpc( iv_vpcid = lv_test_vpc_id ).
+          EXIT.
+        CATCH /aws1/cx_ec2clientexc INTO lo_ex.
+          IF lo_ex->av_err_code = 'DependencyViolation'.
+            WAIT UP TO 15 SECONDS.
+          ELSEIF lo_ex->av_err_code = 'InvalidVpcID.NotFound'.
+            EXIT.
+          ELSE.
+            RAISE EXCEPTION lo_ex.
+          ENDIF.
+      ENDTRY.
+    ENDDO.
+  ENDMETHOD.
+
+  METHOD delete_vpc.
+    DATA(lv_test_vpc_id) = ao_ec2->createvpc( iv_cidrblock = '10.50.0.0/16' )->get_vpc( )->get_vpcid( ).
+
+    ao_ec2_actions->delete_vpc( lv_test_vpc_id ).
+
+    " Verify VPC was deleted by trying to delete it again
+    TRY.
+        ao_ec2->deletevpc( iv_vpcid = lv_test_vpc_id ).
+        cl_abap_unit_assert=>fail( msg = |VPC should have been deleted and second delete should fail| ).
+      CATCH /aws1/cx_ec2clientexc INTO DATA(lo_ex).
+        cl_abap_unit_assert=>assert_equals(
+          act = lo_ex->av_err_code
+          exp = 'InvalidVpcID.NotFound'
+          msg = |VPC should not be found after deletion| ).
+    ENDTRY.
   ENDMETHOD.
 ENDCLASS.

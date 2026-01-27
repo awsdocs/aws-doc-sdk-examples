@@ -9,6 +9,15 @@ iot-data-plane_GetThingShadow:
             - description:
               snippet_tags:
                 - iot.dotnetv4.GetThingShadow
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iot
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iot.IoTWrapper.decl
+                - python.example_code.iot.GetThingShadow
     Kotlin:
       versions:
         - sdk_version: 1
@@ -46,6 +55,15 @@ iot-data-plane_UpdateThingShadow:
             - description:
               snippet_tags:
                 - iot.dotnetv4.UpdateThingShadow
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iot
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iot.IoTWrapper.decl
+                - python.example_code.iot.UpdateThingShadow
     Kotlin:
       versions:
         - sdk_version: 1
