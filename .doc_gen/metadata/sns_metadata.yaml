@@ -526,9 +526,14 @@ sns_CreateTopic:
         - sdk_version: 3
           github: python/example_code/sns
           excerpts:
-            - snippet_tags:
+            - description: 
+              snippet_tags:
                 - python.example_code.sns.SnsWrapper
                 - python.example_code.sns.CreateTopic
+            - description: 
+              snippet_tags:
+                - python.example_code.sns.SnsWrapper.decl
+                - python.example_code.sns.CreateFifoTopic
     Ruby:
       versions:
         - sdk_version: 3
@@ -631,9 +636,14 @@ sns_DeleteTopic:
         - sdk_version: 3
           github: python/example_code/sns
           excerpts:
-            - snippet_tags:
+            - description: 
+              snippet_tags:
                 - python.example_code.sns.SnsWrapper
                 - python.example_code.sns.DeleteTopic
+            - description: 
+              snippet_tags:
+                - python.example_code.sns.SnsWrapper.decl
+                - python.example_code.sns.DeleteFifoTopic
     Swift:
       versions:
         - sdk_version: 1
@@ -765,6 +775,10 @@ sns_Publish:
               snippet_tags:
                 - python.example_code.sns.SnsWrapper
                 - python.example_code.sns.Publish_MessageStructure
+            - description: 
+              snippet_tags:
+                - python.example_code.sns.SnsWrapper.decl
+                - python.example_code.sns.Publish
     Ruby:
       versions:
         - sdk_version: 3
@@ -1117,6 +1131,10 @@ sns_Subscribe:
               snippet_tags:
                 - python.example_code.sns.SnsWrapper
                 - python.example_code.sns.Subscribe
+            - description: Subscribe a queue to a topic with optional filters.
+              snippet_tags:
+                - python.example_code.sns.SnsWrapper.decl
+                - python.example_code.sns.SubscribeWithFilters
     Ruby:
       versions:
         - sdk_version: 3
@@ -1217,9 +1235,14 @@ sns_Unsubscribe:
         - sdk_version: 3
           github: python/example_code/sns
           excerpts:
-            - snippet_tags:
+            - description: 
+              snippet_tags:
                 - python.example_code.sns.SnsWrapper
                 - python.example_code.sns.Unsubscribe
+            - description: 
+              snippet_tags:
+                - python.example_code.sns.SnsWrapper.decl
+                - python.example_code.sns.UnsubscribeTopic
     Swift:
       versions:
         - sdk_version: 1

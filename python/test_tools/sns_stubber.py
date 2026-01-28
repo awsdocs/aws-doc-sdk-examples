@@ -56,6 +56,7 @@ class SnsStubber(ExampleStubber):
         endpoint,
         subscription_arn,
         return_arn=False,
+        attributes=None,
         error_code=None,
     ):
         expected_params = {
@@ -65,6 +66,8 @@ class SnsStubber(ExampleStubber):
         }
         if return_arn:
             expected_params["ReturnSubscriptionArn"] = True
+        if attributes is not None:
+            expected_params["Attributes"] = attributes
         response = {"SubscriptionArn": subscription_arn}
         self._stub_bifurcator(
             "subscribe", expected_params, response, error_code=error_code

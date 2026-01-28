@@ -56,6 +56,7 @@ functions within the same service.
 - [Create and publish to a FIFO topic](sns_fifo_topic.py)
 - [Detect people and objects in a video](../../example_code/rekognition)
 - [Publish an SMS text message](sns_basics.py)
+- [Publish messages to queues](../../cross_service/topics_and_queues/topics_and_queues_scenario.py)
 - [Use API Gateway to invoke a Lambda function](../../example_code/lambda)
 - [Use scheduled events to invoke a Lambda function](../../example_code/lambda)
 
@@ -137,6 +138,28 @@ python sns_basics.py
 
 <!--custom.scenarios.sns_PublishTextSMS.start-->
 <!--custom.scenarios.sns_PublishTextSMS.end-->
+
+#### Publish messages to queues
+
+This example shows you how to do the following:
+
+- Create topic (FIFO or non-FIFO).
+- Subscribe several queues to the topic with an option to apply a filter.
+- Publish messages to the topic.
+- Poll the queues for messages received.
+
+<!--custom.scenario_prereqs.sqs_Scenario_TopicsAndQueues.start-->
+<!--custom.scenario_prereqs.sqs_Scenario_TopicsAndQueues.end-->
+
+Start the example by running the following at a command prompt:
+
+```
+python ../../cross_service/topics_and_queues/topics_and_queues_scenario.py
+```
+
+
+<!--custom.scenarios.sqs_Scenario_TopicsAndQueues.start-->
+<!--custom.scenarios.sqs_Scenario_TopicsAndQueues.end-->
 
 #### Use API Gateway to invoke a Lambda function
 
