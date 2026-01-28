@@ -58,13 +58,13 @@ Code excerpts that show you how to call individual service functions.
 - [DescribeSubnets](../cross-service/ResilientService/AutoScalerActions/AutoScalerWrapper.cs#L422)
 - [DescribeVpcs](../cross-service/ResilientService/AutoScalerActions/AutoScalerWrapper.cs#L386)
 - [DisassociateAddress](Actions/EC2Wrapper.cs#L714)
-- [RebootInstances](Actions/EC2Wrapper.cs#L761)
-- [ReleaseAddress](Actions/EC2Wrapper.cs#L802)
+- [RebootInstances](Actions/EC2Wrapper.cs#L747)
+- [ReleaseAddress](Actions/EC2Wrapper.cs#L788)
 - [ReplaceIamInstanceProfileAssociation](../cross-service/ResilientService/AutoScalerActions/AutoScalerWrapper.cs#L611)
-- [RunInstances](Actions/EC2Wrapper.cs#L837)
-- [StartInstances](Actions/EC2Wrapper.cs#L890)
-- [StopInstances](Actions/EC2Wrapper.cs#L930)
-- [TerminateInstances](Actions/EC2Wrapper.cs#L971)
+- [RunInstances](Actions/EC2Wrapper.cs#L823)
+- [StartInstances](Actions/EC2Wrapper.cs#L876)
+- [StopInstances](Actions/EC2Wrapper.cs#L916)
+- [TerminateInstances](Actions/EC2Wrapper.cs#L957)
 
 ### Scenarios
 
