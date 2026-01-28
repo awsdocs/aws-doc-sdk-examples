@@ -3,6 +3,7 @@
 
 // snippet-start:[Lambda.dotnetv3.LambdaScenarioCommon.UIWrapper]
 namespace LambdaScenarioCommon;
+
 public class UIWrapper
 {
     public readonly string SepBar = new('-', Console.WindowWidth);
