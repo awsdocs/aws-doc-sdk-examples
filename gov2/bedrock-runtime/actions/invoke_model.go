@@ -106,7 +106,7 @@ type TitanImageResponse struct {
 // Invokes the Titan Image model to create an image using the input provided
 // in the request body.
 func (wrapper InvokeModelWrapper) InvokeTitanImage(ctx context.Context, prompt string, seed int64) (string, error) {
-	modelId := "amazon.titan-image-generator-v1"
+	modelId := "amazon.titan-image-generator-v2:0"
 
 	body, err := json.Marshal(TitanImageRequest{
 		TaskType: "TEXT_IMAGE",

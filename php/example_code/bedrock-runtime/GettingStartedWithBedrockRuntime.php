@@ -37,7 +37,7 @@ class GettingStartedWithBedrockRuntime
         echo "\n\nAmazon Titan Image Generation:\n";
         $titanSeed = rand(0, 2147483647);
         $base64 = $bedrockRuntimeService->invokeTitanImage($image_prompt, $titanSeed);
-        $image_path = $this->saveImage($base64, 'amazon.titan-image-generator-v1');
+        $image_path = $this->saveImage($base64, 'amazon.titan-image-generator-v2');
         echo "The generated image has been saved to $image_path";
     }
 

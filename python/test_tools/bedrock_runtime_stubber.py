@@ -150,7 +150,7 @@ class BedrockRuntimeStubber(ExampleStubber):
 
     def stub_invoke_titan_image(self, prompt, seed, error_code=None):
         expected_params = {
-            "modelId": "amazon.titan-image-generator-v1",
+            "modelId": "amazon.titan-image-generator-v2:0",
             "body": json.dumps(
                 {
                     "taskType": "TEXT_IMAGE",

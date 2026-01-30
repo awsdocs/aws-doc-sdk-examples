@@ -30,8 +30,8 @@ public class InvokeModel {
                 .region(Region.US_EAST_1)
                 .build();
 
-        // Set the model ID, e.g., Titan Image G1.
-        var modelId = "amazon.titan-image-generator-v1";
+        // Set the model ID, e.g., Titan Image G2.
+        var modelId = "amazon.titan-image-generator-v2:0";
 
         // The InvokeModel API uses the model's native payload.
         // Learn more about the available inference parameters and response fields at:
