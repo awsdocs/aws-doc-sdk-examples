@@ -1,4 +1,4 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+U789// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
 import { fileURLToPath } from "node:url";
@@ -162,7 +162,7 @@ export const main = async () => {
     TableName: tableName,
     Key: { year: 1981, title: "The Evil Dead" },
   });
-  await client.send(deleteCommand);
+  await docClient.send(deleteCommand);
   log("Movie deleted.");
 
   /**
