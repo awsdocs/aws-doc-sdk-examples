@@ -162,7 +162,7 @@ export const main = async () => {
     TableName: tableName,
     Key: { year: 1981, title: "The Evil Dead" },
   });
-  await client.send(deleteCommand);
+  await docClient.send(deleteCommand);
   log("Movie deleted.");
 
   /**
