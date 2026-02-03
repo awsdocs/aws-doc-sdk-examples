@@ -15,8 +15,8 @@ CLASS /awsex/cl_emr_actions DEFINITION
         !it_applications       TYPE /aws1/cl_emrapplication=>tt_applicationlist
         !iv_job_flow_role      TYPE /aws1/emrxmlstring
         !iv_service_role       TYPE /aws1/emrxmlstring
-        !iv_master_sec_grp     TYPE /aws1/emrxmlstringmaxlen256
-        !iv_slave_sec_grp      TYPE /aws1/emrxmlstringmaxlen256
+        !iv_primary_sec_grp    TYPE /aws1/emrxmlstringmaxlen256
+        !iv_secondary_sec_grp  TYPE /aws1/emrxmlstringmaxlen256
         !it_steps              TYPE /aws1/cl_emrstepconfig=>tt_stepconfiglist
       RETURNING
         VALUE(ov_cluster_id)   TYPE /aws1/emrxmlstringmaxlen256
@@ -88,8 +88,8 @@ CLASS /AWSEX/CL_EMR_ACTIONS IMPLEMENTATION.
           iv_slaveinstancetype = 'm5.xlarge'
           iv_instancecount = 3
           iv_keepjobflowalivewhennos00 = iv_keep_alive
-          iv_emrmanagedmastersecgroup = iv_master_sec_grp
-          iv_emrmanagedslavesecgroup = iv_slave_sec_grp
+          iv_emrmanagedmastersecgroup = iv_primary_sec_grp
+          iv_emrmanagedslavesecgroup = iv_secondary_sec_grp
         ).
 
         DATA(lo_result) = lo_emr->runjobflow(

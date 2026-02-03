@@ -33,14 +33,14 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateCluster](#awsex#cl_rsh_actions.clas.abap#L63)
-- [DeleteCluster](#awsex#cl_rsh_actions.clas.abap#L99)
-- [DescribeClusters](#awsex#cl_rsh_actions.clas.abap#L156)
-- [DescribeStatement](../rsd/#awsex#cl_rsd_actions.clas.abap#L150)
-- [ExecuteStatement](../rsd/#awsex#cl_rsd_actions.clas.abap#L102)
-- [GetStatementResult](../rsd/#awsex#cl_rsd_actions.clas.abap#L182)
-- [ListDatabases](../rsd/#awsex#cl_rsd_actions.clas.abap#L69)
-- [ModifyCluster](#awsex#cl_rsh_actions.clas.abap#L126)
+- [CreateCluster](%23awsex%23cl_rsh_actions.clas.abap#L63)
+- [DeleteCluster](%23awsex%23cl_rsh_actions.clas.abap#L99)
+- [DescribeClusters](%23awsex%23cl_rsh_actions.clas.abap#L156)
+- [DescribeStatement](../rsd/%23awsex%23cl_rsd_actions.clas.abap#L150)
+- [ExecuteStatement](../rsd/%23awsex%23cl_rsd_actions.clas.abap#L102)
+- [GetStatementResult](../rsd/%23awsex%23cl_rsd_actions.clas.abap#L182)
+- [ListDatabases](../rsd/%23awsex%23cl_rsd_actions.clas.abap#L69)
+- [ModifyCluster](%23awsex%23cl_rsh_actions.clas.abap#L126)
 
 
 <!--custom.examples.start-->
