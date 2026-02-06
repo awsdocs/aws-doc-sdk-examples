@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 namespace S3_BasicsScenario;
+// snippet-start:[S3.dotnetv4.S3_BasicsBucket]
 
 /// <summary>
 /// This class contains all of the methods for working with Amazon Simple
@@ -283,3 +284,5 @@ public class S3Bucket
 
     // snippet-end:[S3.dotnetv4.S3_Basics-DeleteBucket]
 }
+
+// snippet-end:[S3.dotnetv4.S3_BasicsBucket]

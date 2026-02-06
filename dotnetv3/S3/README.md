@@ -29,36 +29,28 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
-### Basics
-
-Code examples that show you how to perform the essential operations within a service.
-
-- [Learn the basics](S3_Basics/S3_Basics.cs)
-
-
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
 - [CopyObject](CopyObjectExample/CopyObject.cs#L11)
-- [CreateBucket](S3_Basics/S3Bucket.cs#L12)
-- [DeleteBucket](S3_Basics/S3Bucket.cs#L266)
+- [CreateBucket](scenarios/S3ObjectLockScenario/S3ObjectLockWorkflow/S3ActionsWrapper.cs#L29)
 - [DeleteBucketCors](s3CORSExample/S3CORS.cs#L147)
 - [DeleteBucketLifecycle](LifecycleExample/Lifecycle.cs#L192)
 - [DeleteObject](non-versioned-examples/DeleteObjectExample/DeleteObject.cs#L6)
-- [DeleteObjects](S3_Basics/S3Bucket.cs#L221)
+- [DeleteObjects](non-versioned-examples/DeleteMultipleObjectsExample/DeleteMultipleObjects.cs#L6)
 - [GetBucketAcl](BucketACLExample/BucketACL.cs#L75)
 - [GetBucketCors](s3CORSExample/S3CORS.cs#L125)
 - [GetBucketEncryption](PutBucketEncryption/ServerSideEncryption/ServerSideEncryption.cs#L107)
 - [GetBucketLifecycleConfiguration](LifecycleExample/Lifecycle.cs#L169)
 - [GetBucketWebsite](WebsiteConfigExample/WebsiteConfig.cs#L72)
-- [GetObject](S3_Basics/S3Bucket.cs#L85)
+- [GetObject](scenarios/S3ConditionalRequestsScenario/S3ConditionalRequests/S3ActionsWrapper.cs#L32)
 - [GetObjectLegalHold](scenarios/S3ObjectLockScenario/S3ObjectLockWorkflow/S3ActionsWrapper.cs#L259)
 - [GetObjectLockConfiguration](scenarios/S3ObjectLockScenario/S3ObjectLockWorkflow/S3ActionsWrapper.cs#L290)
 - [GetObjectRetention](scenarios/S3ObjectLockScenario/S3ObjectLockWorkflow/S3ActionsWrapper.cs#L193)
 - [ListBuckets](ListBucketsExample/ListBuckets.cs#L4)
 - [ListObjectVersions](versioned-examples/ListObjectVersionsExample/ListObjectVersions.cs#L6)
-- [ListObjectsV2](S3_Basics/S3Bucket.cs#L171)
+- [ListObjectsV2](ListObjectsPaginatorExample/ListObjectsPaginator.cs#L6)
 - [PutBucketAccelerateConfiguration](TransferAccelerationExample/TransferAcceleration.cs#L6)
 - [PutBucketAcl](BucketACLExample/BucketACL.cs#L37)
 - [PutBucketCors](s3CORSExample/S3CORS.cs#L104)
@@ -67,7 +59,7 @@ Code excerpts that show you how to call individual service functions.
 - [PutBucketLogging](ServerAccessLoggingExample/ServerAccessLogging.cs#L6)
 - [PutBucketNotificationConfiguration](EnableNotificationsExample/EnableNotifications.cs#L6)
 - [PutBucketWebsite](WebsiteConfigExample/WebsiteConfig.cs#L57)
-- [PutObject](S3_Basics/S3Bucket.cs#L43)
+- [PutObject](ServerSideEncryptionExample/ServerSideEncryption.cs#L6)
 - [PutObjectLegalHold](scenarios/S3ObjectLockScenario/S3ObjectLockWorkflow/S3ActionsWrapper.cs#L224)
 - [PutObjectLockConfiguration](scenarios/S3ObjectLockScenario/S3ObjectLockWorkflow/S3ActionsWrapper.cs#L60)
 - [PutObjectRetention](scenarios/S3ObjectLockScenario/S3ObjectLockWorkflow/S3ActionsWrapper.cs#L102)
@@ -119,23 +111,6 @@ Alternatively, you can run the example from within your IDE.
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
-
-#### Learn the basics
-
-This example shows you how to do the following:
-
-- Create a bucket and upload a file to it.
-- Download an object from a bucket.
-- Copy an object to a subfolder in a bucket.
-- List the objects in a bucket.
-- Delete the bucket objects and the bucket.
-
-<!--custom.basic_prereqs.s3_Scenario_GettingStarted.start-->
-<!--custom.basic_prereqs.s3_Scenario_GettingStarted.end-->
-
-
-<!--custom.basics.s3_Scenario_GettingStarted.start-->
-<!--custom.basics.s3_Scenario_GettingStarted.end-->
 
 
 #### Create a presigned URL

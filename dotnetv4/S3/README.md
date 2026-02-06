@@ -29,11 +29,24 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv4
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](Scenarios/S3_Basics/S3_Basics.cs)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
+- [CreateBucket](Scenarios/S3_Basics/S3Bucket.cs#L24)
 - [CreatePresignedPost](Scenarios/S3_CreatePresignedPost/S3Wrapper.cs#L35)
+- [DeleteBucket](Scenarios/S3_Basics/S3Bucket.cs#L261)
+- [DeleteObjects](Scenarios/S3_Basics/S3Bucket.cs#L224)
+- [GetObject](Scenarios/S3_Basics/S3Bucket.cs#L93)
+- [ListObjectsV2](Scenarios/S3_Basics/S3Bucket.cs#L175)
+- [PutObject](Scenarios/S3_Basics/S3Bucket.cs#L54)
 
 ### Scenarios
 
@@ -54,6 +67,23 @@ functions within the same service.
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
+
+#### Learn the basics
+
+This example shows you how to do the following:
+
+- Create a bucket and upload a file to it.
+- Download an object from a bucket.
+- Copy an object to a subfolder in a bucket.
+- List the objects in a bucket.
+- Delete the bucket objects and the bucket.
+
+<!--custom.basic_prereqs.s3_Scenario_GettingStarted.start-->
+<!--custom.basic_prereqs.s3_Scenario_GettingStarted.end-->
+
+
+<!--custom.basics.s3_Scenario_GettingStarted.start-->
+<!--custom.basics.s3_Scenario_GettingStarted.end-->
 
 
 #### Create a presigned URL
