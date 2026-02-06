@@ -108,14 +108,12 @@ public class S3Bucket
         string objectName,
         string filePath)
     {
-        // Create a GetObject request
         var request = new GetObjectRequest
         {
             BucketName = bucketName,
             Key = objectName,
         };
 
-        // Issue request and remember to dispose of the response
         using GetObjectResponse response = await _amazonS3.GetObjectAsync(request);
 
         try
@@ -177,11 +175,10 @@ public class S3Bucket
     /// <summary>
     /// Shows how to list the objects in an Amazon S3 bucket.
     /// </summary>
-    /// <param name="bucketName">The name of the bucket for which to list
+    /// <param name="bucketName">The name of the bucket for which to list.
     /// the contents.</param>
-    /// <returns>A boolean value indicating the success or failure of the
-    /// copy operation.</returns>
-    public async Task<bool> ListBucketContentsAsync(string bucketName)
+    /// <returns>The collection of objects.</returns>
+    public async Task<List<S3Object>> ListBucketContentsAsync(string bucketName)
     {
         try
         {
@@ -199,23 +196,27 @@ public class S3Bucket
             {
                 BucketName = bucketName,
             });
-
+            var s3Objects = new List<S3Object>();
             await foreach (var response in listObjectsV2Paginator.Responses)
             {
-                Console.WriteLine($"HttpStatusCode: {response.HttpStatusCode}");
-                Console.WriteLine($"Number of Keys: {response.KeyCount}");
-                foreach (var entry in response.S3Objects)
+                if (response.S3Objects != null)
                 {
-                    Console.WriteLine($"Key = {entry.Key} Size = {entry.Size}");
+                    s3Objects.AddRange(response.S3Objects);
                 }
             }
 
-            return true;
+            Console.WriteLine($"Number of Objects: {s3Objects.Count}");
+            foreach (var entry in s3Objects)
+            {
+                Console.WriteLine($"Key = {entry.Key} Size = {entry.Size}");
+            }
+
+            return s3Objects;
         }
         catch (AmazonS3Exception ex)
         {
             Console.WriteLine($"Error encountered on server. Message:'{ex.Message}' getting list of objects.");
-            return false;
+            return null;
         }
     }
 
@@ -236,16 +237,15 @@ public class S3Bucket
         try
         {
             // Delete all objects in the bucket.
-            var deleteList = await _amazonS3.ListObjectsV2Async(new ListObjectsV2Request()
+            var deleteList = await ListBucketContentsAsync(bucketName);
+            if (deleteList != null && deleteList.Any())
             {
-                BucketName = bucketName,
-            });
-            await _amazonS3.DeleteObjectsAsync(new DeleteObjectsRequest()
-            {
-                BucketName = bucketName,
-                Objects = deleteList.S3Objects
-                    .Select(o => new KeyVersion { Key = o.Key }).ToList(),
-            });
+                await _amazonS3.DeleteObjectsAsync(new DeleteObjectsRequest()
+                {
+                    BucketName = bucketName,
+                    Objects = deleteList.Select(o => new KeyVersion { Key = o.Key }).ToList(),
+                });
+            }
 
             return true;
         }

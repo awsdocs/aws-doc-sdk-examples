@@ -33,7 +33,7 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 
 Code excerpts that show you how to call individual service functions.
 
-- [CopyObject](CopyObjectExample/CopyObject.cs#L11)
+- [CopyObject](scenarios/S3ConditionalRequestsScenario/S3ConditionalRequests/S3ActionsWrapper.cs#L137)
 - [CreateBucket](scenarios/S3ObjectLockScenario/S3ObjectLockWorkflow/S3ActionsWrapper.cs#L29)
 - [DeleteBucketCors](s3CORSExample/S3CORS.cs#L147)
 - [DeleteBucketLifecycle](LifecycleExample/Lifecycle.cs#L192)

@@ -40,12 +40,13 @@ Code examples that show you how to perform the essential operations within a ser
 
 Code excerpts that show you how to call individual service functions.
 
+- [CopyObject](Scenarios/S3_Basics/S3Bucket.cs#L134)
 - [CreateBucket](Scenarios/S3_Basics/S3Bucket.cs#L24)
 - [CreatePresignedPost](Scenarios/S3_CreatePresignedPost/S3Wrapper.cs#L35)
 - [DeleteBucket](Scenarios/S3_Basics/S3Bucket.cs#L261)
-- [DeleteObjects](Scenarios/S3_Basics/S3Bucket.cs#L224)
+- [DeleteObjects](Scenarios/S3_Basics/S3Bucket.cs#L225)
 - [GetObject](Scenarios/S3_Basics/S3Bucket.cs#L93)
-- [ListObjectsV2](Scenarios/S3_Basics/S3Bucket.cs#L175)
+- [ListObjectsV2](Scenarios/S3_Basics/S3Bucket.cs#L173)
 - [PutObject](Scenarios/S3_Basics/S3Bucket.cs#L54)
 
 ### Scenarios

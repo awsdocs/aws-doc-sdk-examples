@@ -234,12 +234,16 @@ s3_CopyObject:
   languages:
     .NET:
       versions:
+        - sdk_version: 4
+          github: dotnetv4/S3
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - S3.dotnetv4.S3_Basics-CopyObject
         - sdk_version: 3
           github: dotnetv3/S3
           excerpts:
-            - description:
-              snippet_tags:
-                - S3.dotnet35.CopyObject
             - description: Copy an object using a conditional request.
               genai: some
               snippet_tags:
