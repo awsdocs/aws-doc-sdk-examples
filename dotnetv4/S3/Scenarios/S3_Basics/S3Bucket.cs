@@ -9,16 +9,26 @@ namespace S3_BasicsScenario;
 /// </summary>
 public class S3Bucket
 {
+    private readonly IAmazonS3 _amazonS3;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="S3Bucket"/> class.
+    /// </summary>
+    /// <param name="amazonS3">An initialized Amazon S3 client object.</param>
+    public S3Bucket(IAmazonS3 amazonS3)
+    {
+        _amazonS3 = amazonS3;
+    }
+
     // snippet-start:[S3.dotnetv4.S3_Basics-CreateBucket]
 
     /// <summary>
     /// Shows how to create a new Amazon S3 bucket.
     /// </summary>
-    /// <param name="client">An initialized Amazon S3 client object.</param>
     /// <param name="bucketName">The name of the bucket to create.</param>
     /// <returns>A boolean value representing the success or failure of
     /// the bucket creation process.</returns>
-    public static async Task<bool> CreateBucketAsync(IAmazonS3 client, string bucketName)
+    public async Task<bool> CreateBucketAsync(string bucketName)
     {
         try
         {
@@ -28,7 +38,7 @@ public class S3Bucket
                 UseClientRegion = true,
             };
 
-            var response = await client.PutBucketAsync(request);
+            var response = await _amazonS3.PutBucketAsync(request);
             return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
         }
         catch (AmazonS3Exception ex)
@@ -46,7 +56,6 @@ public class S3Bucket
     /// Shows how to upload a file from the local computer to an Amazon S3
     /// bucket.
     /// </summary>
-    /// <param name="client">An initialized Amazon S3 client object.</param>
     /// <param name="bucketName">The Amazon S3 bucket to which the object
     /// will be uploaded.</param>
     /// <param name="objectName">The object to upload.</param>
@@ -54,8 +63,7 @@ public class S3Bucket
     /// on the local computer to upload.</param>
     /// <returns>A boolean value indicating the success or failure of the
     /// upload procedure.</returns>
-    public static async Task<bool> UploadFileAsync(
-        IAmazonS3 client,
+    public async Task<bool> UploadFileAsync(
         string bucketName,
         string objectName,
         string filePath)
@@ -69,13 +77,12 @@ public class S3Bucket
                 FilePath = filePath,
             };
 
-            await client.PutObjectAsync(request);
-            Console.WriteLine($"Successfully uploaded {objectName} to {bucketName}.");
-            return true;
+            var response = await _amazonS3.PutObjectAsync(request);
+            return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
         }
         catch (AmazonS3Exception ex)
         {
-            Console.WriteLine($"Could not upload {objectName} to {bucketName}: '{ex.Message}'");
+            Console.WriteLine($"Error uploading {objectName}: {ex.Message}");
             return false;
         }
     }
@@ -88,7 +95,6 @@ public class S3Bucket
     /// Shows how to download an object from an Amazon S3 bucket to the
     /// local computer.
     /// </summary>
-    /// <param name="client">An initialized Amazon S3 client object.</param>
     /// <param name="bucketName">The name of the bucket where the object is
     /// currently stored.</param>
     /// <param name="objectName">The name of the object to download.</param>
@@ -96,8 +102,7 @@ public class S3Bucket
     /// downloaded object will be stored.</param>
     /// <returns>A boolean value indicating the success or failure of the
     /// download process.</returns>
-    public static async Task<bool> DownloadObjectFromBucketAsync(
-        IAmazonS3 client,
+    public async Task<bool> DownloadObjectFromBucketAsync(
         string bucketName,
         string objectName,
         string filePath)
@@ -110,7 +115,7 @@ public class S3Bucket
         };
 
         // Issue request and remember to dispose of the response
-        using GetObjectResponse response = await client.GetObjectAsync(request);
+        using GetObjectResponse response = await _amazonS3.GetObjectAsync(request);
 
         try
         {
@@ -133,7 +138,6 @@ public class S3Bucket
     /// Copies an object in an Amazon S3 bucket to a folder within the
     /// same bucket.
     /// </summary>
-    /// <param name="client">An initialized Amazon S3 client object.</param>
     /// <param name="bucketName">The name of the Amazon S3 bucket where the
     /// object to copy is located.</param>
     /// <param name="objectName">The object to be copied.</param>
@@ -141,8 +145,7 @@ public class S3Bucket
     /// be copied.</param>
     /// <returns>A boolean value that indicates the success or failure of
     /// the copy operation.</returns>
-    public static async Task<bool> CopyObjectInBucketAsync(
-        IAmazonS3 client,
+    public async Task<bool> CopyObjectInBucketAsync(
         string bucketName,
         string objectName,
         string folderName)
@@ -156,7 +159,7 @@ public class S3Bucket
                 DestinationBucket = bucketName,
                 DestinationKey = $"{folderName}\\{objectName}",
             };
-            var response = await client.CopyObjectAsync(request);
+            var response = await _amazonS3.CopyObjectAsync(request);
             return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
         }
         catch (AmazonS3Exception ex)
@@ -173,12 +176,11 @@ public class S3Bucket
     /// <summary>
     /// Shows how to list the objects in an Amazon S3 bucket.
     /// </summary>
-    /// <param name="client">An initialized Amazon S3 client object.</param>
     /// <param name="bucketName">The name of the bucket for which to list
     /// the contents.</param>
     /// <returns>A boolean value indicating the success or failure of the
     /// copy operation.</returns>
-    public static async Task<bool> ListBucketContentsAsync(IAmazonS3 client, string bucketName)
+    public async Task<bool> ListBucketContentsAsync(string bucketName)
     {
         try
         {
@@ -192,7 +194,7 @@ public class S3Bucket
             Console.WriteLine($"Listing the contents of {bucketName}:");
             Console.WriteLine("--------------------------------------");
 
-            var listObjectsV2Paginator = client.Paginators.ListObjectsV2(new ListObjectsV2Request
+            var listObjectsV2Paginator = _amazonS3.Paginators.ListObjectsV2(new ListObjectsV2Request
             {
                 BucketName = bucketName,
             });
@@ -223,22 +225,21 @@ public class S3Bucket
     /// <summary>
     /// Delete all of the objects stored in an existing Amazon S3 bucket.
     /// </summary>
-    /// <param name="client">An initialized Amazon S3 client object.</param>
     /// <param name="bucketName">The name of the bucket from which the
     /// contents will be deleted.</param>
     /// <returns>A boolean value that represents the success or failure of
     /// deleting all of the objects in the bucket.</returns>
-    public static async Task<bool> DeleteBucketContentsAsync(IAmazonS3 client, string bucketName)
+    public async Task<bool> DeleteBucketContentsAsync(string bucketName)
     {
         // Iterate over the contents of the bucket and delete all objects.
         try
         {
             // Delete all objects in the bucket.
-            var deleteList = await client.ListObjectsV2Async(new ListObjectsV2Request()
+            var deleteList = await _amazonS3.ListObjectsV2Async(new ListObjectsV2Request()
             {
                 BucketName = bucketName,
             });
-            await client.DeleteObjectsAsync(new DeleteObjectsRequest()
+            await _amazonS3.DeleteObjectsAsync(new DeleteObjectsRequest()
             {
                 BucketName = bucketName,
                 Objects = deleteList.S3Objects
@@ -261,17 +262,16 @@ public class S3Bucket
     /// <summary>
     /// Shows how to delete an Amazon S3 bucket.
     /// </summary>
-    /// <param name="client">An initialized Amazon S3 client object.</param>
     /// <param name="bucketName">The name of the Amazon S3 bucket to delete.</param>
     /// <returns>A boolean value that represents the success or failure of
     /// the delete operation.</returns>
-    public static async Task<bool> DeleteBucketAsync(IAmazonS3 client, string bucketName)
+    public async Task<bool> DeleteBucketAsync(string bucketName)
     {
         try
         {
             var request = new DeleteBucketRequest { BucketName = bucketName, };
 
-            await client.DeleteBucketAsync(request);
+            await _amazonS3.DeleteBucketAsync(request);
             return true;
         }
         catch (AmazonS3Exception ex)

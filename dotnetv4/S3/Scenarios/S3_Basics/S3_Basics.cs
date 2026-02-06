@@ -12,18 +12,37 @@ namespace S3_BasicsScenario;
 // snippet-start:[S3.dotnetv4.S3_BasicsScenario]
 public class S3_Basics
 {
-    public static async Task Main()
+    public static bool IsInteractive = true;
+    public static S3Bucket? Wrapper = null;
+    public static ILogger<S3_Basics> logger = null!;
+    private static S3Bucket _s3Wrapper = null!;
+    private static ILogger<S3_Basics> _logger = null!;
+
+    public static async Task Main(string[] args)
     {
-        // Create an Amazon S3 client object. The constructor uses the
-        // default user installed on the system. To work with Amazon S3
-        // features in a different AWS Region, pass the AWS Region as a
-        // parameter to the client constructor.
-        IAmazonS3 client = new AmazonS3Client();
+        // Set up dependency injection for the Amazon service.
+        using var host = Host.CreateDefaultBuilder(args)
+            .ConfigureServices((_, services) =>
+                services.AddAWSService<IAmazonS3>()
+                    .AddTransient<S3Bucket>()
+                    .AddLogging(builder => builder.AddConsole())
+            )
+            .Build();
+
+        logger = LoggerFactory.Create(builder => builder.AddConsole())
+            .CreateLogger<S3_Basics>();
+
+        Wrapper = host.Services.GetRequiredService<S3Bucket>();
+
+        // Set the private fields for backwards compatibility
+        _logger = logger;
+        _s3Wrapper = Wrapper;
+
         string bucketName = string.Empty;
         string filePath = string.Empty;
         string keyName = string.Empty;
 
-        var sepBar = new string('-', Console.WindowWidth);
+        var sepBar = new string('-', GetConsoleWidth());
 
         Console.WriteLine(sepBar);
         Console.WriteLine("Amazon Simple Storage Service (Amazon S3) basic");
@@ -36,118 +55,281 @@ public class S3_Basics
         Console.WriteLine("\n\t6. Delete the bucket");
         Console.WriteLine(sepBar);
 
-        // Create a bucket.
-        Console.WriteLine($"\n{sepBar}");
-        Console.WriteLine("\nCreate a new Amazon S3 bucket.\n");
-        Console.WriteLine(sepBar);
-
-        Console.Write("Please enter a name for the new bucket: ");
-        bucketName = Console.ReadLine();
-
-        var success = await S3Bucket.CreateBucketAsync(client, bucketName);
-        if (success)
+        try
         {
-            Console.WriteLine($"Successfully created bucket: {bucketName}.\n");
+            await RunScenarioAsync();
         }
-        else
+        catch (Exception ex)
         {
-            Console.WriteLine($"Could not create bucket: {bucketName}.\n");
+            _logger.LogError(ex, "There was a problem running the scenario.");
+            Console.WriteLine($"\nAn error occurred: {ex.Message}");
         }
 
         Console.WriteLine(sepBar);
-        Console.WriteLine("Upload a file to the new bucket.");
+        Console.WriteLine("The Amazon S3 scenario has successfully completed.");
         Console.WriteLine(sepBar);
+    }
 
-        // Get the local path and filename for the file to upload.
-        while (string.IsNullOrEmpty(filePath))
+    /// <summary>
+    /// Run the S3 Basics scenario.
+    /// </summary>
+    /// <returns>A Task object.</returns>
+    public static async Task RunScenarioAsync()
+    {
+        // Use static properties if available, otherwise use private fields
+        var s3Wrapper = Wrapper ?? _s3Wrapper;
+        var scenarioLogger = logger ?? _logger;
+
+        await RunScenarioInternalAsync(s3Wrapper, scenarioLogger);
+    }
+
+    /// <summary>
+    /// Internal method to run the S3 Basics scenario with injected dependencies.
+    /// </summary>
+    /// <param name="s3Wrapper">The S3 wrapper instance.</param>
+    /// <param name="scenarioLogger">The logger instance.</param>
+    /// <returns>A Task object.</returns>
+    private static async Task RunScenarioInternalAsync(S3Bucket s3Wrapper, ILogger<S3_Basics> scenarioLogger)
+    {
+        string bucketName = string.Empty;
+        string filePath = string.Empty;
+        string keyName = string.Empty;
+
+        var sepBar = new string('-', GetConsoleWidth());
+
+        try
         {
-            Console.Write("Please enter the path and filename of the file to upload: ");
-            filePath = Console.ReadLine();
+            // Create a bucket.
+            Console.WriteLine($"\n{sepBar}");
+            Console.WriteLine("\nCreate a new Amazon S3 bucket.\n");
+            Console.WriteLine(sepBar);
 
-            // Confirm that the file exists on the local computer.
-            if (!File.Exists(filePath))
+            if (IsInteractive)
             {
-                Console.WriteLine($"Couldn't find {filePath}. Try again.\n");
-                filePath = string.Empty;
+                Console.Write("Please enter a name for the new bucket: ");
+                bucketName = Console.ReadLine();
+            }
+            else
+            {
+                bucketName = $"s3-basics-test-{Guid.NewGuid():N}";
+                Console.WriteLine($"Using bucket name: {bucketName}");
+            }
+
+            var success = await s3Wrapper.CreateBucketAsync(bucketName);
+            if (success)
+            {
+                Console.WriteLine($"Successfully created bucket: {bucketName}.\n");
+            }
+            else
+            {
+                Console.WriteLine($"Could not create bucket: {bucketName}.\n");
+            }
+
+            Console.WriteLine(sepBar);
+            Console.WriteLine("Upload a file to the new bucket.");
+            Console.WriteLine(sepBar);
+
+            if (IsInteractive)
+            {
+                // Get the local path and filename for the file to upload.
+                while (string.IsNullOrEmpty(filePath))
+                {
+                    Console.Write("Please enter the path and filename of the file to upload: ");
+                    filePath = Console.ReadLine();
+
+                    // Confirm that the file exists on the local computer.
+                    if (!File.Exists(filePath))
+                    {
+                        Console.WriteLine($"Couldn't find {filePath}. Try again.\n");
+                        filePath = string.Empty;
+                    }
+                }
+            }
+            else
+            {
+                // Create a temporary test file for non-interactive mode
+                filePath = Path.GetTempFileName();
+                var testContent = "This is a test file for S3 basics scenario.\nGenerated on: " + DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss UTC");
+                await File.WriteAllTextAsync(filePath, testContent);
+                Console.WriteLine($"Created temporary test file: {filePath}");
+            }
+
+            // Get the file name from the full path.
+            keyName = Path.GetFileName(filePath);
+
+            success = await s3Wrapper.UploadFileAsync(bucketName, keyName, filePath);
+
+            if (success)
+            {
+                Console.WriteLine($"Successfully uploaded {keyName} from {filePath} to {bucketName}.\n");
+            }
+            else
+            {
+                Console.WriteLine($"Could not upload {keyName}.\n");
+            }
+
+            // Set up download path
+            string downloadPath = string.Empty;
+
+            if (IsInteractive)
+            {
+                // Now get a new location where we can save the file.
+                while (string.IsNullOrEmpty(downloadPath))
+                {
+                    // First get the path to which the file will be downloaded.
+                    Console.Write("Please enter the path where the file will be downloaded: ");
+                    downloadPath = Console.ReadLine();
+
+                    // Confirm that the file doesn't already exist on the local computer.
+                    if (File.Exists($"{downloadPath}\\{keyName}"))
+                    {
+                        Console.WriteLine($"Sorry, the file already exists in that location.\n");
+                        downloadPath = string.Empty;
+                    }
+                }
+            }
+            else
+            {
+                downloadPath = Path.GetTempPath();
+                var downloadFile = Path.Combine(downloadPath, keyName);
+                if (File.Exists(downloadFile))
+                {
+                    File.Delete(downloadFile);
+                }
+                Console.WriteLine($"Using download path: {downloadPath}");
+            }
+
+            // Download an object from a bucket.
+            success = await s3Wrapper.DownloadObjectFromBucketAsync(bucketName, keyName, downloadPath);
+
+            if (success)
+            {
+                Console.WriteLine($"Successfully downloaded {keyName}.\n");
+            }
+            else
+            {
+                Console.WriteLine($"Sorry, could not download {keyName}.\n");
+            }
+
+            // Copy the object to a different folder in the bucket.
+            string folderName = string.Empty;
+
+            if (IsInteractive)
+            {
+                while (string.IsNullOrEmpty(folderName))
+                {
+                    Console.Write("Please enter the name of the folder to copy your object to: ");
+                    folderName = Console.ReadLine();
+                }
+            }
+            else
+            {
+                folderName = "test-folder";
+                Console.WriteLine($"Using folder name: {folderName}");
+            }
+
+            await s3Wrapper.CopyObjectInBucketAsync(bucketName, keyName, folderName);
+
+            // List the objects in the bucket.
+            await s3Wrapper.ListBucketContentsAsync(bucketName);
+
+            // Delete the contents of the bucket.
+            await s3Wrapper.DeleteBucketContentsAsync(bucketName);
+
+            if (IsInteractive)
+            {
+                // Deleting the bucket too quickly after deleting its contents will
+                // cause an error that the bucket isn't empty. So...
+                Console.WriteLine("Press <Enter> when you are ready to delete the bucket.");
+                _ = Console.ReadLine();
+            }
+            else
+            {
+                // Add a small delay for non-interactive mode to ensure objects are fully deleted
+                Console.WriteLine("Waiting a moment for objects to be fully deleted...");
+                await Task.Delay(2000);
+            }
+
+            // Delete the bucket.
+            await s3Wrapper.DeleteBucketAsync(bucketName);
+
+            // Clean up temporary files in non-interactive mode
+            if (!IsInteractive)
+            {
+                try
+                {
+                    if (File.Exists(filePath))
+                    {
+                        File.Delete(filePath);
+                        Console.WriteLine("Cleaned up temporary test file.");
+                    }
+
+                    var downloadFile = Path.Combine(downloadPath, keyName);
+                    if (File.Exists(downloadFile))
+                    {
+                        File.Delete(downloadFile);
+                        Console.WriteLine("Cleaned up downloaded test file.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    scenarioLogger.LogWarning(ex, "Failed to clean up temporary files.");
+                }
             }
         }
-
-        // Get the file name from the full path.
-        keyName = Path.GetFileName(filePath);
-
-        success = await S3Bucket.UploadFileAsync(client, bucketName, keyName, filePath);
-
-        if (success)
+        catch (Exception ex)
         {
-            Console.WriteLine($"Successfully uploaded {keyName} from {filePath} to {bucketName}.\n");
-        }
-        else
-        {
-            Console.WriteLine($"Could not upload {keyName}.\n");
-        }
+            scenarioLogger.LogError(ex, "An error occurred during the S3 scenario execution.");
 
-        // Set the file path to an empty string to avoid overwriting the
-        // file we just uploaded to the bucket.
-        filePath = string.Empty;
-
-        // Now get a new location where we can save the file.
-        while (string.IsNullOrEmpty(filePath))
-        {
-            // First get the path to which the file will be downloaded.
-            Console.Write("Please enter the path where the file will be downloaded: ");
-            filePath = Console.ReadLine();
-
-            // Confirm that the file exists on the local computer.
-            if (File.Exists($"{filePath}\\{keyName}"))
+            // Clean up on error - delete bucket if it exists
+            try
             {
-                Console.WriteLine($"Sorry, the file already exists in that location.\n");
-                filePath = string.Empty;
+                if (!string.IsNullOrEmpty(bucketName))
+                {
+                    await s3Wrapper.DeleteBucketContentsAsync(bucketName);
+                    await s3Wrapper.DeleteBucketAsync(bucketName);
+                }
             }
+            catch (Exception cleanupEx)
+            {
+                scenarioLogger.LogError(cleanupEx, "Error during cleanup.");
+            }
+
+            // Clean up temporary files in non-interactive mode
+            if (!IsInteractive)
+            {
+                try
+                {
+                    if (!string.IsNullOrEmpty(filePath) && File.Exists(filePath))
+                    {
+                        File.Delete(filePath);
+                    }
+                }
+                catch (Exception fileCleanupEx)
+                {
+                    scenarioLogger.LogWarning(fileCleanupEx, "Failed to clean up temporary files during error handling.");
+                }
+            }
+
+            throw;
         }
+    }
 
-        // Download an object from a bucket.
-        success = await S3Bucket.DownloadObjectFromBucketAsync(client, bucketName, keyName, filePath);
-
-        if (success)
+    /// <summary>
+    /// Gets the console width in a safe way that works in test environments.
+    /// </summary>
+    /// <returns>Console width or default value of 80.</returns>
+    private static int GetConsoleWidth()
+    {
+        try
         {
-            Console.WriteLine($"Successfully downloaded {keyName}.\n");
+            return Console.WindowWidth;
         }
-        else
+        catch (Exception)
         {
-            Console.WriteLine($"Sorry, could not download {keyName}.\n");
+            // Return default width when console is not available (e.g., in tests)
+            return 80;
         }
-
-        // Copy the object to a different folder in the bucket.
-        string folderName = string.Empty;
-
-        while (string.IsNullOrEmpty(folderName))
-        {
-            Console.Write("Please enter the name of the folder to copy your object to: ");
-            folderName = Console.ReadLine();
-        }
-
-        while (string.IsNullOrEmpty(keyName))
-        {
-            // Get the name to give to the object once uploaded.
-            Console.Write("Enter the name of the object to copy: ");
-            keyName = Console.ReadLine();
-        }
-
-        await S3Bucket.CopyObjectInBucketAsync(client, bucketName, keyName, folderName);
-
-        // List the objects in the bucket.
-        await S3Bucket.ListBucketContentsAsync(client, bucketName);
-
-        // Delete the contents of the bucket.
-        await S3Bucket.DeleteBucketContentsAsync(client, bucketName);
-
-        // Deleting the bucket too quickly after deleting its contents will
-        // cause an error that the bucket isn't empty. So...
-        Console.WriteLine("Press <Enter> when you are ready to delete the bucket.");
-        _ = Console.ReadLine();
-
-        // Delete the bucket.
-        await S3Bucket.DeleteBucketAsync(client, bucketName);
     }
 }
 
