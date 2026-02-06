@@ -13,10 +13,10 @@ namespace S3_BasicsScenario;
 public class S3_Basics
 {
     public static bool IsInteractive = true;
-    public static S3Bucket? Wrapper = null;
-    public static ILogger<S3_Basics> logger = null!;
-    private static S3Bucket _s3Wrapper = null!;
-    private static ILogger<S3_Basics> _logger = null!;
+    public static string BucketName = null!;
+    public static string TempFilePath = null!;
+    public static S3Bucket _s3Wrapper = null!;
+    public static ILogger<S3_Basics> _logger = null!;
 
     public static async Task Main(string[] args)
     {
@@ -25,24 +25,15 @@ public class S3_Basics
             .ConfigureServices((_, services) =>
                 services.AddAWSService<IAmazonS3>()
                     .AddTransient<S3Bucket>()
-                    .AddLogging(builder => builder.AddConsole())
-            )
+                    .AddLogging(builder => builder.AddConsole()))
             .Build();
 
-        logger = LoggerFactory.Create(builder => builder.AddConsole())
+        _logger = LoggerFactory.Create(builder => builder.AddConsole())
             .CreateLogger<S3_Basics>();
 
-        Wrapper = host.Services.GetRequiredService<S3Bucket>();
+        _s3Wrapper = host.Services.GetRequiredService<S3Bucket>();
 
-        // Set the private fields for backwards compatibility
-        _logger = logger;
-        _s3Wrapper = Wrapper;
-
-        string bucketName = string.Empty;
-        string filePath = string.Empty;
-        string keyName = string.Empty;
-
-        var sepBar = new string('-', GetConsoleWidth());
+        var sepBar = new string('-', 45);
 
         Console.WriteLine(sepBar);
         Console.WriteLine("Amazon Simple Storage Service (Amazon S3) basic");
@@ -55,15 +46,7 @@ public class S3_Basics
         Console.WriteLine("\n\t6. Delete the bucket");
         Console.WriteLine(sepBar);
 
-        try
-        {
-            await RunScenarioAsync();
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "There was a problem running the scenario.");
-            Console.WriteLine($"\nAn error occurred: {ex.Message}");
-        }
+        await RunScenario(_s3Wrapper, _logger);
 
         Console.WriteLine(sepBar);
         Console.WriteLine("The Amazon S3 scenario has successfully completed.");
@@ -71,31 +54,18 @@ public class S3_Basics
     }
 
     /// <summary>
-    /// Run the S3 Basics scenario.
-    /// </summary>
-    /// <returns>A Task object.</returns>
-    public static async Task RunScenarioAsync()
-    {
-        // Use static properties if available, otherwise use private fields
-        var s3Wrapper = Wrapper ?? _s3Wrapper;
-        var scenarioLogger = logger ?? _logger;
-
-        await RunScenarioInternalAsync(s3Wrapper, scenarioLogger);
-    }
-
-    /// <summary>
-    /// Internal method to run the S3 Basics scenario with injected dependencies.
+    /// Run the S3 Basics scenario with injected dependencies.
     /// </summary>
     /// <param name="s3Wrapper">The S3 wrapper instance.</param>
     /// <param name="scenarioLogger">The logger instance.</param>
     /// <returns>A Task object.</returns>
-    private static async Task RunScenarioInternalAsync(S3Bucket s3Wrapper, ILogger<S3_Basics> scenarioLogger)
+    public static async Task RunScenario(S3Bucket s3Wrapper, ILogger<S3_Basics> scenarioLogger)
     {
-        string bucketName = string.Empty;
-        string filePath = string.Empty;
+        string bucketName = BucketName;
+        string filePath = TempFilePath;
         string keyName = string.Empty;
 
-        var sepBar = new string('-', GetConsoleWidth());
+        var sepBar = new string('-', 45);
 
         try
         {
@@ -111,7 +81,6 @@ public class S3_Basics
             }
             else
             {
-                bucketName = $"s3-basics-test-{Guid.NewGuid():N}";
                 Console.WriteLine($"Using bucket name: {bucketName}");
             }
 
@@ -147,11 +116,20 @@ public class S3_Basics
             }
             else
             {
-                // Create a temporary test file for non-interactive mode
-                filePath = Path.GetTempFileName();
-                var testContent = "This is a test file for S3 basics scenario.\nGenerated on: " + DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss UTC");
-                await File.WriteAllTextAsync(filePath, testContent);
-                Console.WriteLine($"Created temporary test file: {filePath}");
+                // Use the public variable if set, otherwise create a temp file
+                if (!string.IsNullOrEmpty(TempFilePath))
+                {
+                    filePath = TempFilePath;
+                    Console.WriteLine($"Using provided test file: {filePath}");
+                }
+                else
+                {
+                    // Create a temporary test file for non-interactive mode
+                    filePath = Path.GetTempFileName();
+                    var testContent = "This is a test file for S3 basics scenario.\nGenerated on: " + DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss UTC");
+                    await File.WriteAllTextAsync(filePath, testContent);
+                    Console.WriteLine($"Created temporary test file: {filePath}");
+                }
             }
 
             // Get the file name from the full path.
@@ -196,6 +174,7 @@ public class S3_Basics
                 {
                     File.Delete(downloadFile);
                 }
+
                 Console.WriteLine($"Using download path: {downloadPath}");
             }
 
@@ -234,24 +213,47 @@ public class S3_Basics
             await s3Wrapper.ListBucketContentsAsync(bucketName);
 
             // Delete the contents of the bucket.
-            await s3Wrapper.DeleteBucketContentsAsync(bucketName);
+            if (IsInteractive)
+            {
+                Console.WriteLine("Press <Enter> when you are ready to delete the bucket contents.");
+                _ = Console.ReadLine();
+            }
+
+            var deleteContentsSuccess = await s3Wrapper.DeleteBucketContentsAsync(bucketName);
+            if (deleteContentsSuccess)
+            {
+                Console.WriteLine($"Successfully deleted contents of {bucketName}.\n");
+            }
+            else
+            {
+                Console.WriteLine($"Sorry, could not delete contents of {bucketName}.\n");
+            }
 
             if (IsInteractive)
             {
-                // Deleting the bucket too quickly after deleting its contents will
-                // cause an error that the bucket isn't empty. So...
+                // Deleting the bucket too quickly after separately deleting its contents can
+                // cause an error that the bucket isn't empty. To delete contents and bucket in one
+                // operation, use AmazonS3Util.DeleteS3BucketWithObjectsAsync
                 Console.WriteLine("Press <Enter> when you are ready to delete the bucket.");
                 _ = Console.ReadLine();
             }
             else
             {
-                // Add a small delay for non-interactive mode to ensure objects are fully deleted
+                // Add a small delay for non-interactive mode to ensure objects are fully deleted.
                 Console.WriteLine("Waiting a moment for objects to be fully deleted...");
                 await Task.Delay(2000);
             }
 
             // Delete the bucket.
-            await s3Wrapper.DeleteBucketAsync(bucketName);
+            var deleteSuccess = await s3Wrapper.DeleteBucketAsync(bucketName);
+            if (deleteSuccess)
+            {
+                Console.WriteLine($"Successfully deleted {bucketName}.\n");
+            }
+            else
+            {
+                Console.WriteLine($"Sorry, could not delete {bucketName}.\n");
+            }
 
             // Clean up temporary files in non-interactive mode
             if (!IsInteractive)
@@ -312,23 +314,6 @@ public class S3_Basics
             }
 
             throw;
-        }
-    }
-
-    /// <summary>
-    /// Gets the console width in a safe way that works in test environments.
-    /// </summary>
-    /// <returns>Console width or default value of 80.</returns>
-    private static int GetConsoleWidth()
-    {
-        try
-        {
-            return Console.WindowWidth;
-        }
-        catch (Exception)
-        {
-            // Return default width when console is not available (e.g., in tests)
-            return 80;
         }
     }
 }

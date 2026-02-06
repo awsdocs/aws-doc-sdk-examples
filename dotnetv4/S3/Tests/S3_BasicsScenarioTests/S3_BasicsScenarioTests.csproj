@@ -30,7 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\S3_Basics\S3_BasicsScenario.csproj" />
+    <ProjectReference Include="..\..\Scenarios\S3_Basics\S3_BasicsScenario.csproj" />
   </ItemGroup>
 
 </Project>
