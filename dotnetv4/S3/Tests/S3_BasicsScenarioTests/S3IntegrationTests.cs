@@ -26,7 +26,7 @@ public class S3IntegrationTests
         // Generate test bucket name and create temp file in test class
         var bucketName = $"s3-basics-test-{Guid.NewGuid():N}";
         var tempFilePath = Path.GetTempFileName();
-        
+
         try
         {
             // Create test file content

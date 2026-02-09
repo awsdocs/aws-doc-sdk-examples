@@ -31,7 +31,7 @@ public class HelloS3
             var paginator = s3Client.Paginators.ListBuckets(request);
 
             var buckets = new List<S3Bucket>();
-            
+
             await foreach (var response in paginator.Responses)
             {
                 buckets.AddRange(response.Buckets);
