@@ -29,6 +29,11 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv4
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Get started
+
+- [Hello Amazon S3](Actions/HelloS3.cs#L9) (`ListBuckets`)
+
+
 ### Basics
 
 Code examples that show you how to perform the essential operations within a service.
@@ -40,14 +45,14 @@ Code examples that show you how to perform the essential operations within a ser
 
 Code excerpts that show you how to call individual service functions.
 
-- [CopyObject](Scenarios/S3_Basics/S3Bucket.cs#L134)
-- [CreateBucket](Scenarios/S3_Basics/S3Bucket.cs#L24)
+- [CopyObject](Actions/S3Wrapper.cs#L137)
+- [CreateBucket](Actions/S3Wrapper.cs#L27)
 - [CreatePresignedPost](Scenarios/S3_CreatePresignedPost/S3Wrapper.cs#L35)
-- [DeleteBucket](Scenarios/S3_Basics/S3Bucket.cs#L261)
-- [DeleteObjects](Scenarios/S3_Basics/S3Bucket.cs#L225)
-- [GetObject](Scenarios/S3_Basics/S3Bucket.cs#L93)
-- [ListObjectsV2](Scenarios/S3_Basics/S3Bucket.cs#L173)
-- [PutObject](Scenarios/S3_Basics/S3Bucket.cs#L54)
+- [DeleteBucket](Actions/S3Wrapper.cs#L270)
+- [DeleteObjects](Actions/S3Wrapper.cs#L234)
+- [GetObject](Actions/S3Wrapper.cs#L96)
+- [ListObjectsV2](Actions/S3Wrapper.cs#L176)
+- [PutObject](Actions/S3Wrapper.cs#L57)
 
 ### Scenarios
 
@@ -67,6 +72,10 @@ functions within the same service.
 
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
+
+#### Hello Amazon S3
+
+This example shows you how to get started using Amazon S3.
 
 
 #### Learn the basics

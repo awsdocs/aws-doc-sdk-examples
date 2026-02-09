@@ -7,6 +7,8 @@
 // computer. It also shows how to copy an object within an Amazon S3 bucket,
 // list the bucket's contents, and finally how to delete the objects in the
 // bucket before deleting the bucket itself.
+using S3_Actions;
+
 namespace S3_BasicsScenario;
 
 // snippet-start:[S3.dotnetv4.S3_BasicsScenario]
@@ -15,7 +17,7 @@ public class S3_Basics
     public static bool IsInteractive = true;
     public static string BucketName = null!;
     public static string TempFilePath = null!;
-    public static S3Bucket _s3Wrapper = null!;
+    public static S3Wrapper _s3Wrapper = null!;
     public static ILogger<S3_Basics> _logger = null!;
 
     public static async Task Main(string[] args)
@@ -24,14 +26,14 @@ public class S3_Basics
         using var host = Host.CreateDefaultBuilder(args)
             .ConfigureServices((_, services) =>
                 services.AddAWSService<IAmazonS3>()
-                    .AddTransient<S3Bucket>()
+                    .AddTransient<S3Wrapper>()
                     .AddLogging(builder => builder.AddConsole()))
             .Build();
 
         _logger = LoggerFactory.Create(builder => builder.AddConsole())
             .CreateLogger<S3_Basics>();
 
-        _s3Wrapper = host.Services.GetRequiredService<S3Bucket>();
+        _s3Wrapper = host.Services.GetRequiredService<S3Wrapper>();
 
         var sepBar = new string('-', 45);
 
@@ -59,7 +61,7 @@ public class S3_Basics
     /// <param name="s3Wrapper">The S3 wrapper instance.</param>
     /// <param name="scenarioLogger">The logger instance.</param>
     /// <returns>A Task object.</returns>
-    public static async Task RunScenario(S3Bucket s3Wrapper, ILogger<S3_Basics> scenarioLogger)
+    public static async Task RunScenario(S3Wrapper s3Wrapper, ILogger<S3_Basics> scenarioLogger)
     {
         string bucketName = BucketName;
         string filePath = TempFilePath;

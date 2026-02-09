@@ -20,4 +20,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Actions\S3_Actions.csproj" />
+  </ItemGroup>
+
 </Project>

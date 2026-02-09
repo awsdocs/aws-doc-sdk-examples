@@ -1,22 +1,25 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-namespace S3_BasicsScenario;
 // snippet-start:[S3.dotnetv4.S3_BasicsBucket]
+using Amazon.S3;
+using Amazon.S3.Model;
+
+namespace S3_Actions;
 
 /// <summary>
 /// This class contains all of the methods for working with Amazon Simple
 /// Storage Service (Amazon S3) buckets.
 /// </summary>
-public class S3Bucket
+public class S3Wrapper
 {
     private readonly IAmazonS3 _amazonS3;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="S3Bucket"/> class.
+    /// Initializes a new instance of the <see cref="S3Wrapper"/> class.
     /// </summary>
     /// <param name="amazonS3">An initialized Amazon S3 client object.</param>
-    public S3Bucket(IAmazonS3 amazonS3)
+    public S3Wrapper(IAmazonS3 amazonS3)
     {
         _amazonS3 = amazonS3;
     }
@@ -176,9 +179,9 @@ public class S3Bucket
     /// Shows how to list the objects in an Amazon S3 bucket.
     /// </summary>
     /// <param name="bucketName">The name of the bucket for which to list.
-    /// the contents.</param>
+    /// <param name="printList">True to print out the list.
     /// <returns>The collection of objects.</returns>
-    public async Task<List<S3Object>> ListBucketContentsAsync(string bucketName)
+    public async Task<List<S3Object>?> ListBucketContentsAsync(string bucketName, bool printList = true)
     {
         try
         {
@@ -188,9 +191,12 @@ public class S3Bucket
                 MaxKeys = 5,
             };
 
-            Console.WriteLine("--------------------------------------");
-            Console.WriteLine($"Listing the contents of {bucketName}:");
-            Console.WriteLine("--------------------------------------");
+            if (printList)
+            {
+                Console.WriteLine("--------------------------------------");
+                Console.WriteLine($"Listing the contents of {bucketName}:");
+                Console.WriteLine("--------------------------------------");
+            }
 
             var listObjectsV2Paginator = _amazonS3.Paginators.ListObjectsV2(new ListObjectsV2Request
             {
@@ -205,10 +211,13 @@ public class S3Bucket
                 }
             }
 
-            Console.WriteLine($"Number of Objects: {s3Objects.Count}");
-            foreach (var entry in s3Objects)
+            if (printList)
             {
-                Console.WriteLine($"Key = {entry.Key} Size = {entry.Size}");
+                Console.WriteLine($"Number of Objects: {s3Objects.Count}");
+                foreach (var entry in s3Objects)
+                {
+                    Console.WriteLine($"Key = {entry.Key} Size = {entry.Size}");
+                }
             }
 
             return s3Objects;
@@ -237,7 +246,7 @@ public class S3Bucket
         try
         {
             // Delete all objects in the bucket.
-            var deleteList = await ListBucketContentsAsync(bucketName);
+            var deleteList = await ListBucketContentsAsync(bucketName, false);
             if (deleteList != null && deleteList.Any())
             {
                 await _amazonS3.DeleteObjectsAsync(new DeleteObjectsRequest()

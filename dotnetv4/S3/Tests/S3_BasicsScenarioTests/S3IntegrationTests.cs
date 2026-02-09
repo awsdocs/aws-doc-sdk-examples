@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 using Microsoft.Extensions.Logging;
+using S3_Actions;
 using S3_BasicsScenario;
 
 namespace S3_BasicsScenarioTests;
@@ -50,7 +51,7 @@ public class S3IntegrationTests
             S3_Basics._logger = loggerScenarioMock.Object;
 
             // Set up the wrapper with real AWS S3 client
-            S3_Basics._s3Wrapper = new S3_BasicsScenario.S3Bucket(new AmazonS3Client());
+            S3_Basics._s3Wrapper = new S3Wrapper(new AmazonS3Client());
 
             await S3_Basics.RunScenario(S3_Basics._s3Wrapper, S3_Basics._logger);
 
