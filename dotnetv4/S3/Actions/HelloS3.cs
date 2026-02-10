@@ -8,7 +8,8 @@ namespace S3_Actions;
 
 // snippet-start:[S3.dotnetv4.S3_Hello]
 /// <summary>
-/// Hello AWS S3 example.
+/// Hello Amazon Simple Storage Service
+// (Amazon S3) example.
 /// </summary>
 public class HelloS3
 {
@@ -23,7 +24,7 @@ public class HelloS3
 
         try
         {
-            Console.WriteLine("Hello AWS S3! Let's list your buckets:");
+            Console.WriteLine("Hello Amazon S3! Let's list your buckets:");
             Console.WriteLine(new string('-', 80));
 
             // Use the built-in paginator to list buckets
