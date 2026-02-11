@@ -4,6 +4,15 @@ s3_Hello:
   synopsis: get started using &S3;.
   category: Hello
   languages:
+    .NET:
+      versions:
+        - sdk_version: 4
+          github: dotnetv4/S3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3.dotnetv4.S3_Hello
     Java:
       versions:
         - sdk_version: 2
@@ -83,13 +92,17 @@ s3_CreateBucket:
   languages:
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/S3
+        - sdk_version: 4
+          github: dotnetv4/S3
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - S3.dotnetv3.S3_Basics-CreateBucket
+                - S3.dotnetv4.S3_Basics-CreateBucket
+        - sdk_version: 3
+          github: dotnetv3/S3
+          sdkguide:
+          excerpts:
             - description: Create a bucket with object lock enabled.
               snippet_tags:
                 - S3LockWorkflow.dotnetv3.CreateBucketWithObjectLock
@@ -230,12 +243,16 @@ s3_CopyObject:
   languages:
     .NET:
       versions:
+        - sdk_version: 4
+          github: dotnetv4/S3
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - S3.dotnetv4.S3_Basics-CopyObject
         - sdk_version: 3
           github: dotnetv3/S3
           excerpts:
-            - description:
-              snippet_tags:
-                - S3.dotnet35.CopyObject
             - description: Copy an object using a conditional request.
               genai: some
               snippet_tags:
@@ -610,13 +627,17 @@ s3_DeleteObjects:
   languages:
     .NET:
       versions:
+        - sdk_version: 4
+          github: dotnetv4/S3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3.dotnetv4.S3_Basics-DeleteBucketContents
         - sdk_version: 3
           github: dotnetv3/S3
           sdkguide:
           excerpts:
-            - description: Delete all objects in an S3 bucket.
-              snippet_tags:
-                - S3.dotnetv3.S3_Basics-DeleteBucketContents
             - description: Delete multiple objects in a non-versioned S3 bucket.
               snippet_tags:
                 - S3.dotnetv3.DeleteMultipleObjectsExample
@@ -903,13 +924,17 @@ s3_GetObject:
   languages:
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/S3
+        - sdk_version: 4
+          github: dotnetv4/S3
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - S3.dotnetv3.S3_Basics-DownloadObject
+                - S3.dotnetv4.S3_Basics-DownloadObject
+        - sdk_version: 3
+          github: dotnetv3/S3
+          sdkguide:
+          excerpts:
             - description: Get an object using a conditional request.
               genai: some
               snippet_tags:
@@ -1437,13 +1462,17 @@ s3_ListObjectsV2:
   languages:
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/S3
+        - sdk_version: 4
+          github: dotnetv4/S3
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - S3.dotnetv3.S3_Basics-ListBucketContents
+                - S3.dotnetv4.S3_Basics-ListBucketContents
+        - sdk_version: 3
+          github: dotnetv3/S3
+          sdkguide:
+          excerpts:
             - description: List objects with a paginator.
               snippet_tags:
                 - S3.dotnetv3.ListObjectsPaginatorExample
@@ -1601,13 +1630,17 @@ s3_PutObject:
   languages:
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/S3
+        - sdk_version: 4
+          github: dotnetv4/S3
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - S3.dotnetv3.S3_Basics-UploadFile
+                - S3.dotnetv4.S3_Basics-UploadFile
+        - sdk_version: 3
+          github: dotnetv3/S3
+          sdkguide:
+          excerpts:
             - description: Upload an object with server-side encryption.
               snippet_tags:
                 - S3.dotnetv3.ServerSideEncryptionExample
@@ -1790,13 +1823,13 @@ s3_DeleteBucket:
   languages:
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/S3
+        - sdk_version: 4
+          github: dotnetv4/S3
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - S3.dotnetv3.S3_Basics-DeleteBucket
+                - S3.dotnetv4.S3_Basics-DeleteBucket
     C++:
       versions:
         - sdk_version: 1
@@ -3189,13 +3222,16 @@ s3_Scenario_GettingStarted:
   languages:
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/S3/S3_Basics
+        - sdk_version: 4
+          github: dotnetv4/S3
           sdkguide:
           excerpts:
-            - description:
+            - description: Run an interactive scenario demonstrating &S3; features.
               snippet_tags:
-                - S3.dotnetv3.S3_BasicsScenario
+                - S3.dotnetv4.S3_BasicsScenario
+            - description: A wrapper class for &S3; SDK methods.
+              snippet_tags:
+                - S3.dotnetv4.S3_BasicsBucket
     Java:
       versions:
         - sdk_version: 2
@@ -3224,7 +3260,7 @@ s3_Scenario_GettingStarted:
                 - javascript.v3.utils.dirnameFromMetaUrl
                 - javascript.v3.utils.prompter
                 - javascript.v3.utils.wrapText
-            - description: Objects in S3 are stored in 'buckets'. Let's define a function for creating a new bucket.
+            - description: Objects are stored in 'buckets'. Let's define a function for creating a new bucket.
               snippet_tags:
                 - javascript.v3.s3.scenarios.basic.CreateBucket
             - description: Buckets contain 'objects'. This function uploads the contents of a directory to your bucket as

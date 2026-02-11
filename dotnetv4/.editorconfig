@@ -167,3 +167,5 @@ dotnet_diagnostic.S1104.severity = none
 dotnet_diagnostic.S1854.severity = none
 # SA1401: Disable encapsulation warnings.
 dotnet_diagnostic.SA1401.severity = none
+# CS8632: Disable nullable warnings.
+dotnet_diagnostic.CS8632.severity = none
