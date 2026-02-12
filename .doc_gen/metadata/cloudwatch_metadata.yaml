@@ -1097,6 +1097,9 @@ cloudwatch_GetStartedMetricsDashboardsAlarms:
             - description: Wrapper methods used by the scenario for &CW; actions.
               snippet_tags:
                 - CloudWatch.dotnetv4.CloudWatchWrapper
+            - description: Example settings.json values for the scenario.
+            - snippet_files:
+                - dotnetv4/CloudWatch/Scenarios/settings.json
   services:
     cloudwatch: {ListMetrics, GetMetricStatistics, PutDashboard, PutMetricData, GetMetricData, PutMetricAlarm, DescribeAlarms,
                  DescribeAlarmsForMetric, DescribeAlarmHistory, DeleteAlarms, PutAnomalyDetector, GetMetricWidgetImage, DescribeAnomalyDetectors,
