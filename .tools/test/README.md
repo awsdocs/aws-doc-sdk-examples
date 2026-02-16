@@ -69,3 +69,41 @@ See [CDK stack](stacks/plugin).
 There are several options for deploying this stack.
 
 See [DEPLOYMENT.md](DEPLOYMENT.md) for more information.
+
+## Quick start (operator checklist)
+
+Use this quick path when setting up Weathertop test infrastructure in a new account.
+
+1. **Install prerequisites**
+   - AWS CLI v2 configured for the target account(s)
+   - Node.js + npm
+   - AWS CDK v2
+   - Docker (for image build/push workflows)
+2. **Bootstrap CDK environment** (if not already bootstrapped):
+   - `cdk bootstrap`
+3. **Deploy stacks in this order**
+   - `Images` (creates ECR repos)
+   - `Admin` (creates scheduled publisher)
+   - `Plugin` (consumes queue events and runs tests)
+4. **Verify image availability**
+   - Confirm language images exist in ECR before expecting jobs to run.
+5. **Validate event flow**
+   - Confirm scheduled event -> SNS -> SQS subscription -> Plugin Lambda invocation.
+6. **Validate batch execution**
+   - Confirm AWS Batch jobs start and write expected logs/results.
+
+## Common setup pitfalls
+
+- **No images in ECR**: Plugin jobs fail because runtime images do not exist yet.
+- **Cross-account subscription gaps**: SNS topic policy/SQS subscription not fully configured.
+- **Missing IAM permissions**: Lambda cannot submit Batch jobs or read required resources.
+- **Region mismatch**: resources deployed in one region while eventing/config expects another.
+
+## Operational success signals
+
+A healthy setup should show:
+
+- Scheduled or manual event publishes successfully.
+- Plugin Lambda receives and processes queue messages.
+- Batch jobs transition through `SUBMITTED` -> `RUNNING` -> `SUCCEEDED`.
+- Result artifacts/logs are generated for expected SDK targets.
