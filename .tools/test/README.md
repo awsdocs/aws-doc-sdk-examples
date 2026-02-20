@@ -74,6 +74,10 @@ See [DEPLOYMENT.md](DEPLOYMENT.md) for more information.
 
 Use this quick path when setting up Weathertop test infrastructure in a new account.
 
+### Why this section exists
+
+This checklist is intended to reduce setup-to-first-success time for operators by giving a short, ordered path for the most common first-run failure points.
+
 1. **Install prerequisites**
    - AWS CLI v2 configured for the target account(s)
    - Node.js + npm
