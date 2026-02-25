@@ -53,6 +53,7 @@ Code examples that show you how to accomplish a specific task by calling multipl
 functions within the same service.
 
 - [Manage metrics and alarms](cloudwatch_basics.py)
+- [Monitor infrastructure with CloudWatch and Amazon SNS](../sns/scenario_cloudwatch_sns_monitoring.py)
 
 
 <!--custom.examples.start-->
@@ -89,6 +90,24 @@ python cloudwatch_basics.py
 
 <!--custom.scenarios.cloudwatch_Usage_MetricsAlarms.start-->
 <!--custom.scenarios.cloudwatch_Usage_MetricsAlarms.end-->
+
+#### Monitor infrastructure with CloudWatch and Amazon SNS
+
+This example shows you how to create CloudWatch alarms that send Amazon SNS notifications when infrastructure metrics breach thresholds.
+
+
+<!--custom.scenario_prereqs.sns_Scenario_CloudWatchSnsMonitoring.start-->
+<!--custom.scenario_prereqs.sns_Scenario_CloudWatchSnsMonitoring.end-->
+
+Start the example by running the following at a command prompt:
+
+```
+python ../sns/scenario_cloudwatch_sns_monitoring.py
+```
+
+
+<!--custom.scenarios.sns_Scenario_CloudWatchSnsMonitoring.start-->
+<!--custom.scenarios.sns_Scenario_CloudWatchSnsMonitoring.end-->
 
 ### Tests
 

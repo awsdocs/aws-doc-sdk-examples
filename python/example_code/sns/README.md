@@ -55,6 +55,7 @@ functions within the same service.
 - [Create an Amazon Textract explorer application](../../cross_service/textract_explorer)
 - [Create and publish to a FIFO topic](sns_fifo_topic.py)
 - [Detect people and objects in a video](../../example_code/rekognition)
+- [Monitor infrastructure with CloudWatch and Amazon SNS](scenario_cloudwatch_sns_monitoring.py)
 - [Publish an SMS text message](sns_basics.py)
 - [Publish messages to queues](../../cross_service/topics_and_queues/topics_and_queues_scenario.py)
 - [Use API Gateway to invoke a Lambda function](../../example_code/lambda)
@@ -120,6 +121,24 @@ This example shows you how to detect people and objects in a video with Amazon R
 
 <!--custom.scenarios.cross_RekognitionVideoDetection.start-->
 <!--custom.scenarios.cross_RekognitionVideoDetection.end-->
+
+#### Monitor infrastructure with CloudWatch and Amazon SNS
+
+This example shows you how to create CloudWatch alarms that send Amazon SNS notifications when infrastructure metrics breach thresholds.
+
+
+<!--custom.scenario_prereqs.sns_Scenario_CloudWatchSnsMonitoring.start-->
+<!--custom.scenario_prereqs.sns_Scenario_CloudWatchSnsMonitoring.end-->
+
+Start the example by running the following at a command prompt:
+
+```
+python scenario_cloudwatch_sns_monitoring.py
+```
+
+
+<!--custom.scenarios.sns_Scenario_CloudWatchSnsMonitoring.start-->
+<!--custom.scenarios.sns_Scenario_CloudWatchSnsMonitoring.end-->
 
 #### Publish an SMS text message
 
