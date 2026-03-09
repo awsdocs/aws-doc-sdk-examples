@@ -15,11 +15,7 @@ import { SESClient } from "@aws-sdk/client-ses";
 // Set the AWS Region.
 const REGION = "us-east-1";
 // Credentials are automatically resolved using the AWS SDK credential provider chain.
-// This includes:
-// - Environment variables (AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)
-// - Shared credentials file (~/.aws/credentials)
-// - IAM roles attached to compute services such as Amazon EC2, ECS, or AWS Lambda.
-// See: https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/setting-credentials-node.html
+// For more information, see https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/setting-credentials-node.html
 // Create SES service object.
 const sesClient = new SESClient({ region: REGION });
 export { sesClient };
