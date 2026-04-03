@@ -49,7 +49,8 @@ CLASS ltc_awsex_cl_s3_actions DEFINITION FOR TESTING DURATION SHORT RISK LEVEL D
       put_object_legal_hold FOR TESTING RAISING /aws1/cx_rt_generic,
       put_object_retention FOR TESTING RAISING /aws1/cx_rt_generic,
       get_object_lock_conf FOR TESTING RAISING /aws1/cx_rt_generic,
-      put_object_lock_conf FOR TESTING RAISING /aws1/cx_rt_generic.
+      put_object_lock_conf FOR TESTING RAISING /aws1/cx_rt_generic,
+      list_buckets FOR TESTING RAISING /aws1/cx_rt_generic.
 
     CLASS-METHODS class_setup RAISING /aws1/cx_rt_generic /awsex/cx_generic.
     CLASS-METHODS class_teardown RAISING /aws1/cx_rt_generic /awsex/cx_generic.
@@ -1101,6 +1102,32 @@ CLASS ltc_awsex_cl_s3_actions IMPLEMENTATION.
       CATCH /aws1/cx_rt_generic.
         " Object lock operations may fail if not properly configured
     ENDTRY.
+  ENDMETHOD.
+
+  METHOD list_buckets.
+    DATA lo_result TYPE REF TO /aws1/cl_s3_listbucketsoutput.
+
+    ao_s3_actions->list_buckets(
+      IMPORTING
+        oo_result = lo_result ).
+
+    " Verify we got buckets back
+    cl_abap_unit_assert=>assert_bound(
+      act = lo_result
+      msg = |Could not list buckets| ).
+
+    " Verify that our test buckets are in the list
+    DATA(lv_found_bucket) = abap_false.
+    LOOP AT lo_result->get_buckets( ) INTO DATA(lo_bucket).
+      IF lo_bucket->get_name( ) = av_bucket.
+        lv_found_bucket = abap_true.
+        EXIT.
+      ENDIF.
+    ENDLOOP.
+
+    cl_abap_unit_assert=>assert_true(
+      act = lv_found_bucket
+      msg = |Test bucket { av_bucket } not found in bucket list| ).
   ENDMETHOD.
 
 ENDCLASS.
