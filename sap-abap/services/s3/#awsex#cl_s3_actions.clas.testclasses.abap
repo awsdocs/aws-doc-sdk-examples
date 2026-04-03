@@ -460,6 +460,8 @@ CLASS ltc_awsex_cl_s3_actions IMPLEMENTATION.
     DATA lt_cors_rules TYPE /aws1/cl_s3_corsrule=>tt_corsrules.
     DATA lt_methods TYPE /aws1/cl_s3_allowedmethods_w=>tt_allowedmethods.
     DATA lt_origins TYPE /aws1/cl_s3_allowedorigins_w=>tt_allowedorigins.
+    DATA lv_retry TYPE i.
+    DATA lv_cors_set TYPE abap_bool VALUE abap_false.
 
     APPEND NEW /aws1/cl_s3_allowedmethods_w( iv_value = 'GET' ) TO lt_methods.
     APPEND NEW /aws1/cl_s3_allowedorigins_w( iv_value = '*' ) TO lt_origins.
@@ -468,24 +470,65 @@ CLASS ltc_awsex_cl_s3_actions IMPLEMENTATION.
       it_allowedmethods = lt_methods
       it_allowedorigins = lt_origins ) TO lt_cors_rules.
 
-    ao_s3->putbucketcors(
-      iv_bucket = av_bucket
-      io_corsconfiguration = NEW /aws1/cl_s3_corsconfiguration( it_corsrules = lt_cors_rules ) ).
+    " Set CORS configuration and retry if needed
+    DO 3 TIMES.
+      lv_retry = sy-index.
+      TRY.
+          ao_s3->putbucketcors(
+            iv_bucket = av_bucket
+            io_corsconfiguration = NEW /aws1/cl_s3_corsconfiguration( it_corsrules = lt_cors_rules ) ).
 
-    " Now test getting the CORS configuration
+          " Wait for CORS configuration to propagate
+          WAIT UP TO 2 SECONDS.
+
+          " Verify CORS was set by reading it back
+          DATA(lo_verify) = ao_s3->getbucketcors( iv_bucket = av_bucket ).
+          IF lo_verify IS BOUND AND lo_verify->get_corsrules( ) IS NOT INITIAL.
+            lv_cors_set = abap_true.
+            EXIT.
+          ENDIF.
+
+        CATCH /aws1/cx_s3_clientexc INTO DATA(lo_setup_ex).
+          " Retry on client exception
+          IF lv_retry = 3.
+            cl_abap_unit_assert=>fail( msg = |Failed to set CORS configuration after 3 attempts: { lo_setup_ex->get_text( ) }| ).
+          ENDIF.
+          WAIT UP TO 1 SECONDS.
+      ENDTRY.
+    ENDDO.
+
+    " Verify CORS was successfully set
+    cl_abap_unit_assert=>assert_true(
+      act = lv_cors_set
+      msg = |CORS configuration was not set after 3 attempts| ).
+
+    " Now test getting the CORS configuration using the action method
     DATA lo_result TYPE REF TO /aws1/cl_s3_getbktcorsoutput.
-    ao_s3_actions->get_bucket_cors(
-      EXPORTING
-        iv_bucket_name = av_bucket
-      IMPORTING
-        oo_result = lo_result ).
+    TRY.
+        ao_s3_actions->get_bucket_cors(
+          EXPORTING
+            iv_bucket_name = av_bucket
+          IMPORTING
+            oo_result = lo_result ).
 
-    cl_abap_unit_assert=>assert_bound(
-      act = lo_result
-      msg = |Could not get bucket CORS configuration| ).
+        cl_abap_unit_assert=>assert_bound(
+          act = lo_result
+          msg = |Could not get bucket CORS configuration| ).
+
+        cl_abap_unit_assert=>assert_not_initial(
+          act = lo_result->get_corsrules( )
+          msg = |CORS rules are empty| ).
+
+      CATCH /aws1/cx_s3_clientexc INTO DATA(lo_ex).
+        cl_abap_unit_assert=>fail( msg = |CORS configuration test failed: { lo_ex->get_text( ) }| ).
+    ENDTRY.
 
     " Cleanup
-    ao_s3->deletebucketcors( iv_bucket = av_bucket ).
+    TRY.
+        ao_s3->deletebucketcors( iv_bucket = av_bucket ).
+      CATCH /aws1/cx_rt_generic.
+        " Ignore cleanup errors
+    ENDTRY.
   ENDMETHOD.
 
   METHOD put_bucket_cors.
