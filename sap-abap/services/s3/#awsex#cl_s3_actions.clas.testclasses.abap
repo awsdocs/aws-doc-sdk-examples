@@ -723,24 +723,63 @@ CLASS ltc_awsex_cl_s3_actions IMPLEMENTATION.
 
   METHOD put_bucket_lifecycle_conf.
     DATA lt_rules TYPE /aws1/cl_s3_lifecyclerule=>tt_lifecyclerules.
+    DATA lv_retry TYPE i.
+    DATA lv_lifecycle_set TYPE abap_bool VALUE abap_false.
+
     APPEND NEW /aws1/cl_s3_lifecyclerule(
       iv_id = 'TestRule'
       iv_status = 'Enabled'
       io_filter = NEW /aws1/cl_s3_lcrulefilter( iv_prefix = 'archive/' )
       io_expiration = NEW /aws1/cl_s3_lifecycleexpir( iv_days = 60 ) ) TO lt_rules.
 
-    ao_s3_actions->put_bucket_lifecycle_conf(
-      iv_bucket_name = av_bucket
-      it_lifecycle_rule = lt_rules ).
+    " Set lifecycle configuration with retry logic
+    DO 3 TIMES.
+      lv_retry = sy-index.
+      TRY.
+          ao_s3_actions->put_bucket_lifecycle_conf(
+            iv_bucket_name = av_bucket
+            it_lifecycle_rule = lt_rules ).
 
-    " Verify lifecycle was set
-    DATA(lo_lc) = ao_s3->getbucketlifecycleconf( iv_bucket = av_bucket ).
-    cl_abap_unit_assert=>assert_not_initial(
-      act = lo_lc->get_rules( )
-      msg = |Lifecycle configuration was not set| ).
+          " Wait for lifecycle configuration to propagate
+          WAIT UP TO 2 SECONDS.
+
+          " Verify lifecycle was set by reading it back
+          DATA(lo_lc) = ao_s3->getbucketlifecycleconf( iv_bucket = av_bucket ).
+          IF lo_lc IS BOUND AND lo_lc->get_rules( ) IS NOT INITIAL.
+            lv_lifecycle_set = abap_true.
+            EXIT.
+          ENDIF.
+
+        CATCH /aws1/cx_s3_clientexc INTO DATA(lo_ex).
+          " Retry on client exception
+          IF lv_retry = 3.
+            cl_abap_unit_assert=>fail( msg = |Failed to set lifecycle configuration after 3 attempts: { lo_ex->get_text( ) }| ).
+          ENDIF.
+          WAIT UP TO 1 SECONDS.
+      ENDTRY.
+    ENDDO.
+
+    " Verify lifecycle was successfully set
+    cl_abap_unit_assert=>assert_true(
+      act = lv_lifecycle_set
+      msg = |Lifecycle configuration was not set after 3 attempts| ).
+
+    " Verify the rules content
+    TRY.
+        DATA(lo_verify) = ao_s3->getbucketlifecycleconf( iv_bucket = av_bucket ).
+        cl_abap_unit_assert=>assert_not_initial(
+          act = lo_verify->get_rules( )
+          msg = |Lifecycle configuration rules are empty| ).
+      CATCH /aws1/cx_s3_clientexc INTO DATA(lo_verify_ex).
+        cl_abap_unit_assert=>fail( msg = |Could not verify lifecycle configuration: { lo_verify_ex->get_text( ) }| ).
+    ENDTRY.
 
     " Cleanup
-    ao_s3->deletebucketlifecycle( iv_bucket = av_bucket ).
+    TRY.
+        ao_s3->deletebucketlifecycle( iv_bucket = av_bucket ).
+      CATCH /aws1/cx_rt_generic.
+        " Ignore cleanup errors
+    ENDTRY.
   ENDMETHOD.
 
   METHOD delete_bucket_lifecycle.
