@@ -444,8 +444,6 @@ CLASS /AWSEX/CL_S3_ACTIONS IMPLEMENTATION.
         MESSAGE 'Retrieved bucket CORS configuration.' TYPE 'I'.
       CATCH /aws1/cx_s3_nosuchbucket.
         MESSAGE 'Bucket does not exist.' TYPE 'E'.
-      CATCH /aws1/cx_s3_clientexc INTO DATA(lo_client_ex).
-        MESSAGE lo_client_ex->get_text( ) TYPE 'E'.
     ENDTRY.
     " snippet-end:[s3.abapv1.get_bucket_cors]
   ENDMETHOD.
