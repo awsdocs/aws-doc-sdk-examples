@@ -1,6 +1,6 @@
 module github.com/awsdocs/aws-doc-sdk-examples/gov2/iam
 
-go 1.21
+go 1.24
 
 require (
 	github.com/aws/aws-sdk-go-v2 v1.30.5
@@ -9,13 +9,13 @@ require (
 	github.com/aws/aws-sdk-go-v2/service/iam v1.35.2
 	github.com/aws/aws-sdk-go-v2/service/s3 v1.61.2
 	github.com/aws/aws-sdk-go-v2/service/sts v1.30.7
-	github.com/aws/smithy-go v1.20.4
+	github.com/aws/smithy-go v1.24.2
 	github.com/awsdocs/aws-doc-sdk-examples/gov2/demotools v0.0.0-20240907001412-a9375541143b
 	github.com/awsdocs/aws-doc-sdk-examples/gov2/testtools v0.0.0-20240907001412-a9375541143b
 )
 
 require (
-	github.com/aws/aws-sdk-go-v2/aws/protocol/eventstream v1.6.4 // indirect
+	github.com/aws/aws-sdk-go-v2/aws/protocol/eventstream v1.7.8 // indirect
 	github.com/aws/aws-sdk-go-v2/feature/ec2/imds v1.16.13 // indirect
 	github.com/aws/aws-sdk-go-v2/internal/configsources v1.3.17 // indirect
 	github.com/aws/aws-sdk-go-v2/internal/endpoints/v2 v2.6.17 // indirect
