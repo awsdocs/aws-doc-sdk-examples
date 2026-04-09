@@ -236,4 +236,4 @@ entityresolution_Scenario:
               snippet_tags:
                 - entity-resolution.JavaScriptv3.scenario.basics
   services:
-    entityresolution: {}
+    entityresolution: {CreateSchemaMapping, CreateMatchingWorkflow, StartMatchingJob, GetMatchingJob, GetSchemaMapping, ListSchemaMappings, TagResource, DeleteSchemaMapping, DeleteMatchingWorkflow, ListMatchingWorkflows}
