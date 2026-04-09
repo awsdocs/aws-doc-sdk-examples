@@ -101,6 +101,15 @@ sesv2_CreateContact:
     sesv2: {CreateContact}
 sesv2_GetEmailIdentity:
   languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/sesv2
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.sesv2.SESv2Wrapper.decl
+                - python.example_code.sesv2.GetEmailIdentity
     Rust:
       versions:
         - sdk_version: 1
@@ -248,6 +257,10 @@ sesv2_SendEmail:
                 - python.example_code.sesv2.SESv2Workflow.main
                 - python.example_code.sesv2.SESv2Workflow.decl
                 - python.example_code.sesv2.SendEmail.template
+            - description: Sends a message with optional attachments.
+              snippet_tags:
+                - python.example_code.sesv2.SESv2Wrapper.decl
+                - python.example_code.sesv2.SendEmail
   services:
     sesv2: {SendEmail}
 sesv2_CreateEmailIdentity:
@@ -289,6 +302,10 @@ sesv2_CreateEmailIdentity:
               snippet_tags:
                 - python.example_code.sesv2.SESv2Workflow.main
                 - python.example_code.sesv2.SESv2Workflow.decl
+                - python.example_code.sesv2.CreateEmailIdentity
+            - description:
+              snippet_tags:
+                - python.example_code.sesv2.SESv2Wrapper.decl
                 - python.example_code.sesv2.CreateEmailIdentity
     Rust:
       versions:
@@ -340,6 +357,10 @@ sesv2_CreateEmailTemplate:
               snippet_tags:
                 - python.example_code.sesv2.SESv2Workflow.main
                 - python.example_code.sesv2.SESv2Workflow.decl
+                - python.example_code.sesv2.CreateEmailTemplate
+            - description:
+              snippet_tags:
+                - python.example_code.sesv2.SESv2Wrapper.decl
                 - python.example_code.sesv2.CreateEmailTemplate
     Rust:
       versions:
@@ -443,6 +464,10 @@ sesv2_DeleteEmailIdentity:
                 - python.example_code.sesv2.SESv2Workflow.main
                 - python.example_code.sesv2.SESv2Workflow.decl
                 - python.example_code.sesv2.DeleteEmailIdentity
+            - description:
+              snippet_tags:
+                - python.example_code.sesv2.SESv2Wrapper.decl
+                - python.example_code.sesv2.DeleteEmailIdentity
     Rust:
       versions:
         - sdk_version: 1
@@ -493,6 +518,10 @@ sesv2_DeleteEmailTemplate:
               snippet_tags:
                 - python.example_code.sesv2.SESv2Workflow.main
                 - python.example_code.sesv2.SESv2Workflow.decl
+                - python.example_code.sesv2.DeleteEmailTemplate
+            - description:
+              snippet_tags:
+                - python.example_code.sesv2.SESv2Wrapper.decl
                 - python.example_code.sesv2.DeleteEmailTemplate
     Rust:
       versions:
@@ -581,3 +610,63 @@ sesv2_NewsletterWorkflow:
   services:
     sesv2: {CreateContactList, CreateContact, ListContacts, SendEmail.simple, SendEmail.template, CreateEmailIdentity, CreateEmailTemplate,
             DeleteContactList, DeleteEmailIdentity, DeleteEmailTemplate}
+
+sesv2_Hello:
+  title: Hello &SESv2;
+  title_abbrev: Hello &SESv2;
+  synopsis: get started using &SESv2;.
+  category: Hello
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/sesv2
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.sesv2.Hello
+  services:
+    sesv2: {ListEmailIdentities}
+sesv2_SendBulkEmail:
+  title: Send bulk email with &SESv2;
+  title_abbrev: Send bulk email
+  synopsis: send bulk email with &SESv2;.
+  category: Actions
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/sesv2
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.sesv2.SESv2Wrapper.decl
+                - python.example_code.sesv2.SendBulkEmail
+  services:
+    sesv2: {SendBulkEmail}
+sesv2_Scenario_EmailAttachments:
+  title: Send emails with attachments using &SESv2;
+  title_abbrev: Email Attachments Scenario
+  synopsis: send emails with attachments using &SESv2;.
+  synopsis_list:
+    - Verify sender email identity.
+    - Create an email template for bulk sends.
+    - Send a simple email with a file attachment.
+    - Send a simple email with an inline image.
+    - Send bulk templated emails with attachments.
+    - Clean up resources.
+  category: Scenarios
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/sesv2
+          excerpts:
+            - description: Create an SESv2 wrapper class to manage operations.
+              snippet_tags:
+                - python.example_code.sesv2.SESv2Wrapper.class
+            - description: Run an interactive scenario demonstrating email attachments.
+              snippet_tags:
+                - python.example_code.sesv2.Scenario_EmailAttachments
+  services:
+    sesv2: {SendEmail, SendBulkEmail, CreateEmailIdentity, CreateEmailTemplate, GetEmailIdentity, DeleteEmailTemplate, DeleteEmailIdentity}
