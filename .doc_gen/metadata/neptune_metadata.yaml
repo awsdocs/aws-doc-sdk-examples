@@ -372,4 +372,4 @@ neptune_Scenario:
               snippet_tags:
                 - neptune.java2.actions.main
   services:
-    neptune: {}
+    neptune: {CreateDBSubnetGroup, CreateDBCluster, CreateDBInstance, DescribeDBInstances, DescribeDBClusters, StopDBCluster, StartDBCluster, DeleteDBInstance, DeleteDBCluster, DeleteDBSubnetGroup, CreateGraph, ExecuteQuery, ExecuteOpenCypherExplainQuery, ExecuteGremlinProfileQuery, ExecuteGremlinQuery}
