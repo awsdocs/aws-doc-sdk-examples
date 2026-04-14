@@ -396,4 +396,4 @@ iotfleetwise_Scenario:
               snippet_tags:
                 - iotfleetwise.java2.scenario.actions.main 
   services:
-    iotfleetwise: {}
+    iotfleetwise: {createSignalCatalog, createFleet, createModelManifest, createDecoderManifest, getModelManifest, getDecoderManifest, createVehicle, getVehicle, updateModelManifest, updateDecoderManifest, listSignalCatalogNodes, deleteVehicle, deleteDecoderManifest, deleteModelManifest, deleteFleet, deleteSignalCatalog}

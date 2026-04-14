@@ -504,4 +504,4 @@ iotsitewise_Scenario:
               snippet_tags:
                 - iotsitewise.JavaScript.Basics.scenario
   services:
-    iotsitewise: {}
+    iotsitewise: {CreateAssetModel, CreateAsset, ListAssetModelProperties, BatchPutAssetPropertyValue, GetAssetPropertyValue, CreateGateway, DescribeGateway, DeleteGateway, DeleteAsset, DeleteAssetModel, DescribeAssetModel, ListAssetModels}

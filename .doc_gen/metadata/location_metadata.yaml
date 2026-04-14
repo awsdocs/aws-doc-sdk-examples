@@ -497,4 +497,4 @@ location_Scenario:
               snippet_tags:
                 - LocationServices.javascriptv3.Scenario.basics
   services:
-    location: {}
+    location: {CreateMap, CreateKey, CreateGeofenceCollection, PutGeofence, CreateTracker, BatchUpdateDevicePosition, GetDevicePosition, CreateRouteCalculator, CalculateRoute, DeleteGeofenceCollection, DeleteKey, DeleteMap, DeleteTracker, DeleteRouteCalculator}

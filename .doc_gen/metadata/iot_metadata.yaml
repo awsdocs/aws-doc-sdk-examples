@@ -748,4 +748,4 @@ iot_Scenario:
               snippet_tags:
                 - python.example_code.iot.Scenario_GettingStarted
   services:
-    iot: {}
+    iot: {CreateThing, CreateKeysAndCertificate, AttachThingPrincipal, UpdateThing, DescribeEndpoint, ListCertificates, UpdateIndexingConfiguration, SearchIndex, CreateTopicRule, DeleteTopicRule, DetachThingPrincipal, DeleteCertificate, DeleteThing, DescribeThing, ListThings}
