@@ -34,17 +34,23 @@ python -m pip install -r requirements.txt
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Get started
+
+- [Hello Amazon SES v2 API](sesv2_hello.py#L18) (`ListEmailIdentities`)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
 - [CreateContact](newsletter.py#L155)
 - [CreateContactList](newsletter.py#L105)
-- [CreateEmailIdentity](newsletter.py#L92)
-- [CreateEmailTemplate](newsletter.py#L118)
+- [CreateEmailIdentity](sesv2_wrapper.py#L73)
+- [CreateEmailTemplate](sesv2_wrapper.py#L109)
 - [DeleteContactList](newsletter.py#L258)
-- [DeleteEmailIdentity](newsletter.py#L286)
-- [DeleteEmailTemplate](newsletter.py#L271)
+- [DeleteEmailIdentity](sesv2_wrapper.py#L321)
+- [DeleteEmailTemplate](sesv2_wrapper.py#L291)
+- [GetEmailIdentity](sesv2_wrapper.py#L42)
 - [ListContacts](newsletter.py#L198)
 - [SendEmail](newsletter.py#L164)
 
@@ -53,7 +59,13 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
+- [Email Attachments Scenario](sesv2_wrapper.py)
 - [Newsletter scenario](newsletter.py)
+
+### Actions
+_Actions_ are code excerpts from larger programs and must be run in context. While actions show you how to call individual service functions, you can see actions in context in their related scenarios.
+
+- [SendBulkEmail](sesv2_wrapper.py#L227)
 
 
 <!--custom.examples.start-->
@@ -74,7 +86,38 @@ To run the Newsletter example, copy the files from workflows/sesv2_weekly_mailer
 
 <!--custom.instructions.end-->
 
+#### Hello Amazon SES v2 API
 
+This example shows you how to get started using Amazon SES v2 API.
+
+```
+python sesv2_hello.py
+```
+
+
+#### Email Attachments Scenario
+
+This example shows you how to send emails with attachments using Amazon SES v2 API.
+
+- Verify sender email identity.
+- Create an email template for bulk sends.
+- Send a simple email with a file attachment.
+- Send a simple email with an inline image.
+- Send bulk templated emails with attachments.
+- Clean up resources.
+
+<!--custom.scenario_prereqs.sesv2_Scenario_EmailAttachments.start-->
+<!--custom.scenario_prereqs.sesv2_Scenario_EmailAttachments.end-->
+
+Start the example by running the following at a command prompt:
+
+```
+python sesv2_wrapper.py
+```
+
+
+<!--custom.scenarios.sesv2_Scenario_EmailAttachments.start-->
+<!--custom.scenarios.sesv2_Scenario_EmailAttachments.end-->
 
 #### Newsletter scenario
 
