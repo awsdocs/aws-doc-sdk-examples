@@ -43,7 +43,7 @@ CLASS /awsex/cl_iop_actions IMPLEMENTATION.
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_iop) = /aws1/cl_iop_factory=>create( lo_session ).
 
-    " snippet-start:[iot.abapv1.update_thing_shadow]
+    " snippet-start:[iop.abapv1.update_thing_shadow]
     TRY.
         " Convert JSON string to xstring for payload
         DATA(lv_payload) = /aws1/cl_rt_util=>string_to_xstring( iv_shadow_state ).
@@ -58,7 +58,7 @@ CLASS /awsex/cl_iop_actions IMPLEMENTATION.
         DATA(lv_error) = |{ lo_exception->get_text( ) }|.
         MESSAGE lv_error TYPE 'E'.
     ENDTRY.
-    " snippet-end:[iot.abapv1.update_thing_shadow]
+    " snippet-end:[iop.abapv1.update_thing_shadow]
   ENDMETHOD.
 
   METHOD get_thing_shadow.
@@ -67,7 +67,7 @@ CLASS /awsex/cl_iop_actions IMPLEMENTATION.
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_iop) = /aws1/cl_iop_factory=>create( lo_session ).
 
-    " snippet-start:[iot.abapv1.get_thing_shadow]
+    " snippet-start:[iop.abapv1.get_thing_shadow]
     TRY.
         DATA(lo_result) = lo_iop->getthingshadow( iv_thingname = iv_thing_name ).
 
@@ -81,7 +81,7 @@ CLASS /awsex/cl_iop_actions IMPLEMENTATION.
         DATA(lv_error) = |{ lo_exception->get_text( ) }|.
         MESSAGE lv_error TYPE 'E'.
     ENDTRY.
-    " snippet-end:[iot.abapv1.get_thing_shadow]
+    " snippet-end:[iop.abapv1.get_thing_shadow]
   ENDMETHOD.
 
 ENDCLASS.
