@@ -89,7 +89,7 @@
         <dependency>
             <groupId>com.sun.mail</groupId>
             <artifactId>jakarta.mail</artifactId>
-            <version>2.0.1</version> <!-- Ensure you're using the latest version -->
+            <version>2.0.2</version> <!-- Ensure you're using the latest version -->
         </dependency>
         <dependency>
             <groupId>software.amazon.awssdk.crt</groupId>
