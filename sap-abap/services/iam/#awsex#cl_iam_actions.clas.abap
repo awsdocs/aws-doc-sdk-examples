@@ -280,6 +280,15 @@ CLASS /awsex/cl_iam_actions DEFINITION
       RAISING
         /aws1/cx_rt_generic.
 
+    METHODS get_policy_version
+      IMPORTING
+        !iv_policy_arn TYPE /aws1/iamarntype
+        !iv_version_id TYPE /aws1/iampolicyversionidtype
+      EXPORTING
+        !oo_result     TYPE REF TO /aws1/cl_iamgetpolicyvrsrsp
+      RAISING
+        /aws1/cx_rt_generic.
+
   PROTECTED SECTION.
   PRIVATE SECTION.
 ENDCLASS.
@@ -1026,5 +1035,26 @@ CLASS /AWSEX/CL_IAM_ACTIONS IMPLEMENTATION.
         MESSAGE 'Limit exceeded.' TYPE 'E'.
     ENDTRY.
     " snippet-end:[iam.abapv1.delete_policy_version]
+  ENDMETHOD.
+
+
+  METHOD get_policy_version.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+
+    DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
+    DATA(lo_iam) = /aws1/cl_iam_factory=>create( lo_session ).
+
+    " snippet-start:[iam.abapv1.get_policy_version]
+    TRY.
+        oo_result = lo_iam->getpolicyversion(
+          iv_policyarn = iv_policy_arn
+          iv_versionid = iv_version_id ).
+        MESSAGE 'Retrieved policy version information.' TYPE 'I'.
+      CATCH /aws1/cx_iamnosuchentityex.
+        MESSAGE 'Policy or version does not exist.' TYPE 'E'.
+      CATCH /aws1/cx_iaminvalidinputex.
+        MESSAGE 'Invalid input provided.' TYPE 'E'.
+    ENDTRY.
+    " snippet-end:[iam.abapv1.get_policy_version]
   ENDMETHOD.
 ENDCLASS.

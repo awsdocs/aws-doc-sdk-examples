@@ -211,6 +211,7 @@ language = {
                 "firehose": "sap-abap/services/frh",
                 "glue": "sap-abap/services/glu",
                 "healthlake": "sap-abap/services/hll",
+                "iot-data-plane": "sap-abap/services/iop",
                 "iotsitewise": "sap-abap/services/ios",
                 "keyspaces": "sap-abap/services/kys",
                 "kinesis": "sap-abap/services/kns",

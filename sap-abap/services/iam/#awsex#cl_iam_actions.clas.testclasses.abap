@@ -67,6 +67,7 @@ CLASS ltc_awsex_cl_iam_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
       list_saml_providers FOR TESTING RAISING /aws1/cx_rt_generic,
       create_service_linked_role FOR TESTING RAISING /aws1/cx_rt_generic,
       list_policy_versions FOR TESTING RAISING /aws1/cx_rt_generic,
+      get_policy_version FOR TESTING RAISING /aws1/cx_rt_generic,
       set_default_policy_version FOR TESTING RAISING /aws1/cx_rt_generic,
       delete_policy_version FOR TESTING RAISING /aws1/cx_rt_generic.
 
@@ -1506,6 +1507,56 @@ CLASS ltc_awsex_cl_iam_actions IMPLEMENTATION.
       act = lv_found_default
       msg = |Policy should have a default version| ).
   ENDMETHOD.
+
+
+  METHOD get_policy_version.
+    DATA lo_result TYPE REF TO /aws1/cl_iamgetpolicyvrsrsp.
+    DATA lv_version_id TYPE /aws1/iampolicyversionidtype.
+
+    " Use test policy created in class_setup
+    " First get the list of versions to find the default version ID
+    DATA(lo_list_result) = ao_iam->listpolicyversions( iv_policyarn = av_test_policy_arn ).
+    DATA(lt_versions) = lo_list_result->get_versions( ).
+    
+    " Find the default version
+    LOOP AT lt_versions INTO DATA(lo_version).
+      IF lo_version->get_isdefaultversion( ) = abap_true.
+        lv_version_id = lo_version->get_versionid( ).
+        EXIT.
+      ENDIF.
+    ENDLOOP.
+
+    cl_abap_unit_assert=>assert_not_initial(
+      act = lv_version_id
+      msg = |Default policy version ID should be found| ).
+
+    " Now get the policy version details
+    ao_iam_actions->get_policy_version(
+      EXPORTING
+        iv_policy_arn = av_test_policy_arn
+        iv_version_id = lv_version_id
+      IMPORTING
+        oo_result = lo_result ).
+
+    cl_abap_unit_assert=>assert_bound(
+      act = lo_result
+      msg = |Get policy version result should not be initial| ).
+
+    DATA(lo_policy_version) = lo_result->get_policyversion( ).
+    cl_abap_unit_assert=>assert_bound(
+      act = lo_policy_version
+      msg = |Policy version should not be initial| ).
+
+    cl_abap_unit_assert=>assert_equals(
+      exp = lv_version_id
+      act = lo_policy_version->get_versionid( )
+      msg = |Version ID should match| ).
+
+    cl_abap_unit_assert=>assert_not_initial(
+      act = lo_policy_version->get_document( )
+      msg = |Policy document should not be initial| ).
+  ENDMETHOD.
+
 
   METHOD set_default_policy_version.
     DATA lv_new_policy_doc TYPE string.
