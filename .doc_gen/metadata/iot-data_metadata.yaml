@@ -43,6 +43,14 @@ iot-data-plane_GetThingShadow:
             - description:
               snippet_tags:
                 - cpp.example_code.iot.GetThingShadow
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/iop
+          excerpts:
+            - description:
+              snippet_tags:
+                - iop.abapv1.get_thing_shadow
   services:
     iot-data-plane: {GetThingShadow}
 iot-data-plane_UpdateThingShadow:
@@ -89,5 +97,13 @@ iot-data-plane_UpdateThingShadow:
             - description:
               snippet_tags:
                 - cpp.example_code.iot.UpdateThingShadow
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/iop
+          excerpts:
+            - description:
+              snippet_tags:
+                - iop.abapv1.update_thing_shadow
   services:
     iot-data-plane: {UpdateThingShadow}

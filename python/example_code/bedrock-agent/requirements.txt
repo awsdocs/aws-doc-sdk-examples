@@ -3,7 +3,7 @@ botocore==1.38.1
 certifi==2024.7.4
 charset-normalizer==3.3.2
 colorama==0.4.6
-idna==3.6
+idna==3.7
 iniconfig==2.0.0
 jmespath==1.0.1
 packaging==23.2
