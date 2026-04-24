@@ -52,6 +52,7 @@ Code excerpts that show you how to call individual service functions.
 - [DeleteEmailTemplate](newsletter_scenario/newsletter.py#L271)
 - [GetEmailIdentity](attachments_scenario/sesv2_wrapper.py#L42)
 - [ListContacts](newsletter_scenario/newsletter.py#L198)
+- [SendBulkEmail](attachments_scenario/sesv2_wrapper.py#L227)
 - [SendEmail](newsletter_scenario/newsletter.py#L164)
 
 ### Scenarios
@@ -61,11 +62,6 @@ functions within the same service.
 
 - [Email Attachments Scenario](attachments_scenario/scenario_sesv2_email_attachments.py)
 - [Newsletter scenario](newsletter_scenario/newsletter.py)
-
-### Actions
-_Actions_ are code excerpts from larger programs and must be run in context. While actions show you how to call individual service functions, you can see actions in context in their related scenarios.
-
-- [SendBulkEmail](attachments_scenario/sesv2_wrapper.py#L227)
 
 
 <!--custom.examples.start-->
