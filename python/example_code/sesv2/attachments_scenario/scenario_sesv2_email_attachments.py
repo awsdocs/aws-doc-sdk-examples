@@ -23,7 +23,7 @@ from botocore.exceptions import ClientError
 from sesv2_wrapper import SESv2Wrapper
 
 # Add relative path to include demo_tools in this code example without need for setup.
-sys.path.append("../..")
+sys.path.append("../../..")
 import demo_tools.question as q  # noqa
 
 logger = logging.getLogger(__name__)

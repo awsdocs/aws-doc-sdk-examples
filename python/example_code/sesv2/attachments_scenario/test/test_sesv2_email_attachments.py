@@ -9,6 +9,9 @@ Set the environment variable SENDER_EMAIL to a verified SES email address.
 """
 
 import os
+import sys
+
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 import boto3
 import pytest
@@ -200,7 +203,7 @@ def test_sesv2_wrapper_send_bulk_email_with_attachment():
 @pytest.mark.integ
 def test_sesv2_hello(capsys):
     """Test the Hello SESv2 example."""
-    from sesv2_hello import hello_sesv2
+    from sesv2_hello import hello_sesv2  # noqa: resolved via sys.path
 
     try:
         hello_sesv2(boto3.client("sesv2"))
