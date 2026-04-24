@@ -108,10 +108,10 @@ class SESv2EmailAttachmentsScenario:
             )
             verified = identity_info.get("VerifiedForSendingStatus", False)
             if verified:
-                print(f"  ✓ {self.sender_email} is verified and ready to send.")
+                print(f"  {self.sender_email} is verified and ready to send.")
             else:
                 print(
-                    f"  ⚠ {self.sender_email} exists but is not yet verified."
+                    f"  {self.sender_email} exists but is not yet verified."
                 )
         except ClientError as err:
             if err.response["Error"]["Code"] == "NotFoundException":
@@ -149,7 +149,7 @@ class SESv2EmailAttachmentsScenario:
                     "Hello {{name}}, Please find the attached document."
                 ),
             )
-            print(f"  ✓ Template '{self.TEMPLATE_NAME}' created.\n")
+            print(f"  Template '{self.TEMPLATE_NAME}' created.\n")
         except ClientError as err:
             if err.response["Error"]["Code"] == "AlreadyExistsException":
                 print(
@@ -199,7 +199,7 @@ class SESv2EmailAttachmentsScenario:
             attachments=[attachment],
         )
 
-        print(f"  ✓ Email sent! MessageId: {message_id}")
+        print(f"  Email sent! MessageId: {message_id}")
         print(
             "  SES automatically constructed the MIME message with the "
             "attachment.\n"
@@ -256,7 +256,7 @@ class SESv2EmailAttachmentsScenario:
             attachments=[attachment],
         )
 
-        print(f"  ✓ Email sent! MessageId: {message_id}")
+        print(f"  Email sent! MessageId: {message_id}")
         print(
             "  The ContentId 'logo123' is referenced in the HTML body via\n"
             "  'cid:logo123', which lets the image render inline.\n"
@@ -338,7 +338,7 @@ class SESv2EmailAttachmentsScenario:
         # Delete the email template.
         try:
             self.sesv2_wrapper.delete_email_template(self.TEMPLATE_NAME)
-            print(f"  ✓ Template '{self.TEMPLATE_NAME}' deleted.")
+            print(f"  Template '{self.TEMPLATE_NAME}' deleted.")
         except ClientError as err:
             if err.response["Error"]["Code"] == "NotFoundException":
                 print(
@@ -359,7 +359,7 @@ class SESv2EmailAttachmentsScenario:
                         self.sender_email
                     )
                     print(
-                        f"  ✓ Email identity '{self.sender_email}' deleted."
+                        f"  Email identity '{self.sender_email}' deleted."
                     )
                 except ClientError as err:
                     if err.response["Error"]["Code"] == "NotFoundException":
