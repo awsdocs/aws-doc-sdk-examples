@@ -70,7 +70,7 @@ class SESv2Wrapper:
 
     # snippet-end:[python.example_code.sesv2.GetEmailIdentity]
 
-    # snippet-start:[python.example_code.sesv2.CreateEmailIdentity]
+    # snippet-start:[python.example_code.sesv2.CreateEmailIdentityAttachment]
     def create_email_identity(self, email_address: str) -> Dict[str, Any]:
         """
         Starts the process of verifying an email identity (email address or domain).
@@ -104,9 +104,9 @@ class SESv2Wrapper:
                 )
             raise
 
-    # snippet-end:[python.example_code.sesv2.CreateEmailIdentity]
+    # snippet-end:[python.example_code.sesv2.CreateEmailIdentityAttachment]
 
-    # snippet-start:[python.example_code.sesv2.CreateEmailTemplate]
+    # snippet-start:[python.example_code.sesv2.CreateEmailTemplateAttachment]
     def create_email_template(
         self,
         template_name: str,
@@ -150,7 +150,7 @@ class SESv2Wrapper:
                 )
             raise
 
-    # snippet-end:[python.example_code.sesv2.CreateEmailTemplate]
+    # snippet-end:[python.example_code.sesv2.CreateEmailTemplateAttachment]
 
     # snippet-start:[python.example_code.sesv2.SendEmail]
     def send_email(
@@ -288,7 +288,7 @@ class SESv2Wrapper:
 
     # snippet-end:[python.example_code.sesv2.SendBulkEmail]
 
-    # snippet-start:[python.example_code.sesv2.DeleteEmailTemplate]
+    # snippet-start:[python.example_code.sesv2.DeleteEmailTemplateAttachment]
     def delete_email_template(self, template_name: str) -> None:
         """
         Deletes an email template.
@@ -316,9 +316,9 @@ class SESv2Wrapper:
                 )
             raise
 
-    # snippet-end:[python.example_code.sesv2.DeleteEmailTemplate]
+    # snippet-end:[python.example_code.sesv2.DeleteEmailTemplateAttachment]
 
-    # snippet-start:[python.example_code.sesv2.DeleteEmailIdentity]
+    # snippet-start:[python.example_code.sesv2.DeleteEmailIdentityAttachment]
     def delete_email_identity(self, email_address: str) -> None:
         """
         Deletes an email identity.
@@ -346,7 +346,7 @@ class SESv2Wrapper:
                 )
             raise
 
-    # snippet-end:[python.example_code.sesv2.DeleteEmailIdentity]
+    # snippet-end:[python.example_code.sesv2.DeleteEmailIdentityAttachment]
 
 
 # snippet-end:[python.example_code.sesv2.SESv2Wrapper.class]
