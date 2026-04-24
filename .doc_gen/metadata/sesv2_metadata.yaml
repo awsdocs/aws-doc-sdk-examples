@@ -620,9 +620,6 @@ sesv2_Hello:
   services:
     sesv2: {ListEmailIdentities}
 sesv2_SendBulkEmail:
-  title: Send bulk email with &SESv2;
-  title_abbrev: Send bulk email
-  synopsis: send bulk email with &SESv2;.
   languages:
     Python:
       versions:
