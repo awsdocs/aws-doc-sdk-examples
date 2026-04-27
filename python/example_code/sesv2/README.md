@@ -34,26 +34,34 @@ python -m pip install -r requirements.txt
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Get started
+
+- [Hello Amazon SES v2 API](attachments_scenario/sesv2_hello.py#L18) (`ListEmailIdentities`)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateContact](newsletter.py#L155)
-- [CreateContactList](newsletter.py#L105)
-- [CreateEmailIdentity](newsletter.py#L92)
-- [CreateEmailTemplate](newsletter.py#L118)
-- [DeleteContactList](newsletter.py#L258)
-- [DeleteEmailIdentity](newsletter.py#L286)
-- [DeleteEmailTemplate](newsletter.py#L271)
-- [ListContacts](newsletter.py#L198)
-- [SendEmail](newsletter.py#L164)
+- [CreateContact](newsletter_scenario/newsletter.py#L155)
+- [CreateContactList](newsletter_scenario/newsletter.py#L105)
+- [CreateEmailIdentity](newsletter_scenario/newsletter.py#L92)
+- [CreateEmailTemplate](newsletter_scenario/newsletter.py#L118)
+- [DeleteContactList](newsletter_scenario/newsletter.py#L258)
+- [DeleteEmailIdentity](newsletter_scenario/newsletter.py#L286)
+- [DeleteEmailTemplate](newsletter_scenario/newsletter.py#L271)
+- [GetEmailIdentity](attachments_scenario/sesv2_wrapper.py#L42)
+- [ListContacts](newsletter_scenario/newsletter.py#L198)
+- [SendBulkEmail](attachments_scenario/sesv2_wrapper.py#L227)
+- [SendEmail](newsletter_scenario/newsletter.py#L164)
 
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Newsletter scenario](newsletter.py)
+- [Email Attachments Scenario](attachments_scenario/scenario_sesv2_email_attachments.py)
+- [Newsletter scenario](newsletter_scenario/newsletter.py)
 
 
 <!--custom.examples.start-->
@@ -74,7 +82,38 @@ To run the Newsletter example, copy the files from workflows/sesv2_weekly_mailer
 
 <!--custom.instructions.end-->
 
+#### Hello Amazon SES v2 API
 
+This example shows you how to get started using Amazon SES v2 API.
+
+```
+python attachments_scenario/sesv2_hello.py
+```
+
+
+#### Email Attachments Scenario
+
+This example shows you how to send emails with attachments using Amazon SES v2 API.
+
+- Verify sender email identity.
+- Create an email template for bulk sends.
+- Send a simple email with a file attachment.
+- Send a simple email with an inline image.
+- Send bulk templated emails with attachments.
+- Clean up resources.
+
+<!--custom.scenario_prereqs.sesv2_Scenario_EmailAttachments.start-->
+<!--custom.scenario_prereqs.sesv2_Scenario_EmailAttachments.end-->
+
+Start the example by running the following at a command prompt:
+
+```
+python attachments_scenario/scenario_sesv2_email_attachments.py
+```
+
+
+<!--custom.scenarios.sesv2_Scenario_EmailAttachments.start-->
+<!--custom.scenarios.sesv2_Scenario_EmailAttachments.end-->
 
 #### Newsletter scenario
 
@@ -87,7 +126,7 @@ This example shows you how to run the Amazon SES v2 API newsletter scenario.
 Start the example by running the following at a command prompt:
 
 ```
-python newsletter.py
+python newsletter_scenario/newsletter.py
 ```
 
 

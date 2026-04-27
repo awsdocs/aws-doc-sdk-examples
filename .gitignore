@@ -41,3 +41,4 @@ kotlin/services/**/.kotlin/
 .kiro/settings/
 .kiro/steering/
 
+/codeloom_outputs

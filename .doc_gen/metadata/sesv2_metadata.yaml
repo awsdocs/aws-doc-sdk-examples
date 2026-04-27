@@ -39,7 +39,7 @@ sesv2_CreateContactList:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/sesv2
+          github: python/example_code/sesv2/newsletter_scenario
           excerpts:
             - description:
               genai: most
@@ -89,7 +89,7 @@ sesv2_CreateContact:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/sesv2
+          github: python/example_code/sesv2/newsletter_scenario
           excerpts:
             - description:
               genai: most
@@ -101,6 +101,15 @@ sesv2_CreateContact:
     sesv2: {CreateContact}
 sesv2_GetEmailIdentity:
   languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/sesv2/attachments_scenario
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.sesv2.SESv2Wrapper.decl
+                - python.example_code.sesv2.GetEmailIdentity
     Rust:
       versions:
         - sdk_version: 1
@@ -163,7 +172,7 @@ sesv2_ListContacts:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/sesv2
+          github: python/example_code/sesv2/newsletter_scenario
           excerpts:
             - description:
               genai: most
@@ -234,7 +243,7 @@ sesv2_SendEmail:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/sesv2
+          github: python/example_code/sesv2/newsletter_scenario
           excerpts:
             - description: Sends a message to all members of the contact list.
               genai: most
@@ -282,7 +291,7 @@ sesv2_CreateEmailIdentity:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/sesv2
+          github: python/example_code/sesv2/newsletter_scenario
           excerpts:
             - description:
               genai: most
@@ -333,7 +342,7 @@ sesv2_CreateEmailTemplate:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/sesv2
+          github: python/example_code/sesv2/newsletter_scenario
           excerpts:
             - description:
               genai: most
@@ -384,7 +393,7 @@ sesv2_DeleteContactList:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/sesv2
+          github: python/example_code/sesv2/newsletter_scenario
           excerpts:
             - description:
               genai: most
@@ -435,7 +444,7 @@ sesv2_DeleteEmailIdentity:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/sesv2
+          github: python/example_code/sesv2/newsletter_scenario
           excerpts:
             - description:
               genai: most
@@ -486,7 +495,7 @@ sesv2_DeleteEmailTemplate:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/sesv2
+          github: python/example_code/sesv2/newsletter_scenario
           excerpts:
             - description:
               genai: most
@@ -544,7 +553,7 @@ sesv2_NewsletterWorkflow:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/sesv2
+          github: python/example_code/sesv2/newsletter_scenario
           excerpts:
             - description:
               genai: most
@@ -581,3 +590,59 @@ sesv2_NewsletterWorkflow:
   services:
     sesv2: {CreateContactList, CreateContact, ListContacts, SendEmail.simple, SendEmail.template, CreateEmailIdentity, CreateEmailTemplate,
             DeleteContactList, DeleteEmailIdentity, DeleteEmailTemplate}
+
+sesv2_Hello:
+  title: Hello &SESv2;
+  title_abbrev: Hello &SESv2;
+  synopsis: get started using &SESv2;.
+  category: Hello
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/sesv2/attachments_scenario
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.sesv2.Hello
+  services:
+    sesv2: {ListEmailIdentities}
+sesv2_SendBulkEmail:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/sesv2/attachments_scenario
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.sesv2.SESv2Wrapper.decl
+                - python.example_code.sesv2.SendBulkEmail
+  services:
+    sesv2: {SendBulkEmail}
+sesv2_Scenario_EmailAttachments:
+  title: Send emails with attachments using &SESv2;
+  title_abbrev: Email Attachments Scenario
+  synopsis: send emails with attachments using &SESv2;.
+  synopsis_list:
+    - Verify sender email identity.
+    - Create an email template for bulk sends.
+    - Send a simple email with a file attachment.
+    - Send a simple email with an inline image.
+    - Send bulk templated emails with attachments.
+    - Clean up resources.
+  category: Scenarios
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/sesv2/attachments_scenario
+          excerpts:
+            - description: Run an interactive scenario demonstrating email attachments.
+              snippet_tags:
+                - python.example_code.sesv2.Scenario_EmailAttachments
+            - description: Create an SESv2 wrapper class to manage operations.
+              snippet_tags:
+                - python.example_code.sesv2.SESv2Wrapper.class
+  services:
+    sesv2: {SendEmail, SendBulkEmail, CreateEmailIdentity, CreateEmailTemplate, GetEmailIdentity, DeleteEmailTemplate, DeleteEmailIdentity}
