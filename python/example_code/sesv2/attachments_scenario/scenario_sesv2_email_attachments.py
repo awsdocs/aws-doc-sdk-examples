@@ -34,7 +34,7 @@ class SESv2EmailAttachmentsScenario:
     """
     Demonstrates sending emails with attachments using Amazon SESv2.
 
-    This scenario walks through:
+    This scenario demonstrates:
     1. Setting up an email identity and template.
     2. Sending a simple email with a file attachment.
     3. Sending a simple email with an inline image.
@@ -56,11 +56,11 @@ class SESv2EmailAttachmentsScenario:
     def run_scenario(self) -> None:
         """Runs the SESv2 email attachments scenario."""
         print("-" * 88)
-        print("Welcome to the Amazon SESv2 Email Attachments Scenario!")
+        print("Welcome to the Amazon SESv2 Email Attachments Scenario.")
         print("-" * 88)
         print(
             "This scenario demonstrates how to send emails with attachments\n"
-            "using the new SESv2 attachment support. SES handles MIME\n"
+            "using SESv2 attachment support. SES handles MIME\n"
             "construction automatically, so you don't need to build raw\n"
             "MIME messages.\n"
         )
@@ -199,7 +199,7 @@ class SESv2EmailAttachmentsScenario:
             attachments=[attachment],
         )
 
-        print(f"  Email sent! MessageId: {message_id}")
+        print(f"  Email sent. MessageId: {message_id}")
         print(
             "  SES automatically constructed the MIME message with the "
             "attachment.\n"
