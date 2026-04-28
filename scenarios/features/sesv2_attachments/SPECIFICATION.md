@@ -39,6 +39,21 @@ The Hello example is a separate runnable example that introduces the SESv2 servi
 
 This scenario demonstrates how to send emails with attachments using Amazon SESv2.
 
+## Errors
+
+| action                | Error                  | Handling                                                                                     |
+|-----------------------|------------------------|----------------------------------------------------------------------------------------------|                                                  
+| `GetEmailIdentity`    | `NotFoundException`    | Identity not found. Prompt to create a new one.                                              |
+| `CreateEmailIdentity` | `LimitExceededException` | Notify the user that the maximum number of email identities has been reached.              |
+| `CreateEmailTemplate` | `AlreadyExistsException` | Skip creation and use the existing template.                                               |
+| `CreateEmailTemplate` | `LimitExceededException` | Notify the user that the maximum number of email templates has been reached.               |
+| `SendEmail`           | `MessageRejected`      | Notify the user to check attachment file types and total message size (under 40 MB).         |
+| `SendBulkEmail`       | `MessageRejected`      | Notify the user to check the template, attachment file types, and total message size limits.  |
+| `DeleteEmailTemplate` | `NotFoundException`    | Notify the user the template was already deleted.                                            |
+| `DeleteEmailIdentity` | `NotFoundException`    | Notify the user the identity was already deleted.                                            |
+
+---
+
 ## Metadata
 
 | action / scenario | metadata file | metadata key |

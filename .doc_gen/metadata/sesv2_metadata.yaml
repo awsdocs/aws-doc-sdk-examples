@@ -243,6 +243,13 @@ sesv2_SendEmail:
     Python:
       versions:
         - sdk_version: 3
+          github: python/example_code/sesv2/attachments_scenario
+          excerpts:
+            - description: Sends a message with optional attachments.
+              snippet_tags:
+                - python.example_code.sesv2.SESv2Wrapper.decl
+                - python.example_code.sesv2.SendEmailAttachment
+        - sdk_version: 3
           github: python/example_code/sesv2/newsletter_scenario
           excerpts:
             - description: Sends a message to all members of the contact list.

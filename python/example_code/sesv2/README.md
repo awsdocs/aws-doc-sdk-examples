@@ -53,7 +53,7 @@ Code excerpts that show you how to call individual service functions.
 - [GetEmailIdentity](attachments_scenario/sesv2_wrapper.py#L42)
 - [ListContacts](newsletter_scenario/newsletter.py#L198)
 - [SendBulkEmail](attachments_scenario/sesv2_wrapper.py#L227)
-- [SendEmail](newsletter_scenario/newsletter.py#L164)
+- [SendEmail](attachments_scenario/sesv2_wrapper.py#L155)
 
 ### Scenarios
 

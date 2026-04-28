@@ -152,7 +152,7 @@ class SESv2Wrapper:
 
     # snippet-end:[python.example_code.sesv2.CreateEmailTemplateAttachment]
 
-    # snippet-start:[python.example_code.sesv2.SendEmail]
+    # snippet-start:[python.example_code.sesv2.SendEmailAttachment]
     def send_email(
         self,
         from_address: str,
@@ -222,7 +222,7 @@ class SESv2Wrapper:
                 )
             raise
 
-    # snippet-end:[python.example_code.sesv2.SendEmail]
+    # snippet-end:[python.example_code.sesv2.SendEmailAttachment]
 
     # snippet-start:[python.example_code.sesv2.SendBulkEmail]
     def send_bulk_email(
