@@ -109,7 +109,7 @@ sesv2_GetEmailIdentity:
             - description:
               snippet_tags:
                 - python.example_code.sesv2.SESv2Wrapper.decl
-                - python.example_code.sesv2.GetEmailIdentity
+                - python.example_code.sesv2.GetEmailIdentityAttachment
     Rust:
       versions:
         - sdk_version: 1
@@ -298,6 +298,13 @@ sesv2_CreateEmailIdentity:
     Python:
       versions:
         - sdk_version: 3
+          github: python/example_code/sesv2/attachments_scenario
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.sesv2.SESv2Wrapper.decl
+                - python.example_code.sesv2.CreateEmailIdentityAttachment
+        - sdk_version: 3
           github: python/example_code/sesv2/newsletter_scenario
           excerpts:
             - description:
@@ -348,6 +355,13 @@ sesv2_CreateEmailTemplate:
                 - sesv2.java2.newsletter.CreateEmailTemplate
     Python:
       versions:
+        - sdk_version: 3
+          github: python/example_code/sesv2/attachments_scenario
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.sesv2.SESv2Wrapper.decl
+                - python.example_code.sesv2.CreateEmailTemplateAttachment
         - sdk_version: 3
           github: python/example_code/sesv2/newsletter_scenario
           excerpts:
@@ -451,6 +465,13 @@ sesv2_DeleteEmailIdentity:
     Python:
       versions:
         - sdk_version: 3
+          github: python/example_code/sesv2/attachments_scenario
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.sesv2.SESv2Wrapper.decl
+                - python.example_code.sesv2.DeleteEmailIdentityAttachment
+        - sdk_version: 3
           github: python/example_code/sesv2/newsletter_scenario
           excerpts:
             - description:
@@ -501,6 +522,13 @@ sesv2_DeleteEmailTemplate:
                 - sesv2.java2.newsletter.DeleteEmailTemplate
     Python:
       versions:
+        - sdk_version: 3
+          github: python/example_code/sesv2/attachments_scenario
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.sesv2.SESv2Wrapper.decl
+                - python.example_code.sesv2.DeleteEmailTemplateAttachment
         - sdk_version: 3
           github: python/example_code/sesv2/newsletter_scenario
           excerpts:

@@ -39,7 +39,7 @@ class SESv2Wrapper:
 
     # snippet-end:[python.example_code.sesv2.SESv2Wrapper.decl]
 
-    # snippet-start:[python.example_code.sesv2.GetEmailIdentity]
+    # snippet-start:[python.example_code.sesv2.GetEmailIdentityAttachment]
     def get_email_identity(self, email_address: str) -> Dict[str, Any]:
         """
         Gets information about an email identity, including its verification status.
@@ -68,7 +68,7 @@ class SESv2Wrapper:
                 )
             raise
 
-    # snippet-end:[python.example_code.sesv2.GetEmailIdentity]
+    # snippet-end:[python.example_code.sesv2.GetEmailIdentityAttachment]
 
     # snippet-start:[python.example_code.sesv2.CreateEmailIdentityAttachment]
     def create_email_identity(self, email_address: str) -> Dict[str, Any]:
