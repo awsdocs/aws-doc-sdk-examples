@@ -10,7 +10,7 @@ Purpose
     3. Send bulk templated emails with attachments to multiple recipients.
 
     The new attachment support eliminates the need for developers to construct
-    raw MIME messages — SES handles the MIME assembly automatically.
+    raw MIME messages. SES handles the MIME assembly automatically.
 """
 
 import json
@@ -190,7 +190,7 @@ class SESv2EmailAttachmentsScenario:
         message_id = self.sesv2_wrapper.send_email(
             from_address=self.sender_email,
             to_addresses=self.recipient_emails,
-            subject="SESv2 Attachment Demo — Simple Email with Attachment",
+            subject="SESv2 Attachment Demo - Simple Email with Attachment",
             html_body=(
                 "<h1>Attachment Demo</h1>"
                 "<p>Please see the attached <b>report document</b>.</p>"
@@ -247,16 +247,16 @@ class SESv2EmailAttachmentsScenario:
         message_id = self.sesv2_wrapper.send_email(
             from_address=self.sender_email,
             to_addresses=self.recipient_emails,
-            subject="SESv2 Attachment Demo — Inline Image",
+            subject="SESv2 Attachment Demo - Inline Image",
             html_body=html_body,
             text_body=(
-                "Inline Image Demo — Please view this email in an "
+                "Inline Image Demo - Please view this email in an "
                 "HTML-capable client to see the embedded image."
             ),
             attachments=[attachment],
         )
 
-        print(f"  Email sent! MessageId: {message_id}")
+        print(f"  Email sent. MessageId: {message_id}")
         print(
             "  The ContentId 'logo123' is referenced in the HTML body via\n"
             "  'cid:logo123', which lets the image render inline.\n"

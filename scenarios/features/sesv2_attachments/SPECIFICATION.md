@@ -32,7 +32,7 @@ This document contains a draft proposal for a Code Example for *Amazon SESv2 Ema
 The Hello example is a separate runnable example that introduces the SESv2 service.
 
 - Set up the SESv2 service client.
-- Call `ListEmailIdentities` to retrieve all email identities associated with the account.
+- Call `ListEmailIdentities` to retrieve up to 5 email identities associated with the account.
 - Display the list of identities along with their type and verification status.
 
 ## Scenario
