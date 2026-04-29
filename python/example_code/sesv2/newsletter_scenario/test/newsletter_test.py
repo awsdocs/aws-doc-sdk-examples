@@ -2,11 +2,14 @@
 # SPDX-License-Identifier: Apache-2.0
 
 import json
+import os
 import sys
 from botocore.exceptions import ClientError
 from io import StringIO
 import pytest
 from unittest.mock import patch
+
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 from newsletter import (
     SESv2Workflow,
