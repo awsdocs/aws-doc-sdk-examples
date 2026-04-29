@@ -176,6 +176,10 @@ CLASS /awsex/cl_s3_actions DEFINITION
       EXPORTING
                 !oo_result      TYPE REF TO /aws1/cl_s3_headbucketoutput
       RAISING   /aws1/cx_rt_generic.
+    METHODS list_buckets
+      EXPORTING
+                !oo_result      TYPE REF TO /aws1/cl_s3_listbucketsoutput
+      RAISING   /aws1/cx_rt_generic.
   PROTECTED SECTION.
   PRIVATE SECTION.
 ENDCLASS.
@@ -814,5 +818,24 @@ CLASS /AWSEX/CL_S3_ACTIONS IMPLEMENTATION.
         MESSAGE 'Bucket does not exist.' TYPE 'E'.
     ENDTRY.
     " snippet-end:[s3.abapv1.head_bucket]
+  ENDMETHOD.
+
+
+  METHOD list_buckets.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+
+    DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
+    DATA(lo_s3) = /aws1/cl_s3_factory=>create( lo_session ).
+
+    " snippet-start:[s3.abapv1.list_buckets]
+    TRY.
+        oo_result = lo_s3->listbuckets(         " oo_result is returned for testing purposes. "
+        ).
+        DATA(lv_bucket_count) = lines( oo_result->get_buckets( ) ).
+        MESSAGE |Retrieved { lv_bucket_count } buckets in all regions.| TYPE 'I'.
+      CATCH /aws1/cx_rt_generic.
+        MESSAGE 'Unable to list buckets.' TYPE 'E'.
+    ENDTRY.
+    " snippet-end:[s3.abapv1.list_buckets]
   ENDMETHOD.
 ENDCLASS.
