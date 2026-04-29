@@ -14,10 +14,11 @@ import (
 	"io"
 	"log"
 	"os"
+	"sync"
 	"time"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
-	"github.com/aws/aws-sdk-go-v2/feature/s3/manager"
+	"github.com/aws/aws-sdk-go-v2/feature/s3/transfermanager"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 	"github.com/aws/aws-sdk-go-v2/service/s3/types"
 	"github.com/aws/smithy-go"
@@ -162,15 +163,15 @@ func (basics BucketBasics) UploadFile(ctx context.Context, bucketName string, ob
 
 // snippet-start:[gov2.s3.Upload]
 
-// UploadLargeObject uses an upload manager to upload data to an object in a bucket.
-// The upload manager breaks large data into parts and uploads the parts concurrently.
+// UploadLargeObject uses the S3 transfer manager to upload data to an object in a bucket.
+// The transfer manager breaks large data into parts and uploads the parts concurrently.
 func (basics BucketBasics) UploadLargeObject(ctx context.Context, bucketName string, objectKey string, largeObject []byte) error {
 	largeBuffer := bytes.NewReader(largeObject)
 	var partMiBs int64 = 10
-	uploader := manager.NewUploader(basics.S3Client, func(u *manager.Uploader) {
-		u.PartSize = partMiBs * 1024 * 1024
+	tm := transfermanager.New(basics.S3Client, func(o *transfermanager.Options) {
+		o.PartSizeBytes = partMiBs * 1024 * 1024
 	})
-	_, err := uploader.Upload(ctx, &s3.PutObjectInput{
+	_, err := tm.UploadObject(ctx, &transfermanager.UploadObjectInput{
 		Bucket: aws.String(bucketName),
 		Key:    aws.String(objectKey),
 		Body:   largeBuffer,
@@ -234,24 +235,57 @@ func (basics BucketBasics) DownloadFile(ctx context.Context, bucketName string, 
 
 // snippet-start:[gov2.s3.Download]
 
-// DownloadLargeObject uses a download manager to download an object from a bucket.
-// The download manager gets the data in parts and writes them to a buffer until all of
+// DownloadLargeObject uses the S3 transfer manager to download an object from a bucket.
+// The transfer manager gets the data in parts and writes them to a buffer until all of
 // the data has been downloaded.
 func (basics BucketBasics) DownloadLargeObject(ctx context.Context, bucketName string, objectKey string) ([]byte, error) {
 	var partMiBs int64 = 10
-	downloader := manager.NewDownloader(basics.S3Client, func(d *manager.Downloader) {
-		d.PartSize = partMiBs * 1024 * 1024
+	tm := transfermanager.New(basics.S3Client, func(o *transfermanager.Options) {
+		o.PartSizeBytes = partMiBs * 1024 * 1024
 	})
-	buffer := manager.NewWriteAtBuffer([]byte{})
-	_, err := downloader.Download(ctx, buffer, &s3.GetObjectInput{
-		Bucket: aws.String(bucketName),
-		Key:    aws.String(objectKey),
+	buffer := NewWriteAtBuffer([]byte{})
+	_, err := tm.DownloadObject(ctx, &transfermanager.DownloadObjectInput{
+		Bucket:   aws.String(bucketName),
+		Key:      aws.String(objectKey),
+		WriterAt: buffer,
 	})
 	if err != nil {
 		log.Printf("Couldn't download large object from %v:%v. Here's why: %v\n",
 			bucketName, objectKey, err)
 	}
 	return buffer.Bytes(), err
+}
+
+// WriteAtBuffer is a thread-safe in-memory io.WriterAt implementation.
+type WriteAtBuffer struct {
+	buf []byte
+	m   sync.Mutex
+}
+
+// NewWriteAtBuffer creates a new WriteAtBuffer with an initial byte slice.
+func NewWriteAtBuffer(buf []byte) *WriteAtBuffer {
+	return &WriteAtBuffer{buf: buf}
+}
+
+// WriteAt writes len(p) bytes to the buffer starting at byte offset off.
+func (b *WriteAtBuffer) WriteAt(p []byte, off int64) (int, error) {
+	b.m.Lock()
+	defer b.m.Unlock()
+	end := int(off) + len(p)
+	if end > len(b.buf) {
+		newBuf := make([]byte, end)
+		copy(newBuf, b.buf)
+		b.buf = newBuf
+	}
+	copy(b.buf[off:], p)
+	return len(p), nil
+}
+
+// Bytes returns the contents of the buffer.
+func (b *WriteAtBuffer) Bytes() []byte {
+	b.m.Lock()
+	defer b.m.Unlock()
+	return b.buf
 }
 
 // snippet-end:[gov2.s3.Download]

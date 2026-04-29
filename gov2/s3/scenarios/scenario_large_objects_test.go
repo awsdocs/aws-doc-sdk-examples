@@ -30,7 +30,7 @@ func TestRunLargeObjectScenario(t *testing.T) {
 	testtools.RunScenarioTests(&scenTest, t)
 }
 
-// httpErr is used to mock an HTTP error. This is required by the download manager,
+// httpErr is used to mock an HTTP error. This is required by the transfer manager,
 // which calls GetObject until it receives a 415 status code.
 type httpErr struct {
 	statusCode int

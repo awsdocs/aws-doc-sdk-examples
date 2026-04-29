@@ -21,8 +21,8 @@ import (
 // Simple Storage Service (Amazon S3) to upload and download large objects.
 //
 // 1. Create a bucket.
-// 3. Upload a large object to the bucket by using an upload manager.
-// 5. Download a large object by using a download manager.
+// 3. Upload a large object to the bucket by using the S3 transfer manager.
+// 5. Download a large object by using the S3 transfer manager.
 // 8. Delete all objects in the bucket.
 // 9. Delete the bucket.
 //

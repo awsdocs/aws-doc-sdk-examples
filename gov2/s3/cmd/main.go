@@ -24,7 +24,7 @@ import (
 //     Amazon Simple Storage Service (Amazon S3) actions to work with
 //     S3 buckets and objects.
 //   - `largeobjects` - Runs the interactive large objects scenario that shows you how to upload
-//     and download large objects by using a transfer manager.
+//     and download large objects by using the S3 transfer manager.
 //   - `presigning` - 	Runs the interactive presigning scenario that shows you how to
 //     get presigned requests that contain temporary credentials
 //     and can be used to make requests from any HTTP client.
