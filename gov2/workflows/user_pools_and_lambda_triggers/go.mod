@@ -1,6 +1,6 @@
 module user_pools_and_lambda_triggers
 
-go 1.24
+go 1.23
 
 require (
 	github.com/aws/aws-lambda-go v1.47.0
