@@ -43,6 +43,7 @@ This example is implemented in the following languages:
 
 - [What is Amazon SES?](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/Welcome.html)
 - [Working with email attachments in SES](https://docs.aws.amazon.com/ses/latest/dg/attachments.html)
+- [Moving out of the Amazon SES sandbox](https://docs.aws.amazon.com/ses/latest/dg/request-production-access.html)
 - [Attachment object structure](https://docs.aws.amazon.com/ses/latest/APIReference-V2/API_Attachment.html)
 - [Unsupported attachment types](https://docs.aws.amazon.com/ses/latest/dg/mime-types-appendix.html)
 

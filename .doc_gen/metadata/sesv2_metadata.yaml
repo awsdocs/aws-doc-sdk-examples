@@ -660,7 +660,6 @@ sesv2_Scenario_EmailAttachments:
   title_abbrev: Email Attachments Scenario
   synopsis: send emails with attachments using &SESv2;.
   synopsis_list:
-    - Verify sender email identity.
     - Create an email template for bulk sends.
     - Send a simple email with a file attachment.
     - Send a simple email with an inline image.
