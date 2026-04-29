@@ -1,6 +1,6 @@
 module github.com/awsdocs/aws-doc-sdk-examples/gov2/iam
 
-go 1.23
+go 1.24
 
 require (
 	github.com/aws/aws-sdk-go-v2 v1.41.5
