@@ -2,6 +2,7 @@ module example.aws/go-v2/examples/cloudfront
 
 go 1.23
 
+
 require (
 	github.com/aws/aws-sdk-go-v2 v1.41.5
 	github.com/aws/aws-sdk-go-v2/config v1.27.33
