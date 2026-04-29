@@ -95,7 +95,6 @@ python attachments_scenario/sesv2_hello.py
 
 This example shows you how to send emails with attachments using Amazon SES v2 API.
 
-- Verify sender email identity.
 - Create an email template for bulk sends.
 - Send a simple email with a file attachment.
 - Send a simple email with an inline image.
