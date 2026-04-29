@@ -17,7 +17,8 @@ import (
 	"time"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
-	"github.com/aws/aws-sdk-go-v2/feature/s3/manager"
+	"github.com/aws/aws-sdk-go-v2/feature/s3/transfermanager"
+	tmtypes "github.com/aws/aws-sdk-go-v2/feature/s3/transfermanager/types"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 	"github.com/aws/aws-sdk-go-v2/service/s3/types"
 	"github.com/aws/smithy-go"
@@ -162,15 +163,15 @@ func (basics BucketBasics) UploadFile(ctx context.Context, bucketName string, ob
 
 // snippet-start:[gov2.s3.Upload]
 
-// UploadLargeObject uses an upload manager to upload data to an object in a bucket.
-// The upload manager breaks large data into parts and uploads the parts concurrently.
+// UploadLargeObject uses the S3 transfer manager to upload data to an object in a bucket.
+// The transfer manager breaks large data into parts and uploads the parts concurrently.
 func (basics BucketBasics) UploadLargeObject(ctx context.Context, bucketName string, objectKey string, largeObject []byte) error {
 	largeBuffer := bytes.NewReader(largeObject)
 	var partMiBs int64 = 10
-	uploader := manager.NewUploader(basics.S3Client, func(u *manager.Uploader) {
-		u.PartSize = partMiBs * 1024 * 1024
+	tmClient := transfermanager.New(basics.S3Client, func(o *transfermanager.Options) {
+		o.PartSizeBytes = partMiBs * 1024 * 1024
 	})
-	_, err := uploader.Upload(ctx, &s3.PutObjectInput{
+	_, err := tmClient.UploadObject(ctx, &transfermanager.UploadObjectInput{
 		Bucket: aws.String(bucketName),
 		Key:    aws.String(objectKey),
 		Body:   largeBuffer,
@@ -234,18 +235,19 @@ func (basics BucketBasics) DownloadFile(ctx context.Context, bucketName string, 
 
 // snippet-start:[gov2.s3.Download]
 
-// DownloadLargeObject uses a download manager to download an object from a bucket.
-// The download manager gets the data in parts and writes them to a buffer until all of
+// DownloadLargeObject uses the S3 transfer manager to download an object from a bucket.
+// The transfer manager gets the data in parts and writes them to a buffer until all of
 // the data has been downloaded.
 func (basics BucketBasics) DownloadLargeObject(ctx context.Context, bucketName string, objectKey string) ([]byte, error) {
 	var partMiBs int64 = 10
-	downloader := manager.NewDownloader(basics.S3Client, func(d *manager.Downloader) {
-		d.PartSize = partMiBs * 1024 * 1024
+	tmClient := transfermanager.New(basics.S3Client, func(o *transfermanager.Options) {
+		o.PartSizeBytes = partMiBs * 1024 * 1024
 	})
-	buffer := manager.NewWriteAtBuffer([]byte{})
-	_, err := downloader.Download(ctx, buffer, &s3.GetObjectInput{
-		Bucket: aws.String(bucketName),
-		Key:    aws.String(objectKey),
+	buffer := tmtypes.NewWriteAtBuffer([]byte{})
+	_, err := tmClient.DownloadObject(ctx, &transfermanager.DownloadObjectInput{
+		Bucket:   aws.String(bucketName),
+		Key:      aws.String(objectKey),
+		WriterAt: buffer,
 	})
 	if err != nil {
 		log.Printf("Couldn't download large object from %v:%v. Here's why: %v\n",
