@@ -17,6 +17,7 @@ import (
 )
 
 const CONVERSE_CLAUDE_MODEL_ID = "anthropic.claude-3-haiku-20240307-v1:0"
+const CONVERSE_NOVA_MODEL_ID = "amazon.nova-lite-v1:0"
 const CONVERSE_PROMPT = "Converse test prompt"
 
 func CallConverseActions(sdkConfig aws.Config) {
@@ -35,6 +36,12 @@ func CallConverseActions(sdkConfig aws.Config) {
 		panic(err)
 	}
 	log.Println(claudeCompletion)
+
+	novaCompletion, err := wrapper.ConverseNova(ctx, CONVERSE_PROMPT)
+	if err != nil {
+		panic(err)
+	}
+	log.Println(novaCompletion)
 
 	log.Printf("Thanks for watching!")
 }
@@ -71,6 +78,7 @@ func stubConverse(modelId string) testtools.Stub {
 func (scenTest *ConverseActionsTest) SetupDataAndStubs() []testtools.Stub {
 	var stubList []testtools.Stub
 	stubList = append(stubList, stubConverse(CONVERSE_CLAUDE_MODEL_ID))
+	stubList = append(stubList, stubConverse(CONVERSE_NOVA_MODEL_ID))
 
 	return stubList
 }

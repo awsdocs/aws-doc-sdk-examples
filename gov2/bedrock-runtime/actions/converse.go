@@ -49,4 +49,32 @@ func (wrapper ConverseWrapper) ConverseClaude(ctx context.Context, prompt string
 }
 
 // snippet-end:[gov2.bedrock-runtime.ConverseClaude]
+
+// snippet-start:[gov2.bedrock-runtime.ConverseNova]
+
+func (wrapper ConverseWrapper) ConverseNova(ctx context.Context, prompt string) (string, error) {
+	var content = types.ContentBlockMemberText{
+		Value: prompt,
+	}
+	var message = types.Message{
+		Content: []types.ContentBlock{&content},
+		Role:    "user",
+	}
+	modelId := "amazon.nova-lite-v1:0"
+	var converseInput = bedrockruntime.ConverseInput{
+		ModelId:  aws.String(modelId),
+		Messages: []types.Message{message},
+	}
+	response, err := wrapper.BedrockRuntimeClient.Converse(ctx, &converseInput)
+	if err != nil {
+		ProcessError(err, modelId)
+	}
+
+	responseText, _ := response.Output.(*types.ConverseOutputMemberMessage)
+	responseContentBlock := responseText.Value.Content[0]
+	text, _ := responseContentBlock.(*types.ContentBlockMemberText)
+	return text.Value, nil
+}
+
+// snippet-end:[gov2.bedrock-runtime.ConverseNova]
 // snippet-end:[gov2.bedrock-runtime.Converse.complete]
