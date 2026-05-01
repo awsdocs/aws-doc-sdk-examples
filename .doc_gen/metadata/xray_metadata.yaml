@@ -1,0 +1,155 @@
+# zexi 0.4.0
+xray_CreateGroup:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/xray
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - xray.kotlin_create_group.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/xray
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - xray.java2_create_group.main
+  services:
+    xray: {CreateGroup}
+xray_CreateSamplingRule:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/xray
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - xray.kotlin_create_rule.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/xray
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - xray.java2_create_rule.main
+  services:
+    xray: {CreateSamplingRule}
+xray_DeleteGroup:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/xray
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - xray.kotlin_delete_group.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/xray
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - xray.java2_delete_group.main
+  services:
+    xray: {DeleteGroup}
+xray_DeleteSamplingRule:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/xray
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - xray.kotlin_delete_rule.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/xray
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - xray.java2_delete_rule.main
+  services:
+    xray: {DeleteSamplingRule}
+xray_GetGroups:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/xray
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - xray.kotlin_get_groups.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/xray
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - xray.java2_get_groups.main
+  services:
+    xray: {GetGroups}
+xray_GetSamplingRules:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/xray
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - xray.kotlin_get_rules.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/xray
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - xray.java2_get_rules.main
+  services:
+    xray: {GetSamplingRules}
+xray_GetServiceGraph:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/xray
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - xray.kotlin_get_graph.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/xray
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - xray.java2_get_graph.main
+  services:
+    xray: {GetServiceGraph}
