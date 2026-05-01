@@ -2462,6 +2462,14 @@ s3_ListBuckets:
               snippet_tags:
                 - s3.swift.import
                 - s3.swift.listbuckets.ListBuckets
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.abapv1.list_buckets
   services:
     s3: {ListBuckets}
 s3_PutObjectAcl:

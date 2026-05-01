@@ -49,7 +49,8 @@ CLASS ltc_awsex_cl_s3_actions DEFINITION FOR TESTING DURATION SHORT RISK LEVEL D
       put_object_legal_hold FOR TESTING RAISING /aws1/cx_rt_generic,
       put_object_retention FOR TESTING RAISING /aws1/cx_rt_generic,
       get_object_lock_conf FOR TESTING RAISING /aws1/cx_rt_generic,
-      put_object_lock_conf FOR TESTING RAISING /aws1/cx_rt_generic.
+      put_object_lock_conf FOR TESTING RAISING /aws1/cx_rt_generic,
+      list_buckets FOR TESTING RAISING /aws1/cx_rt_generic.
 
     CLASS-METHODS class_setup RAISING /aws1/cx_rt_generic /awsex/cx_generic.
     CLASS-METHODS class_teardown RAISING /aws1/cx_rt_generic /awsex/cx_generic.
@@ -459,6 +460,8 @@ CLASS ltc_awsex_cl_s3_actions IMPLEMENTATION.
     DATA lt_cors_rules TYPE /aws1/cl_s3_corsrule=>tt_corsrules.
     DATA lt_methods TYPE /aws1/cl_s3_allowedmethods_w=>tt_allowedmethods.
     DATA lt_origins TYPE /aws1/cl_s3_allowedorigins_w=>tt_allowedorigins.
+    DATA lv_retry TYPE i.
+    DATA lv_cors_set TYPE abap_bool VALUE abap_false.
 
     APPEND NEW /aws1/cl_s3_allowedmethods_w( iv_value = 'GET' ) TO lt_methods.
     APPEND NEW /aws1/cl_s3_allowedorigins_w( iv_value = '*' ) TO lt_origins.
@@ -467,30 +470,73 @@ CLASS ltc_awsex_cl_s3_actions IMPLEMENTATION.
       it_allowedmethods = lt_methods
       it_allowedorigins = lt_origins ) TO lt_cors_rules.
 
-    ao_s3->putbucketcors(
-      iv_bucket = av_bucket
-      io_corsconfiguration = NEW /aws1/cl_s3_corsconfiguration( it_corsrules = lt_cors_rules ) ).
+    " Set CORS configuration and retry if needed
+    DO 3 TIMES.
+      lv_retry = sy-index.
+      TRY.
+          ao_s3->putbucketcors(
+            iv_bucket = av_bucket
+            io_corsconfiguration = NEW /aws1/cl_s3_corsconfiguration( it_corsrules = lt_cors_rules ) ).
 
-    " Now test getting the CORS configuration
+          " Wait for CORS configuration to propagate
+          WAIT UP TO 2 SECONDS.
+
+          " Verify CORS was set by reading it back
+          DATA(lo_verify) = ao_s3->getbucketcors( iv_bucket = av_bucket ).
+          IF lo_verify IS BOUND AND lo_verify->get_corsrules( ) IS NOT INITIAL.
+            lv_cors_set = abap_true.
+            EXIT.
+          ENDIF.
+
+        CATCH /aws1/cx_s3_clientexc INTO DATA(lo_setup_ex).
+          " Retry on client exception
+          IF lv_retry = 3.
+            cl_abap_unit_assert=>fail( msg = |Failed to set CORS configuration after 3 attempts: { lo_setup_ex->get_text( ) }| ).
+          ENDIF.
+          WAIT UP TO 1 SECONDS.
+      ENDTRY.
+    ENDDO.
+
+    " Verify CORS was successfully set
+    cl_abap_unit_assert=>assert_true(
+      act = lv_cors_set
+      msg = |CORS configuration was not set after 3 attempts| ).
+
+    " Now test getting the CORS configuration using the action method
     DATA lo_result TYPE REF TO /aws1/cl_s3_getbktcorsoutput.
-    ao_s3_actions->get_bucket_cors(
-      EXPORTING
-        iv_bucket_name = av_bucket
-      IMPORTING
-        oo_result = lo_result ).
+    TRY.
+        ao_s3_actions->get_bucket_cors(
+          EXPORTING
+            iv_bucket_name = av_bucket
+          IMPORTING
+            oo_result = lo_result ).
 
-    cl_abap_unit_assert=>assert_bound(
-      act = lo_result
-      msg = |Could not get bucket CORS configuration| ).
+        cl_abap_unit_assert=>assert_bound(
+          act = lo_result
+          msg = |Could not get bucket CORS configuration| ).
+
+        cl_abap_unit_assert=>assert_not_initial(
+          act = lo_result->get_corsrules( )
+          msg = |CORS rules are empty| ).
+
+      CATCH /aws1/cx_s3_clientexc INTO DATA(lo_ex).
+        cl_abap_unit_assert=>fail( msg = |CORS configuration test failed: { lo_ex->get_text( ) }| ).
+    ENDTRY.
 
     " Cleanup
-    ao_s3->deletebucketcors( iv_bucket = av_bucket ).
+    TRY.
+        ao_s3->deletebucketcors( iv_bucket = av_bucket ).
+      CATCH /aws1/cx_rt_generic.
+        " Ignore cleanup errors
+    ENDTRY.
   ENDMETHOD.
 
   METHOD put_bucket_cors.
     DATA lt_cors_rules TYPE /aws1/cl_s3_corsrule=>tt_corsrules.
     DATA lt_methods TYPE /aws1/cl_s3_allowedmethods_w=>tt_allowedmethods.
     DATA lt_origins TYPE /aws1/cl_s3_allowedorigins_w=>tt_allowedorigins.
+    DATA lv_retry TYPE i.
+    DATA lv_cors_set TYPE abap_bool VALUE abap_false.
 
     APPEND NEW /aws1/cl_s3_allowedmethods_w( iv_value = 'PUT' ) TO lt_methods.
     APPEND NEW /aws1/cl_s3_allowedmethods_w( iv_value = 'POST' ) TO lt_methods.
@@ -501,18 +547,54 @@ CLASS ltc_awsex_cl_s3_actions IMPLEMENTATION.
       it_allowedmethods = lt_methods
       it_allowedorigins = lt_origins ) TO lt_cors_rules.
 
-    ao_s3_actions->put_bucket_cors(
-      iv_bucket_name = av_bucket
-      it_cors_rules = lt_cors_rules ).
+    " Set CORS configuration with retry logic
+    DO 3 TIMES.
+      lv_retry = sy-index.
+      TRY.
+          ao_s3_actions->put_bucket_cors(
+            iv_bucket_name = av_bucket
+            it_cors_rules = lt_cors_rules ).
 
-    " Verify CORS was set
-    DATA(lo_cors) = ao_s3->getbucketcors( iv_bucket = av_bucket ).
-    cl_abap_unit_assert=>assert_not_initial(
-      act = lo_cors->get_corsrules( )
-      msg = |CORS configuration was not set| ).
+          " Wait for CORS configuration to propagate
+          WAIT UP TO 2 SECONDS.
+
+          " Verify CORS was set by reading it back
+          DATA(lo_cors) = ao_s3->getbucketcors( iv_bucket = av_bucket ).
+          IF lo_cors IS BOUND AND lo_cors->get_corsrules( ) IS NOT INITIAL.
+            lv_cors_set = abap_true.
+            EXIT.
+          ENDIF.
+
+        CATCH /aws1/cx_s3_clientexc INTO DATA(lo_ex).
+          " Retry on client exception
+          IF lv_retry = 3.
+            cl_abap_unit_assert=>fail( msg = |Failed to set CORS configuration after 3 attempts: { lo_ex->get_text( ) }| ).
+          ENDIF.
+          WAIT UP TO 1 SECONDS.
+      ENDTRY.
+    ENDDO.
+
+    " Verify CORS was successfully set
+    cl_abap_unit_assert=>assert_true(
+      act = lv_cors_set
+      msg = |CORS configuration was not set after 3 attempts| ).
+
+    " Verify the CORS rules content
+    TRY.
+        DATA(lo_verify) = ao_s3->getbucketcors( iv_bucket = av_bucket ).
+        cl_abap_unit_assert=>assert_not_initial(
+          act = lo_verify->get_corsrules( )
+          msg = |CORS configuration rules are empty| ).
+      CATCH /aws1/cx_s3_clientexc INTO DATA(lo_verify_ex).
+        cl_abap_unit_assert=>fail( msg = |Could not verify CORS configuration: { lo_verify_ex->get_text( ) }| ).
+    ENDTRY.
 
     " Cleanup
-    ao_s3->deletebucketcors( iv_bucket = av_bucket ).
+    TRY.
+        ao_s3->deletebucketcors( iv_bucket = av_bucket ).
+      CATCH /aws1/cx_rt_generic.
+        " Ignore cleanup errors
+    ENDTRY.
   ENDMETHOD.
 
   METHOD delete_bucket_cors.
@@ -679,24 +761,63 @@ CLASS ltc_awsex_cl_s3_actions IMPLEMENTATION.
 
   METHOD put_bucket_lifecycle_conf.
     DATA lt_rules TYPE /aws1/cl_s3_lifecyclerule=>tt_lifecyclerules.
+    DATA lv_retry TYPE i.
+    DATA lv_lifecycle_set TYPE abap_bool VALUE abap_false.
+
     APPEND NEW /aws1/cl_s3_lifecyclerule(
       iv_id = 'TestRule'
       iv_status = 'Enabled'
       io_filter = NEW /aws1/cl_s3_lcrulefilter( iv_prefix = 'archive/' )
       io_expiration = NEW /aws1/cl_s3_lifecycleexpir( iv_days = 60 ) ) TO lt_rules.
 
-    ao_s3_actions->put_bucket_lifecycle_conf(
-      iv_bucket_name = av_bucket
-      it_lifecycle_rule = lt_rules ).
+    " Set lifecycle configuration with retry logic
+    DO 3 TIMES.
+      lv_retry = sy-index.
+      TRY.
+          ao_s3_actions->put_bucket_lifecycle_conf(
+            iv_bucket_name = av_bucket
+            it_lifecycle_rule = lt_rules ).
 
-    " Verify lifecycle was set
-    DATA(lo_lc) = ao_s3->getbucketlifecycleconf( iv_bucket = av_bucket ).
-    cl_abap_unit_assert=>assert_not_initial(
-      act = lo_lc->get_rules( )
-      msg = |Lifecycle configuration was not set| ).
+          " Wait for lifecycle configuration to propagate
+          WAIT UP TO 2 SECONDS.
+
+          " Verify lifecycle was set by reading it back
+          DATA(lo_lc) = ao_s3->getbucketlifecycleconf( iv_bucket = av_bucket ).
+          IF lo_lc IS BOUND AND lo_lc->get_rules( ) IS NOT INITIAL.
+            lv_lifecycle_set = abap_true.
+            EXIT.
+          ENDIF.
+
+        CATCH /aws1/cx_s3_clientexc INTO DATA(lo_ex).
+          " Retry on client exception
+          IF lv_retry = 3.
+            cl_abap_unit_assert=>fail( msg = |Failed to set lifecycle configuration after 3 attempts: { lo_ex->get_text( ) }| ).
+          ENDIF.
+          WAIT UP TO 1 SECONDS.
+      ENDTRY.
+    ENDDO.
+
+    " Verify lifecycle was successfully set
+    cl_abap_unit_assert=>assert_true(
+      act = lv_lifecycle_set
+      msg = |Lifecycle configuration was not set after 3 attempts| ).
+
+    " Verify the rules content
+    TRY.
+        DATA(lo_verify) = ao_s3->getbucketlifecycleconf( iv_bucket = av_bucket ).
+        cl_abap_unit_assert=>assert_not_initial(
+          act = lo_verify->get_rules( )
+          msg = |Lifecycle configuration rules are empty| ).
+      CATCH /aws1/cx_s3_clientexc INTO DATA(lo_verify_ex).
+        cl_abap_unit_assert=>fail( msg = |Could not verify lifecycle configuration: { lo_verify_ex->get_text( ) }| ).
+    ENDTRY.
 
     " Cleanup
-    ao_s3->deletebucketlifecycle( iv_bucket = av_bucket ).
+    TRY.
+        ao_s3->deletebucketlifecycle( iv_bucket = av_bucket ).
+      CATCH /aws1/cx_rt_generic.
+        " Ignore cleanup errors
+    ENDTRY.
   ENDMETHOD.
 
   METHOD delete_bucket_lifecycle.
@@ -1101,6 +1222,32 @@ CLASS ltc_awsex_cl_s3_actions IMPLEMENTATION.
       CATCH /aws1/cx_rt_generic.
         " Object lock operations may fail if not properly configured
     ENDTRY.
+  ENDMETHOD.
+
+  METHOD list_buckets.
+    DATA lo_result TYPE REF TO /aws1/cl_s3_listbucketsoutput.
+
+    ao_s3_actions->list_buckets(
+      IMPORTING
+        oo_result = lo_result ).
+
+    " Verify we got buckets back
+    cl_abap_unit_assert=>assert_bound(
+      act = lo_result
+      msg = |Could not list buckets| ).
+
+    " Verify that our test buckets are in the list
+    DATA(lv_found_bucket) = abap_false.
+    LOOP AT lo_result->get_buckets( ) INTO DATA(lo_bucket).
+      IF lo_bucket->get_name( ) = av_bucket.
+        lv_found_bucket = abap_true.
+        EXIT.
+      ENDIF.
+    ENDLOOP.
+
+    cl_abap_unit_assert=>assert_true(
+      act = lv_found_bucket
+      msg = |Test bucket { av_bucket } not found in bucket list| ).
   ENDMETHOD.
 
 ENDCLASS.
