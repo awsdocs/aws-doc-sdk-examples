@@ -32,6 +32,7 @@ allow_list:
   - "DescribeInstancePatchStatesForPatchGroup"
   - "DescribeOrderableDBInstanceOptionsOutput"
   - "DescribeReplicationTaskAssessmentResults"
+  - "src/main/java/com/example/xray/GetGroups"
   - "DescribeTransitGatewayPeeringAttachments"
   - "DescribeVpcEndpointServiceConfigurations"
   - "DisassociateAwsAccountFromPartnerAccount"
