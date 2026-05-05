@@ -1,5 +1,5 @@
 aws_doc_sdk_examples_tools @ git+https://github.com/awsdocs/aws-doc-sdk-examples-tools@2025.41.0
-black==26.3.1
+black==25.11.0
 certifi==2025.1.31
 charset-normalizer==3.4.1
 click==8.1.8
@@ -20,9 +20,9 @@ pluggy==1.5.0
 pycodestyle==2.11.1
 pyflakes==3.1.0
 Pygments==2.19.1
-pytest==9.0.3
+pytest==8.4.2
 PyYAML==6.0.1
-requests==2.33.0
+requests==2.32.5
 rich==13.9.4
 shellingham==1.5.4
 typer==0.15.1

@@ -17,7 +17,7 @@ import (
 )
 
 // ConverseScenario demonstrates how to use the Amazon Bedrock Runtime client
-// to Converse with Anthropic Claude
+// to Converse with Anthropic Claude, Amazon Nova
 type ConverseScenario struct {
 	sdkConfig       aws.Config
 	questioner      demotools.IQuestioner
@@ -56,6 +56,10 @@ func (scenario ConverseScenario) Run(ctx context.Context) {
 	log.Printf("Invoking Claude with prompt: %v\n", text2textPrompt)
 	scenario.ConverseClaude(ctx, text2textPrompt)
 
+	log.Println(strings.Repeat("-", 77))
+	log.Printf("Invoking Amazon Nova with prompt: %v\n", text2textPrompt)
+	scenario.ConverseNova(ctx, text2textPrompt)
+
 	log.Println(strings.Repeat("=", 77))
 	log.Println("Thanks for watching!")
 	log.Println(strings.Repeat("=", 77))
@@ -67,6 +71,14 @@ func (scenario ConverseScenario) ConverseClaude(ctx context.Context, prompt stri
 		panic(err)
 	}
 	log.Printf("\nClaude     : %v\n", strings.TrimSpace(completion))
+}
+
+func (scenario ConverseScenario) ConverseNova(ctx context.Context, prompt string) {
+	completion, err := scenario.converseWrapper.ConverseNova(ctx, prompt)
+	if err != nil {
+		panic(err)
+	}
+	log.Printf("\nAmazon Nova: %v\n", strings.TrimSpace(completion))
 }
 
 // snippet-end:[gov2.bedrock-runtime.Scenario_Converse]
