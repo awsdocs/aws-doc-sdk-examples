@@ -13,7 +13,7 @@ import (
 	"time"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
-	"github.com/aws/aws-sdk-go-v2/feature/s3/manager"
+	"github.com/aws/aws-sdk-go-v2/feature/s3/transfermanager"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 	"github.com/aws/aws-sdk-go-v2/service/s3/types"
 	"github.com/aws/smithy-go"
@@ -142,7 +142,7 @@ func TestUploadObject(t *testing.T) {
 	ctx, stubber, actor := enterTest()
 	defer testtools.ExitTest(stubber, t)
 
-	actor.S3Manager = manager.NewUploader(actor.S3Client)
+	actor.S3Manager = transfermanager.New(actor.S3Client)
 	expectedErr, stubErr := wrapErr(&types.NoSuchBucket{})
 	checksum := types.ChecksumAlgorithmSha256
 	stubber.Add(stubs.StubPutObject("amzn-s3-demo-bucket", "test-key", &checksum, stubErr))
