@@ -24,7 +24,7 @@ jobs:
       - uses: actions/setup-go@v5
         if: steps.changed-files.outputs.any_changed == 'true'
         with:
-          go-version: '1.24'
+          go-version: 1.24
       - name: install golangci-lint
         if: steps.changed-files.outputs.any_changed == 'true'
         run: curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.64.8
