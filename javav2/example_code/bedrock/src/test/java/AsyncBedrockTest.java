@@ -41,7 +41,7 @@ public class AsyncBedrockTest {
     @Order(2)
     @Tag("IntegrationTest")
     void getFoundationModel() {
-        String modelId = "amazon.titan-text-lite-v1";
+        String modelId = "amazon.nova-lite-v1:0";
         FoundationModelDetails model = GetFoundationModelAsync.getFoundationModel(client, modelId);
         assertEquals(model.modelId(), modelId);
         System.out.println("Test 2 passed.");
