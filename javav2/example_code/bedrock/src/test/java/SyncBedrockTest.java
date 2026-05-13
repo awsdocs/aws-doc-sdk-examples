@@ -40,7 +40,7 @@ public class SyncBedrockTest {
     @Order(2)
     @Tag("IntegrationTest")
     void getFoundationModel() {
-        String modelId = "amazon.titan-text-lite-v1";
+        String modelId = "amazon.nova-lite-v1:0";
         var modelDetails = GetFoundationModel.getFoundationModel(client, modelId);
         assertNotNull(modelDetails);
         assertEquals(modelDetails.modelId(), modelId);
