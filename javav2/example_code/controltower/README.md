@@ -46,16 +46,16 @@ Code examples that show you how to perform the essential operations within a ser
 Code excerpts that show you how to call individual service functions.
 
 - [DisableBaseline](src/main/java/com/example/controltower/scenario/ControlTowerActions.java#L493)
-- [DisableControl](src/main/java/com/example/controltower/scenario/ControlTowerActions.java#L803)
+- [DisableControl](src/main/java/com/example/controltower/scenario/ControlTowerActions.java#L809)
 - [EnableBaseline](src/main/java/com/example/controltower/scenario/ControlTowerActions.java#L387)
 - [EnableControl](src/main/java/com/example/controltower/scenario/ControlTowerActions.java#L706)
 - [GetBaselineOperation](src/main/java/com/example/controltower/scenario/ControlTowerActions.java#L574)
-- [GetControlOperation](src/main/java/com/example/controltower/scenario/ControlTowerActions.java#L886)
+- [GetControlOperation](src/main/java/com/example/controltower/scenario/ControlTowerActions.java#L892)
 - [ListBaselines](src/main/java/com/example/controltower/scenario/ControlTowerActions.java#L257)
 - [ListEnabledBaselines](src/main/java/com/example/controltower/scenario/ControlTowerActions.java#L317)
 - [ListEnabledControls](src/main/java/com/example/controltower/scenario/ControlTowerActions.java#L638)
 - [ListLandingZones](src/main/java/com/example/controltower/scenario/ControlTowerActions.java#L204)
-- [ResetEnabledBaseline](src/main/java/com/example/controltower/scenario/ControlTowerActions.java#L986)
+- [ResetEnabledBaseline](src/main/java/com/example/controltower/scenario/ControlTowerActions.java#L992)
 
 
 <!--custom.examples.start-->
