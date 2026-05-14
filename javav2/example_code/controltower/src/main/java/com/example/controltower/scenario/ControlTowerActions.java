@@ -771,6 +771,12 @@ public class ControlTowerActions {
                             return null;
                         }
 
+                        if ("ValidationException".equals(errorCode)
+                                && message.contains("enforced by default")) {
+                            System.out.println("Control is enforced by default and cannot be enabled manually.");
+                            return null;
+                        }
+
                         if ("ResourceNotFoundException".equals(errorCode)
                                 && message.contains("not registered with AWS Control Tower")) {
                             System.out.println(

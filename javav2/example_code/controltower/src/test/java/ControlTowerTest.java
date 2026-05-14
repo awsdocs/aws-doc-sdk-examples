@@ -35,7 +35,6 @@ public class ControlTowerTest {
     public static void setUp() {
         controlTowerClient = ControlTowerClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create("default"))
                 .build();
     }
 
