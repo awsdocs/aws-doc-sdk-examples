@@ -25,7 +25,7 @@ public class UploadStream {
     private static final Logger logger = LoggerFactory.getLogger(UploadStream.class);
 
     public static void main(String[] args) {
-        String bucketName = "amzn-s3-demo-bucket" + UUID.randomUUID();
+        String bucketName = "sdk-example-bucket" + UUID.randomUUID();
         String key = UUID.randomUUID().toString();
 
         AsyncExampleUtils.createBucket(bucketName);

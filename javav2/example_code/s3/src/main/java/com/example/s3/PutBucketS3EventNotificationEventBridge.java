@@ -294,6 +294,26 @@ public class PutBucketS3EventNotificationEventBridge {
 
     static void deployCloudFormationStack() {
         try {
+            // Check if stack already exists and handle stale states.
+            try {
+                var describeResponse = cfClient.describeStacks(b -> b.stackName(STACK_NAME)).join();
+                if (!describeResponse.stacks().isEmpty()) {
+                    String status = describeResponse.stacks().get(0).stackStatusAsString();
+                    if ("CREATE_COMPLETE".equals(status) || "UPDATE_COMPLETE".equals(status)) {
+                        logger.info("Stack already exists and is in a good state. Reusing.");
+                        return;
+                    }
+                    // Delete stack if it's in a bad state (ROLLBACK_COMPLETE, etc.)
+                    logger.info("Stack exists in state: " + status + ". Deleting and recreating.");
+                    cfClient.deleteStack(b -> b.stackName(STACK_NAME)).join();
+                    try (CloudFormationAsyncWaiter waiter = cfClient.waiter()) {
+                        waiter.waitUntilStackDeleteComplete(request -> request.stackName(STACK_NAME)).join();
+                    }
+                }
+            } catch (Exception e) {
+                // Stack doesn't exist, proceed with creation.
+            }
+
             URL fileUrl = PutBucketS3EventNotificationEventBridge.class.getClassLoader().getResource(STACK_NAME + ".yaml");
             String templateBody;
             try {

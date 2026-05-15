@@ -38,7 +38,7 @@ import java.util.concurrent.CompletableFuture;
 // snippet-start:[s3.java2.performMultiPartUpload.full]
 public class PerformMultiPartUpload {
     static final S3Client s3Client = S3Client.create();
-    static final String bucketName = "amzn-s3-demo-bucket" + UUID.randomUUID(); // Change bucket name.
+    static final String bucketName = "sdk-example-bucket-" + UUID.randomUUID(); // Change bucket name.
     static final String key = UUID.randomUUID().toString();
     static final String classPathFilePath = "/multipartUploadFiles/s3-userguide.pdf";
     static final String filePath = getFullFilePath(classPathFilePath);
@@ -62,7 +62,7 @@ public class PerformMultiPartUpload {
         URL uploadDirectoryURL = PerformMultiPartUpload.class.getResource(filePath);
         String fullFilePath;
         try {
-            fullFilePath = Objects.requireNonNull(uploadDirectoryURL).toURI().getPath();
+            fullFilePath = Paths.get(Objects.requireNonNull(uploadDirectoryURL).toURI()).toString();
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }

@@ -61,7 +61,7 @@ public class CreateRetentionJob {
         String accountId = getAccountId();
 
         // Specify your S3 bucket name.
-        String bucketName = "amzn-s3-demo-bucket-" + UUID.randomUUID();  // Change bucket name.
+        String bucketName = "sdk-example-bucket-" + UUID.randomUUID();  // Change bucket name.
         System.out.println("Populate the bucket with the required files.");
         String[] fileNames = {"job-manifest.csv", "object-key-1.txt", "object-key-2.txt", "object-key-3.txt", "object-key-4.txt"};
         uploadFilesToBucket(s3, bucketName, fileNames);
