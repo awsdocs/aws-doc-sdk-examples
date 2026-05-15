@@ -6,8 +6,15 @@ import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.services.transcribestreaming.TranscribeStreamingAsyncClient;
 import software.amazon.awssdk.regions.Region;
 import org.junit.jupiter.api.*;
+
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.DataLine;
+import javax.sound.sampled.TargetDataLine;
 import java.io.*;
 import java.net.URISyntaxException;
+
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
@@ -28,6 +35,11 @@ public class TranscribeTest {
     @Tag("IntegrationTest")
     @Order(1)
     public void BidirectionalStreaming() throws Exception {
+        // Skip this test if no audio input device is available (e.g., CI environments).
+        AudioFormat format = new AudioFormat(16000, 16, 1, true, false);
+        DataLine.Info info = new DataLine.Info(TargetDataLine.class, format);
+        assumeTrue(AudioSystem.isLineSupported(info), "Skipping: No audio input device available");
+
         BidirectionalStreaming.convertAudio(client);
         logger.info("\nTest 1 passed");
     }
