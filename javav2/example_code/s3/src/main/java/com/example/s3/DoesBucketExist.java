@@ -17,7 +17,7 @@ public class DoesBucketExist {
         DoesBucketExist doesBucketExist = new DoesBucketExist();
 
         final S3Client s3SyncClient = S3Client.builder().build();
-        final String bucketName = "sdk-example-bucket"; // Change to the bucket name that you want to check.
+        final String bucketName = "amzn-s3-demo-bucket"; // Replace with the bucket name that you want to check.
 
         boolean exists = doesBucketExist.doesBucketExist(bucketName, s3SyncClient);
         logger.info("Bucket exists: {}", exists);

@@ -28,11 +28,11 @@ public class S3ClientFactory {
 
     private static S3TransferManager createCustomTm() {
         // snippet-start:[s3.tm.java2.s3clientfactory.create_custom_tm]
-        S3AsyncClient s3AsyncClient = S3AsyncClient.crtBuilder()
+        S3AsyncClient s3AsyncClient = S3AsyncClient.builder()
                 .credentialsProvider(DefaultCredentialsProvider.create())
                 .region(Region.US_EAST_1)
-                .targetThroughputInGbps(20.0)
-                .minimumPartSizeInBytes(8 * MB)
+                .multipartEnabled(true)
+                .multipartConfiguration(c -> c.minimumPartSizeInBytes(8 * MB))
                 .build();
 
         S3TransferManager transferManager = S3TransferManager.builder()

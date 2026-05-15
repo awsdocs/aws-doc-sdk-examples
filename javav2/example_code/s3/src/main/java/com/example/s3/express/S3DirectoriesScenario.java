@@ -505,7 +505,7 @@ public class S3DirectoriesScenario {
         String regularBucketName;
         try {
             zoneId = s3DirectoriesActions.selectAvailabilityZoneIdAsync().join();
-            regularBucketName = "reg-bucket-" + System.currentTimeMillis();
+            regularBucketName = "amzn-s3-demo-bucket-" + System.currentTimeMillis();
         } catch (CompletionException ce) {
             Throwable cause = ce.getCause();
             if (cause instanceof Ec2Exception) {
@@ -519,7 +519,7 @@ public class S3DirectoriesScenario {
             Now, let's create the actual directory bucket, as well as a regular bucket."
              """);
 
-        String directoryBucketName = "test-bucket-" + System.currentTimeMillis() + "--" + zoneId + "--x-s3";
+        String directoryBucketName = "amzn-s3-demo-bucket-" + System.currentTimeMillis() + "--" + zoneId + "--x-s3";
         try {
             s3DirectoriesActions.createDirectoryBucketAsync(mS3ExpressClient, directoryBucketName, zoneId).join();
             logger.info("Created directory bucket {}", directoryBucketName);

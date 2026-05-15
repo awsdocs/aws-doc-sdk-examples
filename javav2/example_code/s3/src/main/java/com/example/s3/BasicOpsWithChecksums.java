@@ -43,17 +43,28 @@ import java.util.UUID;
 // snippet-start:[s3.java2.basicOpsWithChecksums.full]
 public class BasicOpsWithChecksums {
     static final S3Client s3Client = S3Client.create();
-    static final String bucketName = "sdk-example-bucket-" + UUID.randomUUID(); // Change bucket name.
-    static final String key = UUID.randomUUID().toString();
     private static final Logger logger = LoggerFactory.getLogger(BasicOpsWithChecksums.class);
 
     public static void main(String[] args) {
+        String bucketName = "amzn-s3-demo-bucket"; // Replace with your bucket name.
+        String key = UUID.randomUUID().toString();
+
         BasicOpsWithChecksums basicOpsWithChecksums = new BasicOpsWithChecksums();
-        basicOpsWithChecksums.doPutBucket();
-        basicOpsWithChecksums.doGetBucket();
-        basicOpsWithChecksums.doPutObjectWithPrecalculatedChecksum();
-        basicOpsWithChecksums.doMultipartUploadWithChecksumTm();
-        basicOpsWithChecksums.doMultipartUploadWithChecksumS3Client();
+        createBucket(bucketName);
+        try {
+            basicOpsWithChecksums.putObjectWithChecksum(bucketName, key);
+            basicOpsWithChecksums.getObjectWithChecksum(bucketName, key);
+            basicOpsWithChecksums.putObjectWithPrecalculatedChecksum(bucketName, key,
+                    getFullFilePath("/multipartUploadFiles/java_dev_guide_v2.pdf"));
+            basicOpsWithChecksums.multipartUploadWithChecksumTm(bucketName, key,
+                    getFullFilePath("/multipartUploadFiles/java_dev_guide_v2.pdf"));
+            basicOpsWithChecksums.multipartUploadWithChecksumS3Client(bucketName, key,
+                    getFullFilePath("/multipartUploadFiles/java_dev_guide_v2.pdf"));
+        } catch (SdkException e) {
+            logger.error(e.getMessage());
+        } finally {
+            deleteResources(bucketName, key);
+        }
     }
 
     static String getFullFilePath(String filePath) {
@@ -67,20 +78,19 @@ public class BasicOpsWithChecksums {
         return fullFilePath;
     }
 
-    static void createBucket() {
+    static void createBucket(String bucketName) {
         s3Client.createBucket(b -> b.bucket(bucketName));
         try (S3Waiter s3Waiter = s3Client.waiter()) {
             s3Waiter.waitUntilBucketExists(b -> b.bucket(bucketName));
         }
     }
 
-    static void deleteResources() {
+    static void deleteResources(String bucketName, String key) {
         s3Client.deleteObject(b -> b.bucket(bucketName).key(key));
         s3Client.deleteBucket(b -> b.bucket(bucketName));
     }
 
     static String calculateChecksum(String filePath, String algorithm) {
-
         MessageDigest md;
         try {
             md = MessageDigest.getInstance(algorithm);
@@ -100,7 +110,7 @@ public class BasicOpsWithChecksums {
     }
 
     // snippet-start:[s3.java2.basicOpsWithChecksums.putObject]
-    public void putObjectWithChecksum() {
+    public void putObjectWithChecksum(String bucketName, String key) {
         s3Client.putObject(b -> b
                 .bucket(bucketName)
                 .key(key)
@@ -110,7 +120,7 @@ public class BasicOpsWithChecksums {
     // snippet-end:[s3.java2.basicOpsWithChecksums.putObject]
 
     // snippet-start:[s3.java2.basicOpsWithChecksums.getObject]
-    public GetObjectResponse getObjectWithChecksum() {
+    public GetObjectResponse getObjectWithChecksum(String bucketName, String key) {
         return s3Client.getObject(b -> b
                 .bucket(bucketName)
                 .key(key)
@@ -120,7 +130,7 @@ public class BasicOpsWithChecksums {
     // snippet-end:[s3.java2.basicOpsWithChecksums.getObject]
 
     // snippet-start:[s3.java2.basicOpsWithChecksums.putObjectPreCalc]
-    public void putObjectWithPrecalculatedChecksum(String filePath) {
+    public void putObjectWithPrecalculatedChecksum(String bucketName, String key, String filePath) {
         String checksum = calculateChecksum(filePath, "SHA-256");
 
         s3Client.putObject((b -> b
@@ -132,7 +142,7 @@ public class BasicOpsWithChecksums {
     // snippet-end:[s3.java2.basicOpsWithChecksums.putObjectPreCalc]
 
     // snippet-start:[s3.java2.basicOpsWithChecksums.multiPartTm]
-    public void multipartUploadWithChecksumTm(String filePath) {
+    public void multipartUploadWithChecksumTm(String bucketName, String key, String filePath) {
         S3TransferManager transferManager = S3TransferManager.create();
         UploadFileRequest uploadFileRequest = UploadFileRequest.builder()
             .putObjectRequest(b -> b
@@ -148,7 +158,7 @@ public class BasicOpsWithChecksums {
     // snippet-end:[s3.java2.basicOpsWithChecksums.multiPartTm]
 
     // snippet-start:[s3.java2.basicOpsWithChecksums.multiPartS3Client]
-    public void multipartUploadWithChecksumS3Client(String filePath) {
+    public void multipartUploadWithChecksumS3Client(String bucketName, String key, String filePath) {
         ChecksumAlgorithm algorithm = ChecksumAlgorithm.CRC32;
 
         // Initiate the multipart upload.
@@ -206,51 +216,5 @@ public class BasicOpsWithChecksums {
             .multipartUpload(CompletedMultipartUpload.builder().parts(completedParts).build()));
     }
     // snippet-end:[s3.java2.basicOpsWithChecksums.multiPartS3Client]
-
-    private void doPutBucket() {
-        createBucket();
-        putObjectWithChecksum();
-        deleteResources();
-    }
-
-    private void doGetBucket() {
-        createBucket();
-        putObjectWithChecksum();
-        getObjectWithChecksum();
-        deleteResources();
-    }
-
-    private void doPutObjectWithPrecalculatedChecksum() {
-        createBucket();
-        try {
-            putObjectWithPrecalculatedChecksum(getFullFilePath("/multipartUploadFiles/java_dev_guide_v2.pdf"));
-        } catch (SdkException e) {
-            logger.error(e.getMessage());
-        } finally {
-            deleteResources();
-        }
-    }
-
-    private void doMultipartUploadWithChecksumS3Client() {
-        createBucket();
-        try {
-            multipartUploadWithChecksumS3Client(getFullFilePath("/multipartUploadFiles/java_dev_guide_v2.pdf"));
-        } catch (SdkException e) {
-            logger.error(e.getMessage());
-        } finally {
-            deleteResources();
-        }
-    }
-
-    private void doMultipartUploadWithChecksumTm() {
-        createBucket();
-        try {
-            multipartUploadWithChecksumTm(getFullFilePath("/multipartUploadFiles/java_dev_guide_v2.pdf"));
-        } catch (SdkException e) {
-            logger.error(e.getMessage());
-        } finally {
-            deleteResources();
-        }
-    }
 }
 // snippet-end:[s3.java2.basicOpsWithChecksums.full]

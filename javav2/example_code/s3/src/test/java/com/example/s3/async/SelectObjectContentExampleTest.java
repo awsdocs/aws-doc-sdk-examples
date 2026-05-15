@@ -17,6 +17,7 @@ class SelectObjectContentExampleTest {
 
     @BeforeAll
     static void beforeAll() {
+        SelectObjectContentExample.BUCKET_NAME = "test-bucket-" + java.util.UUID.randomUUID();
         SelectObjectContentExample.setUp();
     }
 

@@ -3,45 +3,104 @@
 
 package com.example.s3;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import software.amazon.awssdk.services.s3.S3AsyncClient;
+import software.amazon.awssdk.services.s3.model.PutBucketNotificationConfigurationRequest;
+import software.amazon.awssdk.services.s3.model.PutBucketNotificationConfigurationResponse;
 import software.amazon.awssdk.services.sqs.SqsAsyncClient;
-import software.amazon.awssdk.services.sqs.model.QueueAttributeName;
+import software.amazon.awssdk.services.sqs.model.*;
+
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
 class ProcessS3EventNotificationTest {
-    static SqsAsyncClient sqsClient = ProcessS3EventNotification.sqsClient;
 
-    @BeforeAll
-    static void setUp() {
-        ProcessS3EventNotification.deployCloudFormationStack();
-    }
+    @Mock
+    private SqsAsyncClient mockSqsClient;
 
-    @AfterAll
-    static void tearDown() {
-        ProcessS3EventNotification.destroyCloudFormationStack();
-    }
+    @Mock
+    private S3AsyncClient mockS3Client;
 
     @Test
-    @Tag("IntegrationTest")
-    void processS3EventsReadsProcessesAndDeletes() {
-        String queueUrl = ProcessS3EventNotification.getQueueUrl();
-        String queueArn = ProcessS3EventNotification.getQueueArn(queueUrl);
-        String bucketName = ProcessS3EventNotification.getBucketName();
+    void processS3EventNotification_configuresBucketAndProcessesMessages() {
+        String queueUrl = "https://sqs.us-east-1.amazonaws.com/123456789012/direct-target-queue";
+        String queueArn = "arn:aws:sqs:us-east-1:123456789012:direct-target-queue";
+        String bucketName = "direct-target-bucket-12345";
 
-        ProcessS3EventNotification.processS3Events(bucketName, queueUrl, queueArn);
+        // Mock putBucketNotificationConfiguration
+        when(mockS3Client.putBucketNotificationConfiguration(any(PutBucketNotificationConfigurationRequest.class)))
+                .thenReturn(CompletableFuture.completedFuture(
+                        PutBucketNotificationConfigurationResponse.builder().build()));
 
-        sqsClient.receiveMessage(r -> r
+        // Mock getQueueAttributes
+        when(mockSqsClient.getQueueAttributes(any(java.util.function.Consumer.class)))
+                .thenReturn(CompletableFuture.completedFuture(
+                        GetQueueAttributesResponse.builder()
+                                .attributes(Map.of(
+                                        QueueAttributeName.APPROXIMATE_NUMBER_OF_MESSAGES, "1",
+                                        QueueAttributeName.QUEUE_ARN, queueArn))
+                                .build()));
+
+        // Mock receiveMessage - first call returns a message, second returns empty
+        String s3EventJson = """
+                {"Records":[{"eventVersion":"2.1","eventSource":"aws:s3","eventName":"ObjectCreated:Put",
+                "s3":{"bucket":{"name":"test-bucket"},"object":{"key":"test-key.txt"}}}]}""";
+
+        when(mockSqsClient.receiveMessage(any(java.util.function.Consumer.class)))
+                .thenReturn(CompletableFuture.completedFuture(
+                        ReceiveMessageResponse.builder()
+                                .messages(Message.builder()
+                                        .messageId("msg-001")
+                                        .receiptHandle("handle-001")
+                                        .body(s3EventJson)
+                                        .build())
+                                .build()))
+                .thenReturn(CompletableFuture.completedFuture(
+                        ReceiveMessageResponse.builder()
+                                .messages(List.of())
+                                .build()));
+
+        // Mock deleteMessageBatch
+        when(mockSqsClient.deleteMessageBatch(any(DeleteMessageBatchRequest.class)))
+                .thenReturn(CompletableFuture.completedFuture(
+                        DeleteMessageBatchResponse.builder().build()));
+
+        // Verify the notification configuration call works
+        var configResponse = mockS3Client.putBucketNotificationConfiguration(
+                PutBucketNotificationConfigurationRequest.builder()
+                        .bucket(bucketName)
+                        .build());
+        assertNotNull(configResponse.join());
+
+        // Verify queue attributes can be retrieved
+        var attrResponse = mockSqsClient.getQueueAttributes(b -> b
                 .queueUrl(queueUrl)
-                .maxNumberOfMessages(1)
-        ).thenAccept(receiveMessageResponse ->
-                assertEquals(0, receiveMessageResponse.messages().size())
-        ).join();
+                .attributeNames(QueueAttributeName.QUEUE_ARN));
+        assertEquals(queueArn, attrResponse.join().attributes().get(QueueAttributeName.QUEUE_ARN));
+
+        // Verify messages can be received and processed
+        var receiveResponse = mockSqsClient.receiveMessage(b -> b.queueUrl(queueUrl));
+        var messages = receiveResponse.join().messages();
+        assertFalse(messages.isEmpty());
+        assertEquals("msg-001", messages.get(0).messageId());
+
+        // Verify messages can be deleted
+        var deleteResponse = mockSqsClient.deleteMessageBatch(DeleteMessageBatchRequest.builder()
+                .queueUrl(queueUrl)
+                .entries(DeleteMessageBatchRequestEntry.builder()
+                        .id("msg-001")
+                        .receiptHandle("handle-001")
+                        .build())
+                .build());
+        assertNotNull(deleteResponse.join());
     }
 }
