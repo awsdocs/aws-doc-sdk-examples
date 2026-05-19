@@ -30,19 +30,21 @@ import java.util.UUID;
 
 public class UploadFile {
     private static final Logger logger = LoggerFactory.getLogger(UploadFile.class);
-    public final String bucketName = "amazon-s3-demo-bucket" + UUID.randomUUID(); // Change bucket name.
-    public final String key = UUID.randomUUID().toString();
-    public URI filePathURI;
-
-    public UploadFile() {
-        this.setUp();
-    }
 
     public static void main(String[] args) {
-        UploadFile upload = new UploadFile();
-        upload.uploadFile(S3ClientFactory.transferManager, upload.bucketName, upload.key, upload.filePathURI);
-        upload.trackUploadFile(S3ClientFactory.transferManager, upload.bucketName, upload.key, upload.filePathURI);
-        upload.cleanUp();
+        String bucketName = "amzn-s3-demo-bucket"; // Replace with your bucket name.
+        String key = UUID.randomUUID().toString();
+        URI filePathURI = getFilePathURI();
+
+        S3ClientFactory.s3Client.createBucket(b -> b.bucket(bucketName));
+        try {
+            UploadFile upload = new UploadFile();
+            upload.uploadFile(S3ClientFactory.transferManager, bucketName, key, filePathURI);
+            upload.trackUploadFile(S3ClientFactory.transferManager, bucketName, key, filePathURI);
+        } finally {
+            S3ClientFactory.s3Client.deleteObject(b -> b.bucket(bucketName).key(key));
+            S3ClientFactory.s3Client.deleteBucket(b -> b.bucket(bucketName));
+        }
     }
 
     // snippet-start:[s3.tm.java2.uploadfile.main]
@@ -102,20 +104,13 @@ public class UploadFile {
     }
     // snippet-end:[s3.tm.java2.trackuploadfile.main]
 
-    private void setUp() {
-        S3ClientFactory.s3Client.createBucket(b -> b.bucket(bucketName));
-        // get the file system path to the provided file to upload
+    public static URI getFilePathURI() {
         URL resource = UploadFile.class.getClassLoader().getResource("multipartUploadFiles/s3-userguide.pdf");
         try {
-            filePathURI = resource.toURI();
+            return resource.toURI();
         } catch (URISyntaxException | NullPointerException e) {
             logger.error("Error getting file path URI: {}", e.getMessage());
-            System.exit(1);
+            throw new RuntimeException(e);
         }
-    }
-
-    public void cleanUp() {
-        S3ClientFactory.s3Client.deleteObject(b -> b.bucket(bucketName).key(key));
-        S3ClientFactory.s3Client.deleteBucket(b -> b.bucket(bucketName));
     }
 }

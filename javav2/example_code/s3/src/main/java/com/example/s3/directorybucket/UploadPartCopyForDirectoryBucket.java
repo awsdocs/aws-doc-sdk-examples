@@ -131,8 +131,8 @@ public class UploadPartCopyForDirectoryBucket {
         Region region = Region.US_WEST_2;
         S3Client s3Client = createS3Client(region);
         String zone = "usw2-az1";
-        String sourceDirectoryBucket = "amzn-s3-demo-source-bucket-" + System.currentTimeMillis() + "--" + zone + "--x-s3";
-        String targetDirectoryBucket = "amzn-s3-demo-destination-bucket-" + System.currentTimeMillis() + "--" + zone + "--x-s3";
+        String sourceDirectoryBucket = "amzn-s3-demo-source-bucket" ; // Replace with your bucket name.
+        String targetDirectoryBucket = "amzn-s3-demo-destination-bucket" ; // Replace with your bucket name.;
         String sourceObjectKey = "source-large-object"; // your-source-object-key
         String destinationObjectKey = "dest-large-object"; // your-destination-object-key
         Path filePath = getFilePath("directoryBucket/sample-large-object.jpg"); // path to your file.

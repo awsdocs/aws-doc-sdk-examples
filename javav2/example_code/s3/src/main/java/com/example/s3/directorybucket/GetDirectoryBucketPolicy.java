@@ -85,7 +85,7 @@ public class GetDirectoryBucketPolicy {
     public static void main(String[] args) {
         S3Client s3Client = createS3Client(Region.US_WEST_2);
         String zone = "usw2-az1";
-        String bucketName = "amzn-s3-demo-bucket-" + System.currentTimeMillis() + "--" + zone + "--x-s3";
+        String bucketName = "amzn-s3-demo-bucket"; // Replace with your bucket name.
 
         // Get AWS account ID
         String awsAccountId = getAwsAccountId();

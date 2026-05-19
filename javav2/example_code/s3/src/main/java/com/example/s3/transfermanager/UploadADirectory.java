@@ -16,7 +16,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Paths;
-import java.util.UUID;
 // snippet-end:[s3.tm.java2.uploadadirectory.import]
 
 /**
@@ -30,20 +29,19 @@ import java.util.UUID;
 
 public class UploadADirectory {
     private static final Logger logger = LoggerFactory.getLogger(UploadADirectory.class);
-    public final String bucketName = "s3-demo-bucket" + UUID.randomUUID(); // Change bucket name.
-    public URI sourceDirectory;
-
-    public UploadADirectory() {
-        setUp();
-    }
 
     public static void main(String[] args) {
-        UploadADirectory upload = new UploadADirectory();
+        String bucketName = "amzn-s3-demo-bucket"; // Replace with your bucket name.
+        URI sourceDirectory = getSourceDirectoryURI();
 
-        Integer numFailedUploads = upload.uploadDirectory(S3ClientFactory.transferManager, upload.sourceDirectory,
-                upload.bucketName);
-        logger.info("Number of failed transfers [{}].", numFailedUploads);
-        upload.cleanUp();
+        S3ClientFactory.s3Client.createBucket(b -> b.bucket(bucketName));
+        try {
+            UploadADirectory upload = new UploadADirectory();
+            Integer numFailedUploads = upload.uploadDirectory(S3ClientFactory.transferManager, sourceDirectory, bucketName);
+            logger.info("Number of failed transfers [{}].", numFailedUploads);
+        } finally {
+            cleanUp(bucketName);
+        }
     }
 
     // snippet-start:[s3.tm.java2.uploadadirectory.main]
@@ -61,18 +59,17 @@ public class UploadADirectory {
     }
     // snippet-end:[s3.tm.java2.uploadadirectory.main]
 
-    private void setUp() {
-        S3ClientFactory.s3Client.createBucket(b -> b.bucket(bucketName));
+    public static URI getSourceDirectoryURI() {
         URL dirResource = UploadADirectory.class.getClassLoader().getResource("uploadDirectory");
         try {
-            sourceDirectory = dirResource.toURI();
+            return dirResource.toURI();
         } catch (URISyntaxException | NullPointerException e) {
             logger.error("Error getting file path URI: {}", e.getMessage());
-            System.exit(1);
+            throw new RuntimeException(e);
         }
     }
 
-    public void cleanUp() {
+    public static void cleanUp(String bucketName) {
         S3ClientFactory.s3Client.deleteObjects(b -> b
                 .bucket(bucketName)
                 .delete(b1 -> b1

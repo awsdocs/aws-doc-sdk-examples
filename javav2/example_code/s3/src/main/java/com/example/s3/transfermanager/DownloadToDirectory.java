@@ -35,21 +35,30 @@ import java.util.stream.Collectors;
 
 public class DownloadToDirectory {
     private static final Logger logger = LoggerFactory.getLogger(DownloadToDirectory.class);
-    public final String bucketName = "s3-demo-bucket" + UUID.randomUUID(); // Change bucket name.
-    public URI destinationPathURI;
-    private final Set<String> downloadedFileNameSet = new HashSet<>();
-    private final String destinationDirName = "downloadDirectory";
-
-    public DownloadToDirectory() {
-        setUp();
-    }
+    private static final String DESTINATION_DIR_NAME = "downloadDirectory";
 
     public static void main(String[] args) {
-        DownloadToDirectory download = new DownloadToDirectory();
-        Integer numFilesFailedToDownload = download.downloadObjectsToDirectory(S3ClientFactory.transferManager,
-                download.destinationPathURI, download.bucketName);
-        logger.info("Number of files that failed to download [{}].", numFilesFailedToDownload);
-        download.cleanUp();
+        String bucketName = "amzn-s3-demo-bucket"; // Replace with your bucket name.
+        URI destinationPathURI = getDestinationURI();
+        Set<String> uploadedFiles = new HashSet<>();
+
+        // Set up: create bucket and upload files.
+        S3ClientFactory.s3Client.createBucket(b -> b.bucket(bucketName));
+        RequestBody requestBody = RequestBody.fromString("Hello World.");
+        java.util.stream.IntStream.rangeClosed(1, 3).forEach(i -> {
+            String fileName = "downloadedFile" + i + ".txt";
+            uploadedFiles.add(fileName);
+            S3ClientFactory.s3Client.putObject(b -> b.bucket(bucketName).key(fileName), requestBody);
+        });
+
+        try {
+            DownloadToDirectory download = new DownloadToDirectory();
+            Integer numFilesFailedToDownload = download.downloadObjectsToDirectory(
+                    S3ClientFactory.transferManager, destinationPathURI, bucketName);
+            logger.info("Number of files that failed to download [{}].", numFilesFailedToDownload);
+        } finally {
+            cleanUp(bucketName, uploadedFiles, destinationPathURI);
+        }
     }
 
     // snippet-start:[s3.tm.java2.downloadtodirectory.main]
@@ -67,48 +76,34 @@ public class DownloadToDirectory {
     }
     // snippet-end:[s3.tm.java2.downloadtodirectory.main]
 
-    private void setUp() {
-        S3ClientFactory.s3Client.createBucket(b -> b.bucket(bucketName));
-
-        RequestBody requestBody = RequestBody.fromString("Hello World.");
-        java.util.stream.IntStream.rangeClosed(1, 3).forEach(i -> {
-            String fileName = "downloadedFile" + i + ".txt";
-            downloadedFileNameSet.add(fileName);
-            S3ClientFactory.s3Client.putObject(b -> b
-                    .bucket(bucketName)
-                    .key(fileName),
-                    requestBody);
-        });
+    public static URI getDestinationURI() {
         try {
-            destinationPathURI = DownloadToDirectory.class.getClassLoader().getResource(destinationDirName).toURI();
+            return DownloadToDirectory.class.getClassLoader().getResource(DESTINATION_DIR_NAME).toURI();
         } catch (URISyntaxException | NullPointerException e) {
             logger.error("Exception creating URI [{}]", e.getMessage());
-            System.exit(1);
+            throw new RuntimeException(e);
         }
     }
 
-    public void cleanUp() {
-        // Delete items uploaded to bucket for download.
-        Set<ObjectIdentifier> items = downloadedFileNameSet
-                .stream()
+    public static void cleanUp(String bucketName, Set<String> fileNames, URI destinationPathURI) {
+        // Delete items uploaded to bucket.
+        Set<ObjectIdentifier> items = fileNames.stream()
                 .map(name -> ObjectIdentifier.builder().key(name).build())
                 .collect(Collectors.toSet());
 
         S3ClientFactory.s3Client.deleteObjects(b -> b
                 .bucket(bucketName)
                 .delete(b1 -> b1.objects(items)));
-        // Delete bucket.
         S3ClientFactory.s3Client.deleteBucket(b -> b.bucket(bucketName));
 
-        // Delete files downloaded.
-        downloadedFileNameSet.stream().forEach(fileName -> {
+        // Delete downloaded files.
+        fileNames.forEach(fileName -> {
             try {
                 Path basePath = Paths.get(destinationPathURI);
                 Path fullPath = basePath.resolve(fileName);
-                Files.delete(fullPath);
+                Files.deleteIfExists(fullPath);
             } catch (IOException e) {
                 logger.error("Exception deleting file [{}]", fileName);
-                throw new RuntimeException(e);
             }
         });
     }

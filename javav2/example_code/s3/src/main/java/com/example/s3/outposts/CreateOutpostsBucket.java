@@ -16,15 +16,16 @@ public class CreateOutpostsBucket {
     private static final Logger logger = LoggerFactory.getLogger(CreateOutpostsBucket.class);
 
     public static void main(String[] args) {
-        createOutpostsBucket();
+        String bucketName = "amzn-s3-demo-bucket"; // Replace with your bucket name.
+        createOutpostsBucket(bucketName);
     }
 
     // snippet-start:[s3-outposts.java2.create_bucket]
-    public static void createOutpostsBucket() {
+    public static void createOutpostsBucket(String bucketName) {
         try (S3ControlClient s3ControlClient = S3ControlClient.create()) {
             try {
                 CreateBucketResponse response = s3ControlClient.createBucket(b -> b
-                        .bucket("<bucket-name>") // Enter bucket name.
+                        .bucket(bucketName) // bucket name.
                         .outpostId("op-<123456789abcdefgh>")
                         .createBucketConfiguration(CreateBucketConfiguration.builder().build()));
                 logger.info("Bucket created with Arn: [{}]", response.bucketArn());

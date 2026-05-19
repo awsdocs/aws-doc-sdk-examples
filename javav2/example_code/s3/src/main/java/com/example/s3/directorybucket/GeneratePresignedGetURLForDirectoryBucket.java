@@ -104,7 +104,7 @@ public class GeneratePresignedGetURLForDirectoryBucket {
         Region region = Region.US_WEST_2;
         S3Client s3Client = createS3Client(region);
         String zone = "usw2-az1";
-        String bucketName = "amzn-s3-demo-bucket-" + System.currentTimeMillis() + "--" + zone + "--x-s3";
+        String bucketName = "amzn-s3-demo-bucket"; // Replace with your bucket name.
         String objectKey = "example-object-2"; // your-object-key
         S3Presigner s3Presigner = createS3Presigner(region);
         Path filePath = getFilePath("directoryBucket/sample1.txt"); // path to your file

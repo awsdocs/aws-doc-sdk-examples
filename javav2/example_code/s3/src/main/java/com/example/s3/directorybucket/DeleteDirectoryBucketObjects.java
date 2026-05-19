@@ -99,7 +99,7 @@ public class DeleteDirectoryBucketObjects {
         Region region = Region.US_WEST_2;
         S3Client s3Client = createS3Client(region);
         String zone = "usw2-az1";
-        String bucketName = "amzn-s3-demo-bucket-" + System.currentTimeMillis() + "--" + zone + "--x-s3";
+        String bucketName = "amzn-s3-demo-bucket"; // Replace with your bucket name.
         List<String> objectKeys = List.of("example-object-1", "example-object-2"); // your-object-keys
         Path filePath1 = null;
         Path filePath2 = null;
