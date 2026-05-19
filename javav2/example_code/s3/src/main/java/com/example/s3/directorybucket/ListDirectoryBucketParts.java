@@ -98,7 +98,7 @@ public class ListDirectoryBucketParts {
         Region region = Region.US_WEST_2;
         S3Client s3Client = createS3Client(region);
         String zone = "usw2-az1";
-        String bucketName = "test-bucket-" + System.currentTimeMillis() + "--" + zone + "--x-s3";
+        String bucketName = "amzn-s3-demo-bucket-" + System.currentTimeMillis() + "--" + zone + "--x-s3";
         String objectKey = "largeObject"; // your-object-key
         String uploadId; // your-upload-id
         Path filePath = getFilePath("directoryBucket/sample-large-object.jpg"); // path to your file

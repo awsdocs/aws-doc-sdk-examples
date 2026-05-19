@@ -104,7 +104,7 @@ public class PutDirectoryBucketEncryption {
     public static void main(String[] args) {
         Region region = Region.US_WEST_2;
         String zone = "usw2-az1";
-        String bucketName = "test-bucket-" + System.currentTimeMillis() + "--" + zone + "--x-s3";
+        String bucketName = "amzn-s3-demo-bucket-" + System.currentTimeMillis() + "--" + zone + "--x-s3";
         S3Client s3Client = S3Client.builder().region(region).build();
         KmsClient kmsClient = createKmsClient(region);
         int waitingPeriodInDays = 7; // Set deletion window between 7 and 30 days

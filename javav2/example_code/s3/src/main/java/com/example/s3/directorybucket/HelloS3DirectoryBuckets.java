@@ -60,7 +60,7 @@ public class HelloS3DirectoryBuckets {
     private static final Logger logger = LoggerFactory.getLogger(HelloS3DirectoryBuckets.class);
 
     public static void main(String[] args) {
-        String bucketName = "test-bucket-" + System.currentTimeMillis() + "--usw2-az1--x-s3";
+        String bucketName = "amzn-s3-demo-bucket-" + System.currentTimeMillis() + "--usw2-az1--x-s3";
         Region region = Region.US_WEST_2;
         String zone = "usw2-az1";
         S3Client s3Client = createS3Client(region);
