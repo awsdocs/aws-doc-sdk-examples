@@ -89,7 +89,7 @@ public class ListDirectoryBuckets {
         S3Client s3Client = createS3Client(region);
         String zone = "usw2-az1";
         String bucketName = "amzn-s3-demo-bucket"; // Replace with your bucket name.
-        String generalPurposeBucketName = "amzn-s3-demo-bucket-" + UUID.randomUUID();
+        String generalPurposeBucketName = "amzn-s3-demo-bucket"; // Replace with your bucket name.
 
         try {
             // Create the directory bucket
