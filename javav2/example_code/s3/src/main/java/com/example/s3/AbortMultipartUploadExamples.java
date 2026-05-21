@@ -54,37 +54,36 @@ import static software.amazon.awssdk.transfer.s3.SizeConstant.KB;
  */
 
 public class AbortMultipartUploadExamples {
-    static final String bucketName = "amzn-s3-demo-bucket" + UUID.randomUUID(); // Change bucket name.
-    static final String key = UUID.randomUUID().toString();
+    static final S3Client s3Client = S3Client.create();
     static final String classPathFilePath = "/multipartUploadFiles/s3-userguide.pdf";
     static final String filePath = getFullFilePath(classPathFilePath);
-    static final S3Client s3Client = S3Client.create();
     private static final Logger logger = LoggerFactory.getLogger(AbortMultipartUploadExamples.class);
-    private static String accountId = getAccountId();
+    private static final String accountId = getAccountId();
 
     public static void main(String[] args) {
-        doAbortIncompleteMultipartUploadsFromList();
-        doAbortMultipartUploadUsingUploadId();
-        doAbortIncompleteMultipartUploadsOlderThan();
-        doAbortMultipartUploadsUsingLifecycleConfig();
-    }
+        String bucketName = "amzn-s3-demo-bucket"; // Replace with your bucket name.
+        String key = UUID.randomUUID().toString();
 
-    // A wrapper method that sets up the multipart upload environment for abortIncompleteMultipartUploadsFromList().
-    public static void doAbortIncompleteMultipartUploadsFromList() {
-        createBucket();
-        initiateAndInterruptMultiPartUpload("uploadThread");
-        abortIncompleteMultipartUploadsFromList();
-        deleteResources();
+        createBucket(bucketName);
+        try {
+            initiateAndInterruptMultiPartUpload(bucketName, key, "uploadThread");
+            abortIncompleteMultipartUploadsFromList(bucketName);
+            abortMultipartUploadUsingUploadId(bucketName, key);
+            abortMultipartUploadsUsingLifecycleConfig(bucketName);
+        } catch (S3Exception e) {
+            logger.error(e.getMessage());
+        } finally {
+            deleteResources(bucketName, key);
+        }
     }
 
     // snippet-start:[s3.java2.abort_upload_from_list]
     /**
      * Aborts all incomplete multipart uploads from the specified S3 bucket.
-     * <p>
-     * This method retrieves a list of all incomplete multipart uploads in the specified S3 bucket,
-     * and then aborts each of those uploads.
+     *
+     * @param bucketName the name of the S3 bucket
      */
-    public static void abortIncompleteMultipartUploadsFromList() {
+    public static void abortIncompleteMultipartUploadsFromList(String bucketName) {
         ListMultipartUploadsRequest listMultipartUploadsRequest = ListMultipartUploadsRequest.builder()
             .bucket(bucketName)
             .build();
@@ -109,16 +108,14 @@ public class AbortMultipartUploadExamples {
     }
     // snippet-end:[s3.java2.abort_upload_from_list]
 
-    // A wrapper method that sets up the multipart upload environment for abortIncompleteMultipartUploadsOlderThan().
-    static void doAbortIncompleteMultipartUploadsOlderThan() {
-        createBucket();
-        Instant secondUploadInstant = initiateAndInterruptTwoUploads();
-        abortIncompleteMultipartUploadsOlderThan(secondUploadInstant);
-        deleteResources();
-    }
-
     // snippet-start:[s3.java2.abort_upload_older_than]
-    static void abortIncompleteMultipartUploadsOlderThan(Instant pointInTime) {
+    /**
+     * Aborts incomplete multipart uploads older than the specified point in time.
+     *
+     * @param bucketName  the name of the S3 bucket
+     * @param pointInTime the cutoff time; uploads initiated before this are aborted
+     */
+    static void abortIncompleteMultipartUploadsOlderThan(String bucketName, Instant pointInTime) {
         ListMultipartUploadsRequest listMultipartUploadsRequest = ListMultipartUploadsRequest.builder()
             .bucket(bucketName)
             .build();
@@ -146,21 +143,15 @@ public class AbortMultipartUploadExamples {
     }
     // snippet-end:[s3.java2.abort_upload_older_than]
 
-    // A wrapper method that sets up the multipart upload environment for abortMultipartUploadUsingUploadId().
-    static void doAbortMultipartUploadUsingUploadId() {
-        createBucket();
-        try {
-            abortMultipartUploadUsingUploadId();
-        } catch (S3Exception e) {
-            logger.error(e.getMessage());
-        } finally {
-            deleteResources();
-        }
-    }
-
     // snippet-start:[s3.java2.abort_upload_using_upload_id]
-    static void abortMultipartUploadUsingUploadId() {
-        String uploadId = startUploadReturningUploadId();
+    /**
+     * Aborts a multipart upload using the upload ID.
+     *
+     * @param bucketName the name of the S3 bucket
+     * @param key        the object key
+     */
+    static void abortMultipartUploadUsingUploadId(String bucketName, String key) {
+        String uploadId = startUploadReturningUploadId(bucketName, key);
         AbortMultipartUploadResponse response = s3Client.abortMultipartUpload(b -> b
             .uploadId(uploadId)
             .bucket(bucketName)
@@ -172,20 +163,13 @@ public class AbortMultipartUploadExamples {
     }
     // snippet-end:[s3.java2.abort_upload_using_upload_id]
 
-    // A wrapper method that sets up the multipart upload environment for abortMultipartUploadsUsingLifecycleConfig().
-    static void doAbortMultipartUploadsUsingLifecycleConfig() {
-        createBucket();
-        try {
-            abortMultipartUploadsUsingLifecycleConfig();
-        } catch (S3Exception e) {
-            logger.error(e.getMessage());
-        } finally {
-            deleteResources();
-        }
-    }
-
     // snippet-start:[s3.java2.abort_upload_using_lifecycle_config]
-    static void abortMultipartUploadsUsingLifecycleConfig() {
+    /**
+     * Configures a lifecycle rule to abort incomplete multipart uploads after 7 days.
+     *
+     * @param bucketName the name of the S3 bucket
+     */
+    static void abortMultipartUploadsUsingLifecycleConfig(String bucketName) {
         Collection<LifecycleRule> lifeCycleRules = List.of(LifecycleRule.builder()
             .abortIncompleteMultipartUpload(b -> b.
                 daysAfterInitiation(7))
@@ -193,7 +177,6 @@ public class AbortMultipartUploadExamples {
             .filter(SdkBuilder::build) // Filter element is required.
             .build());
 
-        // If the action is successful, the service sends back an HTTP 200 response with an empty HTTP body.
         PutBucketLifecycleConfigurationResponse response = s3Client.putBucketLifecycleConfiguration(b -> b
             .bucket(bucketName)
             .lifecycleConfiguration(b1 -> b1.rules(lifeCycleRules)));
@@ -210,10 +193,10 @@ public class AbortMultipartUploadExamples {
      Multipart upload methods
      ***********************/
 
-    static void initiateAndInterruptMultiPartUpload(String threadName) {
+    static void initiateAndInterruptMultiPartUpload(String bucketName, String key, String threadName) {
         Runnable upload = () -> {
             try {
-                AbortMultipartUploadExamples.doMultipartUpload();
+                doMultipartUpload(bucketName, key);
             } catch (SdkException e) {
                 logger.error(e.getMessage());
             }
@@ -221,40 +204,39 @@ public class AbortMultipartUploadExamples {
         Thread uploadThread = new Thread(upload, threadName);
         uploadThread.start();
         try {
-            Thread.sleep(Duration.ofSeconds(1).toMillis()); // Give the multipart upload time to register.
+            Thread.sleep(Duration.ofSeconds(1).toMillis());
         } catch (InterruptedException e) {
             logger.error(e.getMessage());
         }
         uploadThread.interrupt();
     }
 
-    static Instant initiateAndInterruptTwoUploads() {
-        Instant firstUploadInstant = Instant.now();
-        initiateAndInterruptMultiPartUpload("uploadThread1");
+    static Instant initiateAndInterruptTwoUploads(String bucketName, String key) {
+        initiateAndInterruptMultiPartUpload(bucketName, key, "uploadThread1");
         try {
             Thread.sleep(Duration.ofSeconds(5).toMillis());
         } catch (InterruptedException e) {
             logger.error(e.getMessage());
         }
         Instant secondUploadInstant = Instant.now();
-        initiateAndInterruptMultiPartUpload("uploadThread2");
+        initiateAndInterruptMultiPartUpload(bucketName, key, "uploadThread2");
         return secondUploadInstant;
     }
 
-    static void doMultipartUpload() {
-        String uploadId = step1CreateMultipartUpload();
-        List<CompletedPart> completedParts = step2UploadParts(uploadId);
-        step3CompleteMultipartUpload(uploadId, completedParts);
+    static void doMultipartUpload(String bucketName, String key) {
+        String uploadId = step1CreateMultipartUpload(bucketName, key);
+        List<CompletedPart> completedParts = step2UploadParts(bucketName, key, uploadId);
+        step3CompleteMultipartUpload(bucketName, key, uploadId, completedParts);
     }
 
-    static String step1CreateMultipartUpload() {
+    static String step1CreateMultipartUpload(String bucketName, String key) {
         CreateMultipartUploadResponse createMultipartUploadResponse = s3Client.createMultipartUpload(b -> b
             .bucket(bucketName)
             .key(key));
         return createMultipartUploadResponse.uploadId();
     }
 
-    static List<CompletedPart> step2UploadParts(String uploadId) {
+    static List<CompletedPart> step2UploadParts(String bucketName, String key, String uploadId) {
         int partNumber = 1;
         List<CompletedPart> completedParts = new ArrayList<>();
         ByteBuffer bb = ByteBuffer.allocate(Long.valueOf(1024 * KB).intValue());
@@ -266,7 +248,7 @@ public class AbortMultipartUploadExamples {
                 file.seek(position);
                 long read = file.getChannel().read(bb);
 
-                bb.flip(); // Swap position and limit before reading from the buffer.
+                bb.flip();
                 UploadPartRequest uploadPartRequest = UploadPartRequest.builder()
                     .bucket(bucketName)
                     .key(key)
@@ -296,7 +278,7 @@ public class AbortMultipartUploadExamples {
         return completedParts;
     }
 
-    static void step3CompleteMultipartUpload(String uploadId, List<CompletedPart> completedParts) {
+    static void step3CompleteMultipartUpload(String bucketName, String key, String uploadId, List<CompletedPart> completedParts) {
         s3Client.completeMultipartUpload(b -> b
             .bucket(bucketName)
             .key(key)
@@ -304,18 +286,17 @@ public class AbortMultipartUploadExamples {
             .multipartUpload(CompletedMultipartUpload.builder().parts(completedParts).build()));
     }
 
-    static String startUploadReturningUploadId() {
-        String uploadId = step1CreateMultipartUpload();
-        doMultipartUploadWithUploadId(uploadId);
+    static String startUploadReturningUploadId(String bucketName, String key) {
+        String uploadId = step1CreateMultipartUpload(bucketName, key);
+        doMultipartUploadWithUploadId(bucketName, key, uploadId);
         return uploadId;
-
     }
 
-    static void doMultipartUploadWithUploadId(String uploadId) {
+    static void doMultipartUploadWithUploadId(String bucketName, String key, String uploadId) {
         new Thread(() -> {
             try {
-                List<CompletedPart> completedParts = step2UploadParts(uploadId);
-                step3CompleteMultipartUpload(uploadId, completedParts);
+                List<CompletedPart> completedParts = step2UploadParts(bucketName, key, uploadId);
+                step3CompleteMultipartUpload(bucketName, key, uploadId, completedParts);
             } catch (SdkException e) {
                 logger.error(e.getMessage());
             }
@@ -332,7 +313,7 @@ public class AbortMultipartUploadExamples {
      Resource handling methods
      ************************/
 
-    static void createBucket() {
+    static void createBucket(String bucketName) {
         logger.info("Creating bucket: [{}]", bucketName);
         s3Client.createBucket(b -> b.bucket(bucketName));
         try (S3Waiter s3Waiter = s3Client.waiter()) {
@@ -341,7 +322,7 @@ public class AbortMultipartUploadExamples {
         logger.info("Bucket created.");
     }
 
-    static void deleteResources() {
+    static void deleteResources(String bucketName, String key) {
         logger.info("Deleting resources ...");
         s3Client.deleteObject(b -> b.bucket(bucketName).key(key));
         s3Client.deleteBucket(b -> b.bucket(bucketName));

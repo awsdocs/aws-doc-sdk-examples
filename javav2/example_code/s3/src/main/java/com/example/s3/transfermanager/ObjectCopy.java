@@ -27,22 +27,27 @@ import java.util.UUID;
 
 public class ObjectCopy {
     private static final Logger logger = LoggerFactory.getLogger(ObjectCopy.class);
-    public final String bucketName = "s3-demo-bucket" + UUID.randomUUID(); // Change bucket name.
-    public final String key = UUID.randomUUID().toString();
-    public final String destinationBucket = "s3-demo-bucket-" + UUID.randomUUID();
-    public final String destinationKey = UUID.randomUUID().toString();
-
-    public ObjectCopy() {
-        setUp();
-    }
 
     public static void main(String[] args) {
-        ObjectCopy copy = new ObjectCopy();
+        String bucketName = "amzn-s3-demo-bucket"; // Replace with your bucket name.
+        String key = UUID.randomUUID().toString();
+        String destinationBucket = "amzn-s3-demo-destination-bucket"; // Replace with your destination bucket name.
+        String destinationKey = UUID.randomUUID().toString();
 
-        String etag = copy.copyObject(S3ClientFactory.transferManager, copy.bucketName,
-                copy.key, copy.destinationBucket, copy.destinationKey);
-        logger.info("etag [{}]", etag);
-        copy.cleanUp();
+        // Set up: create buckets and upload source object.
+        S3ClientFactory.s3Client.createBucket(b -> b.bucket(bucketName));
+        S3ClientFactory.s3Client.putObject(builder -> builder
+                .bucket(bucketName)
+                .key(key), RequestBody.fromString("Hello World"));
+        S3ClientFactory.s3Client.createBucket(b -> b.bucket(destinationBucket));
+
+        try {
+            ObjectCopy copy = new ObjectCopy();
+            String etag = copy.copyObject(S3ClientFactory.transferManager, bucketName, key, destinationBucket, destinationKey);
+            logger.info("etag [{}]", etag);
+        } finally {
+            cleanUp(bucketName, key, destinationBucket, destinationKey);
+        }
     }
 
     // snippet-start:[s3.tm.java2.objectcopy.main]
@@ -66,15 +71,7 @@ public class ObjectCopy {
     }
     // snippet-end:[s3.tm.java2.objectcopy.main]
 
-    private void setUp() {
-        S3ClientFactory.s3Client.createBucket(b -> b.bucket(bucketName));
-        S3ClientFactory.s3Client.putObject(builder -> builder
-                .bucket(bucketName)
-                .key(key), RequestBody.fromString("Hello World"));
-        S3ClientFactory.s3Client.createBucket(b -> b.bucket(destinationBucket));
-    }
-
-    public void cleanUp() {
+    public static void cleanUp(String bucketName, String key, String destinationBucket, String destinationKey) {
         S3ClientFactory.s3Client.deleteObject(b -> b.bucket(bucketName).key(key));
         S3ClientFactory.s3Client.deleteBucket(b -> b.bucket(bucketName));
         S3ClientFactory.s3Client.deleteObject(b -> b.bucket(destinationBucket).key(destinationKey));

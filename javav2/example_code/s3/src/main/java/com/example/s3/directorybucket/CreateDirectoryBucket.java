@@ -88,7 +88,7 @@ public class CreateDirectoryBucket {
     // snippet-end:[s3directorybuckets.java2.directory_bucket_create_bucket.main]
 
     public static void main(String[] args) {
-        String bucketName = "test-bucket-" + System.currentTimeMillis() + "--usw2-az1--x-s3";
+        String bucketName = "amzn-s3-demo-bucket"; // Replace with your bucket name.
         Region region = Region.US_WEST_2;
         String zone = "usw2-az1";
         S3Client s3Client = createS3Client(region);

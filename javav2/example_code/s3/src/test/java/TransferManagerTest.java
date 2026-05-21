@@ -28,10 +28,20 @@ import org.opentest4j.AssertionFailedError;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.core.exception.SdkException;
+import software.amazon.awssdk.core.sync.RequestBody;
+import software.amazon.awssdk.services.s3.model.ObjectIdentifier;
 import software.amazon.awssdk.transfer.s3.S3TransferManager;
 import software.amazon.awssdk.transfer.s3.model.CompletedUpload;
 
+import java.io.IOException;
+import java.net.URI;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -54,22 +64,37 @@ class TransferManagerTest {
     @Test
     @Tag("IntegrationTest")
     public void uploadSingleFileWorks() {
-        UploadFile upload = new UploadFile();
-        String etag = upload.uploadFile(S3ClientFactory.transferManager, upload.bucketName, upload.key, upload.filePathURI);
-        Assertions.assertNotNull(etag);
-        upload.cleanUp();
+        String bucketName = "x-" + UUID.randomUUID();
+        String key = UUID.randomUUID().toString();
+        URI filePathURI = UploadFile.getFilePathURI();
+
+        S3ClientFactory.s3Client.createBucket(b -> b.bucket(bucketName));
+        try {
+            UploadFile upload = new UploadFile();
+            String etag = upload.uploadFile(S3ClientFactory.transferManager, bucketName, key, filePathURI);
+            Assertions.assertNotNull(etag);
+        } finally {
+            S3ClientFactory.s3Client.deleteObject(b -> b.bucket(bucketName).key(key));
+            S3ClientFactory.s3Client.deleteBucket(b -> b.bucket(bucketName));
+        }
     }
 
     @Test
     @Tag("IntegrationTest")
     public void trackUploadFileWorks() {
-        UploadFile upload = new UploadFile();
+        String bucketName = "x-" + UUID.randomUUID();
+        String key = UUID.randomUUID().toString();
+        URI filePathURI = UploadFile.getFilePathURI();
+
+        S3ClientFactory.s3Client.createBucket(b -> b.bucket(bucketName));
         try {
-            upload.trackUploadFile(S3ClientFactory.transferManager, upload.bucketName, upload.key, upload.filePathURI);
+            UploadFile upload = new UploadFile();
+            upload.trackUploadFile(S3ClientFactory.transferManager, bucketName, key, filePathURI);
         } catch (SdkException | AssertionFailedError e) {
             logger.error(e.getMessage());
         } finally {
-            upload.cleanUp();
+            S3ClientFactory.s3Client.deleteObject(b -> b.bucket(bucketName).key(key));
+            S3ClientFactory.s3Client.deleteBucket(b -> b.bucket(bucketName));
         }
         Assertions.assertTrue(getLoggedMessages().contains(LOGGED_STRING_TO_CHECK));
     }
@@ -77,52 +102,108 @@ class TransferManagerTest {
     @Test
     @Tag("IntegrationTest")
     public void downloadSingleFileWorks() {
-        DownloadFile download = new DownloadFile();
-        Long fileLength = download.downloadFile(S3ClientFactory.transferManager, download.bucketName, download.key, download.downloadedFileWithPath);
-        Assertions.assertNotEquals(0L, fileLength);
-        download.cleanUp();
+        String bucketName = "x-" + UUID.randomUUID();
+        String key = UUID.randomUUID().toString();
+        String downloadedFileWithPath = DownloadFile.getDownloadFilePath("downloaded.pdf");
+
+        S3ClientFactory.s3Client.createBucket(b -> b.bucket(bucketName));
+        try {
+            S3ClientFactory.s3Client.putObject(builder -> builder
+                    .bucket(bucketName).key(key),
+                    RequestBody.fromFile(Paths.get(UploadFile.getFilePathURI())));
+
+            DownloadFile download = new DownloadFile();
+            Long fileLength = download.downloadFile(S3ClientFactory.transferManager, bucketName, key, downloadedFileWithPath);
+            Assertions.assertNotEquals(0L, fileLength);
+        } finally {
+            DownloadFile.cleanUp(bucketName, key, downloadedFileWithPath);
+        }
     }
 
     @Test
     @Tag("IntegrationTest")
     public void trackDownloadFileWorks() {
-        DownloadFile download = new DownloadFile();
+        String bucketName = "x-" + UUID.randomUUID();
+        String key = UUID.randomUUID().toString();
+        String downloadedFileWithPath = DownloadFile.getDownloadFilePath("downloaded.pdf");
+
+        S3ClientFactory.s3Client.createBucket(b -> b.bucket(bucketName));
         try {
-            download.trackDownloadFile(S3ClientFactory.transferManager, download.bucketName, download.key, download.downloadedFileWithPath);
-        } catch (SdkException e){
+            S3ClientFactory.s3Client.putObject(builder -> builder
+                    .bucket(bucketName).key(key),
+                    RequestBody.fromFile(Paths.get(UploadFile.getFilePathURI())));
+
+            DownloadFile download = new DownloadFile();
+            download.trackDownloadFile(S3ClientFactory.transferManager, bucketName, key, downloadedFileWithPath);
+        } catch (SdkException e) {
             logger.error(e.getMessage());
         } finally {
-            download.cleanUp();
+            DownloadFile.cleanUp(bucketName, key, downloadedFileWithPath);
         }
         Assertions.assertTrue(getLoggedMessages().contains(LOGGED_STRING_TO_CHECK));
     }
 
-
     @Test
     @Tag("IntegrationTest")
     public void copyObjectWorks() {
-        ObjectCopy copy = new ObjectCopy();
-        String etag = copy.copyObject(S3ClientFactory.transferManager, copy.bucketName, copy.key, copy.destinationBucket, copy.destinationKey);
-        Assertions.assertNotNull(etag);
-        copy.cleanUp();
+        String bucketName = "x-" + UUID.randomUUID();
+        String key = UUID.randomUUID().toString();
+        String destinationBucket = "x-" + UUID.randomUUID();
+        String destinationKey = UUID.randomUUID().toString();
+
+        S3ClientFactory.s3Client.createBucket(b -> b.bucket(bucketName));
+        S3ClientFactory.s3Client.putObject(builder -> builder
+                .bucket(bucketName).key(key), RequestBody.fromString("Hello World"));
+        S3ClientFactory.s3Client.createBucket(b -> b.bucket(destinationBucket));
+
+        try {
+            ObjectCopy copy = new ObjectCopy();
+            String etag = copy.copyObject(S3ClientFactory.transferManager, bucketName, key, destinationBucket, destinationKey);
+            Assertions.assertNotNull(etag);
+        } finally {
+            ObjectCopy.cleanUp(bucketName, key, destinationBucket, destinationKey);
+        }
     }
 
     @Test
     @Tag("IntegrationTest")
     public void directoryUploadWorks() {
-        UploadADirectory upload = new UploadADirectory();
-        Integer numFailedUploads = upload.uploadDirectory(S3ClientFactory.transferManager, upload.sourceDirectory, upload.bucketName);
-        Assertions.assertNotNull(numFailedUploads, "Bucket download failed to complete.");
-        upload.cleanUp();
+        String bucketName = "x-" + UUID.randomUUID();
+        URI sourceDirectory = UploadADirectory.getSourceDirectoryURI();
+
+        S3ClientFactory.s3Client.createBucket(b -> b.bucket(bucketName));
+        try {
+            UploadADirectory upload = new UploadADirectory();
+            Integer numFailedUploads = upload.uploadDirectory(S3ClientFactory.transferManager, sourceDirectory, bucketName);
+            Assertions.assertNotNull(numFailedUploads, "Bucket download failed to complete.");
+        } finally {
+            UploadADirectory.cleanUp(bucketName);
+        }
     }
 
     @Test
     @Tag("IntegrationTest")
     public void directoryDownloadWorks() {
-        DownloadToDirectory download = new DownloadToDirectory();
-        Integer numFilesFailedToDownload = download.downloadObjectsToDirectory(S3ClientFactory.transferManager, download.destinationPathURI, download.bucketName);
-        Assertions.assertNotNull(numFilesFailedToDownload, "Bucket download failed to complete.");
-        download.cleanUp();
+        String bucketName = "x-" + UUID.randomUUID();
+        URI destinationPathURI = DownloadToDirectory.getDestinationURI();
+        Set<String> uploadedFiles = new HashSet<>();
+
+        S3ClientFactory.s3Client.createBucket(b -> b.bucket(bucketName));
+        RequestBody requestBody = RequestBody.fromString("Hello World.");
+        java.util.stream.IntStream.rangeClosed(1, 3).forEach(i -> {
+            String fileName = "downloadedFile" + i + ".txt";
+            uploadedFiles.add(fileName);
+            S3ClientFactory.s3Client.putObject(b -> b.bucket(bucketName).key(fileName), requestBody);
+        });
+
+        try {
+            DownloadToDirectory download = new DownloadToDirectory();
+            Integer numFilesFailedToDownload = download.downloadObjectsToDirectory(
+                    S3ClientFactory.transferManager, destinationPathURI, bucketName);
+            Assertions.assertNotNull(numFilesFailedToDownload, "Bucket download failed to complete.");
+        } finally {
+            DownloadToDirectory.cleanUp(bucketName, uploadedFiles, destinationPathURI);
+        }
     }
 
     @Test
@@ -148,10 +229,19 @@ class TransferManagerTest {
     @Test
     @Tag("IntegrationTest")
     public void s3DirectoriesDownloadWorks() {
-        S3DirectoriesDownloader downloader = new S3DirectoriesDownloader();
-        Integer numFilesDownloaded = downloader.downloadS3Directories(S3ClientFactory.transferManager, downloader.destinationPathURI, downloader.bucketName);
-        Assertions.assertEquals(6, numFilesDownloaded);
-        downloader.cleanUp();
+        String bucketName = "x-" + UUID.randomUUID();
+        URI destinationPathURI = S3DirectoriesDownloader.getDestinationURI();
+        Set<String> uploadedFiles = new HashSet<>();
+
+        S3DirectoriesDownloader.setUp(bucketName, uploadedFiles);
+        try {
+            S3DirectoriesDownloader downloader = new S3DirectoriesDownloader();
+            Integer numFilesDownloaded = downloader.downloadS3Directories(
+                    S3ClientFactory.transferManager, destinationPathURI, bucketName);
+            Assertions.assertEquals(6, numFilesDownloaded);
+        } finally {
+            S3DirectoriesDownloader.cleanUp(bucketName, uploadedFiles, destinationPathURI);
+        }
     }
 
     private String getLoggedMessages() {

@@ -92,8 +92,8 @@ public class CopyDirectoryBucketObject {
         Region region = Region.US_WEST_2;
         S3Client s3Client = createS3Client(region);
         String zone = "usw2-az1";
-        String sourceDirectoryBucket = "test-source-bucket-" + System.currentTimeMillis() + "--" + zone + "--x-s3";
-        String targetDirectoryBucket = "test-destination-bucket-" + System.currentTimeMillis() + "--" + zone + "--x-s3";
+        String sourceDirectoryBucket = "amzn-s3-demo-bucket"; // Replace with your bucket name.
+        String targetDirectoryBucket = "amzn-s3-demo-bucket"; // Replace with your bucket name.
         String objectKey = "example-object"; // your-object-key
         Path filePath = getFilePath("directoryBucket/sample1.txt");
 

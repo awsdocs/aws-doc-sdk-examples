@@ -27,7 +27,6 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.IntStream;
 import java.util.Set;
-import java.util.UUID;
 import java.util.stream.Collectors;
 // snippet-end:[s3.tm.java2.download-s3-directories.import]
 
@@ -42,28 +41,25 @@ import java.util.stream.Collectors;
 
 public class S3DirectoriesDownloader {
     private static final Logger logger = LoggerFactory.getLogger(S3DirectoriesDownloader.class);
-    public final String bucketName = "junk-s3-demo-bucket" + UUID.randomUUID(); // Change bucket name.
-    public URI destinationPathURI;
-    private final Set<String> downloadedFileNameSet = new HashSet<>();
-    private final String destinationDirName = "downloadDirectory";
-    private final List<String> folderNames = List.of("folder1", "folder2", "folder3");
-    private final List<String> filterFolderNames = List.of("folder1",  "folder3");
-
-    public S3DirectoriesDownloader() {
-        setUp();
-    }
+    private static final String DESTINATION_DIR_NAME = "downloadDirectory";
+    private static final List<String> FOLDER_NAMES = List.of("folder1", "folder2", "folder3");
+    private static final List<String> FILTER_FOLDER_NAMES = List.of("folder1", "folder3");
 
     public static void main(String[] args) {
-        S3DirectoriesDownloader downloader = new S3DirectoriesDownloader();
-        Integer numFilesFailedToDownload = null;
+        String bucketName = "amzn-s3-demo-bucket"; // Replace with your bucket name.
+        URI destinationPathURI = getDestinationURI();
+        Set<String> uploadedFiles = new HashSet<>();
+
+        setUp(bucketName, uploadedFiles);
         try {
-            numFilesFailedToDownload = downloader.downloadS3Directories(S3ClientFactory.transferManager,
-                    downloader.destinationPathURI, downloader.bucketName);
-            logger.info("Number of files that failed to download [{}].", numFilesFailedToDownload);
+            S3DirectoriesDownloader downloader = new S3DirectoriesDownloader();
+            Integer numFilesDownloaded = downloader.downloadS3Directories(
+                    S3ClientFactory.transferManager, destinationPathURI, bucketName);
+            logger.info("Number of files downloaded [{}].", numFilesDownloaded);
         } catch (Exception e) {
             logger.error("Exception [{}]", e.getMessage(), e);
         } finally {
-            downloader.cleanUp();
+            cleanUp(bucketName, uploadedFiles, destinationPathURI);
         }
     }
 
@@ -138,63 +134,64 @@ public class S3DirectoriesDownloader {
     }
     // snippet-end:[s3.tm.java2.download-s3-directories.main]
 
-    private void setUp() {
+    public static URI getDestinationURI() {
+        try {
+            return S3DirectoriesDownloader.class.getClassLoader().getResource(DESTINATION_DIR_NAME).toURI();
+        } catch (URISyntaxException | NullPointerException e) {
+            logger.error("Exception creating URI [{}]", e.getMessage());
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void setUp(String bucketName, Set<String> uploadedFiles) {
         S3ClientFactory.s3Client.createBucket(b -> b.bucket(bucketName));
         S3ClientFactory.s3Waiter.waitUntilBucketExists(r -> r.bucket(bucketName));
 
         RequestBody requestBody = RequestBody.fromString("Hello World.");
 
-        folderNames.forEach(folderName ->
+        FOLDER_NAMES.forEach(folderName ->
                 IntStream.rangeClosed(1, 3).forEach(i -> {
                     String fileName = folderName + "/" + "file" + i + ".txt";
-                    downloadedFileNameSet.add(fileName);
+                    uploadedFiles.add(fileName);
                     S3ClientFactory.s3Client.putObject(b -> b
                                     .bucket(bucketName)
                                     .key(fileName),
                             requestBody);
                 }));
-        try {
-            destinationPathURI = S3DirectoriesDownloader.class.getClassLoader().getResource(destinationDirName).toURI();
-        } catch (URISyntaxException | NullPointerException e) {
-            logger.error("Exception creating URI [{}]", e.getMessage());
-            System.exit(1);
-        }
     }
 
-    public void cleanUp() {
-        // Delete items uploaded to bucket for download.
-        Set<ObjectIdentifier> items = downloadedFileNameSet
-                .stream()
+    public static void cleanUp(String bucketName, Set<String> uploadedFiles, URI destinationPathURI) {
+        // Delete items uploaded to bucket.
+        Set<ObjectIdentifier> items = uploadedFiles.stream()
                 .map(name -> ObjectIdentifier.builder().key(name).build())
                 .collect(Collectors.toSet());
 
         S3ClientFactory.s3Client.deleteObjects(b -> b
                 .bucket(bucketName)
                 .delete(b1 -> b1.objects(items)));
-        // Delete bucket.
         S3ClientFactory.s3Client.deleteBucket(b -> b.bucket(bucketName));
 
-        // Delete files downloaded.
+        // Delete downloaded files.
         Predicate<String> filterFolder1 = key -> key.startsWith("folder1");
         Predicate<String> filterFolder3 = key -> key.startsWith("folder3");
         Predicate<String> filterForFolders = filterFolder1.or(filterFolder3);
 
-        downloadedFileNameSet.stream()
+        uploadedFiles.stream()
                 .filter(filterForFolders)
                 .forEach(fileName -> {
                     try {
                         Path basePath = Paths.get(destinationPathURI);
                         Path fullPath = basePath.resolve(fileName);
-                        Files.delete(fullPath);
+                        Files.deleteIfExists(fullPath);
                     } catch (IOException e) {
                         logger.error("Exception deleting file [{}]", fileName);
                     }
                 });
-        filterFolderNames.forEach(folderName -> {
+        FILTER_FOLDER_NAMES.forEach(folderName -> {
             try {
                 Path basePath = Paths.get(destinationPathURI);
                 Path fullPath = basePath.resolve(folderName);
-                Files.delete(fullPath);
+                Files.deleteIfExists(fullPath);
             } catch (IOException e) {
                 logger.error("Exception deleting folder [{}]", folderName);
             }

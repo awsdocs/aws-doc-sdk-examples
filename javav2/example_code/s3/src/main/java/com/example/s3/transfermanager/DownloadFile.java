@@ -36,21 +36,28 @@ import java.util.UUID;
  */
 
 public class DownloadFile {
-    private static final Logger logger = LoggerFactory.getLogger(UploadFile.class);
-    public final String bucketName = "s3-demo-bucket" + UUID.randomUUID(); // Change bucket name.
-    public final String key = UUID.randomUUID().toString();
-    private final String downloadedFileName = "downloaded.pdf";
-    public String downloadedFileWithPath;
-
-    public DownloadFile() {
-        setUp();
-    }
+    private static final Logger logger = LoggerFactory.getLogger(DownloadFile.class);
 
     public static void main(String[] args) {
-        DownloadFile download = new DownloadFile();
-        download.downloadFile(S3ClientFactory.transferManager, download.bucketName, download.key,
-                download.downloadedFileWithPath);
-        download.cleanUp();
+        String bucketName = "amzn-s3-demo-bucket"; // Replace with your bucket name.
+        String key = UUID.randomUUID().toString();
+        String downloadedFileWithPath = getDownloadFilePath("downloaded.pdf");
+
+        // Set up: create bucket and upload a file to download.
+        S3ClientFactory.s3Client.createBucket(b -> b.bucket(bucketName));
+        try {
+            S3ClientFactory.s3Client.putObject(builder -> builder
+                    .bucket(bucketName)
+                    .key(key), RequestBody.fromFile(Paths.get(
+                    DownloadFile.class.getClassLoader().getResource("multipartUploadFiles/s3-userguide.pdf").toURI())));
+
+            DownloadFile download = new DownloadFile();
+            download.downloadFile(S3ClientFactory.transferManager, bucketName, key, downloadedFileWithPath);
+        } catch (URISyntaxException e) {
+            logger.error("Exception creating URI [{}]", e.getMessage());
+        } finally {
+            cleanUp(bucketName, key, downloadedFileWithPath);
+        }
     }
 
     // snippet-start:[s3.tm.java2.downloadfile.main]
@@ -110,35 +117,25 @@ public class DownloadFile {
     }
     // snippet-end:[s3.tm.java2.trackdownloadfile.main]
 
-
-    private void setUp() {
-        S3ClientFactory.s3Client.createBucket(b -> b.bucket(bucketName));
+    public static String getDownloadFilePath(String fileName) {
+        URL resource = DownloadFile.class.getClassLoader().getResource(".");
         try {
-            S3ClientFactory.s3Client.putObject(builder -> builder
-                    .bucket(bucketName)
-                    .key(key), RequestBody.fromFile(Paths.get(
-                    DownloadFile.class.getClassLoader().getResource("multipartUploadFiles/s3-userguide.pdf").toURI())));
-            URL resource = DownloadFile.class.getClassLoader().getResource(".");
             Path basePath = Paths.get(resource.toURI());
-            Path fullPath = basePath.resolve(downloadedFileName);
-            downloadedFileWithPath = fullPath.toString();
-        } catch (URISyntaxException | NullPointerException e) {
-            logger.error("Exception creating URI [{}]", e.getMessage());
-            System.exit(1);
+            return basePath.resolve(fileName).toString();
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
         }
     }
 
-    public void cleanUp() {
+    public static void cleanUp(String bucketName, String key, String downloadedFileWithPath) {
         try {
             S3ClientFactory.s3Client.deleteObject(b -> b.bucket(bucketName).key(key));
             S3ClientFactory.s3Client.deleteBucket(b -> b.bucket(bucketName));
 
-            // Directly use the downloadedFileWithPath
             if (downloadedFileWithPath != null && !downloadedFileWithPath.isEmpty()) {
                 Path filePath = Paths.get(downloadedFileWithPath);
                 try {
                     Files.deleteIfExists(filePath);
-                    System.out.println("File deleted successfully");
                 } catch (NoSuchFileException e) {
                     System.err.println("The file wasn't found: " + e.getMessage());
                 } catch (IOException e) {
@@ -149,5 +146,4 @@ public class DownloadFile {
             System.err.println("S3 operation failed: " + e.getMessage());
         }
     }
-
 }

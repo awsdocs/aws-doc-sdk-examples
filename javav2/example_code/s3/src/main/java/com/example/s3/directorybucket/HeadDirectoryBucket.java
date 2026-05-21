@@ -80,7 +80,7 @@ public class HeadDirectoryBucket {
         Region region = Region.US_WEST_2;
         S3Client s3Client = createS3Client(region);
         String zone = "usw2-az1";
-        String bucketName = "test-bucket-" + System.currentTimeMillis() + "--" + zone + "--x-s3";
+        String bucketName = "amzn-s3-demo-bucket"; // Replace with your bucket name.
 
         try {
             // Create the directory bucket
