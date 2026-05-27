@@ -83,8 +83,9 @@ func StubCreateMultipartUpload(bucketName string, objectKey string, uploadId str
 	return testtools.Stub{
 		OperationName: "CreateMultipartUpload",
 		Input: &s3.CreateMultipartUploadInput{
-			Bucket: aws.String(bucketName),
-			Key:    aws.String(objectKey),
+			Bucket:            aws.String(bucketName),
+			Key:               aws.String(objectKey),
+			ChecksumAlgorithm: types.ChecksumAlgorithmCrc32,
 		},
 		Output: &s3.CreateMultipartUploadOutput{
 			Bucket:   aws.String(bucketName),
@@ -100,9 +101,10 @@ func StubUploadPart(bucketName string, objectKey string, uploadId string,
 	return testtools.Stub{
 		OperationName: "UploadPart",
 		Input: &s3.UploadPartInput{
-			Bucket:   aws.String(bucketName),
-			Key:      aws.String(objectKey),
-			UploadId: aws.String(uploadId),
+			Bucket:            aws.String(bucketName),
+			Key:               aws.String(objectKey),
+			UploadId:          aws.String(uploadId),
+			ChecksumAlgorithm: types.ChecksumAlgorithmCrc32,
 		},
 		Output:        &s3.UploadPartOutput{},
 		SkipErrorTest: true,
@@ -137,12 +139,32 @@ func StubGetObject(bucketName string, objectKey string, byteRange *string, body 
 	return testtools.Stub{
 		OperationName: "GetObject",
 		Input: &s3.GetObjectInput{
-			Bucket: aws.String(bucketName),
-			Key:    aws.String(objectKey),
-			Range:  byteRange,
+			Bucket:       aws.String(bucketName),
+			Key:          aws.String(objectKey),
+			Range:        byteRange,
+			ChecksumMode: types.ChecksumModeEnabled,
 		},
 		Output: &s3.GetObjectOutput{
 			Body: body,
+		},
+		Error:        raiseErr,
+		IgnoreFields: []string{"PartNumber"},
+	}
+}
+
+func StubGetObjectByPart(bucketName string, objectKey string, partNumber int32, partsCount int32, contentLength int64, body io.ReadCloser, raiseErr *testtools.StubError) testtools.Stub {
+	return testtools.Stub{
+		OperationName: "GetObject",
+		Input: &s3.GetObjectInput{
+			Bucket:       aws.String(bucketName),
+			Key:          aws.String(objectKey),
+			PartNumber:   aws.Int32(partNumber),
+			ChecksumMode: types.ChecksumModeEnabled,
+		},
+		Output: &s3.GetObjectOutput{
+			Body:          body,
+			PartsCount:    aws.Int32(partsCount),
+			ContentLength: aws.Int64(contentLength),
 		},
 		Error: raiseErr,
 	}
@@ -217,7 +239,7 @@ func StubPresignedRequest(method string, bucketName string, objectKey string, ra
 		input = &s3.PutObjectInput{Bucket: aws.String(bucketName), Key: aws.String(objectKey)}
 	case "GET":
 		opName = "GetObject"
-		input = &s3.GetObjectInput{Bucket: aws.String(bucketName), Key: aws.String(objectKey)}
+		input = &s3.GetObjectInput{Bucket: aws.String(bucketName), Key: aws.String(objectKey), ChecksumMode: types.ChecksumModeEnabled}
 	case "DELETE":
 		opName = "DeleteObject"
 		input = &s3.DeleteObjectInput{Bucket: aws.String(bucketName), Key: aws.String(objectKey)}

@@ -14,7 +14,7 @@ import (
 	"s3_object_lock/actions"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
-	"github.com/aws/aws-sdk-go-v2/feature/s3/manager"
+	"github.com/aws/aws-sdk-go-v2/feature/s3/transfermanager"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 	"github.com/aws/aws-sdk-go-v2/service/s3/types"
 	"github.com/awsdocs/aws-doc-sdk-examples/gov2/demotools"
@@ -36,7 +36,7 @@ func NewObjectLockScenario(sdkConfig aws.Config, questioner demotools.IQuestione
 		s3Actions:  &actions.S3Actions{S3Client: s3.NewFromConfig(sdkConfig)},
 		sdkConfig:  sdkConfig,
 	}
-	scenario.s3Actions.S3Manager = manager.NewUploader(scenario.s3Actions.S3Client)
+	scenario.s3Actions.S3Manager = transfermanager.New(scenario.s3Actions.S3Client)
 	scenario.resources.init(scenario.s3Actions, questioner)
 	return scenario
 }

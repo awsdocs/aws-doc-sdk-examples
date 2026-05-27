@@ -15,7 +15,8 @@ import (
 	"time"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
-	"github.com/aws/aws-sdk-go-v2/feature/s3/manager"
+	"github.com/aws/aws-sdk-go-v2/feature/s3/transfermanager"
+	tmtypes "github.com/aws/aws-sdk-go-v2/feature/s3/transfermanager/types"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 	"github.com/aws/aws-sdk-go-v2/service/s3/types"
 	"github.com/aws/smithy-go"
@@ -24,7 +25,7 @@ import (
 // S3Actions wraps S3 service actions.
 type S3Actions struct {
 	S3Client  *s3.Client
-	S3Manager *manager.Uploader
+	S3Manager *transfermanager.Client
 }
 
 // snippet-end:[gov2.workflows.s3.ObjectLock.S3Actions.struct]
@@ -303,16 +304,16 @@ func (actor S3Actions) PutObjectRetention(ctx context.Context, bucket string, ke
 
 // snippet-start:[gov2.workflows.s3.ObjectLock.UploadObject]
 
-// UploadObject uses the S3 upload manager to upload an object to a bucket.
+// UploadObject uses the S3 transfer manager to upload an object to a bucket.
 func (actor S3Actions) UploadObject(ctx context.Context, bucket string, key string, contents string) (string, error) {
 	var outKey string
-	input := &s3.PutObjectInput{
+	input := &transfermanager.UploadObjectInput{
 		Bucket:            aws.String(bucket),
 		Key:               aws.String(key),
 		Body:              bytes.NewReader([]byte(contents)),
-		ChecksumAlgorithm: types.ChecksumAlgorithmSha256,
+		ChecksumAlgorithm: tmtypes.ChecksumAlgorithmSha256,
 	}
-	output, err := actor.S3Manager.Upload(ctx, input)
+	output, err := actor.S3Manager.UploadObject(ctx, input)
 	if err != nil {
 		var noBucket *types.NoSuchBucket
 		if errors.As(err, &noBucket) {

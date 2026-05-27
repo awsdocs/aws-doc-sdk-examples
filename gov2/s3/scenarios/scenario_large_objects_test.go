@@ -7,14 +7,11 @@ package scenarios
 
 import (
 	"context"
-	"fmt"
 	"io"
-	"net/http"
 	"os"
 	"strings"
 	"testing"
 
-	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/s3/types"
 	"github.com/awsdocs/aws-doc-sdk-examples/gov2/demotools"
@@ -28,17 +25,6 @@ import (
 func TestRunLargeObjectScenario(t *testing.T) {
 	scenTest := LargeObjectScenarioTest{}
 	testtools.RunScenarioTests(&scenTest, t)
-}
-
-// httpErr is used to mock an HTTP error. This is required by the download manager,
-// which calls GetObject until it receives a 415 status code.
-type httpErr struct {
-	statusCode int
-}
-
-func (responseErr httpErr) HTTPStatusCode() int { return responseErr.statusCode }
-func (responseErr httpErr) Error() string {
-	return fmt.Sprintf("HTTP error: %v", responseErr.statusCode)
 }
 
 // LargeObjectScenarioTest encapsulates data for a scenario test.
@@ -58,7 +44,6 @@ func (scenTest *LargeObjectScenarioTest) SetupDataAndStubs() []testtools.Stub {
 	}
 	uploadId := "upload-id"
 	testBody := io.NopCloser(strings.NewReader("Test data!"))
-	dnRanges := []int{0, 10 * 1024 * 1024, 20 * 1024 * 1024, 30 * 1024 * 1024, 40 * 1024 * 1024}
 	listKeys := []string{largeKey}
 	scenTest.Answers = []string{
 		bucketName, "", "", "y",
@@ -75,15 +60,8 @@ func (scenTest *LargeObjectScenarioTest) SetupDataAndStubs() []testtools.Stub {
 	stubList = append(stubList, stubs.StubUploadPart(bucketName, largeKey, uploadId, nil))
 	stubList = append(stubList, stubs.StubCompleteMultipartUpload(bucketName, largeKey, uploadId, []int32{1, 2, 3}, nil))
 	stubList = append(stubList, stubs.StubHeadObject(bucketName, largeKey, nil))
-	for i := 0; i < len(dnRanges)-2; i++ {
-		stubList = append(stubList, stubs.StubGetObject(bucketName, largeKey,
-			aws.String(fmt.Sprintf("bytes=%v-%v", dnRanges[i], dnRanges[i+1]-1)), testBody, nil))
-	}
-	// The S3 downloader calls GetObject until it receives a 416 HTTP status code.
-	respErr := httpErr{statusCode: http.StatusRequestedRangeNotSatisfiable}
-	stubList = append(stubList, stubs.StubGetObject(bucketName, largeKey,
-		aws.String(fmt.Sprintf("bytes=%v-%v", dnRanges[3], dnRanges[4]-1)), testBody,
-		&testtools.StubError{Err: respErr, ContinueAfter: true}))
+	// The transfermanager downloads by parts using GetObject with PartNumber.
+	stubList = append(stubList, stubs.StubGetObjectByPart(bucketName, largeKey, 1, 1, 10, testBody, nil))
 	stubList = append(stubList, stubs.StubDeleteObjects(bucketName, listKeys, nil))
 	for _, key := range listKeys {
 		stubList = append(stubList, stubs.StubHeadObject(bucketName, key,
