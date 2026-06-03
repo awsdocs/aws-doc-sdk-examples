@@ -1,13 +1,13 @@
-# Amazon SES v2 API code examples for the SDK for SAP ABAP
+# AWS IoT code examples for the SDK for SAP ABAP
 
 ## Overview
 
-Shows how to use the AWS SDK for SAP ABAP to work with Amazon Simple Email Service v2 API.
+Shows how to use the AWS SDK for SAP ABAP to work with AWS IoT.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_Amazon SES v2 API is a reliable, scalable, and cost-effective email service._
+_AWS IoT provides secure, bi-directional communication for Internet-connected devices (such as sensors, actuators, embedded devices, wireless devices, and smart appliances) to connect to the AWS Cloud over MQTT, HTTPS, and LoRaWAN._
 
 ## ⚠ Important
 
@@ -33,17 +33,19 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateContact](%23awsex%23cl_se2_actions.clas.abap#L189)
-- [CreateContactList](%23awsex%23cl_se2_actions.clas.abap#L137)
-- [CreateEmailIdentity](%23awsex%23cl_se2_actions.clas.abap#L116)
-- [CreateEmailTemplate](%23awsex%23cl_se2_actions.clas.abap#L162)
-- [DeleteContactList](%23awsex%23cl_se2_actions.clas.abap#L326)
-- [DeleteEmailIdentity](%23awsex%23cl_se2_actions.clas.abap#L366)
-- [DeleteEmailTemplate](%23awsex%23cl_se2_actions.clas.abap#L346)
-- [GetEmailIdentity](%23awsex%23cl_se2_actions.clas.abap#L386)
-- [ListContacts](%23awsex%23cl_se2_actions.clas.abap#L304)
-- [SendBulkEmail](%23awsex%23cl_se2_actions.clas.abap#L407)
-- [SendEmail](%23awsex%23cl_se2_actions.clas.abap#L211)
+- [AttachThingPrincipal](%23awsex%23cl_iot_actions.clas.abap#L228)
+- [CreateKeysAndCertificate](%23awsex%23cl_iot_actions.clas.abap#L212)
+- [CreateThing](%23awsex%23cl_iot_actions.clas.abap#L162)
+- [CreateTopicRule](%23awsex%23cl_iot_actions.clas.abap#L345)
+- [DeleteCertificate](%23awsex%23cl_iot_actions.clas.abap#L322)
+- [DeleteThing](%23awsex%23cl_iot_actions.clas.abap#L459)
+- [DeleteTopicRule](%23awsex%23cl_iot_actions.clas.abap#L478)
+- [DescribeEndpoint](%23awsex%23cl_iot_actions.clas.abap#L249)
+- [DetachThingPrincipal](%23awsex%23cl_iot_actions.clas.abap#L301)
+- [ListCertificates](%23awsex%23cl_iot_actions.clas.abap#L270)
+- [ListThings](%23awsex%23cl_iot_actions.clas.abap#L181)
+- [SearchIndex](%23awsex%23cl_iot_actions.clas.abap#L415)
+- [UpdateIndexingConfiguration](%23awsex%23cl_iot_actions.clas.abap#L438)
 
 
 <!--custom.examples.start-->
@@ -74,9 +76,9 @@ in the `sap-abap` folder.
 
 ## Additional resources
 
-- [Amazon SES v2 API Developer Guide](https://docs.aws.amazon.com/ses/latest/dg/Welcome.html)
-- [Amazon SES v2 API API Reference](https://docs.aws.amazon.com/ses/latest/APIReference-V2/Welcome.html)
-- [SDK for SAP ABAP Amazon SES v2 API reference](https://docs.aws.amazon.com/sdk-for-sap-abap/v1/api/latest/sesv2/index.html)
+- [AWS IoT Developer Guide](https://docs.aws.amazon.com/iot/latest/developerguide/what-is-aws-iot.html)
+- [AWS IoT API Reference](https://docs.aws.amazon.com/iot/latest/apireference/Welcome.html)
+- [SDK for SAP ABAP AWS IoT reference](https://docs.aws.amazon.com/sdk-for-sap-abap/v1/api/latest/iot/index.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->
