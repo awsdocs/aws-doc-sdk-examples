@@ -27,6 +27,15 @@ s3-control_Hello:
 
 s3-control_CreateJob:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/s3c
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - s3c.abapv1.create_job
     Java:
       versions:
         - sdk_version: 2
@@ -58,6 +67,15 @@ s3-control_CreateJob:
     s3-control: {CreateJob}
 s3-control_PutJobTagging:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/s3c
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - s3c.abapv1.put_job_tagging
     Java:
       versions:
         - sdk_version: 2
@@ -80,6 +98,15 @@ s3-control_PutJobTagging:
     s3-control: {PutJobTagging}
 s3-control_DescribeJob:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/s3c
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - s3c.abapv1.describe_job
     Java:
       versions:
         - sdk_version: 2
@@ -102,6 +129,15 @@ s3-control_DescribeJob:
     s3-control: {DescribeJob}
 s3-control_DeleteJobTagging:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/s3c
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - s3c.abapv1.delete_job_tagging
     Java:
       versions:
         - sdk_version: 2
@@ -124,6 +160,15 @@ s3-control_DeleteJobTagging:
     s3-control: {DeleteJobTagging}
 s3-control_GetJobTagging:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/s3c
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - s3c.abapv1.get_job_tagging
     Java:
       versions:
         - sdk_version: 2
@@ -146,6 +191,15 @@ s3-control_GetJobTagging:
     s3-control: {GetJobTagging}
 s3-control_UpdateJobStatus:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/s3c
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - s3c.abapv1.update_job_status
     Java:
       versions:
         - sdk_version: 2
@@ -168,6 +222,15 @@ s3-control_UpdateJobStatus:
     s3-control: {UpdateJobStatus}
 s3-control_UpdateJobPriority:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/s3c
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - s3c.abapv1.update_job_priority
     Java:
       versions:
         - sdk_version: 2
