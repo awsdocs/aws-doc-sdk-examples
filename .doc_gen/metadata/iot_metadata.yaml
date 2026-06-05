@@ -54,6 +54,15 @@ iot_Hello:
     iot: {listThings}
 iot_DescribeEndpoint:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/iot
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - iot.abapv1.describe_endpoint
     Kotlin:
       versions:
         - sdk_version: 1
@@ -108,6 +117,15 @@ iot_DescribeEndpoint:
     iot: {DescribeEndpoint}
 iot_ListThings:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/iot
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - iot.abapv1.list_things
     .NET:
       versions:
         - sdk_version: 4
@@ -137,6 +155,15 @@ iot_ListThings:
     iot: {ListThings}
 iot_ListCertificates:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/iot
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - iot.abapv1.list_certificates
     Kotlin:
       versions:
         - sdk_version: 1
@@ -183,6 +210,15 @@ iot_ListCertificates:
     iot: {ListCertificates}
 iot_CreateKeysAndCertificate:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/iot
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - iot.abapv1.create_keys_and_certificate
     Kotlin:
       versions:
         - sdk_version: 1
@@ -229,6 +265,15 @@ iot_CreateKeysAndCertificate:
     iot: {CreateKeysAndCertificate}
 iot_DeleteCertificate:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/iot
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - iot.abapv1.delete_certificate
     Kotlin:
       versions:
         - sdk_version: 1
@@ -275,6 +320,15 @@ iot_DeleteCertificate:
     iot: {DeleteCertificate}
 iot_SearchIndex:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/iot
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - iot.abapv1.search_index
     Kotlin:
       versions:
         - sdk_version: 1
@@ -321,6 +375,15 @@ iot_SearchIndex:
     iot: {SearchIndex}
 iot_UpdateIndexingConfiguration:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/iot
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - iot.abapv1.update_indexing_configuration
     C++:
       versions:
         - sdk_version: 1
@@ -342,6 +405,15 @@ iot_UpdateIndexingConfiguration:
     iot: {UpdateIndexingConfiguration}
 iot_DeleteThing:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/iot
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - iot.abapv1.delete_thing
     Kotlin:
       versions:
         - sdk_version: 1
@@ -417,6 +489,15 @@ iot_DescribeThing:
     iot: {DescribeThing}
 iot_AttachThingPrincipal:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/iot
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - iot.abapv1.attach_thing_principal
     Kotlin:
       versions:
         - sdk_version: 1
@@ -463,6 +544,15 @@ iot_AttachThingPrincipal:
     iot: {AttachThingPrincipal}
 iot_DetachThingPrincipal:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/iot
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - iot.abapv1.detach_thing_principal
     Kotlin:
       versions:
         - sdk_version: 1
@@ -538,6 +628,15 @@ iot_UpdateThing:
     iot: {UpdateThing}
 iot_CreateTopicRule:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/iot
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - iot.abapv1.create_topic_rule
     Kotlin:
       versions:
         - sdk_version: 1
@@ -584,6 +683,15 @@ iot_CreateTopicRule:
     iot: {CreateTopicRule}
 iot_DeleteTopicRule:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/iot
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - iot.abapv1.delete_topic_rule
     C++:
       versions:
         - sdk_version: 1
@@ -605,6 +713,15 @@ iot_DeleteTopicRule:
     iot: {DeleteTopicRule}
 iot_CreateThing:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/iot
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - iot.abapv1.create_thing
     Kotlin:
       versions:
         - sdk_version: 1

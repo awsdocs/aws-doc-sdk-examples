@@ -101,6 +101,15 @@ sesv2_CreateContact:
     sesv2: {CreateContact}
 sesv2_GetEmailIdentity:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/se2
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - se2.abapv1.get_email_identity
     Python:
       versions:
         - sdk_version: 3
@@ -644,6 +653,15 @@ sesv2_Hello:
     sesv2: {ListEmailIdentities}
 sesv2_SendBulkEmail:
   languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/se2
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - se2.abapv1.send_bulk_email
     Python:
       versions:
         - sdk_version: 3

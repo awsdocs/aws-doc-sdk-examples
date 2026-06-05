@@ -229,6 +229,7 @@ language = {
                 "sagemaker": "sap-abap/services/sgm",
                 "scheduler": "sap-abap/services/scd",
                 "secrets-manager": "sap-abap/services/smr",
+                "s3-control": "sap-abap/services/s3c",
                 "sesv2": "sap-abap/services/se2",
                 "textract": "sap-abap/services/tex",
                 "transcribe": "sap-abap/services/tnb",

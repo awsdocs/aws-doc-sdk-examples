@@ -1,13 +1,13 @@
-# Amazon SES v2 API code examples for the SDK for SAP ABAP
+# Amazon S3 Control code examples for the SDK for SAP ABAP
 
 ## Overview
 
-Shows how to use the AWS SDK for SAP ABAP to work with Amazon Simple Email Service v2 API.
+Shows how to use the AWS SDK for SAP ABAP to work with Amazon S3 Control.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_Amazon SES v2 API is a reliable, scalable, and cost-effective email service._
+_Amazon S3 Control lets you manage S3 resources._
 
 ## ⚠ Important
 
@@ -33,17 +33,13 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateContact](%23awsex%23cl_se2_actions.clas.abap#L189)
-- [CreateContactList](%23awsex%23cl_se2_actions.clas.abap#L137)
-- [CreateEmailIdentity](%23awsex%23cl_se2_actions.clas.abap#L116)
-- [CreateEmailTemplate](%23awsex%23cl_se2_actions.clas.abap#L162)
-- [DeleteContactList](%23awsex%23cl_se2_actions.clas.abap#L326)
-- [DeleteEmailIdentity](%23awsex%23cl_se2_actions.clas.abap#L366)
-- [DeleteEmailTemplate](%23awsex%23cl_se2_actions.clas.abap#L346)
-- [GetEmailIdentity](%23awsex%23cl_se2_actions.clas.abap#L386)
-- [ListContacts](%23awsex%23cl_se2_actions.clas.abap#L304)
-- [SendBulkEmail](%23awsex%23cl_se2_actions.clas.abap#L407)
-- [SendEmail](%23awsex%23cl_se2_actions.clas.abap#L211)
+- [CreateJob](%23awsex%23cl_s3c_actions.clas.abap#L95)
+- [DeleteJobTagging](%23awsex%23cl_s3c_actions.clas.abap#L380)
+- [DescribeJob](%23awsex%23cl_s3c_actions.clas.abap#L160)
+- [GetJobTagging](%23awsex%23cl_s3c_actions.clas.abap#L269)
+- [PutJobTagging](%23awsex%23cl_s3c_actions.clas.abap#L299)
+- [UpdateJobPriority](%23awsex%23cl_s3c_actions.clas.abap#L200)
+- [UpdateJobStatus](%23awsex%23cl_s3c_actions.clas.abap#L234)
 
 
 <!--custom.examples.start-->
@@ -74,9 +70,9 @@ in the `sap-abap` folder.
 
 ## Additional resources
 
-- [Amazon SES v2 API Developer Guide](https://docs.aws.amazon.com/ses/latest/dg/Welcome.html)
-- [Amazon SES v2 API API Reference](https://docs.aws.amazon.com/ses/latest/APIReference-V2/Welcome.html)
-- [SDK for SAP ABAP Amazon SES v2 API reference](https://docs.aws.amazon.com/sdk-for-sap-abap/v1/api/latest/sesv2/index.html)
+- [Amazon S3 Control User Guide](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html)
+- [Amazon S3 Control API Reference](https://docs.aws.amazon.com/AmazonS3/latest/API/Welcome.html)
+- [SDK for SAP ABAP Amazon S3 Control reference](https://docs.aws.amazon.com/sdk-for-sap-abap/v1/api/latest/s3-control/index.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

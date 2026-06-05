@@ -26,7 +26,9 @@ CLASS ltc_awsex_cl_se2_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
       list_contacts FOR TESTING RAISING /aws1/cx_rt_generic,
       delete_contact_list FOR TESTING RAISING /aws1/cx_rt_generic,
       delete_email_template FOR TESTING RAISING /aws1/cx_rt_generic,
-      delete_email_identity FOR TESTING RAISING /aws1/cx_rt_generic.
+      delete_email_identity FOR TESTING RAISING /aws1/cx_rt_generic,
+      get_email_identity FOR TESTING RAISING /aws1/cx_rt_generic,
+      send_bulk_email FOR TESTING RAISING /aws1/cx_rt_generic.
 
     CLASS-METHODS class_setup RAISING /aws1/cx_rt_generic.
     CLASS-METHODS class_teardown RAISING /aws1/cx_rt_generic.
@@ -36,7 +38,7 @@ CLASS ltc_awsex_cl_se2_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
         iv_resource_arn TYPE /aws1/se2amazonresourcename
       RAISING
         /aws1/cx_rt_generic.
-    
+
     CLASS-METHODS wait_for_identity_verification
       IMPORTING
         iv_email_identity TYPE /aws1/se2identity
@@ -45,6 +47,10 @@ CLASS ltc_awsex_cl_se2_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
         VALUE(rv_verified) TYPE abap_bool
       RAISING
         /aws1/cx_rt_generic.
+
+    " New class-data for get_email_identity and send_bulk_email tests.
+    CLASS-DATA av_del_tmpl_name TYPE /aws1/se2emailtemplatename.
+    CLASS-DATA av_del_identity  TYPE /aws1/se2identity.
 
 ENDCLASS.
 
@@ -94,6 +100,10 @@ CLASS ltc_awsex_cl_se2_actions IMPLEMENTATION.
     " 2. We can still test the API operations without verified identity
     " 3. Send tests will handle MessageRejected exception appropriately
 
+    " Pause between management API calls: SES v2 allows ~1 TPS for
+    " CreateEmailIdentity, CreateEmailTemplate, and similar operations.
+    WAIT UP TO 2 SECONDS.
+
     " Create contact list for tests
     " Note: SES Sandbox allows only 1 contact list per account
     " If limit is reached, find and use existing list
@@ -122,7 +132,7 @@ CLASS ltc_awsex_cl_se2_actions IMPLEMENTATION.
                 EXIT.
               ENDLOOP.
               MESSAGE |Using existing contact list: { av_contact_list_name }| TYPE 'I'.
-              
+
               " Try to tag the existing list (best effort)
               TRY.
                   DATA(lv_existing_arn) = |arn:aws:ses:{ ao_session->get_region( ) }:{ ao_session->get_account_id( ) }:contact-list/{ av_contact_list_name }|.
@@ -144,6 +154,8 @@ CLASS ltc_awsex_cl_se2_actions IMPLEMENTATION.
         cl_abap_unit_assert=>fail(
           msg = |Failed to create contact list: { lo_list_ex2->get_text( ) }| ).
     ENDTRY.
+
+    WAIT UP TO 2 SECONDS.
 
     " Create email template for tests
     TRY.
@@ -167,6 +179,42 @@ CLASS ltc_awsex_cl_se2_actions IMPLEMENTATION.
       CATCH /aws1/cx_rt_generic INTO DATA(lo_template_ex).
         cl_abap_unit_assert=>fail(
           msg = |Failed to create email template: { lo_template_ex->get_text( ) }| ).
+    ENDTRY.
+
+    " Create dedicated template for delete_email_template test (new)
+    WAIT UP TO 2 SECONDS.
+    av_del_tmpl_name = |del-tmpl-{ av_uuid }|.
+    TRY.
+        DATA(lo_del_tmpl_content) = NEW /aws1/cl_se2emailtmplcontent(
+          iv_subject = 'Delete-me template'
+          iv_html    = '<p>delete</p>'
+          iv_text    = 'delete' ).
+        ao_se2->createemailtemplate(
+          iv_templatename    = av_del_tmpl_name
+          io_templatecontent = lo_del_tmpl_content ).
+        DATA(lv_del_tmpl_arn) = |arn:aws:ses:{ ao_session->get_region( ) }:{ ao_session->get_account_id( ) }:template/{ av_del_tmpl_name }|.
+        tag_resource( lv_del_tmpl_arn ).
+        MESSAGE |Created delete-target template { av_del_tmpl_name }| TYPE 'I'.
+      CATCH /aws1/cx_se2alreadyexistsex.
+        MESSAGE |Delete-target template { av_del_tmpl_name } already exists| TYPE 'I'.
+      CATCH /aws1/cx_rt_generic INTO DATA(lo_dt_ex).
+        cl_abap_unit_assert=>fail(
+          msg = |Failed to create delete-target template: { lo_dt_ex->get_text( ) }| ).
+    ENDTRY.
+
+    " Create dedicated identity for delete_email_identity test (new)
+    WAIT UP TO 2 SECONDS.
+    av_del_identity = |se2del-{ av_uuid }@example.com|.
+    TRY.
+        ao_se2->createemailidentity( iv_emailidentity = av_del_identity ).
+        DATA(lv_del_id_arn) = |arn:aws:ses:{ ao_session->get_region( ) }:{ ao_session->get_account_id( ) }:identity/{ av_del_identity }|.
+        tag_resource( lv_del_id_arn ).
+        MESSAGE |Created delete-target identity { av_del_identity }| TYPE 'I'.
+      CATCH /aws1/cx_se2alreadyexistsex.
+        MESSAGE |Delete-target identity { av_del_identity } already exists| TYPE 'I'.
+      CATCH /aws1/cx_rt_generic INTO DATA(lo_di_ex).
+        cl_abap_unit_assert=>fail(
+          msg = |Failed to create delete-target identity: { lo_di_ex->get_text( ) }| ).
     ENDTRY.
 
   ENDMETHOD.
@@ -216,6 +264,26 @@ CLASS ltc_awsex_cl_se2_actions IMPLEMENTATION.
       CATCH /aws1/cx_rt_generic INTO DATA(lo_id_del_ex).
         MESSAGE |Could not delete email identity: { lo_id_del_ex->get_text( ) }| TYPE 'I'.
     ENDTRY.
+
+    " Clean up delete-target template (may already be deleted by test)
+    TRY.
+        ao_se2->deleteemailtemplate( iv_templatename = av_del_tmpl_name ).
+        MESSAGE |Deleted delete-target template { av_del_tmpl_name }| TYPE 'I'.
+      CATCH /aws1/cx_se2notfoundexception.
+        " Already deleted by the test - expected.
+      CATCH /aws1/cx_rt_generic INTO DATA(lo_dt_del_ex).
+        MESSAGE |Could not delete delete-target template: { lo_dt_del_ex->get_text( ) }| TYPE 'I'.
+    ENDTRY.
+
+    " Clean up delete-target identity (may already be deleted by test)
+    TRY.
+        ao_se2->deleteemailidentity( iv_emailidentity = av_del_identity ).
+        MESSAGE |Deleted delete-target identity { av_del_identity }| TYPE 'I'.
+      CATCH /aws1/cx_se2notfoundexception.
+        " Already deleted by the test - expected.
+      CATCH /aws1/cx_rt_generic INTO DATA(lo_di_del_ex).
+        MESSAGE |Could not delete delete-target identity: { lo_di_del_ex->get_text( ) }| TYPE 'I'.
+    ENDTRY.
   ENDMETHOD.
 
   METHOD tag_resource.
@@ -233,30 +301,30 @@ CLASS ltc_awsex_cl_se2_actions IMPLEMENTATION.
   METHOD wait_for_identity_verification.
     DATA lv_elapsed_seconds TYPE i VALUE 0.
     DATA lv_wait_interval TYPE i VALUE 5.
-    
+
     rv_verified = abap_false.
-    
+
     WHILE lv_elapsed_seconds < iv_max_wait_seconds.
       TRY.
           DATA(lo_identity) = ao_se2->getemailidentity(
             iv_emailidentity = iv_email_identity ).
-          
+
           IF lo_identity->get_verifiedforsendingstatus( ) = abap_true.
             rv_verified = abap_true.
             MESSAGE |Email identity verified after { lv_elapsed_seconds } seconds| TYPE 'I'.
             RETURN.
           ENDIF.
-          
+
           " Wait before checking again
           WAIT UP TO lv_wait_interval SECONDS.
           lv_elapsed_seconds = lv_elapsed_seconds + lv_wait_interval.
-          
+
         CATCH /aws1/cx_rt_generic INTO DATA(lo_ex).
           MESSAGE |Error checking verification status: { lo_ex->get_text( ) }| TYPE 'I'.
           RETURN.
       ENDTRY.
     ENDWHILE.
-    
+
     MESSAGE |Email identity not verified after { iv_max_wait_seconds } seconds| TYPE 'I'.
   ENDMETHOD.
 
@@ -328,6 +396,9 @@ CLASS ltc_awsex_cl_se2_actions IMPLEMENTATION.
   METHOD create_email_template.
     DATA(lv_test_uuid) = /awsex/cl_utils=>get_random_string( ).
     DATA(lv_test_template) = |tst-tmp-{ lv_test_uuid(8) }|.
+
+    " Brief pause to avoid TooManyRequestsException after rapid class_setup calls.
+    WAIT UP TO 2 SECONDS.
 
     " Call the action method
     ao_se2_actions->create_email_template(
@@ -543,6 +614,9 @@ CLASS ltc_awsex_cl_se2_actions IMPLEMENTATION.
     DATA(lv_test_uuid) = /awsex/cl_utils=>get_random_string( ).
     DATA(lv_test_template) = |tst-del-{ lv_test_uuid(8) }|.
 
+    " Brief pause to avoid TooManyRequestsException after rapid class_setup calls.
+    WAIT UP TO 2 SECONDS.
+
     " Create the template
     DATA(lo_template_content) = NEW /aws1/cl_se2emailtmplcontent(
       iv_subject = 'Test Delete'
@@ -575,6 +649,9 @@ CLASS ltc_awsex_cl_se2_actions IMPLEMENTATION.
     DATA(lv_test_uuid) = /awsex/cl_utils=>get_random_string( ).
     DATA(lv_test_identity) = |test{ lv_test_uuid }@example.com|.
 
+    " Brief pause to avoid TooManyRequestsException after rapid class_setup calls.
+    WAIT UP TO 2 SECONDS.
+
     " Create the identity
     ao_se2->createemailidentity( iv_emailidentity = lv_test_identity ).
 
@@ -592,6 +669,83 @@ CLASS ltc_awsex_cl_se2_actions IMPLEMENTATION.
           msg = |Email identity { lv_test_identity } should have been deleted| ).
       CATCH /aws1/cx_se2notfoundexception.
         " Expected - identity was successfully deleted
+    ENDTRY.
+  ENDMETHOD.
+
+  METHOD get_email_identity.
+    " Use the email identity already created in class_setup
+    DATA(lo_result) = ao_se2_actions->get_email_identity( av_verified_email ).
+
+    " Verify the result is bound and contains the expected identity type
+    cl_abap_unit_assert=>assert_bound(
+      act = lo_result
+      msg = 'GetEmailIdentity result should not be null' ).
+
+    cl_abap_unit_assert=>assert_equals(
+      act = lo_result->get_identitytype( )
+      exp = 'EMAIL_ADDRESS'
+      msg = |Identity { av_verified_email } should be of type EMAIL_ADDRESS| ).
+  ENDMETHOD.
+
+  METHOD send_bulk_email.
+    " Build two bulk entries using SES mailbox simulator addresses.
+    " Unique subaddress tags distinguish the two recipients.
+    " lv_uid is declared as string first so the fallback assignment from
+    " get_random_string() is type-safe (no sysuuid_x16 intermediate needed).
+    DATA lv_uid  TYPE string.
+    DATA lv_uuid TYPE sysuuid_x16.
+    TRY.
+        lv_uuid = cl_system_uuid=>create_uuid_x16_static( ).
+        lv_uid  = lv_uuid.
+      CATCH cx_uuid_error.
+        " Fallback: get_random_string() returns string; assign directly to string var.
+        lv_uid = /awsex/cl_utils=>get_random_string( ).
+    ENDTRY.
+    TRANSLATE lv_uid TO LOWER CASE.
+
+    " 'success' simulator address accepts all mail without bouncing.
+    DATA(lv_recipient1) = |success+b1{ lv_uid(6) }@simulator.amazonses.com|.
+    DATA(lv_recipient2) = |success+b2{ lv_uid(6) }@simulator.amazonses.com|.
+
+    DATA lt_entries TYPE /aws1/cl_se2bulkemailentry=>tt_bulkemailentrylist.
+
+    DATA lt_to1 TYPE /aws1/cl_se2emailaddresslist_w=>tt_emailaddresslist.
+    APPEND NEW /aws1/cl_se2emailaddresslist_w( iv_value = lv_recipient1 ) TO lt_to1.
+    APPEND NEW /aws1/cl_se2bulkemailentry(
+      io_destination = NEW /aws1/cl_se2destination( it_toaddresses = lt_to1 ) )
+      TO lt_entries.
+
+    DATA lt_to2 TYPE /aws1/cl_se2emailaddresslist_w=>tt_emailaddresslist.
+    APPEND NEW /aws1/cl_se2emailaddresslist_w( iv_value = lv_recipient2 ) TO lt_to2.
+    APPEND NEW /aws1/cl_se2bulkemailentry(
+      io_destination = NEW /aws1/cl_se2destination( it_toaddresses = lt_to2 ) )
+      TO lt_entries.
+
+    " av_verified_email is registered but not click-verified in sandbox, so
+    " SendBulkEmail may raise MessageRejected or MailFromDomainNotVerified.
+    " Both are re-raised by the action method; handle them here as acceptable
+    " outcomes, consistent with the send_email and send_email_template tests.
+    TRY.
+        DATA(lt_results) = ao_se2_actions->send_bulk_email(
+          iv_from_address  = av_verified_email
+          iv_template_name = av_template_name
+          " Empty JSON object is valid default template data.
+          iv_template_data = '{}'
+          it_bulk_entries  = lt_entries ).
+
+        " If the send succeeded, validate one result per submitted entry.
+        cl_abap_unit_assert=>assert_equals(
+          act = lines( lt_results )
+          exp = 2
+          msg = 'send_bulk_email: must receive one result per bulk entry' ).
+
+      CATCH /aws1/cx_se2messagerejected INTO DATA(lo_rejected).
+        " Expected in sandbox with unverified sender — action executed correctly.
+        MESSAGE |send_bulk_email: expected MessageRejected in sandbox: { lo_rejected->get_text( ) }| TYPE 'I'.
+
+      CATCH /aws1/cx_se2mailfrmdomnotver00 INTO DATA(lo_not_verified).
+        " Expected in sandbox when mail-from domain is not verified.
+        MESSAGE |send_bulk_email: expected MailFromDomainNotVerified: { lo_not_verified->get_text( ) }| TYPE 'I'.
     ENDTRY.
   ENDMETHOD.
 

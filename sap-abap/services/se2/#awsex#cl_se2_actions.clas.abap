@@ -80,6 +80,25 @@ CLASS /awsex/cl_se2_actions DEFINITION
       RAISING
         /aws1/cx_rt_generic.
 
+    METHODS get_email_identity
+      IMPORTING
+        !iv_email_identity TYPE /aws1/se2identity
+      RETURNING
+        VALUE(oo_result)   TYPE REF TO /aws1/cl_se2getemailidresponse
+      RAISING
+        /aws1/cx_rt_generic.
+
+    METHODS send_bulk_email
+      IMPORTING
+        !iv_from_address       TYPE /aws1/se2emailaddress
+        !iv_template_name      TYPE /aws1/se2emailtemplatename
+        !iv_template_data      TYPE /aws1/se2emailtemplatedata
+        !it_bulk_entries       TYPE /aws1/cl_se2bulkemailentry=>tt_bulkemailentrylist
+      RETURNING
+        VALUE(ot_results)      TYPE /aws1/cl_se2bulkemailentryrslt=>tt_bulkemailentryresultlist
+      RAISING
+        /aws1/cx_rt_generic.
+
   PROTECTED SECTION.
   PRIVATE SECTION.
 ENDCLASS.
@@ -356,6 +375,66 @@ CLASS /awsex/cl_se2_actions IMPLEMENTATION.
         RAISE EXCEPTION lo_bad_request.
     ENDTRY.
     " snippet-end:[se2.abapv1.delete_email_identity]
+  ENDMETHOD.
+
+  METHOD get_email_identity.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+
+    DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
+    DATA(lo_se2) = /aws1/cl_se2_factory=>create( lo_session ).
+
+    " snippet-start:[se2.abapv1.get_email_identity]
+    TRY.
+        oo_result = lo_se2->getemailidentity(
+          iv_emailidentity = iv_email_identity ).
+        MESSAGE |Identity type: { oo_result->get_identitytype( ) }, | &&
+                |verified for sending: { oo_result->get_verifiedforsendingstatus( ) }| TYPE 'I'.
+      CATCH /aws1/cx_se2notfoundexception.
+        MESSAGE |Email identity { iv_email_identity } not found.| TYPE 'I'.
+      CATCH /aws1/cx_se2badrequestex INTO DATA(lo_bad_request).
+        MESSAGE lo_bad_request TYPE 'I' DISPLAY LIKE 'E'.
+        RAISE EXCEPTION lo_bad_request.
+    ENDTRY.
+    " snippet-end:[se2.abapv1.get_email_identity]
+  ENDMETHOD.
+
+  METHOD send_bulk_email.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+
+    DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
+    DATA(lo_se2) = /aws1/cl_se2_factory=>create( lo_session ).
+
+    " snippet-start:[se2.abapv1.send_bulk_email]
+    TRY.
+        " Build the default template content used for all bulk recipients
+        DATA(lo_template) = NEW /aws1/cl_se2template(
+          iv_templatename = iv_template_name
+          iv_templatedata = iv_template_data ).
+
+        DATA(lo_default_content) = NEW /aws1/cl_se2bulkemailcontent(
+          io_template = lo_template ).
+
+        DATA(lo_result) = lo_se2->sendbulkemail(
+          iv_fromemailaddress = iv_from_address
+          io_defaultcontent   = lo_default_content
+          it_bulkemailentries = it_bulk_entries ).
+
+        ot_results = lo_result->get_bulkemailentryresults( ).
+        MESSAGE |Bulk email sent to { lines( it_bulk_entries ) } recipient(s).| TYPE 'I'.
+      CATCH /aws1/cx_se2messagerejected INTO DATA(lo_rejected).
+        MESSAGE lo_rejected TYPE 'I' DISPLAY LIKE 'E'.
+        RAISE EXCEPTION lo_rejected.
+      CATCH /aws1/cx_se2mailfrmdomnotver00 INTO DATA(lo_not_verified).
+        MESSAGE lo_not_verified TYPE 'I' DISPLAY LIKE 'E'.
+        RAISE EXCEPTION lo_not_verified.
+      CATCH /aws1/cx_se2notfoundexception INTO DATA(lo_not_found).
+        MESSAGE lo_not_found TYPE 'I' DISPLAY LIKE 'E'.
+        RAISE EXCEPTION lo_not_found.
+      CATCH /aws1/cx_se2badrequestex INTO DATA(lo_bad_request).
+        MESSAGE lo_bad_request TYPE 'I' DISPLAY LIKE 'E'.
+        RAISE EXCEPTION lo_bad_request.
+    ENDTRY.
+    " snippet-end:[se2.abapv1.send_bulk_email]
   ENDMETHOD.
 
 ENDCLASS.
