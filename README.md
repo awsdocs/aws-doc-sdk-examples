@@ -28,7 +28,7 @@ Code examples for each language's SDK can be found within the following subdirec
 | Python     | [python/](python)           | 3           |
 | Ruby       | [ruby/](ruby)             | 3           |
 | Rust       | [rustv1/](rustv1) | 1             |
-| Swift      | [swift/](swift)            | preview           |
+| Swift      | [swift/](swift)            | pre-commit          |
 
 Within each directory, you will find SDK-specific instructions for understanding and invoking example code.
 
@@ -104,4 +104,4 @@ license text is provided in the `LICENSE` file accompanying this repository.
 Please include the following licensing text as a comment at top of all possible files:
 
 *Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0*
+SPDX-License-Identifier
