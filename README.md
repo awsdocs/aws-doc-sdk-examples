@@ -16,19 +16,18 @@ Code examples for each language's SDK can be found within the following subdirec
 |:----------:|:-----------------:|:-----------:|
 | .NET       | [dotnetv3/](dotnetv3)         | 3.5+        |
 | .NET       | [dotnet/](.dotnet)           | <3.5        |
-| C++        | [cpp/](cpp)              | 1           |
-| Go         | [gov2/](gov2)            | 2           |
+| C++        | [cpp/](cpp)              |        |
+| Go         | [gov2/](gov2)            |          |
 | Go         | [go/](go)               | 1           |
-| Java       | [javav2/](javav2)           | 2           |
+| Java       | [javav2/](javav2)           |          |
 | Java       | [java/](java)             | 1           |
-| JavaScript | [javascriptv3/](javascriptv3)     | 3           |
-| JavaScript | [javascript/](javascriptv)       | 2           |
-| Kotlin     | [kotlin/](kotlin)           | 1             |
-| PHP        | [php/](php)              | 3           |
-| Python     | [python/](python)           | 3           |
-| Ruby       | [ruby/](ruby)             | 3           |
+| JavaScript | [javascriptv3/](javascriptv3)     |       |
+| JavaScript | [javascript/](javascriptv)          
+| Kotlin     | [kotlin/](kotlin)           
+| PHP        | [php/](php)              |           |
+| Python     | [python/](python)           
 | Rust     preview   | [rustv1/](rustv1) | 1             
-| Swift      | [swift/](swift)            |          |
+| Swift      | [swift/](swift)            |   preview   |
 
 Within each directory, you will find SDK-specific instructions for understanding and invoking example code.
 
