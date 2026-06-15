@@ -85,6 +85,7 @@ Code examples that show you how to accomplish a specific task by calling multipl
 functions within the same service.
 
 - [Check if a bucket exists](src/main/java/com/example/s3/DoesBucketExist.java)
+- [Check if an object exists](src/main/java/com/example/s3/DoesObjectExist.java)
 - [Delete incomplete multipart uploads](src/main/java/com/example/s3/AbortMultipartUploadExamples.java)
 - [Download S3 'directories'](src/main/java/com/example/s3/transfermanager/S3DirectoriesDownloader.java)
 - [Download objects to a local directory](src/main/java/com/example/s3/transfermanager/DownloadToDirectory.java)
@@ -148,6 +149,18 @@ This example shows you how to check if a bucket exists.
 
 <!--custom.scenarios.s3_Scenario_DoesBucketExist.start-->
 <!--custom.scenarios.s3_Scenario_DoesBucketExist.end-->
+
+#### Check if an object exists
+
+This example shows you how to check if an object exists.
+
+
+<!--custom.scenario_prereqs.s3_Scenario_DoesObjectExist.start-->
+<!--custom.scenario_prereqs.s3_Scenario_DoesObjectExist.end-->
+
+
+<!--custom.scenarios.s3_Scenario_DoesObjectExist.start-->
+<!--custom.scenarios.s3_Scenario_DoesObjectExist.end-->
 
 #### Delete incomplete multipart uploads
 

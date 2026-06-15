@@ -3940,6 +3940,24 @@ s3_Scenario_DoesBucketExist:
   services:
     s3: {GetBucketAcl}
     
+s3_Scenario_DoesObjectExist:
+  title: Check if an object exists
+  title_abbrev: Check if an object exists
+  synopsis: check if an object exists.
+  category: Scenarios
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description: You can use the following <code>doesObjectExist</code> method as a replacement for the &Java; V1 <ulink url="https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/s3/AmazonS3Client.html#doesObjectExist-java.lang.String-java.lang.String-">AmazonS3Client#doesObjectExist(String, String)</ulink> method.
+              snippet_tags:
+                - s3.java2.does-object-exist-main
+  services:
+    s3: {HeadObject}
+    
 s3_CreatePresignedPost:
   languages:
     .NET:
