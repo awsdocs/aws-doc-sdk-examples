@@ -1425,7 +1425,7 @@ GEM
     multi_json (1.15.0)
     mustermann (3.0.4)
       ruby2_keywords (~> 0.0.1)
-    net-imap (0.4.24)
+    net-imap (0.5.15)
       date
       net-protocol
     net-pop (0.1.2)
