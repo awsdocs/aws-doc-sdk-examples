@@ -307,7 +307,7 @@ suspend fun createDatabaseInstance(
             dbParameterGroupName = dbGroupNameVal
             engine = "mysql"
             dbInstanceClass = "db.t3.micro"
-            engineVersion = "8.0.35"
+            engineVersion = "8.4"
             storageType = "gp2"
             masterUsername = masterUsernameVal
             masterUserPassword = masterUserPasswordVal
