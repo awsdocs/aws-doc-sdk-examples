@@ -8,6 +8,10 @@ plugins {
 group = "me.scmacdon"
 version = "1.0-SNAPSHOT"
 
+application {
+    mainClass.set("com.kotlin.rds.CreateDBInstanceKt")
+}
+
 java {
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
@@ -33,10 +37,10 @@ dependencies {
     implementation("aws.smithy.kotlin:http-client-engine-okhttp")
     implementation("aws.smithy.kotlin:http-client-engine-crt")
     implementation("com.google.code.gson:gson:2.10.1")
-    testImplementation("org.junit.jupiter:junit-jupiter:5.9.2")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
-    implementation("org.slf4j:slf4j-api:2.0.15")
-    implementation("org.slf4j:slf4j-simple:2.0.15")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.10.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+    implementation("org.slf4j:slf4j-api:2.0.16")
+    implementation("org.slf4j:slf4j-simple:2.0.16")
 }
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "17"
