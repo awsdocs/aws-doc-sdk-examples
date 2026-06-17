@@ -8,6 +8,10 @@ plugins {
 group = "me.scmacdon"
 version = "1.0-SNAPSHOT"
 
+application {
+    mainClass.set("com.kotlin.rds.CreateDBInstanceKt")
+}
+
 java {
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
