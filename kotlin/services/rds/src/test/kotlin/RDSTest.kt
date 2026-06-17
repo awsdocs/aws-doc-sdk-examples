@@ -74,7 +74,7 @@ class RDSTest {
             masterUserPassword = values.masterUserPasswordSc.toString()
             newMasterUserPassword = values.newMasterUserPassword.toString()
             dbGroupNameSc = values.dbGroupNameSc + UUID.randomUUID()
-            dbParameterGroupFamilySc = values.dbParameterGroupFamilySc.toString()
+            dbParameterGroupFamilySc = "mysql8.4"
             dbInstanceIdentifierSc = values.dbInstanceIdentifierSc + UUID.randomUUID()
             dbSnapshotIdentifierSc = values.dbSnapshotIdentifierSc + UUID.randomUUID()
             dbNameSc = values.dbNameSc + randomNum
