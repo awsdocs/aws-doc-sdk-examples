@@ -15,15 +15,15 @@ def hello_autoscaling(autoscaling_client):
     :param autoscaling_client: A Boto3 Amazon EC2 Auto Scaling client object.
     """
     print(
-        "Hello, Amazon EC2 Auto Scaling! Let's list up to ten of you Auto Scaling groups:"
+        "Hello, Amazon EC2 Auto Scaling! Let's list up to ten of you Auto Scaling groups: 🚀"
     )
     response = autoscaling_client.describe_auto_scaling_groups()
     groups = response.get("AutoScalingGroups", [])
     if groups:
         for group in groups:
-            print(f"\t{group['AutoScalingGroupName']}: {group['AvailabilityZones']}")
+            print(f"\t✅ {group['AutoScalingGroupName']}: {group['AvailabilityZones']}")
     else:
-        print("There are no Auto Scaling groups in your account.")
+        print("❌ There are no Auto Scaling groups in your account.")
 
 
 if __name__ == "__main__":
