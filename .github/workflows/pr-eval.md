@@ -7,11 +7,10 @@ on:
 
 permissions:
   contents: read
-  pull-requests: write
   copilot-requests: write
 
 safe-outputs:
-      add-comment   
+  add-comment: null
 
 ---
 
