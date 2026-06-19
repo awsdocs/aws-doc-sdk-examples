@@ -3,7 +3,7 @@ name: Code Examples PR Review
 
 on:
   pull_request:
-    types: [opened]
+    types: [opened, synchronize]
 
 permissions:
   contents: read
