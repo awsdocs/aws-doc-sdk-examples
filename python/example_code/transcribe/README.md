@@ -1,4 +1,4 @@
-# Amazon Transcribe code examples for the SDK for Python
+# Amazon Transcribe code examples for the SDK for Python (Boto3)
 
 ## Overview
 
@@ -134,7 +134,7 @@ in the `python` folder.
 
 - [Amazon Transcribe Developer Guide](https://docs.aws.amazon.com/transcribe/latest/dg/what-is.html)
 - [Amazon Transcribe API Reference](https://docs.aws.amazon.com/transcribe/latest/APIReference/Welcome.html)
-- [SDK for Python Amazon Transcribe reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/transcribe.html)
+- [SDK for Python (Boto3) Amazon Transcribe reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/transcribe.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

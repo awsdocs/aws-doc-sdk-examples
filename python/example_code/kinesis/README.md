@@ -1,4 +1,4 @@
-# Kinesis code examples for the SDK for Python
+# Kinesis code examples for the SDK for Python (Boto3)
 
 ## Overview
 
@@ -83,7 +83,7 @@ in the `python` folder.
 
 - [Kinesis Developer Guide](https://docs.aws.amazon.com/streams/latest/dev/introduction.html)
 - [Kinesis API Reference](https://docs.aws.amazon.com/kinesis/latest/APIReference/Welcome.html)
-- [SDK for Python Kinesis reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kinesisanalyticsv2.html)
+- [SDK for Python (Boto3) Kinesis reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kinesis.html)
 
 <!--custom.resources.start-->
 * [SDK for Python Kinesis Data Analytics reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kinesisanalyticsv2.html)

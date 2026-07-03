@@ -1,4 +1,4 @@
-# Amazon Polly code examples for the SDK for Python
+# Amazon Polly code examples for the SDK for Python (Boto3)
 
 ## Overview
 
@@ -115,7 +115,7 @@ in the `python` folder.
 
 - [Amazon Polly Developer Guide](https://docs.aws.amazon.com/polly/latest/dg/what-is.html)
 - [Amazon Polly API Reference](https://docs.aws.amazon.com/polly/latest/dg/API_Reference.html)
-- [SDK for Python Amazon Polly reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/polly.html)
+- [SDK for Python (Boto3) Amazon Polly reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/polly.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

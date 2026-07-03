@@ -1,4 +1,4 @@
-# Amazon Glacier code examples for the SDK for Python
+# Amazon Glacier code examples for the SDK for Python (Boto3)
 
 ## Overview
 
@@ -136,7 +136,7 @@ in the `python` folder.
 
 - [Amazon Glacier Developer Guide](https://docs.aws.amazon.com/amazonglacier/latest/dev/introduction.html)
 - [Amazon Glacier API Reference](https://docs.aws.amazon.com/amazonglacier/latest/dev/amazon-glacier-api.html)
-- [SDK for Python Amazon Glacier reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/glacier.html)
+- [SDK for Python (Boto3) Amazon Glacier reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/glacier.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

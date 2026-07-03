@@ -1,4 +1,4 @@
-# Auto Scaling code examples for the SDK for Python
+# Auto Scaling code examples for the SDK for Python (Boto3)
 
 ## Overview
 
@@ -157,7 +157,7 @@ in the `python` folder.
 
 - [Auto Scaling User Guide](https://docs.aws.amazon.com/autoscaling/ec2/userguide/what-is-amazon-ec2-auto-scaling.html)
 - [Auto Scaling API Reference](https://docs.aws.amazon.com/autoscaling/ec2/APIReference/Welcome.html)
-- [SDK for Python Auto Scaling reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/autoscaling.html)
+- [SDK for Python (Boto3) Auto Scaling reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/auto-scaling.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

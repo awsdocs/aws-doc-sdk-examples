@@ -1,4 +1,4 @@
-# Organizations code examples for the SDK for Python
+# Organizations code examples for the SDK for Python (Boto3)
 
 ## Overview
 
@@ -85,7 +85,7 @@ in the `python` folder.
 
 - [Organizations User Guide](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_introduction.html)
 - [Organizations API Reference](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_introduction.html)
-- [SDK for Python Organizations reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/organizations.html)
+- [SDK for Python (Boto3) Organizations reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/organizations.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

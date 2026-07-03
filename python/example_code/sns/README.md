@@ -1,4 +1,4 @@
-# Amazon SNS code examples for the SDK for Python
+# Amazon SNS code examples for the SDK for Python (Boto3)
 
 ## Overview
 
@@ -202,7 +202,7 @@ in the `python` folder.
 
 - [Amazon SNS Developer Guide](https://docs.aws.amazon.com/sns/latest/dg/welcome.html)
 - [Amazon SNS API Reference](https://docs.aws.amazon.com/sns/latest/api/welcome.html)
-- [SDK for Python Amazon SNS reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/sns.html)
+- [SDK for Python (Boto3) Amazon SNS reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/sns.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

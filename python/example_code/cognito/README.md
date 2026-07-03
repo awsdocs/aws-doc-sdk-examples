@@ -1,4 +1,4 @@
-# Amazon Cognito Identity Provider code examples for the SDK for Python
+# Amazon Cognito Identity Provider code examples for the SDK for Python (Boto3)
 
 ## Overview
 
@@ -144,7 +144,7 @@ in the `python` folder.
 
 - [Amazon Cognito Identity Provider Developer Guide](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html)
 - [Amazon Cognito Identity Provider API Reference](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/Welcome.html)
-- [SDK for Python Amazon Cognito Identity Provider reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/cognito-idp.html)
+- [SDK for Python (Boto3) Amazon Cognito Identity Provider reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/cognito-identity-provider.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

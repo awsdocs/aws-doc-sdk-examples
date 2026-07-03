@@ -1,4 +1,4 @@
-# Amazon Textract code examples for the SDK for Python
+# Amazon Textract code examples for the SDK for Python (Boto3)
 
 ## Overview
 
@@ -107,7 +107,7 @@ in the `python` folder.
 
 - [Amazon Textract Developer Guide](https://docs.aws.amazon.com/textract/latest/dg/what-is.html)
 - [Amazon Textract API Reference](https://docs.aws.amazon.com/textract/latest/dg/API_Reference.html)
-- [SDK for Python Amazon Textract reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/textract.html)
+- [SDK for Python (Boto3) Amazon Textract reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/textract.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

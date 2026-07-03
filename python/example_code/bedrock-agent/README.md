@@ -1,4 +1,4 @@
-# Amazon Bedrock Agents code examples for the SDK for Python
+# Amazon Bedrock Agents code examples for the SDK for Python (Boto3)
 
 ## Overview
 
@@ -188,7 +188,7 @@ in the `python` folder.
 
 - [Amazon Bedrock Agents User Guide](https://docs.aws.amazon.com/bedrock/latest/userguide/agents.html)
 - [Amazon Bedrock Agents API Reference](https://docs.aws.amazon.com/bedrock/latest/APIReference/API_Operations_Agents_for_Amazon_Bedrock.html)
-- [SDK for Python Amazon Bedrock Agents reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/bedrock-agent.html)
+- [SDK for Python (Boto3) Amazon Bedrock Agents reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/bedrock-agent.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

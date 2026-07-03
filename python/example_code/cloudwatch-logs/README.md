@@ -1,4 +1,4 @@
-# CloudWatch Logs code examples for the SDK for Python
+# CloudWatch Logs code examples for the SDK for Python (Boto3)
 
 ## Overview
 
@@ -110,7 +110,7 @@ in the `python` folder.
 
 - [CloudWatch Logs User Guide](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/WhatIsCloudWatchLogs.html)
 - [CloudWatch Logs API Reference](https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/Welcome.html)
-- [SDK for Python CloudWatch Logs reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/cloudwatch-logs.html)
+- [SDK for Python (Boto3) CloudWatch Logs reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/cloudwatch-logs.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

@@ -1,4 +1,4 @@
-# Amazon Rekognition code examples for the SDK for Python
+# Amazon Rekognition code examples for the SDK for Python (Boto3)
 
 ## Overview
 
@@ -163,7 +163,7 @@ in the `python` folder.
 
 - [Amazon Rekognition Developer Guide](https://docs.aws.amazon.com/rekognition/latest/dg/what-is.html)
 - [Amazon Rekognition API Reference](https://docs.aws.amazon.com/rekognition/latest/APIReference/Welcome.html)
-- [SDK for Python Amazon Rekognition reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/rekognition.html)
+- [SDK for Python (Boto3) Amazon Rekognition reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/rekognition.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

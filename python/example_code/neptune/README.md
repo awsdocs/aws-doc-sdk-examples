@@ -1,4 +1,4 @@
-# Neptune code examples for the SDK for Python
+# Neptune code examples for the SDK for Python (Boto3)
 
 ## Overview
 
@@ -130,7 +130,7 @@ in the `python` folder.
 
 - [Neptune User Guide](https://docs.aws.amazon.com/neptune/latest/userguide/intro.html)
 - [Neptune API Reference](https://docs.aws.amazon.com/neptune/latest/apiref/Welcome.html)
-- [SDK for Python Neptune reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/iam.html)
+- [SDK for Python (Boto3) Neptune reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/neptune.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

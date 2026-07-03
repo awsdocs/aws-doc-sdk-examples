@@ -1,4 +1,4 @@
-# Amazon Comprehend code examples for the SDK for Python
+# Amazon Comprehend code examples for the SDK for Python (Boto3)
 
 ## Overview
 
@@ -173,7 +173,7 @@ in the `python` folder.
 
 - [Amazon Comprehend Developer Guide](https://docs.aws.amazon.com/comprehend/latest/dg/what-is.html)
 - [Amazon Comprehend API Reference](https://docs.aws.amazon.com/comprehend/latest/APIReference/welcome.html)
-- [SDK for Python Amazon Comprehend reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/comprehend.html)
+- [SDK for Python (Boto3) Amazon Comprehend reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/comprehend.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

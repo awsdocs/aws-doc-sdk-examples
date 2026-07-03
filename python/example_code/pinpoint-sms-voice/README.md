@@ -1,4 +1,4 @@
-# Amazon Pinpoint SMS and Voice code examples for the SDK for Python
+# Amazon Pinpoint SMS and Voice code examples for the SDK for Python (Boto3)
 
 ## Overview
 
@@ -76,7 +76,7 @@ in the `python` folder.
 
 - [Amazon Pinpoint SMS and Voice Developer Guide](https://docs.aws.amazon.com/pinpoint/latest/developerguide/welcome.html)
 - [Amazon Pinpoint SMS and Voice API Reference](https://docs.aws.amazon.com/pinpoint-sms-voice/latest/APIReference/welcome.html)
-- [SDK for Python Amazon Pinpoint SMS and Voice reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/pinpoint-sms-voice.html)
+- [SDK for Python (Boto3) Amazon Pinpoint SMS and Voice reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/pinpoint-sms-voice.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

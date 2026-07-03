@@ -1,4 +1,4 @@
-# AWS STS code examples for the SDK for Python
+# AWS STS code examples for the SDK for Python (Boto3)
 
 ## Overview
 
@@ -146,7 +146,7 @@ in the `python` folder.
 
 - [AWS STS User Guide](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp.html)
 - [AWS STS API Reference](https://docs.aws.amazon.com/STS/latest/APIReference/welcome.html)
-- [SDK for Python AWS STS reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/sts.html)
+- [SDK for Python (Boto3) AWS STS reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/sts.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

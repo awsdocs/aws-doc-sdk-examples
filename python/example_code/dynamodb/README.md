@@ -1,4 +1,4 @@
-# DynamoDB code examples for the SDK for Python
+# DynamoDB code examples for the SDK for Python (Boto3)
 
 ## Overview
 
@@ -302,7 +302,7 @@ in the `python` folder.
 
 - [DynamoDB Developer Guide](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html)
 - [DynamoDB API Reference](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/Welcome.html)
-- [SDK for Python DynamoDB reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/dynamodb.html)
+- [SDK for Python (Boto3) DynamoDB reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/dynamodb.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

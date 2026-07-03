@@ -1,4 +1,4 @@
-# Lambda code examples for the SDK for Python
+# Lambda code examples for the SDK for Python (Boto3)
 
 ## Overview
 
@@ -203,7 +203,7 @@ in the `python` folder.
 
 - [Lambda Developer Guide](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html)
 - [Lambda API Reference](https://docs.aws.amazon.com/lambda/latest/dg/API_Reference.html)
-- [SDK for Python Lambda reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/lambda.html)
+- [SDK for Python (Boto3) Lambda reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/lambda.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

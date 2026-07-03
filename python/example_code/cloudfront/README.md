@@ -1,4 +1,4 @@
-# CloudFront code examples for the SDK for Python
+# CloudFront code examples for the SDK for Python (Boto3)
 
 ## Overview
 
@@ -78,7 +78,7 @@ in the `python` folder.
 
 - [CloudFront Developer Guide](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html)
 - [CloudFront API Reference](https://docs.aws.amazon.com/cloudfront/latest/APIReference/Welcome.html)
-- [SDK for Python CloudFront reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/cloudfront.html)
+- [SDK for Python (Boto3) CloudFront reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/cloudfront.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

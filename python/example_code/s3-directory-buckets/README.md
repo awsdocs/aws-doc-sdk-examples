@@ -1,4 +1,4 @@
-# S3 Directory Buckets code examples for the SDK for Python
+# S3 Directory Buckets code examples for the SDK for Python (Boto3)
 
 ## Overview
 
@@ -104,7 +104,7 @@ in the `python` folder.
 
 - [S3 Directory Buckets User Guide](https://docs.aws.amazon.com/AmazonS3/latest/userguide/directory-buckets-overview.html)
 - [S3 Directory Buckets API Reference](https://docs.aws.amazon.com/AmazonS3/latest/API/Welcome.html)
-- [SDK for Python S3 Directory Buckets reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3-directory-buckets.html)
+- [SDK for Python (Boto3) S3 Directory Buckets reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3-directory-buckets.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

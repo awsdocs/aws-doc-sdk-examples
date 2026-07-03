@@ -1,4 +1,4 @@
-# AWS Config code examples for the SDK for Python
+# AWS Config code examples for the SDK for Python (Boto3)
 
 ## Overview
 
@@ -73,7 +73,7 @@ in the `python` folder.
 
 - [AWS Config Developer Guide](https://docs.aws.amazon.com/config/latest/developerguide/WhatIsConfig.html)
 - [AWS Config API Reference](https://docs.aws.amazon.com/config/latest/APIReference/Welcome.html)
-- [SDK for Python AWS Config reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/config-service.html)
+- [SDK for Python (Boto3) AWS Config reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/config-service.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->
