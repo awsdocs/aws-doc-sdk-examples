@@ -1,4 +1,4 @@
-# Amazon SES code examples for the SDK for Python
+# Amazon SES code examples for the SDK for Python (Boto3)
 
 ## Overview
 
@@ -209,7 +209,7 @@ in the `python` folder.
 
 - [Amazon SES Developer Guide](https://docs.aws.amazon.com/ses/latest/dg/Welcome.html)
 - [Amazon SES API Reference](https://docs.aws.amazon.com/ses/latest/APIReference/Welcome.html)
-- [SDK for Python Amazon SES reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/ses.html)
+- [SDK for Python (Boto3) Amazon SES reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/ses.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

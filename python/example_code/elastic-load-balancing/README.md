@@ -1,4 +1,4 @@
-# Elastic Load Balancing - Version 2 code examples for the SDK for Python
+# Elastic Load Balancing - Version 2 code examples for the SDK for Python (Boto3)
 
 ## Overview
 
@@ -126,7 +126,7 @@ in the `python` folder.
 
 - [Elastic Load Balancing - Version 2 User Guide](https://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/what-is-load-balancing.html)
 - [Elastic Load Balancing - Version 2 API Reference](https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/Welcome.html)
-- [SDK for Python Elastic Load Balancing - Version 2 reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/elbv2.html)
+- [SDK for Python (Boto3) Elastic Load Balancing - Version 2 reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/elastic-load-balancing-v2.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

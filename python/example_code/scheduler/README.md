@@ -1,4 +1,4 @@
-# EventBridge Scheduler code examples for the SDK for Python
+# EventBridge Scheduler code examples for the SDK for Python (Boto3)
 
 ## Overview
 
@@ -117,7 +117,7 @@ in the `python` folder.
 
 - [EventBridge Scheduler User Guide](https://docs.aws.amazon.com/scheduler/latest/userguide/intro.html)
 - [EventBridge Scheduler API Reference](https://docs.aws.amazon.com/scheduler/latest/apireference/Welcome.html)
-- [SDK for Python EventBridge Scheduler reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/scheduler.html)
+- [SDK for Python (Boto3) EventBridge Scheduler reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/scheduler.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

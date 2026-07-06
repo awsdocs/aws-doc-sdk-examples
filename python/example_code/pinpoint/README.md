@@ -1,4 +1,4 @@
-# Amazon Pinpoint code examples for the SDK for Python
+# Amazon Pinpoint code examples for the SDK for Python (Boto3)
 
 ## Overview
 
@@ -77,7 +77,7 @@ in the `python` folder.
 
 - [Amazon Pinpoint Developer Guide](https://docs.aws.amazon.com/pinpoint/latest/developerguide/welcome.html)
 - [Amazon Pinpoint API Reference](https://docs.aws.amazon.com/pinpoint/latest/apireference/welcome.html)
-- [SDK for Python Amazon Pinpoint reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/pinpoint.html)
+- [SDK for Python (Boto3) Amazon Pinpoint reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/pinpoint.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

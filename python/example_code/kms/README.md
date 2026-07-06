@@ -1,4 +1,4 @@
-# AWS KMS code examples for the SDK for Python
+# AWS KMS code examples for the SDK for Python (Boto3)
 
 ## Overview
 
@@ -127,7 +127,7 @@ in the `python` folder.
 
 - [AWS KMS Developer Guide](https://docs.aws.amazon.com/kms/latest/developerguide/overview.html)
 - [AWS KMS API Reference](https://docs.aws.amazon.com/kms/latest/APIReference/Welcome.html)
-- [SDK for Python AWS KMS reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html)
+- [SDK for Python (Boto3) AWS KMS reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

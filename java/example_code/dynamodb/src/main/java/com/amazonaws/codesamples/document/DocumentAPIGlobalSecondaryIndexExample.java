@@ -125,18 +125,18 @@ public class DocumentAPIGlobalSecondaryIndexExample {
 
         QuerySpec querySpec = new QuerySpec();
 
-        if (indexName == "CreateDateIndex") {
+        if ("CreateDateIndex".equals(indexName)) {
             System.out.println("Issues filed on 2013-11-01");
             querySpec.withKeyConditionExpression("CreateDate = :v_date and begins_with(IssueId, :v_issue)")
                     .withValueMap(new ValueMap().withString(":v_date", "2013-11-01").withString(":v_issue", "A-"));
             items = index.query(querySpec);
-        } else if (indexName == "TitleIndex") {
+        } else if ("TitleIndex".equals(indexName)) {
             System.out.println("Compilation errors");
             querySpec.withKeyConditionExpression("Title = :v_title and begins_with(IssueId, :v_issue)")
                     .withValueMap(
                             new ValueMap().withString(":v_title", "Compilation error").withString(":v_issue", "A-"));
             items = index.query(querySpec);
-        } else if (indexName == "DueDateIndex") {
+        } else if ("DueDateIndex".equals(indexName)) {
             System.out.println("Items that are due on 2013-11-30");
             querySpec.withKeyConditionExpression("DueDate = :v_date")
                     .withValueMap(new ValueMap().withString(":v_date", "2013-11-30"));

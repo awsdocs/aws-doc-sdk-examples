@@ -1,4 +1,4 @@
-# Amazon RDS code examples for the SDK for Python
+# Amazon RDS code examples for the SDK for Python (Boto3)
 
 ## Overview
 
@@ -142,7 +142,7 @@ in the `python` folder.
 
 - [Amazon RDS User Guide](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Welcome.html)
 - [Amazon RDS API Reference](https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/Welcome.html)
-- [SDK for Python Amazon RDS reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/rds.html)
+- [SDK for Python (Boto3) Amazon RDS reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/rds.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

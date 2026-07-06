@@ -1,4 +1,4 @@
-# Amazon SQS code examples for the SDK for Python
+# Amazon SQS code examples for the SDK for Python (Boto3)
 
 ## Overview
 
@@ -191,7 +191,7 @@ in the `python` folder.
 
 - [Amazon SQS Developer Guide](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/welcome.html)
 - [Amazon SQS API Reference](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/Welcome.html)
-- [SDK for Python Amazon SQS reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/sqs.html)
+- [SDK for Python (Boto3) Amazon SQS reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/sqs.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

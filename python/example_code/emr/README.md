@@ -1,4 +1,4 @@
-# Amazon EMR code examples for the SDK for Python
+# Amazon EMR code examples for the SDK for Python (Boto3)
 
 ## Overview
 
@@ -132,7 +132,7 @@ in the `python` folder.
 
 - [Amazon EMR Management Guide](https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-what-is-emr.html)
 - [Amazon EMR API Reference](https://docs.aws.amazon.com/emr/latest/APIReference/Welcome.html)
-- [SDK for Python Amazon EMR reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/emr.html)
+- [SDK for Python (Boto3) Amazon EMR reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/emr.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

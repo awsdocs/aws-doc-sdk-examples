@@ -1,4 +1,4 @@
-# IAM code examples for the SDK for Python
+# IAM code examples for the SDK for Python (Boto3)
 
 ## Overview
 
@@ -318,7 +318,7 @@ in the `python` folder.
 
 - [IAM User Guide](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html)
 - [IAM API Reference](https://docs.aws.amazon.com/IAM/latest/APIReference/welcome.html)
-- [SDK for Python IAM reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/iam.html)
+- [SDK for Python (Boto3) IAM reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/iam.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

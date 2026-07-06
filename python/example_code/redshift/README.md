@@ -1,4 +1,4 @@
-# Amazon Redshift code examples for the SDK for Python
+# Amazon Redshift code examples for the SDK for Python (Boto3)
 
 ## Overview
 
@@ -120,7 +120,7 @@ in the `python` folder.
 
 - [Amazon Redshift Management Guide](https://docs.aws.amazon.com/redshift/latest/mgmt/welcome.html)
 - [Amazon Redshift API Reference](https://docs.aws.amazon.com/redshift/latest/APIReference/Welcome.html)
-- [SDK for Python Amazon Redshift reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/redshift.html)
+- [SDK for Python (Boto3) Amazon Redshift reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/redshift.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

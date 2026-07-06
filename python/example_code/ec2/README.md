@@ -1,4 +1,4 @@
-# Amazon EC2 code examples for the SDK for Python
+# Amazon EC2 code examples for the SDK for Python (Boto3)
 
 ## Overview
 
@@ -176,7 +176,7 @@ in the `python` folder.
 
 - [Amazon EC2 User Guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html)
 - [Amazon EC2 API Reference](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Welcome.html)
-- [SDK for Python Amazon EC2 reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/ec2.html)
+- [SDK for Python (Boto3) Amazon EC2 reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/ec2.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

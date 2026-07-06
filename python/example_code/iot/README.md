@@ -1,4 +1,4 @@
-# AWS IoT code examples for the SDK for Python
+# AWS IoT code examples for the SDK for Python (Boto3)
 
 ## Overview
 
@@ -131,7 +131,7 @@ in the `python` folder.
 
 - [AWS IoT Developer Guide](https://docs.aws.amazon.com/iot/latest/developerguide/what-is-aws-iot.html)
 - [AWS IoT API Reference](https://docs.aws.amazon.com/iot/latest/apireference/Welcome.html)
-- [SDK for Python AWS IoT reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/iot.html)
+- [SDK for Python (Boto3) AWS IoT reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/iot.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

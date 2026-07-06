@@ -1,4 +1,4 @@
-# Audit Manager code examples for the SDK for Python
+# Audit Manager code examples for the SDK for Python (Boto3)
 
 ## Overview
 
@@ -148,7 +148,7 @@ in the `python` folder.
 
 - [Audit Manager User Guide](https://docs.aws.amazon.com/audit-manager/latest/userguide/what-is.html)
 - [Audit Manager API Reference](https://docs.aws.amazon.com/audit-manager/latest/APIReference/Welcome.html)
-- [SDK for Python Audit Manager reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/auditmanager.html)
+- [SDK for Python (Boto3) Audit Manager reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/auditmanager.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

@@ -1,4 +1,4 @@
-# AWS Control Tower code examples for the SDK for Python
+# AWS Control Tower code examples for the SDK for Python (Boto3)
 
 ## Overview
 
@@ -123,7 +123,7 @@ in the `python` folder.
 
 - [AWS Control Tower User Guide](https://docs.aws.amazon.com/controltower/latest/userguide/what-is-control-tower.html)
 - [AWS Control Tower API Reference](https://docs.aws.amazon.com/controltower/latest/APIReference/Welcome.html)
-- [SDK for Python AWS Control Tower reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/cognito-idp.html)
+- [SDK for Python (Boto3) AWS Control Tower reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/controltower.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

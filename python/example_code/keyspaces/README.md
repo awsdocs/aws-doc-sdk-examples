@@ -1,4 +1,4 @@
-# Amazon Keyspaces code examples for the SDK for Python
+# Amazon Keyspaces code examples for the SDK for Python (Boto3)
 
 ## Overview
 
@@ -122,7 +122,7 @@ in the `python` folder.
 
 - [Amazon Keyspaces Developer Guide](https://docs.aws.amazon.com/keyspaces/latest/devguide/what-is-keyspaces.html)
 - [Amazon Keyspaces API Reference](https://docs.aws.amazon.com/keyspaces/latest/APIReference/Welcome.html)
-- [SDK for Python Amazon Keyspaces reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/keyspaces.html)
+- [SDK for Python (Boto3) Amazon Keyspaces reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/keyspaces.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

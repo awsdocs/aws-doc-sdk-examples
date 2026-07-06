@@ -1,4 +1,4 @@
-# Amazon Bedrock code examples for the SDK for Python
+# Amazon Bedrock code examples for the SDK for Python (Boto3)
 
 ## Overview
 
@@ -96,7 +96,7 @@ in the `python` folder.
 
 - [Amazon Bedrock User Guide](https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-bedrock.html)
 - [Amazon Bedrock API Reference](https://docs.aws.amazon.com/bedrock/latest/APIReference/welcome.html)
-- [SDK for Python Amazon Bedrock reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/bedrock.html)
+- [SDK for Python (Boto3) Amazon Bedrock reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/bedrock.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

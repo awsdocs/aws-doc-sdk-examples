@@ -1,4 +1,4 @@
-# Support code examples for the SDK for Python
+# Support code examples for the SDK for Python (Boto3)
 
 ## Overview
 
@@ -124,7 +124,7 @@ in the `python` folder.
 
 - [Support User Guide](https://docs.aws.amazon.com/awssupport/latest/user/getting-started.html)
 - [Support API Reference](https://docs.aws.amazon.com/awssupport/latest/APIReference/welcome.html)
-- [SDK for Python Support reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/support.html)
+- [SDK for Python (Boto3) Support reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/support.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

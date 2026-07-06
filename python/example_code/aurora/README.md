@@ -1,4 +1,4 @@
-# Aurora code examples for the SDK for Python
+# Aurora code examples for the SDK for Python (Boto3)
 
 ## Overview
 
@@ -158,7 +158,7 @@ in the `python` folder.
 
 - [Aurora User Guide](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html)
 - [Aurora API Reference](https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/Welcome.html)
-- [SDK for Python Aurora reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/rds.html)
+- [SDK for Python (Boto3) Aurora reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/aurora.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

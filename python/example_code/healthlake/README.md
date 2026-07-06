@@ -1,4 +1,4 @@
-# HealthLake code examples for the SDK for Python
+# HealthLake code examples for the SDK for Python (Boto3)
 
 ## Overview
 
@@ -83,7 +83,7 @@ in the `python` folder.
 
 - [HealthLake Developer Guide](https://docs.aws.amazon.com/healthlake/latest/devguide/what-is-amazon-health-lake.html)
 - [HealthLake API Reference](https://docs.aws.amazon.com/healthlake/latest/APIReference/Welcome.html)
-- [SDK for Python HealthLake reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/medical-imaging.html)
+- [SDK for Python (Boto3) HealthLake reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/healthlake.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

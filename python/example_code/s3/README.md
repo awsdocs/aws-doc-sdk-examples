@@ -1,4 +1,4 @@
-# Amazon S3 code examples for the SDK for Python
+# Amazon S3 code examples for the SDK for Python (Boto3)
 
 ## Overview
 
@@ -294,7 +294,7 @@ in the `python` folder.
 
 - [Amazon S3 User Guide](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html)
 - [Amazon S3 API Reference](https://docs.aws.amazon.com/AmazonS3/latest/API/Welcome.html)
-- [SDK for Python Amazon S3 reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html)
+- [SDK for Python (Boto3) Amazon S3 reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

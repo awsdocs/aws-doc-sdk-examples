@@ -1,4 +1,4 @@
-# HealthImaging code examples for the SDK for Python
+# HealthImaging code examples for the SDK for Python (Boto3)
 
 ## Overview
 
@@ -172,7 +172,7 @@ in the `python` folder.
 
 - [HealthImaging Developer Guide](https://docs.aws.amazon.com/healthimaging/latest/devguide/what-is.html)
 - [HealthImaging API Reference](https://docs.aws.amazon.com/healthimaging/latest/APIReference/Welcome.html)
-- [SDK for Python HealthImaging reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/medical-imaging.html)
+- [SDK for Python (Boto3) HealthImaging reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/medical-imaging.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

@@ -1,4 +1,4 @@
-# Managed Service for Apache Flink code examples for the SDK for Python
+# Managed Service for Apache Flink code examples for the SDK for Python (Boto3)
 
 ## Overview
 
@@ -100,7 +100,7 @@ in the `python` folder.
 
 - [Managed Service for Apache Flink Developer Guide](https://docs.aws.amazon.com/managed-flink/latest/java/what-is.html)
 - [Managed Service for Apache Flink API Reference](https://docs.aws.amazon.com/managed-flink/latest/apiv2/Welcome.html)
-- [SDK for Python Managed Service for Apache Flink reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kinesisanalyticsv2.html)
+- [SDK for Python (Boto3) Managed Service for Apache Flink reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kinesis-analytics-v2.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

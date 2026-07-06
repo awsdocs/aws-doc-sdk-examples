@@ -1,4 +1,4 @@
-# AWS IoT SiteWise code examples for the SDK for Python
+# AWS IoT SiteWise code examples for the SDK for Python (Boto3)
 
 ## Overview
 
@@ -126,7 +126,7 @@ in the `python` folder.
 
 - [AWS IoT SiteWise Developer Guide](https://docs.aws.amazon.com/iot-sitewise/latest/userguide/what-is-sitewise.html)
 - [AWS IoT SiteWise API Reference](https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/Welcome.html)
-- [SDK for Python AWS IoT SiteWise reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/iotsitewise.html)
+- [SDK for Python (Boto3) AWS IoT SiteWise reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/iotsitewise.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

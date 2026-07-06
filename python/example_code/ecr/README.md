@@ -1,4 +1,4 @@
-# Amazon ECR code examples for the SDK for Python
+# Amazon ECR code examples for the SDK for Python (Boto3)
 
 ## Overview
 
@@ -124,7 +124,7 @@ in the `python` folder.
 
 - [Amazon ECR User Guide](https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html)
 - [Amazon ECR API Reference](https://docs.aws.amazon.com/AmazonECR/latest/APIReference/Welcome.html)
-- [SDK for Python Amazon ECR reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/scheduler.html)
+- [SDK for Python (Boto3) Amazon ECR reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/ecr.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

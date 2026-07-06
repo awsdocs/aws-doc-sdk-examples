@@ -1,4 +1,4 @@
-# Route 53 ARC code examples for the SDK for Python
+# Route 53 ARC code examples for the SDK for Python (Boto3)
 
 ## Overview
 
@@ -100,7 +100,7 @@ in the `python` folder.
 
 - [Route 53 ARC Developer Guide](https://docs.aws.amazon.com/r53recovery/latest/dg/what-is-route53-recovery.html)
 - [Route 53 ARC API Reference](https://docs.aws.amazon.com/routing-control/latest/APIReference/Welcome.html)
-- [SDK for Python Route 53 ARC reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/route53-recovery-cluster.html)
+- [SDK for Python (Boto3) Route 53 ARC reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/route53-recovery-cluster.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

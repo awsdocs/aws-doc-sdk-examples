@@ -1,4 +1,4 @@
-# AWS Glue code examples for the SDK for Python
+# AWS Glue code examples for the SDK for Python (Boto3)
 
 ## Overview
 
@@ -156,7 +156,7 @@ in the `python` folder.
 
 - [AWS Glue Developer Guide](https://docs.aws.amazon.com/glue/latest/dg/what-is-glue.html)
 - [AWS Glue API Reference](https://docs.aws.amazon.com/glue/latest/dg/aws-glue-api.html)
-- [SDK for Python AWS Glue reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/glue.html)
+- [SDK for Python (Boto3) AWS Glue reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/glue.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

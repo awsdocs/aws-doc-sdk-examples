@@ -1,4 +1,4 @@
-# Secrets Manager code examples for the SDK for Python
+# Secrets Manager code examples for the SDK for Python (Boto3)
 
 ## Overview
 
@@ -96,7 +96,7 @@ in the `python` folder.
 
 - [Secrets Manager User Guide](https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html)
 - [Secrets Manager API Reference](https://docs.aws.amazon.com/secretsmanager/latest/apireference/Welcome.html)
-- [SDK for Python Secrets Manager reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/secretsmanager.html)
+- [SDK for Python (Boto3) Secrets Manager reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/secrets-manager.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

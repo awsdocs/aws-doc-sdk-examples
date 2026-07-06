@@ -1,4 +1,4 @@
-# Data Firehose code examples for the SDK for Python
+# Data Firehose code examples for the SDK for Python (Boto3)
 
 ## Overview
 
@@ -98,7 +98,7 @@ in the `python` folder.
 
 - [Data Firehose User Guide](https://docs.aws.amazon.com/firehose/latest/dev/what-is-this-service.html)
 - [Data Firehose API Reference](https://docs.aws.amazon.com/firehose/latest/APIReference/Welcome.html)
-- [SDK for Python Data Firehose reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kinesis-firehose.html)
+- [SDK for Python (Boto3) Data Firehose reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/firehose.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

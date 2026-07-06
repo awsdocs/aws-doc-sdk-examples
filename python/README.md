@@ -1,11 +1,11 @@
-# AWS SDK for Python code examples
+# AWS SDK for Python (Boto3) code examples
 
 ## Overview
 
 The code examples in this topic show you how to use the AWS SDK for Python (Boto3) 
 with AWS. 
 
-The AWS SDK for Python provides a Python API for AWS infrastructure services.
+The AWS SDK for Python (Boto3) provides a Python API for AWS infrastructure services.
 Using the SDK, you can build applications on top of AWS services such as Amazon Simple 
 Storage Service (Amazon S3), Amazon Elastic Compute Cloud (Amazon EC2), and Amazon DynamoDB.
 
@@ -169,7 +169,7 @@ hosted on [Amazon Elastic Container Registry (Amazon ECR)](https://docs.aws.amaz
 The image is preloaded with all Python examples, with dependencies pre-resolved. 
 That way, you can explore the examples in an isolated environment.
 
-See [SDK for Python image](https://gallery.ecr.aws/b4v4v1s0/python) for more information.
+See [SDK for Python (Boto3) image](https://gallery.ecr.aws/b4v4v1s0/python) for more information.
 
 ### Build the Docker image
 

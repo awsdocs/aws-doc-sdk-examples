@@ -1,4 +1,4 @@
-# Device Farm code examples for the SDK for Python
+# Device Farm code examples for the SDK for Python (Boto3)
 
 ## Overview
 
@@ -108,7 +108,7 @@ in the `python` folder.
 
 - [Device Farm Developer Guide](https://docs.aws.amazon.com/devicefarm/latest/developerguide/welcome.html)
 - [Device Farm API Reference](https://docs.aws.amazon.com/devicefarm/latest/APIReference/Welcome.html)
-- [SDK for Python Device Farm reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/devicefarm.html)
+- [SDK for Python (Boto3) Device Farm reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/device-farm.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

@@ -1,4 +1,4 @@
-# Systems Manager code examples for the SDK for Python
+# Systems Manager code examples for the SDK for Python (Boto3)
 
 ## Overview
 
@@ -125,7 +125,7 @@ in the `python` folder.
 
 - [Systems Manager User Guide](https://docs.aws.amazon.com/systems-manager/latest/userguide/what-is-systems-manager.html)
 - [Systems Manager API Reference](https://docs.aws.amazon.com/systems-manager/latest/APIReference/Welcome.html)
-- [SDK for Python Systems Manager reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/ssm.html)
+- [SDK for Python (Boto3) Systems Manager reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/ssm.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

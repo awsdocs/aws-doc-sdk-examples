@@ -1,4 +1,4 @@
-# ACM code examples for the SDK for Python
+# ACM code examples for the SDK for Python (Boto3)
 
 ## Overview
 
@@ -109,7 +109,7 @@ in the `python` folder.
 
 - [ACM User Guide](https://docs.aws.amazon.com/acm/latest/userguide/acm-overview.html)
 - [ACM API Reference](https://docs.aws.amazon.com/acm/latest/APIReference/Welcome.html)
-- [SDK for Python ACM reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/acm.html)
+- [SDK for Python (Boto3) ACM reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/acm.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->
