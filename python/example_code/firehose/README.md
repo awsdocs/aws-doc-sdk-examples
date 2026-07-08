@@ -1,4 +1,4 @@
-# Data Firehose code examples for the SDK for Python (Boto3)
+# Data Firehose code examples for the SDK for Python
 
 ## Overview
 
@@ -34,19 +34,30 @@ python -m pip install -r requirements.txt
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
-### Single actions
+### Get started
 
-Code excerpts that show you how to call individual service functions.
-
-- [PutRecord](scenarios/firehose-put-actions/firehose.py#L33)
-- [PutRecordBatch](scenarios/firehose-put-actions/firehose.py#L33)
+- [Hello Data Firehose](firehose_hello.py#L8) (`ListDeliveryStreams`)
 
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Put records to Data Firehose](scenarios/firehose-put-actions/firehose.py)
+- [Learn the basics](firehose_wrapper.py)
+
+### Actions
+_Actions_ are code excerpts from larger programs and must be run in context. While actions show you how to call individual service functions, you can see actions in context in their related scenarios.
+
+- [CreateDeliveryStream](firehose_wrapper.py#L41)
+- [DeleteDeliveryStream](firehose_wrapper.py#L386)
+- [DescribeDeliveryStream](firehose_wrapper.py#L87)
+- [ListDeliveryStreams](firehose_wrapper.py#L345)
+- [ListTagsForDeliveryStream](firehose_wrapper.py#L141)
+- [PutRecord](firehose_wrapper.py#L200)
+- [PutRecordBatch](firehose_wrapper.py#L236)
+- [StartDeliveryStreamEncryption](firehose_wrapper.py#L171)
+- [TagDeliveryStream](firehose_wrapper.py#L116)
+- [UpdateDestination](firehose_wrapper.py#L293)
 
 
 <!--custom.examples.start-->
@@ -60,26 +71,32 @@ functions within the same service.
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
+#### Hello Data Firehose
+
+This example shows you how to get started using Data Firehose.
+
+```
+python firehose_hello.py
+```
 
 
-#### Put records to Data Firehose
+#### Learn the basics
 
-This example shows you how to use Data Firehose to process individual and batch records.
+This example shows you how to learn the basics of Data Firehose by creating a delivery stream and managing it.
 
 
-<!--custom.scenario_prereqs.firehose_Scenario_PutRecords.start-->
-See required [resource and data setup instructions](../../../scenarios/features/firehose/README.md).
-<!--custom.scenario_prereqs.firehose_Scenario_PutRecords.end-->
+<!--custom.scenario_prereqs.firehose_Scenario.start-->
+<!--custom.scenario_prereqs.firehose_Scenario.end-->
 
 Start the example by running the following at a command prompt:
 
 ```
-python scenarios/firehose-put-actions/firehose.py
+python firehose_wrapper.py
 ```
 
 
-<!--custom.scenarios.firehose_Scenario_PutRecords.start-->
-<!--custom.scenarios.firehose_Scenario_PutRecords.end-->
+<!--custom.scenarios.firehose_Scenario.start-->
+<!--custom.scenarios.firehose_Scenario.end-->
 
 ### Tests
 
@@ -98,7 +115,7 @@ in the `python` folder.
 
 - [Data Firehose User Guide](https://docs.aws.amazon.com/firehose/latest/dev/what-is-this-service.html)
 - [Data Firehose API Reference](https://docs.aws.amazon.com/firehose/latest/APIReference/Welcome.html)
-- [SDK for Python (Boto3) Data Firehose reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/firehose.html)
+- [SDK for Python Data Firehose reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/firehose.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

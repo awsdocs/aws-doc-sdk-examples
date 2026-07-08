@@ -1,7 +1,7 @@
 firehose_Hello:
-  title: Hello &ADF;
-  title_abbrev: Hello &ADF;
-  synopsis: get started using &ADF;.
+  title: Hello &FH;
+  title_abbrev: Hello &FH;
+  synopsis: get started using &FH;.
   category: Hello
   languages:
     Python:
@@ -15,9 +15,9 @@ firehose_Hello:
   services:
     firehose: {ListDeliveryStreams}
 firehose_CreateDeliveryStream:
-  title: Create a &ADF; delivery stream
+  title: Create a &FH; delivery stream
   title_abbrev: Create a delivery stream
-  synopsis: create an &ADF; delivery stream.
+  synopsis: create an &FH; delivery stream.
   category: Actions
   languages:
     Python:
@@ -32,9 +32,9 @@ firehose_CreateDeliveryStream:
   services:
     firehose: {CreateDeliveryStream}
 firehose_DescribeDeliveryStream:
-  title: Describe a &ADF; delivery stream
+  title: Describe a &FH; delivery stream
   title_abbrev: Describe a delivery stream
-  synopsis: describe an &ADF; delivery stream.
+  synopsis: describe an &FH; delivery stream.
   category: Actions
   languages:
     Python:
@@ -49,9 +49,9 @@ firehose_DescribeDeliveryStream:
   services:
     firehose: {DescribeDeliveryStream}
 firehose_TagDeliveryStream:
-  title: Tag a &ADF; delivery stream
+  title: Tag a &FH; delivery stream
   title_abbrev: Tag a delivery stream
-  synopsis: tag an &ADF; delivery stream.
+  synopsis: tag an &FH; delivery stream.
   category: Actions
   languages:
     Python:
@@ -66,9 +66,9 @@ firehose_TagDeliveryStream:
   services:
     firehose: {TagDeliveryStream}
 firehose_ListTagsForDeliveryStream:
-  title: List tags for a &ADF; delivery stream
+  title: List tags for a &FH; delivery stream
   title_abbrev: List tags for a delivery stream
-  synopsis: list tags for an &ADF; delivery stream.
+  synopsis: list tags for an &FH; delivery stream.
   category: Actions
   languages:
     Python:
@@ -83,9 +83,9 @@ firehose_ListTagsForDeliveryStream:
   services:
     firehose: {ListTagsForDeliveryStream}
 firehose_StartDeliveryStreamEncryption:
-  title: Start encryption on a &ADF; delivery stream
+  title: Start encryption on a &FH; delivery stream
   title_abbrev: Start delivery stream encryption
-  synopsis: start server-side encryption on an &ADF; delivery stream.
+  synopsis: start server-side encryption on an &FH; delivery stream.
   category: Actions
   languages:
     Python:
@@ -100,9 +100,9 @@ firehose_StartDeliveryStreamEncryption:
   services:
     firehose: {StartDeliveryStreamEncryption}
 firehose_PutRecord:
-  title: Put a record to a &ADF; delivery stream
+  title: Put a record to a &FH; delivery stream
   title_abbrev: Put a record
-  synopsis: put a record to an &ADF; delivery stream.
+  synopsis: put a record to an &FH; delivery stream.
   category: Actions
   languages:
     Python:
@@ -117,9 +117,9 @@ firehose_PutRecord:
   services:
     firehose: {PutRecord}
 firehose_PutRecordBatch:
-  title: Put a batch of records to a &ADF; delivery stream
+  title: Put a batch of records to a &FH; delivery stream
   title_abbrev: Put a record batch
-  synopsis: put a batch of records to an &ADF; delivery stream.
+  synopsis: put a batch of records to an &FH; delivery stream.
   category: Actions
   languages:
     Python:
@@ -134,9 +134,9 @@ firehose_PutRecordBatch:
   services:
     firehose: {PutRecordBatch}
 firehose_UpdateDestination:
-  title: Update destination of a &ADF; delivery stream
+  title: Update destination of a &FH; delivery stream
   title_abbrev: Update destination
-  synopsis: update the destination of an &ADF; delivery stream.
+  synopsis: update the destination of an &FH; delivery stream.
   category: Actions
   languages:
     Python:
@@ -151,9 +151,9 @@ firehose_UpdateDestination:
   services:
     firehose: {UpdateDestination}
 firehose_ListDeliveryStreams:
-  title: List &ADF; delivery streams
+  title: List &FH; delivery streams
   title_abbrev: List delivery streams
-  synopsis: list &ADF; delivery streams.
+  synopsis: list &FH; delivery streams.
   category: Actions
   languages:
     Python:
@@ -168,9 +168,9 @@ firehose_ListDeliveryStreams:
   services:
     firehose: {ListDeliveryStreams}
 firehose_DeleteDeliveryStream:
-  title: Delete a &ADF; delivery stream
+  title: Delete a &FH; delivery stream
   title_abbrev: Delete a delivery stream
-  synopsis: delete an &ADF; delivery stream.
+  synopsis: delete an &FH; delivery stream.
   category: Actions
   languages:
     Python:
@@ -185,9 +185,9 @@ firehose_DeleteDeliveryStream:
   services:
     firehose: {DeleteDeliveryStream}
 firehose_Scenario:
-  title: Learn &ADF; basics
+  title: Learn &FH; basics
   title_abbrev: Learn the basics
-  synopsis: learn the basics of &ADF; by creating a delivery stream and managing it.
+  synopsis: learn the basics of &FH; by creating a delivery stream and managing it.
   category: Scenarios
   languages:
     Python:
