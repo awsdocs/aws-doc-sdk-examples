@@ -24,10 +24,14 @@ from datetime import datetime, timezone
 import boto3
 from botocore.exceptions import ClientError
 
+import os
+
+_scenario_dir = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(os.path.join(_scenario_dir, ".."))
 from firehose_wrapper import FirehoseWrapper
 
 # Add relative path to include demo_tools in this code example without need for setup.
-sys.path.append("../../../..")
+sys.path.append(os.path.join(_scenario_dir, "..", "..", ".."))
 import demo_tools.question as q  # noqa
 
 logger = logging.getLogger(__name__)
@@ -108,7 +112,7 @@ class FirehoseScenario:
             print("\n5. Enabling server-side encryption (AWS_OWNED_CMK)...")
             self.firehose_wrapper.start_delivery_stream_encryption(stream_name)
             encryption_status = self.firehose_wrapper.wait_for_encryption_enabled(
-                stream_name, poll_interval=5, max_wait=60
+                stream_name, poll_interval=5, max_wait=120
             )
             print(f"   Encryption status: {encryption_status}")
 
@@ -178,12 +182,26 @@ class FirehoseScenario:
         finally:
             # Step 10: Delete the delivery stream
             print(f"\n10. Deleting delivery stream: {stream_name}...")
-            try:
-                self.firehose_wrapper.delete_delivery_stream(stream_name)
-                print("   Deletion initiated. Stream will be removed shortly.")
-            except ClientError as err:
-                logger.error("Failed to delete stream: %s", err)
-                print(f"   Warning: Could not delete stream: {err}")
+            max_retries = 5
+            for attempt in range(max_retries):
+                try:
+                    self.firehose_wrapper.delete_delivery_stream(stream_name)
+                    print("   Deletion initiated. Stream will be removed shortly.")
+                    break
+                except ClientError as err:
+                    if (
+                        err.response["Error"]["Code"] == "ResourceInUseException"
+                        and attempt < max_retries - 1
+                    ):
+                        print(
+                            "   Stream not yet deletable. "
+                            "Waiting 15 seconds before retry..."
+                        )
+                        time.sleep(15)
+                    else:
+                        logger.error("Failed to delete stream: %s", err)
+                        print(f"   Warning: Could not delete stream: {err}")
+                        break
 
         print("\n" + "-" * 88)
         print("Firehose Basics Scenario complete. Thanks for watching!")
@@ -193,23 +211,141 @@ class FirehoseScenario:
 # snippet-end:[python.example_code.firehose.FirehoseScenario]
 
 
+def setup_resources(region: str, suffix: str):
+    """
+    Creates an S3 bucket and an IAM role for the Firehose scenario.
+
+    :param region: AWS region for the bucket.
+    :param suffix: Unique suffix for resource names.
+    :return: Tuple of (bucket_arn, role_arn, bucket_name, role_name).
+    """
+    bucket_name = f"firehose-basics-bucket-{suffix}"
+    role_name = f"firehose-basics-role-{suffix}"
+
+    # Create S3 bucket
+    s3_client = boto3.client("s3", region_name=region)
+    print(f"   Creating S3 bucket: {bucket_name}...")
+    if region == "us-east-1":
+        s3_client.create_bucket(Bucket=bucket_name)
+    else:
+        s3_client.create_bucket(
+            Bucket=bucket_name,
+            CreateBucketConfiguration={"LocationConstraint": region},
+        )
+    bucket_arn = f"arn:aws:s3:::{bucket_name}"
+    print(f"   Bucket created: {bucket_arn}")
+
+    # Create IAM role with Firehose trust policy
+    iam_client = boto3.client("iam")
+    trust_policy = json.dumps(
+        {
+            "Version": "2012-10-17",
+            "Statement": [
+                {
+                    "Effect": "Allow",
+                    "Principal": {"Service": "firehose.amazonaws.com"},
+                    "Action": "sts:AssumeRole",
+                }
+            ],
+        }
+    )
+    print(f"   Creating IAM role: {role_name}...")
+    role_response = iam_client.create_role(
+        RoleName=role_name,
+        AssumeRolePolicyDocument=trust_policy,
+        Description="Role for Firehose basics scenario to write to S3.",
+    )
+    role_arn = role_response["Role"]["Arn"]
+
+    # Attach inline policy granting S3 write access
+    s3_policy = json.dumps(
+        {
+            "Version": "2012-10-17",
+            "Statement": [
+                {
+                    "Effect": "Allow",
+                    "Action": [
+                        "s3:PutObject",
+                        "s3:GetBucketLocation",
+                        "s3:ListBucket",
+                        "s3:AbortMultipartUpload",
+                        "s3:GetObject",
+                        "s3:ListBucketMultipartUploads",
+                    ],
+                    "Resource": [
+                        bucket_arn,
+                        f"{bucket_arn}/*",
+                    ],
+                }
+            ],
+        }
+    )
+    iam_client.put_role_policy(
+        RoleName=role_name,
+        PolicyName="FirehoseS3Access",
+        PolicyDocument=s3_policy,
+    )
+    print(f"   Role created: {role_arn}")
+
+    # Wait for the role to propagate
+    print("   Waiting 10 seconds for IAM role propagation...")
+    time.sleep(10)
+
+    return bucket_arn, role_arn, bucket_name, role_name
+
+
+def cleanup_resources(region: str, bucket_name: str, role_name: str):
+    """
+    Deletes the S3 bucket and IAM role created for the scenario.
+
+    :param region: AWS region for the bucket.
+    :param bucket_name: Name of the S3 bucket to delete.
+    :param role_name: Name of the IAM role to delete.
+    """
+    print("\nCleaning up resources...")
+
+    # Delete all objects in the bucket, then delete the bucket
+    try:
+        s3 = boto3.resource("s3", region_name=region)
+        bucket = s3.Bucket(bucket_name)
+        print(f"   Emptying and deleting S3 bucket: {bucket_name}...")
+        bucket.objects.all().delete()
+        bucket.delete()
+        print("   Bucket deleted.")
+    except ClientError as err:
+        print(f"   Warning: Could not delete bucket: {err}")
+
+    # Delete the inline policy, then the role
+    try:
+        iam_client = boto3.client("iam")
+        print(f"   Deleting IAM role: {role_name}...")
+        iam_client.delete_role_policy(
+            RoleName=role_name, PolicyName="FirehoseS3Access"
+        )
+        iam_client.delete_role(RoleName=role_name)
+        print("   Role deleted.")
+    except ClientError as err:
+        print(f"   Warning: Could not delete role: {err}")
+
+
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
+    region = "us-east-1"
+    timestamp = int(time.time())
+    suffix = str(timestamp)
+    stream_name = f"firehose-basics-stream-{suffix}"
+
     print("Amazon Data Firehose Basics Scenario")
     print("=" * 50)
-    print(
-        "This scenario requires:\n"
-        "  - An S3 bucket ARN for the stream destination\n"
-        "  - An IAM role ARN that grants Firehose permission to write to S3\n"
-    )
+    print("\nSetting up required resources (S3 bucket + IAM role)...")
 
-    bucket_arn = q.ask("Enter the S3 bucket ARN: ", q.non_empty)
-    role_arn = q.ask("Enter the IAM role ARN: ", q.non_empty)
-    timestamp = int(time.time())
-    stream_name = f"firehose-basics-stream-{timestamp}"
-
+    bucket_name = None
+    role_name = None
     try:
+        bucket_arn, role_arn, bucket_name, role_name = setup_resources(
+            region, suffix
+        )
         wrapper = FirehoseWrapper.from_client()
         scenario = FirehoseScenario(wrapper)
         scenario.run_scenario(
@@ -219,3 +355,6 @@ if __name__ == "__main__":
         )
     except Exception:
         logging.exception("Something went wrong with the scenario.")
+    finally:
+        if bucket_name and role_name:
+            cleanup_resources(region, bucket_name, role_name)

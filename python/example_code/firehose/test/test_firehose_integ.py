@@ -17,9 +17,10 @@ import boto3
 import pytest
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "scenarios")))
 
 from firehose_wrapper import FirehoseWrapper
-from scenario_firehose_basics import FirehoseScenario
+from firehose_basics_scenario import FirehoseScenario
 
 
 @pytest.mark.integ
