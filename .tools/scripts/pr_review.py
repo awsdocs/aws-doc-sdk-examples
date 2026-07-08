@@ -14,7 +14,8 @@ import os
 import sys
 
 REGION = "us-west-2"
-MODEL_ID = "anthropic.claude-sonnet-4-20250514-v1:0"
+
+MODEL_ID = "us.anthropic.claude-sonnet-4-20250514-v1:0"
 
 # Map directory prefixes to language KB names
 LANGUAGE_MAP = {
