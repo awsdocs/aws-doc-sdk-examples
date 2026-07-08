@@ -1,4 +1,4 @@
-Is this# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
 """
@@ -11,7 +11,6 @@ then uses Claude to review the PR against quality criteria.
 import boto3
 import json
 import os
-import subprocess
 import sys
 
 REGION = "us-west-2"
@@ -52,7 +51,7 @@ Keep your review concise: no more than 10 points.
 """
 
 
-def detect_language(files: list[str]) -> str | None:
+def detect_language(files):
     """Detect the SDK language from PR file paths."""
     for file_path in files:
         for prefix, language in LANGUAGE_MAP.items():
@@ -61,7 +60,7 @@ def detect_language(files: list[str]) -> str | None:
     return None
 
 
-def detect_service(files: list[str]) -> str | None:
+def detect_service(files):
     """Detect the AWS service from PR file paths."""
     for file_path in files:
         parts = file_path.split("/")
@@ -74,7 +73,7 @@ def detect_service(files: list[str]) -> str | None:
     return None
 
 
-def get_kb_id(bedrock_agent, kb_name: str) -> str | None:
+def get_kb_id(bedrock_agent, kb_name):
     """Look up a Knowledge Base ID by name."""
     try:
         response = bedrock_agent.list_knowledge_bases()
@@ -86,9 +85,7 @@ def get_kb_id(bedrock_agent, kb_name: str) -> str | None:
     return None
 
 
-def retrieve_comparables(
-    bedrock_agent_runtime, kb_id: str, language: str, service: str, diff_summary: str
-) -> str:
+def retrieve_comparables(bedrock_agent_runtime, kb_id, language, service, diff_summary):
     """Retrieve comparable examples from the Knowledge Base."""
     query = f"{service} example scenario"
     if language:
@@ -105,7 +102,9 @@ def retrieve_comparables(
         results = []
         for result in response.get("retrievalResults", []):
             content = result.get("content", {}).get("text", "")
-            source = result.get("location", {}).get("s3Location", {}).get("uri", "unknown")
+            source = (
+                result.get("location", {}).get("s3Location", {}).get("uri", "unknown")
+            )
             results.append(f"### Source: {source}\n```\n{content[:2000]}\n```")
 
         return "\n\n".join(results) if results else "No comparable examples found."
@@ -114,7 +113,7 @@ def retrieve_comparables(
         return "Could not retrieve comparable examples."
 
 
-def retrieve_guidelines(bedrock_agent_runtime, kb_id: str) -> str:
+def retrieve_guidelines(bedrock_agent_runtime, kb_id):
     """Retrieve coding guidelines from the guidelines KB."""
     try:
         response = bedrock_agent_runtime.retrieve(
@@ -134,7 +133,7 @@ def retrieve_guidelines(bedrock_agent_runtime, kb_id: str) -> str:
         return ""
 
 
-def invoke_claude(bedrock_runtime, diff: str, comparables: str, guidelines: str, pr_title: str, pr_body: str) -> str:
+def invoke_claude(bedrock_runtime, diff, comparables, guidelines, pr_title, pr_body):
     """Send the review request to Claude."""
     user_message = f"""## PR: {pr_title}
 
@@ -170,7 +169,7 @@ def invoke_claude(bedrock_runtime, diff: str, comparables: str, guidelines: str,
     return response_body["content"][0]["text"]
 
 
-def set_output(name: str, value: str):
+def set_output(name, value):
     """Set a GitHub Actions output variable."""
     output_file = os.environ.get("GITHUB_OUTPUT", "")
     if output_file:
@@ -245,7 +244,9 @@ def main():
 
     # Invoke Claude for review
     print("Generating AI review...")
-    review = invoke_claude(bedrock_runtime, diff, comparables, guidelines, pr_title, pr_body)
+    review = invoke_claude(
+        bedrock_runtime, diff, comparables, guidelines, pr_title, pr_body
+    )
 
     # Write review comment
     comment = f"""## 🤖 AI Code Example Review
