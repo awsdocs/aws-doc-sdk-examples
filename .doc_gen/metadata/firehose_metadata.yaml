@@ -202,4 +202,4 @@ firehose_Scenario:
               snippet_tags:
                 - python.example_code.firehose.FirehoseScenario
   services:
-    firehose: {CreateDeliveryStream, DescribeDeliveryStream, TagDeliveryStream, ListTagsForDeliveryStream, StartDeliveryStreamEncryption, PutRecord, PutRecordBatch, UpdateDestination, ListDeliveryStreams, DeleteDeliveryStream}
+    firehose: {CreateDeliveryStream, TagDeliveryStream, DescribeDeliveryStream, ListTagsForDeliveryStream, StartDeliveryStreamEncryption, PutRecord, PutRecordBatch, UpdateDestination, ListDeliveryStreams, DeleteDeliveryStream}
