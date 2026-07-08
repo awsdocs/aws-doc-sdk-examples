@@ -4,9 +4,8 @@
 """
 Integration tests for Amazon Data Firehose Basics scenario.
 
-Prerequisites:
-- An S3 bucket ARN (set via FIREHOSE_BUCKET_ARN environment variable)
-- An IAM role ARN (set via FIREHOSE_ROLE_ARN environment variable)
+These tests are self-running — they create and clean up their own
+S3 bucket and IAM role automatically.
 """
 
 import os
@@ -20,44 +19,50 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "scenarios")))
 
 from firehose_wrapper import FirehoseWrapper
-from firehose_basics_scenario import FirehoseScenario
+from firehose_basics_scenario import FirehoseScenario, setup_resources, cleanup_resources
+
+
+@pytest.fixture(scope="module")
+def firehose_resources():
+    """
+    Module-scoped fixture that creates an S3 bucket and IAM role for tests,
+    then cleans them up after all tests in this module have run.
+    """
+    region = "us-east-1"
+    suffix = str(int(time.time()))
+
+    bucket_arn, role_arn, bucket_name, role_name = setup_resources(region, suffix)
+
+    yield {
+        "bucket_arn": bucket_arn,
+        "role_arn": role_arn,
+        "bucket_name": bucket_name,
+        "role_name": role_name,
+        "region": region,
+    }
+
+    cleanup_resources(region, bucket_name, role_name)
 
 
 @pytest.mark.integ
-def test_scenario_firehose_basics(capsys):
+def test_scenario_firehose_basics(capsys, firehose_resources):
     """
     Integration test for the complete Firehose basics scenario.
-    Requires FIREHOSE_BUCKET_ARN and FIREHOSE_ROLE_ARN environment variables.
+    Uses auto-created S3 bucket and IAM role from the fixture.
     """
-    bucket_arn = os.environ.get("FIREHOSE_BUCKET_ARN")
-    role_arn = os.environ.get("FIREHOSE_ROLE_ARN")
-
-    if not bucket_arn or not role_arn:
-        pytest.skip(
-            "FIREHOSE_BUCKET_ARN and FIREHOSE_ROLE_ARN environment "
-            "variables are required for integration tests."
-        )
-
     timestamp = int(time.time())
     stream_name = f"firehose-integ-test-{timestamp}"
 
     wrapper = FirehoseWrapper.from_client()
     scenario = FirehoseScenario(wrapper)
 
-    try:
-        scenario.run_scenario(
-            stream_name=stream_name,
-            bucket_arn=bucket_arn,
-            role_arn=role_arn,
-        )
-        capt = capsys.readouterr()
-        assert "Firehose Basics Scenario complete" in capt.out
-    finally:
-        # Ensure cleanup even if scenario fails partway through
-        try:
-            wrapper.delete_delivery_stream(stream_name)
-        except Exception:
-            pass  # Ignore cleanup errors - stream may already be deleted
+    scenario.run_scenario(
+        stream_name=stream_name,
+        bucket_arn=firehose_resources["bucket_arn"],
+        role_arn=firehose_resources["role_arn"],
+    )
+    capt = capsys.readouterr()
+    assert "Firehose Basics Scenario complete" in capt.out
 
 
 @pytest.mark.integ
@@ -80,6 +85,5 @@ def test_list_delivery_streams():
     Integration test for listing delivery streams.
     """
     wrapper = FirehoseWrapper.from_client()
-    # This should not raise an exception
     result = wrapper.list_delivery_streams()
     assert isinstance(result, list)
