@@ -1,6 +1,6 @@
 name: AI PR Review
 on:
-  pull_request:
+  pull_request_target:
     types: [opened, synchronize]
   workflow_dispatch:
     inputs:
@@ -20,8 +20,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v5
