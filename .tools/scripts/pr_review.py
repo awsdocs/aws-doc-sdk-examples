@@ -14,10 +14,9 @@ import os
 import sys
 
 REGION = "us-west-2"
+MODEL_ID = "us.anthropic.claude-sonnet-4-6"
 
-MODEL_ID = "us.anthropic.claude-sonnet-4-20250514-v1:0"
-
-# Map directory prefixes to language KB names
+# Map directory prefixes to language identifiers
 LANGUAGE_MAP = {
     "python": "python",
     "javav2": "java",
@@ -32,6 +31,15 @@ LANGUAGE_MAP = {
     "kotlin": "kotlin",
 }
 
+# Bedrock Knowledge Base IDs (account 415879937535, us-west-2)
+LANGUAGE_KB_IDS = {
+    "python": "VJYPXZTSXT",
+    "java": "64P3VU9OAD",
+    "dotnet": "CRSPSCYZIX",
+}
+CODING_STANDARDS_KB_ID = "Q2ZUWJJOIN"
+STEERING_DOCS_KB_ID = "63A2M1LZ2E"
+
 REVIEW_CRITERIA = """
 You are reviewing a code example PR for the AWS SDK documentation repository.
 Evaluate the code against these criteria:
@@ -44,7 +52,8 @@ Evaluate the code against these criteria:
    - Resource cleanup
    - Minimal hardcoded values
    - Appropriate use of waiters/polling where needed
-4. **Quality relative to comparables**: How does this example compare to similar examples in other languages? Is it as clear, complete, and idiomatic?
+
+4. **Quality relative to comparables**: How does this example compare to the premium reference examples for this language? Does it follow the same structure, patterns, and idioms?
 
 Be specific and actionable. Reference line numbers where possible.
 If the PR looks good overall, say so briefly — don't invent issues.
@@ -74,40 +83,39 @@ def detect_service(files):
     return None
 
 
-def get_kb_id(bedrock_agent, kb_name):
-    """Look up a Knowledge Base ID by name."""
-    try:
-        response = bedrock_agent.list_knowledge_bases()
-        for kb in response["knowledgeBaseSummaries"]:
-            if kb["name"] == kb_name:
-                return kb["knowledgeBaseId"]
-    except Exception as e:
-        print(f"Warning: Could not list knowledge bases: {e}")
-    return None
-
-
 def retrieve_comparables(bedrock_agent_runtime, kb_id, language, service, diff_summary):
     """Retrieve comparable examples from the Knowledge Base."""
-    query = f"{service} example scenario"
-    if language:
-        query += f" (looking for examples in languages other than {language})"
-
+    query = f"{service} example scenario in {language}"
     try:
         response = bedrock_agent_runtime.retrieve(
             knowledgeBaseId=kb_id,
             retrievalQuery={"text": query},
             retrievalConfiguration={
-                "vectorSearchConfiguration": {"numberOfResults": 5}
+                "vectorSearchConfiguration": {"numberOfResults": 10}
             },
         )
-        results = []
+
+        # Group chunks by source file and filter by relevance score
+        MIN_SCORE = 0.3
+        source_chunks = {}
         for result in response.get("retrievalResults", []):
-            content = result.get("content", {}).get("text", "")
+            score = result.get("score", 0)
             source = (
                 result.get("location", {}).get("s3Location", {}).get("uri", "unknown")
             )
-            results.append(f"### Source: {source}\n```\n{content[:2000]}\n```")
+            print(f"  KB result: score={score:.3f} source={source}")
+            if score < MIN_SCORE:
+                continue
+            content = result.get("content", {}).get("text", "")
+            if source not in source_chunks:
+                source_chunks[source] = []
+            source_chunks[source].append(content)
 
+        # Concatenate chunks from the same source file
+        results = []
+        for source, chunks in source_chunks.items():
+            combined = "\n\n".join(chunks)
+            results.append(f"### Source: {source}\n```\n{combined}\n```")
         return "\n\n".join(results) if results else "No comparable examples found."
     except Exception as e:
         print(f"Warning: KB retrieval failed: {e}")
@@ -212,34 +220,30 @@ def main():
         sys.exit(0)
 
     # Initialize Bedrock clients
-    bedrock_agent = boto3.client("bedrock-agent", region_name=REGION)
     bedrock_agent_runtime = boto3.client("bedrock-agent-runtime", region_name=REGION)
     bedrock_runtime = boto3.client("bedrock-runtime", region_name=REGION)
 
     # Retrieve comparable examples
     comparables = "No comparable examples found."
     if language:
-        # Try language-specific KB first
-        kb_name = f"{language}-premium-KB"
-        kb_id = get_kb_id(bedrock_agent, kb_name)
+
+        kb_id = LANGUAGE_KB_IDS.get(language)
         if kb_id:
-            print(f"Retrieving comparables from {kb_name}...")
+            print(f"Retrieving comparables from {language} KB ({kb_id})...")
             comparables = retrieve_comparables(
                 bedrock_agent_runtime, kb_id, language, service, diff[:1000]
             )
 
     # Retrieve guidelines
     guidelines = ""
-    guidelines_kb_id = get_kb_id(bedrock_agent, "coding-standards-KB")
-    if guidelines_kb_id:
+    if CODING_STANDARDS_KB_ID:
         print("Retrieving coding guidelines...")
-        guidelines = retrieve_guidelines(bedrock_agent_runtime, guidelines_kb_id)
+        guidelines = retrieve_guidelines(bedrock_agent_runtime, CODING_STANDARDS_KB_ID)
 
     # Also try steering docs
-    steering_kb_id = get_kb_id(bedrock_agent, "steering-docs-KB")
-    if steering_kb_id:
+    if STEERING_DOCS_KB_ID:
         print("Retrieving steering docs...")
-        steering = retrieve_guidelines(bedrock_agent_runtime, steering_kb_id)
+        steering = retrieve_guidelines(bedrock_agent_runtime, STEERING_DOCS_KB_ID)
         if steering:
             guidelines += "\n\n" + steering
 
