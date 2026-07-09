@@ -85,47 +85,38 @@ def detect_service(files):
 
 def retrieve_comparables(bedrock_agent_runtime, kb_id, language, service, diff_summary):
     """Retrieve comparable examples from the Knowledge Base."""
-    queries = [
-        ("service-specific", f"{service} example scenario in {language}"),
-        ("general pattern", f"premium example demonstrating best practices in {language}"),
-    ]
+    query = f"{service} example scenario in {language}"
 
     try:
+        response = bedrock_agent_runtime.retrieve(
+            knowledgeBaseId=kb_id,
+            retrievalQuery={"text": query},
+            retrievalConfiguration={
+                "vectorSearchConfiguration": {"numberOfResults": 10}
+            },
+        )
+
+        # Group chunks by source file and filter by relevance score
         MIN_SCORE = 0.3
         source_chunks = {}
-        source_labels = {}
-
-        for label, query in queries:
-            response = bedrock_agent_runtime.retrieve(
-                knowledgeBaseId=kb_id,
-                retrievalQuery={"text": query},
-                retrievalConfiguration={
-                    "vectorSearchConfiguration": {"numberOfResults": 10}
-                },
+        for result in response.get("retrievalResults", []):
+            score = result.get("score", 0)
+            source = (
+                result.get("location", {}).get("s3Location", {}).get("uri", "unknown")
             )
-
-            for result in response.get("retrievalResults", []):
-                score = result.get("score", 0)
-                source = (
-                    result.get("location", {}).get("s3Location", {}).get("uri", "unknown")
-                )
-                print(f"  KB result: score={score:.3f} source={source} query=\"{query}\"")
-                if score < MIN_SCORE:
-                    continue
-                content = result.get("content", {}).get("text", "")
-                if source not in source_chunks:
-                    source_chunks[source] = []
-                    source_labels[source] = label
-                # Avoid duplicate chunks from the same source
-                if content not in source_chunks[source]:
-                    source_chunks[source].append(content)
+            print(f"  KB result: score={score:.3f} source={source}")
+            if score < MIN_SCORE:
+                continue
+            content = result.get("content", {}).get("text", "")
+            if source not in source_chunks:
+                source_chunks[source] = []
+            source_chunks[source].append(content)
 
         # Concatenate chunks from the same source file
         results = []
         for source, chunks in source_chunks.items():
             combined = "\n\n".join(chunks)
-            label = source_labels.get(source, "reference")
-            results.append(f"### {label.title()} reference: {source}\n```\n{combined}\n```")
+            results.append(f"### Source: {source}\n```\n{combined}\n```")
 
         return "\n\n".join(results) if results else "No comparable examples found."
     except Exception as e:
