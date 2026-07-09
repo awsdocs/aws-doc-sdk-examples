@@ -24,7 +24,7 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v5
         with:
-          role-to-assume: ${{ secrets.AWS_ASSUME_ROLE }}
+          role-to-assume: ${{ secrets.AWS_PR_REVIEW_ROLE }}
           aws-region: us-west-2
 
       - name: Set up Python
