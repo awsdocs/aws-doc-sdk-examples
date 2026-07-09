@@ -14,7 +14,6 @@ import os
 import sys
 
 REGION = "us-west-2"
-
 MODEL_ID = "us.anthropic.claude-sonnet-4-6"
 
 # Map directory prefixes to language identifiers
@@ -53,6 +52,7 @@ Evaluate the code against these criteria:
    - Resource cleanup
    - Minimal hardcoded values
    - Appropriate use of waiters/polling where needed
+
 4. **Quality relative to comparables**: How does this example compare to the premium reference examples for this language? Does it follow the same structure, patterns, and idioms?
 
 Be specific and actionable. Reference line numbers where possible.
@@ -86,7 +86,6 @@ def detect_service(files):
 def retrieve_comparables(bedrock_agent_runtime, kb_id, language, service, diff_summary):
     """Retrieve comparable examples from the Knowledge Base."""
     query = f"{service} example scenario in {language}"
-
     try:
         response = bedrock_agent_runtime.retrieve(
             knowledgeBaseId=kb_id,
@@ -117,7 +116,6 @@ def retrieve_comparables(bedrock_agent_runtime, kb_id, language, service, diff_s
         for source, chunks in source_chunks.items():
             combined = "\n\n".join(chunks)
             results.append(f"### Source: {source}\n```\n{combined}\n```")
-
         return "\n\n".join(results) if results else "No comparable examples found."
     except Exception as e:
         print(f"Warning: KB retrieval failed: {e}")
@@ -228,6 +226,7 @@ def main():
     # Retrieve comparable examples
     comparables = "No comparable examples found."
     if language:
+
         kb_id = LANGUAGE_KB_IDS.get(language)
         if kb_id:
             print(f"Retrieving comparables from {language} KB ({kb_id})...")

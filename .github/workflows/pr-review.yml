@@ -20,13 +20,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
+        with:
+          fetch-depth: 0
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v5
         with:
           role-to-assume: ${{ secrets.AWS_PR_REVIEW_ROLE }}
           aws-region: us-west-2
-
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
