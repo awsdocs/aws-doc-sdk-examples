@@ -44,7 +44,7 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v5 
         with:
-          role-to-assume: ${{ secrets.AWS_ASSUME_ROLE }}     # once merged, update trust policy of the role to point to main branch
+          role-to-assume: ${{ secrets.AWS_SYNC_ROLE }}
           aws-region: us-west-2
 
       - name: Set SDK and language mapping for S3
@@ -134,7 +134,7 @@ jobs:
         run: |
           for level in "basics" "feature-scenario" "complex-feature-scenario"; do
             if [ -d "./extracted_snippets/$level" ]; then
-              aws s3 sync "./extracted_snippets/$level/" "s3://$S3_LANGUAGE-premium-bucket/$level/" --delete
+              aws s3 sync "./extracted_snippets/$level/" "s3://codeloom-$S3_LANGUAGE-premium-codeloomdev/$level/" --delete
               echo "Uploaded $level examples to S3"
             fi
           done
@@ -143,11 +143,11 @@ jobs:
         if: ${{ contains(fromJSON('["steering_docs","coding-standards","specs"]'), github.event.inputs.sdk_name) }}
         run: |
           if [ "$sdk_name" == "steering_docs" ]; then
-            aws s3 sync "./$sdk_name/" "s3://$S3_LANGUAGE-bucket/" --delete
+            aws s3 sync "./$sdk_name/" "s3://codeloom-$S3_LANGUAGE-codeloomdev/" --delete
           elif [ "$sdk_name" == "coding-standards" ]; then
-            aws s3 sync "./filtered-wiki/" "s3://$S3_LANGUAGE-bucket/" --delete
+            aws s3 sync "./filtered-wiki/" "s3://codeloom-$S3_LANGUAGE-codeloomdev/" --delete
           else
-            aws s3 sync "./filtered_specs/" "s3://$S3_LANGUAGE-bucket/" --delete
+            aws s3 sync "./filtered_specs/" "s3://codeloom-$S3_LANGUAGE-codeloomdev/" --delete
           fi
 
       - name: Sync Knowledge Base Data Source
