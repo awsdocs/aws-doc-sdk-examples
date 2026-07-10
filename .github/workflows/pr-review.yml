@@ -2,6 +2,27 @@ name: AI PR Review
 on:
   pull_request_target:
     types: [opened, synchronize]
+    paths:
+      - 'python/example_code/**'
+      - 'python/cross_service/**'
+      - 'javav2/example_code/**'
+      - 'javav2/usecases/**'
+      - 'javascriptv3/example_code/**'
+      - 'dotnetv3/**'
+      - 'dotnetv4/**'
+      - 'rustv1/examples/**'
+      - 'rustv1/cross_service/**'
+      - 'gov2/**'
+      - 'swift/example_code/**'
+      - 'ruby/example_code/**'
+      - 'ruby/cross_service_examples/**'
+      - 'php/example_code/**'
+      - 'php/cross_service/**'
+      - 'cpp/example_code/**'
+      - 'kotlin/services/**'
+      - 'kotlin/usecases/**'
+      - 'scenarios/**'
+      - 'aws-cli/**'
   workflow_dispatch:
     inputs:
       pr_number:
