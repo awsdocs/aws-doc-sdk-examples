@@ -3,7 +3,6 @@
 
 ## basics:
 /example_code/controltower
-/example_code/s3/s3_basics
 
 ## feature-scenario:
 /example_code/s3/scenarios/conditional_requests

@@ -70,7 +70,7 @@ jobs:
           fi
     
       - name: Filter SPECIFICATION.md files for specs
-        if: ${{ github.event.inputs.sdk_name == 'specs' }}
+        if: ${{ matrix.sdk_name == 'specs' }}
         run: |
           find ./scenarios -name "SPECIFICATION.md" | while read file; do
             mkdir -p "./filtered_specs/$(dirname "$file")"
@@ -78,7 +78,7 @@ jobs:
           done
       
       - name: Clone and filter for coding standards
-        if: ${{ github.event.inputs.sdk_name == 'coding-standards' }}
+        if: ${{ matrix.sdk_name == 'coding-standards' }}
         run: |
           git clone https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.wiki.git wiki-repo
           mkdir -p ./filtered-wiki
@@ -87,7 +87,7 @@ jobs:
           done
       
       - name: Extract and copy premium examples in temp. dir.
-        if: ${{ contains(fromJSON('["javascriptv3","dotnetv4","javav2","rustv1","gov2","swift","python","ruby","php","cpp","kotlin"]'), github.event.inputs.sdk_name) }}
+        if: ${{ contains(fromJSON('["javascriptv3","dotnetv4","javav2","rustv1","gov2","swift","python","ruby","php","cpp","kotlin"]'), matrix.sdk_name) }}
         run: |
           MARKDOWN_FILE="./$sdk_name/premium-ex.md"
           
@@ -130,7 +130,7 @@ jobs:
           done
 
       - name: Upload/Sync to S3 (SDK languages)
-        if: ${{ contains(fromJSON('["javascriptv3","dotnetv4","javav2","rustv1","gov2","swift","python","ruby","php","cpp","kotlin"]'), github.event.inputs.sdk_name) }}
+        if: ${{ contains(fromJSON('["javascriptv3","dotnetv4","javav2","rustv1","gov2","swift","python","ruby","php","cpp","kotlin"]'), matrix.sdk_name) }}
         run: |
           for level in "basics" "feature-scenario" "complex-feature-scenario"; do
             if [ -d "./extracted_snippets/$level" ]; then
@@ -140,7 +140,7 @@ jobs:
           done
       
       - name: Upload/Sync to S3 (Other directories)
-        if: ${{ contains(fromJSON('["steering_docs","coding-standards","specs"]'), github.event.inputs.sdk_name) }}
+        if: ${{ contains(fromJSON('["steering_docs","coding-standards","specs"]'), matrix.sdk_name) }}
         run: |
           if [ "$sdk_name" == "steering_docs" ]; then
             aws s3 sync "./$sdk_name/" "s3://codeloom-$S3_LANGUAGE-codeloomdev/" --delete
