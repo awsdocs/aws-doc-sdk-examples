@@ -2,6 +2,9 @@ name: AI PR Review
 on:
   pull_request_target:
     types: [opened, synchronize]
+    paths:
+      - '*/example_code/**'
+      - '*/scenarios/**'
   workflow_dispatch:
     inputs:
       pr_number:
