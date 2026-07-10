@@ -69,7 +69,8 @@ Evaluate the code against these criteria:
 
 IMPORTANT: You must respond in valid JSON format with this structure:
 {
-  "summary": "Brief overall assessment (2-3 sentences)",
+  "summary": "Overall pass/fail verdict in 1-2 sentences",
+  "detailed_review": "Full detailed analysis as a numbered list. Be specific and actionable. Reference filenames where possible. Include up to 10 points. Cover what's good AND what needs work.",
   "inline_comments": [
     {
       "path": "relative/path/to/file.py",
@@ -80,14 +81,19 @@ IMPORTANT: You must respond in valid JSON format with this structure:
 }
 
 Rules for inline_comments:
-- Only include comments for substantive issues (not style nitpicks)
-- The "line" must be a line number that appears in the diff (added or context lines)
-- The "path" must exactly match a filename from the PR
+- Only include comments where you can confidently identify the exact line number from the diff
+- The "line" must be a line number from a @@ hunk header in the diff (a line that was added or is context)
+- The "path" must exactly match a filename from the PR file list
 - Keep each comment concise and actionable
 - Maximum 10 inline comments
-- If the PR looks good overall, return an empty inline_comments array
+- If you cannot confidently determine line numbers, return an empty inline_comments array — put all feedback in detailed_review instead
 
-If the PR looks good, say so briefly in the summary.
+Rules for detailed_review:
+- Be specific and actionable, referencing filenames and methods
+- Include up to 10 numbered points
+- Cover both strengths and issues
+- Note blocking issues vs. nice-to-haves
+- If the PR looks good overall, say so and note any minor improvements
 """
 
 INCREMENTAL_REVIEW_ADDENDUM = """
@@ -404,10 +410,13 @@ def parse_review_response(response_text):
 def build_review_payload(parsed_review, pr_files, head_sha):
     """Build the GitHub Pull Request Review API payload."""
     summary = parsed_review.get("summary", "No summary provided.")
+    detailed_review = parsed_review.get("detailed_review", "")
     inline_comments = parsed_review.get("inline_comments", [])
 
     # Build the review body
     body = f"## 🤖 AI Code Example Review\n\n{summary}\n\n"
+    if detailed_review:
+        body += f"### Detailed Review\n\n{detailed_review}\n\n"
     body += "---\n<sub>This review was generated automatically using Amazon Bedrock. "
     body += "It compares your changes against existing examples and coding guidelines. "
     body += "Please use your judgment — this is advisory, not authoritative.</sub>"
