@@ -3,26 +3,26 @@ on:
   pull_request_target:
     types: [opened, synchronize]
     paths:
-      - 'python/example_code/**'
-      - 'python/cross_service/**'
+      - 'aws-cli/**'
+      - 'cpp/example_code/**'
+      - 'dotnetv3/**'
+      - 'dotnetv4/**'
+      - 'gov2/**'
       - 'javav2/example_code/**'
       - 'javav2/usecases/**'
       - 'javascriptv3/example_code/**'
-      - 'dotnetv3/**'
-      - 'dotnetv4/**'
-      - 'rustv1/examples/**'
-      - 'rustv1/cross_service/**'
-      - 'gov2/**'
-      - 'swift/example_code/**'
-      - 'ruby/example_code/**'
-      - 'ruby/cross_service_examples/**'
-      - 'php/example_code/**'
-      - 'php/cross_service/**'
-      - 'cpp/example_code/**'
       - 'kotlin/services/**'
       - 'kotlin/usecases/**'
+      - 'php/cross_service/**'
+      - 'php/example_code/**'
+      - 'python/cross_service/**'
+      - 'python/example_code/**'
+      - 'ruby/cross_service_examples/**'
+      - 'ruby/example_code/**'
+      - 'rustv1/cross_service/**'
+      - 'rustv1/examples/**'
       - 'scenarios/**'
-      - 'aws-cli/**'
+      - 'swift/example_code/**'
   workflow_dispatch:
     inputs:
       pr_number:
@@ -43,11 +43,13 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v5
         with:
           role-to-assume: ${{ secrets.AWS_PR_REVIEW_ROLE }}
           aws-region: us-west-2
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -56,16 +58,44 @@ jobs:
       - name: Install dependencies
         run: pip install boto3
 
-      - name: Get PR diff
-        id: diff
+      - name: Get PR data
+        id: pr-data
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.pull_request.number || github.event.inputs.pr_number }}
         run: |
+          # Get file list with patches
           gh api repos/${{ github.repository }}/pulls/${PR_NUMBER}/files \
             --paginate --jq '.[].patch // empty' > /tmp/pr_diff.txt
           gh api repos/${{ github.repository }}/pulls/${PR_NUMBER}/files \
             --paginate --jq '.[].filename' > /tmp/pr_files.txt
+
+          # Fetch full file contents for modified code files
+          mkdir -p /tmp/pr_full_files
+          gh api repos/${{ github.repository }}/pulls/${PR_NUMBER}/files \
+            --paginate --jq '.[] | select(.status != "removed") | .filename' | while read -r file; do
+            # Only fetch code files (skip binary, images, etc.)
+            case "$file" in
+              *.py|*.java|*.js|*.ts|*.cs|*.go|*.rs|*.swift|*.rb|*.php|*.cpp|*.h|*.kt|*.sh)
+                echo "Fetching: $file"
+                gh api repos/${{ github.repository }}/contents/${file}?ref=${{ github.event.pull_request.head.sha || 'main' }} \
+                  --jq '.content' | base64 -d > "/tmp/pr_full_files/$(basename "$file")" 2>/dev/null || true
+                ;;
+            esac
+          done
+
+          # Get previous review comments if this is a synchronize event
+          if [ "${{ github.event.action }}" = "synchronize" ]; then
+            # Fetch summary comments from the conversation
+            gh api repos/${{ github.repository }}/issues/${PR_NUMBER}/comments \
+              --paginate --jq '.[] | select(.body | startswith("## 🤖 AI Code Example Review")) | .body' \
+              > /tmp/previous_reviews.txt || true
+
+            # Fetch inline review comments from previous AI reviews
+            gh api repos/${{ github.repository }}/pulls/${PR_NUMBER}/comments \
+              --paginate --jq '.[] | select(.body | contains("🤖") or .pull_request_review_id) | {path: .path, line: .line, body: .body}' \
+              > /tmp/previous_inline_comments.json || true
+          fi
 
       - name: Run AI Review
         id: review
@@ -73,14 +103,19 @@ jobs:
           PR_NUMBER: ${{ github.event.pull_request.number || github.event.inputs.pr_number }}
           PR_TITLE: ${{ github.event.pull_request.title || 'Manual review' }}
           PR_BODY: ${{ github.event.pull_request.body || '' }}
+          PR_EVENT_ACTION: ${{ github.event.action || 'workflow_dispatch' }}
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha || '' }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python .tools/scripts/pr_review.py
 
-      - name: Post review comment
+      - name: Post inline review
         if: steps.review.outputs.has_review == 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.pull_request.number || github.event.inputs.pr_number }}
         run: |
-          gh pr comment ${PR_NUMBER} \
-            --repo ${{ github.repository }} \
-            --body-file /tmp/review_comment.md
+          # Post the review via the pulls review API (supports inline comments)
+          gh api repos/${{ github.repository }}/pulls/${PR_NUMBER}/reviews \
+            --method POST \
+            --input /tmp/review_payload.json
