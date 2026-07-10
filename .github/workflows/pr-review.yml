@@ -64,6 +64,11 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.pull_request.number || github.event.inputs.pr_number }}
         run: |
+          # Get the PR head SHA (works for both pull_request_target and workflow_dispatch)
+          PR_HEAD_SHA=$(gh api repos/${{ github.repository }}/pulls/${PR_NUMBER} --jq '.head.sha')
+          echo "head_sha=${PR_HEAD_SHA}" >> $GITHUB_OUTPUT
+          echo "PR head SHA: ${PR_HEAD_SHA}"
+
           # Get file list with patches
           gh api repos/${{ github.repository }}/pulls/${PR_NUMBER}/files \
             --paginate --jq '.[].patch // empty' > /tmp/pr_diff.txt
@@ -78,7 +83,7 @@ jobs:
             case "$file" in
               *.py|*.java|*.js|*.ts|*.cs|*.go|*.rs|*.swift|*.rb|*.php|*.cpp|*.h|*.kt|*.sh)
                 echo "Fetching: $file"
-                gh api repos/${{ github.repository }}/contents/${file}?ref=${{ github.event.pull_request.head.sha || 'main' }} \
+                gh api repos/${{ github.repository }}/contents/${file}?ref=${PR_HEAD_SHA} \
                   --jq '.content' | base64 -d > "/tmp/pr_full_files/$(basename "$file")" 2>/dev/null || true
                 ;;
             esac
@@ -104,7 +109,7 @@ jobs:
           PR_TITLE: ${{ github.event.pull_request.title || 'Manual review' }}
           PR_BODY: ${{ github.event.pull_request.body || '' }}
           PR_EVENT_ACTION: ${{ github.event.action || 'workflow_dispatch' }}
-          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha || '' }}
+          PR_HEAD_SHA: ${{ steps.pr-data.outputs.head_sha }}
           GITHUB_REPOSITORY: ${{ github.repository }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python .tools/scripts/pr_review.py
