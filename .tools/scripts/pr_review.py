@@ -333,7 +333,7 @@ def invoke_claude(
 
 ### Code Changes (diff)
 ```diff
-{diff[:30000]}
+{diff[:80000]}
 ```
 
 {full_files_context}
