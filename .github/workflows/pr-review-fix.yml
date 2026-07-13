@@ -1,0 +1,57 @@
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+#
+# Workflow C: Generate suggested fixes based on AI review feedback.
+# Manually triggered after reviewing the AI PR Review output.
+# Posts GitHub suggested changes as review comments — never pushes or commits.
+# Uses the same Bedrock KBs as the reviewer to maintain context alignment.
+
+name: "AI PR Review - Fix"
+
+on:
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: "PR number to generate fix suggestions for"
+        required: true
+        type: string
+
+permissions:
+  id-token: write
+  pull-requests: write
+  contents: read
+
+jobs:
+  suggest-fixes:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout (base branch only)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Determine PR number
+        id: pr-info
+        run: |
+          echo "pr_number=${{ github.event.inputs.pr_number }}" >> "$GITHUB_OUTPUT"
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v5
+        with:
+          role-to-assume: ${{ secrets.AWS_PR_REVIEW_ROLE }}
+          aws-region: us-west-2
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install boto3
+
+      - name: Generate and post fix suggestions
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ steps.pr-info.outputs.pr_number }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: python .tools/scripts/pr_review_fix.py
