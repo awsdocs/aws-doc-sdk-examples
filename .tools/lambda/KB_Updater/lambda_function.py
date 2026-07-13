@@ -12,12 +12,15 @@ class DateTimeEncoder(json.JSONEncoder):
             return obj.isoformat()
         return super().default(obj)
 
-def get_knowledge_base_id(knowledge_base_name, region_name, bedrock_agent):
-    response = bedrock_agent.list_knowledge_bases()
-    for kb in response['knowledgeBaseSummaries']:
-        if kb['name'] == knowledge_base_name:
-            return kb['knowledgeBaseId']
-    raise ValueError(f"Knowledge base '{knowledge_base_name}' not found")
+# Bedrock Knowledge Base IDs (account 415879937535, us-west-2)
+KB_IDS = {
+    "python": "VJYPXZTSXT",
+    "java": "64P3VU9OAD",
+    "dotnet": "CRSPSCYZIX",
+    "coding-standards": "Q2ZUWJJOIN",
+    "steering-docs": "63A2M1LZ2E",
+    "final-specs": "3KVUHEFDHK",
+}
 
 def get_or_create_data_source(knowledge_base_id, language, region_name, bedrock_agent):
     # List existing data sources
@@ -30,10 +33,10 @@ def get_or_create_data_source(knowledge_base_id, language, region_name, bedrock_
             return ds['dataSourceId'], ds['name'], False  # Found existing
     if language in ["steering-docs", "final-specs"]:
         ds_name=f"{language}-data-source"
-        bucket_name = f"{language}-bucket"
+        bucket_name = f"codeloom-{language}-codeloomdev"
     else:
         ds_name=f"{language}-premium-data-source"
-        bucket_name = f"{language}-premium-bucket"
+        bucket_name = f"codeloom-{language}-premium-codeloomdev"
     # Create new data source if none found
     response = bedrock_agent.create_data_source(
         knowledgeBaseId=knowledge_base_id,
@@ -95,14 +98,17 @@ def monitor_ingestion_job(knowledge_base_id, data_source_id, ingestion_job_id, r
 def lambda_handler(event, context):
     language = event.get('language', 'python')
     region_name = event.get('region_name', 'us-west-2')
-    if language in ["steering-docs", "final-specs","coding-standards"]:
-        knowledge_base_name = f"{language}-KB"
-    else:
-        knowledge_base_name = f"{language}-premium-KB"
-    
+
+    # Look up KB ID from hardcoded mapping
+    kb_key = language if language in ["steering-docs", "final-specs", "coding-standards"] else language
+    knowledge_base_id = KB_IDS.get(kb_key)
+    if not knowledge_base_id:
+        return {
+            'statusCode': 400,
+            'body': json.dumps({"error": f"No Knowledge Base configured for language: {language}"})
+        }
+
     bedrock_agent = boto3.client('bedrock-agent', region_name=region_name)
-    
-    knowledge_base_id = get_knowledge_base_id(knowledge_base_name, region_name, bedrock_agent)
     
     # Get or create data source
     data_source_id, data_source_name, is_new = get_or_create_data_source(
