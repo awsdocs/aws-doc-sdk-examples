@@ -155,9 +155,9 @@ def detect_scenario_path(files):
     """Detect if the PR is for a scenario and return the scenario directory."""
     for file_path in files:
         parts = file_path.split("/")
-        # Pattern: scenarios/{scenario_name}/... (top-level scenarios dir)
-        if len(parts) >= 2 and parts[0] == "scenarios":
-            return f"scenarios/{parts[1]}"
+        # Pattern: scenarios/{category}/{service}/... (top-level scenarios dir)
+        if len(parts) >= 3 and parts[0] == "scenarios":
+            return f"scenarios/{parts[1]}/{parts[2]}"
         # Pattern: {sdk}/example_code/{service}/scenarios/{scenario_name}/...
         if "scenarios" in parts:
             idx = parts.index("scenarios")
@@ -166,27 +166,64 @@ def detect_scenario_path(files):
     return None
 
 
-def get_specification(scenario_path):
-    """Try to find and read SPECIFICATION.md for a scenario."""
-    # Check common locations
-    candidates = [
-        f"{scenario_path}/SPECIFICATION.md",
-        f"{scenario_path}/../SPECIFICATION.md",
-    ]
+def get_specification(scenario_path, service, files):
+    """Try to find and read SPECIFICATION.md for a scenario.
 
-    # Also check the top-level scenarios directory
-    parts = scenario_path.split("/")
-    if len(parts) >= 2:
-        # e.g., scenarios/s3_basics/SPECIFICATION.md
-        candidates.append(f"scenarios/{parts[-1]}/SPECIFICATION.md")
+    Searches in order:
+    1. SPECIFICATION.md included directly in the PR files
+    2. The detected scenario_path (e.g., scenarios/basics/s3/)
+    3. All scenarios/{category}/{service}/ directories matching the service name
+    4. Fuzzy match on service name variations
+    """
+    # 1. Check if a SPECIFICATION.md was included in the PR diff itself
+    for file_path in files:
+        if file_path.endswith("SPECIFICATION.md"):
+            if os.path.isfile(file_path):
+                try:
+                    with open(file_path, "r") as f:
+                        return f.read()
+                except (IOError, OSError):
+                    pass
 
-    for candidate in candidates:
+    # 2. Check the detected scenario path directly
+    if scenario_path:
+        candidate = f"{scenario_path}/SPECIFICATION.md"
         if os.path.isfile(candidate):
             try:
                 with open(candidate, "r") as f:
                     return f.read()
             except (IOError, OSError):
-                continue
+                pass
+
+    # 3. Search scenarios/{category}/{service}/ by service name
+    if service:
+        scenarios_dir = "scenarios"
+        if os.path.isdir(scenarios_dir):
+            for category in os.listdir(scenarios_dir):
+                category_path = os.path.join(scenarios_dir, category)
+                if not os.path.isdir(category_path):
+                    continue
+                # Exact match
+                candidate = os.path.join(category_path, service, "SPECIFICATION.md")
+                if os.path.isfile(candidate):
+                    try:
+                        with open(candidate, "r") as f:
+                            return f.read()
+                    except (IOError, OSError):
+                        continue
+                # Partial match (e.g., service="s3" matches "s3_conditional_requests")
+                for entry in os.listdir(category_path):
+                    if entry.startswith(service) and entry != service:
+                        candidate = os.path.join(
+                            category_path, entry, "SPECIFICATION.md"
+                        )
+                        if os.path.isfile(candidate):
+                            try:
+                                with open(candidate, "r") as f:
+                                    return f.read()
+                            except (IOError, OSError):
+                                continue
+
     return None
 
 
@@ -535,11 +572,16 @@ def main():
     specification = None
     if scenario_path:
         print(f"Detected scenario path: {scenario_path}")
-        specification = get_specification(scenario_path)
+        specification = get_specification(scenario_path, service, files)
         if specification:
             print(f"Found SPECIFICATION.md ({len(specification)} chars)")
         else:
             print("No SPECIFICATION.md found for this scenario")
+    else:
+        # Even without a scenario path, try to find a spec by service name
+        specification = get_specification(None, service, files)
+        if specification:
+            print(f"Found SPECIFICATION.md by service name ({len(specification)} chars)")
 
     # Initialize Bedrock clients
     bedrock_agent_runtime = boto3.client("bedrock-agent-runtime", region_name=REGION)
