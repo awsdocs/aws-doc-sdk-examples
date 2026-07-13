@@ -14,9 +14,11 @@ import json
 import os
 import subprocess
 import sys
+from botocore.config import Config
 
 REGION = "us-west-2"
 MODEL_ID = "us.anthropic.claude-sonnet-4-6"
+BEDROCK_CONFIG = Config(read_timeout=300, connect_timeout=10, retries={"max_attempts": 2})
 
 # Same KB IDs as pr_review.py — maintains context alignment
 LANGUAGE_KB_IDS = {
@@ -542,7 +544,7 @@ def main():
 
     # 4. Query the same KBs as the reviewer
     bedrock_agent_runtime = boto3.client("bedrock-agent-runtime", region_name=REGION)
-    bedrock_runtime = boto3.client("bedrock-runtime", region_name=REGION)
+    bedrock_runtime = boto3.client("bedrock-runtime", region_name=REGION, config=BEDROCK_CONFIG)
 
     comparables = "No comparable examples found."
     if language:
