@@ -280,7 +280,7 @@ def retrieve_guidelines(bedrock_agent_runtime, kb_id):
 def invoke_claude_for_fixes(
     bedrock_runtime, review_body, inline_comments, file_contents, comparables, guidelines
 ):
-    """Send the fix request to Claude."""
+    """Send the fix request to Claude using streaming to avoid timeouts."""
     # Build the review feedback section
     feedback = f"## Review Summary\n{review_body}\n\n"
     if inline_comments:
@@ -291,12 +291,11 @@ def invoke_claude_for_fixes(
             body = comment.get("body", "")
             feedback += f"- **{path}:{line}**: {body}\n"
 
-    # Build the current files section
+    # Build the current files section (limit per-file size)
     files_section = "## Current File Contents\n\n"
     for path, content in file_contents.items():
-        # Truncate very large files
-        if len(content) > 15000:
-            content = content[:15000] + "\n... [truncated]"
+        if len(content) > 10000:
+            content = content[:10000] + "\n... [truncated]"
         files_section += f"### {path}\n```\n{content}\n```\n\n"
 
     user_message = f"""{feedback}
@@ -304,13 +303,13 @@ def invoke_claude_for_fixes(
 {files_section}
 
 ## Comparable Examples from Knowledge Base
-{comparables}
+{comparables[:20000]}
 
 ## Coding Guidelines
-{guidelines}
+{guidelines[:5000]}
 """
 
-    response = bedrock_runtime.invoke_model(
+    response = bedrock_runtime.invoke_model_with_response_stream(
         modelId=MODEL_ID,
         body=json.dumps(
             {
@@ -323,8 +322,16 @@ def invoke_claude_for_fixes(
         contentType="application/json",
     )
 
-    response_body = json.loads(response["body"].read())
-    return response_body["content"][0]["text"]
+    # Collect streamed response chunks
+    result_text = ""
+    for event in response["body"]:
+        chunk = json.loads(event["chunk"]["bytes"])
+        if chunk.get("type") == "content_block_delta":
+            delta = chunk.get("delta", {})
+            if delta.get("type") == "text_delta":
+                result_text += delta.get("text", "")
+
+    return result_text
 
 
 def parse_fix_response(response_text):
