@@ -92,6 +92,8 @@ Rules for new_files:
 - Only use this for files that don't exist yet
 - Provide complete, working file content
 - Follow the same patterns as comparable examples
+- If the file would be very long (>100 lines), provide just the first 50 lines
+  and a comment indicating the full structure needed
 """
 
 
@@ -311,7 +313,7 @@ def invoke_claude_for_fixes(
         body=json.dumps(
             {
                 "anthropic_version": "bedrock-2023-05-31",
-                "max_tokens": 8192,
+                "max_tokens": 16384,
                 "system": FIX_PROMPT,
                 "messages": [{"role": "user", "content": user_message}],
             }
@@ -337,6 +339,29 @@ def parse_fix_response(response_text):
         return json.loads(response_text)
     except (json.JSONDecodeError, ValueError) as e:
         print(f"Warning: Could not parse fix response as JSON: {e}")
+        # Try to salvage partial JSON by extracting complete suggestion objects
+        suggestions = []
+        try:
+            # Find all complete suggestion objects in the truncated response
+            import re
+            # Match complete JSON objects within the suggestions array
+            pattern = r'\{\s*"path"\s*:\s*"[^"]+"\s*,\s*"start_line"\s*:\s*\d+\s*,\s*"end_line"\s*:\s*\d+\s*,\s*"replacement"\s*:\s*"(?:[^"\\]|\\.)*"\s*,\s*"comment"\s*:\s*"(?:[^"\\]|\\.)*"\s*\}'
+            matches = re.findall(pattern, response_text)
+            for match in matches:
+                try:
+                    suggestions.append(json.loads(match))
+                except json.JSONDecodeError:
+                    continue
+        except Exception:
+            pass
+
+        if suggestions:
+            print(f"  Salvaged {len(suggestions)} suggestion(s) from partial response")
+            return {"suggestions": suggestions, "new_files": []}
+
+        print("  Could not salvage any suggestions from response.")
+        print(f"  Response length: {len(response_text)} chars")
+        print(f"  First 500 chars: {response_text[:500]}")
         return {"suggestions": [], "new_files": []}
 
 
