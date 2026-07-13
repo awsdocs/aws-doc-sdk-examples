@@ -1,0 +1,102 @@
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+#
+# Workflow A: Collect PR data (unprivileged).
+# Triggered by pull_request (no access to secrets). Gathers diff and metadata,
+# uploads as artifact for the privileged pr-review-run.yml workflow.
+
+name: "AI PR Review - Collect"
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+    paths:
+      - "aws-cli/**"
+      - "cpp/example_code/**"
+      - "dotnetv3/**"
+      - "dotnetv4/**"
+      - "gov2/**"
+      - "javav2/example_code/**"
+      - "javav2/usecases/**"
+      - "javascriptv3/example_code/**"
+      - "kotlin/services/**"
+      - "kotlin/usecases/**"
+      - "php/cross_service/**"
+      - "php/example_code/**"
+      - "python/cross_service/**"
+      - "python/example_code/**"
+      - "ruby/cross_service_examples/**"
+      - "ruby/example_code/**"
+      - "rustv1/cross_service/**"
+      - "rustv1/examples/**"
+      - "scenarios/**"
+      - "swift/example_code/**"
+
+permissions:
+  contents: read
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Collect PR metadata
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_BODY: ${{ github.event.pull_request.body }}
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          PR_EVENT_ACTION: ${{ github.event.action }}
+        run: |
+          mkdir -p /tmp/pr-data
+
+          # Save metadata
+          cat <<EOF > /tmp/pr-data/metadata.json
+          {
+            "pr_number": "${PR_NUMBER}",
+            "pr_title": $(echo "$PR_TITLE" | jq -Rs .),
+            "pr_body": $(echo "$PR_BODY" | jq -Rs .),
+            "head_sha": "${PR_HEAD_SHA}",
+            "event_action": "${PR_EVENT_ACTION}",
+            "repository": "${{ github.repository }}"
+          }
+          EOF
+
+          # Get file list
+          gh api repos/${{ github.repository }}/pulls/${PR_NUMBER}/files \
+            --paginate --jq '.[].filename' > /tmp/pr-data/pr_files.txt
+
+          # Get patches/diffs
+          gh api repos/${{ github.repository }}/pulls/${PR_NUMBER}/files \
+            --paginate --jq '.[].patch // empty' > /tmp/pr-data/pr_diff.txt
+
+          # Fetch full file contents for code files
+          mkdir -p /tmp/pr-data/full_files
+          gh api repos/${{ github.repository }}/pulls/${PR_NUMBER}/files \
+            --paginate --jq '.[] | select(.status != "removed") | .filename' | while read -r file; do
+            case "$file" in
+              *.py|*.java|*.js|*.ts|*.cs|*.go|*.rs|*.swift|*.rb|*.php|*.cpp|*.h|*.kt|*.sh)
+                echo "Fetching: $file"
+                gh api "repos/${{ github.repository }}/contents/${file}?ref=${PR_HEAD_SHA}" \
+                  --jq '.content' | base64 -d > "/tmp/pr-data/full_files/$(basename "$file")" 2>/dev/null || true
+                ;;
+            esac
+          done
+
+          # Get previous review comments if this is a synchronize event
+          if [ "${PR_EVENT_ACTION}" = "synchronize" ]; then
+            gh api repos/${{ github.repository }}/issues/${PR_NUMBER}/comments \
+              --paginate --jq '.[] | select(.body | startswith("## 🤖 AI Code Example Review")) | .body' \
+              > /tmp/pr-data/previous_reviews.txt || true
+
+            gh api repos/${{ github.repository }}/pulls/${PR_NUMBER}/comments \
+              --paginate --jq '.[] | select(.body | contains("🤖") or .pull_request_review_id) | {path: .path, line: .line, body: .body}' \
+              > /tmp/pr-data/previous_inline_comments.json || true
+          fi
+
+      - name: Upload PR data artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: pr-review-data
+          path: /tmp/pr-data/
+          retention-days: 1

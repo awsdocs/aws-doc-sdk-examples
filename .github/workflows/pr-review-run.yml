@@ -1,0 +1,120 @@
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+#
+# Workflow B: Run AI review (privileged).
+# Triggered by workflow_run after pr-review-collect.yml completes.
+# Has access to secrets and write permissions. Never executes fork code.
+
+name: "AI PR Review - Run"
+
+on:
+  workflow_run:
+    workflows: ["AI PR Review - Collect"]
+    types: [completed]
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: "PR number to review (for manual testing)"
+        required: true
+        type: string
+
+permissions:
+  id-token: write
+  pull-requests: write
+  contents: read
+
+jobs:
+  ai-review:
+    runs-on: ubuntu-latest
+    # Only run if the collect workflow succeeded (or manual dispatch)
+    if: >
+      github.event_name == 'workflow_dispatch' ||
+      github.event.workflow_run.conclusion == 'success'
+    steps:
+      - name: Checkout (base branch only)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Download PR data artifact
+        if: github.event_name != 'workflow_dispatch'
+        uses: actions/download-artifact@v4
+        with:
+          name: pr-review-data
+          path: /tmp/pr-data
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Collect PR data (manual dispatch)
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.inputs.pr_number }}
+        run: |
+          mkdir -p /tmp/pr-data/full_files
+
+          # Get PR metadata via API
+          PR_JSON=$(gh api repos/${{ github.repository }}/pulls/${PR_NUMBER})
+          PR_TITLE=$(echo "$PR_JSON" | jq -r '.title')
+          PR_BODY=$(echo "$PR_JSON" | jq -r '.body // ""')
+          PR_HEAD_SHA=$(echo "$PR_JSON" | jq -r '.head.sha')
+
+          cat <<EOF > /tmp/pr-data/metadata.json
+          {
+            "pr_number": "${PR_NUMBER}",
+            "pr_title": $(echo "$PR_TITLE" | jq -Rs .),
+            "pr_body": $(echo "$PR_BODY" | jq -Rs .),
+            "head_sha": "${PR_HEAD_SHA}",
+            "event_action": "workflow_dispatch",
+            "repository": "${{ github.repository }}"
+          }
+          EOF
+
+          gh api repos/${{ github.repository }}/pulls/${PR_NUMBER}/files \
+            --paginate --jq '.[].filename' > /tmp/pr-data/pr_files.txt
+
+          gh api repos/${{ github.repository }}/pulls/${PR_NUMBER}/files \
+            --paginate --jq '.[].patch // empty' > /tmp/pr-data/pr_diff.txt
+
+          gh api repos/${{ github.repository }}/pulls/${PR_NUMBER}/files \
+            --paginate --jq '.[] | select(.status != "removed") | .filename' | while read -r file; do
+            case "$file" in
+              *.py|*.java|*.js|*.ts|*.cs|*.go|*.rs|*.swift|*.rb|*.php|*.cpp|*.h|*.kt|*.sh)
+                echo "Fetching: $file"
+                gh api "repos/${{ github.repository }}/contents/${file}?ref=${PR_HEAD_SHA}" \
+                  --jq '.content' | base64 -d > "/tmp/pr-data/full_files/$(basename "$file")" 2>/dev/null || true
+                ;;
+            esac
+          done
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v5
+        with:
+          role-to-assume: ${{ secrets.AWS_PR_REVIEW_ROLE }}
+          aws-region: us-west-2
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install boto3
+
+      - name: Run AI Review
+        id: review
+        env:
+          PR_DATA_DIR: /tmp/pr-data
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python .tools/scripts/pr_review.py
+
+      - name: Post inline review
+        if: steps.review.outputs.has_review == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          PR_NUMBER=$(jq -r '.pr_number' /tmp/pr-data/metadata.json)
+          gh api repos/${{ github.repository }}/pulls/${PR_NUMBER}/reviews \
+            --method POST \
+            --input /tmp/review_payload.json
