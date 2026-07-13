@@ -66,9 +66,9 @@ jobs:
           gh api repos/${{ github.repository }}/pulls/${PR_NUMBER}/files \
             --paginate --jq '.[].filename' > /tmp/pr-data/pr_files.txt
 
-          # Get unified diff (with file headers for inline comment mapping)
-          gh api repos/${{ github.repository }}/pulls/${PR_NUMBER} \
-            --header "Accept: application/vnd.github.diff" > /tmp/pr-data/pr_diff.txt
+          # Get patches/diffs
+          gh api repos/${{ github.repository }}/pulls/${PR_NUMBER}/files \
+            --paginate --jq '.[].patch // empty' > /tmp/pr-data/pr_diff.txt
 
           # Fetch full file contents for code files
           mkdir -p /tmp/pr-data/full_files

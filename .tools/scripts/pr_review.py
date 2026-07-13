@@ -333,7 +333,7 @@ def invoke_claude(
 
 ### Code Changes (diff)
 ```diff
-{diff[:80000]}
+{diff[:30000]}
 ```
 
 {full_files_context}
@@ -418,6 +418,7 @@ def build_review_payload(parsed_review, pr_files, head_sha):
                     "path": path,
                     "line": int(line),
                     "side": "RIGHT",
+                    "subject_type": "line",
                     "body": f"🤖 {comment_body}",
                 })
     else:

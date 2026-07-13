@@ -73,8 +73,8 @@ jobs:
           gh api repos/${{ github.repository }}/pulls/${PR_NUMBER}/files \
             --paginate --jq '.[].filename' > /tmp/pr-data/pr_files.txt
 
-          gh api repos/${{ github.repository }}/pulls/${PR_NUMBER} \
-            --header "Accept: application/vnd.github.diff" > /tmp/pr-data/pr_diff.txt
+          gh api repos/${{ github.repository }}/pulls/${PR_NUMBER}/files \
+            --paginate --jq '.[].patch // empty' > /tmp/pr-data/pr_diff.txt
 
           gh api repos/${{ github.repository }}/pulls/${PR_NUMBER}/files \
             --paginate --jq '.[] | select(.status != "removed") | .filename' | while read -r file; do
