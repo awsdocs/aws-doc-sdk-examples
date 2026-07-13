@@ -190,30 +190,13 @@ def get_specification(scenario_path):
     return None
 
 
-def load_full_files():
-    """Load full file contents that were fetched by the workflow."""
-    full_files = {}
-    full_files_dir = "/tmp/pr_full_files"
-    if os.path.isdir(full_files_dir):
-        for filename in os.listdir(full_files_dir):
-            filepath = os.path.join(full_files_dir, filename)
-            try:
-                with open(filepath, "r") as f:
-                    content = f.read()
-                    if content.strip():
-                        full_files[filename] = content
-            except (IOError, UnicodeDecodeError):
-                continue
-    return full_files
-
-
-def load_previous_reviews():
+def load_previous_reviews(data_dir="/tmp"):
     """Load previous review comments (summary + inline) for incremental review."""
     parts = []
 
     # Load summary comments
     try:
-        with open("/tmp/previous_reviews.txt", "r") as f:
+        with open(os.path.join(data_dir, "previous_reviews.txt"), "r") as f:
             content = f.read().strip()
             if content:
                 parts.append("### Previous Summary Review:\n" + content)
@@ -222,7 +205,7 @@ def load_previous_reviews():
 
     # Load inline comments
     try:
-        with open("/tmp/previous_inline_comments.json", "r") as f:
+        with open(os.path.join(data_dir, "previous_inline_comments.json"), "r") as f:
             content = f.read().strip()
             if content:
                 inline_comments = []
@@ -423,18 +406,31 @@ def build_review_payload(parsed_review, pr_files, head_sha):
 
     # Build comments array for the API
     comments = []
-    for comment in inline_comments:
-        path = comment.get("path", "")
-        line = comment.get("line")
-        comment_body = comment.get("body", "")
+    if head_sha:
+        for comment in inline_comments:
+            path = comment.get("path", "")
+            line = comment.get("line")
+            comment_body = comment.get("body", "")
 
-        # Validate the comment has required fields and path is in the PR
-        if path and line and comment_body and path in pr_files:
-            comments.append(
-                {"path": path, "line": int(line), "body": comment_body}
-            )
+            # Validate the comment has required fields and path is in the PR
+            if path and line and comment_body and path in pr_files:
+                comments.append({
+                    "path": path,
+                    "line": int(line),
+                    "side": "RIGHT",
+                    "subject_type": "line",
+                    "body": f"🤖 {comment_body}",
+                })
+    else:
+        print("Warning: head_sha is empty, skipping inline comments")
 
-    payload = {"event": "COMMENT", "body": body, "commit_id": head_sha}
+    payload = {"event": "COMMENT", "body": body}
+
+    # commit_id is required for inline comments to be placed correctly
+    if head_sha:
+        payload["commit_id"] = head_sha
+    else:
+        print("Warning: No commit_id available. Review will be summary-only.")
 
     if comments:
         payload["comments"] = comments
@@ -451,19 +447,36 @@ def set_output(name, value):
 
 
 def main():
+    # Determine data directory (artifact-based or legacy /tmp)
+    data_dir = os.environ.get("PR_DATA_DIR", "/tmp")
+
     # Read PR metadata
-    pr_title = os.environ.get("PR_TITLE", "")
-    pr_body = os.environ.get("PR_BODY", "")
-    event_action = os.environ.get("PR_EVENT_ACTION", "opened")
-    head_sha = os.environ.get("PR_HEAD_SHA", "")
+    metadata_file = os.path.join(data_dir, "metadata.json")
+    if os.path.isfile(metadata_file):
+        with open(metadata_file, "r") as f:
+            metadata = json.load(f)
+        pr_title = metadata.get("pr_title", "")
+        pr_body = metadata.get("pr_body", "")
+        head_sha = metadata.get("head_sha", "")
+        event_action = metadata.get("event_action", "opened")
+        pr_number = metadata.get("pr_number", "")
+    else:
+        # Fallback to environment variables (legacy mode)
+        pr_title = os.environ.get("PR_TITLE", "")
+        pr_body = os.environ.get("PR_BODY", "")
+        head_sha = os.environ.get("PR_HEAD_SHA", "")
+        event_action = os.environ.get("PR_EVENT_ACTION", "opened")
+        pr_number = os.environ.get("PR_NUMBER", "")
 
     is_incremental = event_action == "synchronize"
 
     # Read diff and file list
+    diff_file = os.path.join(data_dir, "pr_diff.txt")
+    files_file = os.path.join(data_dir, "pr_files.txt")
     try:
-        with open("/tmp/pr_diff.txt", "r") as f:
+        with open(diff_file, "r") as f:
             diff = f.read()
-        with open("/tmp/pr_files.txt", "r") as f:
+        with open(files_file, "r") as f:
             files = [line.strip() for line in f.readlines() if line.strip()]
     except FileNotFoundError:
         print("Error: PR diff files not found.")
@@ -484,6 +497,7 @@ def main():
     print(f"Detected service: {service}")
     print(f"Detected SDK prefix: {sdk_prefix}")
     print(f"Event action: {event_action} (incremental: {is_incremental})")
+    print(f"Head SHA: {head_sha or '(empty)'}")
 
     if not service:
         print("Could not detect AWS service from file paths. Skipping review.")
@@ -491,14 +505,26 @@ def main():
         sys.exit(0)
 
     # Load full file contents
-    full_files = load_full_files()
+    full_files_dir = os.path.join(data_dir, "full_files")
+    full_files = {}
+    if os.path.isdir(full_files_dir):
+        for filename in os.listdir(full_files_dir):
+            filepath = os.path.join(full_files_dir, filename)
+            try:
+                with open(filepath, "r") as f:
+                    content = f.read()
+                    if content.strip():
+                        full_files[filename] = content
+            except (IOError, UnicodeDecodeError):
+                continue
+
     print(f"Loaded {len(full_files)} full file(s) for context")
     full_files_context = build_full_files_context(full_files, files)
 
     # Load previous reviews for incremental mode
     previous_review = None
     if is_incremental:
-        previous_review = load_previous_reviews()
+        previous_review = load_previous_reviews(data_dir)
         if previous_review:
             print("Loaded previous review for incremental comparison")
         else:
@@ -571,6 +597,7 @@ def main():
 
     set_output("has_review", "true")
     print("Review generated successfully.")
+
 
 
 if __name__ == "__main__":
