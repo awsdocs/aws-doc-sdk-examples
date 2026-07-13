@@ -2,16 +2,13 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 # Workflow C: Generate suggested fixes based on AI review feedback.
-# Triggered automatically when the AI PR Review - Run workflow completes.
+# Manually triggered after reviewing the AI PR Review output.
 # Posts GitHub suggested changes as review comments — never pushes or commits.
 # Uses the same Bedrock KBs as the reviewer to maintain context alignment.
 
 name: "AI PR Review - Fix"
 
 on:
-  workflow_run:
-    workflows: ["AI PR Review - Run"]
-    types: [completed]
   workflow_dispatch:
     inputs:
       pr_number:
@@ -27,9 +24,6 @@ permissions:
 jobs:
   suggest-fixes:
     runs-on: ubuntu-latest
-    if: >
-      github.event_name == 'workflow_dispatch' ||
-      github.event.workflow_run.conclusion == 'success'
     steps:
       - name: Checkout (base branch only)
         uses: actions/checkout@v4
@@ -38,41 +32,8 @@ jobs:
 
       - name: Determine PR number
         id: pr-info
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            echo "pr_number=${{ github.event.inputs.pr_number }}" >> "$GITHUB_OUTPUT"
-          else
-            # Get PR number from the review workflow's run
-            # The review workflow was triggered by the collect workflow,
-            # which was triggered by a pull_request event.
-            # We need to find the PR associated with the workflow run.
-            RUN_ID=${{ github.event.workflow_run.id }}
-            
-            # Download the pr-review-data artifact from the collect workflow
-            # that triggered the review workflow
-            ARTIFACT_URL=$(gh api repos/${{ github.repository }}/actions/runs/${RUN_ID}/artifacts \
-              --jq '.artifacts[] | select(.name == "pr-review-data") | .archive_download_url' 2>/dev/null || true)
-            
-            if [ -n "$ARTIFACT_URL" ]; then
-              mkdir -p /tmp/pr-data
-              gh api "$ARTIFACT_URL" > /tmp/pr-data.zip
-              unzip -o /tmp/pr-data.zip -d /tmp/pr-data
-              PR_NUMBER=$(jq -r '.pr_number' /tmp/pr-data/metadata.json)
-            else
-              # Fallback: search recent PRs for one that matches the head SHA
-              HEAD_SHA=${{ github.event.workflow_run.head_sha }}
-              PR_NUMBER=$(gh api "repos/${{ github.repository }}/pulls?state=open&sort=updated&direction=desc&per_page=10" \
-                --jq ".[] | select(.head.sha == \"${HEAD_SHA}\") | .number" | head -1)
-            fi
-            
-            if [ -z "$PR_NUMBER" ] || [ "$PR_NUMBER" = "null" ]; then
-              echo "Could not determine PR number. Exiting."
-              exit 1
-            fi
-            echo "pr_number=${PR_NUMBER}" >> "$GITHUB_OUTPUT"
-          fi
+          echo "pr_number=${{ github.event.inputs.pr_number }}" >> "$GITHUB_OUTPUT"
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v5
