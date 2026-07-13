@@ -81,12 +81,13 @@ IMPORTANT: You must respond in valid JSON format with this structure:
 }
 
 Rules for inline_comments:
-- Only include comments where you can confidently identify the exact line number from the diff
-- The "line" must be a line number from a @@ hunk header in the diff (a line that was added or is context)
+- You MUST include inline comments for any issue that can be tied to a specific line in the diff
+- The "line" must be a line number that appears in the RIGHT side of the diff (added or context lines within a @@ hunk)
 - The "path" must exactly match a filename from the PR file list
 - Keep each comment concise and actionable
 - Maximum 10 inline comments
-- If you cannot confidently determine line numbers, return an empty inline_comments array — put all feedback in detailed_review instead
+- Only omit inline_comments (return empty array) if the feedback is purely about missing files or structural concerns that cannot be tied to any specific line
+- When in doubt, INCLUDE the inline comment — it's better to have a slightly imprecise line number than to omit actionable feedback
 
 Rules for detailed_review:
 - Be specific and actionable, referencing filenames and methods
