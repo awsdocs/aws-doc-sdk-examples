@@ -9,7 +9,6 @@ import software.amazon.awssdk.core.retry.RetryMode;
 import software.amazon.awssdk.services.iotsitewise.model.AssetModelPropertySummary;
 import software.amazon.awssdk.services.iotsitewise.model.BatchPutAssetPropertyValueResponse;
 import software.amazon.awssdk.services.iotsitewise.model.CreateGatewayRequest;
-import software.amazon.awssdk.services.iotsitewise.model.CreateGatewayResponse;
 import software.amazon.awssdk.services.iotsitewise.model.DeleteGatewayRequest;
 import software.amazon.awssdk.services.iotsitewise.model.DeleteGatewayResponse;
 import software.amazon.awssdk.services.iotsitewise.model.DescribeGatewayRequest;
@@ -26,15 +25,11 @@ import software.amazon.awssdk.services.iotsitewise.model.CreateAssetModelRequest
 import software.amazon.awssdk.services.iotsitewise.model.CreateAssetModelResponse;
 import software.amazon.awssdk.services.iotsitewise.model.CreateAssetRequest;
 import software.amazon.awssdk.services.iotsitewise.model.CreateAssetResponse;
-import software.amazon.awssdk.services.iotsitewise.model.CreatePortalRequest;
 import software.amazon.awssdk.services.iotsitewise.model.DeleteAssetModelRequest;
 import software.amazon.awssdk.services.iotsitewise.model.DeleteAssetModelResponse;
 import software.amazon.awssdk.services.iotsitewise.model.DeleteAssetRequest;
 import software.amazon.awssdk.services.iotsitewise.model.DeleteAssetResponse;
-import software.amazon.awssdk.services.iotsitewise.model.DeletePortalRequest;
-import software.amazon.awssdk.services.iotsitewise.model.DeletePortalResponse;
-import software.amazon.awssdk.services.iotsitewise.model.DescribePortalRequest;
-import software.amazon.awssdk.services.iotsitewise.model.DescribePortalResponse;
+
 import software.amazon.awssdk.services.iotsitewise.model.GatewayPlatform;
 import software.amazon.awssdk.services.iotsitewise.model.GetAssetPropertyValueRequest;
 import software.amazon.awssdk.services.iotsitewise.model.GreengrassV2;
