@@ -5,11 +5,8 @@
 import com.example.iotsitewise.HelloSitewise;
 import com.example.iotsitewise.scenario.CloudFormationHelper;
 import com.example.iotsitewise.scenario.SitewiseActions;
-import com.google.gson.Gson;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -17,20 +14,14 @@ import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
-import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iotsitewise.model.CreateAssetModelResponse;
 import software.amazon.awssdk.services.iotsitewise.model.CreateAssetResponse;
-import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
-import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRequest;
-import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueResponse;
 
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
@@ -41,14 +32,10 @@ public class SitewiseTests {
     private static final String assetName = "MyAsset";
 
     private static String assetId = "";
-    private static final String portalName = "MyPortal";
-    private static String contactEmail = "";
     private static final String gatewayName = "myGateway" + UUID.randomUUID();
     private static final String myThing = "myThing" + UUID.randomUUID();
 
     private static String assetModelId = "";
-
-    private static String iamRole = "";
 
     private static final SitewiseActions sitewiseActions = new SitewiseActions();
 
@@ -58,24 +45,12 @@ public class SitewiseTests {
 
     private static String tempPropId = "";
 
-    private static String portalId = "";
-
     private static String gatewayId = "";
     private static final String ROLES_STACK = "RoleSitewise";
 
     @BeforeAll
     public static void setUp() {
         CloudFormationHelper.deployCloudFormationStack(ROLES_STACK);
-        Map<String, String> stackOutputs = CloudFormationHelper.getStackOutputsAsync(ROLES_STACK).join();
-        iamRole = stackOutputs.get("SitewiseRoleArn");
-
-         /*
-         The following values used in these integration tests are retrieved from AWS Secrets Manager.
-         */
-        Gson gson = new Gson();
-        String json = getSecretValues();
-        SecretValues values = gson.fromJson(json, SecretValues.class);
-        contactEmail = values.getContactEmail();
     }
 
     @Test
@@ -194,36 +169,6 @@ public class SitewiseTests {
         });
         CloudFormationHelper.destroyCloudFormationStack(ROLES_STACK);
         logger.info("Test 13 passed");
-    }
-
-    private static String getSecretValues() {
-        SecretsManagerClient secretClient = SecretsManagerClient.builder()
-            .region(Region.US_EAST_1)
-            .build();
-        String secretName = "test/sitewise";
-
-        GetSecretValueRequest valueRequest = GetSecretValueRequest.builder()
-            .secretId(secretName)
-            .build();
-
-        GetSecretValueResponse valueResponse = secretClient.getSecretValue(valueRequest);
-        return valueResponse.secretString();
-    }
-
-    @Nested
-    @DisplayName("A class used to get test values from test/sitewise (an AWS Secrets Manager secret)")
-    class SecretValues {
-        private String contactEmail;
-
-        private String assetModelHello;
-
-        public String getContactEmail() {
-            return this.contactEmail;
-        }
-
-        public String getAssetModelHello() {
-            return this.assetModelHello;
-        }
     }
 }
 

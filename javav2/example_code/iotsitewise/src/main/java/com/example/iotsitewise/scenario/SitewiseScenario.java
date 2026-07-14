@@ -28,10 +28,8 @@ public class SitewiseScenario {
 
     public static void main(String[] args) throws Throwable {
         Scanner scanner = new Scanner(System.in);
-        String contactEmail = "user@mydomain.com"; // Change email address.
         String assetModelName = "MyAssetModel1";
         String assetName = "MyAsset1" ;
-        String portalName = "MyPortal1" ;
         String gatewayName = "MyGateway1" ;
         String myThing =  "MyThing1" ;
 
@@ -60,13 +58,13 @@ public class SitewiseScenario {
         logger.info(DASHES);
 
         try {
-            runScenario(assetModelName, assetName, portalName, contactEmail, gatewayName, myThing);
+            runScenario(assetModelName, assetName, gatewayName, myThing);
         } catch (RuntimeException e) {
            logger.info(e.getMessage());
         }
     }
 
-    public static void runScenario(String assetModelName, String assetName,  String portalName, String contactEmail, String gatewayName, String myThing) throws Throwable {
+    public static void runScenario(String assetModelName, String assetName, String gatewayName, String myThing) throws Throwable {
         logger.info("Use AWS CloudFormation to create an IAM role that is required for this scenario.");
         CloudFormationHelper.deployCloudFormationStack(ROLES_STACK);
         Map<String, String> stackOutputs = CloudFormationHelper.getStackOutputsAsync(ROLES_STACK).join();
