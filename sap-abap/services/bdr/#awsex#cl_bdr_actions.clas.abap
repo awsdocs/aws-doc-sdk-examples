@@ -218,31 +218,24 @@ CLASS /AWSEX/CL_BDR_ACTIONS IMPLEMENTATION.
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_bdr) = /aws1/cl_bdr_factory=>create( lo_session ).
     "snippet-start:[bdr.abapv1.invokemodel_stable_diffusion]
-    "Stable Diffusion Input Parameters should be in a format like this:
+    "Stable Image Core Input Parameters should be in a format like this:
 *   {
-*     "text_prompts": [
-*       {"text":"Draw a dolphin with a mustache"},
-*       {"text":"Make it photorealistic"}
-*     ],
-*     "cfg_scale":10,
-*     "seed":0,
-*     "steps":50
+*     "prompt": "Draw a dolphin with a mustache, photorealistic",
+*     "aspect_ratio": "1:1",
+*     "seed": 0,
+*     "output_format": "png"
 *   }
-    TYPES: BEGIN OF prompt_ts,
-             text TYPE /aws1/rt_shape_string,
-           END OF prompt_ts.
-
     DATA: BEGIN OF ls_input,
-            text_prompts TYPE STANDARD TABLE OF prompt_ts,
-            cfg_scale    TYPE /aws1/rt_shape_integer,
-            seed         TYPE /aws1/rt_shape_integer,
-            steps        TYPE /aws1/rt_shape_integer,
+            prompt        TYPE /aws1/rt_shape_string,
+            aspect_ratio  TYPE /aws1/rt_shape_string,
+            seed          TYPE /aws1/rt_shape_integer,
+            output_format TYPE /aws1/rt_shape_string,
           END OF ls_input.
 
-    APPEND VALUE prompt_ts( text = iv_prompt ) TO ls_input-text_prompts.
-    ls_input-cfg_scale = 10.
+    ls_input-prompt = iv_prompt.
+    ls_input-aspect_ratio = '1:1'.
     ls_input-seed = 0. "or better, choose a random integer.
-    ls_input-steps = 50.
+    ls_input-output_format = 'png'.
 
     DATA(lv_json) = /ui2/cl_json=>serialize(
       data = ls_input
@@ -251,38 +244,26 @@ CLASS /AWSEX/CL_BDR_ACTIONS IMPLEMENTATION.
     TRY.
         DATA(lo_response) = lo_bdr->invokemodel(
           iv_body = /aws1/cl_rt_util=>string_to_xstring( lv_json )
-          iv_modelid = 'stability.stable-diffusion-xl-v1'
+          iv_modelid = 'stability.stable-image-core-v1:1'
           iv_accept = 'application/json'
           iv_contenttype = 'application/json' ).
 
-        "Stable Diffusion Result Format:
+        "Stable Image Core Result Format:
 *       {
-*         "result": "success",
-*         "artifacts": [
-*           {
-*             "seed": 0,
-*             "base64": "iVBORw0KGgoAAAANSUhEUgAAAgAAA....
-*             "finishReason": "SUCCESS"
-*           }
-*         ]
+*         "seeds": ["0"],
+*         "finish_reasons": [null],
+*         "images": ["iVBORw0KGgoAAAANSUhEUgAAAgAAA...."]
 *       }
-        TYPES: BEGIN OF artifact_ts,
-                 seed         TYPE /aws1/rt_shape_integer,
-                 base64       TYPE /aws1/rt_shape_string,
-                 finishreason TYPE /aws1/rt_shape_string,
-               END OF artifact_ts.
-
         DATA: BEGIN OF ls_response,
-                result    TYPE /aws1/rt_shape_string,
-                artifacts TYPE STANDARD TABLE OF artifact_ts,
+                images TYPE STANDARD TABLE OF /aws1/rt_shape_string,
               END OF ls_response.
 
         /ui2/cl_json=>deserialize(
           EXPORTING jsonx = lo_response->get_body( )
                     pretty_name = /ui2/cl_json=>pretty_mode-camel_case
           CHANGING  data  = ls_response ).
-        IF ls_response-artifacts IS NOT INITIAL.
-          DATA(lv_image) = cl_http_utility=>if_http_utility~decode_x_base64( ls_response-artifacts[ 1 ]-base64 ).
+        IF ls_response-images IS NOT INITIAL.
+          DATA(lv_image) = cl_http_utility=>if_http_utility~decode_x_base64( ls_response-images[ 1 ] ).
         ENDIF.
       CATCH /aws1/cx_bdraccessdeniedex INTO DATA(lo_ex).
         WRITE / lo_ex->get_text( ).
