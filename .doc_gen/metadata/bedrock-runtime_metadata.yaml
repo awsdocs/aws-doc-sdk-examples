@@ -743,14 +743,6 @@ bedrock-runtime_InvokeModel_TitanImageGenerator:
               snippet_tags:
                 - gov2.bedrock-runtime.InvokeModelWrapper.struct
                 - gov2.bedrock-runtime.InvokeTitanImage
-    PHP:
-      versions:
-        - sdk_version: 3
-          github: php/example_code/bedrock-runtime
-          excerpts:
-            - description: Create an image with the Amazon Titan Image Generator.
-              snippet_tags:
-                - php.example_code.bedrock-runtime.service.invokeTitanImage
   services:
     bedrock-runtime: {InvokeModel}
 
