@@ -59,8 +59,8 @@ abstract class AWSServiceClass
      */
     public function createRole(
         string $roleName,
-        string $rolePolicyDocument = null,
-        array $clientArgs = null,
+        ?string $rolePolicyDocument = null,
+        ?array $clientArgs = null,
         bool $verbose = false
     ): string {
         $clientArgs = $clientArgs ?: [
