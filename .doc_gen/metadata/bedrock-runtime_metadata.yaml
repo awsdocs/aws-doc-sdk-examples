@@ -703,7 +703,7 @@ bedrock-runtime_InvokeModel_AnthropicClaude:
         - sdk_version: 3
           github: php/example_code/bedrock-runtime
           excerpts:
-            - description: Invoke the Anthropic Claude 2 foundation model to generate text.
+            - description: Use the Invoke Model API to send a text message.
               snippet_tags:
                 - php.example_code.bedrock-runtime.service.invokeClaude
     SAP ABAP:
@@ -1116,21 +1116,13 @@ bedrock-runtime_InvokeModel_TitanImageGenerator:
               snippet_tags:
                 - gov2.bedrock-runtime.InvokeModelWrapper.struct
                 - gov2.bedrock-runtime.InvokeTitanImage
-    PHP:
-      versions:
-        - sdk_version: 3
-          github: php/example_code/bedrock-runtime
-          excerpts:
-            - description: Create an image with the Amazon Titan Image Generator.
-              snippet_tags:
-                - php.example_code.bedrock-runtime.service.invokeTitanImage
   services:
     bedrock-runtime: {InvokeModel}
 
 bedrock-runtime_InvokeModel_StableDiffusion:
-  title: Invoke Stability.ai Stable Diffusion XL on &BR; to generate an image
+  title: Invoke Stability.ai Stable Diffusion on &BR; to generate an image
   title_abbrev: "InvokeModel"
-  synopsis: invoke Stability.ai Stable Diffusion XL on &BR; to generate an image.
+  synopsis: invoke Stability.ai Stable Diffusion on &BR; to generate an image.
   category: Stable Diffusion
   languages:
     Java:

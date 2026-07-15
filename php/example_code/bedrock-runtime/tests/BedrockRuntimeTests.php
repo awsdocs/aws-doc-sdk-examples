@@ -28,7 +28,7 @@ class BedrockRuntimeTests extends TestCase
     {
         $service = new BedrockRuntimeService();
         self::assertNotNull($service->getClient());
-        self::assertEquals('us-east-1', $service->getClient()->getRegion());
+        self::assertEquals('us-west-2', $service->getClient()->getRegion());
     }
 
     public function test_constructor_uses_injected_client()
@@ -50,15 +50,7 @@ class BedrockRuntimeTests extends TestCase
     public function test_stable_diffusion_can_be_invoked()
     {
         $seed = 0;
-        $style_preset = "photographic";
-        $base64_image_data = $this->bedrockRuntimeService->invokeStableDiffusion($this->prompt, $seed, $style_preset);
-        self::assertNotEmpty($base64_image_data);
-    }
-
-    public function test_titan_image_can_be_invoked()
-    {
-        $seed = 0;
-        $base64_image_data = $this->bedrockRuntimeService->invokeTitanImage($this->prompt, $seed);
+        $base64_image_data = $this->bedrockRuntimeService->invokeStableDiffusion($this->prompt, $seed);
         self::assertNotEmpty($base64_image_data);
     }
 }

@@ -46,17 +46,13 @@ functions within the same service.
 
 - [Converse](Models/AmazonNova/Text/Converse.php#L9)
 
-### Amazon Titan Image Generator
-
-- [InvokeModel](BedrockRuntimeService.php#L103)
-
 ### Anthropic Claude
 
-- [InvokeModel](BedrockRuntimeService.php#L31)
+- [InvokeModel](BedrockRuntimeService.php#L33)
 
 ### Stable Diffusion
 
-- [InvokeModel](BedrockRuntimeService.php#L66)
+- [InvokeModel](BedrockRuntimeService.php#L68)
 
 
 <!--custom.examples.start-->
