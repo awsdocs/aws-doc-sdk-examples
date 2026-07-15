@@ -28,10 +28,6 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
-### Anthropic Claude
-
-- [InvokeModel](%23awsex%23cl_bdr_actions.clas.abap#L150)
-
 ### Stable Diffusion
 
 - [InvokeModel](%23awsex%23cl_bdr_actions.clas.abap#L220)

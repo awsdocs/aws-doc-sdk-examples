@@ -33,17 +33,11 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 > see [Model access](https://docs.aws.amazon.com/bedrock/latest/userguide/model-access.html).
 
 <!--custom.prerequisites.end-->
-
-### Get started
-
-- [Hello Amazon Bedrock Runtime](hello.js) (`InvokeModel`)
-
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Invoke multiple foundation models on Amazon Bedrock](scenarios/cli_text_playground.js)
 - [Tool use with the Converse API](scenarios/converse_tool_scenario/converse-tool-scenario.js)
 
 ### Amazon Nova
@@ -60,8 +54,6 @@ functions within the same service.
 
 - [Converse](models/anthropicClaude/converse.js#L4)
 - [ConverseStream](models/anthropicClaude/converseStream.js#L4)
-- [InvokeModel](models/anthropicClaude/invoke_claude_3.js)
-- [InvokeModelWithResponseStream](models/anthropicClaude/invoke_claude_3.js)
 
 ### Cohere Command
 
@@ -72,14 +64,11 @@ functions within the same service.
 
 - [Converse](models/metaLlama/converse.js#L4)
 - [ConverseStream](models/metaLlama/converseStream.js#L4)
-- [InvokeModel](models/metaLlama/llama3/invoke_model_quickstart.js#L4)
-- [InvokeModelWithResponseStream](models/metaLlama/llama3/invoke_model_with_response_stream_quickstart.js#L4)
 
 ### Mistral AI
 
 - [Converse](models/mistral/converse.js#L4)
 - [ConverseStream](models/mistral/converseStream.js#L4)
-- [InvokeModel](models/mistral/invoke_mistral_7b.js)
 
 
 <!--custom.examples.start-->
@@ -118,26 +107,7 @@ for that file.
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
-#### Hello Amazon Bedrock Runtime
 
-This example shows you how to get started using Amazon Bedrock Runtime.
-
-```bash
-node ./hello.js
-```
-
-
-#### Invoke multiple foundation models on Amazon Bedrock
-
-This example shows you how to prepare and send a prompt to a variety of large-language models (LLMs) on Amazon Bedrock
-
-
-<!--custom.scenario_prereqs.bedrock-runtime_Scenario_InvokeModels.start-->
-<!--custom.scenario_prereqs.bedrock-runtime_Scenario_InvokeModels.end-->
-
-
-<!--custom.scenarios.bedrock-runtime_Scenario_InvokeModels.start-->
-<!--custom.scenarios.bedrock-runtime_Scenario_InvokeModels.end-->
 
 #### Tool use with the Converse API
 

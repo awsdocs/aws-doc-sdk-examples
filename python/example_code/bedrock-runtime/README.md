@@ -64,10 +64,6 @@ functions within the same service.
 
 - [InvokeModel](models/amazon_titan_image_generator/invoke_model.py#L4)
 
-### Amazon Titan Text
-
-- [InvokeModel](models/amazon_titan_text/invoke_model.py#L4)
-
 ### Amazon Titan Text Embeddings
 
 - [InvokeModel](models/amazon_titan_text_embeddings/invoke_model.py#L4)
@@ -77,8 +73,6 @@ functions within the same service.
 - [Converse](models/anthropic_claude/converse.py#L4)
 - [ConverseStream](models/anthropic_claude/converse_stream.py#L4)
 - [Document understanding](models/anthropic_claude/document_understanding.py#L4)
-- [InvokeModel](models/anthropic_claude/invoke_model.py#L4)
-- [InvokeModelWithResponseStream](models/anthropic_claude/invoke_model_with_response_stream.py#L4)
 - [Scenario: Tool use with the Converse API](cross-model-scenarios/tool_use_demo/tool_use_demo.py)
 
 ### Cohere Command
@@ -86,8 +80,6 @@ functions within the same service.
 - [Converse](models/cohere_command/converse.py#L4)
 - [ConverseStream](models/cohere_command/converse_stream.py#L4)
 - [Document understanding](models/cohere_command/document_understanding.py#L4)
-- [InvokeModel: Command R and R+](models/cohere_command/command_r_invoke_model.py#L4)
-- [InvokeModelWithResponseStream: Command R and R+](models/cohere_command/command_r_invoke_model_with_response_stream.py#L4)
 - [Scenario: Tool use with the Converse API](cross-model-scenarios/tool_use_demo/tool_use_demo.py)
 
 ### DeepSeek
@@ -99,16 +91,12 @@ functions within the same service.
 - [Converse](models/meta_llama/converse.py#L4)
 - [ConverseStream](models/meta_llama/converse_stream.py#L4)
 - [Document understanding](models/meta_llama/document_understanding.py#L4)
-- [InvokeModel](models/meta_llama/llama3_invoke_model.py#L4)
-- [InvokeModelWithResponseStream](models/meta_llama/llama3_invoke_model_with_response_stream.py#L4)
 
 ### Mistral AI
 
 - [Converse](models/mistral_ai/converse.py#L4)
 - [ConverseStream](models/mistral_ai/converse_stream.py#L4)
 - [Document understanding](models/mistral_ai/document_understanding.py#L4)
-- [InvokeModel](models/mistral_ai/invoke_model.py#L4)
-- [InvokeModelWithResponseStream](models/mistral_ai/invoke_model_with_response_stream.py#L4)
 
 ### Stable Diffusion
 

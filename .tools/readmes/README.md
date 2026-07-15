@@ -98,7 +98,7 @@ blocks that include custom content for specific SDK versions.
 
 Each README can have custom content in specific places. The first time you
 generate a README, it contains empty blocks designated by special comments, such as
-the following:juijnuj
+the following:
 
 ```
 <!--custom.prerequisites.start-->

@@ -28,18 +28,6 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `gov2` fo
 
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
-
-### Get started
-
-- [Hello Amazon Bedrock Runtime](hello/hello.go#L4) (`InvokeModel`)
-
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Invoke multiple foundation models on Amazon Bedrock](scenarios/scenario_invoke_models.go)
-
 ### Amazon Nova
 
 - [Converse](actions/converse.go#L53)
@@ -51,8 +39,6 @@ functions within the same service.
 ### Anthropic Claude
 
 - [Converse](actions/converse.go#L7)
-- [InvokeModel](actions/invoke_model.go#L7)
-- [InvokeModelWithResponseStream](actions/invoke_model_with_response_stream.go#L30)
 
 
 <!--custom.examples.start-->
@@ -75,13 +61,6 @@ go run ./hello -region=eu-central-1
 Be aware that not all regions may support Bedrock and its models yet. Verify service availability for your region [here](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/). For available models per region, refer to the [Bedrock dashboard](https://console.aws.amazon.com/bedrock) in the AWS Management Console.
 <!--custom.instructions.end-->
 
-#### Hello Amazon Bedrock Runtime
-
-This example shows you how to get started using Amazon Bedrock Runtime.
-
-```
-go run ./hello
-```
 
 #### Run a scenario
 
@@ -91,18 +70,6 @@ and to get help for running a scenario, use the following command:
 ```
 go run ./cmd -h
 ```
-
-#### Invoke multiple foundation models on Amazon Bedrock
-
-This example shows you how to prepare and send a prompt to a variety of large-language models (LLMs) on Amazon Bedrock
-
-
-<!--custom.scenario_prereqs.bedrock-runtime_Scenario_InvokeModels.start-->
-<!--custom.scenario_prereqs.bedrock-runtime_Scenario_InvokeModels.end-->
-
-
-<!--custom.scenarios.bedrock-runtime_Scenario_InvokeModels.start-->
-<!--custom.scenarios.bedrock-runtime_Scenario_InvokeModels.end-->
 
 ### Tests
 

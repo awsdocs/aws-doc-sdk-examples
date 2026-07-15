@@ -32,7 +32,6 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv4
 
 - [Converse](Models/AnthropicClaude/Converse/Converse.cs#L4)
 - [ConverseStream](Models/AnthropicClaude/ConverseStream/ConverseStream.cs#L4)
-- [InvokeModel](Models/AnthropicClaude/InvokeModel/InvokeModel.cs#L4)
 
 ### Cohere Command
 
