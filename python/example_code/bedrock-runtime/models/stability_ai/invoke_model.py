@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 # snippet-start:[python.example_code.bedrock-runtime.InvokeModel_StableDiffusion]
-# Use the native inference API to create an image with Stability.ai Stable Diffusion
+# Use the native inference API to create an image with Stability AI Stable Image Core
 
 import base64
 import boto3
