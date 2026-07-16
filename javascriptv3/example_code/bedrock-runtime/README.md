@@ -121,7 +121,6 @@ node ./hello.js
 ```
 
 
-
 #### Tool use with the Converse API
 
 This example shows you how to build a typical interaction between an application, a generative AI model, and connected tools or APIs to mediate interactions between the AI and the outside world. It uses the example of connecting an external weather API to the AI model so it can provide real-time weather information based on user input.

@@ -74,7 +74,6 @@ This example shows you how to get started using Amazon Bedrock Runtime.
 go run ./hello
 ```
 
-
 #### Run a scenario
 
 All scenarios can be run with the `cmd` runner. To get a list of scenarios
