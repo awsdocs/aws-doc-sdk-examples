@@ -12,8 +12,8 @@ import {
 
 const AWS_REGION = "us-east-1";
 
-// Set the model ID, e.g., Claude 3 Haiku.
-const MODEL_ID = "anthropic.claude-3-haiku-20240307-v1:0";
+// Set the model ID, e.g., Claude Haiku.
+const MODEL_ID = "global.anthropic.claude-haiku-4-5-20251001-v1:0";
 const PROMPT = "Hi. In a short paragraph, explain what you can do.";
 
 const hello = async () => {
@@ -21,7 +21,7 @@ const hello = async () => {
   console.log("Welcome to the Amazon Bedrock demo!");
   console.log("=".repeat(35));
 
-  console.log("Model: Anthropic Claude 3 Haiku");
+  console.log("Model: Anthropic Claude Haiku");
   console.log(`Prompt: ${PROMPT}\n`);
   console.log("Invoking model...\n");
 

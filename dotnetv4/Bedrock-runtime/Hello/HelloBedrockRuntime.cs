@@ -12,8 +12,8 @@ using Amazon.BedrockRuntime.Model;
 // You can change the region to match your setup.
 var client = new AmazonBedrockRuntimeClient(RegionEndpoint.USWest2);
 
-// Set the model ID, e.g., Claude 3 Haiku.
-var modelId = "anthropic.claude-3-haiku-20240307-v1:0";
+// Set the model ID, e.g., Claude Haiku.
+var modelId = "global.anthropic.claude-haiku-4-5-20251001-v1:0";
 
 // Define the user message.
 var userMessage = "Hi. In a short paragraph, explain what you can do.";
