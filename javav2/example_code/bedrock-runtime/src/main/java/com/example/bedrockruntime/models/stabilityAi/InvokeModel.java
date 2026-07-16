@@ -27,11 +27,11 @@ public class InvokeModel {
         // Replace the DefaultCredentialsProvider with your preferred credentials provider.
         var client = BedrockRuntimeClient.builder()
                 .credentialsProvider(DefaultCredentialsProvider.create())
-                .region(Region.US_EAST_1)
+                .region(Region.US_WEST_2)
                 .build();
 
         // Set the model ID, e.g., Stable Image Core.
-        var modelId = "stability.stable-image-core-v1:0";
+        var modelId = "stability.stable-image-core-v1:1";
 
         // The InvokeModel API uses the model's native payload.
         // Learn more about the available inference parameters and response fields at:
@@ -39,7 +39,9 @@ public class InvokeModel {
         var nativeRequestTemplate = """
                 {
                     "prompt": "{{prompt}}",
-                    "seed": {{seed}}
+                    "aspect_ratio": "1:1",
+                    "seed": {{seed}},
+                    "output_format": "png"
                 }""";
 
         // Define the prompt for the image generation.
