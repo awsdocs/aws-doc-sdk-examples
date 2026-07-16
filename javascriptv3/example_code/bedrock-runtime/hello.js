@@ -55,9 +55,8 @@ const hello = async () => {
         `ERROR: Can't invoke '${MODEL_ID}'. Reason: ${caught.message}`,
       );
       throw caught;
-    } else {
-      throw caught;
     }
+    throw caught;
   }
 };
 // snippet-end:[javascript.v3.bedrock-runtime.Hello]
