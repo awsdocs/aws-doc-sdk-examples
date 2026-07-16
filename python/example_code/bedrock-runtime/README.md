@@ -43,68 +43,68 @@ python -m pip install -r requirements.txt
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Create and invoke a managed prompt](../../../../../python/example_code/bedrock-agent/prompts/scenario_get_started_with_prompts.py)
+- [Create and invoke a managed prompt](../bedrock-agent/prompts/scenario_get_started_with_prompts.py)
 - [Tool use with the Converse API](cross-model-scenarios/tool_use_demo/tool_use_demo.py)
 
 ### Amazon Nova
 
-- [Converse](../../../../../python/example_code/bedrock-runtime/models/amazon_nova/amazon_nova_text/converse.py#L4)
-- [ConverseStream](../../../../../python/example_code/bedrock-runtime/models/amazon_nova/amazon_nova_text/converse_stream.py#L4)
-- [Document understanding](../../../../../python/example_code/bedrock-runtime/models/amazon_nova/amazon_nova_text/document_understanding.py#L4)
+- [Converse](models/amazon_nova/amazon_nova_text/converse.py#L4)
+- [ConverseStream](models/amazon_nova/amazon_nova_text/converse_stream.py#L4)
+- [Document understanding](models/amazon_nova/amazon_nova_text/document_understanding.py#L4)
 
 ### Amazon Nova Canvas
 
-- [InvokeModel](../../../../../python/example_code/bedrock-runtime/models/amazon_nova/amazon_nova_canvas/invoke_model.py#L4)
+- [InvokeModel](models/amazon_nova/amazon_nova_canvas/invoke_model.py#L4)
 
 ### Amazon Nova Reel
 
-- [Text-to-video](../../../../../python/example_code/bedrock-runtime/models/amazon_nova/amazon_nova_reel/text_to_video.py#L4)
+- [Text-to-video](models/amazon_nova/amazon_nova_reel/text_to_video.py#L4)
 
 ### Amazon Titan Image Generator
 
-- [InvokeModel](../../../../../python/example_code/bedrock-runtime/models/amazon_titan_image_generator/invoke_model.py#L4)
+- [InvokeModel](models/amazon_titan_image_generator/invoke_model.py#L4)
 
 ### Amazon Titan Text
 
-- [InvokeModel](../../../../../python/example_code/bedrock-runtime/models/amazon_titan_text/invoke_model.py#L4)
+- [InvokeModel](models/amazon_titan_text/invoke_model.py#L4)
 
 ### Amazon Titan Text Embeddings
 
-- [InvokeModel](../../../../../python/example_code/bedrock-runtime/models/amazon_titan_text_embeddings/invoke_model.py#L4)
+- [InvokeModel](models/amazon_titan_text_embeddings/invoke_model.py#L4)
 
 ### Anthropic Claude
 
-- [Converse](../../../../../python/example_code/bedrock-runtime/models/anthropic_claude/converse.py#L4)
-- [ConverseStream](../../../../../python/example_code/bedrock-runtime/models/anthropic_claude/converse_stream.py#L4)
-- [Document understanding](../../../../../python/example_code/bedrock-runtime/models/anthropic_claude/document_understanding.py#L4)
+- [Converse](models/anthropic_claude/converse.py#L4)
+- [ConverseStream](models/anthropic_claude/converse_stream.py#L4)
+- [Document understanding](models/anthropic_claude/document_understanding.py#L4)
 - [Scenario: Tool use with the Converse API](cross-model-scenarios/tool_use_demo/tool_use_demo.py)
 
 ### Cohere Command
 
-- [Converse](../../../../../python/example_code/bedrock-runtime/models/cohere_command/converse.py#L4)
-- [ConverseStream](../../../../../python/example_code/bedrock-runtime/models/cohere_command/converse_stream.py#L4)
-- [Document understanding](../../../../../python/example_code/bedrock-runtime/models/cohere_command/document_understanding.py#L4)
+- [Converse](models/cohere_command/converse.py#L4)
+- [ConverseStream](models/cohere_command/converse_stream.py#L4)
+- [Document understanding](models/cohere_command/document_understanding.py#L4)
 - [Scenario: Tool use with the Converse API](cross-model-scenarios/tool_use_demo/tool_use_demo.py)
 
 ### DeepSeek
 
-- [Document understanding](../../../../../python/example_code/bedrock-runtime/models/deepseek/document_understanding.py#L4)
+- [Document understanding](models/deepseek/document_understanding.py#L4)
 
 ### Meta Llama
 
-- [Converse](../../../../../python/example_code/bedrock-runtime/models/meta_llama/converse.py#L4)
-- [ConverseStream](../../../../../python/example_code/bedrock-runtime/models/meta_llama/converse_stream.py#L4)
-- [Document understanding](../../../../../python/example_code/bedrock-runtime/models/meta_llama/document_understanding.py#L4)
+- [Converse](models/meta_llama/converse.py#L4)
+- [ConverseStream](models/meta_llama/converse_stream.py#L4)
+- [Document understanding](models/meta_llama/document_understanding.py#L4)
 
 ### Mistral AI
 
-- [Converse](../../../../../python/example_code/bedrock-runtime/models/mistral_ai/converse.py#L4)
-- [ConverseStream](../../../../../python/example_code/bedrock-runtime/models/mistral_ai/converse_stream.py#L4)
-- [Document understanding](../../../../../python/example_code/bedrock-runtime/models/mistral_ai/document_understanding.py#L4)
+- [Converse](models/mistral_ai/converse.py#L4)
+- [ConverseStream](models/mistral_ai/converse_stream.py#L4)
+- [Document understanding](models/mistral_ai/document_understanding.py#L4)
 
 ### Stable Diffusion
 
-- [InvokeModel](../../../../../python/example_code/bedrock-runtime/models/stability_ai/invoke_model.py#L4)
+- [InvokeModel](models/stability_ai/invoke_model.py#L4)
 
 
 <!--custom.examples.start-->
@@ -149,7 +149,7 @@ This example shows you how to do the following:
 Start the example by running the following at a command prompt:
 
 ```
-python ../../../../../python/example_code/bedrock-agent/prompts/scenario_get_started_with_prompts.py
+python ../bedrock-agent/prompts/scenario_get_started_with_prompts.py
 ```
 
 
