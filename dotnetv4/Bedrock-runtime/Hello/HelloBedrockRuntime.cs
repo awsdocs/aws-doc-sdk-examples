@@ -9,7 +9,8 @@ using Amazon.BedrockRuntime;
 using Amazon.BedrockRuntime.Model;
 
 // Create a Bedrock Runtime client in the AWS Region you want to use.
-var client = new AmazonBedrockRuntimeClient(RegionEndpoint.USEast1);
+// You can change the region to match your setup.
+var client = new AmazonBedrockRuntimeClient(RegionEndpoint.USWest2);
 
 // Set the model ID, e.g., Claude 3 Haiku.
 var modelId = "anthropic.claude-3-haiku-20240307-v1:0";
