@@ -102,7 +102,7 @@ functions within the same service.
 - [ConverseStream](models/mistral_ai/converse_stream.py#L4)
 - [Document understanding](models/mistral_ai/document_understanding.py#L4)
 
-### Stable Diffusion
+### Stable Image Core
 
 - [InvokeModel](models/stability_ai/invoke_model.py#L4)
 

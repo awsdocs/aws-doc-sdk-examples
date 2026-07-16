@@ -13,6 +13,8 @@ using Amazon.BedrockRuntime.Model;
 var client = new AmazonBedrockRuntimeClient(RegionEndpoint.USWest2);
 
 // Set the model ID, e.g., Claude Haiku.
+// The "global." prefix enables cross-region inference, allowing the request
+// to be routed to the nearest available region for the specified model.
 var modelId = "global.anthropic.claude-haiku-4-5-20251001-v1:0";
 
 // Define the user message.

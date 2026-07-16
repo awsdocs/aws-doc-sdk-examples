@@ -82,7 +82,7 @@ functions within the same service.
 - [Converse](src/main/java/com/example/bedrockruntime/models/mistral/Converse.java#L6)
 - [ConverseStream](src/main/java/com/example/bedrockruntime/models/mistral/ConverseStream.java#L6)
 
-### Stable Diffusion
+### Stable Image Core
 
 - [InvokeModel](src/main/java/com/example/bedrockruntime/models/stabilityAi/InvokeModel.java#L6)
 

@@ -13,6 +13,8 @@ import {
 const AWS_REGION = "us-east-1";
 
 // Set the model ID, e.g., Claude Haiku.
+// The "global." prefix enables cross-region inference, allowing the request
+// to be routed to the nearest available region for the specified model.
 const MODEL_ID = "global.anthropic.claude-haiku-4-5-20251001-v1:0";
 const PROMPT = "Hi. In a short paragraph, explain what you can do.";
 

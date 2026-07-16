@@ -39,7 +39,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `php` 
 
 - [Converse](Models/AmazonNova/Text/Converse.php#L9)
 
-### Stable Diffusion
+### Stable Image Core
 
 - [InvokeModel](BedrockRuntimeService.php#L68)
 
