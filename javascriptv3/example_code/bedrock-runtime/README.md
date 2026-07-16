@@ -33,6 +33,11 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 > see [Model access](https://docs.aws.amazon.com/bedrock/latest/userguide/model-access.html).
 
 <!--custom.prerequisites.end-->
+
+### Get started
+
+- [Hello Amazon Bedrock Runtime](hello.js) (`Converse`)
+
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple
@@ -106,6 +111,14 @@ for that file.
 
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
+
+#### Hello Amazon Bedrock Runtime
+
+This example shows you how to get started using Amazon Bedrock Runtime.
+
+```bash
+node ./hello.js
+```
 
 
 

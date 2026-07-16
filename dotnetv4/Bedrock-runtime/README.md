@@ -28,6 +28,11 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv4
 
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
+
+### Get started
+
+- [Hello Amazon Bedrock Runtime](Actions/HelloBedrockRuntime.cs#L4) (`Converse`)
+
 ### Anthropic Claude
 
 - [Converse](Models/AnthropicClaude/Converse/Converse.cs#L4)
@@ -59,6 +64,10 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv4
 
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
+
+#### Hello Amazon Bedrock Runtime
+
+This example shows you how to get started using Amazon Bedrock Runtime.
 
 
 
