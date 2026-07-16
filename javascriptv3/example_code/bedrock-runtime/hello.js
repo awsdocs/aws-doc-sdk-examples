@@ -35,6 +35,10 @@ const hello = async () => {
       {
         role: "user",
         content: [{ text: PROMPT }],
+      },
+    ],
+  });
+
   // Send the command to the model and wait for the response.
   try {
     const response = await client.send(command);
@@ -48,16 +52,13 @@ const hello = async () => {
       caught.name === "BedrockRuntimeServiceException"
     ) {
       console.error(
-        `ERROR: Can't invoke '${MODEL_ID}'. Reason: ${caught.message}`
+        `ERROR: Can't invoke '${MODEL_ID}'. Reason: ${caught.message}`,
       );
       throw caught;
     } else {
       throw caught;
     }
   }
-  // Extract and print the response text.
-  const responseText = response.output.message.content[0].text;
-  console.log(`Response: ${responseText}`);
 };
 // snippet-end:[javascript.v3.bedrock-runtime.Hello]
 
