@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 # snippet-start:[python.example_code.bedrock-runtime.InvokeModel_StableDiffusion]
-# Use the native inference API to create an image with Stability.ai Stable Diffusion
+# Use the native inference API to create an image with Stability AI Stable Image Core
 
 import base64
 import boto3
@@ -11,10 +11,10 @@ import os
 import random
 
 # Create a Bedrock Runtime client in the AWS Region of your choice.
-client = boto3.client("bedrock-runtime", region_name="us-east-1")
+client = boto3.client("bedrock-runtime", region_name="us-west-2")
 
-# Set the model ID, e.g., Stable Diffusion XL 1.
-model_id = "stability.stable-diffusion-xl-v1"
+# Set the model ID, e.g., Stable Image Core.
+model_id = "stability.stable-image-core-v1:1"
 
 # Define the image generation prompt for the model.
 prompt = "A stylized picture of a cute old steampunk robot."
@@ -24,11 +24,10 @@ seed = random.randint(0, 4294967295)
 
 # Format the request payload using the model's native structure.
 native_request = {
-    "text_prompts": [{"text": prompt}],
-    "style_preset": "photographic",
+    "prompt": prompt,
+    "aspect_ratio": "1:1",
     "seed": seed,
-    "cfg_scale": 10,
-    "steps": 30,
+    "output_format": "png",
 }
 
 # Convert the native request to JSON.
@@ -41,7 +40,7 @@ response = client.invoke_model(modelId=model_id, body=request)
 model_response = json.loads(response["body"].read())
 
 # Extract the image data.
-base64_image_data = model_response["artifacts"][0]["base64"]
+base64_image_data = model_response["images"][0]
 
 # Save the generated image to a local folder.
 i, output_dir = 1, "output"

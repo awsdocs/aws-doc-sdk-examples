@@ -123,24 +123,21 @@ class BedrockRuntimeStubber(ExampleStubber):
             error_code=error_code,
         )
 
-    def stub_invoke_stable_diffusion(self, prompt, style_preset, seed, error_code=None):
+    def stub_invoke_stable_diffusion(self, prompt, seed, error_code=None):
         expected_params = {
-            "modelId": "stability.stable-diffusion-xl",
+            "modelId": "stability.stable-image-core-v1:1",
             "body": json.dumps(
                 {
-                    "text_prompts": [{"text": prompt}],
+                    "prompt": prompt,
+                    "aspect_ratio": "1:1",
                     "seed": seed,
-                    "cfg_scale": 10,
-                    "steps": 30,
-                    "style_preset": style_preset,
+                    "output_format": "png",
                 }
             ),
         }
 
         response_body = io.BytesIO(
-            json.dumps({"artifacts": [{"base64": "FakeBase64String=="}]}).encode(
-                "utf-8"
-            )
+            json.dumps({"images": ["FakeBase64String=="]}).encode("utf-8")
         )
 
         response = {"body": response_body, "contentType": ""}
@@ -249,10 +246,11 @@ class BedrockRuntimeStubber(ExampleStubber):
         self._stub_bifurcator(
             "invoke_model", expected_params, response, error_code=error_code
         )
+
     def stub_converse(self, expected_params, response, error_code=None):
         """
         Adds a stub for the converse function.
-        
+
         :param expected_params: The parameters that are expected to be passed to the function.
         :param response: The response to return when the expected parameters are passed.
         :param error_code: The error code to raise when the expected parameters are passed.
