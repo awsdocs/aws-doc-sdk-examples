@@ -789,7 +789,7 @@ bedrock-runtime_InvokeModel_StableDiffusion:
   title: Invoke Stability.ai Stable Image Core on &BR; to generate an image
   title_abbrev: "InvokeModel"
   synopsis: invoke Stability.ai Stable Image Core on &BR; to generate an image.
-  category: Stable Diffusion
+  category: Stable Image Core
   languages:
     Java:
       versions:
