@@ -65,9 +65,15 @@ func main() {
 
 	// Extract and print the response text.
 	responseMessage, _ := result.Output.(*types.ConverseOutputMemberMessage)
+	// Extract and print the response text.
+	responseMessage, ok := result.Output.(*types.ConverseOutputMemberMessage)
+	if !ok {
+		log.Fatal("ERROR: Unexpected output type from Converse API")
+	}
 	responseContentBlock := responseMessage.Value.Content[0]
-	text, _ := responseContentBlock.(*types.ContentBlockMemberText)
+	text, ok := responseContentBlock.(*types.ContentBlockMemberText)
+	if !ok {
+		log.Fatal("ERROR: Unexpected content block type from Converse API")
+	}
 	fmt.Printf("Response: %s\n", text.Value)
-}
-
 // snippet-end:[gov2.bedrock-runtime.Hello]
