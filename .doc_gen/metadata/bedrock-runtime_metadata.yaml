@@ -786,9 +786,9 @@ bedrock-runtime_InvokeModel_TitanImageGenerator:
     bedrock-runtime: {InvokeModel}
 
 bedrock-runtime_InvokeModel_StableDiffusion:
-  title: Invoke Stability.ai Stable Diffusion XL on &BR; to generate an image
+  title: Invoke Stability.ai Stable Image Core on &BR; to generate an image
   title_abbrev: "InvokeModel"
-  synopsis: invoke Stability.ai Stable Diffusion XL on &BR; to generate an image.
+  synopsis: invoke Stability.ai Stable Image Core on &BR; to generate an image.
   category: Stable Diffusion
   languages:
     Java:
@@ -823,7 +823,7 @@ bedrock-runtime_InvokeModel_StableDiffusion:
             - description: Create an image with Stable Diffusion.
               snippet_tags:
                 - bdr.abapv1.invokemodel_stable_diffusion
-            - description: Invoke the Stability.ai Stable Diffusion XL foundation model to generate images using L2 high level
+            - description: Invoke the Stability.ai Stable Image Core foundation model to generate images using L2 high level
                 client.
               snippet_tags:
                 - bdr.abapv1.invokemodel_l2_stable_diffusion
