@@ -38,8 +38,8 @@ func main() {
 
 	client := bedrockruntime.NewFromConfig(sdkConfig)
 
-	// Set the model ID, e.g., Claude 3 Haiku.
-	modelId := "anthropic.claude-3-haiku-20240307-v1:0"
+	// Set the model ID, e.g., Claude Haiku.
+	modelId := "global.anthropic.claude-haiku-4-5-20251001-v1:0"
 
 	// Start a conversation with the user message.
 	prompt := "Hello. In a short paragraph, explain what you can do."
