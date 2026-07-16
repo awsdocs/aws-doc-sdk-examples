@@ -46,6 +46,7 @@ catch (AmazonBedrockRuntimeException e)
 }
 
 // snippet-end:[BedrockRuntime.dotnetv4.Hello]
+namespace BedrockRuntimeHello { public partial class Hello { } }
 
 // Create a partial class to make the top-level script testable.
 namespace BedrockRuntimeHello { public partial class Hello { } }
