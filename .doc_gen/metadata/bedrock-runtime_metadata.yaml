@@ -1,4 +1,43 @@
 # zexi 0.4.0
+bedrock-runtime_Hello:
+  title: Hello &BR;
+  title_abbrev: Hello &BR;
+  synopsis: get started using &BR;.
+  category: Hello
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Bedrock-runtime
+          excerpts:
+            - description:
+              snippet_tags:
+                - BedrockRuntime.dotnetv3.Hello
+        - sdk_version: 4
+          github: dotnetv4/Bedrock-runtime
+          excerpts:
+            - description:
+              snippet_tags:
+                - BedrockRuntime.dotnetv4.Hello
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/bedrock-runtime
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.bedrock-runtime.Hello
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/bedrock-runtime
+          excerpts:
+            - description:
+              snippet_files:
+                - javascriptv3/example_code/bedrock-runtime/hello.js
+  services:
+    bedrock-runtime: {Converse}
+
 # Converse
 bedrock-runtime_Converse_AmazonNovaText:
   title: Invoke Amazon Nova on &BR; using Bedrock's Converse API
