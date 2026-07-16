@@ -6,6 +6,7 @@
 
 using Amazon;
 using Amazon.BedrockRuntime;
+using Amazon.BedrockRuntime.Model;
 
 // Create a Bedrock Runtime client in the AWS Region you want to use.
 var client = new AmazonBedrockRuntimeClient(RegionEndpoint.USEast1);
@@ -46,7 +47,6 @@ catch (AmazonBedrockRuntimeException e)
 }
 
 // snippet-end:[BedrockRuntime.dotnetv4.Hello]
-namespace BedrockRuntimeHello { public partial class Hello { } }
 
 // Create a partial class to make the top-level script testable.
 namespace BedrockRuntimeHello { public partial class Hello { } }
