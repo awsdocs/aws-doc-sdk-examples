@@ -4,11 +4,8 @@
 // snippet-start:[BedrockRuntime.dotnetv3.Hello]
 // Use the Converse API to send a text message to Amazon Bedrock.
 
-using System;
-using System.Collections.Generic;
 using Amazon;
 using Amazon.BedrockRuntime;
-using Amazon.BedrockRuntime.Model;
 
 // Create a Bedrock Runtime client in the AWS Region you want to use.
 var client = new AmazonBedrockRuntimeClient(RegionEndpoint.USEast1);
