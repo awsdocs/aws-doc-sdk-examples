@@ -30,7 +30,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 <!--custom.prerequisites.end-->
 ### Stable Image Core
 
-- [InvokeModel](%23awsex%23cl_bdr_actions.clas.abap#L58)
+- [InvokeModel](%23awsex%23cl_bdr_actions.clas.abap#L67)
 
 
 <!--custom.examples.start-->

@@ -31,7 +31,7 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 
 ### Get started
 
-- [Hello Amazon Bedrock Runtime](Hello/HelloBedrockRuntime.cs#L4) (`Converse`)
+- [Hello Amazon Bedrock Runtime](Actions/HelloBedrockRuntime.cs#L4) (`Converse`)
 
 ### Scenarios
 
