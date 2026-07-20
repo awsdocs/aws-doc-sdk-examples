@@ -53,6 +53,10 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv4
 - [Converse](Models/Mistral/Converse/Converse.cs#L4)
 - [ConverseStream](Models/Mistral/ConverseStream/ConverseStream.cs#L4)
 
+### Stable Image Core
+
+- [InvokeModel](Actions/InvokeModelAsync.cs#L82)
+
 
 <!--custom.examples.start-->
 <!--custom.examples.end-->

@@ -50,6 +50,10 @@ functions within the same service.
 
 - [InvokeModel](Models/AmazonNova/AmazonNovaCanvas/InvokeModel/InvokeModel.cs#L4)
 
+### Stable Image Core
+
+- [InvokeModel](Actions/InvokeModelAsync.cs#L82)
+
 
 <!--custom.examples.start-->
 <!--custom.examples.end-->
