@@ -12,6 +12,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BedrockRuntimeTests", "Test
 		{AAE5224C-4947-44C2-8BFB-70AF1F91A6EE} = {AAE5224C-4947-44C2-8BFB-70AF1F91A6EE}
 		{B6924BBB-9993-44C1-BEF9-DEDEA42A12B2} = {B6924BBB-9993-44C1-BEF9-DEDEA42A12B2}
 		{CDF1A045-0888-418C-8656-2BF5E3348A48} = {CDF1A045-0888-418C-8656-2BF5E3348A48}
+		{D4E5F6A7-B8C9-4D0E-A1B2-C3D4E5F6A7B8} = {D4E5F6A7-B8C9-4D0E-A1B2-C3D4E5F6A7B8}
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Models", "Models", "{41B69207-8F29-41BC-9114-78EE740485C8}"
@@ -40,7 +41,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConverseStream", "Models\Me
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConverseStream", "Models\Mistral\ConverseStream\ConverseStream.csproj", "{B6924BBB-9993-44C1-BEF9-DEDEA42A12B2}"
 EndProject
-
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BedrockRuntimeActions", "Actions\BedrockRuntimeActions.csproj", "{D4E5F6A7-B8C9-4D0E-A1B2-C3D4E5F6A7B8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,6 +85,10 @@ Global
 		{B6924BBB-9993-44C1-BEF9-DEDEA42A12B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B6924BBB-9993-44C1-BEF9-DEDEA42A12B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B6924BBB-9993-44C1-BEF9-DEDEA42A12B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4E5F6A7-B8C9-4D0E-A1B2-C3D4E5F6A7B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4E5F6A7-B8C9-4D0E-A1B2-C3D4E5F6A7B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4E5F6A7-B8C9-4D0E-A1B2-C3D4E5F6A7B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4E5F6A7-B8C9-4D0E-A1B2-C3D4E5F6A7B8}.Release|Any CPU.Build.0 = Release|Any CPU
 
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
