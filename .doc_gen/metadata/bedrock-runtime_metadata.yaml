@@ -1,8 +1,8 @@
 # zexi 0.4.0
 bedrock-runtime_Hello:
-  title: Hello &BR;
-  title_abbrev: Hello &BR;
-  synopsis: get started using &BR;.
+  title: Hello &BRRUN;
+  title_abbrev: Hello &BRRUN;
+  synopsis: get started using &BRRUN;.
   category: Hello
   languages:
     .NET:
