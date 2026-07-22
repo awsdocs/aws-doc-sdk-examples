@@ -39,7 +39,36 @@ jobs:
   collect:
     runs-on: ubuntu-latest
     steps:
+      - name: Check auto-review limit
+        id: check-limit
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          # Count existing AI review comments on this PR
+          REVIEW_COUNT=$(gh api "repos/${{ github.repository }}/issues/${PR_NUMBER}/comments" \
+            --paginate --jq '[.[] | select(.body | startswith("## 🤖 AI Code Example Review"))] | length')
+
+          echo "Auto-reviews posted so far: ${REVIEW_COUNT}"
+
+          # Allow: opened (1st) + 2 synchronize = 3 total auto-reviews
+          if [ "${REVIEW_COUNT}" -ge 3 ]; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Post manual-trigger notice
+        if: steps.check-limit.outputs.skip == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          gh pr comment "${PR_NUMBER}" --repo "${{ github.repository }}" --body \
+            "🤖 Auto-review limit reached. With appropriate permissions, you can manually trigger another review via **Actions → AI PR Review - Run** with this PR number."
+
       - name: Collect PR metadata
+        if: steps.check-limit.outputs.skip != 'true'
         env:
           GH_TOKEN: ${{ github.token }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
@@ -95,6 +124,7 @@ jobs:
           fi
 
       - name: Upload PR data artifact
+        if: steps.check-limit.outputs.skip != 'true'
         uses: actions/upload-artifact@v4
         with:
           name: pr-review-data
