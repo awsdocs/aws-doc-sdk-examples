@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AWSSDK.BedrockRuntime" Version="3.7.301.9" />
+    <PackageReference Include="AWSSDK.BedrockRuntime" Version="3.7.412.14" />
   </ItemGroup>
 
 </Project>

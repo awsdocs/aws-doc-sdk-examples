@@ -35,22 +35,11 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `php` 
 
 > ⚠ You must request access to a model before you can use it. If you try to use the model (with the API or console) before you have requested access to it, you will receive an error message. For more information, see [Model access](https://docs.aws.amazon.com/bedrock/latest/userguide/model-access.html).
 <!--custom.prerequisites.end-->
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Invoke multiple foundation models on Amazon Bedrock](GettingStartedWithBedrockRuntime.php)
-
 ### Amazon Nova
 
 - [Converse](Models/AmazonNova/Text/Converse.php#L9)
 
-### Anthropic Claude
-
-- [InvokeModel](BedrockRuntimeService.php#L33)
-
-### Stable Diffusion
+### Stable Image Core
 
 - [InvokeModel](BedrockRuntimeService.php#L68)
 
@@ -67,18 +56,6 @@ functions within the same service.
 <!--custom.instructions.end-->
 
 
-
-#### Invoke multiple foundation models on Amazon Bedrock
-
-This example shows you how to prepare and send a prompt to a variety of large-language models (LLMs) on Amazon Bedrock
-
-
-<!--custom.scenario_prereqs.bedrock-runtime_Scenario_InvokeModels.start-->
-<!--custom.scenario_prereqs.bedrock-runtime_Scenario_InvokeModels.end-->
-
-
-<!--custom.scenarios.bedrock-runtime_Scenario_InvokeModels.start-->
-<!--custom.scenarios.bedrock-runtime_Scenario_InvokeModels.end-->
 
 ### Tests
 

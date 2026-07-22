@@ -28,11 +28,15 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv4
 
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
+
+### Get started
+
+- [Hello Amazon Bedrock Runtime](Actions/HelloBedrockRuntime.cs#L4) (`Converse`)
+
 ### Anthropic Claude
 
 - [Converse](Models/AnthropicClaude/Converse/Converse.cs#L4)
 - [ConverseStream](Models/AnthropicClaude/ConverseStream/ConverseStream.cs#L4)
-- [InvokeModel](Models/AnthropicClaude/InvokeModel/InvokeModel.cs#L4)
 
 ### Cohere Command
 
@@ -49,6 +53,10 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv4
 - [Converse](Models/Mistral/Converse/Converse.cs#L4)
 - [ConverseStream](Models/Mistral/ConverseStream/ConverseStream.cs#L4)
 
+### Stable Image Core
+
+- [InvokeModel](Actions/InvokeModelAsync.cs#L82)
+
 
 <!--custom.examples.start-->
 <!--custom.examples.end-->
@@ -60,6 +68,10 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv4
 
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
+
+#### Hello Amazon Bedrock Runtime
+
+This example shows you how to get started using Amazon Bedrock Runtime.
 
 
 

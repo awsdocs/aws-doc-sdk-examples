@@ -64,8 +64,6 @@ functions within the same service.
 
 - [Converse](src/main/java/com/example/bedrockruntime/models/anthropicClaude/Converse.java#L6)
 - [ConverseStream](src/main/java/com/example/bedrockruntime/models/anthropicClaude/ConverseStream.java#L6)
-- [InvokeModel](src/main/java/com/example/bedrockruntime/models/anthropicClaude/InvokeModel.java#L6)
-- [InvokeModelWithResponseStream](src/main/java/com/example/bedrockruntime/models/anthropicClaude/InvokeModelWithResponseStream.java#L6)
 - [Reasoning](src/main/java/com/example/bedrockruntime/models/anthropicClaude/ReasoningAsync.java#L6)
 - [Reasoning with a streaming response](src/main/java/com/example/bedrockruntime/models/anthropicClaude/ReasoningStream.java#L6)
 
@@ -73,24 +71,18 @@ functions within the same service.
 
 - [Converse](src/main/java/com/example/bedrockruntime/models/cohereCommand/Converse.java#L6)
 - [ConverseStream](src/main/java/com/example/bedrockruntime/models/cohereCommand/ConverseStream.java#L6)
-- [InvokeModel: Command R and R+](src/main/java/com/example/bedrockruntime/models/cohereCommand/Command_R_InvokeModel.java#L6)
-- [InvokeModelWithResponseStream: Command R and R+](src/main/java/com/example/bedrockruntime/models/cohereCommand/Command_R_InvokeModelWithResponseStream.java#L6)
 
 ### Meta Llama
 
 - [Converse](src/main/java/com/example/bedrockruntime/models/metaLlama/Converse.java#L6)
 - [ConverseStream](src/main/java/com/example/bedrockruntime/models/metaLlama/ConverseStream.java#L6)
-- [InvokeModel](src/main/java/com/example/bedrockruntime/models/metaLlama/Llama3_InvokeModel.java#L6)
-- [InvokeModelWithResponseStream](src/main/java/com/example/bedrockruntime/models/metaLlama/Llama3_InvokeModelWithResponseStream.java#L6)
 
 ### Mistral AI
 
 - [Converse](src/main/java/com/example/bedrockruntime/models/mistral/Converse.java#L6)
 - [ConverseStream](src/main/java/com/example/bedrockruntime/models/mistral/ConverseStream.java#L6)
-- [InvokeModel](src/main/java/com/example/bedrockruntime/models/mistral/InvokeModel.java#L6)
-- [InvokeModelWithResponseStream](src/main/java/com/example/bedrockruntime/models/mistral/InvokeModelWithResponseStream.java#L6)
 
-### Stable Diffusion
+### Stable Image Core
 
 - [InvokeModel](src/main/java/com/example/bedrockruntime/models/stabilityAi/InvokeModel.java#L6)
 

@@ -1,10 +1,24 @@
 # zexi 0.4.0
 bedrock-runtime_Hello:
-  title: Hello &BR;
-  title_abbrev: Hello &BR;
-  synopsis: get started using &BR;.
+  title: Hello &BRRUN;
+  title_abbrev: Hello &BRRUN;
+  synopsis: get started using &BRRUN;.
   category: Hello
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Bedrock-runtime
+          excerpts:
+            - description:
+              snippet_tags:
+                - BedrockRuntime.dotnetv3.Hello
+        - sdk_version: 4
+          github: dotnetv4/Bedrock-runtime
+          excerpts:
+            - description:
+              snippet_tags:
+                - BedrockRuntime.dotnetv4.Hello
     Go:
       versions:
         - sdk_version: 2
@@ -21,9 +35,8 @@ bedrock-runtime_Hello:
             - description:
               snippet_files:
                 - javascriptv3/example_code/bedrock-runtime/hello.js
-
   services:
-    bedrock-runtime: {InvokeModel}
+    bedrock-runtime: {Converse}
 
 # Converse
 bedrock-runtime_Converse_AmazonNovaText:
@@ -650,353 +663,6 @@ bedrock-runtime_ConverseStream_Mistral:
   services:
     bedrock-runtime: {ConverseStream}
 
-# Invoke Model
-bedrock-runtime_InvokeModel_AnthropicClaude:
-  title: Invoke Anthropic Claude on &BR; using the Invoke Model API
-  title_abbrev: "InvokeModel"
-  synopsis: send a text message to Anthropic Claude, using the Invoke Model API.
-  category: Anthropic Claude
-  languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message.
-              snippet_tags:
-                - bedrock-runtime.java2.InvokeModel_AnthropicClaude
-    .NET:
-      versions:
-        - sdk_version: 4
-          github: dotnetv4/Bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message.
-              snippet_tags:
-                - BedrockRuntime.dotnetv4.InvokeModel_AnthropicClaude
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message.
-              snippet_tags:
-                - python.example_code.bedrock-runtime.InvokeModel_AnthropicClaude
-    JavaScript:
-      versions:
-        - sdk_version: 3
-          github: javascriptv3/example_code/bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message.
-              snippet_files:
-                - javascriptv3/example_code/bedrock-runtime/models/anthropicClaude/invoke_claude_3.js
-    Go:
-      versions:
-        - sdk_version: 2
-          github: gov2/bedrock-runtime
-          excerpts:
-            - description: Invoke the Anthropic Claude 2 foundation model to generate text.
-              snippet_tags:
-                - gov2.bedrock-runtime.InvokeModelWrapper.struct
-                - gov2.bedrock-runtime.InvokeClaude
-    PHP:
-      versions:
-        - sdk_version: 3
-          github: php/example_code/bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message.
-              snippet_tags:
-                - php.example_code.bedrock-runtime.service.invokeClaude
-    SAP ABAP:
-      versions:
-        - sdk_version: 1
-          github: sap-abap/services/bdr
-          excerpts:
-            - description: Invoke the Anthropic Claude 2 foundation model to generate text. This example uses features of
-                /US2/CL_JSON which might not be available on some NetWeaver versions.
-              snippet_tags:
-                - bdr.abapv1.invokemodel_claude_v2
-            - description: Invoke the Anthropic Claude 2 foundation model to generate text using L2 high level client.
-              snippet_tags:
-                - bdr.abapv1.invokemodel_l2_claude_v2
-            - description: Invoke the Anthropic Claude 3 foundation model to generate text using L2 high level client.
-              snippet_tags:
-                - bdr.abapv1.invokemodel_l2_claude_v3
-  services:
-    bedrock-runtime: {InvokeModel}
-
-bedrock-runtime_InvokeModel_CohereCommandR:
-  title: Invoke Cohere Command R and R+ on &BR; using the Invoke Model API
-  title_abbrev: "InvokeModel: Command R and R+"
-  synopsis: send a text message to Cohere Command R and R+, using the Invoke Model API.
-  category: Cohere Command
-  languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message.
-              snippet_tags:
-                - bedrock-runtime.java2.InvokeModel_CohereCommandR
-    .NET:
-      versions:
-        - sdk_version: 3
-          github: dotnetv3/Bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message.
-              snippet_tags:
-                - BedrockRuntime.dotnetv3.InvokeModel_CohereCommandR
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message.
-              snippet_tags:
-                - python.example_code.bedrock-runtime.InvokeModel_CohereCommandR
-  services:
-    bedrock-runtime: {InvokeModel}
-
-bedrock-runtime_InvokeModel_MetaLlama3:
-  title: Invoke Meta Llama on &BR; using the Invoke Model API
-  title_abbrev: "InvokeModel"
-  synopsis: send a text message to Meta Llama, using the Invoke Model API.
-  category: Meta Llama
-  languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message.
-              snippet_tags:
-                - bedrock-runtime.java2.InvokeModel_MetaLlama3
-    .NET:
-      versions:
-        - sdk_version: 3
-          github: dotnetv3/Bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message.
-              snippet_tags:
-                - BedrockRuntime.dotnetv3.InvokeModel_MetaLlama3
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message.
-              snippet_tags:
-                - python.example_code.bedrock-runtime.InvokeModel_MetaLlama3
-    JavaScript:
-      versions:
-        - sdk_version: 3
-          github: javascriptv3/example_code/bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message.
-              snippet_tags:
-                - javascript.v3.bedrock-runtime.InvokeModel_Llama3_Quickstart
-  services:
-    bedrock-runtime: {InvokeModel}
-
-bedrock-runtime_InvokeModel_MistralAi:
-  title: Invoke Mistral AI models on &BR; using the Invoke Model API
-  title_abbrev: "InvokeModel"
-  synopsis: send a text message to Mistral models, using the Invoke Model API.
-  category: Mistral AI
-  languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message.
-              snippet_tags:
-                - bedrock-runtime.java2.InvokeModel_Mistral
-    .NET:
-      versions:
-        - sdk_version: 3
-          github: dotnetv3/Bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message.
-              snippet_tags:
-                - BedrockRuntime.dotnetv3.InvokeModel_Mistral
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message.
-              snippet_tags:
-                - python.example_code.bedrock-runtime.InvokeModel_MistralAi
-    JavaScript:
-      versions:
-        - sdk_version: 3
-          github: javascriptv3/example_code/bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message.
-              snippet_files:
-                - javascriptv3/example_code/bedrock-runtime/models/mistral/invoke_mistral_7b.js
-  services:
-    bedrock-runtime: {InvokeModel}
-
-# Invoke Model with Response Stream
-bedrock-runtime_InvokeModelWithResponseStream_AnthropicClaude:
-  title: Invoke Anthropic Claude models on &BR; using the Invoke Model API with a response stream
-  title_abbrev: "InvokeModelWithResponseStream"
-  synopsis: send a text message to Anthropic Claude models, using the Invoke Model API, and print the response stream.
-  category: Anthropic Claude
-  languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message and process the response stream in real-time.
-              snippet_tags:
-                - bedrock-runtime.java2.InvokeModelWithResponseStream_AnthropicClaude
-    .NET:
-      versions:
-        - sdk_version: 3
-          github: dotnetv3/Bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message and process the response stream in real-time.
-              snippet_tags:
-                - BedrockRuntime.dotnetv3.InvokeModelWithResponseStream_AnthropicClaude
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message and process the response stream in real-time.
-              snippet_tags:
-                - python.example_code.bedrock-runtime.InvokeModelWithResponseStream_AnthropicClaude
-    Go:
-      versions:
-        - sdk_version: 2
-          github: gov2/bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message and process the response stream in real-time.
-              snippet_tags:
-                - gov2.bedrock-runtime.InvokeModelWithResponseStreamWrapper.struct
-                - gov2.bedrock-runtime.InvokeModelWithResponseStream
-    JavaScript:
-      versions:
-        - sdk_version: 3
-          github: javascriptv3/example_code/bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message and process the response stream in real-time.
-              snippet_files:
-                - javascriptv3/example_code/bedrock-runtime/models/anthropicClaude/invoke_claude_3.js
-  services:
-    bedrock-runtime: {InvokeModelWithResponseStream}
-
-bedrock-runtime_InvokeModelWithResponseStream_CohereCommandR:
-  title: Invoke Cohere Command R and R+ on &BR; using the Invoke Model API with a response stream
-  title_abbrev: "InvokeModelWithResponseStream: Command R and R+"
-  synopsis: send a text message to Cohere Command, using the Invoke Model API with a response stream.
-  category: Cohere Command
-  languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message and process the response stream in real-time.
-              snippet_tags:
-                - bedrock-runtime.java2.InvokeModelWithResponseStream_CohereCommandR
-    .NET:
-      versions:
-        - sdk_version: 3
-          github: dotnetv3/Bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message and process the response stream in real-time.
-              snippet_tags:
-                - BedrockRuntime.dotnetv3.InvokeModelWithResponseStream_CohereCommandR
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message and process the response stream in real-time.
-              snippet_tags:
-                - python.example_code.bedrock-runtime.InvokeModelWithResponseStream_CohereCommandR
-  services:
-    bedrock-runtime: {InvokeModel}
-
-bedrock-runtime_InvokeModelWithResponseStream_MetaLlama3:
-  title: Invoke Meta Llama on &BR; using the Invoke Model API with a response stream
-  title_abbrev: "InvokeModelWithResponseStream"
-  synopsis: send a text message to Meta Llama, using the Invoke Model API, and print the response stream.
-  category: Meta Llama
-  languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message and process the response stream in real-time.
-              snippet_tags:
-                - bedrock-runtime.java2.InvokeModelWithResponseStream_MetaLlama3
-    .NET:
-      versions:
-        - sdk_version: 3
-          github: dotnetv3/Bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message and process the response stream in real-time.
-              snippet_tags:
-                - BedrockRuntime.dotnetv3.InvokeModelWithResponseStream_MetaLlama3
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message and process the response stream in real-time.
-              snippet_tags:
-                - python.example_code.bedrock-runtime.InvokeModelWithResponseStream_MetaLlama3
-    JavaScript:
-      versions:
-        - sdk_version: 3
-          github: javascriptv3/example_code/bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message and process the response stream in real-time.
-              snippet_tags:
-                - javascript.v3.bedrock-runtime.InvokeModelWithResponseStream_Llama3_Quickstart
-  services:
-    bedrock-runtime: {InvokeModelWithResponseStream}
-
-bedrock-runtime_InvokeModelWithResponseStream_MistralAi:
-  title: Invoke Mistral AI models on &BR; using the Invoke Model API with a response stream
-  title_abbrev: "InvokeModelWithResponseStream"
-  synopsis: send a text message to Mistral AI models, using the Invoke Model API, and print the response stream.
-  category: Mistral AI
-  languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message and process the response stream in real-time.
-              snippet_tags:
-                - bedrock-runtime.java2.InvokeModelWithResponseStream_Mistral
-    .NET:
-      versions:
-        - sdk_version: 3
-          github: dotnetv3/Bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message and process the response stream in real-time.
-              snippet_tags:
-                - BedrockRuntime.dotnetv3.InvokeModelWithResponseStream_Mistral
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message and process the response stream in real-time.
-              snippet_tags:
-                - python.example_code.bedrock-runtime.InvokeModelWithResponseStream_MistralAi
-  services:
-    bedrock-runtime: {InvokeModelWithResponseStream}
-
 # Reasoning
 bedrock-runtime_Converse_AnthropicClaudeReasoning:
   title: Use Anthropic Claude 3.7 Sonnet's reasoning capability on &BR;
@@ -1120,10 +786,10 @@ bedrock-runtime_InvokeModel_TitanImageGenerator:
     bedrock-runtime: {InvokeModel}
 
 bedrock-runtime_InvokeModel_StableDiffusion:
-  title: Invoke Stability.ai Stable Diffusion on &BR; to generate an image
+  title: Invoke Stability.ai Stable Image Core on &BR; to generate an image
   title_abbrev: "InvokeModel"
-  synopsis: invoke Stability.ai Stable Diffusion on &BR; to generate an image.
-  category: Stable Diffusion
+  synopsis: invoke Stability.ai Stable Image Core on &BR; to generate an image.
+  category: Stable Image Core
   languages:
     Java:
       versions:
@@ -1141,6 +807,20 @@ bedrock-runtime_InvokeModel_StableDiffusion:
             - description: Create an image with Stable Diffusion.
               snippet_tags:
                 - python.example_code.bedrock-runtime.InvokeModel_StableDiffusion
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Bedrock-runtime
+          excerpts:
+            - description: Create an image with Stable Image Core.
+              snippet_tags:
+                - BedrockRuntime.dotnetv3.BedrockRuntimeActions.InvokeModelAsync.StableDiffusionXL
+        - sdk_version: 4
+          github: dotnetv4/Bedrock-runtime
+          excerpts:
+            - description: Create an image with Stable Image Core.
+              snippet_tags:
+                - BedrockRuntime.dotnetv4.BedrockRuntimeActions.InvokeModelAsync.StableDiffusionXL
     PHP:
       versions:
         - sdk_version: 3
@@ -1157,7 +837,7 @@ bedrock-runtime_InvokeModel_StableDiffusion:
             - description: Create an image with Stable Diffusion.
               snippet_tags:
                 - bdr.abapv1.invokemodel_stable_diffusion
-            - description: Invoke the Stability.ai Stable Diffusion XL foundation model to generate images using L2 high level
+            - description: Invoke the Stability.ai Stable Image Core foundation model to generate images using L2 high level
                 client.
               snippet_tags:
                 - bdr.abapv1.invokemodel_l2_stable_diffusion
@@ -1432,40 +1112,6 @@ bedrock-runtime_Scenario_ToolUseDemo_CohereCommand:
                 - python/example_code/bedrock-runtime/cross-model-scenarios/tool_use_demo/weather_tool.py
   services:
     bedrock-runtime: {Converse}
-
-# Other scenarios
-bedrock-runtime_Scenario_InvokeModels:
-  title: Invoke multiple foundation models on &BR;
-  title_abbrev: "Invoke multiple foundation models on &BR;"
-  synopsis: prepare and send a prompt to a variety of large-language models (LLMs) on &BR;
-  category: Scenarios
-  languages:
-    Go:
-      versions:
-        - sdk_version: 2
-          github: gov2/bedrock-runtime
-          excerpts:
-            - description: Invoke multiple foundation models on &BR;.
-              snippet_tags:
-                - gov2.bedrock-runtime.Scenario_InvokeModels
-    JavaScript:
-      versions:
-        - sdk_version: 3
-          github: javascriptv3/example_code/bedrock-runtime
-          excerpts:
-            - description:
-              snippet_files:
-                - javascriptv3/example_code/bedrock-runtime/scenarios/cli_text_playground.js
-    PHP:
-      versions:
-        - sdk_version: 3
-          github: php/example_code/bedrock-runtime/
-          excerpts:
-            - description: Invoke multiple LLMs on &BR;.
-              snippet_tags:
-                - php.example_code.bedrock-runtime.basics.scenario
-  services:
-    bedrock-runtime: {InvokeModel, InvokeModelWithResponseStream}
 
 bedrock-runtime_Scenario_GenerateVideos_NovaReel:
   title: Generate videos from text prompts using &BR; and Nova-Reel

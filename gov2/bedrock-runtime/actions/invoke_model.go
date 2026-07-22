@@ -24,62 +24,6 @@ type InvokeModelWrapper struct {
 
 // snippet-end:[gov2.bedrock-runtime.InvokeModelWrapper.struct]
 
-// snippet-start:[gov2.bedrock-runtime.InvokeClaude]
-
-// Each model provider has their own individual request and response formats.
-// For the format, ranges, and default values for Anthropic Claude, refer to:
-// https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-claude.html
-
-type ClaudeRequest struct {
-	Prompt            string   `json:"prompt"`
-	MaxTokensToSample int      `json:"max_tokens_to_sample"`
-	Temperature       float64  `json:"temperature,omitempty"`
-	StopSequences     []string `json:"stop_sequences,omitempty"`
-}
-
-type ClaudeResponse struct {
-	Completion string `json:"completion"`
-}
-
-// Invokes Anthropic Claude on Amazon Bedrock to run an inference using the input
-// provided in the request body.
-func (wrapper InvokeModelWrapper) InvokeClaude(ctx context.Context, prompt string) (string, error) {
-	modelId := "anthropic.claude-v2"
-
-	// Anthropic Claude requires enclosing the prompt as follows:
-	enclosedPrompt := "Human: " + prompt + "\n\nAssistant:"
-
-	body, err := json.Marshal(ClaudeRequest{
-		Prompt:            enclosedPrompt,
-		MaxTokensToSample: 200,
-		Temperature:       0.5,
-		StopSequences:     []string{"\n\nHuman:"},
-	})
-
-	if err != nil {
-		log.Fatal("failed to marshal", err)
-	}
-
-	output, err := wrapper.BedrockRuntimeClient.InvokeModel(ctx, &bedrockruntime.InvokeModelInput{
-		ModelId:     aws.String(modelId),
-		ContentType: aws.String("application/json"),
-		Body:        body,
-	})
-
-	if err != nil {
-		ProcessError(err, modelId)
-	}
-
-	var response ClaudeResponse
-	if err := json.Unmarshal(output.Body, &response); err != nil {
-		log.Fatal("failed to unmarshal", err)
-	}
-
-	return response.Completion, nil
-}
-
-// snippet-end:[gov2.bedrock-runtime.InvokeClaude]
-
 // snippet-start:[gov2.bedrock-runtime.InvokeTitanImage]
 
 type TitanImageRequest struct {

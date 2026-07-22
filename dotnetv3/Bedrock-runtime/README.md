@@ -28,6 +28,11 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
+
+### Get started
+
+- [Hello Amazon Bedrock Runtime](Actions/HelloBedrockRuntime.cs#L4) (`Converse`)
+
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple
@@ -45,24 +50,9 @@ functions within the same service.
 
 - [InvokeModel](Models/AmazonNova/AmazonNovaCanvas/InvokeModel/InvokeModel.cs#L4)
 
-### Anthropic Claude
+### Stable Image Core
 
-- [InvokeModelWithResponseStream](Models/AnthropicClaude/InvokeModelWithResponseStream/InvokeModelWithResponseStream.cs#L4)
-
-### Cohere Command
-
-- [InvokeModel: Command R and R+](Models/CohereCommand/Command_R_InvokeModel/InvokeModel.cs#L4)
-- [InvokeModelWithResponseStream: Command R and R+](Models/CohereCommand/Command_R_InvokeModelWithResponseStream/InvokeModelWithResponseStream.cs#L4)
-
-### Meta Llama
-
-- [InvokeModel](Models/MetaLlama/Llama3_InvokeModel/InvokeModel.cs#L4)
-- [InvokeModelWithResponseStream](Models/MetaLlama/Llama3_InvokeModelWithResponseStream/InvokeModelWithResponseStream.cs#L4)
-
-### Mistral AI
-
-- [InvokeModel](Models/Mistral/InvokeModel/InvokeModel.cs#L4)
-- [InvokeModelWithResponseStream](Models/Mistral/InvokeModelWithResponseStream/InvokeModelWithResponseStream.cs#L4)
+- [InvokeModel](Actions/InvokeModelAsync.cs#L82)
 
 
 <!--custom.examples.start-->
@@ -92,6 +82,10 @@ Alternatively, you can run the example from within your IDE.
 
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
+
+#### Hello Amazon Bedrock Runtime
+
+This example shows you how to get started using Amazon Bedrock Runtime.
 
 
 

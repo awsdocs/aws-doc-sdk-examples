@@ -12,11 +12,7 @@ CLASS ltc_awsex_cl_bdr_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
     DATA ao_session TYPE REF TO /aws1/cl_rt_session_base.
     DATA ao_bdr_actions TYPE REF TO /awsex/cl_bdr_actions.
 
-    METHODS test_claude_v2 FOR TESTING RAISING /aws1/cx_rt_generic.
     METHODS test_stable_diffusion FOR TESTING RAISING /aws1/cx_rt_generic.
-
-    METHODS test_l2_claude_v2 FOR TESTING RAISING /aws1/cx_rt_generic.
-    METHODS test_l2_claude_v3 FOR TESTING RAISING /aws1/cx_rt_generic.
     METHODS test_l2_stable_diffusion FOR TESTING RAISING /aws1/cx_rt_generic.
 
     METHODS setup RAISING /aws1/cx_rt_generic.
@@ -29,26 +25,10 @@ CLASS ltc_awsex_cl_bdr_actions IMPLEMENTATION.
     ao_bdr = /aws1/cl_bdr_factory=>create( ao_session ).
     ao_bdr_actions = NEW /awsex/cl_bdr_actions( ).
   ENDMETHOD.
-  METHOD test_claude_v2.
-    DATA(lv_joke) = ao_bdr_actions->prompt_claude_v2(
-      'Tell me a joke about ABAP programmers and Java programmers walking into a bar' ).
-    cl_abap_unit_assert=>assert_not_initial( act = lv_joke ).
-  ENDMETHOD.
 
   METHOD test_stable_diffusion.
     DATA(lv_joke) = ao_bdr_actions->prompt_stable_diffusion(
       'Show me a picture of a kitten coding in ABAP on an SAP system' ).
-    cl_abap_unit_assert=>assert_not_initial( act = lv_joke ).
-  ENDMETHOD.
-  METHOD test_l2_claude_v2.
-    DATA(lv_joke) = ao_bdr_actions->l2_prompt_claude_v2(
-      'Tell me a joke about ABAP programmers and Java programmers walking into a bar' ).
-    cl_abap_unit_assert=>assert_not_initial( act = lv_joke ).
-  ENDMETHOD.
-
-  METHOD test_l2_claude_v3.
-    DATA(lv_joke) = ao_bdr_actions->l2_prompt_claude_v3(
-      'Tell me a joke about ABAP programmers and Java programmers walking into a bar' ).
     cl_abap_unit_assert=>assert_not_initial( act = lv_joke ).
   ENDMETHOD.
 

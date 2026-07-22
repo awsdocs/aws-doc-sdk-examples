@@ -7,34 +7,18 @@ package main
 
 import (
 	"context"
-	"encoding/json"
 	"flag"
 	"fmt"
 	"log"
-	"os"
-	"strings"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/bedrockruntime"
+	"github.com/aws/aws-sdk-go-v2/service/bedrockruntime/types"
 )
 
-// Each model provider defines their own individual request and response formats.
-// For the format, ranges, and default values for the different models, refer to:
-// https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters.html
-
-type ClaudeRequest struct {
-	Prompt            string `json:"prompt"`
-	MaxTokensToSample int    `json:"max_tokens_to_sample"`
-	// Omitting optional request parameters
-}
-
-type ClaudeResponse struct {
-	Completion string `json:"completion"`
-}
-
 // main uses the AWS SDK for Go (v2) to create an Amazon Bedrock Runtime client
-// and invokes Anthropic Claude 2 inside your account and the chosen region.
+// and invokes Anthropic Claude using the Converse API.
 // This example uses the default settings specified in your shared credentials
 // and config files.
 func main() {
@@ -54,52 +38,44 @@ func main() {
 
 	client := bedrockruntime.NewFromConfig(sdkConfig)
 
-	modelId := "anthropic.claude-v2"
+	// Set the model ID, e.g., Claude Haiku.
+	// The "global." prefix enables cross-region inference, allowing the request
+	// to be routed to the nearest available region for the specified model.
+	modelId := "global.anthropic.claude-haiku-4-5-20251001-v1:0"
 
-	prompt := "Hello, how are you today?"
+	// Start a conversation with the user message.
+	prompt := "Hello. In a short paragraph, explain what you can do."
 
-	// Anthropic Claude requires you to enclose the prompt as follows:
-	prefix := "Human: "
-	postfix := "\n\nAssistant:"
-	wrappedPrompt := prefix + prompt + postfix
-
-	request := ClaudeRequest{
-		Prompt:            wrappedPrompt,
-		MaxTokensToSample: 200,
+	message := types.Message{
+		Content: []types.ContentBlock{
+			&types.ContentBlockMemberText{Value: prompt},
+		},
+		Role: types.ConversationRoleUser,
 	}
 
-	body, err := json.Marshal(request)
-	if err != nil {
-		log.Panicln("Couldn't marshal the request: ", err)
-	}
+	fmt.Printf("Model: %s\n", modelId)
+	fmt.Printf("Prompt: %s\n\n", prompt)
 
-	result, err := client.InvokeModel(ctx, &bedrockruntime.InvokeModelInput{
-		ModelId:     aws.String(modelId),
-		ContentType: aws.String("application/json"),
-		Body:        body,
+	result, err := client.Converse(ctx, &bedrockruntime.ConverseInput{
+		ModelId:  aws.String(modelId),
+		Messages: []types.Message{message},
 	})
 
 	if err != nil {
-		errMsg := err.Error()
-		if strings.Contains(errMsg, "no such host") {
-			fmt.Printf("Error: The Bedrock service is not available in the selected region. Please double-check the service availability for your region at https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/.\n")
-		} else if strings.Contains(errMsg, "Could not resolve the foundation model") {
-			fmt.Printf("Error: Could not resolve the foundation model from model identifier: \"%v\". Please verify that the requested model exists and is accessible within the specified region.\n", modelId)
-		} else {
-			fmt.Printf("Error: Couldn't invoke Anthropic Claude. Here's why: %v\n", err)
-		}
-		os.Exit(1)
+		log.Fatalf("ERROR: Can't invoke '%s'. Reason: %v\n", modelId, err)
 	}
 
-	var response ClaudeResponse
-
-	err = json.Unmarshal(result.Body, &response)
-
-	if err != nil {
-		log.Fatal("failed to unmarshal", err)
+	// Extract and print the response text.
+	responseMessage, ok := result.Output.(*types.ConverseOutputMemberMessage)
+	if !ok {
+		log.Fatal("ERROR: Unexpected output type from Converse API")
 	}
-	fmt.Println("Prompt:\n", prompt)
-	fmt.Println("Response from Anthropic Claude:\n", response.Completion)
+	responseContentBlock := responseMessage.Value.Content[0]
+	text, ok := responseContentBlock.(*types.ContentBlockMemberText)
+	if !ok {
+		log.Fatal("ERROR: Unexpected content block type from Converse API")
+	}
+	fmt.Printf("Response: %s\n", text.Value)
 }
 
 // snippet-end:[gov2.bedrock-runtime.Hello]

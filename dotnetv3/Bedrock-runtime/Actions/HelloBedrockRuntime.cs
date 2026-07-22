@@ -1,34 +1,63 @@
-﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-namespace BedrockRuntimeActions
+// snippet-start:[BedrockRuntime.dotnetv3.Hello]
+
+using Amazon;
+using Amazon.BedrockRuntime;
+using Amazon.BedrockRuntime.Model;
+
+namespace BedrockRuntimeActions;
+
+/// <summary>
+/// This example shows how to use the Converse API to send a text message
+/// to Amazon Bedrock.
+/// </summary>
+internal class HelloBedrockRuntime
 {
-    internal class HelloBedrockRuntime
+    static async Task Main(string[] args)
     {
-        private static readonly string CLAUDE = "anthropic.claude-v2";
+        // Create a Bedrock Runtime client in the AWS Region you want to use.
+        // You can change the region to match your setup.
+        var client = new AmazonBedrockRuntimeClient(RegionEndpoint.USWest2);
 
-        static async Task Main(string[] args)
-        {
-            await TextToText();
-        }
+        // Set the model ID, e.g., Claude Haiku.
+        // The "global." prefix enables cross-region inference, allowing the request
+        // to be routed to the nearest available region for the specified model.
+        var modelId = "global.anthropic.claude-haiku-4-5-20251001-v1:0";
 
-        private static async Task TextToText()
-        {
-            string prompt = "In one sentence, what is a large-language model?";
-            await Invoke(CLAUDE, prompt);
-        }
+        // Define the user message.
+        var userMessage = "Hi. In a short paragraph, explain what you can do.";
 
-        private static async Task Invoke(string modelId, string prompt)
+        // Create a request with the model ID, the user message, and an inference configuration.
+        var request = new ConverseRequest
         {
-            switch (modelId)
+            ModelId = modelId,
+            Messages = new List<Message>
             {
-                case var _ when modelId == CLAUDE:
-                    Console.WriteLine(await InvokeModelAsync.InvokeClaudeAsync(prompt));
-                    break;
-                default:
-                    Console.WriteLine($"Unknown model ID: {modelId}. Valid model IDs are: {CLAUDE}.");
-                    break;
+                new Message
+                {
+                    Role = ConversationRole.User,
+                    Content = new List<ContentBlock> { new ContentBlock { Text = userMessage } }
+                }
             }
+        };
+
+        try
+        {
+            // Send the request to the Bedrock Runtime and wait for the response.
+            var response = await client.ConverseAsync(request);
+
+            // Extract and print the response text.
+            string responseText = response?.Output?.Message?.Content?[0]?.Text ?? "";
+            Console.WriteLine(responseText);
+        }
+        catch (AmazonBedrockRuntimeException e)
+        {
+            Console.WriteLine($"ERROR: Can't invoke '{modelId}'. Reason: {e.Message}");
+            throw;
         }
     }
 }
+
+// snippet-end:[BedrockRuntime.dotnetv3.Hello]
