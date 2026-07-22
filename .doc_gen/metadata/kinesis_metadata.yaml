@@ -1,7 +1,7 @@
 kinesis_Hello:
-  title: Hello &KinesisLong;
-  title_abbrev: Hello &KinesisLong;
-  synopsis: get started using &KinesisLong;.
+  title: Hello &AKlong;
+  title_abbrev: Hello &AKlong;
+  synopsis: get started using &AKlong;.
   category: Hello
   languages:
     Python:
@@ -15,9 +15,9 @@ kinesis_Hello:
   services:
     kinesis: {ListStreams}
 kinesis_CreateStream:
-  title: Create a &KDS; stream
+  title: Create a &AK; stream
   title_abbrev: Create a stream
-  synopsis: create a &KDS; stream.
+  synopsis: create a &AK; stream.
   category: Actions
   languages:
     Python:
@@ -32,9 +32,9 @@ kinesis_CreateStream:
   services:
     kinesis: {CreateStream}
 kinesis_DescribeStream:
-  title: Describe a &KDS; stream
+  title: Describe a &AK; stream
   title_abbrev: Describe a stream
-  synopsis: describe a &KDS; stream.
+  synopsis: describe a &AK; stream.
   category: Actions
   languages:
     Python:
@@ -49,9 +49,9 @@ kinesis_DescribeStream:
   services:
     kinesis: {DescribeStream}
 kinesis_PutRecord:
-  title: Put a record into a &KDS; stream
+  title: Put a record into a &AK; stream
   title_abbrev: Put a record
-  synopsis: put a record into a &KDS; stream.
+  synopsis: put a record into a &AK; stream.
   category: Actions
   languages:
     Python:
@@ -66,9 +66,9 @@ kinesis_PutRecord:
   services:
     kinesis: {PutRecord}
 kinesis_PutRecords:
-  title: Put records into a &KDS; stream
+  title: Put records into a &AK; stream
   title_abbrev: Put records
-  synopsis: put records into a &KDS; stream.
+  synopsis: put records into a &AK; stream.
   category: Actions
   languages:
     Python:
@@ -83,9 +83,9 @@ kinesis_PutRecords:
   services:
     kinesis: {PutRecords}
 kinesis_ListShards:
-  title: List shards in a &KDS; stream
+  title: List shards in a &AK; stream
   title_abbrev: List shards
-  synopsis: list shards in a &KDS; stream.
+  synopsis: list shards in a &AK; stream.
   category: Actions
   languages:
     Python:
@@ -100,9 +100,9 @@ kinesis_ListShards:
   services:
     kinesis: {ListShards}
 kinesis_GetShardIterator:
-  title: Get a shard iterator for a &KDS; stream
+  title: Get a shard iterator for a &AK; stream
   title_abbrev: Get a shard iterator
-  synopsis: get a shard iterator for a &KDS; stream.
+  synopsis: get a shard iterator for a &AK; stream.
   category: Actions
   languages:
     Python:
@@ -117,9 +117,9 @@ kinesis_GetShardIterator:
   services:
     kinesis: {GetShardIterator}
 kinesis_GetRecords:
-  title: Get records from a &KDS; stream
+  title: Get records from a &AK; stream
   title_abbrev: Get records
-  synopsis: get records from a &KDS; stream.
+  synopsis: get records from a &AK; stream.
   category: Actions
   languages:
     Python:
@@ -134,9 +134,9 @@ kinesis_GetRecords:
   services:
     kinesis: {GetRecords}
 kinesis_AddTagsToStream:
-  title: Add tags to a &KDS; stream
+  title: Add tags to a &AK; stream
   title_abbrev: Add tags to a stream
-  synopsis: add tags to a &KDS; stream.
+  synopsis: add tags to a &AK; stream.
   category: Actions
   languages:
     Python:
@@ -151,9 +151,9 @@ kinesis_AddTagsToStream:
   services:
     kinesis: {AddTagsToStream}
 kinesis_ListTagsForStream:
-  title: List tags for a &KDS; stream
+  title: List tags for a &AK; stream
   title_abbrev: List tags for a stream
-  synopsis: list tags for a &KDS; stream.
+  synopsis: list tags for a &AK; stream.
   category: Actions
   languages:
     Python:
@@ -168,9 +168,9 @@ kinesis_ListTagsForStream:
   services:
     kinesis: {ListTagsForStream}
 kinesis_DeleteStream:
-  title: Delete a &KDS; stream
+  title: Delete a &AK; stream
   title_abbrev: Delete a stream
-  synopsis: delete a &KDS; stream.
+  synopsis: delete a &AK; stream.
   category: Actions
   languages:
     Python:
@@ -185,9 +185,9 @@ kinesis_DeleteStream:
   services:
     kinesis: {DeleteStream}
 kinesis_serverless_Lambda:
-  title: Process &KDS; events with &LAM;
+  title: Process &AK; events with &LAM;
   title_abbrev: Process events with &LAM;
-  synopsis: process &KDS; events with a &LAM; function.
+  synopsis: process &AK; events with a &LAM; function.
   category: Scenarios
   languages:
     Python:
@@ -201,9 +201,9 @@ kinesis_serverless_Lambda:
   services:
     kinesis: null
 kinesis_serverless_Lambda_batch_item_failures:
-  title: Report batch item failures for &KDS; with &LAM;
+  title: Report batch item failures for &AK; with &LAM;
   title_abbrev: Report batch item failures
-  synopsis: report batch item failures for &KDS; with a &LAM; function.
+  synopsis: report batch item failures for &AK; with a &LAM; function.
   category: Scenarios
   languages:
     Python:
@@ -217,9 +217,9 @@ kinesis_serverless_Lambda_batch_item_failures:
   services:
     kinesis: null
 kinesis_Scenario:
-  title: Get started with &KDS; streams
+  title: Get started with &AK; streams
   title_abbrev: Get started with streams
-  synopsis: learn the basics of &KDS; by creating a stream, producing and consuming records, and managing stream resources.
+  synopsis: learn the basics of &AK; by creating a stream, producing and consuming records, and managing stream resources.
   category: Scenarios
   languages:
     Python:
