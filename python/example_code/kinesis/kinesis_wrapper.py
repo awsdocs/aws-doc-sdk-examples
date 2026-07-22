@@ -7,9 +7,7 @@ Amazon Kinesis Data Streams wrapper class for managing stream operations.
 
 import json
 import logging
-import time
-from datetime import datetime, timezone
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List
 
 import boto3
 from botocore.exceptions import ClientError, WaiterError

@@ -235,3 +235,4 @@ kinesis_Scenario:
                 - python.example_code.kinesis.KinesisScenario
   services:
     kinesis: {CreateStream, DescribeStream, PutRecord, PutRecords, ListShards, GetShardIterator, GetRecords, AddTagsToStream, ListTagsForStream, DeleteStream}
+    

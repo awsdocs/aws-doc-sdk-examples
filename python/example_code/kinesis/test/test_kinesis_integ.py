@@ -8,15 +8,12 @@ These tests run against real AWS resources and will incur charges.
 Run with: pytest test_kinesis_integ.py -v
 """
 
-import json
 import logging
 import time
 
-import boto3
 import pytest
 
 from kinesis_wrapper import KinesisWrapper
-from scenario_kinesis import KinesisScenario
 
 logger = logging.getLogger(__name__)
 
@@ -32,8 +29,11 @@ def pytest_configure(config):
 def test_scenario_runs_successfully(capsys):
     """
     Integration test that runs the full Kinesis basics scenario.
+    Requires the scenario module to be available in the path.
     Verifies the scenario completes without errors and produces expected output.
     """
+    from scenarios.kinesis_basics_scenario import KinesisScenario
+
     wrapper = KinesisWrapper.from_client()
     scenario = KinesisScenario(wrapper)
     scenario.run_scenario()
@@ -57,7 +57,7 @@ def test_hello_kinesis(capsys):
     Integration test for the Hello Kinesis example.
     Verifies it can connect to Kinesis and list streams.
     """
-    from hello_kinesis import hello_kinesis
+    from hello.hello_kinesis import hello_kinesis
 
     hello_kinesis()
 
@@ -83,7 +83,9 @@ def test_wrapper_create_and_delete_stream():
         assert description["StreamStatus"] == "ACTIVE"
         assert description["StreamARN"] is not None
 
-        # List shards
+        # List shards (brief pause for shard metadata propagation)
+        time.sleep(2)
+        stream_arn = description["StreamARN"]
         shards = wrapper.list_shards(stream_name)
         assert len(shards) > 0
 

@@ -154,6 +154,10 @@ class KinesisStream:
                 records = response["Records"]
                 logger.info("Got %s records.", len(records))
                 record_count += len(records)
+                # Decode Data bytes to string for each record
+                for record in records:
+                    if isinstance(record.get("Data"), (bytes, bytearray)):
+                        record["Data"] = record["Data"].decode("utf-8")
                 yield records
         except ClientError:
             logger.exception("Couldn't get records from stream %s.", self.name)
