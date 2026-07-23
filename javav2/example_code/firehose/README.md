@@ -28,20 +28,18 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
-
-### Single actions
-
-Code excerpts that show you how to call individual service functions.
-
-- [PutRecord](src/main/java/com/example/firehose/scenario/FirehoseScenario.java#L98)
-- [PutRecordBatch](src/main/java/com/example/firehose/scenario/FirehoseScenario.java#L131)
-
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
 - [Put records to Data Firehose](src/main/java/com/example/firehose/scenario/FirehoseScenario.java)
+
+### Actions
+_Actions_ are code excerpts from larger programs and must be run in context. While actions show you how to call individual service functions, you can see actions in context in their related scenarios.
+
+- [PutRecord](src/main/java/com/example/firehose/scenario/FirehoseScenario.java#L98)
+- [PutRecordBatch](src/main/java/com/example/firehose/scenario/FirehoseScenario.java#L131)
 
 
 <!--custom.examples.start-->

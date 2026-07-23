@@ -28,10 +28,8 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `rustv
 
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
-
-### Single actions
-
-Code excerpts that show you how to call individual service functions.
+### Actions
+_Actions_ are code excerpts from larger programs and must be run in context. While actions show you how to call individual service functions, you can see actions in context in their related scenarios.
 
 - [PutRecordBatch](src/bin/put-records-batch.rs#L30)
 
