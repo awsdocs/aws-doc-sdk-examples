@@ -259,27 +259,38 @@ class FirehoseWrapper:
     # snippet-end:[python.example_code.firehose.PutRecord]
 
     # snippet-start:[python.example_code.firehose.PutRecordBatch]
-    def put_record_batch(self, stream_name: str, records: List[str]) -> Dict[str, Any]:
+    def put_record_batch(
+        self, stream_name: str, records: List[str], batch_size: int = 500
+    ) -> Dict[str, Any]:
         """
         Writes multiple data records into the specified Firehose delivery stream.
+        Handles large batches by splitting into chunks of up to 500 records
+        (the Firehose hard limit per PutRecordBatch call).
 
         :param stream_name: The name of the delivery stream.
         :param records: A list of data strings to send.
-        :return: The response containing FailedPutCount and RequestResponses.
+        :param batch_size: Max records per batch (default 500, the API limit).
+        :return: The response from the last batch containing FailedPutCount and RequestResponses.
         """
         try:
-            record_list = [{"Data": r.encode("utf-8")} for r in records]
-            response = self.firehose_client.put_record_batch(
-                DeliveryStreamName=stream_name,
-                Records=record_list,
-            )
-            failed_count = response.get("FailedPutCount", 0)
-            logger.info(
-                "Put batch of %d records to stream '%s'. FailedPutCount: %d",
-                len(records),
-                stream_name,
-                failed_count,
-            )
+            response = {}
+            total_failed = 0
+            for i in range(0, len(records), batch_size):
+                chunk = records[i : i + batch_size]
+                record_list = [{"Data": r.encode("utf-8")} for r in chunk]
+                response = self.firehose_client.put_record_batch(
+                    DeliveryStreamName=stream_name,
+                    Records=record_list,
+                )
+                failed_count = response.get("FailedPutCount", 0)
+                total_failed += failed_count
+                logger.info(
+                    "Put batch of %d records to stream '%s'. FailedPutCount: %d",
+                    len(chunk),
+                    stream_name,
+                    failed_count,
+                )
+            response["FailedPutCount"] = total_failed
             return response
         except ClientError as err:
             if err.response["Error"]["Code"] == "ServiceUnavailableException":
