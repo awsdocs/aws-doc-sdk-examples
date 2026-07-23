@@ -58,12 +58,12 @@ functions within the same service.
 _Actions_ are code excerpts from larger programs and must be run in context. While actions show you how to call individual service functions, you can see actions in context in their related scenarios.
 
 - [CreateDeliveryStream](firehose_wrapper.py#L39)
-- [DeleteDeliveryStream](firehose_wrapper.py#L317)
+- [DeleteDeliveryStream](firehose_wrapper.py#L328)
 - [DescribeDeliveryStream](firehose_wrapper.py#L86)
 - [ListDeliveryStreams](firehose_wrapper.py#L115)
 - [ListTagsForDeliveryStream](firehose_wrapper.py#L176)
 - [StartDeliveryStreamEncryption](firehose_wrapper.py#L201)
-- [StopDeliveryStreamEncryption](firehose_wrapper.py#L295)
+- [StopDeliveryStreamEncryption](firehose_wrapper.py#L306)
 - [TagDeliveryStream](firehose_wrapper.py#L152)
 
 
