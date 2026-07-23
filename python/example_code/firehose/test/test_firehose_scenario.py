@@ -12,7 +12,7 @@ Run with: pytest test_firehose_scenario.py -v
 
 import sys
 from datetime import datetime, timezone
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch
 
 import boto3
 import pytest
@@ -21,9 +21,10 @@ from botocore.stub import Stubber
 sys.path.append("..")
 from firehose_wrapper import FirehoseWrapper
 
-
 STREAM_NAME = "test-firehose-stream"
-STREAM_ARN = "arn:aws:firehose:us-east-1:123456789012:deliverystream/test-firehose-stream"
+STREAM_ARN = (
+    "arn:aws:firehose:us-east-1:123456789012:deliverystream/test-firehose-stream"
+)
 ROLE_ARN = "arn:aws:iam::123456789012:role/firehose-test-role"
 BUCKET_ARN = "arn:aws:s3:::test-firehose-bucket"
 STACK_NAME = "test-firehose-stack"
@@ -195,9 +196,7 @@ class TestFirehoseWrapper:
             {
                 "FailedPutCount": 0,
                 "Encrypted": True,
-                "RequestResponses": [
-                    {"RecordId": f"record-id-{i}"} for i in range(3)
-                ],
+                "RequestResponses": [{"RecordId": f"record-id-{i}"} for i in range(3)],
             },
             {
                 "DeliveryStreamName": STREAM_NAME,
@@ -260,174 +259,6 @@ class TestFirehoseScenario:
 
     def test_full_scenario(self, capsys):
         """Test the full scenario with all steps stubbed."""
-        # Create stubbed firehose client
-        firehose_client = boto3.client("firehose", region_name="us-east-1")
-        firehose_stubber = Stubber(firehose_client)
-
-        # Create stubbed CloudFormation client
-        cf_client = boto3.client("cloudformation", region_name="us-east-1")
-        cf_stubber = Stubber(cf_client)
-
-        firehose_stubber.activate()
-        cf_stubber.activate()
-
-        firehose_wrapper = FirehoseWrapper(firehose_client)
-
-        # Import scenario here to avoid import issues
-        sys.path.append("..")
-        from scenarios.firehose_basics_scenario import FirehoseScenario
-
-        scenario = FirehoseScenario(firehose_wrapper, cf_client)
-        scenario.stream_name = STREAM_NAME
-        scenario.stack_name = STACK_NAME
-
-        # Stub CloudFormation: create_stack
-        cf_stubber.add_response(
-            "create_stack",
-            {"StackId": f"arn:aws:cloudformation:us-east-1:123456789012:stack/{STACK_NAME}/guid"},
-            {
-                "StackName": STACK_NAME,
-                "TemplateBody": scenario._FirehoseScenario__class_getattr_fallback(None)
-                if False
-                else pytest.approx(None),  # We'll use ANY matching below
-            },
-        )
-
-        # Since CloudFormation stubbing with waiters is complex, let's mock
-        # the _setup_infrastructure method directly and test the firehose steps
-        with patch.object(scenario, "_setup_infrastructure") as mock_setup:
-            mock_setup.return_value = (BUCKET_ARN, ROLE_ARN)
-
-            # Step 1: create_delivery_stream
-            firehose_stubber.add_response(
-                "create_delivery_stream",
-                {"DeliveryStreamARN": STREAM_ARN},
-                {
-                    "DeliveryStreamName": STREAM_NAME,
-                    "DeliveryStreamType": "DirectPut",
-                    "ExtendedS3DestinationConfiguration": {
-                        "RoleARN": ROLE_ARN,
-                        "BucketARN": BUCKET_ARN,
-                        "BufferingHints": {
-                            "SizeInMBs": 1,
-                            "IntervalInSeconds": 60,
-                        },
-                    },
-                },
-            )
-
-            # Step 2: describe (wait for active) - returns ACTIVE immediately
-            firehose_stubber.add_response(
-                "describe_delivery_stream",
-                self._make_active_description(),
-                {"DeliveryStreamName": STREAM_NAME},
-            )
-
-            # Step 3: list_delivery_streams
-            firehose_stubber.add_response(
-                "list_delivery_streams",
-                {
-                    "DeliveryStreamNames": [STREAM_NAME],
-                    "HasMoreDeliveryStreams": False,
-                },
-                {"DeliveryStreamType": "DirectPut"},
-            )
-
-            # Step 4: tag_delivery_stream
-            firehose_stubber.add_response(
-                "tag_delivery_stream",
-                {},
-                {
-                    "DeliveryStreamName": STREAM_NAME,
-                    "Tags": [
-                        {"Key": "Environment", "Value": "Development"},
-                        {"Key": "Project", "Value": "FirehoseBasicsScenario"},
-                        {"Key": "CreatedBy", "Value": "SDK-Example"},
-                    ],
-                },
-            )
-
-            # Step 5: list_tags_for_delivery_stream
-            firehose_stubber.add_response(
-                "list_tags_for_delivery_stream",
-                {
-                    "Tags": [
-                        {"Key": "Environment", "Value": "Development"},
-                        {"Key": "Project", "Value": "FirehoseBasicsScenario"},
-                        {"Key": "CreatedBy", "Value": "SDK-Example"},
-                    ],
-                    "HasMoreTags": False,
-                },
-                {"DeliveryStreamName": STREAM_NAME},
-            )
-
-            # Step 6: start encryption + wait for ENABLED
-            firehose_stubber.add_response(
-                "start_delivery_stream_encryption",
-                {},
-                {
-                    "DeliveryStreamName": STREAM_NAME,
-                    "DeliveryStreamEncryptionConfigurationInput": {
-                        "KeyType": "AWS_OWNED_CMK",
-                    },
-                },
-            )
-            firehose_stubber.add_response(
-                "describe_delivery_stream",
-                self._make_encryption_description("ENABLED"),
-                {"DeliveryStreamName": STREAM_NAME},
-            )
-
-            # Step 7: put_record (use ANY for dynamic data)
-            firehose_stubber.add_response(
-                "put_record",
-                {"RecordId": "test-record-id", "Encrypted": True},
-                None,  # Don't validate params for dynamic timestamp data
-            )
-
-            # Step 8: put_record_batch (use ANY for dynamic data)
-            firehose_stubber.add_response(
-                "put_record_batch",
-                {
-                    "FailedPutCount": 0,
-                    "Encrypted": True,
-                    "RequestResponses": [
-                        {"RecordId": f"batch-record-{i}"} for i in range(5)
-                    ],
-                },
-                None,  # Don't validate params for dynamic timestamp data
-            )
-
-            # Step 9: stop encryption + wait for DISABLED
-            firehose_stubber.add_response(
-                "stop_delivery_stream_encryption",
-                {},
-                {"DeliveryStreamName": STREAM_NAME},
-            )
-            firehose_stubber.add_response(
-                "describe_delivery_stream",
-                self._make_encryption_description("DISABLED"),
-                {"DeliveryStreamName": STREAM_NAME},
-            )
-
-            # Cleanup: delete stream
-            firehose_stubber.add_response(
-                "delete_delivery_stream",
-                {},
-                {"DeliveryStreamName": STREAM_NAME},
-            )
-
-            # Mock the CloudFormation cleanup
-            with patch.object(scenario, "_cleanup") as mock_cleanup:
-                # Run scenario steps manually (excluding infra setup/cleanup)
-                mock_setup.return_value = (BUCKET_ARN, ROLE_ARN)
-
-        # Now run a simplified version that tests all firehose operations
-        # Re-stub everything for a clean run
-        firehose_stubber.deactivate()
-        cf_stubber.deactivate()
-
-        # Use a simpler approach: test the scenario steps individually
         self._test_scenario_steps(capsys)
 
     def _test_scenario_steps(self, capsys):
@@ -499,7 +330,9 @@ class TestFirehoseScenario:
             {},
             {
                 "DeliveryStreamName": STREAM_NAME,
-                "DeliveryStreamEncryptionConfigurationInput": {"KeyType": "AWS_OWNED_CMK"},
+                "DeliveryStreamEncryptionConfigurationInput": {
+                    "KeyType": "AWS_OWNED_CMK"
+                },
             },
         )
         firehose_wrapper.start_delivery_stream_encryption(STREAM_NAME)
@@ -667,6 +500,4 @@ class TestFirehoseWrapperErrors:
         )
 
         with pytest.raises(TimeoutError):
-            firehose_wrapper.wait_for_stream_active(
-                STREAM_NAME, timeout=1, interval=1
-            )
+            firehose_wrapper.wait_for_stream_active(STREAM_NAME, timeout=1, interval=1)
