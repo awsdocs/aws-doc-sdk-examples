@@ -69,7 +69,9 @@ class FirehoseWrapper:
                 },
             )
             stream_arn = response["DeliveryStreamARN"]
-            logger.info("Created delivery stream %s with ARN: %s", stream_name, stream_arn)
+            logger.info(
+                "Created delivery stream %s with ARN: %s", stream_name, stream_arn
+            )
             return stream_arn
         except ClientError as err:
             if err.response["Error"]["Code"] == "ResourceInUseException":
@@ -111,9 +113,7 @@ class FirehoseWrapper:
     # snippet-end:[python.example_code.firehose.DescribeDeliveryStream]
 
     # snippet-start:[python.example_code.firehose.ListDeliveryStreams]
-    def list_delivery_streams(
-        self, stream_type: str = "DirectPut"
-    ) -> List[str]:
+    def list_delivery_streams(self, stream_type: str = "DirectPut") -> List[str]:
         """
         Lists Firehose delivery streams of the specified type.
 
@@ -150,9 +150,7 @@ class FirehoseWrapper:
     # snippet-end:[python.example_code.firehose.ListDeliveryStreams]
 
     # snippet-start:[python.example_code.firehose.TagDeliveryStream]
-    def tag_delivery_stream(
-        self, stream_name: str, tags: List[Dict[str, str]]
-    ) -> None:
+    def tag_delivery_stream(self, stream_name: str, tags: List[Dict[str, str]]) -> None:
         """
         Adds or updates tags for the specified Firehose delivery stream.
 
@@ -176,9 +174,7 @@ class FirehoseWrapper:
     # snippet-end:[python.example_code.firehose.TagDeliveryStream]
 
     # snippet-start:[python.example_code.firehose.ListTagsForDeliveryStream]
-    def list_tags_for_delivery_stream(
-        self, stream_name: str
-    ) -> List[Dict[str, str]]:
+    def list_tags_for_delivery_stream(self, stream_name: str) -> List[Dict[str, str]]:
         """
         Lists the tags for the specified Firehose delivery stream.
 
@@ -263,9 +259,7 @@ class FirehoseWrapper:
     # snippet-end:[python.example_code.firehose.PutRecord]
 
     # snippet-start:[python.example_code.firehose.PutRecordBatch]
-    def put_record_batch(
-        self, stream_name: str, records: List[str]
-    ) -> Dict[str, Any]:
+    def put_record_batch(self, stream_name: str, records: List[str]) -> Dict[str, Any]:
         """
         Writes multiple data records into the specified Firehose delivery stream.
 
@@ -328,9 +322,7 @@ class FirehoseWrapper:
         :param stream_name: The name of the delivery stream to delete.
         """
         try:
-            self.firehose_client.delete_delivery_stream(
-                DeliveryStreamName=stream_name
-            )
+            self.firehose_client.delete_delivery_stream(DeliveryStreamName=stream_name)
             logger.info("Deleted delivery stream '%s'.", stream_name)
         except ClientError as err:
             if err.response["Error"]["Code"] == "ResourceNotFoundException":
@@ -369,7 +361,11 @@ class FirehoseWrapper:
         )
 
     def wait_for_encryption_status(
-        self, stream_name: str, target_status: str, timeout: int = 120, interval: int = 5
+        self,
+        stream_name: str,
+        target_status: str,
+        timeout: int = 120,
+        interval: int = 5,
     ) -> None:
         """
         Polls DescribeDeliveryStream until the encryption status matches target.

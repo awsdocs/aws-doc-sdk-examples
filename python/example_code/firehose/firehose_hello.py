@@ -23,9 +23,7 @@ def hello_firehose():
 
     print("\n--- Amazon Data Firehose Hello ---")
     try:
-        response = firehose_client.list_delivery_streams(
-            DeliveryStreamType="DirectPut"
-        )
+        response = firehose_client.list_delivery_streams(DeliveryStreamType="DirectPut")
         stream_names = response.get("DeliveryStreamNames", list())
         if stream_names:
             print(f"Found {len(stream_names)} delivery stream(s):")
