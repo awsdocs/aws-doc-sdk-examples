@@ -40,16 +40,18 @@ CFN_TEMPLATE = """
 AWSTemplateFormatVersion: '2010-09-09'
 Description: Firehose basics scenario - S3 bucket and IAM role
 
+Parameters:
+  Suffix:
+    Type: String
+    Description: Unique suffix for resource names
+
 Resources:
   FirehoseBucket:
     Type: AWS::S3::Bucket
-    Properties:
-      BucketName: !Sub 'firehose-basics-${AWS::AccountId}-${AWS::Region}'
 
   FirehoseRole:
     Type: AWS::IAM::Role
     Properties:
-      RoleName: !Sub 'firehose-basics-role-${AWS::Region}'
       AssumeRolePolicyDocument:
         Version: '2012-10-17'
         Statement:
@@ -149,10 +151,14 @@ class FirehoseScenario:
         print("\nSetting up prerequisite resources via CloudFormation...")
         print(f"Stack '{self.stack_name}' creation initiated.")
 
+        timestamp = self.stack_name.split("-")[-1]  # Extract timestamp from stack name
         self.cf_client.create_stack(
             StackName=self.stack_name,
             TemplateBody=CFN_TEMPLATE,
-            Capabilities=["CAPABILITY_NAMED_IAM"],
+            Parameters=[
+                {"ParameterKey": "Suffix", "ParameterValue": timestamp},
+            ],
+            Capabilities=["CAPABILITY_IAM"],
         )
 
         print("Waiting for stack creation to complete...")
@@ -304,7 +310,20 @@ class FirehoseScenario:
                 logger.error("Error deleting stream: %s", err)
 
         if self.stack_name:
-            print("Cleanup: Deleting CloudFormation stack...")
+            print("Cleanup: Emptying S3 bucket and deleting CloudFormation stack...")
+            try:
+                # Get the bucket name from stack resources to empty it before deletion
+                response = self.cf_client.describe_stack_resources(
+                    StackName=self.stack_name
+                )
+                for resource in response.get("StackResources", []):
+                    if resource["ResourceType"] == "AWS::S3::Bucket":
+                        bucket_name = resource.get("PhysicalResourceId")
+                        if bucket_name:
+                            self._empty_bucket(bucket_name)
+            except ClientError:
+                pass  # Stack may already be gone
+
             try:
                 self.cf_client.delete_stack(StackName=self.stack_name)
                 print("  Stack deletion initiated.")
@@ -316,6 +335,16 @@ class FirehoseScenario:
                 print("  Stack deleted successfully.")
             except ClientError as err:
                 logger.error("Error deleting stack: %s", err)
+
+    def _empty_bucket(self, bucket_name):
+        """Remove all objects from a bucket so CloudFormation can delete it."""
+        try:
+            s3 = boto3.resource("s3")
+            bucket = s3.Bucket(bucket_name)
+            bucket.objects.all().delete()
+            print(f"  Emptied bucket '{bucket_name}'.")
+        except ClientError as err:
+            logger.error("Error emptying bucket: %s", err)
 
 
 # snippet-end:[python.example_code.firehose.FirehoseScenario]
