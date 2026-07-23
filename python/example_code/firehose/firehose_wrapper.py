@@ -273,7 +273,7 @@ class FirehoseWrapper:
         :return: The response from the last batch containing FailedPutCount and RequestResponses.
         """
         try:
-            response = {}
+            all_responses = []
             total_failed = 0
             for i in range(0, len(records), batch_size):
                 chunk = records[i : i + batch_size]
@@ -284,14 +284,17 @@ class FirehoseWrapper:
                 )
                 failed_count = response.get("FailedPutCount", 0)
                 total_failed += failed_count
+                all_responses.extend(response.get("RequestResponses", []))
                 logger.info(
                     "Put batch of %d records to stream '%s'. FailedPutCount: %d",
                     len(chunk),
                     stream_name,
                     failed_count,
                 )
-            response["FailedPutCount"] = total_failed
-            return response
+            return {
+                "FailedPutCount": total_failed,
+                "RequestResponses": all_responses,
+            }
         except ClientError as err:
             if err.response["Error"]["Code"] == "ServiceUnavailableException":
                 logger.error(

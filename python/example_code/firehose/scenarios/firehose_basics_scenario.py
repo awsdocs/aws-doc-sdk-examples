@@ -25,12 +25,15 @@ are available via pip install.
 
 import json
 import logging
+import os
+import sys
 import time
 from datetime import datetime, timezone
 
 import boto3
 from botocore.exceptions import ClientError
 
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from firehose_wrapper import FirehoseWrapper
 
 logger = logging.getLogger(__name__)
@@ -269,7 +272,7 @@ class FirehoseScenario:
         response = self.firehose_wrapper.put_record(self.stream_name, record_data)
         record_id = response.get("RecordId", "N/A")
         encrypted = response.get("Encrypted", False)
-        print(f"  Record sent successfully! RecordId: {record_id[:20]}...")
+        print(f"  Record sent successfully! RecordId: {str(record_id)[:20]}...")
         print(f"  Encrypted: {encrypted}")
 
     def _step8_put_record_batch(self):
@@ -327,7 +330,9 @@ class FirehoseScenario:
         if self.stream_name:
             try:
                 self.firehose_wrapper.delete_delivery_stream(self.stream_name)
-                print("  Stream deletion initiated.")
+                print("  Stream deletion initiated. Waiting for stream to be deleted...")
+                # Wait for stream to be fully deleted before emptying bucket
+                self._wait_for_stream_deleted(self.stream_name)
             except ClientError as err:
                 logger.error("Error deleting stream: %s", err)
 
@@ -363,10 +368,25 @@ class FirehoseScenario:
         try:
             s3 = boto3.resource("s3")
             bucket = s3.Bucket(bucket_name)
-            bucket.objects.all().delete()
+            bucket.object_versions.all().delete()
             print(f"  Emptied bucket '{bucket_name}'.")
         except ClientError as err:
             logger.error("Error emptying bucket: %s", err)
+
+    def _wait_for_stream_deleted(self, stream_name, timeout=60, interval=5):
+        """Poll until the stream is fully deleted."""
+        elapsed = 0
+        while elapsed < timeout:
+            try:
+                self.firehose_wrapper.describe_delivery_stream(stream_name)
+                time.sleep(interval)
+                elapsed += interval
+            except ClientError as err:
+                if err.response["Error"]["Code"] == "ResourceNotFoundException":
+                    print("  Stream deleted.")
+                    return
+                raise
+        print("  Stream deletion timed out, proceeding with cleanup.")
 
 
 # snippet-end:[python.example_code.firehose.FirehoseScenario]
