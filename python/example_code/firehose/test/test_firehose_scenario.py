@@ -419,7 +419,7 @@ class TestFirehoseHello:
                 "DeliveryStreamNames": ["stream-1", "stream-2"],
                 "HasMoreDeliveryStreams": False,
             },
-            {"DeliveryStreamType": "DirectPut"},
+            {"DeliveryStreamType": "DirectPut", "Limit": 20},
         )
         stubber.activate()
 

@@ -43,11 +43,6 @@ CFN_TEMPLATE = """
 AWSTemplateFormatVersion: '2010-09-09'
 Description: Firehose basics scenario - S3 bucket and IAM role
 
-Parameters:
-  Suffix:
-    Type: String
-    Description: Unique suffix for resource names
-
 Resources:
   FirehoseBucket:
     Type: AWS::S3::Bucket
@@ -154,13 +149,9 @@ class FirehoseScenario:
         print("\nSetting up prerequisite resources via CloudFormation...")
         print(f"Stack '{self.stack_name}' creation initiated.")
 
-        timestamp = self.stack_name.split("-")[-1]  # Extract timestamp from stack name
         self.cf_client.create_stack(
             StackName=self.stack_name,
             TemplateBody=CFN_TEMPLATE,
-            Parameters=[
-                {"ParameterKey": "Suffix", "ParameterValue": timestamp},
-            ],
             Capabilities=["CAPABILITY_IAM"],
         )
 
