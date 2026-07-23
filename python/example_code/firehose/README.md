@@ -34,19 +34,37 @@ python -m pip install -r requirements.txt
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Get started
+
+- [Hello Data Firehose](hello/hello_firehose.py#L16) (`ListDeliveryStreams`)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [PutRecord](scenarios/firehose-put-actions/firehose.py#L33)
-- [PutRecordBatch](scenarios/firehose-put-actions/firehose.py#L33)
+- [PutRecord](firehose_wrapper.py#L230)
+- [PutRecordBatch](firehose_wrapper.py#L261)
 
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
+- [Get started with delivery streams](firehose_wrapper.py)
 - [Put records to Data Firehose](scenarios/firehose-put-actions/firehose.py)
+
+### Actions
+_Actions_ are code excerpts from larger programs and must be run in context. While actions show you how to call individual service functions, you can see actions in context in their related scenarios.
+
+- [CreateDeliveryStream](firehose_wrapper.py#L39)
+- [DeleteDeliveryStream](firehose_wrapper.py#L317)
+- [DescribeDeliveryStream](firehose_wrapper.py#L86)
+- [ListDeliveryStreams](firehose_wrapper.py#L115)
+- [ListTagsForDeliveryStream](firehose_wrapper.py#L176)
+- [StartDeliveryStreamEncryption](firehose_wrapper.py#L201)
+- [StopDeliveryStreamEncryption](firehose_wrapper.py#L295)
+- [TagDeliveryStream](firehose_wrapper.py#L152)
 
 
 <!--custom.examples.start-->
@@ -60,7 +78,38 @@ functions within the same service.
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
+#### Hello Data Firehose
 
+This example shows you how to get started using Data Firehose.
+
+```
+python hello/hello_firehose.py
+```
+
+
+#### Get started with delivery streams
+
+This example shows you how to learn the basics of Amazon Data Firehose by creating and managing delivery streams.
+
+- Create a Firehose delivery stream with an S3 destination.
+- Describe and list delivery streams.
+- Tag, list tags, and untag a delivery stream.
+- Enable and disable server-side encryption.
+- Put single and batch records.
+- Delete the delivery stream and clean up resources.
+
+<!--custom.scenario_prereqs.firehose_Scenario.start-->
+<!--custom.scenario_prereqs.firehose_Scenario.end-->
+
+Start the example by running the following at a command prompt:
+
+```
+python firehose_wrapper.py
+```
+
+
+<!--custom.scenarios.firehose_Scenario.start-->
+<!--custom.scenarios.firehose_Scenario.end-->
 
 #### Put records to Data Firehose
 

@@ -256,11 +256,16 @@ class FirehoseScenario:
     def _step7_put_record(self):
         """Step 7: Put a single record."""
         print("\nStep 7: Putting a single record...")
-        record_data = json.dumps({
-            "sensor_id": "sensor-001",
-            "temperature": 72.5,
-            "timestamp": datetime.now(timezone.utc).isoformat(),
-        }) + "\n"
+        record_data = (
+            json.dumps(
+                {
+                    "sensor_id": "sensor-001",
+                    "temperature": 72.5,
+                    "timestamp": datetime.now(timezone.utc).isoformat(),
+                }
+            )
+            + "\n"
+        )
         response = self.firehose_wrapper.put_record(self.stream_name, record_data)
         record_id = response.get("RecordId", "N/A")
         encrypted = response.get("Encrypted", False)
@@ -272,11 +277,26 @@ class FirehoseScenario:
         print("\nStep 8: Putting a batch of records...")
         now = datetime.now(timezone.utc).isoformat()
         records = [
-            json.dumps({"sensor_id": "sensor-001", "temperature": 73.2, "timestamp": now}) + "\n",
-            json.dumps({"sensor_id": "sensor-002", "temperature": 68.9, "timestamp": now}) + "\n",
-            json.dumps({"sensor_id": "sensor-003", "temperature": 75.1, "timestamp": now}) + "\n",
-            json.dumps({"sensor_id": "sensor-001", "temperature": 72.8, "timestamp": now}) + "\n",
-            json.dumps({"sensor_id": "sensor-002", "temperature": 69.3, "timestamp": now}) + "\n",
+            json.dumps(
+                {"sensor_id": "sensor-001", "temperature": 73.2, "timestamp": now}
+            )
+            + "\n",
+            json.dumps(
+                {"sensor_id": "sensor-002", "temperature": 68.9, "timestamp": now}
+            )
+            + "\n",
+            json.dumps(
+                {"sensor_id": "sensor-003", "temperature": 75.1, "timestamp": now}
+            )
+            + "\n",
+            json.dumps(
+                {"sensor_id": "sensor-001", "temperature": 72.8, "timestamp": now}
+            )
+            + "\n",
+            json.dumps(
+                {"sensor_id": "sensor-002", "temperature": 69.3, "timestamp": now}
+            )
+            + "\n",
         ]
         response = self.firehose_wrapper.put_record_batch(self.stream_name, records)
         failed_count = response.get("FailedPutCount", 0)
@@ -288,7 +308,9 @@ class FirehoseScenario:
             request_responses = response.get("RequestResponses", list())
             for i, resp in enumerate(request_responses):
                 if resp.get("ErrorCode"):
-                    print(f"    Record {i}: Error {resp['ErrorCode']} - {resp.get('ErrorMessage', '')}")
+                    print(
+                        f"    Record {i}: Error {resp['ErrorCode']} - {resp.get('ErrorMessage', '')}"
+                    )
 
     def _step9_disable_encryption(self):
         """Step 9: Disable server-side encryption."""
