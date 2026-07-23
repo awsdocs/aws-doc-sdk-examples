@@ -15,8 +15,8 @@ firehose_PutRecord:
         excerpts:
         - description: null
           snippet_tags:
-          - python.example_code.firehose.init
-          - python.example_code.firehose.put_record
+          - python.example_code.firehose.FirehoseWrapper.decl
+          - python.example_code.firehose.PutRecord
     SAP ABAP:
       versions:
       - sdk_version: 1
@@ -54,8 +54,8 @@ firehose_PutRecordBatch:
         excerpts:
         - description: null
           snippet_tags:
-          - python.example_code.firehose.init
-          - python.example_code.firehose.put_record_batch
+          - python.example_code.firehose.FirehoseWrapper.decl
+          - python.example_code.firehose.PutRecordBatch
     SAP ABAP:
       versions:
       - sdk_version: 1
@@ -97,9 +97,9 @@ firehose_Scenario_PutRecords:
       PutRecord: null
       PutRecordBatch: null
 firehose_Hello:
-  title: Hello &AWSFirehose;
-  title_abbrev: Hello &AWSFirehose;
-  synopsis: get started using &AWSFirehose;.
+  title: Hello &FHlong;
+  title_abbrev: Hello &FHlong;
+  synopsis: get started using &FHlong;.
   category: Hello
   languages:
     Python:
@@ -114,9 +114,9 @@ firehose_Hello:
     firehose:
       ListDeliveryStreams: null
 firehose_CreateDeliveryStream:
-  title: Create a &AWSFirehose; delivery stream
+  title: Create a &FHlong; delivery stream
   title_abbrev: Create a delivery stream
-  synopsis: create an &AWSFirehose; delivery stream.
+  synopsis: create an &FHlong; delivery stream.
   category: Actions
   languages:
     Python:
@@ -132,9 +132,9 @@ firehose_CreateDeliveryStream:
     firehose:
       CreateDeliveryStream: null
 firehose_DescribeDeliveryStream:
-  title: Describe a &AWSFirehose; delivery stream
+  title: Describe a &FHlong; delivery stream
   title_abbrev: Describe a delivery stream
-  synopsis: describe an &AWSFirehose; delivery stream.
+  synopsis: describe an &FHlong; delivery stream.
   category: Actions
   languages:
     Python:
@@ -150,9 +150,9 @@ firehose_DescribeDeliveryStream:
     firehose:
       DescribeDeliveryStream: null
 firehose_ListDeliveryStreams:
-  title: List &AWSFirehose; delivery streams
+  title: List &FHlong; delivery streams
   title_abbrev: List delivery streams
-  synopsis: list &AWSFirehose; delivery streams.
+  synopsis: list &FHlong; delivery streams.
   category: Actions
   languages:
     Python:
@@ -168,9 +168,9 @@ firehose_ListDeliveryStreams:
     firehose:
       ListDeliveryStreams: null
 firehose_TagDeliveryStream:
-  title: Tag a &AWSFirehose; delivery stream
+  title: Tag a &FHlong; delivery stream
   title_abbrev: Tag a delivery stream
-  synopsis: tag an &AWSFirehose; delivery stream.
+  synopsis: tag an &FHlong; delivery stream.
   category: Actions
   languages:
     Python:
@@ -186,9 +186,9 @@ firehose_TagDeliveryStream:
     firehose:
       TagDeliveryStream: null
 firehose_ListTagsForDeliveryStream:
-  title: List tags for a &AWSFirehose; delivery stream
+  title: List tags for a &FHlong; delivery stream
   title_abbrev: List tags for a delivery stream
-  synopsis: list tags for an &AWSFirehose; delivery stream.
+  synopsis: list tags for an &FHlong; delivery stream.
   category: Actions
   languages:
     Python:
@@ -204,9 +204,9 @@ firehose_ListTagsForDeliveryStream:
     firehose:
       ListTagsForDeliveryStream: null
 firehose_UntagDeliveryStream:
-  title: Remove tags from a &AWSFirehose; delivery stream
+  title: Remove tags from a &FHlong; delivery stream
   title_abbrev: Remove tags from a delivery stream
-  synopsis: remove tags from an &AWSFirehose; delivery stream.
+  synopsis: remove tags from an &FHlong; delivery stream.
   category: Actions
   languages:
     Python:
@@ -222,9 +222,9 @@ firehose_UntagDeliveryStream:
     firehose:
       UntagDeliveryStream: null
 firehose_StartDeliveryStreamEncryption:
-  title: Enable encryption on a &AWSFirehose; delivery stream
+  title: Enable encryption on a &FHlong; delivery stream
   title_abbrev: Enable encryption
-  synopsis: enable server-side encryption on an &AWSFirehose; delivery stream.
+  synopsis: enable server-side encryption on an &FHlong; delivery stream.
   category: Actions
   languages:
     Python:
@@ -240,9 +240,9 @@ firehose_StartDeliveryStreamEncryption:
     firehose:
       StartDeliveryStreamEncryption: null
 firehose_StopDeliveryStreamEncryption:
-  title: Disable encryption on a &AWSFirehose; delivery stream
+  title: Disable encryption on a &FHlong; delivery stream
   title_abbrev: Disable encryption
-  synopsis: disable server-side encryption on an &AWSFirehose; delivery stream.
+  synopsis: disable server-side encryption on an &FHlong; delivery stream.
   category: Actions
   languages:
     Python:
@@ -258,9 +258,9 @@ firehose_StopDeliveryStreamEncryption:
     firehose:
       StopDeliveryStreamEncryption: null
 firehose_UpdateDestination:
-  title: Update a &AWSFirehose; delivery stream destination
+  title: Update a &FHlong; delivery stream destination
   title_abbrev: Update a destination
-  synopsis: update the destination of an &AWSFirehose; delivery stream.
+  synopsis: update the destination of an &FHlong; delivery stream.
   category: Actions
   languages:
     Python:
@@ -276,9 +276,9 @@ firehose_UpdateDestination:
     firehose:
       UpdateDestination: null
 firehose_DeleteDeliveryStream:
-  title: Delete a &AWSFirehose; delivery stream
+  title: Delete a &FHlong; delivery stream
   title_abbrev: Delete a delivery stream
-  synopsis: delete an &AWSFirehose; delivery stream.
+  synopsis: delete an &FHlong; delivery stream.
   category: Actions
   languages:
     Python:
@@ -294,9 +294,9 @@ firehose_DeleteDeliveryStream:
     firehose:
       DeleteDeliveryStream: null
 firehose_Scenario:
-  title: Get started with &AWSFirehose; delivery streams
+  title: Get started with &FHlong; delivery streams
   title_abbrev: Get started with delivery streams
-  synopsis: learn the basics of &AWSFirehose; by creating and managing delivery streams.
+  synopsis: learn the basics of &FHlong; by creating and managing delivery streams.
   category: Scenarios
   synopsis_list:
   - Create a Firehose delivery stream with an S3 destination.
