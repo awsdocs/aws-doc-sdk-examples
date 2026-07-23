@@ -26,7 +26,9 @@ def hello_firehose():
     print("-" * 80)
 
     try:
-        response = firehose_client.list_delivery_streams(Limit=20)
+        response = firehose_client.list_delivery_streams(
+            DeliveryStreamType="DirectPut", Limit=20
+        )
         stream_names = response.get("DeliveryStreamNames", list())
         has_more = response.get("HasMoreDeliveryStreams", False)
 
