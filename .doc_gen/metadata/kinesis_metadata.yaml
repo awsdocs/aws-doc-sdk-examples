@@ -1,4 +1,24 @@
+kinesis_Hello:
+  title: Hello &AKlong;
+  title_abbrev: Hello &AKlong;
+  synopsis: get started using &AKlong;.
+  category: Hello
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kinesis
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.kinesis.Hello
+  services:
+    kinesis: {ListStreams}
 kinesis_CreateStream:
+  title: Create a &AK; stream
+  title_abbrev: Create a stream
+  synopsis: create a &AK; stream.
+  category: Actions
   languages:
     .NET:
       versions:
@@ -22,11 +42,10 @@ kinesis_CreateStream:
       versions:
         - sdk_version: 3
           github: python/example_code/kinesis
-          sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.kinesis.KinesisStream.class
+                - python.example_code.kinesis.KinesisWrapper.decl
                 - python.example_code.kinesis.CreateStream
     Rust:
       versions:
@@ -47,6 +66,10 @@ kinesis_CreateStream:
   services:
     kinesis: {CreateStream}
 kinesis_DeregisterStreamConsumer:
+  title: Deregister a &AK; stream consumer
+  title_abbrev: Deregister a stream consumer
+  synopsis: deregister a &AK; stream consumer.
+  category: Actions
   languages:
     .NET:
       versions:
@@ -60,16 +83,19 @@ kinesis_DeregisterStreamConsumer:
   services:
     kinesis: {DeregisterStreamConsumer}
 kinesis_DescribeStream:
+  title: Describe a &AK; stream
+  title_abbrev: Describe a stream
+  synopsis: describe a &AK; stream.
+  category: Actions
   languages:
     Python:
       versions:
         - sdk_version: 3
           github: python/example_code/kinesis
-          sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.kinesis.KinesisStream.class
+                - python.example_code.kinesis.KinesisWrapper.decl
                 - python.example_code.kinesis.DescribeStream
     Rust:
       versions:
@@ -90,6 +116,10 @@ kinesis_DescribeStream:
   services:
     kinesis: {DescribeStream}
 kinesis_ListStreamConsumers:
+  title: List &AK; stream consumers
+  title_abbrev: List stream consumers
+  synopsis: list &AK; stream consumers.
+  category: Actions
   languages:
     .NET:
       versions:
@@ -103,6 +133,10 @@ kinesis_ListStreamConsumers:
   services:
     kinesis: {ListStreamConsumers}
 kinesis_ListStreams:
+  title: List &AK; streams
+  title_abbrev: List streams
+  synopsis: list &AK; streams.
+  category: Actions
   languages:
     .NET:
       versions:
@@ -131,7 +165,45 @@ kinesis_ListStreams:
                 - kns.abapv1.list_streams
   services:
     kinesis: {ListStreams}
+kinesis_ListShards:
+  title: List shards in a &AK; stream
+  title_abbrev: List shards
+  synopsis: list shards in a &AK; stream.
+  category: Actions
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kinesis
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.kinesis.KinesisWrapper.decl
+                - python.example_code.kinesis.ListShards
+  services:
+    kinesis: {ListShards}
+kinesis_GetShardIterator:
+  title: Get a shard iterator for a &AK; stream
+  title_abbrev: Get a shard iterator
+  synopsis: get a shard iterator for a &AK; stream.
+  category: Actions
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kinesis
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.kinesis.KinesisWrapper.decl
+                - python.example_code.kinesis.GetShardIterator
+  services:
+    kinesis: {GetShardIterator}
 kinesis_ListTagsForStream:
+  title: List tags for a &AK; stream
+  title_abbrev: List tags for a stream
+  synopsis: list tags for a &AK; stream.
+  category: Actions
   languages:
     .NET:
       versions:
@@ -142,9 +214,22 @@ kinesis_ListTagsForStream:
             - description:
               snippet_tags:
                 - Kinesis.dotnetv3.ListTagsExample
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kinesis
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.kinesis.KinesisWrapper.decl
+                - python.example_code.kinesis.ListTagsForStream
   services:
     kinesis: {ListTagsForStream}
 kinesis_DeleteStream:
+  title: Delete a &AK; stream
+  title_abbrev: Delete a stream
+  synopsis: delete a &AK; stream.
+  category: Actions
   languages:
     .NET:
       versions:
@@ -168,11 +253,10 @@ kinesis_DeleteStream:
       versions:
         - sdk_version: 3
           github: python/example_code/kinesis
-          sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.kinesis.KinesisStream.class
+                - python.example_code.kinesis.KinesisWrapper.decl
                 - python.example_code.kinesis.DeleteStream
     Rust:
       versions:
@@ -193,6 +277,10 @@ kinesis_DeleteStream:
   services:
     kinesis: {DeleteStream}
 kinesis_PutRecord:
+  title: Put a record into a &AK; stream
+  title_abbrev: Put a record
+  synopsis: put a record into a &AK; stream.
+  category: Actions
   languages:
     Java:
       versions:
@@ -207,11 +295,10 @@ kinesis_PutRecord:
       versions:
         - sdk_version: 3
           github: python/example_code/kinesis
-          sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.kinesis.KinesisStream.class
+                - python.example_code.kinesis.KinesisWrapper.decl
                 - python.example_code.kinesis.PutRecord
     Rust:
       versions:
@@ -232,6 +319,10 @@ kinesis_PutRecord:
   services:
     kinesis: {PutRecord}
 kinesis_PutRecords:
+  title: Put records into a &AK; stream
+  title_abbrev: Put records
+  synopsis: put records into a &AK; stream.
+  category: Actions
   languages:
     JavaScript:
       versions:
@@ -242,9 +333,22 @@ kinesis_PutRecords:
             - description:
               snippet_files:
                 - javascriptv3/example_code/kinesis/actions/put-records.js
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kinesis
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.kinesis.KinesisWrapper.decl
+                - python.example_code.kinesis.PutRecords
   services:
     kinesis: {PutRecords}
 kinesis_GetRecords:
+  title: Get records from a &AK; stream
+  title_abbrev: Get records
+  synopsis: get records from a &AK; stream.
+  category: Actions
   languages:
     Java:
       versions:
@@ -259,13 +363,11 @@ kinesis_GetRecords:
       versions:
         - sdk_version: 3
           github: python/example_code/kinesis
-          sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.kinesis.KinesisStream.class
+                - python.example_code.kinesis.KinesisWrapper.decl
                 - python.example_code.kinesis.GetRecords
-                - python.example_code.kinesis.DescribeStream
     SAP ABAP:
       versions:
         - sdk_version: 1
@@ -277,6 +379,10 @@ kinesis_GetRecords:
   services:
     kinesis: {GetRecords}
 kinesis_RegisterStreamConsumer:
+  title: Register a &AK; stream consumer
+  title_abbrev: Register a stream consumer
+  synopsis: register a &AK; stream consumer.
+  category: Actions
   languages:
     .NET:
       versions:
@@ -298,6 +404,10 @@ kinesis_RegisterStreamConsumer:
   services:
     kinesis: {RegisterStreamConsumer}
 kinesis_AddTagsToStream:
+  title: Add tags to a &AK; stream
+  title_abbrev: Add tags to a stream
+  synopsis: add tags to a &AK; stream.
+  category: Actions
   languages:
     .NET:
       versions:
@@ -308,22 +418,14 @@ kinesis_AddTagsToStream:
             - description:
               snippet_tags:
                 - Kinesis.dotnetv3.TagStreamExample
-  services:
-    kinesis: {AddTagsToStream}
-kinesis_Scenario_GettingStarted:
-  synopsis_list:
-    - Create a stream and put a record in it.
-    - Create a shard iterator.
-    - Read the record, then clean up resources.
-  category: Basics
-  languages:
-    SAP ABAP:
+    Python:
       versions:
-        - sdk_version: 1
-          github: sap-abap/services/kns
+        - sdk_version: 3
+          github: python/example_code/kinesis
           excerpts:
             - description:
               snippet_tags:
-                - kns.abapv1.getting_started_with_kns
+                - python.example_code.kinesis.KinesisWrapper.decl
+                - python.example_code.kinesis.AddTagsToStream
   services:
-    kinesis: {CreateStream, PutRecord, GetShardIterator, GetRecords, DeleteStream}
+    kinesis: {AddTagsToStream}
