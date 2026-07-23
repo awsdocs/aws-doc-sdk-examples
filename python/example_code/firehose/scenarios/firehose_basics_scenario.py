@@ -30,10 +30,6 @@ _scenario_dir = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.join(_scenario_dir, ".."))
 from firehose_wrapper import FirehoseWrapper
 
-# Add relative path to include demo_tools in this code example without need for setup.
-sys.path.append(os.path.join(_scenario_dir, "..", "..", ".."))
-import demo_tools.question as q  # noqa
-
 logger = logging.getLogger(__name__)
 
 
@@ -82,7 +78,7 @@ class FirehoseScenario:
             # Step 2: Wait for stream to become active
             print("\n2. Waiting for the stream to become ACTIVE...")
             description = self.firehose_wrapper.wait_for_stream_active(
-                stream_name, poll_interval=5, max_wait=60
+                stream_name, poll_interval=5, max_wait=300
             )
             print(f"   Stream status: {description.get('DeliveryStreamStatus')}")
             print(f"   Stream ARN: {description.get('DeliveryStreamARN')}")
@@ -119,13 +115,16 @@ class FirehoseScenario:
             # Step 6: Put a single record
             print("\n6. Putting a single record...")
             now = datetime.now(timezone.utc).isoformat()
-            single_record = json.dumps(
-                {
-                    "sensorId": "sensor-001",
-                    "temperature": 72.5,
-                    "timestamp": now,
-                }
-            ) + "\n"
+            single_record = (
+                json.dumps(
+                    {
+                        "sensorId": "sensor-001",
+                        "temperature": 72.5,
+                        "timestamp": now,
+                    }
+                )
+                + "\n"
+            )
             put_result = self.firehose_wrapper.put_record(stream_name, single_record)
             print(f"   RecordId: {put_result['RecordId']}")
             print(f"   Encrypted: {put_result['Encrypted']}")
@@ -141,13 +140,16 @@ class FirehoseScenario:
                 ("sensor-006", 73.9),
             ]
             for sensor_id, temp in sensor_data:
-                record = json.dumps(
-                    {
-                        "sensorId": sensor_id,
-                        "temperature": temp,
-                        "timestamp": datetime.now(timezone.utc).isoformat(),
-                    }
-                ) + "\n"
+                record = (
+                    json.dumps(
+                        {
+                            "sensorId": sensor_id,
+                            "temperature": temp,
+                            "timestamp": datetime.now(timezone.utc).isoformat(),
+                        }
+                    )
+                    + "\n"
+                )
                 batch_records.append(record)
 
             batch_result = self.firehose_wrapper.put_record_batch(
@@ -319,9 +321,7 @@ def cleanup_resources(region: str, bucket_name: str, role_name: str):
     try:
         iam_client = boto3.client("iam")
         print(f"   Deleting IAM role: {role_name}...")
-        iam_client.delete_role_policy(
-            RoleName=role_name, PolicyName="FirehoseS3Access"
-        )
+        iam_client.delete_role_policy(RoleName=role_name, PolicyName="FirehoseS3Access")
         iam_client.delete_role(RoleName=role_name)
         print("   Role deleted.")
     except ClientError as err:
@@ -343,9 +343,7 @@ if __name__ == "__main__":
     bucket_name = None
     role_name = None
     try:
-        bucket_arn, role_arn, bucket_name, role_name = setup_resources(
-            region, suffix
-        )
+        bucket_arn, role_arn, bucket_name, role_name = setup_resources(region, suffix)
         wrapper = FirehoseWrapper.from_client()
         scenario = FirehoseScenario(wrapper)
         scenario.run_scenario(

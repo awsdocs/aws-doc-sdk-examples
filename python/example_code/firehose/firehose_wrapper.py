@@ -5,10 +5,8 @@
 Purpose: Wrapper class for Amazon Data Firehose operations.
 """
 
-import json
 import logging
 import time
-from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional
 
 import boto3
@@ -29,11 +27,13 @@ class FirehoseWrapper:
         self.firehose_client = firehose_client
 
     @classmethod
-    def from_client(cls):
+    def from_client(cls, region_name: str = "us-east-1"):
         """
         Creates a FirehoseWrapper instance with a default Boto3 Firehose client.
+
+        :param region_name: AWS region for the Firehose client.
         """
-        firehose_client = boto3.client("firehose")
+        firehose_client = boto3.client("firehose", region_name=region_name)
         return cls(firehose_client)
 
     # snippet-end:[python.example_code.firehose.FirehoseWrapper.decl]
@@ -71,7 +71,9 @@ class FirehoseWrapper:
                 },
             )
             stream_arn = response["DeliveryStreamARN"]
-            logger.info("Created delivery stream %s with ARN %s.", stream_name, stream_arn)
+            logger.info(
+                "Created delivery stream %s with ARN %s.", stream_name, stream_arn
+            )
             return stream_arn
         except ClientError as err:
             if err.response["Error"]["Code"] == "ResourceInUseException":
@@ -126,7 +128,9 @@ class FirehoseWrapper:
                 DeliveryStreamName=stream_name,
                 Tags=tags,
             )
-            logger.info("Added %d tag(s) to delivery stream %s.", len(tags), stream_name)
+            logger.info(
+                "Added %d tag(s) to delivery stream %s.", len(tags), stream_name
+            )
         except ClientError as err:
             if err.response["Error"]["Code"] == "LimitExceededException":
                 logger.error(
@@ -156,7 +160,9 @@ class FirehoseWrapper:
                 logger.info(
                     "There are additional tags not shown for stream %s.", stream_name
                 )
-            logger.info("Retrieved %d tag(s) for delivery stream %s.", len(tags), stream_name)
+            logger.info(
+                "Retrieved %d tag(s) for delivery stream %s.", len(tags), stream_name
+            )
             return tags
         except ClientError as err:
             if err.response["Error"]["Code"] == "ResourceNotFoundException":
@@ -179,13 +185,9 @@ class FirehoseWrapper:
         try:
             self.firehose_client.start_delivery_stream_encryption(
                 DeliveryStreamName=stream_name,
-                DeliveryStreamEncryptionConfigurationInput={
-                    "KeyType": "AWS_OWNED_CMK"
-                },
+                DeliveryStreamEncryptionConfigurationInput={"KeyType": "AWS_OWNED_CMK"},
             )
-            logger.info(
-                "Started encryption for delivery stream %s.", stream_name
-            )
+            logger.info("Started encryption for delivery stream %s.", stream_name)
         except ClientError as err:
             if err.response["Error"]["Code"] == "InvalidKMSResourceException":
                 logger.error(
@@ -234,9 +236,7 @@ class FirehoseWrapper:
     # snippet-end:[python.example_code.firehose.PutRecord]
 
     # snippet-start:[python.example_code.firehose.PutRecordBatch]
-    def put_record_batch(
-        self, stream_name: str, records: List[str]
-    ) -> Dict[str, Any]:
+    def put_record_batch(self, stream_name: str, records: List[str]) -> Dict[str, Any]:
         """
         Puts multiple records into a Firehose delivery stream in a single batch.
 
@@ -325,8 +325,7 @@ class FirehoseWrapper:
                 },
             )
             logger.info(
-                "Updated destination for stream %s. "
-                "BufferingHints: %ds / %d MB.",
+                "Updated destination for stream %s. " "BufferingHints: %ds / %d MB.",
                 stream_name,
                 interval_in_seconds,
                 size_in_mbs,
@@ -398,9 +397,7 @@ class FirehoseWrapper:
                 DeliveryStreamName=stream_name,
                 AllowForceDelete=allow_force_delete,
             )
-            logger.info(
-                "Initiated deletion of delivery stream %s.", stream_name
-            )
+            logger.info("Initiated deletion of delivery stream %s.", stream_name)
         except ClientError as err:
             if err.response["Error"]["Code"] == "ResourceInUseException":
                 logger.error(
@@ -413,7 +410,7 @@ class FirehoseWrapper:
     # snippet-end:[python.example_code.firehose.DeleteDeliveryStream]
 
     def wait_for_stream_active(
-        self, stream_name: str, poll_interval: int = 5, max_wait: int = 60
+        self, stream_name: str, poll_interval: int = 5, max_wait: int = 300
     ) -> Dict[str, Any]:
         """
         Polls DescribeDeliveryStream until the stream status is ACTIVE.

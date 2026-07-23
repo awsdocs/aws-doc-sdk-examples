@@ -16,10 +16,16 @@ import boto3
 import pytest
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "scenarios")))
+sys.path.insert(
+    0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "scenarios"))
+)
 
 from firehose_wrapper import FirehoseWrapper
-from firehose_basics_scenario import FirehoseScenario, setup_resources, cleanup_resources
+from firehose_basics_scenario import (
+    FirehoseScenario,
+    setup_resources,
+    cleanup_resources,
+)
 
 
 @pytest.fixture(scope="module")

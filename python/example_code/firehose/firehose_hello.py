@@ -27,9 +27,7 @@ def hello_firehose(firehose_client):
             for name in stream_names:
                 print(f"    - {name}")
             if response.get("HasMoreDeliveryStreams", False):
-                print(
-                    "\n  Note: There are additional delivery streams not shown."
-                )
+                print("\n  Note: There are additional delivery streams not shown.")
         else:
             print("  No delivery streams found in the current region.")
     except ClientError as err:
@@ -41,5 +39,5 @@ def hello_firehose(firehose_client):
 
 
 if __name__ == "__main__":
-    hello_firehose(boto3.client("firehose"))
+    hello_firehose(boto3.client("firehose", region_name="us-east-1"))
 # snippet-end:[python.example_code.firehose.Hello]
