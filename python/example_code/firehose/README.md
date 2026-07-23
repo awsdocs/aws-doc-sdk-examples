@@ -104,7 +104,7 @@ This example shows you how to learn the basics of Amazon Data Firehose by creati
 Start the example by running the following at a command prompt:
 
 ```
-python firehose_wrapper.py
+python scenarios/firehose_basics_scenario.py
 ```
 
 
