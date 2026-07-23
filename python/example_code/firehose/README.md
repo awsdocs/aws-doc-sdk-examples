@@ -36,7 +36,7 @@ python -m pip install -r requirements.txt
 
 ### Get started
 
-- [Hello Data Firehose](hello/hello_firehose.py#L16) (`ListDeliveryStreams`)
+- [Hello Data Firehose](firehose_hello.py#L16) (`ListDeliveryStreams`)
 
 
 ### Single actions
@@ -83,7 +83,7 @@ _Actions_ are code excerpts from larger programs and must be run in context. Whi
 This example shows you how to get started using Data Firehose.
 
 ```
-python hello/hello_firehose.py
+python firehose_hello.py
 ```
 
 
