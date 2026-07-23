@@ -10,7 +10,6 @@ run without any AWS credentials or network access.
 Run with: pytest test_firehose_scenario.py -v
 """
 
-import sys
 from datetime import datetime, timezone
 from unittest.mock import patch
 
@@ -18,7 +17,6 @@ import boto3
 import pytest
 from botocore.stub import Stubber
 
-sys.path.append("..")
 from firehose_wrapper import FirehoseWrapper
 
 STREAM_NAME = "test-firehose-stream"
