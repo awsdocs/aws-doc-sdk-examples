@@ -20,7 +20,7 @@ logger = logging.getLogger(__name__)
 class FirehoseWrapper:
     """Encapsulates Amazon Data Firehose operations."""
 
-    def __init__(self, firehose_client: boto3.client):
+    def __init__(self, firehose_client):
         """
         :param firehose_client: A Boto3 Amazon Data Firehose client.
         """
@@ -317,6 +317,7 @@ class FirehoseWrapper:
                 DeliveryStreamName=stream_name,
                 CurrentDeliveryStreamVersionId=version_id,
                 DestinationId=destination_id,
+                # NOTE: This assumes the stream has an S3 (ExtendedS3) destination.
                 ExtendedS3DestinationUpdate={
                     "BufferingHints": {
                         "IntervalInSeconds": interval_in_seconds,
@@ -442,7 +443,7 @@ class FirehoseWrapper:
         )
 
     def wait_for_encryption_enabled(
-        self, stream_name: str, poll_interval: int = 5, max_wait: int = 60
+        self, stream_name: str, poll_interval: int = 5, max_wait: int = 300
     ) -> str:
         """
         Polls DescribeDeliveryStream until encryption status is ENABLED.
