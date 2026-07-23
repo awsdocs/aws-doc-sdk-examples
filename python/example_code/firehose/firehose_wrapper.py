@@ -2,13 +2,11 @@
 # SPDX-License-Identifier: Apache-2.0
 
 """
-Amazon Data Firehose wrapper class that encapsulates Firehose operations.
+Amazon Data Firehose wrapper class for managing delivery stream operations.
 """
 
-import json
 import logging
 import time
-from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional
 
 import boto3
@@ -17,22 +15,21 @@ from botocore.exceptions import ClientError
 logger = logging.getLogger(__name__)
 
 
-# snippet-start:[python.example_code.firehose.FirehoseWrapper.class]
 # snippet-start:[python.example_code.firehose.FirehoseWrapper.decl]
 class FirehoseWrapper:
     """Encapsulates Amazon Data Firehose operations."""
 
-    def __init__(self, firehose_client):
+    def __init__(self, firehose_client: boto3.client):
         """
+        Initializes the FirehoseWrapper with a Boto3 Firehose client.
+
         :param firehose_client: A Boto3 Amazon Data Firehose client.
         """
         self.firehose_client = firehose_client
 
     @classmethod
     def from_client(cls):
-        """
-        Instantiates this class from a Boto3 client.
-        """
+        """Creates a FirehoseWrapper instance with a default Boto3 Firehose client."""
         firehose_client = boto3.client("firehose")
         return cls(firehose_client)
 
@@ -44,18 +41,23 @@ class FirehoseWrapper:
         stream_name: str,
         role_arn: str,
         bucket_arn: str,
+        prefix: str = "firehose-output/",
+        error_prefix: str = "firehose-errors/",
         buffer_size_mb: int = 1,
         buffer_interval_seconds: int = 60,
     ) -> str:
         """
         Creates a Firehose delivery stream with an S3 destination.
 
-        :param stream_name: The name of the delivery stream to create.
-        :param role_arn: The ARN of the IAM role that Firehose assumes to write to S3.
-        :param bucket_arn: The ARN of the S3 bucket destination.
+        :param stream_name: The name for the delivery stream.
+        :param role_arn: The ARN of the IAM role for Firehose to assume.
+        :param bucket_arn: The ARN of the destination S3 bucket.
+        :param prefix: The prefix for delivered objects in S3.
+        :param error_prefix: The prefix for error output in S3.
         :param buffer_size_mb: The buffer size in MB before delivery.
-        :param buffer_interval_seconds: The buffer interval in seconds before delivery.
+        :param buffer_interval_seconds: The buffer interval in seconds.
         :return: The ARN of the created delivery stream.
+        :raises ClientError: If the stream already exists (ResourceInUseException).
         """
         try:
             response = self.firehose_client.create_delivery_stream(
@@ -64,19 +66,23 @@ class FirehoseWrapper:
                 ExtendedS3DestinationConfiguration={
                     "RoleARN": role_arn,
                     "BucketARN": bucket_arn,
+                    "Prefix": prefix,
+                    "ErrorOutputPrefix": error_prefix,
                     "BufferingHints": {
                         "SizeInMBs": buffer_size_mb,
                         "IntervalInSeconds": buffer_interval_seconds,
                     },
+                    "CompressionFormat": "UNCOMPRESSED",
                 },
             )
             stream_arn = response["DeliveryStreamARN"]
-            logger.info("Created delivery stream %s with ARN: %s", stream_name, stream_arn)
+            logger.info("Created delivery stream '%s' with ARN: %s", stream_name, stream_arn)
             return stream_arn
-        except ClientError as err:
-            if err.response["Error"]["Code"] == "ResourceInUseException":
+        except ClientError as error:
+            if error.response["Error"]["Code"] == "ResourceInUseException":
                 logger.error(
-                    "A stream with name '%s' already exists. Use a unique name.",
+                    "A delivery stream with name '%s' already exists. "
+                    "Use a different name or delete the existing stream.",
                     stream_name,
                 )
             raise
@@ -86,92 +92,82 @@ class FirehoseWrapper:
     # snippet-start:[python.example_code.firehose.DescribeDeliveryStream]
     def describe_delivery_stream(self, stream_name: str) -> Dict[str, Any]:
         """
-        Describes the specified Firehose delivery stream and its status.
+        Describes a Firehose delivery stream and returns its details.
 
         :param stream_name: The name of the delivery stream to describe.
-        :return: A dictionary with the stream description.
+        :return: A dictionary containing the delivery stream description.
+        :raises ClientError: If the stream does not exist (ResourceNotFoundException).
         """
         try:
             response = self.firehose_client.describe_delivery_stream(
                 DeliveryStreamName=stream_name
             )
-            description = response["DeliveryStreamDescription"]
-            logger.info(
-                "Described stream '%s', status: %s",
-                stream_name,
-                description.get("DeliveryStreamStatus"),
-            )
-            return description
-        except ClientError as err:
-            if err.response["Error"]["Code"] == "ResourceNotFoundException":
-                logger.error(
-                    "Stream '%s' not found. It may have been deleted.",
-                    stream_name,
-                )
+            stream_description = response["DeliveryStreamDescription"]
+            logger.info("Described delivery stream '%s'.", stream_name)
+            return stream_description
+        except ClientError as error:
+            if error.response["Error"]["Code"] == "ResourceNotFoundException":
+                logger.error("Delivery stream '%s' does not exist.", stream_name)
             raise
 
     # snippet-end:[python.example_code.firehose.DescribeDeliveryStream]
 
     # snippet-start:[python.example_code.firehose.ListDeliveryStreams]
     def list_delivery_streams(
-        self, stream_type: str = "DirectPut"
-    ) -> List[str]:
+        self,
+        stream_type: str = "DirectPut",
+        limit: int = 10,
+    ) -> Dict[str, Any]:
         """
-        Lists Firehose delivery streams of the specified type.
+        Lists Firehose delivery streams of a given type.
 
-        :param stream_type: The delivery stream type to filter by (e.g., 'DirectPut').
-        :return: A list of delivery stream names.
+        :param stream_type: The type of delivery streams to list (e.g., 'DirectPut').
+        :param limit: The maximum number of streams to return.
+        :return: A dictionary containing stream names and pagination info.
+        :raises ClientError: If an invalid argument is provided (InvalidArgumentException).
         """
         try:
-            stream_names = list()
-            has_more = True
-            exclusive_start = None
-            while has_more:
-                params = dict()
-                params["DeliveryStreamType"] = stream_type
-                if exclusive_start is not None:
-                    params["ExclusiveStartDeliveryStreamName"] = exclusive_start
-                response = self.firehose_client.list_delivery_streams(**params)
-                names = response.get("DeliveryStreamNames", list())
-                stream_names.extend(names)
-                has_more = response.get("HasMoreDeliveryStreams", False)
-                if has_more and len(names) > 0:
-                    exclusive_start = names[-1]
-                else:
-                    has_more = False
-            logger.info("Listed %d delivery streams.", len(stream_names))
-            return stream_names
-        except ClientError as err:
-            if err.response["Error"]["Code"] == "InvalidArgumentException":
+            response = self.firehose_client.list_delivery_streams(
+                DeliveryStreamType=stream_type,
+                Limit=limit,
+            )
+            stream_names = response.get("DeliveryStreamNames", list())
+            has_more = response.get("HasMoreDeliveryStreams", False)
+            logger.info(
+                "Listed %d delivery stream(s). Has more: %s",
+                len(stream_names),
+                has_more,
+            )
+            return {"DeliveryStreamNames": stream_names, "HasMoreDeliveryStreams": has_more}
+        except ClientError as error:
+            if error.response["Error"]["Code"] == "InvalidArgumentException":
                 logger.error(
-                    "Invalid DeliveryStreamType: '%s'. Valid values are 'DirectPut' or 'KinesisStreamAsSource'.",
-                    stream_type,
+                    "Invalid argument for ListDeliveryStreams. "
+                    "Verify DeliveryStreamType is valid."
                 )
             raise
 
     # snippet-end:[python.example_code.firehose.ListDeliveryStreams]
 
     # snippet-start:[python.example_code.firehose.TagDeliveryStream]
-    def tag_delivery_stream(
-        self, stream_name: str, tags: List[Dict[str, str]]
-    ) -> None:
+    def tag_delivery_stream(self, stream_name: str, tags: List[Dict[str, str]]) -> None:
         """
-        Adds or updates tags for the specified Firehose delivery stream.
+        Adds or updates tags on a Firehose delivery stream.
 
         :param stream_name: The name of the delivery stream to tag.
-        :param tags: A list of tag dicts with 'Key' and 'Value'.
+        :param tags: A list of tag dictionaries with 'Key' and 'Value' entries.
+        :raises ClientError: If the stream does not exist (ResourceNotFoundException).
         """
         try:
             self.firehose_client.tag_delivery_stream(
                 DeliveryStreamName=stream_name,
                 Tags=tags,
             )
-            logger.info("Tagged stream '%s' with %d tags.", stream_name, len(tags))
-        except ClientError as err:
-            if err.response["Error"]["Code"] == "LimitExceededException":
+            logger.info("Applied %d tag(s) to stream '%s'.", len(tags), stream_name)
+        except ClientError as error:
+            if error.response["Error"]["Code"] == "ResourceNotFoundException":
                 logger.error(
-                    "Tag limit (50 per stream) reached for stream '%s'.",
-                    stream_name,
+                    "Cannot tag stream '%s' because it does not exist.", stream_name
                 )
             raise
 
@@ -180,231 +176,294 @@ class FirehoseWrapper:
     # snippet-start:[python.example_code.firehose.ListTagsForDeliveryStream]
     def list_tags_for_delivery_stream(
         self, stream_name: str
-    ) -> List[Dict[str, str]]:
+    ) -> Dict[str, Any]:
         """
-        Lists the tags for the specified Firehose delivery stream.
+        Lists all tags for a Firehose delivery stream.
 
         :param stream_name: The name of the delivery stream.
-        :return: A list of tag dicts with 'Key' and 'Value'.
+        :return: A dictionary containing the list of tags and HasMoreTags flag.
+        :raises ClientError: If the stream does not exist (ResourceNotFoundException).
         """
         try:
             response = self.firehose_client.list_tags_for_delivery_stream(
                 DeliveryStreamName=stream_name
             )
             tags = response.get("Tags", list())
-            logger.info("Found %d tags for stream '%s'.", len(tags), stream_name)
-            return tags
-        except ClientError as err:
-            if err.response["Error"]["Code"] == "ResourceNotFoundException":
+            has_more_tags = response.get("HasMoreTags", False)
+            logger.info(
+                "Listed %d tag(s) for stream '%s'. Has more: %s",
+                len(tags),
+                stream_name,
+                has_more_tags,
+            )
+            return {"Tags": tags, "HasMoreTags": has_more_tags}
+        except ClientError as error:
+            if error.response["Error"]["Code"] == "ResourceNotFoundException":
                 logger.error(
-                    "Stream '%s' not found when listing tags.",
+                    "Cannot list tags for stream '%s' because it does not exist.",
                     stream_name,
                 )
             raise
 
     # snippet-end:[python.example_code.firehose.ListTagsForDeliveryStream]
 
+    # snippet-start:[python.example_code.firehose.UntagDeliveryStream]
+    def untag_delivery_stream(self, stream_name: str, tag_keys: List[str]) -> None:
+        """
+        Removes tags from a Firehose delivery stream.
+
+        :param stream_name: The name of the delivery stream to untag.
+        :param tag_keys: A list of tag keys to remove.
+        :raises ClientError: If the stream does not exist (ResourceNotFoundException).
+        """
+        try:
+            self.firehose_client.untag_delivery_stream(
+                DeliveryStreamName=stream_name,
+                TagKeys=tag_keys,
+            )
+            logger.info("Removed tag(s) %s from stream '%s'.", tag_keys, stream_name)
+        except ClientError as error:
+            if error.response["Error"]["Code"] == "ResourceNotFoundException":
+                logger.error(
+                    "Cannot untag stream '%s' because it does not exist.", stream_name
+                )
+            raise
+
+    # snippet-end:[python.example_code.firehose.UntagDeliveryStream]
+
     # snippet-start:[python.example_code.firehose.StartDeliveryStreamEncryption]
     def start_delivery_stream_encryption(
         self, stream_name: str, key_type: str = "AWS_OWNED_CMK"
     ) -> None:
         """
-        Enables server-side encryption (SSE) for the specified delivery stream.
+        Enables server-side encryption on a Firehose delivery stream.
 
         :param stream_name: The name of the delivery stream.
-        :param key_type: The key type to use for encryption (default: AWS_OWNED_CMK).
+        :param key_type: The type of encryption key (e.g., 'AWS_OWNED_CMK').
+        :raises ClientError: If there is a KMS issue (InvalidKMSResourceException).
         """
         try:
             self.firehose_client.start_delivery_stream_encryption(
                 DeliveryStreamName=stream_name,
-                DeliveryStreamEncryptionConfigurationInput={
-                    "KeyType": key_type,
-                },
+                DeliveryStreamEncryptionConfigurationInput={"KeyType": key_type},
             )
-            logger.info("Started encryption for stream '%s'.", stream_name)
-        except ClientError as err:
-            if err.response["Error"]["Code"] == "InvalidKMSResourceException":
+            logger.info(
+                "Started encryption on stream '%s' with key type '%s'.",
+                stream_name,
+                key_type,
+            )
+        except ClientError as error:
+            if error.response["Error"]["Code"] == "InvalidKMSResourceException":
                 logger.error(
-                    "KMS key is invalid or inaccessible for stream '%s'. "
-                    "Verify key permissions.",
+                    "KMS configuration issue for stream '%s'. "
+                    "Verify KMS key permissions and state.",
                     stream_name,
                 )
             raise
 
     # snippet-end:[python.example_code.firehose.StartDeliveryStreamEncryption]
 
-    # snippet-start:[python.example_code.firehose.PutRecord]
-    def put_record(self, stream_name: str, data: str) -> Dict[str, Any]:
-        """
-        Writes a single data record into the specified Firehose delivery stream.
-
-        :param stream_name: The name of the delivery stream.
-        :param data: The data string to send (will be encoded to bytes).
-        :return: The response containing RecordId and Encrypted status.
-        """
-        try:
-            response = self.firehose_client.put_record(
-                DeliveryStreamName=stream_name,
-                Record={"Data": data.encode("utf-8")},
-            )
-            logger.info(
-                "Put record to stream '%s'. RecordId: %s",
-                stream_name,
-                response.get("RecordId"),
-            )
-            return response
-        except ClientError as err:
-            if err.response["Error"]["Code"] == "ServiceUnavailableException":
-                logger.error(
-                    "Service unavailable when putting record to stream '%s'. "
-                    "Consider retrying with exponential backoff.",
-                    stream_name,
-                )
-            raise
-
-    # snippet-end:[python.example_code.firehose.PutRecord]
-
-    # snippet-start:[python.example_code.firehose.PutRecordBatch]
-    def put_record_batch(
-        self, stream_name: str, records: List[str]
-    ) -> Dict[str, Any]:
-        """
-        Writes multiple data records into the specified Firehose delivery stream.
-
-        :param stream_name: The name of the delivery stream.
-        :param records: A list of data strings to send.
-        :return: The response containing FailedPutCount and RequestResponses.
-        """
-        try:
-            record_list = [{"Data": r.encode("utf-8")} for r in records]
-            response = self.firehose_client.put_record_batch(
-                DeliveryStreamName=stream_name,
-                Records=record_list,
-            )
-            failed_count = response.get("FailedPutCount", 0)
-            logger.info(
-                "Put batch of %d records to stream '%s'. FailedPutCount: %d",
-                len(records),
-                stream_name,
-                failed_count,
-            )
-            return response
-        except ClientError as err:
-            if err.response["Error"]["Code"] == "ServiceUnavailableException":
-                logger.error(
-                    "Service unavailable when putting batch to stream '%s'. "
-                    "Consider retrying failed records with exponential backoff.",
-                    stream_name,
-                )
-            raise
-
-    # snippet-end:[python.example_code.firehose.PutRecordBatch]
-
     # snippet-start:[python.example_code.firehose.StopDeliveryStreamEncryption]
     def stop_delivery_stream_encryption(self, stream_name: str) -> None:
         """
-        Disables server-side encryption for the specified delivery stream.
+        Disables server-side encryption on a Firehose delivery stream.
 
         :param stream_name: The name of the delivery stream.
+        :raises ClientError: If the rate limit is exceeded (LimitExceededException).
         """
         try:
             self.firehose_client.stop_delivery_stream_encryption(
                 DeliveryStreamName=stream_name
             )
-            logger.info("Stopped encryption for stream '%s'.", stream_name)
-        except ClientError as err:
-            if err.response["Error"]["Code"] == "LimitExceededException":
+            logger.info("Stopped encryption on stream '%s'.", stream_name)
+        except ClientError as error:
+            if error.response["Error"]["Code"] == "LimitExceededException":
                 logger.error(
-                    "Encryption operation limit (25/day) reached for stream '%s'.",
+                    "Rate limit exceeded for encryption operations on stream '%s'. "
+                    "The combined start/stop limit is 25 per 24 hours. Wait and retry.",
                     stream_name,
                 )
             raise
 
     # snippet-end:[python.example_code.firehose.StopDeliveryStreamEncryption]
 
-    # snippet-start:[python.example_code.firehose.DeleteDeliveryStream]
-    def delete_delivery_stream(self, stream_name: str) -> None:
+    # snippet-start:[python.example_code.firehose.UpdateDestination]
+    def update_destination(
+        self,
+        stream_name: str,
+        version_id: str,
+        destination_id: str,
+        prefix: str,
+        buffer_size_mb: int = 5,
+        buffer_interval_seconds: int = 300,
+        compression_format: str = "GZIP",
+    ) -> None:
         """
-        Deletes the specified Firehose delivery stream and its data.
+        Updates the destination configuration of a Firehose delivery stream.
+
+        :param stream_name: The name of the delivery stream.
+        :param version_id: The current version ID of the stream (for concurrency).
+        :param destination_id: The destination ID to update.
+        :param prefix: The new S3 prefix for delivered objects.
+        :param buffer_size_mb: The new buffer size in MB.
+        :param buffer_interval_seconds: The new buffer interval in seconds.
+        :param compression_format: The new compression format.
+        :raises ClientError: If a concurrent modification occurs (ConcurrentModificationException).
+        """
+        try:
+            self.firehose_client.update_destination(
+                DeliveryStreamName=stream_name,
+                CurrentDeliveryStreamVersionId=version_id,
+                DestinationId=destination_id,
+                ExtendedS3DestinationUpdate={
+                    "Prefix": prefix,
+                    "BufferingHints": {
+                        "SizeInMBs": buffer_size_mb,
+                        "IntervalInSeconds": buffer_interval_seconds,
+                    },
+                    "CompressionFormat": compression_format,
+                },
+            )
+            logger.info(
+                "Updated destination for stream '%s': prefix='%s', "
+                "buffer=%dMB/%ds, compression='%s'.",
+                stream_name,
+                prefix,
+                buffer_size_mb,
+                buffer_interval_seconds,
+                compression_format,
+            )
+        except ClientError as error:
+            if error.response["Error"]["Code"] == "ConcurrentModificationException":
+                logger.error(
+                    "Concurrent modification on stream '%s'. "
+                    "Fetch a fresh VersionId and retry.",
+                    stream_name,
+                )
+            raise
+
+    # snippet-end:[python.example_code.firehose.UpdateDestination]
+
+    # snippet-start:[python.example_code.firehose.DeleteDeliveryStream]
+    def delete_delivery_stream(
+        self, stream_name: str, allow_force_delete: bool = False
+    ) -> None:
+        """
+        Deletes a Firehose delivery stream.
 
         :param stream_name: The name of the delivery stream to delete.
+        :param allow_force_delete: Whether to force deletion if the stream is in use.
+        :raises ClientError: If the stream does not exist (ResourceNotFoundException).
         """
         try:
             self.firehose_client.delete_delivery_stream(
-                DeliveryStreamName=stream_name
+                DeliveryStreamName=stream_name,
+                AllowForceDelete=allow_force_delete,
             )
-            logger.info("Deleted delivery stream '%s'.", stream_name)
-        except ClientError as err:
-            if err.response["Error"]["Code"] == "ResourceNotFoundException":
-                logger.info(
-                    "Stream '%s' already deleted. Continuing cleanup.",
-                    stream_name,
+            logger.info("Initiated deletion of delivery stream '%s'.", stream_name)
+        except ClientError as error:
+            if error.response["Error"]["Code"] == "ResourceNotFoundException":
+                logger.error(
+                    "Stream '%s' not found. It may already be deleted.", stream_name
                 )
-            else:
-                raise
+            raise
 
     # snippet-end:[python.example_code.firehose.DeleteDeliveryStream]
 
     def wait_for_stream_active(
-        self, stream_name: str, timeout: int = 120, interval: int = 5
+        self, stream_name: str, max_wait_seconds: int = 60, poll_interval: int = 5
     ) -> Dict[str, Any]:
         """
         Polls DescribeDeliveryStream until the stream status is ACTIVE.
 
         :param stream_name: The name of the delivery stream.
-        :param timeout: Maximum seconds to wait.
-        :param interval: Seconds between polls.
+        :param max_wait_seconds: Maximum time to wait for the stream to become active.
+        :param poll_interval: Time between polls in seconds.
         :return: The stream description once active.
-        :raises TimeoutError: If stream doesn't become active in time.
+        :raises TimeoutError: If the stream does not become active in time.
+        :raises RuntimeError: If the stream enters CREATING_FAILED status.
         """
         elapsed = 0
-        while elapsed < timeout:
+        while elapsed < max_wait_seconds:
             description = self.describe_delivery_stream(stream_name)
-            status = description.get("DeliveryStreamStatus")
+            status = description.get("DeliveryStreamStatus", "UNKNOWN")
+            logger.info("Stream '%s' status: %s", stream_name, status)
             if status == "ACTIVE":
                 return description
-            logger.info("Stream '%s' status: %s. Waiting...", stream_name, status)
-            time.sleep(interval)
-            elapsed += interval
+            if status == "CREATING_FAILED":
+                raise RuntimeError(
+                    f"Delivery stream '{stream_name}' creation failed."
+                )
+            time.sleep(poll_interval)
+            elapsed += poll_interval
         raise TimeoutError(
-            f"Stream '{stream_name}' did not become ACTIVE within {timeout} seconds."
+            f"Stream '{stream_name}' did not become ACTIVE within {max_wait_seconds}s."
         )
 
     def wait_for_encryption_status(
-        self, stream_name: str, target_status: str, timeout: int = 120, interval: int = 5
-    ) -> None:
+        self,
+        stream_name: str,
+        target_status: str,
+        max_wait_seconds: int = 60,
+        poll_interval: int = 5,
+    ) -> str:
         """
-        Polls DescribeDeliveryStream until the encryption status matches target.
+        Polls DescribeDeliveryStream until encryption status matches target.
 
         :param stream_name: The name of the delivery stream.
-        :param target_status: The target encryption status (ENABLED or DISABLED).
-        :param timeout: Maximum seconds to wait.
-        :param interval: Seconds between polls.
-        :raises TimeoutError: If target status not reached in time.
+        :param target_status: The desired encryption status (e.g., 'ENABLED', 'DISABLED').
+        :param max_wait_seconds: Maximum time to wait.
+        :param poll_interval: Time between polls in seconds.
+        :return: The final encryption status.
         """
         elapsed = 0
-        while elapsed < timeout:
+        current_status = "UNKNOWN"
+        while elapsed < max_wait_seconds:
             description = self.describe_delivery_stream(stream_name)
             encryption_config = description.get(
                 "DeliveryStreamEncryptionConfiguration", dict()
             )
-            status = encryption_config.get("Status", "DISABLED")
-            if status == target_status:
-                logger.info(
-                    "Encryption status for '%s' is now %s.", stream_name, target_status
-                )
-                return
+            current_status = encryption_config.get("Status", "UNKNOWN")
             logger.info(
-                "Encryption status for '%s': %s. Waiting for %s...",
-                stream_name,
-                status,
-                target_status,
+                "Stream '%s' encryption status: %s", stream_name, current_status
             )
-            time.sleep(interval)
-            elapsed += interval
-        raise TimeoutError(
-            f"Encryption for '{stream_name}' did not reach {target_status} within {timeout}s."
+            if current_status == target_status:
+                return current_status
+            time.sleep(poll_interval)
+            elapsed += poll_interval
+        logger.warning(
+            "Encryption status for '%s' did not reach '%s' within %ds.",
+            stream_name,
+            target_status,
+            max_wait_seconds,
         )
+        return current_status
 
+    def wait_for_stream_deleted(
+        self, stream_name: str, max_wait_seconds: int = 60, poll_interval: int = 5
+    ) -> bool:
+        """
+        Polls DescribeDeliveryStream until a ResourceNotFoundException confirms deletion.
 
-# snippet-end:[python.example_code.firehose.FirehoseWrapper.class]
+        :param stream_name: The name of the delivery stream.
+        :param max_wait_seconds: Maximum time to wait.
+        :param poll_interval: Time between polls in seconds.
+        :return: True if the stream is confirmed deleted.
+        """
+        elapsed = 0
+        while elapsed < max_wait_seconds:
+            try:
+                description = self.describe_delivery_stream(stream_name)
+                status = description.get("DeliveryStreamStatus", "UNKNOWN")
+                logger.info("Stream '%s' status: %s (waiting for deletion)", stream_name, status)
+            except ClientError as error:
+                if error.response["Error"]["Code"] == "ResourceNotFoundException":
+                    logger.info("Stream '%s' confirmed deleted.", stream_name)
+                    return True
+                raise
+            time.sleep(poll_interval)
+            elapsed += poll_interval
+        logger.warning(
+            "Stream '%s' was not confirmed deleted within %ds.", stream_name, max_wait_seconds
+        )
+        return False
