@@ -5,10 +5,8 @@
 Amazon Data Firehose wrapper class that encapsulates Firehose operations.
 """
 
-import json
 import logging
 import time
-from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional
 
 import boto3
