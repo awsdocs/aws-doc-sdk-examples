@@ -44,19 +44,20 @@ Code examples that show you how to accomplish a specific task by calling multipl
 functions within the same service.
 
 - [Learn the basics](firehose_wrapper.py)
+- [Put records to Data Firehose](scenarios/firehose-put-actions/firehose.py)
 
 ### Actions
 _Actions_ are code excerpts from larger programs and must be run in context. While actions show you how to call individual service functions, you can see actions in context in their related scenarios.
 
 - [CreateDeliveryStream](firehose_wrapper.py#L41)
 - [DeleteDeliveryStream](firehose_wrapper.py#L386)
-- [DescribeDeliveryStream](firehose_wrapper.py#L87)
+- [DescribeDeliveryStream](firehose_wrapper.py#L89)
 - [ListDeliveryStreams](firehose_wrapper.py#L345)
-- [ListTagsForDeliveryStream](firehose_wrapper.py#L141)
-- [PutRecord](firehose_wrapper.py#L200)
-- [PutRecordBatch](firehose_wrapper.py#L236)
-- [StartDeliveryStreamEncryption](firehose_wrapper.py#L171)
-- [TagDeliveryStream](firehose_wrapper.py#L116)
+- [ListTagsForDeliveryStream](firehose_wrapper.py#L145)
+- [PutRecord](firehose_wrapper.py#L202)
+- [PutRecordBatch](firehose_wrapper.py#L238)
+- [StartDeliveryStreamEncryption](firehose_wrapper.py#L177)
+- [TagDeliveryStream](firehose_wrapper.py#L118)
 - [UpdateDestination](firehose_wrapper.py#L293)
 
 
@@ -97,6 +98,24 @@ python firehose_wrapper.py
 
 <!--custom.scenarios.firehose_Scenario.start-->
 <!--custom.scenarios.firehose_Scenario.end-->
+
+#### Put records to Data Firehose
+
+This example shows you how to use Data Firehose to process individual and batch records.
+
+
+<!--custom.scenario_prereqs.firehose_Scenario_PutRecords.start-->
+<!--custom.scenario_prereqs.firehose_Scenario_PutRecords.end-->
+
+Start the example by running the following at a command prompt:
+
+```
+python scenarios/firehose-put-actions/firehose.py
+```
+
+
+<!--custom.scenarios.firehose_Scenario_PutRecords.start-->
+<!--custom.scenarios.firehose_Scenario_PutRecords.end-->
 
 ### Tests
 
