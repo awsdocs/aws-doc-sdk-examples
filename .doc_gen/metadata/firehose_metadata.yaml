@@ -203,24 +203,7 @@ firehose_ListTagsForDeliveryStream:
   services:
     firehose:
       ListTagsForDeliveryStream: null
-firehose_UntagDeliveryStream:
-  title: Remove tags from a &FHlong; delivery stream
-  title_abbrev: Remove tags from a delivery stream
-  synopsis: remove tags from an &FHlong; delivery stream.
-  category: Actions
-  languages:
-    Python:
-      versions:
-      - sdk_version: 3
-        github: python/example_code/firehose
-        excerpts:
-        - description: null
-          snippet_tags:
-          - python.example_code.firehose.FirehoseWrapper.decl
-          - python.example_code.firehose.UntagDeliveryStream
-  services:
-    firehose:
-      UntagDeliveryStream: null
+
 firehose_StartDeliveryStreamEncryption:
   title: Enable encryption on a &FHlong; delivery stream
   title_abbrev: Enable encryption
@@ -257,24 +240,7 @@ firehose_StopDeliveryStreamEncryption:
   services:
     firehose:
       StopDeliveryStreamEncryption: null
-firehose_UpdateDestination:
-  title: Update a &FHlong; delivery stream destination
-  title_abbrev: Update a destination
-  synopsis: update the destination of an &FHlong; delivery stream.
-  category: Actions
-  languages:
-    Python:
-      versions:
-      - sdk_version: 3
-        github: python/example_code/firehose
-        excerpts:
-        - description: null
-          snippet_tags:
-          - python.example_code.firehose.FirehoseWrapper.decl
-          - python.example_code.firehose.UpdateDestination
-  services:
-    firehose:
-      UpdateDestination: null
+
 firehose_DeleteDeliveryStream:
   title: Delete a &FHlong; delivery stream
   title_abbrev: Delete a delivery stream
@@ -324,8 +290,6 @@ firehose_Scenario:
       ListDeliveryStreams: null
       TagDeliveryStream: null
       ListTagsForDeliveryStream: null
-      UntagDeliveryStream: null
       StartDeliveryStreamEncryption: null
       StopDeliveryStreamEncryption: null
-      UpdateDestination: null
       DeleteDeliveryStream: null
