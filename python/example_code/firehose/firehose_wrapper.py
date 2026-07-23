@@ -7,7 +7,7 @@ Amazon Data Firehose wrapper class that encapsulates Firehose operations.
 
 import logging
 import time
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List
 
 import boto3
 from botocore.exceptions import ClientError
@@ -382,7 +382,7 @@ class FirehoseWrapper:
             encryption_config = description.get(
                 "DeliveryStreamEncryptionConfiguration", dict()
             )
-            status = encryption_config.get("Status", "DISABLED")
+            status = encryption_config.get("Status")
             if status == target_status:
                 logger.info(
                     "Encryption status for '%s' is now %s.", stream_name, target_status

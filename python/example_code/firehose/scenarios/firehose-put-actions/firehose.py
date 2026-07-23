@@ -197,6 +197,8 @@ class FirehoseClient:
         Raises:
             Exception: If a simulated network error occurs.
         """
+        # NOTE: Errors are intentionally simulated here to demonstrate retry
+        # and backoff logic. Do not include these in production code.
         if random.random() < 0.2:
             raise Exception("Simulated network error")
         elif random.random() < 0.1:
