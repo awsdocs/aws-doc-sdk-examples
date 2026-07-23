@@ -1,4 +1,3 @@
-# zexi 0.4.0
 firehose_PutRecord:
   languages:
     Java:
@@ -6,7 +5,7 @@ firehose_PutRecord:
       - sdk_version: 2
         github: javav2/example_code/firehose
         excerpts:
-        - description:
+        - description: null
           snippet_tags:
           - firehose.java2.put_record.main
     Python:
@@ -14,20 +13,21 @@ firehose_PutRecord:
       - sdk_version: 3
         github: python/example_code/firehose
         excerpts:
-        - description:
+        - description: null
           snippet_tags:
-          - python.example_code.firehose.FirehoseWrapper.decl
-          - python.example_code.firehose.PutRecord
+          - python.example_code.firehose.init
+          - python.example_code.firehose.put_record
     SAP ABAP:
       versions:
       - sdk_version: 1
         github: sap-abap/services/frh
         excerpts:
-        - description:
+        - description: null
           snippet_tags:
           - frh.abapv1.put_record
   services:
-    firehose: {PutRecord: null}
+    firehose:
+      PutRecord: null
 firehose_PutRecordBatch:
   languages:
     Java:
@@ -35,16 +35,16 @@ firehose_PutRecordBatch:
       - sdk_version: 2
         github: javav2/example_code/firehose
         excerpts:
-        - description:
+        - description: null
           snippet_tags:
           - firehose.java2.put_batch_records.main
     Rust:
       versions:
       - sdk_version: 1
         github: rustv1/examples/firehose
-        sdkguide:
+        sdkguide: null
         excerpts:
-        - description:
+        - description: null
           snippet_tags:
           - firehose.rust.put_record_batch
     Python:
@@ -52,20 +52,21 @@ firehose_PutRecordBatch:
       - sdk_version: 3
         github: python/example_code/firehose
         excerpts:
-        - description:
+        - description: null
           snippet_tags:
-          - python.example_code.firehose.FirehoseWrapper.decl
-          - python.example_code.firehose.PutRecordBatch
+          - python.example_code.firehose.init
+          - python.example_code.firehose.put_record_batch
     SAP ABAP:
       versions:
       - sdk_version: 1
         github: sap-abap/services/frh
         excerpts:
-        - description:
+        - description: null
           snippet_tags:
           - frh.abapv1.put_record_batch
   services:
-    firehose: {PutRecordBatch: null}
+    firehose:
+      PutRecordBatch: null
 firehose_Scenario_PutRecords:
   title: Use &FHlong; to process individual and batch records
   title_abbrev: Put records to &FH;
@@ -92,7 +93,9 @@ firehose_Scenario_PutRecords:
           snippet_files:
           - python/example_code/firehose/scenarios/firehose-put-actions/config.py
   services:
-    firehose: {PutRecord: null, PutRecordBatch: null}
+    firehose:
+      PutRecord: null
+      PutRecordBatch: null
 firehose_Hello:
   title: Hello &AWSFirehose;
   title_abbrev: Hello &AWSFirehose;
@@ -104,15 +107,16 @@ firehose_Hello:
       - sdk_version: 3
         github: python/example_code/firehose
         excerpts:
-        - description:
+        - description: null
           snippet_tags:
           - python.example_code.firehose.Hello
   services:
-    firehose: {ListDeliveryStreams: null}
+    firehose:
+      ListDeliveryStreams: null
 firehose_CreateDeliveryStream:
   title: Create a &AWSFirehose; delivery stream
   title_abbrev: Create a delivery stream
-  synopsis: create a &AWSFirehose; delivery stream.
+  synopsis: create an &AWSFirehose; delivery stream.
   category: Actions
   languages:
     Python:
@@ -120,16 +124,17 @@ firehose_CreateDeliveryStream:
       - sdk_version: 3
         github: python/example_code/firehose
         excerpts:
-        - description:
+        - description: null
           snippet_tags:
           - python.example_code.firehose.FirehoseWrapper.decl
           - python.example_code.firehose.CreateDeliveryStream
   services:
-    firehose: {CreateDeliveryStream: null}
+    firehose:
+      CreateDeliveryStream: null
 firehose_DescribeDeliveryStream:
   title: Describe a &AWSFirehose; delivery stream
   title_abbrev: Describe a delivery stream
-  synopsis: describe a &AWSFirehose; delivery stream.
+  synopsis: describe an &AWSFirehose; delivery stream.
   category: Actions
   languages:
     Python:
@@ -137,12 +142,13 @@ firehose_DescribeDeliveryStream:
       - sdk_version: 3
         github: python/example_code/firehose
         excerpts:
-        - description:
+        - description: null
           snippet_tags:
           - python.example_code.firehose.FirehoseWrapper.decl
           - python.example_code.firehose.DescribeDeliveryStream
   services:
-    firehose: {DescribeDeliveryStream: null}
+    firehose:
+      DescribeDeliveryStream: null
 firehose_ListDeliveryStreams:
   title: List &AWSFirehose; delivery streams
   title_abbrev: List delivery streams
@@ -154,16 +160,17 @@ firehose_ListDeliveryStreams:
       - sdk_version: 3
         github: python/example_code/firehose
         excerpts:
-        - description:
+        - description: null
           snippet_tags:
           - python.example_code.firehose.FirehoseWrapper.decl
           - python.example_code.firehose.ListDeliveryStreams
   services:
-    firehose: {ListDeliveryStreams: null}
+    firehose:
+      ListDeliveryStreams: null
 firehose_TagDeliveryStream:
   title: Tag a &AWSFirehose; delivery stream
   title_abbrev: Tag a delivery stream
-  synopsis: tag a &AWSFirehose; delivery stream.
+  synopsis: tag an &AWSFirehose; delivery stream.
   category: Actions
   languages:
     Python:
@@ -171,16 +178,17 @@ firehose_TagDeliveryStream:
       - sdk_version: 3
         github: python/example_code/firehose
         excerpts:
-        - description:
+        - description: null
           snippet_tags:
           - python.example_code.firehose.FirehoseWrapper.decl
           - python.example_code.firehose.TagDeliveryStream
   services:
-    firehose: {TagDeliveryStream: null}
+    firehose:
+      TagDeliveryStream: null
 firehose_ListTagsForDeliveryStream:
   title: List tags for a &AWSFirehose; delivery stream
   title_abbrev: List tags for a delivery stream
-  synopsis: list tags for a &AWSFirehose; delivery stream.
+  synopsis: list tags for an &AWSFirehose; delivery stream.
   category: Actions
   languages:
     Python:
@@ -188,16 +196,17 @@ firehose_ListTagsForDeliveryStream:
       - sdk_version: 3
         github: python/example_code/firehose
         excerpts:
-        - description:
+        - description: null
           snippet_tags:
           - python.example_code.firehose.FirehoseWrapper.decl
           - python.example_code.firehose.ListTagsForDeliveryStream
   services:
-    firehose: {ListTagsForDeliveryStream: null}
-firehose_StartDeliveryStreamEncryption:
-  title: Enable encryption on a &AWSFirehose; delivery stream
-  title_abbrev: Enable encryption
-  synopsis: enable server-side encryption on a &AWSFirehose; delivery stream.
+    firehose:
+      ListTagsForDeliveryStream: null
+firehose_UntagDeliveryStream:
+  title: Remove tags from a &AWSFirehose; delivery stream
+  title_abbrev: Remove tags from a delivery stream
+  synopsis: remove tags from an &AWSFirehose; delivery stream.
   category: Actions
   languages:
     Python:
@@ -205,16 +214,35 @@ firehose_StartDeliveryStreamEncryption:
       - sdk_version: 3
         github: python/example_code/firehose
         excerpts:
-        - description:
+        - description: null
+          snippet_tags:
+          - python.example_code.firehose.FirehoseWrapper.decl
+          - python.example_code.firehose.UntagDeliveryStream
+  services:
+    firehose:
+      UntagDeliveryStream: null
+firehose_StartDeliveryStreamEncryption:
+  title: Enable encryption on a &AWSFirehose; delivery stream
+  title_abbrev: Enable encryption
+  synopsis: enable server-side encryption on an &AWSFirehose; delivery stream.
+  category: Actions
+  languages:
+    Python:
+      versions:
+      - sdk_version: 3
+        github: python/example_code/firehose
+        excerpts:
+        - description: null
           snippet_tags:
           - python.example_code.firehose.FirehoseWrapper.decl
           - python.example_code.firehose.StartDeliveryStreamEncryption
   services:
-    firehose: {StartDeliveryStreamEncryption: null}
+    firehose:
+      StartDeliveryStreamEncryption: null
 firehose_StopDeliveryStreamEncryption:
   title: Disable encryption on a &AWSFirehose; delivery stream
   title_abbrev: Disable encryption
-  synopsis: disable server-side encryption on a &AWSFirehose; delivery stream.
+  synopsis: disable server-side encryption on an &AWSFirehose; delivery stream.
   category: Actions
   languages:
     Python:
@@ -222,16 +250,17 @@ firehose_StopDeliveryStreamEncryption:
       - sdk_version: 3
         github: python/example_code/firehose
         excerpts:
-        - description:
+        - description: null
           snippet_tags:
           - python.example_code.firehose.FirehoseWrapper.decl
           - python.example_code.firehose.StopDeliveryStreamEncryption
   services:
-    firehose: {StopDeliveryStreamEncryption: null}
-firehose_DeleteDeliveryStream:
-  title: Delete a &AWSFirehose; delivery stream
-  title_abbrev: Delete a delivery stream
-  synopsis: delete a &AWSFirehose; delivery stream.
+    firehose:
+      StopDeliveryStreamEncryption: null
+firehose_UpdateDestination:
+  title: Update a &AWSFirehose; delivery stream destination
+  title_abbrev: Update a destination
+  synopsis: update the destination of an &AWSFirehose; delivery stream.
   category: Actions
   languages:
     Python:
@@ -239,28 +268,64 @@ firehose_DeleteDeliveryStream:
       - sdk_version: 3
         github: python/example_code/firehose
         excerpts:
-        - description:
+        - description: null
           snippet_tags:
           - python.example_code.firehose.FirehoseWrapper.decl
-          - python.example_code.firehose.DeleteDeliveryStream
+          - python.example_code.firehose.UpdateDestination
   services:
-    firehose: {DeleteDeliveryStream: null}
-firehose_Scenario:
-  title: Get started with &AWSFirehose; delivery streams
-  title_abbrev: Get started with delivery streams
-  synopsis: learn the basics of &AWSFirehose; by creating a delivery stream, sending data, and managing it.
-  category: Scenarios
+    firehose:
+      UpdateDestination: null
+firehose_DeleteDeliveryStream:
+  title: Delete a &AWSFirehose; delivery stream
+  title_abbrev: Delete a delivery stream
+  synopsis: delete an &AWSFirehose; delivery stream.
+  category: Actions
   languages:
     Python:
       versions:
       - sdk_version: 3
         github: python/example_code/firehose
         excerpts:
-        - description: Create a Firehose wrapper class to manage operations.
+        - description: null
           snippet_tags:
-          - python.example_code.firehose.FirehoseWrapper.class
+          - python.example_code.firehose.FirehoseWrapper.decl
+          - python.example_code.firehose.DeleteDeliveryStream
+  services:
+    firehose:
+      DeleteDeliveryStream: null
+firehose_Scenario:
+  title: Get started with &AWSFirehose; delivery streams
+  title_abbrev: Get started with delivery streams
+  synopsis: learn the basics of &AWSFirehose; by creating and managing delivery streams.
+  category: Scenarios
+  synopsis_list:
+  - Create a Firehose delivery stream with an S3 destination.
+  - Describe and list delivery streams.
+  - Tag, list tags, and untag a delivery stream.
+  - Enable and disable server-side encryption.
+  - Update the destination configuration.
+  - Delete the delivery stream and clean up resources.
+  languages:
+    Python:
+      versions:
+      - sdk_version: 3
+        github: python/example_code/firehose
+        excerpts:
+        - description: Create the Firehose wrapper class.
+          snippet_tags:
+          - python.example_code.firehose.FirehoseWrapper.decl
         - description: Run an interactive scenario demonstrating Firehose basics.
           snippet_tags:
           - python.example_code.firehose.FirehoseScenario
   services:
-    firehose: {CreateDeliveryStream: null, DescribeDeliveryStream: null, ListDeliveryStreams: null, TagDeliveryStream: null, ListTagsForDeliveryStream: null, StartDeliveryStreamEncryption: null, PutRecord: null, PutRecordBatch: null, StopDeliveryStreamEncryption: null, DeleteDeliveryStream: null}
+    firehose:
+      CreateDeliveryStream: null
+      DescribeDeliveryStream: null
+      ListDeliveryStreams: null
+      TagDeliveryStream: null
+      ListTagsForDeliveryStream: null
+      UntagDeliveryStream: null
+      StartDeliveryStreamEncryption: null
+      StopDeliveryStreamEncryption: null
+      UpdateDestination: null
+      DeleteDeliveryStream: null
