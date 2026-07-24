@@ -3,361 +3,405 @@ cloudwatch-logs_AssociateKmsKey:
   languages:
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/CloudWatchLogs
-          excerpts:
-            - description:
-              snippet_tags:
-                - CloudWatchLogs.dotnetv3.AssociateKmsKeyExample
+      - sdk_version: 3
+        github: dotnetv3/CloudWatchLogs
+        excerpts:
+        - description:
+          snippet_tags:
+          - CloudWatchLogs.dotnetv3.AssociateKmsKeyExample
   services:
-    cloudwatch-logs: {AssociateKmsKey}
+    cloudwatch-logs: {AssociateKmsKey: null}
 cloudwatch-logs_GetLogEvents:
   languages:
     Java:
       versions:
-        - sdk_version: 2
-          github: javav2/example_code/cloudwatch
-          excerpts:
-            - description:
-              snippet_tags:
-                - cloudwatch.java2.get_logs.main
+      - sdk_version: 2
+        github: javav2/example_code/cloudwatch
+        excerpts:
+        - description:
+          snippet_tags:
+          - cloudwatch.java2.get_logs.main
+    Python:
+      versions:
+      - sdk_version: 3
+        github: python/example_code/cloudwatch-logs
+        excerpts:
+        - description:
+          snippet_tags:
+          - python.example_code.cloudwatch-logs.CloudWatchLogsWrapper.decl
+          - python.example_code.cloudwatch-logs.GetLogEvents
   services:
-    cloudwatch-logs: {GetLogEvents}
+    cloudwatch-logs: {GetLogEvents: null}
 cloudwatch-logs_CancelExportTask:
   languages:
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/CloudWatchLogs
-          excerpts:
-            - description:
-              snippet_tags:
-                - CloudWatchLogs.dotnetv3.CancelExportTaskExample
+      - sdk_version: 3
+        github: dotnetv3/CloudWatchLogs
+        excerpts:
+        - description:
+          snippet_tags:
+          - CloudWatchLogs.dotnetv3.CancelExportTaskExample
   services:
-    cloudwatch-logs: {CancelExportTask}
+    cloudwatch-logs: {CancelExportTask: null}
 cloudwatch-logs_CreateExportTask:
   languages:
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/CloudWatchLogs
-          excerpts:
-            - description:
-              snippet_tags:
-                - CloudWatchLogs.dotnetv3.CreateExportTaskExample
+      - sdk_version: 3
+        github: dotnetv3/CloudWatchLogs
+        excerpts:
+        - description:
+          snippet_tags:
+          - CloudWatchLogs.dotnetv3.CreateExportTaskExample
   services:
-    cloudwatch-logs: {CreateExportTask}
+    cloudwatch-logs: {CreateExportTask: null}
 cloudwatch-logs_CreateLogGroup:
   languages:
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/CloudWatchLogs
-          excerpts:
-            - description:
-              snippet_tags:
-                - CloudWatchLogs.dotnetv3.CreateLogGroupExample
+      - sdk_version: 3
+        github: dotnetv3/CloudWatchLogs
+        excerpts:
+        - description:
+          snippet_tags:
+          - CloudWatchLogs.dotnetv3.CreateLogGroupExample
     JavaScript:
       versions:
-        - sdk_version: 3
-          github: javascriptv3/example_code/cloudwatch-logs
-          excerpts:
-            - description:
-              snippet_tags:
-                - javascript.v3.cloudwatchlogs.actions.CreateLogGroup
+      - sdk_version: 3
+        github: javascriptv3/example_code/cloudwatch-logs
+        excerpts:
+        - description:
+          snippet_tags:
+          - javascript.v3.cloudwatchlogs.actions.CreateLogGroup
+    Python:
+      versions:
+      - sdk_version: 3
+        github: python/example_code/cloudwatch-logs
+        excerpts:
+        - description:
+          snippet_tags:
+          - python.example_code.cloudwatch-logs.CloudWatchLogsWrapper.decl
+          - python.example_code.cloudwatch-logs.CreateLogGroup
   services:
-    cloudwatch-logs: {CreateLogGroup}
+    cloudwatch-logs: {CreateLogGroup: null}
 cloudwatch-logs_CreateLogStream:
   languages:
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/CloudWatchLogs
-          excerpts:
-            - description:
-              snippet_tags:
-                - CloudWatchLogs.dotnetv3.CreateLogStreamExample
+      - sdk_version: 3
+        github: dotnetv3/CloudWatchLogs
+        excerpts:
+        - description:
+          snippet_tags:
+          - CloudWatchLogs.dotnetv3.CreateLogStreamExample
+    Python:
+      versions:
+      - sdk_version: 3
+        github: python/example_code/cloudwatch-logs
+        excerpts:
+        - description:
+          snippet_tags:
+          - python.example_code.cloudwatch-logs.CloudWatchLogsWrapper.decl
+          - python.example_code.cloudwatch-logs.CreateLogStream
   services:
-    cloudwatch-logs: {CreateLogStream}
+    cloudwatch-logs: {CreateLogStream: null}
 cloudwatch-logs_DeleteLogGroup:
   languages:
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/CloudWatchLogs
-          excerpts:
-            - description:
-              snippet_tags:
-                - CloudWatchLogs.dotnetv3.DeleteLogGroupExample
+      - sdk_version: 3
+        github: dotnetv3/CloudWatchLogs
+        excerpts:
+        - description:
+          snippet_tags:
+          - CloudWatchLogs.dotnetv3.DeleteLogGroupExample
     JavaScript:
       versions:
-        - sdk_version: 3
-          github: javascriptv3/example_code/cloudwatch-logs
-          excerpts:
-            - description:
-              snippet_tags:
-                - javascript.v3.cloudwatchlogs.actions.DeleteLogGroup
+      - sdk_version: 3
+        github: javascriptv3/example_code/cloudwatch-logs
+        excerpts:
+        - description:
+          snippet_tags:
+          - javascript.v3.cloudwatchlogs.actions.DeleteLogGroup
+    Python:
+      versions:
+      - sdk_version: 3
+        github: python/example_code/cloudwatch-logs
+        excerpts:
+        - description:
+          snippet_tags:
+          - python.example_code.cloudwatch-logs.CloudWatchLogsWrapper.decl
+          - python.example_code.cloudwatch-logs.DeleteLogGroup
   services:
-    cloudwatch-logs: {DeleteLogGroup}
+    cloudwatch-logs: {DeleteLogGroup: null}
 cloudwatch-logs_DescribeExportTasks:
   languages:
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/CloudWatchLogs
-          excerpts:
-            - description:
-              snippet_tags:
-                - CloudWatchLogs.dotnetv3.DescribeExportTasksExammple
+      - sdk_version: 3
+        github: dotnetv3/CloudWatchLogs
+        excerpts:
+        - description:
+          snippet_tags:
+          - CloudWatchLogs.dotnetv3.DescribeExportTasksExammple
   services:
-    cloudwatch-logs: {DescribeExportTasks}
+    cloudwatch-logs: {DescribeExportTasks: null}
 cloudwatch-logs_DescribeLogStreams:
   languages:
     Java:
       versions:
-        - sdk_version: 2
-          github: javav2/example_code/cloudwatch-logs
-          sdkguide:
-          excerpts:
-            - description: Searches for log streams within a specified log group that match a given prefix.
-              snippet_tags:
-                - cloudwatch.javav2.read.log.streams.main
-            - description: Prints metadata about the most recent log stream in a specified log group.
-              snippet_tags:
-                - cloudwatch.javav2.describe.log.streams.main
+      - sdk_version: 2
+        github: javav2/example_code/cloudwatch-logs
+        sdkguide:
+        excerpts:
+        - description: Searches for log streams within a specified log group that match a given prefix.
+          snippet_tags:
+          - cloudwatch.javav2.read.log.streams.main
+        - description: Prints metadata about the most recent log stream in a specified log group.
+          snippet_tags:
+          - cloudwatch.javav2.describe.log.streams.main
   services:
-    cloudwatch-logs: {DescribeLogStreams}
+    cloudwatch-logs: {DescribeLogStreams: null}
 cloudwatch-logs_DescribeLogGroups:
   languages:
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/CloudWatchLogs
-          excerpts:
-            - description:
-              snippet_tags:
-                - CloudWatchLogs.dotnetv3.DescribeLogGroupsExample
+      - sdk_version: 3
+        github: dotnetv3/CloudWatchLogs
+        excerpts:
+        - description:
+          snippet_tags:
+          - CloudWatchLogs.dotnetv3.DescribeLogGroupsExample
     JavaScript:
       versions:
-        - sdk_version: 3
-          github: javascriptv3/example_code/cloudwatch-logs
-          excerpts:
-            - description:
-              snippet_tags:
-                - javascript.v3.cloudwatchlogs.actions.DescribeLogGroups
+      - sdk_version: 3
+        github: javascriptv3/example_code/cloudwatch-logs
+        excerpts:
+        - description:
+          snippet_tags:
+          - javascript.v3.cloudwatchlogs.actions.DescribeLogGroups
+    Python:
+      versions:
+      - sdk_version: 3
+        github: python/example_code/cloudwatch-logs
+        excerpts:
+        - description:
+          snippet_tags:
+          - python.example_code.cloudwatch-logs.CloudWatchLogsWrapper.decl
+          - python.example_code.cloudwatch-logs.DescribeLogGroups
   services:
-    cloudwatch-logs: {DescribeLogGroups}
+    cloudwatch-logs: {DescribeLogGroups: null}
 cloudwatch-logs_DescribeSubscriptionFilters:
   languages:
     Kotlin:
       versions:
-        - sdk_version: 1
-          github: kotlin/services/cloudwatch
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - cloudwatch.kotlin.describe_subscription_filters.main
+      - sdk_version: 1
+        github: kotlin/services/cloudwatch
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - cloudwatch.kotlin.describe_subscription_filters.main
     Java:
       versions:
-        - sdk_version: 2
-          github: javav2/example_code/cloudwatch-logs
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - cloudwatch.java2.describe_subscription_filters.main
+      - sdk_version: 2
+        github: javav2/example_code/cloudwatch-logs
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - cloudwatch.java2.describe_subscription_filters.main
     C++:
       versions:
-        - sdk_version: 1
-          github: cpp/example_code/cloudwatch-logs
-          sdkguide:
-          excerpts:
-            - description: Include the required files.
-              snippet_tags:
-                - cwl.cpp.describe_subscription_filters.inc
-            - description: List the subscription filters.
-              snippet_tags:
-                - cwl.cpp.describe_subscription_filters
+      - sdk_version: 1
+        github: cpp/example_code/cloudwatch-logs
+        sdkguide:
+        excerpts:
+        - description: Include the required files.
+          snippet_tags:
+          - cwl.cpp.describe_subscription_filters.inc
+        - description: List the subscription filters.
+          snippet_tags:
+          - cwl.cpp.describe_subscription_filters
     JavaScript:
       versions:
-        - sdk_version: 3
-          github: javascriptv3/example_code/cloudwatch-logs
-          excerpts:
-            - description:
-              snippet_tags:
-                - javascript.v3.cloudwatchlogs.actions.DescribeSubscriptionFilters
-        - sdk_version: 2
-          github: javascript/example_code/cloudwatch-logs
-          sdkguide: 
-            sdk-for-javascript/v2/developer-guide/cloudwatch-examples-subscriptions.html#cloudwatch-examples-subscriptions-describing
-          excerpts:
-            - description:
-              snippet_tags:
-                - cwLogs.JavaScript.cwl.describeSubscriptionFilters
+      - sdk_version: 3
+        github: javascriptv3/example_code/cloudwatch-logs
+        excerpts:
+        - description:
+          snippet_tags:
+          - javascript.v3.cloudwatchlogs.actions.DescribeSubscriptionFilters
+      - sdk_version: 2
+        github: javascript/example_code/cloudwatch-logs
+        sdkguide: sdk-for-javascript/v2/developer-guide/cloudwatch-examples-subscriptions.html#cloudwatch-examples-subscriptions-describing
+        excerpts:
+        - description:
+          snippet_tags:
+          - cwLogs.JavaScript.cwl.describeSubscriptionFilters
   services:
-    cloudwatch-logs: {DescribeSubscriptionFilters}
+    cloudwatch-logs: {DescribeSubscriptionFilters: null}
 cloudwatch-logs_DeleteSubscriptionFilter:
   languages:
     Kotlin:
       versions:
-        - sdk_version: 1
-          github: kotlin/services/cloudwatch
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - cloudwatch.kotlin.delete_subscription_filter.main
+      - sdk_version: 1
+        github: kotlin/services/cloudwatch
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - cloudwatch.kotlin.delete_subscription_filter.main
     Java:
       versions:
-        - sdk_version: 2
-          github: javav2/example_code/cloudwatch-logs
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - cloudwatch.java2.delete_subscription_filter.main
+      - sdk_version: 2
+        github: javav2/example_code/cloudwatch-logs
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - cloudwatch.java2.delete_subscription_filter.main
     C++:
       versions:
-        - sdk_version: 1
-          github: cpp/example_code/cloudwatch-logs
-          sdkguide:
-          excerpts:
-            - description: Include the required files.
-              snippet_tags:
-                - cwl.cpp.delete_subscription_filter.inc
-            - description: Delete the subscription filter.
-              snippet_tags:
-                - cwl.cpp.delete_subscription_filter
+      - sdk_version: 1
+        github: cpp/example_code/cloudwatch-logs
+        sdkguide:
+        excerpts:
+        - description: Include the required files.
+          snippet_tags:
+          - cwl.cpp.delete_subscription_filter.inc
+        - description: Delete the subscription filter.
+          snippet_tags:
+          - cwl.cpp.delete_subscription_filter
     JavaScript:
       versions:
-        - sdk_version: 3
-          github: javascriptv3/example_code/cloudwatch-logs
-          excerpts:
-            - description:
-              snippet_tags:
-                - javascript.v3.cloudwatchlogs.actions.DeleteSubscriptionFilter
-        - sdk_version: 2
-          github: javascript/example_code/cloudwatch-logs
-          sdkguide: sdk-for-javascript/v2/developer-guide/cloudwatch-examples-subscriptions.html#cloudwatch-examples-subscriptions-deleting
-          excerpts:
-            - description:
-              snippet_tags:
-                - cwLogs.JavaScript.cwl.deleteSubscriptionFilter
+      - sdk_version: 3
+        github: javascriptv3/example_code/cloudwatch-logs
+        excerpts:
+        - description:
+          snippet_tags:
+          - javascript.v3.cloudwatchlogs.actions.DeleteSubscriptionFilter
+      - sdk_version: 2
+        github: javascript/example_code/cloudwatch-logs
+        sdkguide: sdk-for-javascript/v2/developer-guide/cloudwatch-examples-subscriptions.html#cloudwatch-examples-subscriptions-deleting
+        excerpts:
+        - description:
+          snippet_tags:
+          - cwLogs.JavaScript.cwl.deleteSubscriptionFilter
   services:
-    cloudwatch-logs: {DeleteSubscriptionFilter}
+    cloudwatch-logs: {DeleteSubscriptionFilter: null}
 cloudwatch-logs_PutSubscriptionFilter:
   languages:
     Java:
       versions:
-        - sdk_version: 2
-          github: javav2/example_code/cloudwatch-logs
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - cloudwatch.java2.put_subscription_filter.main
+      - sdk_version: 2
+        github: javav2/example_code/cloudwatch-logs
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - cloudwatch.java2.put_subscription_filter.main
     C++:
       versions:
-        - sdk_version: 1
-          github: cpp/example_code/cloudwatch-logs
-          sdkguide:
-          excerpts:
-            - description: Include the required files.
-              snippet_tags:
-                - cwl.cpp.put_subscription_filter.inc
-            - description: Create the subscription filter.
-              snippet_tags:
-                - cwl.cpp.put_subscription_filter
+      - sdk_version: 1
+        github: cpp/example_code/cloudwatch-logs
+        sdkguide:
+        excerpts:
+        - description: Include the required files.
+          snippet_tags:
+          - cwl.cpp.put_subscription_filter.inc
+        - description: Create the subscription filter.
+          snippet_tags:
+          - cwl.cpp.put_subscription_filter
     JavaScript:
       versions:
-        - sdk_version: 3
-          github: javascriptv3/example_code/cloudwatch-logs
-          excerpts:
-            - description:
-              snippet_tags:
-                - javascript.v3.cloudwatchlogs.actions.PutSubscriptionFilter
-        - sdk_version: 2
-          github: javascript/example_code/cloudwatch-logs
-          sdkguide: sdk-for-javascript/v2/developer-guide/cloudwatch-examples-subscriptions.html#cloudwatch-examples-subscriptions-creating
-          excerpts:
-            - description:
-              snippet_tags:
-                - cwLogs.JavaScript.cwl.putSubscriptionFilter
+      - sdk_version: 3
+        github: javascriptv3/example_code/cloudwatch-logs
+        excerpts:
+        - description:
+          snippet_tags:
+          - javascript.v3.cloudwatchlogs.actions.PutSubscriptionFilter
+      - sdk_version: 2
+        github: javascript/example_code/cloudwatch-logs
+        sdkguide: sdk-for-javascript/v2/developer-guide/cloudwatch-examples-subscriptions.html#cloudwatch-examples-subscriptions-creating
+        excerpts:
+        - description:
+          snippet_tags:
+          - cwLogs.JavaScript.cwl.putSubscriptionFilter
   services:
-    cloudwatch-logs: {PutSubscriptionFilter}
+    cloudwatch-logs: {PutSubscriptionFilter: null}
 cloudwatch-logs_GetQueryResults:
   languages:
     .NET:
       versions:
-        - sdk_version: 4
-          github: dotnetv4/CloudWatchLogs/LargeQuery
-          excerpts:
-            - description:
-              snippet_tags:
-                - CloudWatchLogs.dotnetv4.GetQueryResults
+      - sdk_version: 4
+        github: dotnetv4/CloudWatchLogs/LargeQuery
+        excerpts:
+        - description:
+          snippet_tags:
+          - CloudWatchLogs.dotnetv4.GetQueryResults
     JavaScript:
       versions:
-        - sdk_version: 3
-          github: javascriptv3/example_code/cloudwatch-logs
-          excerpts:
-            - description:
-              snippet_tags:
-                - javascript.v3.cloudwatch-logs.actions.GetQueryResults
+      - sdk_version: 3
+        github: javascriptv3/example_code/cloudwatch-logs
+        excerpts:
+        - description:
+          snippet_tags:
+          - javascript.v3.cloudwatch-logs.actions.GetQueryResults
     Python:
       versions:
-        - sdk_version: 3
-          github: python/example_code/cloudwatch-logs
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.cloudwatch_logs.get_query_results
+      - sdk_version: 3
+        github: python/example_code/cloudwatch-logs
+        excerpts:
+        - description:
+          snippet_tags:
+          - python.example_code.cloudwatch_logs.get_query_results
     SAP ABAP:
       versions:
-        - sdk_version: 1
-          github: sap-abap/services/cwl
-          excerpts:
-            - description:
-              snippet_tags:
-                - cwl.abapv1.get_query_results
+      - sdk_version: 1
+        github: sap-abap/services/cwl
+        excerpts:
+        - description:
+          snippet_tags:
+          - cwl.abapv1.get_query_results
   services:
-    cloudwatch-logs: {GetQueryResults}
+    cloudwatch-logs: {GetQueryResults: null}
 cloudwatch-logs_StartQuery:
   languages:
     .NET:
       versions:
-        - sdk_version: 4
-          github: dotnetv4/CloudWatchLogs/LargeQuery
-          excerpts:
-            - description:
-              snippet_tags:
-                - CloudWatchLogs.dotnetv4.StartQuery
+      - sdk_version: 4
+        github: dotnetv4/CloudWatchLogs/LargeQuery
+        excerpts:
+        - description:
+          snippet_tags:
+          - CloudWatchLogs.dotnetv4.StartQuery
     JavaScript:
       versions:
-        - sdk_version: 3
-          github: javascriptv3/example_code/cloudwatch-logs
-          excerpts:
-            - description:
-              snippet_tags:
-                - javascript.v3.cloudwatch-logs.actions.StartQuery
+      - sdk_version: 3
+        github: javascriptv3/example_code/cloudwatch-logs
+        excerpts:
+        - description:
+          snippet_tags:
+          - javascript.v3.cloudwatch-logs.actions.StartQuery
     Python:
       versions:
-        - sdk_version: 3
-          github: python/example_code/cloudwatch-logs
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.cloudwatch_logs.start_query
+      - sdk_version: 3
+        github: python/example_code/cloudwatch-logs
+        excerpts:
+        - description:
+          snippet_tags:
+          - python.example_code.cloudwatch_logs.start_query
     SAP ABAP:
       versions:
-        - sdk_version: 1
-          github: sap-abap/services/cwl
-          excerpts:
-            - description:
-              snippet_tags:
-                - cwl.abapv1.start_query
+      - sdk_version: 1
+        github: sap-abap/services/cwl
+        excerpts:
+        - description:
+          snippet_tags:
+          - cwl.abapv1.start_query
   services:
-    cloudwatch-logs: {StartQuery}
+    cloudwatch-logs: {StartQuery: null}
 cloudwatch-logs_Scenario_BigQuery:
   title: Use &CWL; to run a large query
   title_abbrev: Run a large query
@@ -366,33 +410,161 @@ cloudwatch-logs_Scenario_BigQuery:
   languages:
     .NET:
       versions:
-        - sdk_version: 4
-          github: dotnetv4/CloudWatchLogs/LargeQuery
-          excerpts:
-            - description: This is the main workflow that demonstrates the large query scenario.
-              snippet_tags:
-                - CloudWatchLogs.dotnetv4.LargeQueryWorkflow
+      - sdk_version: 4
+        github: dotnetv4/CloudWatchLogs/LargeQuery
+        excerpts:
+        - description: This is the main workflow that demonstrates the large query scenario.
+          snippet_tags:
+          - CloudWatchLogs.dotnetv4.LargeQueryWorkflow
     JavaScript:
       versions:
-        - sdk_version: 3
-          github: javascriptv3/example_code/cloudwatch-logs/scenarios/large-query
-          excerpts:
-            - description: This is the entry point.
-              snippet_files:
-                - javascriptv3/example_code/cloudwatch-logs/scenarios/large-query/index.js
-            - description: This is a class that splits queries into multiple steps if necessary.
-            - snippet_files:
-                - javascriptv3/example_code/cloudwatch-logs/scenarios/large-query/cloud-watch-query.js
+      - sdk_version: 3
+        github: javascriptv3/example_code/cloudwatch-logs/scenarios/large-query
+        excerpts:
+        - description: This is the entry point.
+          snippet_files:
+          - javascriptv3/example_code/cloudwatch-logs/scenarios/large-query/index.js
+        - description: This is a class that splits queries into multiple steps if necessary.
+        - snippet_files:
+          - javascriptv3/example_code/cloudwatch-logs/scenarios/large-query/cloud-watch-query.js
     Python:
       versions:
-        - sdk_version: 3
-          github: python/example_code/cloudwatch-logs/scenarios/large-query
-          excerpts:
-            - description: This file invokes an example module for managing CloudWatch queries exceeding 10,000 results.
-              snippet_files:
-                - python/example_code/cloudwatch-logs/scenarios/large-query/exec.py
-            - description: This module processes CloudWatch queries exceeding 10,000 results.
-            - snippet_files:
-                - python/example_code/cloudwatch-logs/scenarios/large-query/cloudwatch_query.py
+      - sdk_version: 3
+        github: python/example_code/cloudwatch-logs/scenarios/large-query
+        excerpts:
+        - description: This file invokes an example module for managing CloudWatch queries exceeding 10,000 results.
+          snippet_files:
+          - python/example_code/cloudwatch-logs/scenarios/large-query/exec.py
+        - description: This module processes CloudWatch queries exceeding 10,000 results.
+        - snippet_files:
+          - python/example_code/cloudwatch-logs/scenarios/large-query/cloudwatch_query.py
   services:
-    cloudwatch-logs: {StartQuery, GetQueryResults}
+    cloudwatch-logs: {StartQuery: null, GetQueryResults: null}
+cloudwatch-logs_Hello:
+  title: Hello &CWL;
+  title_abbrev: Hello &CWL;
+  synopsis: get started using &CWL;.
+  category: Hello
+  languages:
+    Python:
+      versions:
+      - sdk_version: 3
+        github: python/example_code/cloudwatch-logs
+        excerpts:
+        - description:
+          snippet_tags:
+          - python.example_code.cloudwatch-logs.Hello
+  services:
+    cloudwatch-logs: {DescribeLogGroups: null}
+cloudwatch-logs_PutLogEvents:
+  title: Put &CWL; log events
+  title_abbrev: Put log events
+  synopsis: put &CWL; log events.
+  category: Actions
+  languages:
+    Python:
+      versions:
+      - sdk_version: 3
+        github: python/example_code/cloudwatch-logs
+        excerpts:
+        - description:
+          snippet_tags:
+          - python.example_code.cloudwatch-logs.CloudWatchLogsWrapper.decl
+          - python.example_code.cloudwatch-logs.PutLogEvents
+  services:
+    cloudwatch-logs: {PutLogEvents: null}
+cloudwatch-logs_FilterLogEvents:
+  title: Filter &CWL; log events
+  title_abbrev: Filter log events
+  synopsis: filter &CWL; log events.
+  category: Actions
+  languages:
+    Python:
+      versions:
+      - sdk_version: 3
+        github: python/example_code/cloudwatch-logs
+        excerpts:
+        - description:
+          snippet_tags:
+          - python.example_code.cloudwatch-logs.CloudWatchLogsWrapper.decl
+          - python.example_code.cloudwatch-logs.FilterLogEvents
+  services:
+    cloudwatch-logs: {FilterLogEvents: null}
+cloudwatch-logs_PutMetricFilter:
+  title: Put a &CWL; metric filter
+  title_abbrev: Put a metric filter
+  synopsis: put a &CWL; metric filter.
+  category: Actions
+  languages:
+    Python:
+      versions:
+      - sdk_version: 3
+        github: python/example_code/cloudwatch-logs
+        excerpts:
+        - description:
+          snippet_tags:
+          - python.example_code.cloudwatch-logs.CloudWatchLogsWrapper.decl
+          - python.example_code.cloudwatch-logs.PutMetricFilter
+  services:
+    cloudwatch-logs: {PutMetricFilter: null}
+cloudwatch-logs_DescribeMetricFilters:
+  title: Describe &CWL; metric filters
+  title_abbrev: Describe metric filters
+  synopsis: describe &CWL; metric filters.
+  category: Actions
+  languages:
+    Python:
+      versions:
+      - sdk_version: 3
+        github: python/example_code/cloudwatch-logs
+        excerpts:
+        - description:
+          snippet_tags:
+          - python.example_code.cloudwatch-logs.CloudWatchLogsWrapper.decl
+          - python.example_code.cloudwatch-logs.DescribeMetricFilters
+  services:
+    cloudwatch-logs: {DescribeMetricFilters: null}
+cloudwatch-logs_PutRetentionPolicy:
+  title: Put a &CWL; retention policy
+  title_abbrev: Put a retention policy
+  synopsis: put a &CWL; retention policy.
+  category: Actions
+  languages:
+    Python:
+      versions:
+      - sdk_version: 3
+        github: python/example_code/cloudwatch-logs
+        excerpts:
+        - description:
+          snippet_tags:
+          - python.example_code.cloudwatch-logs.CloudWatchLogsWrapper.decl
+          - python.example_code.cloudwatch-logs.PutRetentionPolicy
+  services:
+    cloudwatch-logs: {PutRetentionPolicy: null}
+cloudwatch-logs_Scenario:
+  title: Get started with &CWL; log groups and streams
+  title_abbrev: Get started with log groups and streams
+  synopsis: learn the basics of &CWL; by creating log groups, ingesting events, filtering, and managing retention.
+  category: Scenarios
+  synopsis_list:
+  - Create a log group and log stream.
+  - Ingest sample log events.
+  - Retrieve log events from the stream.
+  - Filter log events using patterns.
+  - Create and verify a metric filter.
+  - Configure and verify a retention policy.
+  - Clean up all resources.
+  languages:
+    Python:
+      versions:
+      - sdk_version: 3
+        github: python/example_code/cloudwatch-logs
+        excerpts:
+        - description: Create a CloudWatch Logs wrapper class to manage operations.
+          snippet_tags:
+          - python.example_code.cloudwatch-logs.CloudWatchLogsWrapper.class
+        - description: Run an interactive scenario demonstrating CloudWatch Logs basics.
+          snippet_tags:
+          - python.example_code.cloudwatch-logs.CloudWatchLogsScenario
+  services:
+    cloudwatch-logs: {CreateLogGroup: null, CreateLogStream: null, PutLogEvents: null, GetLogEvents: null, FilterLogEvents: null, PutMetricFilter: null, DescribeMetricFilters: null, PutRetentionPolicy: null, DescribeLogGroups: null, DeleteLogGroup: null}
