@@ -1,0 +1,205 @@
+iot-data_Hello:
+  title: Hello &IoT;
+  title_abbrev: Hello &IoT;
+  synopsis: get started using &IoTDataPlane;.
+  category: Hello
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iot-data
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iot-data.Hello
+  services:
+    iot-data: {ListRetainedMessages}
+iot-data_UpdateThingShadow:
+  title: Update a thing shadow using an &AWS; SDK
+  title_abbrev: Update a thing shadow
+  synopsis: update a thing shadow using &IoTDataPlane;.
+  category: Actions
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iot-data
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iot-data.IoTDataPlaneWrapper.decl
+                - python.example_code.iot-data.UpdateThingShadow
+  services:
+    iot-data: {UpdateThingShadow}
+iot-data_GetThingShadow:
+  title: Get a thing shadow using an &AWS; SDK
+  title_abbrev: Get a thing shadow
+  synopsis: get a thing shadow using &IoTDataPlane;.
+  category: Actions
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iot-data
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iot-data.IoTDataPlaneWrapper.decl
+                - python.example_code.iot-data.GetThingShadow
+  services:
+    iot-data: {GetThingShadow}
+iot-data_ListNamedShadowsForThing:
+  title: List named shadows for a thing using an &AWS; SDK
+  title_abbrev: List named shadows
+  synopsis: list named shadows for a thing using &IoTDataPlane;.
+  category: Actions
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iot-data
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iot-data.IoTDataPlaneWrapper.decl
+                - python.example_code.iot-data.ListNamedShadowsForThing
+  services:
+    iot-data: {ListNamedShadowsForThing}
+iot-data_DeleteThingShadow:
+  title: Delete a thing shadow using an &AWS; SDK
+  title_abbrev: Delete a thing shadow
+  synopsis: delete a thing shadow using &IoTDataPlane;.
+  category: Actions
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iot-data
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iot-data.IoTDataPlaneWrapper.decl
+                - python.example_code.iot-data.DeleteThingShadow
+  services:
+    iot-data: {DeleteThingShadow}
+iot-data_Publish:
+  title: Publish an MQTT message using an &AWS; SDK
+  title_abbrev: Publish a message
+  synopsis: publish an MQTT message using &IoTDataPlane;.
+  category: Actions
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iot-data
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iot-data.IoTDataPlaneWrapper.decl
+                - python.example_code.iot-data.Publish
+  services:
+    iot-data: {Publish}
+iot-data_GetRetainedMessage:
+  title: Get a retained message using an &AWS; SDK
+  title_abbrev: Get a retained message
+  synopsis: get a retained message using &IoTDataPlane;.
+  category: Actions
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iot-data
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iot-data.IoTDataPlaneWrapper.decl
+                - python.example_code.iot-data.GetRetainedMessage
+  services:
+    iot-data: {GetRetainedMessage}
+iot-data_ListRetainedMessages:
+  title: List retained messages using an &AWS; SDK
+  title_abbrev: List retained messages
+  synopsis: list retained messages using &IoTDataPlane;.
+  category: Actions
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iot-data
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iot-data.IoTDataPlaneWrapper.decl
+                - python.example_code.iot-data.ListRetainedMessages
+  services:
+    iot-data: {ListRetainedMessages}
+iot-data_GetConnection:
+  title: Get connection info for an MQTT client using an &AWS; SDK
+  title_abbrev: Get connection info
+  synopsis: get connection information for an MQTT client using &IoTDataPlane;.
+  category: Actions
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iot-data
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iot-data.IoTDataPlaneWrapper.decl
+                - python.example_code.iot-data.GetConnection
+  services:
+    iot-data: {GetConnection}
+iot-data_ListSubscriptions:
+  title: List subscriptions for an MQTT client using an &AWS; SDK
+  title_abbrev: List subscriptions
+  synopsis: list subscriptions for an MQTT client using &IoTDataPlane;.
+  category: Actions
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iot-data
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iot-data.IoTDataPlaneWrapper.decl
+                - python.example_code.iot-data.ListSubscriptions
+  services:
+    iot-data: {ListSubscriptions}
+iot-data_SendDirectMessage:
+  title: Send a direct message to an MQTT client using an &AWS; SDK
+  title_abbrev: Send a direct message
+  synopsis: send a direct message to an MQTT client using &IoTDataPlane;.
+  category: Actions
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iot-data
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iot-data.IoTDataPlaneWrapper.decl
+                - python.example_code.iot-data.SendDirectMessage
+  services:
+    iot-data: {SendDirectMessage}
+iot-data_Scenario:
+  title: Get started with &IoTDataPlane; basics using an &AWS; SDK
+  title_abbrev: Get started with IoT Data Plane basics
+  synopsis: learn the basics of &IoTDataPlane; by managing shadows, publishing messages, and more.
+  category: Scenarios
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iot-data
+          excerpts:
+            - description: Create an IoT Data Plane wrapper class.
+              snippet_tags:
+                - python.example_code.iot-data.IoTDataPlaneWrapper
+            - description: Run an interactive scenario demonstrating IoT Data Plane basics.
+              snippet_tags:
+                - python.example_code.iot-data.IoTDataPlaneScenario
+  services:
+    iot-data: {UpdateThingShadow, GetThingShadow, ListNamedShadowsForThing, DeleteThingShadow, Publish, GetRetainedMessage, ListRetainedMessages, GetConnection, ListSubscriptions, SendDirectMessage}
