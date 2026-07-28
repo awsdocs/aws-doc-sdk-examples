@@ -11,9 +11,7 @@ func printConverseStream(_ textPrompt: String) async throws {
 
     // Create a Bedrock Runtime client in the AWS Region you want to use.
     let config =
-        try await BedrockRuntimeClient.BedrockRuntimeClientConfiguration(
-            region: "us-east-1"
-        )
+        try await BedrockRuntimeClient.BedrockRuntimeClientConfiguration()
     let client = BedrockRuntimeClient(config: config)
 
     // Set the model ID.
