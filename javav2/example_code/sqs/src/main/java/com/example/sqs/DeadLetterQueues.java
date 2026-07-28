@@ -62,7 +62,7 @@ public class DeadLetterQueues {
 
                         // Set dead letter queue with redrive policy on source queue.
                         GetQueueUrlRequest getRequestSource = GetQueueUrlRequest.builder()
-                                        .queueName(DLQueueName)
+                                        .queueName(QueueName)
                                         .build();
 
                         String srcQueueUrl = sqs.getQueueUrl(getRequestSource).queueUrl();
