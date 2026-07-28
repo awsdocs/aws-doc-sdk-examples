@@ -15,9 +15,7 @@ struct NovaImageOutput: Decodable {
 func generateImage(_ textPrompt: String) async throws {
     // Create a Bedrock Runtime client in the AWS Region you want to use.
     let config =
-        try await BedrockRuntimeClient.BedrockRuntimeClientConfiguration(
-            region: "us-east-1"
-        )
+        try await BedrockRuntimeClient.BedrockRuntimeClientConfiguration()
     config.awsCredentialIdentityResolver = try SSOAWSCredentialIdentityResolver()
 
     let client = BedrockRuntimeClient(config: config)
