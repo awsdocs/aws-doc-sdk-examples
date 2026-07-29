@@ -1,4 +1,4 @@
-# AWS SDK for Python (Boto3) code examples
+# AWS SDK for Python (Boto3) code examples 
 
 ## Overview
 
