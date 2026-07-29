@@ -58,7 +58,9 @@ Resources:
                   - logs:CreateLogGroup
                   - logs:CreateLogStream
                   - logs:PutLogEvents
-                Resource: !Sub "arn:aws:logs:${AWS::Region}:${AccountId}:log-group:/aws/codebuild/sdk-example-images*"
+                Resource:
+                  - !Sub "arn:aws:logs:${AWS::Region}:${AccountId}:log-group:/aws/codebuild/sdk-example-images"
+                  - !Sub "arn:aws:logs:${AWS::Region}:${AccountId}:log-group:/aws/codebuild/sdk-example-images:*"
 
   # CodeBuild Project
   ImageBuildProject:
