@@ -1,0 +1,134 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: >
+  CodeBuild project to build and push SDK example Docker images to ECR.
+  Runs weekly on Sunday at 06:00 UTC.
+
+Parameters:
+  SourceRepo:
+    Type: String
+    Default: "https://github.com/awsdocs/aws-doc-sdk-examples.git"
+    Description: Git repo containing the Dockerfiles (sdk-example-images/ directory)
+  SourceBranch:
+    Type: String
+    Default: "main"
+  AccountId:
+    Type: String
+    Default: "164794437551"
+
+Resources:
+  # IAM Role for CodeBuild
+  CodeBuildRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: sdk-example-images-codebuild-role
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: codebuild.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: ECRAccess
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - ecr:GetAuthorizationToken
+                Resource: "*"
+              - Effect: Allow
+                Action:
+                  - ecr:BatchCheckLayerAvailability
+                  - ecr:GetDownloadUrlForLayer
+                  - ecr:BatchGetImage
+                  - ecr:PutImage
+                  - ecr:InitiateLayerUpload
+                  - ecr:UploadLayerPart
+                  - ecr:CompleteLayerUpload
+                  - ecr:CreateRepository
+                  - ecr:DescribeRepositories
+                Resource: !Sub "arn:aws:ecr:${AWS::Region}:${AccountId}:repository/sdk-examples-*"
+        - PolicyName: CloudWatchLogs
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - logs:CreateLogGroup
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource: !Sub "arn:aws:logs:${AWS::Region}:${AccountId}:log-group:/aws/codebuild/sdk-example-images*"
+
+  # CodeBuild Project
+  ImageBuildProject:
+    Type: AWS::CodeBuild::Project
+    Properties:
+      Name: sdk-example-images
+      Description: Builds per-language Docker images for SDK code examples
+      ServiceRole: !GetAtt CodeBuildRole.Arn
+      Source:
+        Type: GITHUB
+        Location: !Ref SourceRepo
+        BuildSpec: .tools/docker-images/buildspec.yml
+        GitCloneDepth: 1
+      SourceVersion: !Ref SourceBranch
+      Environment:
+        Type: LINUX_CONTAINER
+        ComputeType: BUILD_GENERAL1_LARGE
+        Image: aws/codebuild/standard:7.0
+        PrivilegedMode: true
+        EnvironmentVariables:
+          - Name: AWS_ACCOUNT_ID
+            Value: !Ref AccountId
+          - Name: AWS_DEFAULT_REGION
+            Value: !Ref AWS::Region
+      Artifacts:
+        Type: NO_ARTIFACTS
+      LogsConfig:
+        CloudWatchLogs:
+          Status: ENABLED
+          GroupName: /aws/codebuild/sdk-example-images
+
+  # EventBridge rule — weekly Sunday 06:00 UTC
+  WeeklyBuildSchedule:
+    Type: AWS::Events::Rule
+    Properties:
+      Name: sdk-example-images-weekly
+      Description: Trigger weekly rebuild of SDK example Docker images
+      ScheduleExpression: "cron(0 6 ? * SUN *)"
+      State: ENABLED
+      Targets:
+        - Arn: !GetAtt ImageBuildProject.Arn
+          Id: WeeklyBuild
+          RoleArn: !GetAtt EventBridgeRole.Arn
+
+  # IAM Role for EventBridge to trigger CodeBuild
+  EventBridgeRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: sdk-example-images-eventbridge-role
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: events.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: StartBuild
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action: codebuild:StartBuild
+                Resource: !GetAtt ImageBuildProject.Arn
+
+Outputs:
+  ProjectName:
+    Value: !Ref ImageBuildProject
+  ProjectArn:
+    Value: !GetAtt ImageBuildProject.Arn
+  ManualTrigger:
+    Value: !Sub "aws codebuild start-build --project-name sdk-example-images --region ${AWS::Region}"
+    Description: CLI command to trigger a build manually

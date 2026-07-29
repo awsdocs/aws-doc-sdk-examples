@@ -1,0 +1,71 @@
+version: 0.2
+
+# CodeBuild project settings:
+#   - Environment: Linux, Standard 7.0 (aws/codebuild/standard:7.0), Privileged mode ENABLED
+#   - Service role needs: ecr:GetAuthorizationToken, ecr:BatchCheckLayerAvailability,
+#     ecr:PutImage, ecr:InitiateLayerUpload, ecr:UploadLayerPart, ecr:CompleteLayerUpload,
+#     ecr:CreateRepository, ecr:DescribeRepositories
+#   - Environment variables:
+#     AWS_ACCOUNT_ID: 164794437551
+#     AWS_DEFAULT_REGION: us-east-1
+#     LANGUAGES: "python java dotnet javascript go rust ruby php kotlin cpp swift"
+#
+# Trigger: EventBridge rule on a weekly schedule (e.g., cron(0 6 ? * SUN *))
+#   or manually via console/CLI
+
+env:
+  variables:
+    AWS_ACCOUNT_ID: "164794437551"
+    REGISTRY_PREFIX: "sdk-examples"
+    # Override to build a subset: "python java"
+    LANGUAGES: "python java dotnet javascript go rust ruby php kotlin cpp swift"
+
+phases:
+  pre_build:
+    commands:
+      - echo "Logging in to ECR..."
+      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
+      - REGISTRY="$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com"
+      - DATE_TAG=$(date +%Y%m%d)
+      - COMMIT_TAG=${CODEBUILD_RESOLVED_SOURCE_VERSION:0:8}
+
+  build:
+    commands:
+      - |
+        for LANG in $LANGUAGES; do
+          REPO_NAME="${REGISTRY_PREFIX}-${LANG}"
+          FULL_REPO="${REGISTRY}/${REPO_NAME}"
+
+          echo "=== Building ${LANG} ==="
+
+          # Ensure ECR repo exists
+          aws ecr describe-repositories --repository-names "${REPO_NAME}" 2>/dev/null || \
+            aws ecr create-repository --repository-name "${REPO_NAME}" \
+              --image-scanning-configuration scanOnPush=true \
+              --image-tag-mutability MUTABLE
+
+          # Build with cache from previous latest
+          docker pull "${FULL_REPO}:latest" 2>/dev/null || true
+          docker build \
+            --cache-from "${FULL_REPO}:latest" \
+            -t "${FULL_REPO}:latest" \
+            -t "${FULL_REPO}:${DATE_TAG}" \
+            -t "${FULL_REPO}:${COMMIT_TAG}" \
+            ".tools/docker-images/${LANG}/"
+
+          # Push all tags
+          docker push "${FULL_REPO}:latest"
+          docker push "${FULL_REPO}:${DATE_TAG}"
+          docker push "${FULL_REPO}:${COMMIT_TAG}"
+
+          echo "✅ ${LANG} pushed"
+        done
+
+  post_build:
+    commands:
+      - echo "All images built and pushed successfully"
+      - |
+        echo "Images:"
+        for LANG in $LANGUAGES; do
+          echo "  ${REGISTRY}/${REGISTRY_PREFIX}-${LANG}:latest"
+        done
