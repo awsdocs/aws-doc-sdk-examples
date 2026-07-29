@@ -15,7 +15,7 @@ version: 0.2
 
 env:
   variables:
-    AWS_ACCOUNT_ID: "164794437551"
+    AWS_ACCOUNT_ID: "801093629784"
     REGISTRY_PREFIX: "sdk-examples"
     # Override to build a subset: "python java"
     LANGUAGES: "python java dotnet javascript go rust ruby php kotlin cpp swift"

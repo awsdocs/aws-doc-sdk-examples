@@ -17,7 +17,7 @@ LANG="$1"
 EXAMPLE_PATH="$2"
 CMD="$3"
 
-ACCOUNT_ID="164794437551"
+ACCOUNT_ID="801093629784"
 REGION="us-east-1"
 REGISTRY="${ACCOUNT_ID}.dkr.ecr.${REGION}.amazonaws.com"
 IMAGE="${REGISTRY}/sdk-examples-${LANG}:latest"

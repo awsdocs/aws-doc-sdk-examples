@@ -11,7 +11,7 @@
 
 set -euo pipefail
 
-ACCOUNT_ID="164794437551"
+ACCOUNT_ID="801093629784"
 REGION="us-east-1"
 REGISTRY="${ACCOUNT_ID}.dkr.ecr.${REGION}.amazonaws.com"
 REPO_PREFIX="sdk-examples"
