@@ -28,10 +28,8 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
-
-### Single actions
-
-Code excerpts that show you how to call individual service functions.
+### Actions
+_Actions_ are code excerpts from larger programs and must be run in context. While actions show you how to call individual service functions, you can see actions in context in their related scenarios.
 
 - [PutRecord](%23awsex%23cl_frh_actions.clas.abap#L38)
 - [PutRecordBatch](%23awsex%23cl_frh_actions.clas.abap#L63)

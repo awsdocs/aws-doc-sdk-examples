@@ -1,5 +1,110 @@
 # zexi 0.4.0
+firehose_Hello:
+  title: Hello &FH;
+  title_abbrev: Hello &FH;
+  synopsis: get started using &FH;.
+  category: Hello
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/firehose
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.firehose.Hello
+  services:
+    firehose: {ListDeliveryStreams}
+firehose_CreateDeliveryStream:
+  title: Create a &FH; delivery stream
+  title_abbrev: Create a delivery stream
+  synopsis: create an &FH; delivery stream.
+  category: Actions
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/firehose
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.firehose.FirehoseWrapper.decl
+                - python.example_code.firehose.CreateDeliveryStream
+  services:
+    firehose: {CreateDeliveryStream}
+firehose_DescribeDeliveryStream:
+  title: Describe a &FH; delivery stream
+  title_abbrev: Describe a delivery stream
+  synopsis: describe an &FH; delivery stream.
+  category: Actions
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/firehose
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.firehose.FirehoseWrapper.decl
+                - python.example_code.firehose.DescribeDeliveryStream
+  services:
+    firehose: {DescribeDeliveryStream}
+firehose_TagDeliveryStream:
+  title: Tag a &FH; delivery stream
+  title_abbrev: Tag a delivery stream
+  synopsis: tag an &FH; delivery stream.
+  category: Actions
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/firehose
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.firehose.FirehoseWrapper.decl
+                - python.example_code.firehose.TagDeliveryStream
+  services:
+    firehose: {TagDeliveryStream}
+firehose_ListTagsForDeliveryStream:
+  title: List tags for a &FH; delivery stream
+  title_abbrev: List tags for a delivery stream
+  synopsis: list tags for an &FH; delivery stream.
+  category: Actions
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/firehose
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.firehose.FirehoseWrapper.decl
+                - python.example_code.firehose.ListTagsForDeliveryStream
+  services:
+    firehose: {ListTagsForDeliveryStream}
+firehose_StartDeliveryStreamEncryption:
+  title: Start encryption on a &FH; delivery stream
+  title_abbrev: Start delivery stream encryption
+  synopsis: start server-side encryption on an &FH; delivery stream.
+  category: Actions
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/firehose
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.firehose.FirehoseWrapper.decl
+                - python.example_code.firehose.StartDeliveryStreamEncryption
+  services:
+    firehose: {StartDeliveryStreamEncryption}
 firehose_PutRecord:
+  title: Put a record to a &FH; delivery stream
+  title_abbrev: Put a record
+  synopsis: put a record to an &FH; delivery stream.
+  category: Actions
   languages:
     Java:
       versions:
@@ -16,8 +121,8 @@ firehose_PutRecord:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.firehose.init
-                - python.example_code.firehose.put_record
+                - python.example_code.firehose.FirehoseWrapper.decl
+                - python.example_code.firehose.PutRecord
     SAP ABAP:
       versions:
         - sdk_version: 1
@@ -29,6 +134,10 @@ firehose_PutRecord:
   services:
     firehose: {PutRecord}
 firehose_PutRecordBatch:
+  title: Put a batch of records to a &FH; delivery stream
+  title_abbrev: Put a record batch
+  synopsis: put a batch of records to an &FH; delivery stream.
+  category: Actions
   languages:
     Java:
       versions:
@@ -54,8 +163,8 @@ firehose_PutRecordBatch:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.firehose.init
-                - python.example_code.firehose.put_record_batch
+                - python.example_code.firehose.FirehoseWrapper.decl
+                - python.example_code.firehose.PutRecordBatch
     SAP ABAP:
       versions:
         - sdk_version: 1
@@ -66,6 +175,57 @@ firehose_PutRecordBatch:
                 - frh.abapv1.put_record_batch
   services:
     firehose: {PutRecordBatch}
+firehose_UpdateDestination:
+  title: Update destination of a &FH; delivery stream
+  title_abbrev: Update destination
+  synopsis: update the destination of an &FH; delivery stream.
+  category: Actions
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/firehose
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.firehose.FirehoseWrapper.decl
+                - python.example_code.firehose.UpdateDestination
+  services:
+    firehose: {UpdateDestination}
+firehose_ListDeliveryStreams:
+  title: List &FH; delivery streams
+  title_abbrev: List delivery streams
+  synopsis: list &FH; delivery streams.
+  category: Actions
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/firehose
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.firehose.FirehoseWrapper.decl
+                - python.example_code.firehose.ListDeliveryStreams
+  services:
+    firehose: {ListDeliveryStreams}
+firehose_DeleteDeliveryStream:
+  title: Delete a &FH; delivery stream
+  title_abbrev: Delete a delivery stream
+  synopsis: delete an &FH; delivery stream.
+  category: Actions
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/firehose
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.firehose.FirehoseWrapper.decl
+                - python.example_code.firehose.DeleteDeliveryStream
+  services:
+    firehose: {DeleteDeliveryStream}
 firehose_Scenario_PutRecords:
   title: Use &FHlong; to process individual and batch records
   title_abbrev: Put records to &FH;
@@ -93,3 +253,22 @@ firehose_Scenario_PutRecords:
                 - python/example_code/firehose/scenarios/firehose-put-actions/config.py
   services:
     firehose: {PutRecord, PutRecordBatch}
+firehose_Scenario:
+  title: Learn &FH; basics
+  title_abbrev: Learn the basics
+  synopsis: learn the basics of &FH; by creating a delivery stream and managing it.
+  category: Scenarios
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/firehose
+          excerpts:
+            - description: Create a Firehose wrapper class to manage operations.
+              snippet_tags:
+                - python.example_code.firehose.FirehoseWrapper.class
+            - description: Run an interactive scenario demonstrating Firehose basics.
+              snippet_tags:
+                - python.example_code.firehose.FirehoseScenario
+  services:
+    firehose: {CreateDeliveryStream, TagDeliveryStream, DescribeDeliveryStream, ListTagsForDeliveryStream, StartDeliveryStreamEncryption, PutRecord, PutRecordBatch, UpdateDestination, ListDeliveryStreams, DeleteDeliveryStream}
