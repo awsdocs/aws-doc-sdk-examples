@@ -10,7 +10,7 @@ AWS SDK for Python — an async-native, per-service SDK being developed as a suc
   - Per-service distribution — instead of one monolithic package, each AWS service is a separate installable package (you only install what you need)
   - Generated from Smithy models — fully typed and code-generated from official AWS service models
 
-  **Note**:  Examples for AWS SDK for Python (Boto3) are in the [python](../python/) directory of this repo.
+  **Note**:  Examples for AWS SDK for Python (Boto3) are in the [python](../../../python/) directory of this repo.
 <!--custom.overview.end-->
 
 _DynamoDB is a fully managed NoSQL database service that provides fast and predictable performance with seamless scalability._

@@ -150,7 +150,7 @@ language = {
         1: {
             "base_folder": "pythonv1",
             "service_folder": 'pythonv1/example_code/{{service["name"]}}',
-            "sdk_api_ref": 'https://docs.aws.amazon.com/sdk-for-python/v1/reference/clients/{{service["name"]}}.html',
+            "sdk_api_ref": 'https://docs.aws.amazon.com/sdk-for-python/v1/reference/clients/{{service["name"]}}',
             "service_folder_overrides": {},
         },
         3: {
