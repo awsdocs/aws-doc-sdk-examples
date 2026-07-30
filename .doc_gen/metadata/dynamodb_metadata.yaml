@@ -46,6 +46,12 @@ dynamodb_Hello:
                 - cpp.example_code.dynamodb.hello_dynamodb
     Python:
       versions:
+        - sdk_version: 1
+          github: pythonv1/example_code/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - pythonv1.dynamodb.hello_dynamodb
         - sdk_version: 3
           github: python/example_code/dynamodb
           excerpts:

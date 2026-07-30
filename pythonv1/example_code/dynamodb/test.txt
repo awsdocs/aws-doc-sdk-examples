@@ -1,0 +1,8 @@
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+# snippet-start:[pythonv1.dynamodb.hello_dynamodb]
+This is a test output. Examples for AWS SDK for Python 
+for AWS DynamoDB will be available here soon.
+
+# snippet-end:[pythonv1.dynamodb.hello_dynamodb]

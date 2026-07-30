@@ -20,6 +20,8 @@ PHP:
   - php/**/*
 Python:
   - python/**/*
+Python-v1:
+  - pythonv1/**/*
 Ruby:
   - ruby/**/*
 Rust:

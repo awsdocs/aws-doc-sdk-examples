@@ -4,7 +4,13 @@
 For prerequisites, see the [README]({{lang_config['readme']}}#Prerequisites) in the `{{lang_config['base_folder']}}` folder.
 {% endif %}
 
-{% if lang_config['name'] == 'Python' and lang_config['sdk_ver'] == 3 %}
+{% if lang_config['name'] == 'Python' and lang_config['sdk_ver'] == 1 %}
+Install the packages required by these examples by running the following in a virtual environment:
+
+```
+python -m pip install -r requirements.txt
+```
+{% elif lang_config['name'] == 'Python' and lang_config['sdk_ver'] == 3 %}
 Install the packages required by these examples by running the following in a virtual environment:
 
 ```
