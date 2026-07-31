@@ -7,192 +7,343 @@ ecs_Hello:
   languages:
     .NET:
       versions:
-        - sdk_version: 4
-          github: dotnetv4/ECS
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - ECS.dotnetv4.ECSActions.HelloECS
+      - sdk_version: 4
+        github: dotnetv4/ECS
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - ECS.dotnetv4.ECSActions.HelloECS
+    Python:
+      versions:
+      - sdk_version: 3
+        github: python/example_code/ecs
+        excerpts:
+        - description:
+          snippet_tags:
+          - python.example_code.ecs.Hello
   services:
-    ecs: {ListClusters}
+    ecs: {ListClusters: null}
 ecs_CreateCluster:
   languages:
     Rust:
       versions:
-        - sdk_version: 1
-          github: rustv1/examples/ecs
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - ecs.rust.cluster-create
+      - sdk_version: 1
+        github: rustv1/examples/ecs
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - ecs.rust.cluster-create
     Java:
       versions:
-        - sdk_version: 2
-          github: javav2/example_code/ecs
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - ecs.java2.create_cluster.main
+      - sdk_version: 2
+        github: javav2/example_code/ecs
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - ecs.java2.create_cluster.main
+    Python:
+      versions:
+      - sdk_version: 3
+        github: python/example_code/ecs
+        excerpts:
+        - description:
+          snippet_tags:
+          - python.example_code.ecs.EcsWrapper.decl
+          - python.example_code.ecs.CreateCluster
   services:
-    ecs: {CreateCluster}
+    ecs: {CreateCluster: null}
 ecs_DeleteCluster:
   languages:
     Rust:
       versions:
-        - sdk_version: 1
-          github: rustv1/examples/ecs
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - ecs.rust.cluster-delete
+      - sdk_version: 1
+        github: rustv1/examples/ecs
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - ecs.rust.cluster-delete
+    Python:
+      versions:
+      - sdk_version: 3
+        github: python/example_code/ecs
+        excerpts:
+        - description:
+          snippet_tags:
+          - python.example_code.ecs.EcsWrapper.decl
+          - python.example_code.ecs.DeleteCluster
   services:
-    ecs: {DeleteCluster}
+    ecs: {DeleteCluster: null}
 ecs_DescribeClusters:
   languages:
     Rust:
       versions:
-        - sdk_version: 1
-          github: rustv1/examples/ecs
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - ecs.rust.describe-clusters
+      - sdk_version: 1
+        github: rustv1/examples/ecs
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - ecs.rust.describe-clusters
     Java:
       versions:
-        - sdk_version: 2
-          github: javav2/example_code/ecs
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - ecs.java2.des_cluster.main
+      - sdk_version: 2
+        github: javav2/example_code/ecs
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - ecs.java2.des_cluster.main
   services:
-    ecs: {DescribeClusters}
+    ecs: {DescribeClusters: null}
 ecs_CreateService:
   languages:
     Java:
       versions:
-        - sdk_version: 2
-          github: javav2/example_code/ecs
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - ecs.java2.create_service.main
+      - sdk_version: 2
+        github: javav2/example_code/ecs
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - ecs.java2.create_service.main
+    Python:
+      versions:
+      - sdk_version: 3
+        github: python/example_code/ecs
+        excerpts:
+        - description:
+          snippet_tags:
+          - python.example_code.ecs.EcsWrapper.decl
+          - python.example_code.ecs.CreateService
   services:
-    ecs: {CreateService}
+    ecs: {CreateService: null}
 ecs_DeleteService:
   languages:
     Java:
       versions:
-        - sdk_version: 2
-          github: javav2/example_code/ecs
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - ecs.java2.delete_service.main
+      - sdk_version: 2
+        github: javav2/example_code/ecs
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - ecs.java2.delete_service.main
+    Python:
+      versions:
+      - sdk_version: 3
+        github: python/example_code/ecs
+        excerpts:
+        - description:
+          snippet_tags:
+          - python.example_code.ecs.EcsWrapper.decl
+          - python.example_code.ecs.DeleteService
   services:
-    ecs: {DeleteService}
+    ecs: {DeleteService: null}
 ecs_ListClusters:
   languages:
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/ECS
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - ECS.dotnetv3.ECSActions.ListClusters
+      - sdk_version: 3
+        github: dotnetv3/ECS
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - ECS.dotnetv3.ECSActions.ListClusters
     Java:
       versions:
-        - sdk_version: 2
-          github: javav2/example_code/ecs
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - ecs.java2.list_clusters.main
+      - sdk_version: 2
+        github: javav2/example_code/ecs
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - ecs.java2.list_clusters.main
   services:
-    ecs: {ListClusters}
+    ecs: {ListClusters: null}
 ecs_DescribeTasks:
   languages:
     Java:
       versions:
-        - sdk_version: 2
-          github: javav2/example_code/ecs
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - ecs.java2.list_tasks.main
+      - sdk_version: 2
+        github: javav2/example_code/ecs
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - ecs.java2.list_tasks.main
+    Python:
+      versions:
+      - sdk_version: 3
+        github: python/example_code/ecs
+        excerpts:
+        - description:
+          snippet_tags:
+          - python.example_code.ecs.EcsWrapper.decl
+          - python.example_code.ecs.DescribeTasks
   services:
-    ecs: {DescribeTasks}
+    ecs: {DescribeTasks: null}
 ecs_ListServices:
   languages:
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/ECS
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - ECS.dotnetv3.ECSActions.ListServices
+      - sdk_version: 3
+        github: dotnetv3/ECS
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - ECS.dotnetv3.ECSActions.ListServices
   services:
-    ecs: {ListServices}
+    ecs: {ListServices: null}
 ecs_ListTasks:
   languages:
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/ECS
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - ECS.dotnetv3.ECSActions.ListTasks
+      - sdk_version: 3
+        github: dotnetv3/ECS
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - ECS.dotnetv3.ECSActions.ListTasks
+    Python:
+      versions:
+      - sdk_version: 3
+        github: python/example_code/ecs
+        excerpts:
+        - description:
+          snippet_tags:
+          - python.example_code.ecs.EcsWrapper.decl
+          - python.example_code.ecs.ListTasks
   services:
-    ecs: {ListTasks}
+    ecs: {ListTasks: null}
 ecs_UpdateService:
   languages:
     Java:
       versions:
-        - sdk_version: 2
-          github: javav2/example_code/ecs
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - ecs.java2.update_service.main
+      - sdk_version: 2
+        github: javav2/example_code/ecs
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - ecs.java2.update_service.main
+    Python:
+      versions:
+      - sdk_version: 3
+        github: python/example_code/ecs
+        excerpts:
+        - description:
+          snippet_tags:
+          - python.example_code.ecs.EcsWrapper.decl
+          - python.example_code.ecs.UpdateService
   services:
-    ecs: {UpdateService}
+    ecs: {UpdateService: null}
 ecs_Scenario_GetClustersServicesAndTasks:
   title: Get ARN information for &ECS; clusters, services, and tasks using an &AWS; SDK
   title_abbrev: Get ARN information for clusters, services, and tasks
   synopsis_list:
-    - Get a list of all clusters.
-    - Get services for a cluster.
-    - Get tasks for a cluster.
+  - Get a list of all clusters.
+  - Get services for a cluster.
+  - Get tasks for a cluster.
   category: Scenarios
   languages:
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/ECS
-          sdkguide:
-          excerpts:
-            - description: Run an interactive scenario at a command prompt.
-              snippet_tags:
-                - ECS.dotnetv3.ECSScenario.ECSScenario
-            - description: Wrapper methods that are called by the scenario to manage &ECS; actions.
-              snippet_tags:
-                - ECS.dotnetv3.ECSActions.ECSWrapper
+      - sdk_version: 3
+        github: dotnetv3/ECS
+        sdkguide:
+        excerpts:
+        - description: Run an interactive scenario at a command prompt.
+          snippet_tags:
+          - ECS.dotnetv3.ECSScenario.ECSScenario
+        - description: Wrapper methods that are called by the scenario to manage &ECS; actions.
+          snippet_tags:
+          - ECS.dotnetv3.ECSActions.ECSWrapper
   services:
-    ecs: {ListClusters, ListServices, ListTasks}
+    ecs: {ListClusters: null, ListServices: null, ListTasks: null}
+ecs_RegisterTaskDefinition:
+  title: Register an &ECS; task definition
+  title_abbrev: Register a task definition
+  synopsis: register an &ECS; task definition.
+  category: Actions
+  languages:
+    Python:
+      versions:
+      - sdk_version: 3
+        github: python/example_code/ecs
+        excerpts:
+        - description:
+          snippet_tags:
+          - python.example_code.ecs.EcsWrapper.decl
+          - python.example_code.ecs.RegisterTaskDefinition
+  services:
+    ecs: {RegisterTaskDefinition: null}
+ecs_DescribeTaskDefinition:
+  title: Describe an &ECS; task definition
+  title_abbrev: Describe a task definition
+  synopsis: describe an &ECS; task definition.
+  category: Actions
+  languages:
+    Python:
+      versions:
+      - sdk_version: 3
+        github: python/example_code/ecs
+        excerpts:
+        - description:
+          snippet_tags:
+          - python.example_code.ecs.EcsWrapper.decl
+          - python.example_code.ecs.DescribeTaskDefinition
+  services:
+    ecs: {DescribeTaskDefinition: null}
+ecs_DescribeServices:
+  title: Describe &ECS; services
+  title_abbrev: Describe services
+  synopsis: describe &ECS; services.
+  category: Actions
+  languages:
+    Python:
+      versions:
+      - sdk_version: 3
+        github: python/example_code/ecs
+        excerpts:
+        - description:
+          snippet_tags:
+          - python.example_code.ecs.EcsWrapper.decl
+          - python.example_code.ecs.DescribeServices
+  services:
+    ecs: {DescribeServices: null}
+ecs_Scenario:
+  title: Learn &ECS; basics
+  title_abbrev: Learn the basics
+  synopsis: learn &ECS; basics by deploying and managing a containerized web application using Fargate.
+  synopsis_list:
+  - "Create an ECS cluster with Container Insights enabled."
+  - "Register a Fargate-compatible task definition."
+  - "Describe the task definition to verify registration."
+  - "Create an ECS service running Apache on Fargate."
+  - "Wait for service stability and describe the service."
+  - "List running tasks in the service."
+  - "Describe task details including network configuration."
+  - "Scale the service by updating the desired count."
+  - "Clean up all resources (service, cluster, CloudFormation stack)."
+  category: Basics
+  languages:
+    Python:
+      versions:
+      - sdk_version: 3
+        github: python/example_code/ecs
+        excerpts:
+        - description: Run an interactive scenario demonstrating ECS basics.
+          snippet_tags:
+          - python.example_code.ecs.EcsScenario
+        - description: Create a class that wraps ECS operations.
+          snippet_tags:
+          - python.example_code.ecs.EcsWrapper.decl
+  services:
+    ecs: {CreateCluster: null, RegisterTaskDefinition: null, DescribeTaskDefinition: null, CreateService: null, DescribeServices: null, ListTasks: null, DescribeTasks: null, UpdateService: null, DeleteService: null, DeleteCluster: null}

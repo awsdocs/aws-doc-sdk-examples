@@ -1,4 +1,4 @@
-# AWS SDK for Python (Boto3) code examples
+# AWS SDK for Python (Boto3) code examples 
 
 ## Overview
 
@@ -219,3 +219,4 @@ Proceed with caution.
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
 
 SPDX-License-Identifier: Apache-2.0
+
