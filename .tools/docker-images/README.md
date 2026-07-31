@@ -25,7 +25,7 @@ ECR: 801093629784.dkr.ecr.us-east-1.amazonaws.com/
 ```bash
 # 1. Authenticate to ECR
 export AWS_EC2_METADATA_DISABLED=true
-eval "$(ada credentials print --account 801093629784 --role brianUser --provider isengard --format env)"
+eval "$(ada credentials print --account 801093629784 --role AgentSpacesGitHubReviewTests --provider isengard --format env)"
 aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 801093629784.dkr.ecr.us-east-1.amazonaws.com
 
 # 2. Pull the language image
