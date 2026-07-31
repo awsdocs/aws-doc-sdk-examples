@@ -1,4 +1,7 @@
 #!/bin/bash
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+
 # Run SDK example tests using the pre-built Docker image for a language.
 #
 # Usage:

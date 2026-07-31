@@ -1,4 +1,7 @@
 #!/bin/bash
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+
 # Build and push all SDK example Docker images to ECR
 #
 # Usage:
