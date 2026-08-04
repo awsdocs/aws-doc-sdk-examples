@@ -1,4 +1,4 @@
-FROM golang:1.22-bookworm
+FROM golang:1.24-bookworm
 
 LABEL maintainer="awsdocs-sdk-examples"
 LABEL language="go"

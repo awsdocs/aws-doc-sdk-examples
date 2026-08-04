@@ -6,6 +6,7 @@ LABEL language="cpp"
 RUN apt-get update && apt-get install -y --no-install-recommends \
     git build-essential cmake pkg-config \
     libcurl4-openssl-dev libssl-dev uuid-dev zlib1g-dev \
+    ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
 # Build and install AWS SDK for C++

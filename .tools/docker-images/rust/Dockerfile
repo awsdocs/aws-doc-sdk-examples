@@ -1,4 +1,4 @@
-FROM rust:1.82-slim-bookworm
+FROM rust:1.85-slim-bookworm
 
 LABEL maintainer="awsdocs-sdk-examples"
 LABEL language="rust"
