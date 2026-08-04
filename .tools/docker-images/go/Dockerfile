@@ -9,6 +9,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 # Pre-download common AWS SDK for Go v2 modules
+# Note: @latest resolves to a specific version at build time and is recorded in go.sum
 RUN mkdir -p /tmp/warmup && cd /tmp/warmup && \
     go mod init warmup && \
     go get github.com/aws/aws-sdk-go-v2@latest && \
