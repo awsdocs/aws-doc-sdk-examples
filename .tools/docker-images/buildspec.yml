@@ -32,6 +32,7 @@ phases:
   build:
     commands:
       - |
+        set -e
         for LANG in $LANGUAGES; do
           REPO_NAME="${REGISTRY_PREFIX}-${LANG}"
           FULL_REPO="${REGISTRY}/${REPO_NAME}"
@@ -44,10 +45,13 @@ phases:
               --image-scanning-configuration scanOnPush=true \
               --image-tag-mutability MUTABLE
 
-          # Build with cache from previous latest
-          docker pull "${FULL_REPO}:latest" 2>/dev/null || true
+          # Build with cache from previous latest (if it exists)
+          CACHE_FLAG=""
+          if docker pull "${FULL_REPO}:latest" 2>/dev/null; then
+            CACHE_FLAG="--cache-from ${FULL_REPO}:latest"
+          fi
           docker build \
-            --cache-from "${FULL_REPO}:latest" \
+            ${CACHE_FLAG} \
             -t "${FULL_REPO}:latest" \
             -t "${FULL_REPO}:${DATE_TAG}" \
             -t "${FULL_REPO}:${COMMIT_TAG}" \
