@@ -75,6 +75,9 @@
 - name: Python
   color: "f5f7f9"
   description: "This issue relates to the AWS SDK for Python (boto3)"
+- name: Python-v1
+  color: "f5f7f9"
+  description: "This issue relates to the AWS SDK for Python"
 - name: Ruby
   color: "f5f7f9"
   description: "This issue relates to the AWS SDK for Ruby"
