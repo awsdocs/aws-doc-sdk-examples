@@ -84,6 +84,8 @@ allow_list:
   - "aws/kinesis/model/PutRecordsRequestEntry"
   - "aws/kms/model/ScheduleKeyDeletionRequest"
   - "aws/monitoring/model/DeleteAlarmsRequest"
+  - "aws/monitoring/model/AlarmPromQLCriteria"
+  - "aws/monitoring/model/AlarmMuteRuleStatus"
   - "aws/neptune/model/CreateDBClusterRequest"
   - "aws/neptune/model/DeleteDBClusterRequest"
   - "aws/neptune/model/ModifyDBClusterRequest"

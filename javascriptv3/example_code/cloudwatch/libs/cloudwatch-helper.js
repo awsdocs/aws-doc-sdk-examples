@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import {
+  DeleteAlarmMuteRuleCommand,
   DeleteAlarmsCommand,
   DescribeAlarmsCommand,
   GetMetricDataCommand,
@@ -35,6 +36,31 @@ export const createAlarm = async (name, instanceId) => {
 
 export const deleteAlarms = async (alarmNames) => {
   const command = new DeleteAlarmsCommand({ AlarmNames: [alarmNames] });
+  return client.send(command);
+};
+
+export const createPromQlAlarm = async (name, query) => {
+  const command = new PutMetricAlarmCommand({
+    AlarmName: name,
+    ActionsEnabled: false,
+    AlarmDescription: "Integration test PromQL alarm.",
+    EvaluationCriteria: {
+      PromQLCriteria: {
+        Query: query,
+        PendingPeriod: 300,
+        RecoveryPeriod: 120,
+      },
+    },
+    EvaluationInterval: 60,
+  });
+
+  await client.send(command);
+};
+
+export const deleteAlarmMuteRule = async (muteRuleName) => {
+  const command = new DeleteAlarmMuteRuleCommand({
+    AlarmMuteRuleName: muteRuleName,
+  });
   return client.send(command);
 };
 
