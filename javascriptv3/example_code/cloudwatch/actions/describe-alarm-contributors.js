@@ -19,7 +19,7 @@ const run = async () => {
         NextToken: nextToken,
       });
       const response = await client.send(command);
-      contributors.push(...response.AlarmContributors);
+      contributors.push(...(response.AlarmContributors ?? []));
       nextToken = response.NextToken;
     } while (nextToken);
 

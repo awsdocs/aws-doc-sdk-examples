@@ -58,6 +58,10 @@ suspend fun putPromQlMetricAlarm(
 ) {
     // The comparison belongs in the query itself. A PromQL alarm has no separate
     // threshold, comparison operator, statistic, period, or evaluation periods.
+    //
+    // Note that the Kotlin SDK spells this AlarmPromQlCriteria, with a lowercase l in
+    // "Ql". Every other AWS SDK spells it PromQL, so don't be thrown by the difference
+    // when comparing this example against the other language versions.
     val promQlCriteria =
         AlarmPromQlCriteria {
             query = queryVal

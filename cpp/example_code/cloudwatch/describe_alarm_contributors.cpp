@@ -23,6 +23,7 @@
 // snippet-start:[cw.cpp.describe_alarm_contributors.inc]
 #include <aws/core/Aws.h>
 #include <aws/monitoring/CloudWatchClient.h>
+#include <aws/monitoring/model/AlarmContributor.h>
 #include <aws/monitoring/model/DescribeAlarmContributorsRequest.h>
 #include <iostream>
 // snippet-end:[cw.cpp.describe_alarm_contributors.inc]
@@ -48,46 +49,53 @@ int main(int argc, char **argv) {
         Aws::CloudWatch::Model::DescribeAlarmContributorsRequest request;
         request.SetAlarmName(alarm_name);
 
+        // Collect every page before reporting. A page can come back empty while still
+        // carrying a next token, so the loop must keep going until the token is empty
+        // rather than stopping at the first empty page.
+        Aws::Vector<Aws::CloudWatch::Model::AlarmContributor> contributors;
+        bool failed = false;
         bool done = false;
-        bool header = false;
         while (!done) {
             auto outcome = cw.DescribeAlarmContributors(request);
             if (!outcome.IsSuccess()) {
                 std::cerr << "Failed to describe alarm contributors: "
                           << outcome.GetError().GetMessage() << std::endl;
+                failed = true;
                 break;
             }
 
-            const auto &contributors = outcome.GetResult().GetAlarmContributors();
-            if (!header) {
-                if (contributors.empty()) {
-                    std::cout << "No contributors yet. The query matched no series, "
-                                 "which usually means no OTel metrics with these labels "
-                                 "have arrived."
-                              << std::endl;
-                    break;
-                }
-                std::cout << "Contributors for alarm " << alarm_name << ":" << std::endl;
-                header = true;
-            }
-
-            for (const auto &contributor : contributors) {
-                std::cout << "  " << contributor.GetContributorId() << ": ";
-                bool first = true;
-                for (const auto &label : contributor.GetContributorAttributes()) {
-                    if (!first) {
-                        std::cout << ", ";
-                    }
-                    std::cout << label.first << "=" << label.second;
-                    first = false;
-                }
-                std::cout << std::endl;
-                std::cout << "    reason: " << contributor.GetStateReason() << std::endl;
-            }
+            const auto &page = outcome.GetResult().GetAlarmContributors();
+            contributors.insert(contributors.end(), page.begin(), page.end());
 
             const auto &next_token = outcome.GetResult().GetNextToken();
             request.SetNextToken(next_token);
             done = next_token.empty();
+        }
+
+        if (!failed) {
+            if (contributors.empty()) {
+                std::cout << "No contributors yet. The query matched no series, "
+                             "which usually means no OTel metrics with these labels "
+                             "have arrived."
+                          << std::endl;
+            }
+            else {
+                std::cout << "Contributors for alarm " << alarm_name << ":" << std::endl;
+                for (const auto &contributor : contributors) {
+                    std::cout << "  " << contributor.GetContributorId() << ": ";
+                    bool first = true;
+                    for (const auto &label : contributor.GetContributorAttributes()) {
+                        if (!first) {
+                            std::cout << ", ";
+                        }
+                        std::cout << label.first << "=" << label.second;
+                        first = false;
+                    }
+                    std::cout << std::endl;
+                    std::cout << "    reason: " << contributor.GetStateReason()
+                              << std::endl;
+                }
+            }
         }
         // snippet-end:[cw.cpp.describe_alarm_contributors.code]
     }
