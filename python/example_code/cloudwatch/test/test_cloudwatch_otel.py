@@ -164,8 +164,8 @@ def test_describe_alarm_contributors_paginates(make_stubber):
 def test_put_alarm_mute_rule(make_stubber, error_code):
     cw_wrapper, stubber = make_wrapper(make_stubber)
     name = "test-mute-rule"
-    expression = "cron(0 2 ? * SUN *)"
-    duration = "2h"
+    expression = "cron(0 2 * * SUN)"
+    duration = "PT2H"
     alarm_names = ["test-promql-alarm"]
     timezone = "America/Los_Angeles"
     description = "test-description"

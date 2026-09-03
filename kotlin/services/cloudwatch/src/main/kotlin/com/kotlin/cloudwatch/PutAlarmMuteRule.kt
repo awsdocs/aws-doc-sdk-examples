@@ -42,7 +42,7 @@ suspend fun main(args: Array<String>) {
 
     val muteRuleName = args[0]
     val alarmName = args[1]
-    putAlarmMuteRule(muteRuleName, "cron(0 2 ? * SUN *)", "2h", listOf(alarmName))
+    putAlarmMuteRule(muteRuleName, "cron(0 2 * * SUN)", "PT2H", listOf(alarmName))
 }
 
 // snippet-start:[cloudwatch.kotlin.put_alarm_mute_rule.main]
@@ -53,8 +53,11 @@ suspend fun putAlarmMuteRule(
     alarmNamesVal: List<String>,
     timezoneVal: String = "America/Los_Angeles",
 ) {
-    // Use a cron expression for a recurring window, such as cron(0 2 ? * SUN *), or an
-    // at expression for a one-time window, such as at(2026-09-05T02:00:00).
+    // For a recurring window, use a five-field cron expression,
+    // cron(Minutes Hours Day-of-month Month Day-of-week), such as cron(0 2 * * SUN).
+    // Note that this is five fields, not the six that Amazon EventBridge uses. For a
+    // one-time window, use at(yyyy-MM-ddThh:mm), such as at(2026-09-05T02:00). The
+    // duration is in ISO 8601 duration format, from PT1M (one minute) to P15D (15 days).
     val scheduleOb =
         Schedule {
             expression = expressionVal

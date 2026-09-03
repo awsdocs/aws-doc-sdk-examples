@@ -187,11 +187,14 @@ public class CloudWatchOTelWrapper
     /// someone to turn them back on.
     /// </summary>
     /// <param name="name">The name of the mute rule.</param>
-    /// <param name="expression">When the rule activates. Use a cron expression for a
-    /// recurring window, such as cron(0 2 ? * SUN *), or an at expression for a one-time
-    /// window, such as at(2026-09-05T02:00:00).</param>
-    /// <param name="duration">How long the mute window lasts once it activates, such as
-    /// 2h or 30m.</param>
+    /// <param name="expression">When the rule activates. For a recurring window, use a
+    /// five-field cron expression, cron(Minutes Hours Day-of-month Month Day-of-week),
+    /// such as cron(0 2 * * SUN) for every Sunday at 2:00 AM. Note that this is five
+    /// fields, not the six that Amazon EventBridge uses. For a one-time window, use
+    /// at(yyyy-MM-ddThh:mm), such as at(2026-09-05T02:00).</param>
+    /// <param name="duration">How long the mute window lasts once it activates, in
+    /// ISO 8601 duration format, from PT1M (one minute) to P15D (15 days). For example,
+    /// PT2H is two hours and P2DT12H is two days and 12 hours.</param>
     /// <param name="timezone">The time zone the expression is evaluated in, such as
     /// America/Los_Angeles.</param>
     /// <param name="alarmNames">The names of up to 100 alarms to mute. If null or empty,

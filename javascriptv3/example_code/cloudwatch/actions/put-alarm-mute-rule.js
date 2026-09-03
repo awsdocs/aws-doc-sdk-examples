@@ -16,11 +16,14 @@ const run = async () => {
     Description: "Suppress checkout CPU pages during Sunday patching.",
     Rule: {
       Schedule: {
-        // Use a cron expression for a recurring window, or an at expression such as
-        // "at(2026-09-05T02:00:00)" for a one-time window.
-        Expression: "cron(0 2 ? * SUN *)",
-        // How long the mute window lasts once it activates.
-        Duration: "2h",
+        // For a recurring window, use a five-field cron expression,
+        // cron(Minutes Hours Day-of-month Month Day-of-week). Note that this is five
+        // fields, not the six that Amazon EventBridge uses. For a one-time window, use
+        // an at expression such as "at(2026-09-05T02:00)".
+        Expression: "cron(0 2 * * SUN)",
+        // How long the mute window lasts once it activates, in ISO 8601 duration
+        // format, from PT1M (one minute) to P15D (15 days).
+        Duration: "PT2H",
         Timezone: "America/Los_Angeles",
       },
     },

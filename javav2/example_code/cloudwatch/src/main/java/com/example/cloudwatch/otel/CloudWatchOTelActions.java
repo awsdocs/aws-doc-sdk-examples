@@ -239,12 +239,18 @@ public class CloudWatchOTelActions {
      *
      * @param cw         the CloudWatch client
      * @param name       the name of the mute rule
-     * @param expression when the rule activates. Use a cron expression for a recurring
-     *                   window, such as {@code cron(0 2 ? * SUN *)}, or an at
-     *                   expression for a one-time window, such as
-     *                   {@code at(2026-09-05T02:00:00)}.
-     * @param duration   how long the mute window lasts once it activates, such as
-     *                   {@code 2h} or {@code 30m}
+     * @param expression when the rule activates. For a recurring window, use a
+     *                   five-field cron expression,
+     *                   {@code cron(Minutes Hours Day-of-month Month Day-of-week)},
+     *                   such as {@code cron(0 2 * * SUN)} for every Sunday at 2:00 AM.
+     *                   Note that this is five fields, not the six that Amazon
+     *                   EventBridge uses. For a one-time window, use
+     *                   {@code at(yyyy-MM-ddThh:mm)}, such as
+     *                   {@code at(2026-09-05T02:00)}.
+     * @param duration   how long the mute window lasts once it activates, in ISO 8601
+     *                   duration format, from {@code PT1M} (one minute) to
+     *                   {@code P15D} (15 days). For example, {@code PT2H} is two hours
+     *                   and {@code P2DT12H} is two days and 12 hours.
      * @param timezone   the time zone the expression is evaluated in, such as
      *                   {@code America/Los_Angeles}
      * @param alarmNames the names of up to 100 alarms to mute. If empty, the rule

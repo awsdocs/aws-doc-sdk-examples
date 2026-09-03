@@ -161,11 +161,15 @@ end
 # @param cloudwatch_client [Aws::CloudWatch::Client] An initialized CloudWatch client.
 # @param name [String] The name of the mute rule.
 # @param schedule [Hash] The mute window, mirroring the +rule.schedule+ shape:
-#   * +:expression+ [String] When the rule activates. Use a cron expression for a
-#     recurring window, such as 'cron(0 2 ? * SUN *)', or an at expression for a one-time
-#     window, such as 'at(2026-09-05T02:00:00)'.
-#   * +:duration+ [String] How long the mute window lasts once it activates, such as
-#     '2h' or '30m'.
+#   * +:expression+ [String] When the rule activates. For a recurring window, use a
+#     five-field cron expression,
+#     'cron(Minutes Hours Day-of-month Month Day-of-week)', such as
+#     'cron(0 2 * * SUN)' for every Sunday at 2:00 AM. Note that this is five fields,
+#     not the six that Amazon EventBridge uses. For a one-time window, use
+#     'at(yyyy-MM-ddThh:mm)', such as 'at(2026-09-05T02:00)'.
+#   * +:duration+ [String] How long the mute window lasts once it activates, in ISO 8601
+#     duration format, from 'PT1M' (one minute) to 'P15D' (15 days). For example,
+#     'PT2H' is two hours and 'P2DT12H' is two days and 12 hours.
 #   * +:timezone+ [String] The time zone the expression is evaluated in, such as
 #     'America/Los_Angeles'.
 # @param alarm_names [Array] The names of up to 100 alarms to mute. If empty, the rule
@@ -308,8 +312,8 @@ end
 def mute_alarm_for_maintenance(cloudwatch_client, mute_rule_name, alarm_name)
   puts "\nMuting '#{alarm_name}' for a weekly two-hour maintenance window."
   schedule = {
-    expression: 'cron(0 2 ? * SUN *)',
-    duration: '2h',
+    expression: 'cron(0 2 * * SUN)',
+    duration: 'PT2H',
     timezone: 'America/Los_Angeles'
   }
   return unless alarm_mute_rule_created_or_updated?(

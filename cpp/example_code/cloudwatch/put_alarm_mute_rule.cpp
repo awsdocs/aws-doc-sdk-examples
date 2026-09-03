@@ -49,11 +49,15 @@ int main(int argc, char **argv) {
         // clientConfig.region = "us-east-1";
         Aws::CloudWatch::CloudWatchClient cw(clientConfig);
 
-        // Use a cron expression for a recurring window, or an at expression such as
-        // at(2026-09-05T02:00:00) for a one-time window.
+        // For a recurring window, use a five-field cron expression,
+        // cron(Minutes Hours Day-of-month Month Day-of-week). Note that this is five
+        // fields, not the six that Amazon EventBridge uses. For a one-time window, use
+        // an at expression such as at(2026-09-05T02:00).
         Aws::CloudWatch::Model::Schedule schedule;
-        schedule.SetExpression("cron(0 2 ? * SUN *)");
-        schedule.SetDuration("2h");
+        schedule.SetExpression("cron(0 2 * * SUN)");
+        // The duration is in ISO 8601 duration format, from PT1M (one minute) to
+        // P15D (15 days).
+        schedule.SetDuration("PT2H");
         schedule.SetTimezone("America/Los_Angeles");
 
         Aws::CloudWatch::Model::Rule rule;
