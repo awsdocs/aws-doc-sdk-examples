@@ -362,7 +362,7 @@ public class CloudWatchScenario
                 {
                     MetricName = customMetricName,
                     Value = metricValue,
-                    TimestampUtc = utcNowMinus15.AddMinutes(i)
+                    Timestamp = utcNowMinus15.AddMinutes(i)
                 }
             );
         }
@@ -581,19 +581,19 @@ public class CloudWatchScenario
             {
                 MetricName = customMetricName,
                 Value = 101,
-                TimestampUtc = nowUtc.AddMinutes(-2)
+                Timestamp = nowUtc.AddMinutes(-2)
             },
             new MetricDatum
             {
                 MetricName = customMetricName,
                 Value = 101,
-                TimestampUtc = nowUtc.AddMinutes(-1)
+                Timestamp = nowUtc.AddMinutes(-1)
             },
             new MetricDatum
             {
                 MetricName = customMetricName,
                 Value = 101,
-                TimestampUtc = nowUtc
+                Timestamp = nowUtc
             }
         };
         var valuesString = string.Join(',', customData.Select(d => d.Value));
