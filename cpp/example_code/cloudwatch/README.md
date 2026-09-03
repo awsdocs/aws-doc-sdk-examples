@@ -46,13 +46,21 @@ For more information on attaching policies to IAM user groups,
 
 Code excerpts that show you how to call individual service functions.
 
+- [DeleteAlarmMuteRule](delete_alarm_mute_rule.cpp#L19)
 - [DeleteAlarms](delete_alarm.cpp#L15)
+- [DescribeAlarmContributors](describe_alarm_contributors.cpp#L23)
 - [DescribeAlarmsForMetric](describe_alarms.cpp#L13)
 - [DisableAlarmActions](disable_alarm_actions.cpp#L18)
 - [EnableAlarmActions](enable_alarm_actions.cpp#L20)
+- [GetAlarmMuteRule](get_alarm_mute_rule.cpp#L20)
+- [GetOTelEnrichment](get_otel_enrichment.cpp#L15)
+- [ListAlarmMuteRules](list_alarm_mute_rules.cpp#L17)
 - [ListMetrics](list_metrics.cpp#L18)
-- [PutMetricAlarm](put_metric_alarm.cpp#L18)
+- [PutAlarmMuteRule](put_alarm_mute_rule.cpp#L23)
+- [PutMetricAlarm](put_promql_metric_alarm.cpp#L34)
 - [PutMetricData](put_metric_data.cpp#L14)
+- [StartOTelEnrichment](start_otel_enrichment.cpp#L28)
+- [StopOTelEnrichment](stop_otel_enrichment.cpp#L18)
 
 
 <!--custom.examples.start-->

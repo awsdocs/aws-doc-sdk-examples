@@ -1,0 +1,100 @@
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+# Purpose
+#
+# An OpenTelemetry Collector configuration that sends OTLP metrics to the Amazon
+# CloudWatch metrics endpoint. Once metrics land in CloudWatch they are queryable with
+# PromQL in Query Studio, and you can alarm on them with the PromQL alarm operations
+# shown in cloudwatch_otel.py.
+#
+# Metric ingestion over OTLP is deliberately NOT an AWS SDK operation. There is no
+# boto3 call that sends OTLP metrics. You send them with one of the following, in
+# rough order of how integrated the CloudWatch experience is:
+#
+#   1. The CloudWatch agent (recommended). An AWS-managed OpenTelemetry Collector with
+#      CloudWatch components pre-built. Adds entity correlation, runtime metrics, and
+#      Container Insights support.
+#   2. An upstream OpenTelemetry Collector. What this file configures.
+#   3. A custom OpenTelemetry Collector build.
+#   4. The AWS Distro for OpenTelemetry (ADOT) SDK, with no collector at all.
+#
+# Prerequisites
+#
+# * An OpenTelemetry Collector release that includes the sigv4authextension. The
+#   contrib distribution does. See
+#   https://github.com/open-telemetry/opentelemetry-collector-releases/releases
+# * AWS credentials the collector can resolve. On Amazon EC2, attach the
+#   CloudWatchAgentServerPolicy managed policy to the instance role. On Amazon EKS,
+#   bind that policy to the collector's service account with IRSA. On premises, run
+#   `aws configure` for an IAM user that has the same policy.
+#
+# Run the collector with:
+#
+#   otelcol-contrib --config otlp_collector_config.yaml
+#
+# Then point your instrumented application at http://localhost:4318.
+#
+# For more information, see
+# https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-OTLPEndpoint.html
+
+receivers:
+  # The CloudWatch OTLP endpoints are HTTP 1.1 only and do not support gRPC. You can
+  # still accept gRPC from your applications here and let the collector translate, but
+  # this example keeps the receiver HTTP-only to mirror what is sent upstream.
+  otlp:
+    protocols:
+      http:
+        endpoint: "0.0.0.0:4318"
+
+processors:
+  # Batch to stay inside the endpoint's per-request limits: 1 MB uncompressed and
+  # 1,000 datapoints, counted as the sum across ResourceMetrics, ScopeMetrics, and
+  # Metrics. A batch of 200 leaves comfortable headroom.
+  batch:
+    send_batch_size: 200
+    timeout: 10s
+
+exporters:
+  otlphttp:
+    tls:
+      insecure: false
+    # Pattern: https://monitoring.{region}.amazonaws.com/v1/metrics
+    endpoint: "https://monitoring.us-east-1.amazonaws.com/v1/metrics"
+    # Only gzip and none are supported.
+    compression: gzip
+    auth:
+      authenticator: sigv4auth
+
+extensions:
+  # SigV4 is the recommended authentication method, and the only one supported for
+  # traces. For hosts outside AWS you can instead use the bearertokenauth extension
+  # against the metrics or logs endpoints; see
+  # https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-OTLP-MetricsBearerTokenAuth.html
+  sigv4auth:
+    # The metrics endpoint signs as "monitoring". The logs endpoint signs as "logs"
+    # and the traces endpoint as "xray".
+    service: "monitoring"
+    region: "us-east-1"
+
+service:
+  extensions: [sigv4auth]
+  pipelines:
+    metrics:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [otlphttp]
+
+# Endpoint limits worth designing around, all per account and Region:
+#
+#   Maximum TPS                  500
+#   New series creation rate     1,000,000 per 10-minute window
+#   Maximum request size         1 MB uncompressed
+#   Maximum datapoint count      1,000 per request
+#   Maximum metadata size        40 KB of labels and values per series per datapoint
+#   Maximum label count          150 across Resource, Scope, and Datapoint attributes
+#   Timestamp window             at most 10 minutes in the future, 14 days in the past
+#
+# Exceeding the TPS or new-series limits returns 429. The size, count, metadata,
+# label, and timestamp limits return 400, and a request whose metrics are only
+# partially invalid returns 200 with the valid metrics ingested.

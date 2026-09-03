@@ -33,6 +33,77 @@ cloudwatch_Hello:
                 - CloudWatch.dotnetv4.HelloCloudWatch
   services:
     cloudwatch: {ListMetrics}
+cloudwatch_DeleteAlarmMuteRule:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.cloudwatch.CloudWatchOTelWrapper
+                - python.example_code.cloudwatch.DeleteAlarmMuteRule
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.cloudwatch.actions.DeleteAlarmMuteRule
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.java2.DeleteAlarmMuteRule.main
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.kotlin.delete_alarm_mute_rule.main
+    .NET:
+      versions:
+        - sdk_version: 4
+          github: dotnetv4/CloudWatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - CloudWatch.dotnetv4.DeleteAlarmMuteRule
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.Ruby.deleteAlarmMuteRule
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description: Include the required files.
+              snippet_tags:
+                - cw.cpp.delete_alarm_mute_rule.inc
+            - description: Delete the alarm mute rule.
+              snippet_tags:
+                - cw.cpp.delete_alarm_mute_rule.code
+  services:
+    cloudwatch: {DeleteAlarmMuteRule}
 cloudwatch_DeleteAlarms:
   languages:
     Kotlin:
@@ -177,6 +248,77 @@ cloudwatch_DeleteDashboards:
                 - CloudWatch.dotnetv4.DeleteDashboards
   services:
     cloudwatch: {DeleteDashboards}
+cloudwatch_DescribeAlarmContributors:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.cloudwatch.CloudWatchOTelWrapper
+                - python.example_code.cloudwatch.DescribeAlarmContributors
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.cloudwatch.actions.DescribeAlarmContributors
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.java2.DescribeAlarmContributors.main
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.kotlin.describe_alarm_contributors.main
+    .NET:
+      versions:
+        - sdk_version: 4
+          github: dotnetv4/CloudWatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - CloudWatch.dotnetv4.DescribeAlarmContributors
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.Ruby.describeAlarmContributors
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description: Include the required files.
+              snippet_tags:
+                - cw.cpp.describe_alarm_contributors.inc
+            - description: Describe the contributors to a PromQL alarm.
+              snippet_tags:
+                - cw.cpp.describe_alarm_contributors.code
+  services:
+    cloudwatch: {DescribeAlarmContributors}
 cloudwatch_DescribeAlarmHistory:
   languages:
     Kotlin:
@@ -551,6 +693,77 @@ cloudwatch_EnableAlarmActions:
                 - cw.JavaScript.alarms.enableAlarmActions
   services:
     cloudwatch: {EnableAlarmActions}
+cloudwatch_GetAlarmMuteRule:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.cloudwatch.CloudWatchOTelWrapper
+                - python.example_code.cloudwatch.GetAlarmMuteRule
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.cloudwatch.actions.GetAlarmMuteRule
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.java2.GetAlarmMuteRule.main
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.kotlin.get_alarm_mute_rule.main
+    .NET:
+      versions:
+        - sdk_version: 4
+          github: dotnetv4/CloudWatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - CloudWatch.dotnetv4.GetAlarmMuteRule
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.Ruby.getAlarmMuteRule
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description: Include the required files.
+              snippet_tags:
+                - cw.cpp.get_alarm_mute_rule.inc
+            - description: Get the alarm mute rule.
+              snippet_tags:
+                - cw.cpp.get_alarm_mute_rule.code
+  services:
+    cloudwatch: {GetAlarmMuteRule}
 cloudwatch_GetDashboard:
   languages:
     .NET:
@@ -676,6 +889,148 @@ cloudwatch_GetMetricWidgetImage:
                 - CloudWatch.dotnetv4.GetMetricImage
   services:
     cloudwatch: {GetMetricWidgetImage}
+cloudwatch_GetOTelEnrichment:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.cloudwatch.CloudWatchOTelWrapper
+                - python.example_code.cloudwatch.GetOTelEnrichment
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.cloudwatch.actions.GetOTelEnrichment
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.java2.GetOTelEnrichment.main
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.kotlin.get_otel_enrichment.main
+    .NET:
+      versions:
+        - sdk_version: 4
+          github: dotnetv4/CloudWatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - CloudWatch.dotnetv4.GetOTelEnrichment
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.Ruby.getOTelEnrichment
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description: Include the required files.
+              snippet_tags:
+                - cw.cpp.get_otel_enrichment.inc
+            - description: Get the OpenTelemetry enrichment status.
+              snippet_tags:
+                - cw.cpp.get_otel_enrichment.code
+  services:
+    cloudwatch: {GetOTelEnrichment}
+cloudwatch_ListAlarmMuteRules:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.cloudwatch.CloudWatchOTelWrapper
+                - python.example_code.cloudwatch.ListAlarmMuteRules
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.cloudwatch.actions.ListAlarmMuteRules
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.java2.ListAlarmMuteRules.main
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.kotlin.list_alarm_mute_rules.main
+    .NET:
+      versions:
+        - sdk_version: 4
+          github: dotnetv4/CloudWatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - CloudWatch.dotnetv4.ListAlarmMuteRules
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.Ruby.listAlarmMuteRules
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description: Include the required files.
+              snippet_tags:
+                - cw.cpp.list_alarm_mute_rules.inc
+            - description: List the alarm mute rules.
+              snippet_tags:
+                - cw.cpp.list_alarm_mute_rules.code
+  services:
+    cloudwatch: {ListAlarmMuteRules}
 cloudwatch_ListDashboards:
   languages:
     Kotlin:
@@ -798,6 +1153,77 @@ cloudwatch_ListMetrics:
                 - cw.JavaScript.metrics.listMetrics
   services:
     cloudwatch: {ListMetrics}
+cloudwatch_PutAlarmMuteRule:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.cloudwatch.CloudWatchOTelWrapper
+                - python.example_code.cloudwatch.PutAlarmMuteRule
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.cloudwatch.actions.PutAlarmMuteRule
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.java2.PutAlarmMuteRule.main
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.kotlin.put_alarm_mute_rule.main
+    .NET:
+      versions:
+        - sdk_version: 4
+          github: dotnetv4/CloudWatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - CloudWatch.dotnetv4.PutAlarmMuteRule
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.Ruby.putAlarmMuteRule
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description: Include the required files.
+              snippet_tags:
+                - cw.cpp.put_alarm_mute_rule.inc
+            - description: Create the alarm mute rule.
+              snippet_tags:
+                - cw.cpp.put_alarm_mute_rule.code
+  services:
+    cloudwatch: {PutAlarmMuteRule}
 cloudwatch_PutAnomalyDetector:
   languages:
     Kotlin:
@@ -869,7 +1295,11 @@ cloudwatch_PutMetricAlarm:
           github: javav2/example_code/cloudwatch
           sdkguide:
           excerpts:
-            - description:
+            - description: Create an alarm that evaluates a PromQL query against
+                OpenTelemetry metrics.
+              snippet_tags:
+                - cloudwatch.java2.PutMetricAlarm.promql.main
+            - description: Create an alarm that evaluates a single &CW; metric.
               snippet_tags:
                 - cloudwatch.java2.scenario.create.alarm.main
     .NET:
@@ -878,7 +1308,11 @@ cloudwatch_PutMetricAlarm:
           github: dotnetv4/CloudWatch
           sdkguide:
           excerpts:
-            - description:
+            - description: Create an alarm that evaluates a PromQL query against
+                OpenTelemetry metrics.
+              snippet_tags:
+                - CloudWatch.dotnetv4.PutMetricAlarm.PromQL
+            - description: Create an alarm that evaluates a single &CW; metric.
               snippet_tags:
                 - CloudWatch.dotnetv4.PutMetricAlarm
     Kotlin:
@@ -887,7 +1321,11 @@ cloudwatch_PutMetricAlarm:
           github: kotlin/services/cloudwatch
           sdkguide:
           excerpts:
-            - description:
+            - description: Create an alarm that evaluates a PromQL query against
+                OpenTelemetry metrics.
+              snippet_tags:
+                - cloudwatch.kotlin.put_promql_metric_alarm.main
+            - description: Create an alarm that evaluates a single &CW; metric.
               snippet_tags:
                 - cloudwatch.kotlin.put_metric_alarm.main
     Python:
@@ -896,7 +1334,12 @@ cloudwatch_PutMetricAlarm:
           github: python/example_code/cloudwatch
           sdkguide:
           excerpts:
-            - description:
+            - description: Create an alarm that evaluates a PromQL query against
+                OpenTelemetry metrics.
+              snippet_tags:
+                - python.example_code.cloudwatch.CloudWatchOTelWrapper
+                - python.example_code.cloudwatch.PutMetricAlarm_PromQL
+            - description: Create an alarm that evaluates a single &CW; metric.
               snippet_tags:
                 - python.example_code.cloudwatch.CloudWatchWrapper
                 - python.example_code.cloudwatch.PutMetricAlarm
@@ -906,7 +1349,11 @@ cloudwatch_PutMetricAlarm:
           github: ruby/example_code/cloudwatch
           sdkguide:
           excerpts:
-            - description:
+            - description: Create an alarm that evaluates a PromQL query against
+                OpenTelemetry metrics.
+              snippet_tags:
+                - cloudwatch.Ruby.putPromQLMetricAlarm
+            - description: Create an alarm that evaluates a single &CW; metric.
               snippet_tags:
                 - cloudwatch.Ruby.PutMetricAlarm
     SAP ABAP:
@@ -923,7 +1370,14 @@ cloudwatch_PutMetricAlarm:
           github: cpp/example_code/cloudwatch
           sdkguide:
           excerpts:
-            - description: Include the required files.
+            - description: Include the required files for a PromQL alarm.
+              snippet_tags:
+                - cw.cpp.put_promql_metric_alarm.inc
+            - description: Create an alarm that evaluates a PromQL query against
+                OpenTelemetry metrics.
+              snippet_tags:
+                - cw.cpp.put_promql_metric_alarm.code
+            - description: Include the required files for a metric alarm.
               snippet_tags:
                 - cw.cpp.put_metric_alarm.inc
             - description: Create the alarm to watch the metric.
@@ -936,7 +1390,11 @@ cloudwatch_PutMetricAlarm:
           sdkguide: 
             sdk-for-javascript/v2/developer-guide/cloudwatch-examples-creating-alarms.html#cloudwatch-examples-creating-alarms-putmetricalarm
           excerpts:
-            - description: Import the SDK and client modules and call the API.
+            - description: Create an alarm that evaluates a PromQL query against
+                OpenTelemetry metrics.
+              snippet_tags:
+                - javascript.v3.cloudwatch.actions.PutMetricAlarm.PromQL
+            - description: Create an alarm that evaluates a single &CW; metric.
               snippet_tags:
                 - javascript.v3.cloudwatch.actions.PutMetricAlarm
             - description: Create the client in a separate module and export it.
@@ -1052,6 +1510,148 @@ cloudwatch_PutMetricData:
                 - cw.JavaScript.metrics.putMetricData
   services:
     cloudwatch: {PutMetricData}
+cloudwatch_StartOTelEnrichment:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.cloudwatch.CloudWatchOTelWrapper
+                - python.example_code.cloudwatch.StartOTelEnrichment
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.cloudwatch.actions.StartOTelEnrichment
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.java2.StartOTelEnrichment.main
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.kotlin.start_otel_enrichment.main
+    .NET:
+      versions:
+        - sdk_version: 4
+          github: dotnetv4/CloudWatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - CloudWatch.dotnetv4.StartOTelEnrichment
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.Ruby.startOTelEnrichment
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description: Include the required files.
+              snippet_tags:
+                - cw.cpp.start_otel_enrichment.inc
+            - description: Start OpenTelemetry enrichment.
+              snippet_tags:
+                - cw.cpp.start_otel_enrichment.code
+  services:
+    cloudwatch: {StartOTelEnrichment}
+cloudwatch_StopOTelEnrichment:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.cloudwatch.CloudWatchOTelWrapper
+                - python.example_code.cloudwatch.StopOTelEnrichment
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.cloudwatch.actions.StopOTelEnrichment
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.java2.StopOTelEnrichment.main
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.kotlin.stop_otel_enrichment.main
+    .NET:
+      versions:
+        - sdk_version: 4
+          github: dotnetv4/CloudWatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - CloudWatch.dotnetv4.StopOTelEnrichment
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.Ruby.stopOTelEnrichment
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description: Include the required files.
+              snippet_tags:
+                - cw.cpp.stop_otel_enrichment.inc
+            - description: Stop OpenTelemetry enrichment.
+              snippet_tags:
+                - cw.cpp.stop_otel_enrichment.code
+  services:
+    cloudwatch: {StopOTelEnrichment}
 cloudwatch_GetStartedMetricsDashboardsAlarms:
   title: Learn core operations for &CW; using an &AWS; SDK
   synopsis_list:
@@ -1105,11 +1705,11 @@ cloudwatch_GetStartedMetricsDashboardsAlarms:
                  DescribeAlarmsForMetric, DescribeAlarmHistory, DeleteAlarms, PutAnomalyDetector, GetMetricWidgetImage, DescribeAnomalyDetectors,
                  DeleteAnomalyDetector, DeleteDashboards}
 cloudwatch_Usage_MetricsAlarms:
-  title: Manage &CW; metrics and alarms using an &AWS; SDK
-  title_abbrev: Manage metrics and alarms
+  title: Manage &CW; custom metrics and alarms using an &AWS; SDK
+  title_abbrev: Manage custom metrics and alarms
   synopsis_list:
-    - Create an alarm to watch a &CW; metric.
-    - Put data into a metric and trigger the alarm.
+    - Create an alarm to watch a single &CW; metric.
+    - Put data into the metric with <code>PutMetricData</code> and trigger the alarm.
     - Get data from the alarm.
     - Delete the alarm.
   category: Scenarios
@@ -1157,3 +1757,96 @@ cloudwatch_Scenario_GettingStarted:
                 - cwt.abapv1.getting_started_with_cwt
   services:
     cloudwatch: {PutMetricAlarm, DisableAlarmActions, DescribeAlarms, DeleteAlarms}
+cloudwatch_Scenario_OTelMetrics:
+  title: Send OpenTelemetry metrics to &CW; and alarm on them with PromQL using an &AWS; SDK
+  title_abbrev: Send OpenTelemetry metrics and alarm on them with PromQL
+  synopsis_list:
+    - Send OTLP metrics to the &CW; metrics endpoint with an OpenTelemetry Collector.
+    - Start OpenTelemetry enrichment so &CW; correlates those metrics with your resources.
+    - Create an alarm that evaluates a PromQL query across every series the query returns.
+    - Inspect the individual series, called contributors, that put the alarm in ALARM state.
+    - Mute the alarm for a maintenance window, then clean up.
+  category: Scenarios
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description: Create a class that wraps the &CW; OpenTelemetry operations.
+              snippet_tags:
+                - python.example_code.cloudwatch.otel.imports
+                - python.example_code.cloudwatch.CloudWatchOTelWrapper
+                - python.example_code.cloudwatch.StartOTelEnrichment
+                - python.example_code.cloudwatch.GetOTelEnrichment
+                - python.example_code.cloudwatch.PutMetricAlarm_PromQL
+                - python.example_code.cloudwatch.DescribeAlarmContributors
+                - python.example_code.cloudwatch.PutAlarmMuteRule
+                - python.example_code.cloudwatch.GetAlarmMuteRule
+                - python.example_code.cloudwatch.ListAlarmMuteRules
+                - python.example_code.cloudwatch.DeleteAlarmMuteRule
+                - python.example_code.cloudwatch.StopOTelEnrichment
+                - python.example_code.cloudwatch.otel.DeleteAlarms
+            - description: Use the wrapper class to alarm on OpenTelemetry metrics with a
+                PromQL query, inspect the contributors to the alarm, and mute it.
+              snippet_tags:
+                - python.example_code.cloudwatch.Scenario_OTelMetrics
+            - description: Configure an OpenTelemetry Collector to send the OTLP metrics
+                that this example alarms on to the &CW; metrics endpoint. Metric ingestion
+                over OTLP is not an &AWS; SDK operation, so this half of the example is
+                collector configuration rather than SDK code.
+              snippet_files:
+                - python/example_code/cloudwatch/otlp_collector_config.yaml
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description: A wrapper class for the &CW; OpenTelemetry SDK methods.
+              snippet_tags:
+                - cloudwatch.java2.otel.actions.import
+                - cloudwatch.java2.otel.actions.main
+    .NET:
+      versions:
+        - sdk_version: 4
+          github: dotnetv4/CloudWatch
+          sdkguide:
+          excerpts:
+            - description: Wrapper methods for the &CW; OpenTelemetry actions.
+              snippet_tags:
+                - CloudWatch.dotnetv4.CloudWatchOTelWrapper
+                - CloudWatch.dotnetv4.StartOTelEnrichment
+                - CloudWatch.dotnetv4.GetOTelEnrichment
+                - CloudWatch.dotnetv4.PutMetricAlarm.PromQL
+                - CloudWatch.dotnetv4.DescribeAlarmContributors
+                - CloudWatch.dotnetv4.PutAlarmMuteRule
+                - CloudWatch.dotnetv4.GetAlarmMuteRule
+                - CloudWatch.dotnetv4.ListAlarmMuteRules
+                - CloudWatch.dotnetv4.DeleteAlarmMuteRule
+                - CloudWatch.dotnetv4.StopOTelEnrichment
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description: Define methods that call the &CW; OpenTelemetry operations.
+              snippet_tags:
+                - cloudwatch.Ruby.startOTelEnrichment
+                - cloudwatch.Ruby.getOTelEnrichment
+                - cloudwatch.Ruby.putPromQLMetricAlarm
+                - cloudwatch.Ruby.describeAlarmContributors
+                - cloudwatch.Ruby.putAlarmMuteRule
+                - cloudwatch.Ruby.getAlarmMuteRule
+                - cloudwatch.Ruby.listAlarmMuteRules
+                - cloudwatch.Ruby.deleteAlarmMuteRule
+                - cloudwatch.Ruby.stopOTelEnrichment
+            - description: Alarm on OpenTelemetry metrics with a PromQL query, inspect the
+                contributors to the alarm, and mute it.
+              snippet_tags:
+                - cloudwatch.Ruby.otelMetricsScenario
+  services:
+    cloudwatch: {StartOTelEnrichment, GetOTelEnrichment, PutMetricAlarm, DescribeAlarmContributors, PutAlarmMuteRule,
+                 GetAlarmMuteRule, ListAlarmMuteRules, DeleteAlarmMuteRule, StopOTelEnrichment, DeleteAlarms}

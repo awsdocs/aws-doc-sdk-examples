@@ -50,24 +50,32 @@ Code examples that show you how to perform the essential operations within a ser
 
 Code excerpts that show you how to call individual service functions.
 
+- [DeleteAlarmMuteRule](src/main/kotlin/com/kotlin/cloudwatch/DeleteAlarmMuteRule.kt#L40)
 - [DeleteAlarms](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L298)
 - [DeleteAnomalyDetector](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L271)
 - [DeleteDashboards](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L312)
+- [DescribeAlarmContributors](src/main/kotlin/com/kotlin/cloudwatch/DescribeAlarmContributors.kt#L43)
 - [DescribeAlarmHistory](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L412)
 - [DescribeAlarms](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L598)
 - [DescribeAlarmsForMetric](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L453)
 - [DescribeAnomalyDetectors](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L361)
 - [DisableAlarmActions](src/main/kotlin/com/kotlin/cloudwatch/DisableAlarmActions.kt#L39)
 - [EnableAlarmActions](src/main/kotlin/com/kotlin/cloudwatch/EnableAlarmActions.kt#L38)
+- [GetAlarmMuteRule](src/main/kotlin/com/kotlin/cloudwatch/GetAlarmMuteRule.kt#L42)
 - [GetMetricData](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L535)
 - [GetMetricStatistics](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L797)
 - [GetMetricWidgetImage](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L325)
+- [GetOTelEnrichment](src/main/kotlin/com/kotlin/cloudwatch/GetOTelEnrichment.kt#L25)
+- [ListAlarmMuteRules](src/main/kotlin/com/kotlin/cloudwatch/ListAlarmMuteRules.kt#L29)
 - [ListDashboards](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L710)
 - [ListMetrics](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L838)
+- [PutAlarmMuteRule](src/main/kotlin/com/kotlin/cloudwatch/PutAlarmMuteRule.kt#L48)
 - [PutAnomalyDetector](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L385)
 - [PutDashboard](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L724)
-- [PutMetricAlarm](src/main/kotlin/com/kotlin/cloudwatch/PutMetricAlarm.kt#L44)
+- [PutMetricAlarm](src/main/kotlin/com/kotlin/cloudwatch/PutPromQlMetricAlarm.kt#L51)
 - [PutMetricData](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L487)
+- [StartOTelEnrichment](src/main/kotlin/com/kotlin/cloudwatch/StartOTelEnrichment.kt#L35)
+- [StopOTelEnrichment](src/main/kotlin/com/kotlin/cloudwatch/StopOTelEnrichment.kt#L26)
 
 
 <!--custom.examples.start-->

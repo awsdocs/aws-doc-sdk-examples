@@ -177,3 +177,124 @@ class CloudWatchStubber(ExampleStubber):
         self._stub_bifurcator(
             "delete_alarms", expected_params, response, error_code=error_code
         )
+
+    def stub_start_otel_enrichment(self, error_code=None):
+        self._stub_bifurcator("start_o_tel_enrichment", {}, {}, error_code=error_code)
+
+    def stub_get_otel_enrichment(self, status, error_code=None):
+        response = {"Status": status}
+        self._stub_bifurcator(
+            "get_o_tel_enrichment", {}, response, error_code=error_code
+        )
+
+    def stub_stop_otel_enrichment(self, error_code=None):
+        self._stub_bifurcator("stop_o_tel_enrichment", {}, {}, error_code=error_code)
+
+    def stub_put_promql_metric_alarm(
+        self,
+        alarm_name,
+        query,
+        evaluation_interval,
+        pending_period,
+        recovery_period,
+        description=None,
+        error_code=None,
+    ):
+        expected_params = {
+            "AlarmName": alarm_name,
+            "EvaluationCriteria": {
+                "PromQLCriteria": {
+                    "Query": query,
+                    "PendingPeriod": pending_period,
+                    "RecoveryPeriod": recovery_period,
+                }
+            },
+            "EvaluationInterval": evaluation_interval,
+        }
+        if description is not None:
+            expected_params["AlarmDescription"] = description
+        self._stub_bifurcator(
+            "put_metric_alarm", expected_params, {}, error_code=error_code
+        )
+
+    def stub_describe_alarm_contributors(
+        self,
+        alarm_name,
+        contributors,
+        next_token=None,
+        next_token_out=None,
+        error_code=None,
+    ):
+        expected_params = {"AlarmName": alarm_name}
+        if next_token is not None:
+            expected_params["NextToken"] = next_token
+        response = {"AlarmContributors": contributors}
+        if next_token_out is not None:
+            response["NextToken"] = next_token_out
+        self._stub_bifurcator(
+            "describe_alarm_contributors",
+            expected_params,
+            response,
+            error_code=error_code,
+        )
+
+    def stub_put_alarm_mute_rule(
+        self,
+        name,
+        expression,
+        duration,
+        alarm_names=None,
+        timezone=None,
+        description=None,
+        error_code=None,
+    ):
+        schedule = {"Expression": expression, "Duration": duration}
+        if timezone is not None:
+            schedule["Timezone"] = timezone
+        expected_params = {"Name": name, "Rule": {"Schedule": schedule}}
+        if alarm_names is not None:
+            expected_params["MuteTargets"] = {"AlarmNames": alarm_names}
+        if description is not None:
+            expected_params["Description"] = description
+        self._stub_bifurcator(
+            "put_alarm_mute_rule", expected_params, {}, error_code=error_code
+        )
+
+    def stub_get_alarm_mute_rule(self, name, status, error_code=None):
+        expected_params = {"AlarmMuteRuleName": name}
+        response = {"Name": name, "Status": status}
+        self._stub_bifurcator(
+            "get_alarm_mute_rule", expected_params, response, error_code=error_code
+        )
+
+    def stub_list_alarm_mute_rules(
+        self,
+        summaries,
+        alarm_name=None,
+        statuses=None,
+        next_token=None,
+        error_code=None,
+    ):
+        expected_params = {}
+        if alarm_name is not None:
+            expected_params["AlarmName"] = alarm_name
+        if statuses is not None:
+            expected_params["Statuses"] = statuses
+        if next_token is not None:
+            expected_params["NextToken"] = next_token
+        response = {"AlarmMuteRuleSummaries": summaries}
+        self._stub_bifurcator(
+            "list_alarm_mute_rules", expected_params, response, error_code=error_code
+        )
+
+    def stub_delete_alarm_mute_rule(self, name, error_code=None):
+        expected_params = {"AlarmMuteRuleName": name}
+        self._stub_bifurcator(
+            "delete_alarm_mute_rule", expected_params, {}, error_code=error_code
+        )
+
+    def stub_delete_alarms_by_name(self, alarm_names, error_code=None):
+        expected_params = {"AlarmNames": alarm_names}
+        self._stub_bifurcator(
+            "delete_alarms", expected_params, {}, error_code=error_code
+        )
