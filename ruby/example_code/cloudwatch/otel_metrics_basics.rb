@@ -84,24 +84,23 @@ end
 #
 # @param cloudwatch_client [Aws::CloudWatch::Client] An initialized CloudWatch client.
 # @param alarm_name [String] The name of the alarm, unique within the Region.
-# @param query [String] The PromQL query to evaluate, such as
-#   'avg(cpu_utilization_percent) > 80'. The comparison belongs in the query itself;
-#   there is no separate threshold parameter.
+# @param criteria [Hash] The PromQL criteria, mirroring the +prom_ql_criteria+ shape:
+#   * +:query+ [String] The PromQL query to evaluate, such as
+#     'avg(cpu_utilization_percent) > 80'. The comparison belongs in the query itself;
+#     there is no separate threshold parameter.
+#   * +:pending_period+ [Integer] How long, in seconds, a contributor must breach
+#     continuously before it moves to ALARM.
+#   * +:recovery_period+ [Integer] How long, in seconds, a contributor must stop
+#     breaching before it moves back to OK.
 # @param evaluation_interval [Integer] How often, in seconds, to run the query. Valid
 #   values are 10, 20, 30, and any multiple of 60, up to 3600.
-# @param pending_period [Integer] How long, in seconds, a contributor must breach
-#   continuously before it moves to ALARM.
-# @param recovery_period [Integer] How long, in seconds, a contributor must stop
-#   breaching before it moves back to OK.
 # @param alarm_description [String] A description of the alarm.
 # @return [Boolean] true if the alarm was created or updated; otherwise, false.
 def promql_alarm_created_or_updated?(
   cloudwatch_client,
   alarm_name,
-  query,
+  criteria,
   evaluation_interval,
-  pending_period,
-  recovery_period,
   alarm_description
 )
   cloudwatch_client.put_metric_alarm(
@@ -109,9 +108,9 @@ def promql_alarm_created_or_updated?(
     alarm_description: alarm_description,
     evaluation_criteria: {
       prom_ql_criteria: {
-        query: query,
-        pending_period: pending_period,
-        recovery_period: recovery_period
+        query: criteria[:query],
+        pending_period: criteria[:pending_period],
+        recovery_period: criteria[:recovery_period]
       }
     },
     evaluation_interval: evaluation_interval
@@ -161,13 +160,14 @@ end
 #
 # @param cloudwatch_client [Aws::CloudWatch::Client] An initialized CloudWatch client.
 # @param name [String] The name of the mute rule.
-# @param expression [String] When the rule activates. Use a cron expression for a
-#   recurring window, such as 'cron(0 2 ? * SUN *)', or an at expression for a one-time
-#   window, such as 'at(2026-09-05T02:00:00)'.
-# @param duration [String] How long the mute window lasts once it activates, such as
-#   '2h' or '30m'.
-# @param timezone [String] The time zone the expression is evaluated in, such as
-#   'America/Los_Angeles'.
+# @param schedule [Hash] The mute window, mirroring the +rule.schedule+ shape:
+#   * +:expression+ [String] When the rule activates. Use a cron expression for a
+#     recurring window, such as 'cron(0 2 ? * SUN *)', or an at expression for a one-time
+#     window, such as 'at(2026-09-05T02:00:00)'.
+#   * +:duration+ [String] How long the mute window lasts once it activates, such as
+#     '2h' or '30m'.
+#   * +:timezone+ [String] The time zone the expression is evaluated in, such as
+#     'America/Los_Angeles'.
 # @param alarm_names [Array] The names of up to 100 alarms to mute. If empty, the rule
 #   applies to all alarms in the account.
 # @param description [String] A description of the mute rule.
@@ -175,9 +175,7 @@ end
 def alarm_mute_rule_created_or_updated?(
   cloudwatch_client,
   name,
-  expression,
-  duration,
-  timezone,
+  schedule,
   alarm_names,
   description
 )
@@ -186,9 +184,9 @@ def alarm_mute_rule_created_or_updated?(
     description: description,
     rule: {
       schedule: {
-        expression: expression,
-        duration: duration,
-        timezone: timezone
+        expression: schedule[:expression],
+        duration: schedule[:duration],
+        timezone: schedule[:timezone]
       }
     }
   }
@@ -264,6 +262,86 @@ end
 # snippet-end:[cloudwatch.Ruby.deleteAlarmMuteRule]
 
 # snippet-start:[cloudwatch.Ruby.otelMetricsScenario]
+# Turns on OpenTelemetry enrichment if the account doesn't already have it on. Enrichment
+# is an account-wide setting, so an example should only turn it off again if it was the
+# one that turned it on.
+#
+# @param cloudwatch_client [Aws::CloudWatch::Client] An initialized CloudWatch client.
+# @return [Boolean] true if this call started enrichment; otherwise, false.
+def enrichment_started_by_example?(cloudwatch_client)
+  puts 'Checking whether OTel enrichment is on for this account.'
+  status = otel_enrichment_status(cloudwatch_client)
+  if status == 'Stopped'
+    puts 'Enrichment is stopped. Starting it so vended metrics accept PromQL.'
+    return otel_enrichment_started?(cloudwatch_client)
+  end
+
+  puts "Enrichment status is '#{status}'. Leaving it alone."
+  false
+end
+
+# Prints the contributors to a PromQL alarm, one line per matched series.
+#
+# @param cloudwatch_client [Aws::CloudWatch::Client] An initialized CloudWatch client.
+# @param alarm_name [String] The name of the PromQL alarm.
+def report_alarm_contributors(cloudwatch_client, alarm_name)
+  puts "\nContributors for '#{alarm_name}':"
+  contributors = alarm_contributors(cloudwatch_client, alarm_name)
+  if contributors.empty?
+    puts '  None yet. The query matched no series, which usually means no OTel metrics ' \
+         'with these labels have arrived.'
+    return
+  end
+
+  contributors.each do |contributor|
+    labels = contributor.contributor_attributes.sort.map { |k, v| "#{k}=#{v}" }.join(', ')
+    puts "  #{contributor.contributor_id}: #{labels}"
+    puts "    reason: #{contributor.state_reason}"
+  end
+end
+
+# Mutes an alarm for a recurring weekly maintenance window.
+#
+# @param cloudwatch_client [Aws::CloudWatch::Client] An initialized CloudWatch client.
+# @param mute_rule_name [String] The name of the mute rule to create.
+# @param alarm_name [String] The name of the alarm to mute.
+def mute_alarm_for_maintenance(cloudwatch_client, mute_rule_name, alarm_name)
+  puts "\nMuting '#{alarm_name}' for a weekly two-hour maintenance window."
+  schedule = {
+    expression: 'cron(0 2 ? * SUN *)',
+    duration: '2h',
+    timezone: 'America/Los_Angeles'
+  }
+  return unless alarm_mute_rule_created_or_updated?(
+    cloudwatch_client,
+    mute_rule_name,
+    schedule,
+    [alarm_name],
+    'Suppress checkout CPU pages during Sunday patching.'
+  )
+
+  rule = alarm_mute_rule(cloudwatch_client, mute_rule_name)
+  puts "Mute rule status is #{rule.status}." unless rule.nil?
+  puts 'While the window is active the alarm keeps evaluating and still changes ' \
+       'state; only its actions are suppressed.'
+end
+
+# Removes the mute rule and the alarm, and stops enrichment if this example started it.
+#
+# @param cloudwatch_client [Aws::CloudWatch::Client] An initialized CloudWatch client.
+# @param alarm_name [String] The name of the alarm to delete.
+# @param mute_rule_name [String] The name of the mute rule to delete.
+# @param started_here [Boolean] Whether this example started OTel enrichment.
+def clean_up(cloudwatch_client, alarm_name, mute_rule_name, started_here)
+  puts "\nCleaning up."
+  alarm_mute_rule_deleted?(cloudwatch_client, mute_rule_name)
+  cloudwatch_client.delete_alarms(alarm_names: [alarm_name])
+  return unless started_here
+
+  puts 'Stopping OTel enrichment, since this example started it.'
+  otel_enrichment_stopped?(cloudwatch_client)
+end
+
 # Walks through the OpenTelemetry metrics workflow in CloudWatch: turn on enrichment,
 # alarm on a PromQL query, inspect the contributors that matched, mute the alarm for a
 # maintenance window, then clean up.
@@ -278,25 +356,15 @@ def run_me
   region = 'us-east-1'
 
   cloudwatch_client = Aws::CloudWatch::Client.new(region: region)
-
-  puts 'Checking whether OTel enrichment is on for this account.'
-  status = otel_enrichment_status(cloudwatch_client)
-  started_here = false
-  if status == 'Stopped'
-    puts 'Enrichment is stopped. Starting it so vended metrics accept PromQL.'
-    started_here = otel_enrichment_started?(cloudwatch_client)
-  else
-    puts "Enrichment status is '#{status}'. Leaving it alone."
-  end
+  started_here = enrichment_started_by_example?(cloudwatch_client)
 
   puts "\nCreating a PromQL alarm on: #{query}"
+  criteria = { query: query, pending_period: 300, recovery_period: 120 }
   unless promql_alarm_created_or_updated?(
     cloudwatch_client,
     alarm_name,
-    query,
+    criteria,
     30,
-    300,
-    120,
     'Average CPU over 80% per host for the checkout service.'
   )
     puts "Could not create alarm '#{alarm_name}'. Stopping."
@@ -305,46 +373,15 @@ def run_me
   puts 'The alarm evaluates every 30 seconds. A host moves to ALARM after breaching ' \
        'for 300 seconds straight, and back to OK after 120 seconds clean.'
 
-  puts "\nContributors for '#{alarm_name}':"
-  contributors = alarm_contributors(cloudwatch_client, alarm_name)
-  if contributors.empty?
-    puts '  None yet. The query matched no series, which usually means no OTel metrics ' \
-         'with these labels have arrived.'
-  end
-  contributors.each do |contributor|
-    labels = contributor.contributor_attributes.sort.map { |k, v| "#{k}=#{v}" }.join(', ')
-    puts "  #{contributor.contributor_id}: #{labels}"
-    puts "    reason: #{contributor.state_reason}"
-  end
-
-  puts "\nMuting '#{alarm_name}' for a weekly two-hour maintenance window."
-  if alarm_mute_rule_created_or_updated?(
-    cloudwatch_client,
-    mute_rule_name,
-    'cron(0 2 ? * SUN *)',
-    '2h',
-    'America/Los_Angeles',
-    [alarm_name],
-    'Suppress checkout CPU pages during Sunday patching.'
-  )
-    rule = alarm_mute_rule(cloudwatch_client, mute_rule_name)
-    puts "Mute rule status is #{rule.status}." unless rule.nil?
-    puts 'While the window is active the alarm keeps evaluating and still changes ' \
-         'state; only its actions are suppressed.'
-  end
+  report_alarm_contributors(cloudwatch_client, alarm_name)
+  mute_alarm_for_maintenance(cloudwatch_client, mute_rule_name, alarm_name)
 
   puts "\nMute rules targeting '#{alarm_name}':"
   alarm_mute_rules(cloudwatch_client, alarm_name).each do |summary|
     puts "  #{summary.alarm_mute_rule_arn} (#{summary.status})"
   end
 
-  puts "\nCleaning up."
-  alarm_mute_rule_deleted?(cloudwatch_client, mute_rule_name)
-  cloudwatch_client.delete_alarms(alarm_names: [alarm_name])
-  if started_here
-    puts 'Stopping OTel enrichment, since this example started it.'
-    otel_enrichment_stopped?(cloudwatch_client)
-  end
+  clean_up(cloudwatch_client, alarm_name, mute_rule_name, started_here)
 end
 # snippet-end:[cloudwatch.Ruby.otelMetricsScenario]
 

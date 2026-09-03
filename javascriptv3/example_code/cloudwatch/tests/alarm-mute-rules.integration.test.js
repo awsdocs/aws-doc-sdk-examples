@@ -15,7 +15,8 @@ import {
 describe("alarm-mute-rules", () => {
   const alarmName = "AlarmMuteRuleTestAlarm";
   const muteRuleName = "AlarmMuteRuleTestRule";
-  const query = 'avg by (host_name) (cpu_utilization_percent{service_name="checkout"}) > 80';
+  const query =
+    'avg by (host_name) (cpu_utilization_percent{service_name="checkout"}) > 80';
 
   beforeAll(async () => {
     process.env.CLOUDWATCH_ALARM_NAME = alarmName;

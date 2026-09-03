@@ -33,16 +33,16 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `ruby`
 
 Code excerpts that show you how to call individual service functions.
 
-- [DeleteAlarmMuteRule](otel_metrics_basics.rb#L251)
-- [DescribeAlarmContributors](otel_metrics_basics.rb#L126)
+- [DeleteAlarmMuteRule](otel_metrics_basics.rb#L249)
+- [DescribeAlarmContributors](otel_metrics_basics.rb#L125)
 - [DescribeAlarms](alarm_basics.rb#L8)
 - [DescribeAlarmsForMetric](show_alarms.rb#L8)
 - [DisableAlarmActions](alarm_actions.rb#L94)
-- [GetAlarmMuteRule](otel_metrics_basics.rb#L205)
+- [GetAlarmMuteRule](otel_metrics_basics.rb#L203)
 - [GetOTelEnrichment](otel_metrics_basics.rb#L41)
-- [ListAlarmMuteRules](otel_metrics_basics.rb#L221)
+- [ListAlarmMuteRules](otel_metrics_basics.rb#L219)
 - [ListMetrics](metrics_basics.rb#L70)
-- [PutAlarmMuteRule](otel_metrics_basics.rb#L155)
+- [PutAlarmMuteRule](otel_metrics_basics.rb#L154)
 - [PutMetricAlarm](otel_metrics_basics.rb#L70)
 - [PutMetricData](metrics_basics.rb#L8)
 - [StartOTelEnrichment](otel_metrics_basics.rb#L18)
