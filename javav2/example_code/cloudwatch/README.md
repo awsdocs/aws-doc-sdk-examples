@@ -45,7 +45,7 @@ Code examples that show you how to perform the essential operations within a ser
 
 Code excerpts that show you how to call individual service functions.
 
-- [DeleteAlarmMuteRule](src/main/java/com/example/cloudwatch/otel/CloudWatchOTelActions.java#L346)
+- [DeleteAlarmMuteRule](src/main/java/com/example/cloudwatch/otel/CloudWatchOTelActions.java#L352)
 - [DeleteAlarms](src/main/java/com/example/cloudwatch/scenario/CloudWatchActions.java#L169)
 - [DeleteAnomalyDetector](src/main/java/com/example/cloudwatch/scenario/CloudWatchActions.java#L127)
 - [DeleteDashboards](src/main/java/com/example/cloudwatch/scenario/CloudWatchActions.java#L194)
@@ -56,12 +56,12 @@ Code excerpts that show you how to call individual service functions.
 - [DescribeAnomalyDetectors](src/main/java/com/example/cloudwatch/scenario/CloudWatchActions.java#L276)
 - [DisableAlarmActions](src/main/java/com/example/cloudwatch/DisableAlarmActions.java#L6)
 - [EnableAlarmActions](src/main/java/com/example/cloudwatch/EnableAlarmActions.java#L6)
-- [GetAlarmMuteRule](src/main/java/com/example/cloudwatch/otel/CloudWatchOTelActions.java#L281)
+- [GetAlarmMuteRule](src/main/java/com/example/cloudwatch/otel/CloudWatchOTelActions.java#L287)
 - [GetMetricData](src/main/java/com/example/cloudwatch/scenario/CloudWatchActions.java#L579)
 - [GetMetricStatistics](src/main/java/com/example/cloudwatch/scenario/CloudWatchActions.java#L940)
 - [GetMetricWidgetImage](src/main/java/com/example/cloudwatch/scenario/CloudWatchActions.java#L218)
 - [GetOTelEnrichment](src/main/java/com/example/cloudwatch/otel/CloudWatchOTelActions.java#L80)
-- [ListAlarmMuteRules](src/main/java/com/example/cloudwatch/otel/CloudWatchOTelActions.java#L308)
+- [ListAlarmMuteRules](src/main/java/com/example/cloudwatch/otel/CloudWatchOTelActions.java#L314)
 - [ListDashboards](src/main/java/com/example/cloudwatch/scenario/CloudWatchActions.java#L828)
 - [ListMetrics](src/main/java/com/example/cloudwatch/scenario/CloudWatchActions.java#L990)
 - [PutAlarmMuteRule](src/main/java/com/example/cloudwatch/otel/CloudWatchOTelActions.java#L231)

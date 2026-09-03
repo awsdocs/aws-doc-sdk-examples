@@ -47,7 +47,7 @@ Code examples that show you how to perform the essential operations within a ser
 
 Code excerpts that show you how to call individual service functions.
 
-- [DeleteAlarmMuteRule](Actions/CloudWatchOTelWrapper.cs#L285)
+- [DeleteAlarmMuteRule](Actions/CloudWatchOTelWrapper.cs#L288)
 - [DeleteAlarms](Actions/CloudWatchWrapper.cs#L402)
 - [DeleteAnomalyDetector](Actions/CloudWatchWrapper.cs#L500)
 - [DeleteDashboards](Actions/CloudWatchWrapper.cs#L518)
@@ -58,13 +58,13 @@ Code excerpts that show you how to call individual service functions.
 - [DescribeAnomalyDetectors](Actions/CloudWatchWrapper.cs#L474)
 - [DisableAlarmActions](Actions/CloudWatchWrapper.cs#L420)
 - [EnableAlarmActions](Actions/CloudWatchWrapper.cs#L438)
-- [GetAlarmMuteRule](Actions/CloudWatchOTelWrapper.cs#L230)
+- [GetAlarmMuteRule](Actions/CloudWatchOTelWrapper.cs#L233)
 - [GetDashboard](Actions/CloudWatchWrapper.cs#L115)
 - [GetMetricData](Actions/CloudWatchWrapper.cs#L226)
 - [GetMetricStatistics](Actions/CloudWatchWrapper.cs#L61)
 - [GetMetricWidgetImage](Actions/CloudWatchWrapper.cs#L175)
 - [GetOTelEnrichment](Actions/CloudWatchOTelWrapper.cs#L62)
-- [ListAlarmMuteRules](Actions/CloudWatchOTelWrapper.cs#L250)
+- [ListAlarmMuteRules](Actions/CloudWatchOTelWrapper.cs#L253)
 - [ListDashboards](Actions/CloudWatchWrapper.cs#L134)
 - [ListMetrics](Actions/CloudWatchWrapper.cs#L33)
 - [PutAlarmMuteRule](Actions/CloudWatchOTelWrapper.cs#L181)

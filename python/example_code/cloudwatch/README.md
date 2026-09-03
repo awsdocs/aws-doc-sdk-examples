@@ -38,16 +38,16 @@ python -m pip install -r requirements.txt
 
 Code excerpts that show you how to call individual service functions.
 
-- [DeleteAlarmMuteRule](cloudwatch_otel.py#L323)
+- [DeleteAlarmMuteRule](cloudwatch_otel.py#L328)
 - [DeleteAlarms](cloudwatch_basics.py#L264)
 - [DescribeAlarmContributors](cloudwatch_otel.py#L180)
 - [DescribeAlarmsForMetric](cloudwatch_basics.py#L216)
 - [DisableAlarmActions](cloudwatch_basics.py#L232)
 - [EnableAlarmActions](cloudwatch_basics.py#L232)
-- [GetAlarmMuteRule](cloudwatch_otel.py#L265)
+- [GetAlarmMuteRule](cloudwatch_otel.py#L270)
 - [GetMetricStatistics](cloudwatch_basics.py#L123)
 - [GetOTelEnrichment](cloudwatch_otel.py#L79)
-- [ListAlarmMuteRules](cloudwatch_otel.py#L287)
+- [ListAlarmMuteRules](cloudwatch_otel.py#L292)
 - [ListMetrics](cloudwatch_basics.py#L37)
 - [PutAlarmMuteRule](cloudwatch_otel.py#L216)
 - [PutMetricAlarm](cloudwatch_otel.py#L114)
