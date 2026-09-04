@@ -6,7 +6,7 @@
   "type": "module",
   "dependencies": {
     "@aws-doc-sdk-examples/lib": "^1.0.0",
-    "@aws-sdk/client-cloudwatch": "^3.212.0",
+    "@aws-sdk/client-cloudwatch": "^3.1124.0",
     "@aws-sdk/client-ec2": "^3.213.0"
   },
   "scripts": {

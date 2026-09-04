@@ -9,7 +9,7 @@ and manage custom metrics and alarms.
 """
 
 # snippet-start:[python.example_code.cloudwatch.imports]
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 import logging
 from pprint import pprint
 import random
@@ -300,7 +300,7 @@ def usage_demo():
     minutes = 20
     metric_namespace = "doc-example-metric"
     metric_name = "page_views"
-    start = datetime.utcnow() - timedelta(minutes=minutes)
+    start = datetime.now(timezone.utc) - timedelta(minutes=minutes)
     print(
         f"Putting data into metric {metric_namespace}.{metric_name} spanning the "
         f"last {minutes} minutes."
@@ -361,13 +361,13 @@ def usage_demo():
 
     print(
         f"Getting data for metric {metric_namespace}.{metric_name} during timespan "
-        f"of {start} to {datetime.utcnow()} (times are UTC)."
+        f"of {start} to {datetime.now(timezone.utc)} (times are UTC)."
     )
     stats = cw_wrapper.get_metric_statistics(
         metric_namespace,
         metric_name,
         start,
-        datetime.utcnow(),
+        datetime.now(timezone.utc),
         60,
         ["Average", "Minimum", "Maximum"],
     )

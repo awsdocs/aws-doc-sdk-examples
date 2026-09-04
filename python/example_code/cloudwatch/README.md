@@ -38,21 +38,30 @@ python -m pip install -r requirements.txt
 
 Code excerpts that show you how to call individual service functions.
 
+- [DeleteAlarmMuteRule](cloudwatch_otel.py#L328)
 - [DeleteAlarms](cloudwatch_basics.py#L264)
+- [DescribeAlarmContributors](cloudwatch_otel.py#L180)
 - [DescribeAlarmsForMetric](cloudwatch_basics.py#L216)
 - [DisableAlarmActions](cloudwatch_basics.py#L232)
 - [EnableAlarmActions](cloudwatch_basics.py#L232)
+- [GetAlarmMuteRule](cloudwatch_otel.py#L270)
 - [GetMetricStatistics](cloudwatch_basics.py#L123)
+- [GetOTelEnrichment](cloudwatch_otel.py#L79)
+- [ListAlarmMuteRules](cloudwatch_otel.py#L292)
 - [ListMetrics](cloudwatch_basics.py#L37)
-- [PutMetricAlarm](cloudwatch_basics.py#L158)
+- [PutAlarmMuteRule](cloudwatch_otel.py#L216)
+- [PutMetricAlarm](cloudwatch_otel.py#L114)
 - [PutMetricData](cloudwatch_basics.py#L64)
+- [StartOTelEnrichment](cloudwatch_otel.py#L57)
+- [StopOTelEnrichment](cloudwatch_otel.py#L98)
 
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Manage metrics and alarms](cloudwatch_basics.py)
+- [Manage custom metrics and alarms](cloudwatch_basics.py)
+- [Send OpenTelemetry metrics and alarm on them with PromQL](cloudwatch_otel.py)
 
 
 <!--custom.examples.start-->
@@ -68,12 +77,12 @@ functions within the same service.
 
 
 
-#### Manage metrics and alarms
+#### Manage custom metrics and alarms
 
 This example shows you how to do the following:
 
-- Create an alarm to watch a CloudWatch metric.
-- Put data into a metric and trigger the alarm.
+- Create an alarm to watch a single CloudWatch metric.
+- Put data into the metric with <code>PutMetricData</code> and trigger the alarm.
 - Get data from the alarm.
 - Delete the alarm.
 
@@ -89,6 +98,29 @@ python cloudwatch_basics.py
 
 <!--custom.scenarios.cloudwatch_Usage_MetricsAlarms.start-->
 <!--custom.scenarios.cloudwatch_Usage_MetricsAlarms.end-->
+
+#### Send OpenTelemetry metrics and alarm on them with PromQL
+
+This example shows you how to do the following:
+
+- Send OTLP metrics to the CloudWatch metrics endpoint with an OpenTelemetry Collector.
+- Start OpenTelemetry enrichment so CloudWatch correlates those metrics with your resources.
+- Create an alarm that evaluates a PromQL query across every series the query returns.
+- Inspect the individual series, called contributors, that put the alarm in ALARM state.
+- Mute the alarm for a maintenance window, then clean up.
+
+<!--custom.scenario_prereqs.cloudwatch_Scenario_OTelMetrics.start-->
+<!--custom.scenario_prereqs.cloudwatch_Scenario_OTelMetrics.end-->
+
+Start the example by running the following at a command prompt:
+
+```
+python cloudwatch_otel.py
+```
+
+
+<!--custom.scenarios.cloudwatch_Scenario_OTelMetrics.start-->
+<!--custom.scenarios.cloudwatch_Scenario_OTelMetrics.end-->
 
 ### Tests
 

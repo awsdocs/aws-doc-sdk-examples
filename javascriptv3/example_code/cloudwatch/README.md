@@ -33,13 +33,21 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 Code excerpts that show you how to call individual service functions.
 
+- [DeleteAlarmMuteRule](actions/delete-alarm-mute-rule.js#L4)
 - [DeleteAlarms](actions/delete-alarms.js#L4)
+- [DescribeAlarmContributors](actions/describe-alarm-contributors.js#L4)
 - [DescribeAlarmsForMetric](actions/describe-alarms.js#L4)
 - [DisableAlarmActions](actions/disable-alarm-actions.js#L4)
 - [EnableAlarmActions](actions/enable-alarm-actions.js#L4)
+- [GetAlarmMuteRule](actions/get-alarm-mute-rule.js#L4)
+- [GetOTelEnrichment](actions/get-otel-enrichment.js#L4)
+- [ListAlarmMuteRules](actions/list-alarm-mute-rules.js#L4)
 - [ListMetrics](actions/list-metrics.js#L4)
-- [PutMetricAlarm](actions/put-metric-alarm.js#L4)
+- [PutAlarmMuteRule](actions/put-alarm-mute-rule.js#L4)
+- [PutMetricAlarm](actions/put-promql-metric-alarm.js#L4)
 - [PutMetricData](actions/put-metric-data.js#L4)
+- [StartOTelEnrichment](actions/start-otel-enrichment.js#L4)
+- [StopOTelEnrichment](actions/stop-otel-enrichment.js#L4)
 
 
 <!--custom.examples.start-->

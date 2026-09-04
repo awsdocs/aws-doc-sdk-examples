@@ -158,7 +158,7 @@ public class CloudWatchTests
             {
                 MetricName = customMetricName,
                 Value = 1,
-                TimestampUtc = nowUtc.AddMinutes(-1)
+                Timestamp = nowUtc.AddMinutes(-1)
             }
         };
         var success = await _cloudWatchWrapper.PutMetricData(customMetricNamespace, customData);

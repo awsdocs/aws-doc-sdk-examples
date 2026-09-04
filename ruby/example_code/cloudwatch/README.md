@@ -33,12 +33,27 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `ruby`
 
 Code excerpts that show you how to call individual service functions.
 
+- [DeleteAlarmMuteRule](otel_metrics_basics.rb#L253)
+- [DescribeAlarmContributors](otel_metrics_basics.rb#L125)
 - [DescribeAlarms](alarm_basics.rb#L8)
 - [DescribeAlarmsForMetric](show_alarms.rb#L8)
 - [DisableAlarmActions](alarm_actions.rb#L94)
+- [GetAlarmMuteRule](otel_metrics_basics.rb#L207)
+- [GetOTelEnrichment](otel_metrics_basics.rb#L41)
+- [ListAlarmMuteRules](otel_metrics_basics.rb#L223)
 - [ListMetrics](metrics_basics.rb#L70)
-- [PutMetricAlarm](alarm_basics.rb#L31)
+- [PutAlarmMuteRule](otel_metrics_basics.rb#L154)
+- [PutMetricAlarm](otel_metrics_basics.rb#L70)
 - [PutMetricData](metrics_basics.rb#L8)
+- [StartOTelEnrichment](otel_metrics_basics.rb#L18)
+- [StopOTelEnrichment](otel_metrics_basics.rb#L54)
+
+### Scenarios
+
+Code examples that show you how to accomplish a specific task by calling multiple
+functions within the same service.
+
+- [Send OpenTelemetry metrics and alarm on them with PromQL](otel_metrics_basics.rb)
 
 
 <!--custom.examples.start-->
@@ -54,6 +69,28 @@ The quickest way to interact with this example code is to invoke a [Scenario](#S
 <!--custom.instructions.end-->
 
 
+
+#### Send OpenTelemetry metrics and alarm on them with PromQL
+
+This example shows you how to do the following:
+
+- Send OTLP metrics to the CloudWatch metrics endpoint with an OpenTelemetry Collector.
+- Start OpenTelemetry enrichment so CloudWatch correlates those metrics with your resources.
+- Create an alarm that evaluates a PromQL query across every series the query returns.
+- Inspect the individual series, called contributors, that put the alarm in ALARM state.
+- Mute the alarm for a maintenance window, then clean up.
+
+<!--custom.scenario_prereqs.cloudwatch_Scenario_OTelMetrics.start-->
+<!--custom.scenario_prereqs.cloudwatch_Scenario_OTelMetrics.end-->
+
+Start the example by running the following at a command prompt:
+
+```
+ruby otel_metrics_basics.rb
+```
+
+<!--custom.scenarios.cloudwatch_Scenario_OTelMetrics.start-->
+<!--custom.scenarios.cloudwatch_Scenario_OTelMetrics.end-->
 
 ### Tests
 

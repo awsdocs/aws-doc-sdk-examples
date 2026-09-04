@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "2.1.0"
+    kotlin("jvm") version "2.3.21"
     application
 }
 
@@ -28,7 +28,7 @@ repositories {
 
 apply(plugin = "org.jlleitschuh.gradle.ktlint")
 dependencies {
-    implementation(platform("aws.sdk.kotlin:bom:1.5.63"))
+    implementation(platform("aws.sdk.kotlin:bom:1.6.92"))
     implementation("aws.sdk.kotlin:cloudwatch")
     implementation("aws.sdk.kotlin:cloudwatchevents")
     implementation("aws.sdk.kotlin:cloudwatchlogs")
@@ -44,7 +44,7 @@ dependencies {
     implementation("org.slf4j:slf4j-simple:2.0.15")
 }
 tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "17"
+    compilerOptions.jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
 }
 
 tasks.test {
