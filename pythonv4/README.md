@@ -118,7 +118,7 @@ python -m pytest -m "integ"
 
 ## Additional resources
 
-* [AWS SDK for Python Documentation](https://docs.aws.amazon.com/sdk-for-python/v1/reference/)
+* [AWS SDK for Python Documentation](https://docs.aws.amazon.com/sdk-for-python/v4/reference/)
 
 ---
 
