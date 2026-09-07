@@ -104,12 +104,12 @@ This example shows you how to get started using CloudWatch.
 This example shows you how to do the following:
 
 - List CloudWatch namespaces and metrics.
-- Get statistics for a metric and for estimated billing.
-- Create and update a dashboard.
-- Create and add data to a metric.
-- Create and trigger an alarm, then view alarm history.
-- Add an anomaly detector.
-- Get a metric image, then clean up resources.
+- Start OpenTelemetry enrichment so CloudWatch correlates incoming OTLP metrics with the resources that produced them.
+- See how OTLP metrics reach the CloudWatch metrics endpoint. Metric ingestion over OTLP is not an AWS SDK operation.
+- Create an alarm that evaluates a PromQL query.
+- Inspect the alarm's contributors, the individual series that the query matched.
+- Get statistics for a metric and chart it on a dashboard.
+- Mute the alarm for a maintenance window, then clean up.
 
 <!--custom.basic_prereqs.cloudwatch_GetStartedMetricsDashboardsAlarms.start-->
 <!--custom.basic_prereqs.cloudwatch_GetStartedMetricsDashboardsAlarms.end-->

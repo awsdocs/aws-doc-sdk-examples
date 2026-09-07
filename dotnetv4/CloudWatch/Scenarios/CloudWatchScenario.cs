@@ -1,9 +1,6 @@
-﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-using System.Diagnostics;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 using Amazon.CloudWatch;
 using Amazon.CloudWatch.Model;
 using CloudWatchActions;
@@ -22,35 +19,53 @@ public class CloudWatchScenario
     /*
     Before running this .NET code example, set up your development environment, including your credentials.
 
-    To enable billing metrics and statistics for this example, make sure billing alerts are enabled for your account:
-    https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/monitor_estimated_charges_with_cloudwatch.html#turning_on_billing_metrics
+    This scenario demonstrates the Amazon CloudWatch OpenTelemetry (OTel) experience.
+    CloudWatch ingests OpenTelemetry metrics natively, and this example walks through what
+    you do with them: turning on enrichment so CloudWatch can correlate incoming OTLP
+    metrics with the resources that produced them, alarming on those metrics with a PromQL
+    query, and finding out which individual series drove the alarm.
+
+    A PromQL alarm works differently from a classic metric alarm. Rather than watching one
+    metric and counting breaching periods, it evaluates a query that can match many series
+    at once, and tracks each matching series separately as a contributor.
+
+    Note that sending OTLP metrics to CloudWatch is not an AWS SDK operation. Metrics
+    arrive over the OTLP protocol through the CloudWatch agent, an OpenTelemetry
+    Collector, or an ADOT SDK. Everything this scenario does is configuration and querying
+    around that ingestion path.
 
     This .NET example performs the following tasks:
-        1. List and select a CloudWatch namespace.
-        2. List and select a CloudWatch metric.
-        3. Get statistics for a CloudWatch metric.
-        4. Get estimated billing statistics for the last week.
-        5. Create a new CloudWatch dashboard with two metrics.
-        6. List current CloudWatch dashboards.
-        7. Create a CloudWatch custom metric and add metric data.
-        8. Add the custom metric to the dashboard.
-        9. Create a CloudWatch alarm for the custom metric.
-       10. Describe current CloudWatch alarms.
-       11. Get recent data for the custom metric.
-       12. Add data to the custom metric to trigger the alarm.
-       13. Wait for an alarm state.
-       14. Get history for the CloudWatch alarm.
-       15. Add an anomaly detector.
-       16. Describe current anomaly detectors.
-       17. Get and display a metric image.
-       18. Clean up resources.
+        1. List metrics and namespaces from CloudWatch.
+        2. Start OpenTelemetry enrichment for the account.
+        3. Explain how OTLP metrics reach CloudWatch.
+        4. Create an alarm that evaluates a PromQL query.
+        5. Inspect the contributors to the PromQL alarm.
+        6. Get metric statistics and chart the metric on a dashboard.
+        7. Mute the alarm for a maintenance window.
+        8. Clean up resources.
     */
 
     private static ILogger logger = null!;
     private static CloudWatchWrapper _cloudWatchWrapper = null!;
+    private static CloudWatchOTelWrapper _otelWrapper = null!;
     private static IConfiguration _configuration = null!;
-    private static readonly List<string> _statTypes = new List<string> { "SampleCount", "Average", "Sum", "Minimum", "Maximum" };
-    private static SingleMetricAnomalyDetector? anomalyDetector = null!;
+
+    private const string DefaultQuery = "avg by (host) (system_cpu_utilization) > 80";
+
+    // Valid evaluation intervals are 10, 20, 30, or any multiple of 60 up to 3600 seconds.
+    private const int EvaluationInterval = 60;
+    private const int PendingPeriod = 300;
+    private const int RecoveryPeriod = 120;
+
+    private static string _alarmName = null!;
+    private static string _dashboardName = null!;
+    private static string _muteRuleName = null!;
+
+    // Tracks whether this run turned enrichment on, so that cleanup only turns off
+    // enrichment that this run started.
+    private static bool _startedEnrichment;
+    private static bool _dashboardCreated;
+    private static string _region = null!;
 
     static async Task Main(string[] args)
     {
@@ -63,6 +78,7 @@ public class CloudWatchScenario
             .ConfigureServices((_, services) =>
             services.AddAWSService<IAmazonCloudWatch>()
             .AddTransient<CloudWatchWrapper>()
+            .AddTransient<CloudWatchOTelWrapper>()
         )
         .Build();
 
@@ -77,716 +93,441 @@ public class CloudWatchScenario
             .CreateLogger<CloudWatchScenario>();
 
         _cloudWatchWrapper = host.Services.GetRequiredService<CloudWatchWrapper>();
+        _otelWrapper = host.Services.GetRequiredService<CloudWatchOTelWrapper>();
+
+        // A metric widget must name its region, because a dashboard can chart
+        // metrics from several.
+        _region = host.Services.GetRequiredService<IAmazonCloudWatch>()
+            .Config.RegionEndpoint.SystemName;
+
+        // Suffix the resource names so repeated runs do not collide.
+        var suffix = new Random().Next(1000, 9999).ToString();
+        _alarmName = $"doc-example-promql-alarm-{suffix}";
+        _dashboardName = $"doc-example-dashboard-{suffix}";
+        _muteRuleName = $"doc-example-mute-rule-{suffix}";
 
         Console.WriteLine(new string('-', 80));
-        Console.WriteLine("Welcome to the Amazon CloudWatch example scenario.");
+        Console.WriteLine("Welcome to the Amazon CloudWatch Basics scenario.");
         Console.WriteLine(new string('-', 80));
+        Console.WriteLine(
+            "\nCloudWatch now ingests OpenTelemetry metrics natively. This scenario walks through" +
+            "\nthat experience: it turns on OTel enrichment so CloudWatch can correlate incoming" +
+            "\nOTLP metrics with the resources that produced them, alarms on those metrics with a" +
+            "\nPromQL query, and shows you which individual series drove the alarm." +
+            "\n" +
+            "\nA PromQL alarm works differently from a classic metric alarm. Rather than watching" +
+            "\none metric and counting breaching periods, it evaluates a query that can match many" +
+            "\nseries at once, and tracks each one separately as a contributor.\n");
 
         try
         {
-            var selectedNamespace = await SelectNamespace();
-            var selectedMetric = await SelectMetric(selectedNamespace);
-            await GetAndDisplayMetricStatistics(selectedNamespace, selectedMetric);
-            await GetAndDisplayEstimatedBilling();
-            await CreateDashboardWithMetrics();
-            await ListDashboards();
-            await CreateNewCustomMetric();
-            await AddMetricToDashboard();
-            await CreateMetricAlarm();
-            await DescribeAlarms();
-            await GetCustomMetricData();
-            await AddMetricDataForAlarm();
-            await CheckForMetricAlarm();
-            await GetAlarmHistory();
-            anomalyDetector = await AddAnomalyDetector();
-            await DescribeAnomalyDetectors();
-            await GetAndOpenMetricImage();
-            await CleanupResources();
+            var namespaces = await ListMetricsAndNamespaces();
+            await StartOTelEnrichment();
+            ExplainOtlpIngestion();
+            await CreatePromQlAlarm();
+            await InspectAlarmContributors();
+            await GetStatisticsAndChartMetric(namespaces);
+            await MuteAlarmForMaintenance();
+            await CleanUp();
+
+            Console.WriteLine(new string('-', 80));
+            Console.WriteLine("CloudWatch Basics scenario is complete.");
+            Console.WriteLine(new string('-', 80));
         }
         catch (Exception ex)
         {
+            Console.WriteLine(new string('-', 80));
             logger.LogError(ex, "There was a problem executing the scenario.");
-            await CleanupResources();
+            await CleanUp();
+            Console.WriteLine(new string('-', 80));
         }
-
     }
 
     /// <summary>
-    /// Select a namespace.
+    /// List the metrics and namespaces already present in the account, to orient the
+    /// reader before any configuration happens.
     /// </summary>
-    /// <returns>The selected namespace.</returns>
-    private static async Task<string> SelectNamespace()
+    /// <returns>The distinct namespaces found.</returns>
+    private static async Task<List<string>> ListMetricsAndNamespaces()
     {
         Console.WriteLine(new string('-', 80));
-        Console.WriteLine($"1. Select a CloudWatch Namespace from a list of Namespaces.");
+        Console.WriteLine("1. List metrics and namespaces");
+        Console.WriteLine(
+            "\nBefore configuring anything, let's see what CloudWatch is already collecting in" +
+            "\nthis account by calling ListMetrics.\n");
+
         var metrics = await _cloudWatchWrapper.ListMetrics();
-        // Get a distinct list of namespaces.
-        var namespaces = metrics.Select(m => m.Namespace).Distinct().ToList();
-        for (int i = 0; i < namespaces.Count; i++)
+        var namespaces = metrics.Select(m => m.Namespace).Distinct().OrderBy(n => n).ToList();
+
+        Console.WriteLine($"\tFound {metrics.Count} metrics across {namespaces.Count} namespaces:");
+        foreach (var metricNamespace in namespaces.Take(10))
         {
-            Console.WriteLine($"\t{i + 1}. {namespaces[i]}");
+            var count = metrics.Count(m => m.Namespace == metricNamespace);
+            Console.WriteLine($"\t  {metricNamespace} ({count} metrics)");
         }
 
-        var namespaceChoiceNumber = 0;
-        while (namespaceChoiceNumber < 1 || namespaceChoiceNumber > namespaces.Count)
+        if (!namespaces.Any())
         {
             Console.WriteLine(
-                "Select a namespace by entering a number from the preceding list:");
-            var choice = Console.ReadLine();
-            Int32.TryParse(choice, out namespaceChoiceNumber);
+                "\tNo metrics found in this account. The statistics and dashboard steps later on" +
+                "\n\tneed an existing metric, so they will be skipped.");
         }
 
-        var selectedNamespace = namespaces[namespaceChoiceNumber - 1];
-
         Console.WriteLine(new string('-', 80));
-
-        return selectedNamespace;
+        return namespaces!;
     }
 
     /// <summary>
-    /// Select a metric from a namespace.
+    /// Start OTel enrichment, but only if it is not already running. Enrichment is what
+    /// makes CloudWatch attach AWS resource context to incoming OTLP metrics.
     /// </summary>
-    /// <param name="metricNamespace">The namespace for metrics.</param>
-    /// <returns>The metric name.</returns>
-    private static async Task<Metric> SelectMetric(string metricNamespace)
+    private static async Task StartOTelEnrichment()
     {
         Console.WriteLine(new string('-', 80));
-        Console.WriteLine($"2. Select a CloudWatch metric from a namespace.");
+        Console.WriteLine("2. Start OpenTelemetry enrichment");
+        Console.WriteLine(
+            "\nEnrichment is what lets CloudWatch attach AWS resource context to the OTLP metrics" +
+            "\nyou send it. Without it, your metrics arrive as opaque series with no connection to" +
+            "\nthe resources that emitted them." +
+            "\n" +
+            "\nWe check the current state first, and only start enrichment if it isn't already on.\n");
 
-        var namespaceMetrics = await _cloudWatchWrapper.ListMetrics(metricNamespace);
+        var status = await _otelWrapper.GetOTelEnrichmentStatus();
+        Console.WriteLine($"\tEnrichment status: {status}");
 
-        for (int i = 0; i < namespaceMetrics.Count && i < 15; i++)
+        if (status != OTelEnrichmentStatus.Running)
         {
-            var dimensionsWithValues = namespaceMetrics[i].Dimensions
-                .Where(d => !string.Equals("None", d.Value));
-            Console.WriteLine($"\t{i + 1}. {namespaceMetrics[i].MetricName} " +
-                              $"{string.Join(", :", dimensionsWithValues.Select(d => d.Value))}");
-        }
+            await _otelWrapper.StartOTelEnrichment();
+            _startedEnrichment = true;
 
-        var metricChoiceNumber = 0;
-        while (metricChoiceNumber < 1 || metricChoiceNumber > namespaceMetrics.Count)
+            status = await _otelWrapper.GetOTelEnrichmentStatus();
+            Console.WriteLine($"\tEnrichment status: {status}");
+            Console.WriteLine(
+                "\n\tNote: this run started enrichment, so the cleanup step will stop it again.");
+        }
+        else
         {
             Console.WriteLine(
-                "Select a metric by entering a number from the preceding list:");
-            var choice = Console.ReadLine();
-            Int32.TryParse(choice, out metricChoiceNumber);
+                "\n\tEnrichment was already running, so we will leave it alone. The cleanup step" +
+                "\n\twill not stop it, because other workloads in this account may depend on it.");
         }
 
-        var selectedMetric = namespaceMetrics[metricChoiceNumber - 1];
-
         Console.WriteLine(new string('-', 80));
-
-        return selectedMetric;
     }
 
     /// <summary>
-    /// Get and display metric statistics for a specific metric.
+    /// Explain that OTLP metric ingestion is not an AWS SDK operation. This step makes no
+    /// service call; naming the gap explicitly is the point.
     /// </summary>
-    /// <param name="metricNamespace">The namespace for metrics.</param>
-    /// <param name="metric">The CloudWatch metric.</param>
-    /// <returns>Async task.</returns>
-    private static async Task GetAndDisplayMetricStatistics(string metricNamespace, Metric metric)
+    private static void ExplainOtlpIngestion()
     {
         Console.WriteLine(new string('-', 80));
-        Console.WriteLine($"3. Get CloudWatch metric statistics for the last day.");
+        Console.WriteLine("3. Send OTLP metrics to CloudWatch");
+        Console.WriteLine(
+            "\nThis step is not an AWS SDK operation, and that's worth being explicit about." +
+            "\nMetrics reach CloudWatch over the OTLP protocol, through the CloudWatch agent, an" +
+            "\nOpenTelemetry Collector, or an ADOT SDK. There is no PutOTelMetrics API to call." +
+            "\n" +
+            "\nPoint your collector at the CloudWatch metrics endpoint, which follows the pattern" +
+            "\n\thttps://monitoring.<region>.amazonaws.com/v1/metrics" +
+            "\n" +
+            "\nThe endpoint is HTTP/1.1 only and does not support gRPC, so use an otlphttp" +
+            "\nexporter rather than otlp. The metrics endpoint signs as \"monitoring\".\n");
+        Console.WriteLine(new string('-', 80));
+    }
 
-        for (int i = 0; i < _statTypes.Count; i++)
-        {
-            Console.WriteLine($"\t{i + 1}. {_statTypes[i]}");
-        }
+    /// <summary>
+    /// Create an alarm whose evaluation is a PromQL query.
+    /// </summary>
+    private static async Task CreatePromQlAlarm()
+    {
+        Console.WriteLine(new string('-', 80));
+        Console.WriteLine("4. Create a PromQL alarm");
+        Console.WriteLine(
+            "\nNow we alarm on those metrics. The comparison goes inside the query itself: a" +
+            "\nPromQL alarm has no separate threshold, comparison operator, statistic, or period.\n");
 
-        var statisticChoiceNumber = 0;
-        while (statisticChoiceNumber < 1 || statisticChoiceNumber > _statTypes.Count)
+        Console.WriteLine($"Enter a PromQL query, or press <ENTER> for the default\n[{DefaultQuery}]:");
+        var input = Console.ReadLine();
+        var query = string.IsNullOrWhiteSpace(input) ? DefaultQuery : input.Trim();
+
+        await _otelWrapper.PutPromQLMetricAlarm(_alarmName, query,
+            EvaluationInterval, PendingPeriod, RecoveryPeriod);
+
+        Console.WriteLine($"\tCreated alarm {_alarmName}:");
+        Console.WriteLine($"\t  query:              {query}");
+        Console.WriteLine($"\t  evaluationInterval: {EvaluationInterval} seconds");
+        Console.WriteLine($"\t  pendingPeriod:      {PendingPeriod} seconds");
+        Console.WriteLine($"\t  recoveryPeriod:     {RecoveryPeriod} seconds");
+        Console.WriteLine(
+            "\n\tA PromQL alarm starts in the OK state rather than INSUFFICIENT_DATA, which is" +
+            "\n\tanother way it differs from a classic alarm.");
+
+        Console.WriteLine(new string('-', 80));
+    }
+
+    /// <summary>
+    /// Show which individual series the alarm's query matched. This is the step with no
+    /// classic-alarm equivalent.
+    /// </summary>
+    private static async Task InspectAlarmContributors()
+    {
+        Console.WriteLine(new string('-', 80));
+        Console.WriteLine("5. Inspect the alarm's contributors");
+        Console.WriteLine(
+            "\nEach contributor is one series the query matched, identified by its label set." +
+            "\nThis is how you find out which host is unhealthy rather than only that something" +
+            "\nis. Classic alarms have no equivalent.\n");
+
+        var contributors = await _otelWrapper.DescribeAlarmContributors(_alarmName);
+
+        if (!contributors.Any())
         {
             Console.WriteLine(
-                "Select a metric statistic by entering a number from the preceding list:");
-            var choice = Console.ReadLine();
-            Int32.TryParse(choice, out statisticChoiceNumber);
+                "\tNo contributors yet. The query matched no series, which usually means no OTel" +
+                "\n\tmetrics with these labels have arrived. Once your collector is sending data," +
+                "\n\teach matching series appears here with its labels and why it breached.");
         }
-
-        var selectedStatistic = _statTypes[statisticChoiceNumber - 1];
-        var statisticsList = new List<string> { selectedStatistic };
-
-        var metricStatistics = await _cloudWatchWrapper.GetMetricStatistics(metricNamespace, metric.MetricName, statisticsList, metric.Dimensions, 1, 60);
-
-        if (!metricStatistics.Any())
+        else
         {
-            Console.WriteLine($"No {selectedStatistic} statistics found for {metric} in namespace {metricNamespace}.");
-        }
-
-        metricStatistics = metricStatistics.OrderBy(s => s.Timestamp).ToList();
-        for (int i = 0; i < metricStatistics.Count && i < 10; i++)
-        {
-            var metricStat = metricStatistics[i];
-            var statValue = metricStat.GetType().GetProperty(selectedStatistic)!.GetValue(metricStat, null);
-            Console.WriteLine($"\t{i + 1}. Timestamp {metricStatistics[i].Timestamp:G} {selectedStatistic}: {statValue}");
-        }
-
-        Console.WriteLine(new string('-', 80));
-    }
-
-    /// <summary>
-    /// Get and display estimated billing statistics.
-    /// </summary>
-    /// <param name="metricNamespace">The namespace for metrics.</param>
-    /// <param name="metric">The CloudWatch metric.</param>
-    /// <returns>Async task.</returns>
-    private static async Task GetAndDisplayEstimatedBilling()
-    {
-        Console.WriteLine(new string('-', 80));
-        Console.WriteLine($"4. Get CloudWatch estimated billing for the last week.");
-
-        var billingStatistics = await SetupBillingStatistics();
-
-        for (int i = 0; i < billingStatistics.Count; i++)
-        {
-            Console.WriteLine($"\t{i + 1}. Timestamp {billingStatistics[i].Timestamp:G} : {billingStatistics[i].Maximum}");
-        }
-
-        Console.WriteLine(new string('-', 80));
-    }
-
-    // snippet-start:[CloudWatch.dotnetv4.GetMetricStatisticsSetup]
-    /// <summary>
-    /// Get billing statistics using a call to a wrapper class.
-    /// </summary>
-    /// <returns>A collection of billing statistics.</returns>
-    private static async Task<List<Datapoint>> SetupBillingStatistics()
-    {
-        // Make a request for EstimatedCharges with a period of one day for the past seven days.
-        var billingStatistics = await _cloudWatchWrapper.GetMetricStatistics(
-            "AWS/Billing",
-            "EstimatedCharges",
-            new List<string>() { "Maximum" },
-            new List<Dimension>() { new Dimension { Name = "Currency", Value = "USD" } },
-            7,
-            86400);
-
-        billingStatistics = billingStatistics.OrderBy(n => n.Timestamp).ToList();
-
-        return billingStatistics;
-    }
-    // snippet-end:[CloudWatch.dotnetv4.GetMetricStatisticsSetup]
-
-    /// <summary>
-    /// Create a dashboard with metrics.
-    /// </summary>
-    /// <param name="metricNamespace">The namespace for metrics.</param>
-    /// <param name="metric">The CloudWatch metric.</param>
-    /// <returns>Async task.</returns>
-    private static async Task CreateDashboardWithMetrics()
-    {
-        Console.WriteLine(new string('-', 80));
-        Console.WriteLine($"5. Create a new CloudWatch dashboard with metrics.");
-        var dashboardName = _configuration["dashboardName"];
-        var newDashboard = new DashboardModel();
-        _configuration.GetSection("dashboardExampleBody").Bind(newDashboard);
-        var newDashboardString = JsonSerializer.Serialize(
-            newDashboard,
-            new JsonSerializerOptions
+            Console.WriteLine($"\tFound {contributors.Count} contributors:");
+            foreach (var contributor in contributors)
             {
-                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
-            });
-        var validationMessages =
-            await _cloudWatchWrapper.PutDashboard(dashboardName, newDashboardString);
-
-        Console.WriteLine(validationMessages.Any() ? $"\tValidation messages:" : null);
-        for (int i = 0; i < validationMessages.Count; i++)
-        {
-            Console.WriteLine($"\t{i + 1}. {validationMessages[i].Message}");
-        }
-        Console.WriteLine($"\tDashboard {dashboardName} was created.");
-        Console.WriteLine(new string('-', 80));
-    }
-
-    /// <summary>
-    /// List dashboards.
-    /// </summary>
-    /// <returns>Async task.</returns>
-    private static async Task ListDashboards()
-    {
-        Console.WriteLine(new string('-', 80));
-        Console.WriteLine($"6. List the CloudWatch dashboards in the current account.");
-
-        var dashboards = await _cloudWatchWrapper.ListDashboards();
-
-        for (int i = 0; i < dashboards.Count; i++)
-        {
-            Console.WriteLine($"\t{i + 1}. {dashboards[i].DashboardName}");
-        }
-
-        Console.WriteLine(new string('-', 80));
-    }
-
-    /// <summary>
-    /// Create and add data for a new custom metric.
-    /// </summary>
-    /// <returns>Async task.</returns>
-    private static async Task CreateNewCustomMetric()
-    {
-        Console.WriteLine(new string('-', 80));
-        Console.WriteLine($"7. Create and add data for a new custom metric.");
-
-        var customMetricNamespace = _configuration["customMetricNamespace"];
-        var customMetricName = _configuration["customMetricName"];
-
-        var customData = await PutRandomMetricData(customMetricName, customMetricNamespace);
-
-        var valuesString = string.Join(',', customData.Select(d => d.Value));
-        Console.WriteLine($"\tAdded metric values for for metric {customMetricName}: \n\t{valuesString}");
-
-        Console.WriteLine(new string('-', 80));
-    }
-
-    // snippet-start:[CloudWatch.dotnetv4.PutMetricDataSetup]
-
-    /// <summary>
-    /// Add some metric data using a call to a wrapper class.
-    /// </summary>
-    /// <param name="customMetricName">The metric name.</param>
-    /// <param name="customMetricNamespace">The metric namespace.</param>
-    /// <returns></returns>
-    private static async Task<List<MetricDatum>> PutRandomMetricData(string customMetricName,
-        string customMetricNamespace)
-    {
-        List<MetricDatum> customData = new List<MetricDatum>();
-        Random rnd = new Random();
-
-        // Add 10 random values up to 100, starting with a timestamp 15 minutes in the past.
-        var utcNowMinus15 = DateTime.UtcNow.AddMinutes(-15);
-        for (int i = 0; i < 10; i++)
-        {
-            var metricValue = rnd.Next(0, 100);
-            customData.Add(
-                new MetricDatum
-                {
-                    MetricName = customMetricName,
-                    Value = metricValue,
-                    Timestamp = utcNowMinus15.AddMinutes(i)
-                }
-            );
-        }
-
-        await _cloudWatchWrapper.PutMetricData(customMetricNamespace, customData);
-        return customData;
-    }
-    // snippet-end:[CloudWatch.dotnetv4.PutMetricDataSetup]
-
-    /// <summary>
-    /// Add the custom metric to the dashboard.
-    /// </summary>
-    /// <returns>Async task.</returns>
-    private static async Task AddMetricToDashboard()
-    {
-        Console.WriteLine(new string('-', 80));
-        Console.WriteLine($"8. Add the new custom metric to the dashboard.");
-
-        var dashboardName = _configuration["dashboardName"];
-
-        var customMetricNamespace = _configuration["customMetricNamespace"];
-        var customMetricName = _configuration["customMetricName"];
-
-        var validationMessages = await SetupDashboard(customMetricNamespace, customMetricName, dashboardName);
-
-        Console.WriteLine(validationMessages.Any() ? $"\tValidation messages:" : null);
-        for (int i = 0; i < validationMessages.Count; i++)
-        {
-            Console.WriteLine($"\t{i + 1}. {validationMessages[i].Message}");
-        }
-        Console.WriteLine($"\tDashboard {dashboardName} updated with metric {customMetricName}.");
-        Console.WriteLine(new string('-', 80));
-    }
-
-    // snippet-start:[CloudWatch.dotnetv4.PutDashboardSetup]
-
-    /// <summary>
-    /// Set up a dashboard using a call to the wrapper class.
-    /// </summary>
-    /// <param name="customMetricNamespace">The metric namespace.</param>
-    /// <param name="customMetricName">The metric name.</param>
-    /// <param name="dashboardName">The name of the dashboard.</param>
-    /// <returns>A list of validation messages.</returns>
-    private static async Task<List<DashboardValidationMessage>> SetupDashboard(
-        string customMetricNamespace, string customMetricName, string dashboardName)
-    {
-        // Get the dashboard model from configuration.
-        var newDashboard = new DashboardModel();
-        _configuration.GetSection("dashboardExampleBody").Bind(newDashboard);
-
-        // Add a new metric to the dashboard.
-        newDashboard.Widgets.Add(new Widget
-        {
-            Height = 8,
-            Width = 8,
-            Y = 8,
-            X = 0,
-            Type = "metric",
-            Properties = new Properties
-            {
-                Metrics = new List<List<object>>
-                    { new() { customMetricNamespace, customMetricName } },
-                View = "timeSeries",
-                Region = "us-east-1",
-                Stat = "Sum",
-                Period = 86400,
-                YAxis = new YAxis { Left = new Left { Min = 0, Max = 100 } },
-                Title = "Custom Metric Widget",
-                LiveData = true,
-                Sparkline = true,
-                Trend = true,
-                Stacked = false,
-                SetPeriodToTimeRange = false
+                var labels = string.Join(", ",
+                    contributor.ContributorAttributes.Select(a => $"{a.Key}={a.Value}"));
+                Console.WriteLine($"\t  {contributor.ContributorId}: {labels}");
+                Console.WriteLine($"\t    reason: {contributor.StateReason}");
             }
-        });
-
-        var newDashboardString = JsonSerializer.Serialize(newDashboard,
-            new JsonSerializerOptions
-            { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull });
-        var validationMessages =
-            await _cloudWatchWrapper.PutDashboard(dashboardName, newDashboardString);
-
-        return validationMessages;
-    }
-    // snippet-end:[CloudWatch.dotnetv4.PutDashboardSetup]
-
-    /// <summary>
-    /// Create a CloudWatch alarm for the new metric.
-    /// </summary>
-    /// <returns>Async task.</returns>
-    private static async Task CreateMetricAlarm()
-    {
-        Console.WriteLine(new string('-', 80));
-        Console.WriteLine($"9. Create a CloudWatch alarm for the new metric.");
-
-        var customMetricNamespace = _configuration["customMetricNamespace"];
-        var customMetricName = _configuration["customMetricName"];
-
-        var alarmName = _configuration["exampleAlarmName"];
-        var accountId = _configuration["accountId"];
-        var region = _configuration["region"];
-        var emailTopic = _configuration["emailTopic"];
-        var alarmActions = new List<string>();
-
-        if (GetYesNoResponse(
-                $"\tAdd an email action for topic {emailTopic} to alarm {alarmName}? (y/n)"))
-        {
-            _cloudWatchWrapper.AddEmailAlarmAction(accountId, region, emailTopic, alarmActions);
-        }
-
-        await _cloudWatchWrapper.PutMetricEmailAlarm(
-            "Example metric alarm",
-            alarmName,
-            ComparisonOperator.GreaterThanOrEqualToThreshold,
-            customMetricName,
-            customMetricNamespace,
-            100,
-            alarmActions);
-
-        Console.WriteLine($"\tAlarm {alarmName} added for metric {customMetricName}.");
-        Console.WriteLine(new string('-', 80));
-    }
-
-    /// <summary>
-    /// Describe Alarms.
-    /// </summary>
-    /// <returns>Async task.</returns>
-    private static async Task DescribeAlarms()
-    {
-        Console.WriteLine(new string('-', 80));
-        Console.WriteLine($"10. Describe CloudWatch alarms in the current account.");
-
-        var alarms = await _cloudWatchWrapper.DescribeAlarms();
-        alarms = alarms.OrderByDescending(a => a.StateUpdatedTimestamp).ToList();
-
-        for (int i = 0; i < alarms.Count && i < 10; i++)
-        {
-            var alarm = alarms[i];
-            Console.WriteLine($"\t{i + 1}. {alarm.AlarmName}");
-            Console.WriteLine($"\tState: {alarm.StateValue} for {alarm.MetricName} {alarm.ComparisonOperator} {alarm.Threshold}");
         }
 
         Console.WriteLine(new string('-', 80));
     }
 
     /// <summary>
-    /// Get the recent data for the metric.
+    /// Get statistics for an existing metric and chart it on a dashboard, so the reader can
+    /// see what the alarm is evaluating.
     /// </summary>
-    /// <returns>Async task.</returns>
-    private static async Task GetCustomMetricData()
+    /// <param name="namespaces">The namespaces discovered in step 1.</param>
+    private static async Task GetStatisticsAndChartMetric(List<string> namespaces)
     {
         Console.WriteLine(new string('-', 80));
-        Console.WriteLine($"11. Get current data for new custom metric.");
+        Console.WriteLine("6. Get statistics and chart the metric on a dashboard");
+        Console.WriteLine("\nStatistics and dashboards are how you see what the alarm is evaluating.\n");
 
-        var customMetricNamespace = _configuration["customMetricNamespace"];
-        var customMetricName = _configuration["customMetricName"];
-        var accountId = _configuration["accountId"];
-
-        var query = new List<MetricDataQuery>
+        if (!namespaces.Any())
         {
-            new MetricDataQuery
+            Console.WriteLine("\tSkipping statistics and dashboard because no metrics exist yet.");
+            Console.WriteLine(new string('-', 80));
+            return;
+        }
+
+        var metricNamespace = namespaces.First();
+        var metrics = await _cloudWatchWrapper.ListMetrics(metricNamespace);
+        var metric = metrics.FirstOrDefault();
+
+        if (metric != null)
+        {
+            var datapoints = await _cloudWatchWrapper.GetMetricStatistics(
+                metricNamespace, metric.MetricName, new List<string> { "Average", "Maximum" },
+                metric.Dimensions, 1, 3600);
+
+            Console.WriteLine(
+                $"\tStatistics for {metricNamespace} {metric.MetricName} over the last day:");
+            Console.WriteLine($"\t  Datapoints: {datapoints.Count}");
+            foreach (var datapoint in datapoints.Take(3))
             {
-                AccountId = accountId,
-                Id = "m1",
-                Label = "Custom Metric Data",
-                MetricStat = new MetricStat
+                Console.WriteLine(
+                    $"\t  {datapoint.Timestamp:u} average {datapoint.Average}, maximum {datapoint.Maximum}");
+            }
+
+            var dashboardBody = BuildDashboardBody(metricNamespace, metric);
+            var validationMessages = await _cloudWatchWrapper.PutDashboard(_dashboardName, dashboardBody);
+            _dashboardCreated = true;
+
+            if (validationMessages.Any())
+            {
+                foreach (var message in validationMessages)
                 {
-                    Metric = new Metric
-                    {
-                        MetricName = customMetricName,
-                        Namespace = customMetricNamespace,
-                    },
-                    Period = 1,
-                    Stat = "Maximum"
+                    Console.WriteLine($"\tDashboard validation message: {message.Message}");
                 }
             }
-        };
 
-        var metricData = await _cloudWatchWrapper.GetMetricData(
-            20,
-            true,
-            DateTime.UtcNow.AddMinutes(1),
-            20,
-            query);
+            Console.WriteLine($"\tCreated dashboard {_dashboardName}.");
 
-        for (int i = 0; i < metricData.Count; i++)
+            var dashboard = await _cloudWatchWrapper.GetDashboard(_dashboardName);
+            Console.WriteLine($"\tRead the dashboard back, {dashboard.Length} characters of widget JSON.");
+        }
+        else
         {
-            if (metricData[i].Values != null)
+            Console.WriteLine($"\tNo metrics found in namespace {metricNamespace}, skipping.");
+        }
+
+        Console.WriteLine(new string('-', 80));
+    }
+
+    /// <summary>
+    /// Build a single-widget dashboard body that charts the given metric.
+    /// </summary>
+    private static string BuildDashboardBody(string metricNamespace, Metric metric)
+    {
+        var dimensionParts = string.Concat(
+            metric.Dimensions.Select(d => $", \"{d.Name}\", \"{d.Value}\""));
+
+        return $@"{{
+    ""widgets"": [
+        {{
+            ""type"": ""text"",
+            ""x"": 0, ""y"": 0, ""width"": 24, ""height"": 2,
+            ""properties"": {{
+                ""markdown"": ""This dashboard was created programmatically by an AWS SDK code example.""
+            }}
+        }},
+        {{
+            ""type"": ""metric"",
+            ""x"": 0, ""y"": 2, ""width"": 12, ""height"": 6,
+            ""properties"": {{
+                ""metrics"": [[ ""{metricNamespace}"", ""{metric.MetricName}""{dimensionParts} ]],
+                ""view"": ""timeSeries"",
+                ""stat"": ""Average"",
+                ""period"": 300,
+                ""region"": ""{_region}"",
+                ""title"": ""{metric.MetricName}""
+            }}
+        }}
+    ]
+}}";
+    }
+
+    /// <summary>
+    /// Create a mute rule so the alarm's actions are suppressed during a maintenance
+    /// window, then read it back and find it in the account's rules.
+    /// </summary>
+    private static async Task MuteAlarmForMaintenance()
+    {
+        Console.WriteLine(new string('-', 80));
+        Console.WriteLine("7. Mute the alarm for a maintenance window");
+        Console.WriteLine(
+            "\nWhile a mute rule is active the targeted alarms keep evaluating and keep changing" +
+            "\nstate, but their actions do not fire. This is the supported way to suppress" +
+            "\nnotifications during planned maintenance, instead of disabling alarm actions and" +
+            "\nhoping someone remembers to turn them back on.\n");
+
+        // The expression is a five-field cron expression,
+        // cron(Minutes Hours Day-of-month Month Day-of-week). Note that this is five fields,
+        // not the six that Amazon EventBridge uses. For a one-time window, use
+        // at(yyyy-MM-ddThh:mm), with no seconds. The duration is an ISO 8601 duration from
+        // PT1M to P15D, so PT2H rather than 2h.
+        const string expression = "cron(0 2 * * SUN)";
+        const string duration = "PT2H";
+        const string timezone = "America/Los_Angeles";
+
+        await _otelWrapper.PutAlarmMuteRule(_muteRuleName, expression, duration, timezone,
+            new List<string> { _alarmName });
+
+        Console.WriteLine($"\tCreated mute rule {_muteRuleName}:");
+        Console.WriteLine($"\t  schedule: {expression} for {duration}");
+        Console.WriteLine($"\t  timezone: {timezone}");
+        Console.WriteLine($"\t  targets:  {_alarmName}");
+        Console.WriteLine(
+            "\n\tNote the two formats here. The expression is a five-field cron expression, five" +
+            "\n\trather than the six Amazon EventBridge uses. The duration is an ISO 8601" +
+            "\n\tduration, so 'PT2H' and not '2h'." +
+            "\n" +
+            "\n\tAlso note that MuteTargets is set explicitly. If you leave it out, the rule" +
+            "\n\tapplies to every alarm in the account.");
+
+        var muteRule = await _otelWrapper.GetAlarmMuteRule(_muteRuleName);
+        Console.WriteLine(
+            $"\tRead the rule back: status {muteRule.Status}, mute type {muteRule.MuteType}.");
+
+        var summaries = await _otelWrapper.ListAlarmMuteRules(_alarmName);
+        Console.WriteLine($"\tFound {summaries.Count} mute rules targeting this alarm.");
+
+        // Mute rule summaries carry no name field, only an ARN, so match on the ARN suffix.
+        var match = summaries.FirstOrDefault(s =>
+            s.AlarmMuteRuleArn.EndsWith($"/{_muteRuleName}") ||
+            s.AlarmMuteRuleArn.EndsWith($":{_muteRuleName}"));
+
+        if (match != null)
+        {
+            Console.WriteLine($"\t  matched by ARN: {match.AlarmMuteRuleArn} ({match.Status})");
+        }
+
+        Console.WriteLine(new string('-', 80));
+    }
+
+    /// <summary>
+    /// Delete the resources the scenario created. Each deletion is attempted independently
+    /// so that one failure does not leave the remaining resources behind.
+    /// </summary>
+    private static async Task CleanUp()
+    {
+        Console.WriteLine(new string('-', 80));
+        Console.WriteLine("8. Clean up");
+        Console.WriteLine("\nDelete the resources this scenario created? (y/n)");
+
+        var response = Console.ReadLine();
+        if (!string.Equals(response?.Trim(), "y", StringComparison.OrdinalIgnoreCase))
+        {
+            Console.WriteLine(
+                "\tSkipping cleanup. Note that the alarm, dashboard, and mute rule are still in" +
+                "\n\tyour account, and enrichment may still be running.");
+            Console.WriteLine(new string('-', 80));
+            return;
+        }
+
+        try
+        {
+            await _otelWrapper.DeleteAlarmMuteRule(_muteRuleName);
+            Console.WriteLine($"\tDeleted mute rule {_muteRuleName}.");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"\tCould not delete the mute rule: {ex.Message}");
+        }
+
+        try
+        {
+            await _cloudWatchWrapper.DeleteAlarms(new List<string> { _alarmName });
+            Console.WriteLine($"\tDeleted alarm {_alarmName}.");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"\tCould not delete the alarm: {ex.Message}");
+        }
+
+        if (_dashboardCreated)
+        {
+            try
             {
-                for (int j = 0; j < metricData[i].Values.Count; j++)
-                {
-                    Console.WriteLine(
-                        $"\tTimestamp {metricData[i].Timestamps[j]:G} Value: {metricData[i].Values[j]}");
-                }
+                await _cloudWatchWrapper.DeleteDashboards(new List<string> { _dashboardName });
+                Console.WriteLine($"\tDeleted dashboard {_dashboardName}.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"\tCould not delete the dashboard: {ex.Message}");
             }
         }
 
-        Console.WriteLine(new string('-', 80));
-    }
-
-    /// <summary>
-    /// Add metric data to trigger an alarm.
-    /// </summary>
-    /// <returns>Async task.</returns>
-    private static async Task AddMetricDataForAlarm()
-    {
-        Console.WriteLine(new string('-', 80));
-        Console.WriteLine($"12. Add metric data to the custom metric to trigger an alarm.");
-
-        var customMetricNamespace = _configuration["customMetricNamespace"];
-        var customMetricName = _configuration["customMetricName"];
-        var nowUtc = DateTime.UtcNow;
-        List<MetricDatum> customData = new List<MetricDatum>
+        if (_startedEnrichment)
         {
-            new MetricDatum
+            try
             {
-                MetricName = customMetricName,
-                Value = 101,
-                Timestamp = nowUtc.AddMinutes(-2)
-            },
-            new MetricDatum
-            {
-                MetricName = customMetricName,
-                Value = 101,
-                Timestamp = nowUtc.AddMinutes(-1)
-            },
-            new MetricDatum
-            {
-                MetricName = customMetricName,
-                Value = 101,
-                Timestamp = nowUtc
+                await _otelWrapper.StopOTelEnrichment();
+                Console.WriteLine("\tStopped OTel enrichment, because this run started it.");
             }
-        };
-        var valuesString = string.Join(',', customData.Select(d => d.Value));
-        Console.WriteLine($"\tAdded metric values for for metric {customMetricName}: \n\t{valuesString}");
-        await _cloudWatchWrapper.PutMetricData(customMetricNamespace, customData);
-
-        Console.WriteLine(new string('-', 80));
-    }
-
-    /// <summary>
-    /// Check for a metric alarm using the DescribeAlarmsForMetric action.
-    /// </summary>
-    /// <returns>Async task.</returns>
-    private static async Task CheckForMetricAlarm()
-    {
-        Console.WriteLine(new string('-', 80));
-        Console.WriteLine($"13. Checking for an alarm state.");
-
-        var customMetricNamespace = _configuration["customMetricNamespace"];
-        var customMetricName = _configuration["customMetricName"];
-        var hasAlarm = false;
-        var retries = 10;
-        while (!hasAlarm && retries > 0)
-        {
-            var alarms = await _cloudWatchWrapper.DescribeAlarmsForMetric(customMetricNamespace, customMetricName);
-            hasAlarm = alarms.Any(a => a.StateValue == StateValue.ALARM);
-            retries--;
-            Thread.Sleep(20000);
+            catch (Exception ex)
+            {
+                Console.WriteLine($"\tCould not stop OTel enrichment: {ex.Message}");
+            }
         }
-
-        Console.WriteLine(hasAlarm
-            ? $"\tAlarm state found for {customMetricName}."
-            : $"\tNo Alarm state found for {customMetricName} after 10 retries.");
-
-        Console.WriteLine(new string('-', 80));
-    }
-
-    /// <summary>
-    /// Get history for an alarm.
-    /// </summary>
-    /// <returns>Async task.</returns>
-    private static async Task GetAlarmHistory()
-    {
-        Console.WriteLine(new string('-', 80));
-        Console.WriteLine($"14. Get alarm history.");
-
-        var exampleAlarmName = _configuration["exampleAlarmName"];
-
-        var alarmHistory = await _cloudWatchWrapper.DescribeAlarmHistory(exampleAlarmName, 2);
-
-        for (int i = 0; i < alarmHistory.Count; i++)
+        else
         {
-            var history = alarmHistory[i];
-            Console.WriteLine($"\t{i + 1}. {history.HistorySummary}, time {history.Timestamp:g}");
-        }
-        if (!alarmHistory.Any())
-        {
-            Console.WriteLine($"\tNo alarm history data found for {exampleAlarmName}.");
+            Console.WriteLine(
+                "\tLeft OTel enrichment running, because it was already on before this run.");
         }
 
         Console.WriteLine(new string('-', 80));
-    }
-
-    /// <summary>
-    /// Add an anomaly detector.
-    /// </summary>
-    /// <returns>Async task.</returns>
-    private static async Task<SingleMetricAnomalyDetector> AddAnomalyDetector()
-    {
-        Console.WriteLine(new string('-', 80));
-        Console.WriteLine($"15. Add an anomaly detector.");
-
-        var customMetricNamespace = _configuration["customMetricNamespace"];
-        var customMetricName = _configuration["customMetricName"];
-
-        var detector = new SingleMetricAnomalyDetector
-        {
-            MetricName = customMetricName,
-            Namespace = customMetricNamespace,
-            Stat = "Maximum"
-        };
-        await _cloudWatchWrapper.PutAnomalyDetector(detector);
-        Console.WriteLine($"\tAdded anomaly detector for metric {customMetricName}.");
-
-        Console.WriteLine(new string('-', 80));
-        return detector;
-    }
-
-    /// <summary>
-    /// Describe anomaly detectors.
-    /// </summary>
-    /// <returns>Async task.</returns>
-    private static async Task DescribeAnomalyDetectors()
-    {
-        Console.WriteLine(new string('-', 80));
-        Console.WriteLine($"16. Describe anomaly detectors in the current account.");
-
-        var customMetricNamespace = _configuration["customMetricNamespace"];
-        var customMetricName = _configuration["customMetricName"];
-
-        var detectors = await _cloudWatchWrapper.DescribeAnomalyDetectors(customMetricNamespace, customMetricName);
-
-        for (int i = 0; i < detectors.Count; i++)
-        {
-            var detector = detectors[i];
-            Console.WriteLine($"\t{i + 1}. {detector.SingleMetricAnomalyDetector.MetricName}, state {detector.StateValue}");
-        }
-
-        Console.WriteLine(new string('-', 80));
-    }
-
-    /// <summary>
-    /// Fetch and open a metrics image for a CloudWatch metric and namespace.
-    /// </summary>
-    /// <returns>Async task.</returns>
-    private static async Task GetAndOpenMetricImage()
-    {
-        Console.WriteLine(new string('-', 80));
-        Console.WriteLine("17. Get a metric image from CloudWatch.");
-
-        Console.WriteLine($"\tGetting Image data for custom metric.");
-        var customMetricNamespace = _configuration["customMetricNamespace"];
-        var customMetricName = _configuration["customMetricName"];
-
-        var memoryStream = await _cloudWatchWrapper.GetTimeSeriesMetricImage(customMetricNamespace, customMetricName, "Maximum", 10);
-        var file = _cloudWatchWrapper.SaveMetricImage(memoryStream, "MetricImages");
-
-        ProcessStartInfo info = new ProcessStartInfo();
-
-        Console.WriteLine($"\tFile saved as {Path.GetFileName(file)}.");
-        Console.WriteLine($"\tPress enter to open the image.");
-        Console.ReadLine();
-        info.FileName = Path.Combine("ms-photos://", file);
-        info.UseShellExecute = true;
-        info.CreateNoWindow = true;
-        info.Verb = string.Empty;
-
-        Process.Start(info);
-
-        Console.WriteLine(new string('-', 80));
-    }
-
-    /// <summary>
-    /// Clean up created resources.
-    /// </summary>
-    /// <param name="metricNamespace">The namespace for metrics.</param>
-    /// <param name="metric">The CloudWatch metric.</param>
-    /// <returns>Async task.</returns>
-    private static async Task CleanupResources()
-    {
-        Console.WriteLine(new string('-', 80));
-        Console.WriteLine($"18. Clean up resources.");
-
-        var dashboardName = _configuration["dashboardName"];
-        if (GetYesNoResponse($"\tDelete dashboard {dashboardName}? (y/n)"))
-        {
-            Console.WriteLine($"\tDeleting dashboard.");
-            var dashboardList = new List<string> { dashboardName };
-            await _cloudWatchWrapper.DeleteDashboards(dashboardList);
-        }
-
-        var alarmName = _configuration["exampleAlarmName"];
-        if (GetYesNoResponse($"\tDelete alarm {alarmName}? (y/n)"))
-        {
-            Console.WriteLine($"\tCleaning up alarms.");
-            var alarms = new List<string> { alarmName };
-            await _cloudWatchWrapper.DeleteAlarms(alarms);
-        }
-
-        if (GetYesNoResponse($"\tDelete anomaly detector? (y/n)") && anomalyDetector != null)
-        {
-            Console.WriteLine($"\tCleaning up anomaly detector.");
-
-            await _cloudWatchWrapper.DeleteAnomalyDetector(
-                anomalyDetector);
-        }
-
-        Console.WriteLine(new string('-', 80));
-    }
-
-    /// <summary>
-    /// Get a yes or no response from the user.
-    /// </summary>
-    /// <param name="question">The question string to print on the console.</param>
-    /// <returns>True if the user responds with a yes.</returns>
-    private static bool GetYesNoResponse(string question)
-    {
-        Console.WriteLine(question);
-        var ynResponse = Console.ReadLine();
-        var response = ynResponse != null &&
-                       ynResponse.Equals("y",
-                           StringComparison.InvariantCultureIgnoreCase);
-        return response;
     }
 }
 // snippet-end:[CloudWatch.dotnetv4.GettingStarted]

@@ -196,7 +196,7 @@ cloudwatch_DeleteAnomalyDetector:
           excerpts:
             - description:
               snippet_tags:
-                - cloudwatch.kotlin.scenario.del.anomalydetector.main
+                - cloudwatch.kotlin.delete_anomaly_detector.main
     Java:
       versions:
         - sdk_version: 2
@@ -329,7 +329,7 @@ cloudwatch_DescribeAlarmHistory:
           excerpts:
             - description:
               snippet_tags:
-                - cloudwatch.kotlin.scenario.get.alarm.history.main
+                - cloudwatch.kotlin.describe_alarm_history.main
     Java:
       versions:
         - sdk_version: 2
@@ -360,7 +360,7 @@ cloudwatch_DescribeAlarms:
           excerpts:
             - description:
               snippet_tags:
-                - cloudwatch.kotlin.scenario.describe.alarm.main
+                - cloudwatch.kotlin.describe_alarms.main
     Java:
       versions:
         - sdk_version: 2
@@ -400,6 +400,15 @@ cloudwatch_DescribeAlarms:
     cloudwatch: {DescribeAlarms}
 cloudwatch_DescribeAlarmsForMetric:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.kotlin.describe_alarms_for_metric.main
     .NET:
       versions:
         - sdk_version: 4
@@ -409,15 +418,6 @@ cloudwatch_DescribeAlarmsForMetric:
             - description:
               snippet_tags:
                 - CloudWatch.dotnetv4.DescribeAlarmsForMetric
-    Kotlin:
-      versions:
-        - sdk_version: 1
-          github: kotlin/services/cloudwatch
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - cloudwatch.kotlin.scenario.check.met.alarm.main
     Java:
       versions:
         - sdk_version: 2
@@ -499,7 +499,7 @@ cloudwatch_DescribeAnomalyDetectors:
           excerpts:
             - description:
               snippet_tags:
-                - cloudwatch.kotlin.scenario.describe.anomalydetector.main
+                - cloudwatch.kotlin.describe_anomaly_detectors.main
     Java:
       versions:
         - sdk_version: 2
@@ -787,7 +787,7 @@ cloudwatch_GetMetricData:
           excerpts:
             - description:
               snippet_tags:
-                - cloudwatch.kotlin.scenario.get.met.data.main
+                - cloudwatch.kotlin.get_metric_data.main
     Java:
       versions:
         - sdk_version: 2
@@ -836,7 +836,6 @@ cloudwatch_GetMetricStatistics:
           excerpts:
             - description:
               snippet_tags:
-                - CloudWatch.dotnetv4.GetMetricStatisticsSetup
                 - CloudWatch.dotnetv4.GetMetricStatistics
     Python:
       versions:
@@ -868,7 +867,7 @@ cloudwatch_GetMetricWidgetImage:
           excerpts:
             - description:
               snippet_tags:
-                - cloudwatch.kotlin.scenario.get.metric.image.main
+                - cloudwatch.kotlin.get_metric_widget_image.main
     Java:
       versions:
         - sdk_version: 2
@@ -1234,7 +1233,7 @@ cloudwatch_PutAnomalyDetector:
           excerpts:
             - description:
               snippet_tags:
-                - cloudwatch.kotlin.scenario.add.anomalydetector.main
+                - cloudwatch.kotlin.put_anomaly_detector.main
     Java:
       versions:
         - sdk_version: 2
@@ -1283,7 +1282,6 @@ cloudwatch_PutDashboard:
           excerpts:
             - description:
               snippet_tags:
-                - CloudWatch.dotnetv4.PutDashboardSetup
                 - CloudWatch.dotnetv4.PutDashboard
   services:
     cloudwatch: {PutDashboard}
@@ -1412,16 +1410,6 @@ cloudwatch_PutMetricAlarm:
     cloudwatch: {PutMetricAlarm}
 cloudwatch_PutMetricData:
   languages:
-    .NET:
-      versions:
-        - sdk_version: 4
-          github: dotnetv4/CloudWatch
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - CloudWatch.dotnetv4.PutMetricDataSetup
-                - CloudWatch.dotnetv4.PutMetricData
     Kotlin:
       versions:
         - sdk_version: 1
@@ -1430,7 +1418,16 @@ cloudwatch_PutMetricData:
           excerpts:
             - description:
               snippet_tags:
-                - cloudwatch.kotlin.scenario.add.met.alarm.main
+                - cloudwatch.kotlin.put_metric_data.main
+    .NET:
+      versions:
+        - sdk_version: 4
+          github: dotnetv4/CloudWatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - CloudWatch.dotnetv4.PutMetricData
     Java:
       versions:
         - sdk_version: 2
@@ -1656,35 +1653,14 @@ cloudwatch_GetStartedMetricsDashboardsAlarms:
   title: Learn core operations for &CW; using an &AWS; SDK
   synopsis_list:
     - List &CW; namespaces and metrics.
-    - Get statistics for a metric and for estimated billing.
-    - Create and update a dashboard.
-    - Create and add data to a metric.
-    - Create and trigger an alarm, then view alarm history.
-    - Add an anomaly detector.
-    - Get a metric image, then clean up resources.
+    - Start OpenTelemetry enrichment so &CW; correlates incoming OTLP metrics with the resources that produced them.
+    - See how OTLP metrics reach the &CW; metrics endpoint. Metric ingestion over OTLP is not an &AWS; SDK operation.
+    - Create an alarm that evaluates a PromQL query.
+    - Inspect the alarm's contributors, the individual series that the query matched.
+    - Get statistics for a metric and chart it on a dashboard.
+    - Mute the alarm for a maintenance window, then clean up.
   category: Basics
   languages:
-    Kotlin:
-      versions:
-        - sdk_version: 1
-          github: kotlin/services/cloudwatch
-          sdkguide:
-          excerpts:
-            - description: Run an interactive scenario demonstrating &CW; features.
-              snippet_tags:
-                - cloudwatch.kotlin.scenario.main
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/cloudwatch
-          sdkguide:
-          excerpts:
-            - description: Run an interactive scenario demonstrating &CW; features.
-              snippet_tags:
-                - cloudwatch.java2.scenario.main
-            - description: A wrapper class for &CW; SDK methods.
-              snippet_tags:
-                - cloudwatch.java2.actions.main
     .NET:
       versions:
         - sdk_version: 4
@@ -1694,16 +1670,108 @@ cloudwatch_GetStartedMetricsDashboardsAlarms:
             - description: Run an interactive scenario at a command prompt.
               snippet_tags:
                 - CloudWatch.dotnetv4.GettingStarted
-            - description: Wrapper methods used by the scenario for &CW; actions.
+            - description: Wrapper methods used by the scenario for the &CW; OpenTelemetry actions.
+              snippet_tags:
+                - CloudWatch.dotnetv4.CloudWatchOTelWrapper
+            - description: Wrapper methods used by the scenario for the metric, statistic, and dashboard actions.
               snippet_tags:
                 - CloudWatch.dotnetv4.CloudWatchWrapper
             - description: Example settings.json values for the scenario.
             - snippet_files:
                 - dotnetv4/CloudWatch/Scenarios/settings.json
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description: Run an interactive scenario at a command prompt.
+              snippet_tags:
+                - cw.cpp.get_started_scenario.inc
+                - cw.cpp.get_started_scenario.code
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description: Run an interactive scenario demonstrating the &CW; OpenTelemetry experience.
+              snippet_tags:
+                - cloudwatch.java2.scenario.main
+            - description: A wrapper class for the &CW; SDK methods that the scenario calls.
+              snippet_tags:
+                - cloudwatch.java2.actions.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description: Run an interactive scenario demonstrating the &CW; OpenTelemetry experience.
+              snippet_tags:
+                - javascript.v3.cloudwatch.Basics.scenario
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/cloudwatch
+          sdkguide:
+          excerpts:
+            - description: Run an interactive scenario demonstrating the &CW; OpenTelemetry experience.
+              snippet_tags:
+                - cloudwatch.kotlin.scenario.main
+            - description: The OpenTelemetry functions that the scenario calls.
+              snippet_tags:
+                - cloudwatch.kotlin.get_otel_enrichment.main
+                - cloudwatch.kotlin.start_otel_enrichment.main
+                - cloudwatch.kotlin.put_promql_metric_alarm.main
+                - cloudwatch.kotlin.describe_alarm_contributors.main
+                - cloudwatch.kotlin.put_alarm_mute_rule.main
+                - cloudwatch.kotlin.get_alarm_mute_rule.main
+                - cloudwatch.kotlin.list_alarm_mute_rules.main
+                - cloudwatch.kotlin.delete_alarm_mute_rule.main
+                - cloudwatch.kotlin.stop_otel_enrichment.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description: Run an interactive scenario demonstrating the &CW; OpenTelemetry experience.
+              snippet_tags:
+                - python.example_code.cloudwatch.Scenario_Basics
+            - description: The class that wraps the &CW; OpenTelemetry operations the scenario calls.
+              snippet_tags:
+                - python.example_code.cloudwatch.otel.imports
+                - python.example_code.cloudwatch.CloudWatchOTelWrapper
+                - python.example_code.cloudwatch.GetOTelEnrichment
+                - python.example_code.cloudwatch.StartOTelEnrichment
+                - python.example_code.cloudwatch.PutMetricAlarm_PromQL
+                - python.example_code.cloudwatch.DescribeAlarmContributors
+                - python.example_code.cloudwatch.PutAlarmMuteRule
+                - python.example_code.cloudwatch.GetAlarmMuteRule
+                - python.example_code.cloudwatch.ListAlarmMuteRules
+                - python.example_code.cloudwatch.DeleteAlarmMuteRule
+                - python.example_code.cloudwatch.StopOTelEnrichment
+            - description: The metric, statistic, and dashboard operations the scenario calls.
+              snippet_tags:
+                - python.example_code.cloudwatch.ListMetrics_All
+                - python.example_code.cloudwatch.GetMetricStatistics
+                - python.example_code.cloudwatch.PutDashboard
+                - python.example_code.cloudwatch.GetDashboard
+                - python.example_code.cloudwatch.DeleteDashboards
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description: Run an interactive scenario demonstrating the &CW; OpenTelemetry experience.
+              snippet_tags:
+                - cloudwatch.Ruby.basicsScenario
   services:
-    cloudwatch: {ListMetrics, GetMetricStatistics, PutDashboard, PutMetricData, GetMetricData, PutMetricAlarm, DescribeAlarms,
-                 DescribeAlarmsForMetric, DescribeAlarmHistory, DeleteAlarms, PutAnomalyDetector, GetMetricWidgetImage, DescribeAnomalyDetectors,
-                 DeleteAnomalyDetector, DeleteDashboards}
+    cloudwatch: {ListMetrics, GetOTelEnrichment, StartOTelEnrichment, StopOTelEnrichment, PutMetricAlarm, DescribeAlarmContributors,
+                 GetMetricStatistics, PutDashboard, GetDashboard, ListDashboards, DeleteDashboards, PutAlarmMuteRule, GetAlarmMuteRule,
+                 ListAlarmMuteRules, DeleteAlarmMuteRule, DeleteAlarms}
 cloudwatch_Usage_MetricsAlarms:
   title: Manage &CW; custom metrics and alarms using an &AWS; SDK
   title_abbrev: Manage custom metrics and alarms

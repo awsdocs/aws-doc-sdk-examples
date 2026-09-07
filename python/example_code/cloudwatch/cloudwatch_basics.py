@@ -61,6 +61,87 @@ class CloudWatchWrapper:
 
     # snippet-end:[python.example_code.cloudwatch.ListMetrics]
 
+    # snippet-start:[python.example_code.cloudwatch.ListMetrics_All]
+    def list_all_metrics(self):
+        """
+        Gets every metric in the account, without filtering by namespace or name. Use
+        this to discover what CloudWatch is already collecting before you configure
+        anything.
+
+        :return: An iterator that yields the retrieved metrics.
+        """
+        try:
+            metric_iter = self.cloudwatch_resource.metrics.all()
+            logger.info("Got all metrics for the account.")
+        except ClientError:
+            logger.exception("Couldn't get metrics for the account.")
+            raise
+        else:
+            return metric_iter
+
+    # snippet-end:[python.example_code.cloudwatch.ListMetrics_All]
+
+    # snippet-start:[python.example_code.cloudwatch.PutDashboard]
+    def put_dashboard(self, name, body):
+        """
+        Creates or replaces a dashboard. The body is a JSON document describing the
+        dashboard's widgets.
+
+        :param name: The name of the dashboard.
+        :param body: The dashboard body, as a JSON string.
+        :return: Any validation messages the service returned. An empty list means the
+                 dashboard body was accepted as written.
+        """
+        try:
+            response = self.cloudwatch_resource.meta.client.put_dashboard(
+                DashboardName=name, DashboardBody=body
+            )
+            logger.info("Put dashboard %s.", name)
+        except ClientError:
+            logger.exception("Couldn't put dashboard %s.", name)
+            raise
+        else:
+            return response.get("DashboardValidationMessages", [])
+
+    # snippet-end:[python.example_code.cloudwatch.PutDashboard]
+
+    # snippet-start:[python.example_code.cloudwatch.GetDashboard]
+    def get_dashboard(self, name):
+        """
+        Gets a dashboard's body, so you can confirm what the service actually stored.
+
+        :param name: The name of the dashboard.
+        :return: The dashboard body, as a JSON string.
+        """
+        try:
+            response = self.cloudwatch_resource.meta.client.get_dashboard(
+                DashboardName=name
+            )
+            logger.info("Got dashboard %s.", name)
+        except ClientError:
+            logger.exception("Couldn't get dashboard %s.", name)
+            raise
+        else:
+            return response["DashboardBody"]
+
+    # snippet-end:[python.example_code.cloudwatch.GetDashboard]
+
+    # snippet-start:[python.example_code.cloudwatch.DeleteDashboards]
+    def delete_dashboards(self, names):
+        """
+        Deletes the specified dashboards.
+
+        :param names: The names of the dashboards to delete.
+        """
+        try:
+            self.cloudwatch_resource.meta.client.delete_dashboards(DashboardNames=names)
+            logger.info("Deleted dashboards %s.", ", ".join(names))
+        except ClientError:
+            logger.exception("Couldn't delete dashboards %s.", ", ".join(names))
+            raise
+
+    # snippet-end:[python.example_code.cloudwatch.DeleteDashboards]
+
     # snippet-start:[python.example_code.cloudwatch.PutMetricData]
     def put_metric_data(self, namespace, name, value, unit):
         """

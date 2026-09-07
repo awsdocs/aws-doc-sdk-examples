@@ -4,50 +4,22 @@
 package com.kotlin.cloudwatch
 
 import aws.sdk.kotlin.services.cloudwatch.CloudWatchClient
-import aws.sdk.kotlin.services.cloudwatch.model.AlarmType
-import aws.sdk.kotlin.services.cloudwatch.model.ComparisonOperator
-import aws.sdk.kotlin.services.cloudwatch.model.Datapoint
 import aws.sdk.kotlin.services.cloudwatch.model.DeleteAlarmsRequest
-import aws.sdk.kotlin.services.cloudwatch.model.DeleteAnomalyDetectorRequest
 import aws.sdk.kotlin.services.cloudwatch.model.DeleteDashboardsRequest
-import aws.sdk.kotlin.services.cloudwatch.model.DescribeAlarmHistoryRequest
-import aws.sdk.kotlin.services.cloudwatch.model.DescribeAlarmsForMetricRequest
-import aws.sdk.kotlin.services.cloudwatch.model.DescribeAlarmsRequest
-import aws.sdk.kotlin.services.cloudwatch.model.DescribeAnomalyDetectorsRequest
 import aws.sdk.kotlin.services.cloudwatch.model.Dimension
-import aws.sdk.kotlin.services.cloudwatch.model.GetMetricDataRequest
 import aws.sdk.kotlin.services.cloudwatch.model.GetMetricStatisticsRequest
-import aws.sdk.kotlin.services.cloudwatch.model.GetMetricWidgetImageRequest
-import aws.sdk.kotlin.services.cloudwatch.model.HistoryItemType
 import aws.sdk.kotlin.services.cloudwatch.model.ListMetricsRequest
-import aws.sdk.kotlin.services.cloudwatch.model.Metric
-import aws.sdk.kotlin.services.cloudwatch.model.MetricDataQuery
-import aws.sdk.kotlin.services.cloudwatch.model.MetricDatum
-import aws.sdk.kotlin.services.cloudwatch.model.MetricStat
-import aws.sdk.kotlin.services.cloudwatch.model.PutAnomalyDetectorRequest
+import aws.sdk.kotlin.services.cloudwatch.model.OTelEnrichmentStatus
 import aws.sdk.kotlin.services.cloudwatch.model.PutDashboardRequest
-import aws.sdk.kotlin.services.cloudwatch.model.PutMetricAlarmRequest
-import aws.sdk.kotlin.services.cloudwatch.model.PutMetricDataRequest
-import aws.sdk.kotlin.services.cloudwatch.model.ScanBy
-import aws.sdk.kotlin.services.cloudwatch.model.SingleMetricAnomalyDetector
-import aws.sdk.kotlin.services.cloudwatch.model.StandardUnit
 import aws.sdk.kotlin.services.cloudwatch.model.Statistic
 import aws.sdk.kotlin.services.cloudwatch.paginators.listDashboardsPaginated
-import com.fasterxml.jackson.core.JsonFactory
-import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.ObjectMapper
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.transform
-import java.io.File
 import java.nio.file.Files
 import java.nio.file.Paths
 import java.time.Instant
-import java.time.ZoneOffset
-import java.time.ZonedDateTime
-import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
+import java.util.Random
 import java.util.Scanner
-import kotlin.system.exitProcess
 
 // snippet-start:[cloudwatch.kotlin.scenario.main]
 
@@ -58,242 +30,364 @@ import kotlin.system.exitProcess
  For more information, see the following documentation topic:
  https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 
- To enable billing metrics and statistics for this example, make sure billing alerts are enabled for your account:
- https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/monitor_estimated_charges_with_cloudwatch.html#turning_on_billing_metrics
+ This scenario demonstrates the Amazon CloudWatch OpenTelemetry (OTel) experience.
+ CloudWatch ingests OpenTelemetry metrics natively, and this example walks through what
+ you do with them: turning on enrichment so CloudWatch can correlate incoming OTLP
+ metrics with the resources that produced them, alarming on those metrics with a PromQL
+ query, and finding out which individual series drove the alarm.
+
+ A PromQL alarm works differently from a classic metric alarm. Rather than watching one
+ metric and counting breaching periods, it evaluates a query that can match many series
+ at once, and tracks each matching series separately as a contributor.
+
+ Note that sending OTLP metrics to CloudWatch is not an AWS SDK operation. Metrics
+ arrive over the OTLP protocol through the CloudWatch agent, an OpenTelemetry
+ Collector, or an ADOT SDK. Everything this scenario does is configuration and querying
+ around that ingestion path.
 
  This Kotlin code example performs the following tasks:
 
- 1. List available namespaces from Amazon CloudWatch. Select a namespace from the list.
- 2. List available metrics within the selected namespace.
- 3. Get statistics for the selected metric over the last day.
- 4. Get CloudWatch estimated billing for the last week.
- 5. Create a new CloudWatch dashboard with metrics.
- 6. List dashboards using a paginator.
- 7. Create a new custom metric by adding data for it.
- 8. Add the custom metric to the dashboard.
- 9. Create an alarm for the custom metric.
- 10. Describe current alarms.
- 11. Get current data for the new custom metric.
- 12. Push data into the custom metric to trigger the alarm.
- 13. Check the alarm state using the action DescribeAlarmsForMetric.
- 14. Get alarm history for the new alarm.
- 15. Add an anomaly detector for the custom metric.
- 16. Describe current anomaly detectors.
- 17. Get a metric image for the custom metric.
- 18. Clean up the Amazon CloudWatch resources.
+ 1. List metrics and namespaces from Amazon CloudWatch.
+ 2. Start OpenTelemetry enrichment for the account.
+ 3. Explain how OTLP metrics reach CloudWatch.
+ 4. Create an alarm that evaluates a PromQL query.
+ 5. Inspect the contributors to the PromQL alarm.
+ 6. Get metric statistics and chart the metric on a dashboard.
+ 7. Mute the alarm for a maintenance window.
+ 8. Clean up the Amazon CloudWatch resources.
  */
 
-val DASHES: String? = String(CharArray(80)).replace("\u0000", "-")
+val DASHES: String? = "-".repeat(80)
+
+private const val DEFAULT_QUERY = "avg by (host) (system_cpu_utilization) > 80"
+
+// Valid evaluation intervals are 10, 20, 30, or any multiple of 60 up to 3600 seconds.
+private const val EVALUATION_INTERVAL = 60
+private const val PENDING_PERIOD = 300
+private const val RECOVERY_PERIOD = 120
+
+val scenarioScanner = Scanner(System.`in`)
 
 suspend fun main(args: Array<String>) {
     val usage = """
         Usage:
-            <myDate> <costDateWeek> <dashboardName> <dashboardJson> <dashboardAdd> <settings> <metricImage>  
+            [<dashboardJson>]
 
         Where:
-            myDate - The start date to use to get metric statistics. (For example, 2023-01-11T18:35:24.00Z.) 
-            costDateWeek - The start date to use to get AWS Billing and Cost Management statistics. (For example, 2023-01-11T18:35:24.00Z.) 
-            dashboardName - The name of the dashboard to create. 
-            dashboardJson - The location of a JSON file to use to create a dashboard. (See Readme file.) 
-            dashboardAdd - The location of a JSON file to use to update a dashboard. (See Readme file.) 
-            settings - The location of a JSON file from which various values are read. (See Readme file.) 
-            metricImage - The location of a BMP file that is used to create a graph. 
+            dashboardJson - The location of a JSON file describing the dashboard widgets.
+                            Defaults to jsonWidgets.json in kotlin/services/cloudwatch.
     """
 
-    if (args.size != 7) {
+    if (args.size > 1) {
         println(usage)
-        System.exit(1)
+        return
     }
+    val dashboardJson = if (args.size == 1) args[0] else "jsonWidgets.json"
 
-    val myDate = args[0]
-    val costDateWeek = args[1]
-    val dashboardName = args[2]
-    val dashboardJson = args[3]
-    val dashboardAdd = args[4]
-    val settings = args[5]
-    var metricImage = args[6]
-    val dataPoint = "10.0".toDouble()
-    val inOb = Scanner(System.`in`)
+    // Suffix the resource names so repeated runs do not collide.
+    val suffix = (Random().nextInt(9000) + 1000).toString()
+    val alarmName = "doc-example-promql-alarm-$suffix"
+    val dashboardName = "doc-example-dashboard-$suffix"
+    val muteRuleName = "doc-example-mute-rule-$suffix"
 
     println(DASHES)
-    println("Welcome to the Amazon CloudWatch example scenario.")
-    println(DASHES)
+    println("Welcome to the Amazon CloudWatch Basics scenario.")
+    println(
+        """
+        CloudWatch now ingests OpenTelemetry metrics natively. This scenario walks through
+        that experience: it turns on OTel enrichment so CloudWatch can correlate incoming
+        OTLP metrics with the resources that produced them, alarms on those metrics with a
+        PromQL query, and shows you which individual series drove the alarm.
+
+        A PromQL alarm works differently from a classic metric alarm. Rather than watching
+        one metric and counting breaching periods, it evaluates a query that can match many
+        series at once, and tracks each one separately as a contributor.
+
+        Let's get started...
+        """.trimIndent(),
+    )
+    waitForInputToContinue()
+
+    // Tracks whether this run turned enrichment on, so that cleanup only turns off
+    // enrichment that this run started.
+    var startedEnrichment = false
+    var dashboardCreated = false
 
     println(DASHES)
-    println("1. List at least five available unique namespaces from Amazon CloudWatch. Select a CloudWatch namespace from the list.")
-    val list: ArrayList<String> = listNameSpaces()
-    for (z in 0..4) {
-        println("    ${z + 1}. ${list[z]}")
+    println(
+        """
+        1. List metrics and namespaces
+
+        Before configuring anything, let's see what CloudWatch is already collecting in
+        this account by calling ListMetrics.
+        """.trimIndent(),
+    )
+    waitForInputToContinue()
+
+    val namespaces = listNameSpaces()
+    println("Found ${namespaces.size} namespaces in this account:")
+    namespaces.take(10).forEach { println("  $it") }
+    if (namespaces.isEmpty()) {
+        println(
+            """
+            No metrics found in this account. The statistics and dashboard steps later on
+            need an existing metric, so they will be skipped.
+            """.trimIndent(),
+        )
     }
+    waitForInputToContinue()
 
-    var selectedNamespace: String
-    var selectedMetrics = ""
-    var num = inOb.nextLine().toInt()
-    println("You selected $num")
+    println(DASHES)
+    println(
+        """
+        2. Start OpenTelemetry enrichment
 
-    if (1 <= num && num <= 5) {
-        selectedNamespace = list[num - 1]
+        Enrichment is what lets CloudWatch attach AWS resource context to the OTLP metrics
+        you send it. Without it, your metrics arrive as opaque series with no connection to
+        the resources that emitted them.
+
+        We check the current state first, and only start enrichment if it isn't already on.
+        """.trimIndent(),
+    )
+    waitForInputToContinue()
+
+    val status = getOTelEnrichmentStatus()
+    if (status !is OTelEnrichmentStatus.Running) {
+        startOTelEnrichment()
+        startedEnrichment = true
+        getOTelEnrichmentStatus()
+        println("Note: this run started enrichment, so the cleanup step will stop it again.")
     } else {
-        println("You did not select a valid option.")
-        exitProcess(1)
+        println(
+            """
+            Enrichment was already running, so we will leave it alone. The cleanup step
+            will not stop it, because other workloads in this account may depend on it.
+            """.trimIndent(),
+        )
     }
-    println("You selected $selectedNamespace")
-    println(DASHES)
+    waitForInputToContinue()
 
     println(DASHES)
-    println("2. List available metrics within the selected namespace and select one from the list.")
-    val metList = listMets(selectedNamespace)
-    for (z in 0..4) {
-        println("    ${ z + 1}. ${metList?.get(z)}")
-    }
-    num = inOb.nextLine().toInt()
-    if (1 <= num && num <= 5) {
-        selectedMetrics = metList!![num - 1]
+    println(
+        """
+        3. Send OTLP metrics to CloudWatch
+
+        This step is not an AWS SDK operation, and that's worth being explicit about.
+        Metrics reach CloudWatch over the OTLP protocol, through the CloudWatch agent, an
+        OpenTelemetry Collector, or an ADOT SDK. There is no PutOTelMetrics API to call.
+
+        Point your collector at the CloudWatch metrics endpoint, which follows the pattern
+        https://monitoring.<region>.amazonaws.com/v1/metrics
+
+        The endpoint is HTTP/1.1 only and does not support gRPC, so use an otlphttp
+        exporter rather than otlp. The metrics endpoint signs as "monitoring".
+        """.trimIndent(),
+    )
+    waitForInputToContinue()
+
+    println(DASHES)
+    println(
+        """
+        4. Create a PromQL alarm
+
+        Now we alarm on those metrics. The comparison goes inside the query itself: a
+        PromQL alarm has no separate threshold, comparison operator, statistic, or period.
+        """.trimIndent(),
+    )
+    println("Enter a PromQL query, or press <ENTER> for the default")
+    println("[$DEFAULT_QUERY]:")
+    val queryInput = scenarioScanner.nextLine()
+    val query = if (queryInput.isBlank()) DEFAULT_QUERY else queryInput.trim()
+
+    putPromQlMetricAlarm(alarmName, query, EVALUATION_INTERVAL, PENDING_PERIOD, RECOVERY_PERIOD)
+    println("Created alarm $alarmName:")
+    println("  query:              $query")
+    println("  evaluationInterval: $EVALUATION_INTERVAL seconds")
+    println("  pendingPeriod:      $PENDING_PERIOD seconds")
+    println("  recoveryPeriod:     $RECOVERY_PERIOD seconds")
+    println(
+        """
+        A PromQL alarm starts in the OK state rather than INSUFFICIENT_DATA, which is
+        another way it differs from a classic alarm.
+        """.trimIndent(),
+    )
+    waitForInputToContinue()
+
+    println(DASHES)
+    println(
+        """
+        5. Inspect the alarm's contributors
+
+        Each contributor is one series the query matched, identified by its label set. This
+        is how you find out which host is unhealthy rather than only that something is.
+        Classic alarms have no equivalent.
+        """.trimIndent(),
+    )
+    waitForInputToContinue()
+
+    describeAlarmContributors(alarmName)
+    waitForInputToContinue()
+
+    println(DASHES)
+    println(
+        """
+        6. Get statistics and chart the metric on a dashboard
+
+        Statistics and dashboards are how you see what the alarm is evaluating.
+        """.trimIndent(),
+    )
+    waitForInputToContinue()
+
+    if (namespaces.isNotEmpty()) {
+        val namespace = namespaces[0]
+        val metrics = listMets(namespace)
+        if (metrics != null && metrics.isNotEmpty()) {
+            val metricName = metrics[0]
+            val startDate = Instant.now().minus(24, ChronoUnit.HOURS).toString()
+            try {
+                val dimension = getSpecificMet(namespace)
+                if (dimension != null) {
+                    getAndDisplayMetricStatistics(namespace, metricName, "Average", startDate, dimension)
+                }
+            } catch (e: Exception) {
+                println("Could not get statistics for $namespace/$metricName: ${e.message}")
+            }
+        } else {
+            println("No metrics found in namespace $namespace, skipping statistics.")
+        }
+
+        try {
+            createDashboardWithMetrics(dashboardName, dashboardJson)
+            dashboardCreated = true
+            listDashboards()
+        } catch (e: Exception) {
+            println("Could not create the dashboard: ${e.message}")
+        }
     } else {
-        println("You did not select a valid option.")
-        System.exit(1)
+        println("Skipping statistics and dashboard because no metrics exist yet.")
     }
-    println("You selected $selectedMetrics")
-    val myDimension = getSpecificMet(selectedNamespace)
-    if (myDimension == null) {
-        println("Error - Dimension is null")
-        exitProcess(1)
-    }
-    println(DASHES)
+    waitForInputToContinue()
 
     println(DASHES)
-    println("3. Get statistics for the selected metric over the last day.")
-    val metricOption: String
-    val statTypes = ArrayList<String>()
-    statTypes.add("SampleCount")
-    statTypes.add("Average")
-    statTypes.add("Sum")
-    statTypes.add("Minimum")
-    statTypes.add("Maximum")
+    println(
+        """
+        7. Mute the alarm for a maintenance window
 
-    for (t in 0..4) {
-        println("    ${t + 1}. ${statTypes[t]}")
+        While a mute rule is active the targeted alarms keep evaluating and keep changing
+        state, but their actions do not fire. This is the supported way to suppress
+        notifications during planned maintenance, instead of disabling alarm actions and
+        hoping someone remembers to turn them back on.
+        """.trimIndent(),
+    )
+    waitForInputToContinue()
+
+    // The expression is a five-field cron expression,
+    // cron(Minutes Hours Day-of-month Month Day-of-week). Note that this is five fields,
+    // not the six that Amazon EventBridge uses. For a one-time window, use
+    // at(yyyy-MM-ddThh:mm), with no seconds. The duration is an ISO 8601 duration from
+    // PT1M to P15D, so PT2H rather than 2h.
+    val expression = "cron(0 2 * * SUN)"
+    val duration = "PT2H"
+    val timezone = "America/Los_Angeles"
+
+    putAlarmMuteRule(muteRuleName, expression, duration, listOf(alarmName), timezone)
+    println("Created mute rule $muteRuleName:")
+    println("  schedule: $expression for $duration")
+    println("  timezone: $timezone")
+    println("  targets:  $alarmName")
+    println(
+        """
+        Note the two formats here. The expression is a five-field cron expression, five
+        rather than the six Amazon EventBridge uses. The duration is an ISO 8601 duration,
+        so 'PT2H' and not '2h'.
+
+        Also note that muteTargets is set explicitly. If you leave it out, the rule applies
+        to every alarm in the account.
+        """.trimIndent(),
+    )
+
+    val muteRule = getAlarmMuteRule(muteRuleName)
+    println("Read the rule back: status ${muteRule.status?.value}, mute type ${muteRule.muteType}.")
+
+    val summaries = listAlarmMuteRules(alarmName)
+    println("Found ${summaries.size} mute rules targeting this alarm.")
+    // Mute rule summaries carry no name field, only an ARN, so match on the ARN suffix.
+    summaries
+        .firstOrNull { summary ->
+            summary.alarmMuteRuleArn?.endsWith("/$muteRuleName") == true ||
+                summary.alarmMuteRuleArn?.endsWith(":$muteRuleName") == true
+        }?.let { summary ->
+            println("  matched by ARN: ${summary.alarmMuteRuleArn} (${summary.status?.value})")
+        }
+    waitForInputToContinue()
+
+    println(DASHES)
+    println("8. Clean up")
+    println("Delete the resources this scenario created? (y/n)")
+    val cleanUp = scenarioScanner.nextLine()
+    if (!cleanUp.trim().equals("y", ignoreCase = true)) {
+        println(
+            """
+            Skipping cleanup. Note that the alarm, dashboard, and mute rule are still in
+            your account, and enrichment may still be running.
+            """.trimIndent(),
+        )
+        println(DASHES)
+        println("This concludes the Amazon CloudWatch Basics scenario.")
+        return
     }
-    println("Select a metric statistic by entering a number from the preceding list:")
-    num = inOb.nextLine().toInt()
-    if (1 <= num && num <= 5) {
-        metricOption = statTypes[num - 1]
+
+    // Each deletion is attempted independently so that one failure does not leave the
+    // remaining resources behind.
+    try {
+        deleteAlarmMuteRule(muteRuleName)
+    } catch (e: Exception) {
+        println("Could not delete the mute rule: ${e.message}")
+    }
+
+    try {
+        deleteAlarm(alarmName)
+    } catch (e: Exception) {
+        println("Could not delete the alarm: ${e.message}")
+    }
+
+    if (dashboardCreated) {
+        try {
+            deleteDashboard(dashboardName)
+        } catch (e: Exception) {
+            println("Could not delete the dashboard: ${e.message}")
+        }
+    }
+
+    if (startedEnrichment) {
+        try {
+            stopOTelEnrichment()
+            println("Stopped OTel enrichment, because this run started it.")
+        } catch (e: Exception) {
+            println("Could not stop OTel enrichment: ${e.message}")
+        }
     } else {
-        println("You did not select a valid option.")
-        exitProcess(1)
+        println("Left OTel enrichment running, because it was already on before this run.")
     }
-    println("You selected $metricOption")
-    getAndDisplayMetricStatistics(selectedNamespace, selectedMetrics, metricOption, myDate, myDimension)
-    println(DASHES)
 
     println(DASHES)
-    println("4. Get CloudWatch estimated billing for the last week.")
-    getMetricStatistics(costDateWeek)
-    println(DASHES)
-
-    println(DASHES)
-    println("5. Create a new CloudWatch dashboard with metrics.")
-    createDashboardWithMetrics(dashboardName, dashboardJson)
-    println(DASHES)
-
-    println(DASHES)
-    println("6. List dashboards using a paginator.")
-    listDashboards()
-    println(DASHES)
-
-    println(DASHES)
-    println("7. Create a new custom metric by adding data to it.")
-    createNewCustomMetric(dataPoint)
-    println(DASHES)
-
-    println(DASHES)
-    println("8. Add an additional metric to the dashboard.")
-    addMetricToDashboard(dashboardAdd, dashboardName)
-    println(DASHES)
-
-    println(DASHES)
-    println("9. Create an alarm for the custom metric.")
-    val alarmName: String = createAlarm(settings)
-    println(DASHES)
-
-    println(DASHES)
-    println("10. Describe 10 current alarms.")
-    describeAlarms()
-    println(DASHES)
-
-    println(DASHES)
-    println("11. Get current data for the new custom metric.")
-    getCustomMetricData(settings)
-    println(DASHES)
-
-    println(DASHES)
-    println("12. Push data into the custom metric to trigger the alarm.")
-    addMetricDataForAlarm(settings)
-    println(DASHES)
-
-    println(DASHES)
-    println("13. Check the alarm state using the action DescribeAlarmsForMetric.")
-    checkForMetricAlarm(settings)
-    println(DASHES)
-
-    println(DASHES)
-    println("14. Get alarm history for the new alarm.")
-    getAlarmHistory(settings, myDate)
-    println(DASHES)
-
-    println(DASHES)
-    println("15. Add an anomaly detector for the custom metric.")
-    addAnomalyDetector(settings)
-    println(DASHES)
-
-    println(DASHES)
-    println("16. Describe current anomaly detectors.")
-    describeAnomalyDetectors(settings)
-    println(DASHES)
-
-    println(DASHES)
-    println("17. Get a metric image for the custom metric.")
-    getAndOpenMetricImage(metricImage)
-    println(DASHES)
-
-    println(DASHES)
-    println("18. Clean up the Amazon CloudWatch resources.")
-    deleteDashboard(dashboardName)
-    deleteAlarm(alarmName)
-    deleteAnomalyDetector(settings)
-    println(DASHES)
-
-    println(DASHES)
-    println("The Amazon CloudWatch example scenario is complete.")
+    println("This concludes the Amazon CloudWatch Basics scenario.")
     println(DASHES)
 }
 
-// snippet-start:[cloudwatch.kotlin.scenario.del.anomalydetector.main]
-suspend fun deleteAnomalyDetector(fileName: String) {
-    // Read values from the JSON file.
-    val parser = JsonFactory().createParser(File(fileName))
-    val rootNode = ObjectMapper().readTree<JsonNode>(parser)
-    val customMetricNamespace = rootNode.findValue("customMetricNamespace").asText()
-    val customMetricName = rootNode.findValue("customMetricName").asText()
-
-    val singleMetricAnomalyDetectorVal =
-        SingleMetricAnomalyDetector {
-            metricName = customMetricName
-            namespace = customMetricNamespace
-            stat = "Maximum"
+private fun waitForInputToContinue() {
+    while (true) {
+        println("")
+        println("Press <ENTER> to continue:")
+        val input = scenarioScanner.nextLine()
+        if (input.trim().isEmpty()) {
+            println("Continuing with the program...")
+            println("")
+            break
         }
-
-    val request =
-        DeleteAnomalyDetectorRequest {
-            singleMetricAnomalyDetector = singleMetricAnomalyDetectorVal
-        }
-
-    CloudWatchClient.fromEnvironment { region = "us-east-1" }.use { cwClient ->
-        cwClient.deleteAnomalyDetector(request)
-        println("Successfully deleted the Anomaly Detector.")
+        println("Invalid input. Please try again.")
     }
 }
-// snippet-end:[cloudwatch.kotlin.scenario.del.anomalydetector.main]
 
 // snippet-start:[cloudwatch.kotlin.scenario.del.alarm.main]
 suspend fun deleteAlarm(alarmNameVal: String) {
@@ -321,391 +415,6 @@ suspend fun deleteDashboard(dashboardName: String) {
     }
 }
 // snippet-end:[cloudwatch.kotlin.scenario.del.dashboard.main]
-
-// snippet-start:[cloudwatch.kotlin.scenario.get.metric.image.main]
-suspend fun getAndOpenMetricImage(fileName: String) {
-    println("Getting Image data for custom metric.")
-    val myJSON = """{
-        "title": "Example Metric Graph",
-        "view": "timeSeries",
-        "stacked ": false,
-        "period": 10,
-        "width": 1400,
-        "height": 600,
-        "metrics": [
-            [
-            "AWS/Billing",
-            "EstimatedCharges",
-            "Currency",
-            "USD"
-            ]
-        ]
-        }"""
-
-    val imageRequest =
-        GetMetricWidgetImageRequest {
-            metricWidget = myJSON
-        }
-
-    CloudWatchClient.fromEnvironment { region = "us-east-1" }.use { cwClient ->
-        val response = cwClient.getMetricWidgetImage(imageRequest)
-        val bytes = response.metricWidgetImage
-        if (bytes != null) {
-            File(fileName).writeBytes(bytes)
-        }
-    }
-    println("You have successfully written data to $fileName")
-}
-// snippet-end:[cloudwatch.kotlin.scenario.get.metric.image.main]
-
-// snippet-start:[cloudwatch.kotlin.scenario.describe.anomalydetector.main]
-suspend fun describeAnomalyDetectors(fileName: String) {
-    // Read values from the JSON file.
-    val parser = JsonFactory().createParser(File(fileName))
-    val rootNode = ObjectMapper().readTree<JsonNode>(parser)
-    val customMetricNamespace = rootNode.findValue("customMetricNamespace").asText()
-    val customMetricName = rootNode.findValue("customMetricName").asText()
-
-    val detectorsRequest =
-        DescribeAnomalyDetectorsRequest {
-            maxResults = 10
-            metricName = customMetricName
-            namespace = customMetricNamespace
-        }
-    CloudWatchClient.fromEnvironment { region = "us-east-1" }.use { cwClient ->
-        val response = cwClient.describeAnomalyDetectors(detectorsRequest)
-        response.anomalyDetectors?.forEach { detector ->
-            println("Metric name: ${detector.singleMetricAnomalyDetector?.metricName}")
-            println("State: ${detector.stateValue}")
-        }
-    }
-}
-// snippet-end:[cloudwatch.kotlin.scenario.describe.anomalydetector.main]
-
-// snippet-start:[cloudwatch.kotlin.scenario.add.anomalydetector.main]
-suspend fun addAnomalyDetector(fileName: String?) {
-    // Read values from the JSON file.
-    val parser = JsonFactory().createParser(File(fileName))
-    val rootNode = ObjectMapper().readTree<JsonNode>(parser)
-    val customMetricNamespace = rootNode.findValue("customMetricNamespace").asText()
-    val customMetricName = rootNode.findValue("customMetricName").asText()
-
-    val singleMetricAnomalyDetectorVal =
-        SingleMetricAnomalyDetector {
-            metricName = customMetricName
-            namespace = customMetricNamespace
-            stat = "Maximum"
-        }
-
-    val anomalyDetectorRequest =
-        PutAnomalyDetectorRequest {
-            singleMetricAnomalyDetector = singleMetricAnomalyDetectorVal
-        }
-
-    CloudWatchClient.fromEnvironment { region = "us-east-1" }.use { cwClient ->
-        cwClient.putAnomalyDetector(anomalyDetectorRequest)
-        println("Added anomaly detector for metric $customMetricName.")
-    }
-}
-// snippet-end:[cloudwatch.kotlin.scenario.add.anomalydetector.main]
-
-// snippet-start:[cloudwatch.kotlin.scenario.get.alarm.history.main]
-suspend fun getAlarmHistory(
-    fileName: String,
-    date: String,
-) {
-    // Read values from the JSON file.
-    val parser = JsonFactory().createParser(File(fileName))
-    val rootNode = ObjectMapper().readTree<JsonNode>(parser)
-    val alarmNameVal = rootNode.findValue("exampleAlarmName").asText()
-    val start = Instant.parse(date)
-    val endDateVal = Instant.now()
-
-    val historyRequest =
-        DescribeAlarmHistoryRequest {
-            startDate =
-                aws.smithy.kotlin.runtime.time
-                    .Instant(start)
-            endDate =
-                aws.smithy.kotlin.runtime.time
-                    .Instant(endDateVal)
-            alarmName = alarmNameVal
-            historyItemType = HistoryItemType.Action
-        }
-
-    CloudWatchClient.fromEnvironment { region = "us-east-1" }.use { cwClient ->
-        val response = cwClient.describeAlarmHistory(historyRequest)
-        val historyItems = response.alarmHistoryItems
-        if (historyItems != null) {
-            if (historyItems.isEmpty()) {
-                println("No alarm history data found for $alarmNameVal.")
-            } else {
-                for (item in historyItems) {
-                    println("History summary ${item.historySummary}")
-                    println("Time stamp: ${item.timestamp}")
-                }
-            }
-        }
-    }
-}
-// snippet-end:[cloudwatch.kotlin.scenario.get.alarm.history.main]
-
-// snippet-start:[cloudwatch.kotlin.scenario.check.met.alarm.main]
-suspend fun checkForMetricAlarm(fileName: String?) {
-    // Read values from the JSON file.
-    val parser = JsonFactory().createParser(File(fileName))
-    val rootNode = ObjectMapper().readTree<JsonNode>(parser)
-    val customMetricNamespace = rootNode.findValue("customMetricNamespace").asText()
-    val customMetricName = rootNode.findValue("customMetricName").asText()
-    var hasAlarm = false
-    var retries = 10
-
-    val metricRequest =
-        DescribeAlarmsForMetricRequest {
-            metricName = customMetricName
-            namespace = customMetricNamespace
-        }
-    CloudWatchClient.fromEnvironment { region = "us-east-1" }.use { cwClient ->
-        while (!hasAlarm && retries > 0) {
-            val response = cwClient.describeAlarmsForMetric(metricRequest)
-            if (response.metricAlarms?.count()!! > 0) {
-                hasAlarm = true
-            }
-            retries--
-            delay(20000)
-            println(".")
-        }
-        if (!hasAlarm) {
-            println("No Alarm state found for $customMetricName after 10 retries.")
-        } else {
-            println("Alarm state found for $customMetricName.")
-        }
-    }
-}
-// snippet-end:[cloudwatch.kotlin.scenario.check.met.alarm.main]
-
-// snippet-start:[cloudwatch.kotlin.scenario.add.met.alarm.main]
-suspend fun addMetricDataForAlarm(fileName: String?) {
-    // Read values from the JSON file.
-    val parser = JsonFactory().createParser(File(fileName))
-    val rootNode = ObjectMapper().readTree<JsonNode>(parser)
-    val customMetricNamespace = rootNode.findValue("customMetricNamespace").asText()
-    val customMetricName = rootNode.findValue("customMetricName").asText()
-
-    // Set an Instant object.
-    val time = ZonedDateTime.now(ZoneOffset.UTC).format(DateTimeFormatter.ISO_INSTANT)
-    val instant = Instant.parse(time)
-    val datum =
-        MetricDatum {
-            metricName = customMetricName
-            unit = StandardUnit.None
-            value = 1001.00
-            timestamp =
-                aws.smithy.kotlin.runtime.time
-                    .Instant(instant)
-        }
-
-    val datum2 =
-        MetricDatum {
-            metricName = customMetricName
-            unit = StandardUnit.None
-            value = 1002.00
-            timestamp =
-                aws.smithy.kotlin.runtime.time
-                    .Instant(instant)
-        }
-
-    val metricDataList = ArrayList<MetricDatum>()
-    metricDataList.add(datum)
-    metricDataList.add(datum2)
-
-    val request =
-        PutMetricDataRequest {
-            namespace = customMetricNamespace
-            metricData = metricDataList
-        }
-
-    CloudWatchClient.fromEnvironment { region = "us-east-1" }.use { cwClient ->
-        cwClient.putMetricData(request)
-        println("Added metric values for for metric $customMetricName")
-    }
-}
-// snippet-end:[cloudwatch.kotlin.scenario.add.met.alarm.main]
-
-// snippet-start:[cloudwatch.kotlin.scenario.get.met.data.main]
-suspend fun getCustomMetricData(fileName: String) {
-    // Read values from the JSON file.
-    val parser = JsonFactory().createParser(File(fileName))
-    val rootNode = ObjectMapper().readTree<JsonNode>(parser)
-    val customMetricNamespace = rootNode.findValue("customMetricNamespace").asText()
-    val customMetricName = rootNode.findValue("customMetricName").asText()
-
-    // Set the date.
-    val nowDate = Instant.now()
-    val hours: Long = 1
-    val minutes: Long = 30
-    val date2 =
-        nowDate.plus(hours, ChronoUnit.HOURS).plus(
-            minutes,
-            ChronoUnit.MINUTES,
-        )
-
-    val met =
-        Metric {
-            metricName = customMetricName
-            namespace = customMetricNamespace
-        }
-
-    val metStat =
-        MetricStat {
-            stat = "Maximum"
-            period = 1
-            metric = met
-        }
-
-    val dataQUery =
-        MetricDataQuery {
-            metricStat = metStat
-            id = "foo2"
-            returnData = true
-        }
-
-    val dq = ArrayList<MetricDataQuery>()
-    dq.add(dataQUery)
-    val getMetReq =
-        GetMetricDataRequest {
-            maxDatapoints = 10
-            scanBy = ScanBy.TimestampDescending
-            startTime =
-                aws.smithy.kotlin.runtime.time
-                    .Instant(nowDate)
-            endTime =
-                aws.smithy.kotlin.runtime.time
-                    .Instant(date2)
-            metricDataQueries = dq
-        }
-
-    CloudWatchClient.fromEnvironment { region = "us-east-1" }.use { cwClient ->
-        val response = cwClient.getMetricData(getMetReq)
-        response.metricDataResults?.forEach { item ->
-            println("The label is ${item.label}")
-            println("The status code is ${item.statusCode}")
-        }
-    }
-}
-// snippet-end:[cloudwatch.kotlin.scenario.get.met.data.main]
-
-// snippet-start:[cloudwatch.kotlin.scenario.describe.alarm.main]
-suspend fun describeAlarms() {
-    val typeList = ArrayList<AlarmType>()
-    typeList.add(AlarmType.MetricAlarm)
-    val alarmsRequest =
-        DescribeAlarmsRequest {
-            alarmTypes = typeList
-            maxRecords = 10
-        }
-
-    CloudWatchClient.fromEnvironment { region = "us-east-1" }.use { cwClient ->
-        val response = cwClient.describeAlarms(alarmsRequest)
-        response.metricAlarms?.forEach { alarm ->
-            println("Alarm name: ${alarm.alarmName}")
-            println("Alarm description: ${alarm.alarmDescription}")
-        }
-    }
-}
-// snippet-end:[cloudwatch.kotlin.scenario.describe.alarm.main]
-
-// snippet-start:[cloudwatch.kotlin.scenario.create.alarm.main]
-suspend fun createAlarm(fileName: String): String {
-    // Read values from the JSON file.
-    val parser = JsonFactory().createParser(File(fileName))
-    val rootNode: JsonNode = ObjectMapper().readTree(parser)
-    val customMetricNamespace = rootNode.findValue("customMetricNamespace").asText()
-    val customMetricName = rootNode.findValue("customMetricName").asText()
-    val alarmNameVal = rootNode.findValue("exampleAlarmName").asText()
-    val emailTopic = rootNode.findValue("emailTopic").asText()
-    val accountId = rootNode.findValue("accountId").asText()
-    val region2 = rootNode.findValue("region").asText()
-
-    // Create a List for alarm actions.
-    val alarmActionObs: MutableList<String> = ArrayList()
-    alarmActionObs.add("arn:aws:sns:$region2:$accountId:$emailTopic")
-    val alarmRequest =
-        PutMetricAlarmRequest {
-            alarmActions = alarmActionObs
-            alarmDescription = "Example metric alarm"
-            alarmName = alarmNameVal
-            comparisonOperator = ComparisonOperator.GreaterThanOrEqualToThreshold
-            threshold = 100.00
-            metricName = customMetricName
-            namespace = customMetricNamespace
-            evaluationPeriods = 1
-            period = 10
-            statistic = Statistic.Maximum
-            datapointsToAlarm = 1
-            treatMissingData = "ignore"
-        }
-
-    CloudWatchClient.fromEnvironment { region = "us-east-1" }.use { cwClient ->
-        cwClient.putMetricAlarm(alarmRequest)
-        println("$alarmNameVal was successfully created!")
-        return alarmNameVal
-    }
-}
-// snippet-end:[cloudwatch.kotlin.scenario.create.alarm.main]
-
-// snippet-start:[cloudwatch.kotlin.scenario.add.metric.dashboard.main]
-suspend fun addMetricToDashboard(
-    fileNameVal: String,
-    dashboardNameVal: String,
-) {
-    val dashboardRequest =
-        PutDashboardRequest {
-            dashboardName = dashboardNameVal
-            dashboardBody = readFileAsString(fileNameVal)
-        }
-
-    CloudWatchClient.fromEnvironment { region = "us-east-1" }.use { cwClient ->
-        cwClient.putDashboard(dashboardRequest)
-        println("$dashboardNameVal was successfully updated.")
-    }
-}
-// snippet-end:[cloudwatch.kotlin.scenario.add.metric.dashboard.main]
-
-// snippet-start:[cloudwatch.kotlin.scenario.create.metric.main]
-suspend fun createNewCustomMetric(dataPoint: Double) {
-    val dimension =
-        Dimension {
-            name = "UNIQUE_PAGES"
-            value = "URLS"
-        }
-
-    // Set an Instant object.
-    val time = ZonedDateTime.now(ZoneOffset.UTC).format(DateTimeFormatter.ISO_INSTANT)
-    val instant = Instant.parse(time)
-    val datum =
-        MetricDatum {
-            metricName = "PAGES_VISITED"
-            unit = StandardUnit.None
-            value = dataPoint
-            timestamp =
-                aws.smithy.kotlin.runtime.time
-                    .Instant(instant)
-            dimensions = listOf(dimension)
-        }
-
-    val request =
-        PutMetricDataRequest {
-            namespace = "SITE/TRAFFIC"
-            metricData = listOf(datum)
-        }
-
-    CloudWatchClient.fromEnvironment { region = "us-east-1" }.use { cwClient ->
-        cwClient.putMetricData(request)
-        println("Added metric values for for metric PAGES_VISITED")
-    }
-}
-// snippet-end:[cloudwatch.kotlin.scenario.create.metric.main]
 
 // snippet-start:[cloudwatch.kotlin.scenario.list.dashboard.main]
 suspend fun listDashboards() {
@@ -750,49 +459,6 @@ suspend fun createDashboardWithMetrics(
 // snippet-end:[cloudwatch.kotlin.scenario.create.dashboard.main]
 
 fun readFileAsString(file: String): String = String(Files.readAllBytes(Paths.get(file)))
-
-// snippet-start:[cloudwatch.kotlin.scenario.get.metrics.main]
-suspend fun getMetricStatistics(costDateWeek: String?) {
-    val start = Instant.parse(costDateWeek)
-    val endDate = Instant.now()
-    val dimension =
-        Dimension {
-            name = "Currency"
-            value = "USD"
-        }
-
-    val dimensionList: MutableList<Dimension> = ArrayList()
-    dimensionList.add(dimension)
-
-    val statisticsRequest =
-        GetMetricStatisticsRequest {
-            metricName = "EstimatedCharges"
-            namespace = "AWS/Billing"
-            dimensions = dimensionList
-            statistics = listOf(Statistic.Maximum)
-            startTime =
-                aws.smithy.kotlin.runtime.time
-                    .Instant(start)
-            endTime =
-                aws.smithy.kotlin.runtime.time
-                    .Instant(endDate)
-            period = 86400
-        }
-    CloudWatchClient.fromEnvironment { region = "us-east-1" }.use { cwClient ->
-        val response = cwClient.getMetricStatistics(statisticsRequest)
-        val data: List<Datapoint>? = response.datapoints
-        if (data != null) {
-            if (!data.isEmpty()) {
-                for (datapoint in data) {
-                    println("Timestamp:  ${datapoint.timestamp} Maximum value: ${datapoint.maximum}")
-                }
-            } else {
-                println("The returned data list is empty")
-            }
-        }
-    }
-}
-// snippet-end:[cloudwatch.kotlin.scenario.get.metrics.main]
 
 // snippet-start:[cloudwatch.kotlin.scenario.display.metrics.main]
 suspend fun getAndDisplayMetricStatistics(

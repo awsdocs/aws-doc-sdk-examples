@@ -34,24 +34,31 @@ python -m pip install -r requirements.txt
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](cloudwatch_scenario.py)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
 - [DeleteAlarmMuteRule](cloudwatch_otel.py#L328)
-- [DeleteAlarms](cloudwatch_basics.py#L264)
+- [DeleteAlarms](cloudwatch_basics.py#L345)
 - [DescribeAlarmContributors](cloudwatch_otel.py#L180)
-- [DescribeAlarmsForMetric](cloudwatch_basics.py#L216)
-- [DisableAlarmActions](cloudwatch_basics.py#L232)
-- [EnableAlarmActions](cloudwatch_basics.py#L232)
+- [DescribeAlarmsForMetric](cloudwatch_basics.py#L297)
+- [DisableAlarmActions](cloudwatch_basics.py#L313)
+- [EnableAlarmActions](cloudwatch_basics.py#L313)
 - [GetAlarmMuteRule](cloudwatch_otel.py#L270)
-- [GetMetricStatistics](cloudwatch_basics.py#L123)
+- [GetMetricStatistics](cloudwatch_basics.py#L204)
 - [GetOTelEnrichment](cloudwatch_otel.py#L79)
 - [ListAlarmMuteRules](cloudwatch_otel.py#L292)
 - [ListMetrics](cloudwatch_basics.py#L37)
 - [PutAlarmMuteRule](cloudwatch_otel.py#L216)
 - [PutMetricAlarm](cloudwatch_otel.py#L114)
-- [PutMetricData](cloudwatch_basics.py#L64)
+- [PutMetricData](cloudwatch_basics.py#L145)
 - [StartOTelEnrichment](cloudwatch_otel.py#L57)
 - [StopOTelEnrichment](cloudwatch_otel.py#L98)
 
@@ -75,6 +82,31 @@ functions within the same service.
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
+
+#### Learn the basics
+
+This example shows you how to do the following:
+
+- List CloudWatch namespaces and metrics.
+- Start OpenTelemetry enrichment so CloudWatch correlates incoming OTLP metrics with the resources that produced them.
+- See how OTLP metrics reach the CloudWatch metrics endpoint. Metric ingestion over OTLP is not an AWS SDK operation.
+- Create an alarm that evaluates a PromQL query.
+- Inspect the alarm's contributors, the individual series that the query matched.
+- Get statistics for a metric and chart it on a dashboard.
+- Mute the alarm for a maintenance window, then clean up.
+
+<!--custom.basic_prereqs.cloudwatch_GetStartedMetricsDashboardsAlarms.start-->
+<!--custom.basic_prereqs.cloudwatch_GetStartedMetricsDashboardsAlarms.end-->
+
+Start the example by running the following at a command prompt:
+
+```
+python cloudwatch_scenario.py
+```
+
+
+<!--custom.basics.cloudwatch_GetStartedMetricsDashboardsAlarms.start-->
+<!--custom.basics.cloudwatch_GetStartedMetricsDashboardsAlarms.end-->
 
 
 #### Manage custom metrics and alarms

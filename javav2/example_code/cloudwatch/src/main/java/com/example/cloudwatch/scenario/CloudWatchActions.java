@@ -15,28 +15,38 @@ import software.amazon.awssdk.core.retry.RetryMode;
 import software.amazon.awssdk.http.async.SdkAsyncHttpClient;
 import software.amazon.awssdk.http.nio.netty.NettyNioAsyncHttpClient;
 import software.amazon.awssdk.services.cloudwatch.CloudWatchAsyncClient;
+import software.amazon.awssdk.services.cloudwatch.model.AlarmContributor;
 import software.amazon.awssdk.services.cloudwatch.model.AlarmHistoryItem;
+import software.amazon.awssdk.services.cloudwatch.model.AlarmMuteRuleSummary;
+import software.amazon.awssdk.services.cloudwatch.model.AlarmPromQLCriteria;
 import software.amazon.awssdk.services.cloudwatch.model.AlarmType;
 import software.amazon.awssdk.services.cloudwatch.model.AnomalyDetector;
 import software.amazon.awssdk.services.cloudwatch.model.ComparisonOperator;
 import software.amazon.awssdk.services.cloudwatch.model.DashboardValidationMessage;
 import software.amazon.awssdk.services.cloudwatch.model.Datapoint;
+import software.amazon.awssdk.services.cloudwatch.model.DeleteAlarmMuteRuleRequest;
 import software.amazon.awssdk.services.cloudwatch.model.DeleteAlarmsRequest;
 import software.amazon.awssdk.services.cloudwatch.model.DeleteAlarmsResponse;
 import software.amazon.awssdk.services.cloudwatch.model.DeleteAnomalyDetectorRequest;
 import software.amazon.awssdk.services.cloudwatch.model.DeleteAnomalyDetectorResponse;
 import software.amazon.awssdk.services.cloudwatch.model.DeleteDashboardsRequest;
 import software.amazon.awssdk.services.cloudwatch.model.DeleteDashboardsResponse;
+import software.amazon.awssdk.services.cloudwatch.model.DescribeAlarmContributorsRequest;
 import software.amazon.awssdk.services.cloudwatch.model.DescribeAlarmHistoryRequest;
 import software.amazon.awssdk.services.cloudwatch.model.DescribeAlarmsForMetricRequest;
 import software.amazon.awssdk.services.cloudwatch.model.DescribeAlarmsRequest;
 import software.amazon.awssdk.services.cloudwatch.model.DescribeAnomalyDetectorsRequest;
 import software.amazon.awssdk.services.cloudwatch.model.Dimension;
+import software.amazon.awssdk.services.cloudwatch.model.EvaluationCriteria;
+import software.amazon.awssdk.services.cloudwatch.model.GetAlarmMuteRuleRequest;
+import software.amazon.awssdk.services.cloudwatch.model.GetAlarmMuteRuleResponse;
 import software.amazon.awssdk.services.cloudwatch.model.GetMetricDataRequest;
 import software.amazon.awssdk.services.cloudwatch.model.GetMetricStatisticsRequest;
 import software.amazon.awssdk.services.cloudwatch.model.GetMetricStatisticsResponse;
 import software.amazon.awssdk.services.cloudwatch.model.GetMetricWidgetImageRequest;
+import software.amazon.awssdk.services.cloudwatch.model.GetOTelEnrichmentRequest;
 import software.amazon.awssdk.services.cloudwatch.model.HistoryItemType;
+import software.amazon.awssdk.services.cloudwatch.model.ListAlarmMuteRulesRequest;
 import software.amazon.awssdk.services.cloudwatch.model.ListDashboardsRequest;
 import software.amazon.awssdk.services.cloudwatch.model.ListMetricsRequest;
 import software.amazon.awssdk.services.cloudwatch.model.Metric;
@@ -45,16 +55,22 @@ import software.amazon.awssdk.services.cloudwatch.model.MetricDataQuery;
 import software.amazon.awssdk.services.cloudwatch.model.MetricDataResult;
 import software.amazon.awssdk.services.cloudwatch.model.MetricDatum;
 import software.amazon.awssdk.services.cloudwatch.model.MetricStat;
+import software.amazon.awssdk.services.cloudwatch.model.MuteTargets;
+import software.amazon.awssdk.services.cloudwatch.model.PutAlarmMuteRuleRequest;
 import software.amazon.awssdk.services.cloudwatch.model.PutAnomalyDetectorRequest;
 import software.amazon.awssdk.services.cloudwatch.model.PutDashboardRequest;
 import software.amazon.awssdk.services.cloudwatch.model.PutDashboardResponse;
 import software.amazon.awssdk.services.cloudwatch.model.PutMetricAlarmRequest;
 import software.amazon.awssdk.services.cloudwatch.model.PutMetricDataRequest;
 import software.amazon.awssdk.services.cloudwatch.model.PutMetricDataResponse;
+import software.amazon.awssdk.services.cloudwatch.model.Rule;
 import software.amazon.awssdk.services.cloudwatch.model.ScanBy;
+import software.amazon.awssdk.services.cloudwatch.model.Schedule;
 import software.amazon.awssdk.services.cloudwatch.model.SingleMetricAnomalyDetector;
 import software.amazon.awssdk.services.cloudwatch.model.StandardUnit;
+import software.amazon.awssdk.services.cloudwatch.model.StartOTelEnrichmentRequest;
 import software.amazon.awssdk.services.cloudwatch.model.Statistic;
+import software.amazon.awssdk.services.cloudwatch.model.StopOTelEnrichmentRequest;
 import software.amazon.awssdk.services.cloudwatch.paginators.DescribeAlarmHistoryPublisher;
 import software.amazon.awssdk.services.cloudwatch.paginators.ListDashboardsPublisher;
 import software.amazon.awssdk.services.cloudwatch.paginators.ListMetricsPublisher;
@@ -1074,6 +1090,290 @@ public class CloudWatchActions {
             }
         });
     }
+
+    // snippet-start:[cloudwatch.java2.scenario.otel.enrichment.main]
+    /**
+     * Gets the current OTel enrichment status for the account. Enrichment is what makes
+     * CloudWatch attach AWS resource context to incoming OTLP metrics, so the metrics
+     * become correlatable with the rest of CloudWatch rather than opaque series.
+     *
+     * @return a {@link CompletableFuture} that completes with the status, such as
+     * {@code Running} or {@code NotStarted}
+     */
+    public CompletableFuture<String> getOTelEnrichmentStatusAsync() {
+        return getAsyncClient().getOTelEnrichment(GetOTelEnrichmentRequest.builder().build())
+            .handle((response, exception) -> {
+                if (exception != null) {
+                    throw new RuntimeException("Failed to get OTel enrichment status: "
+                        + exception.getMessage(), exception);
+                }
+                return response.statusAsString();
+            });
+    }
+
+    /**
+     * Turns on OTel enrichment for the account.
+     *
+     * @return a {@link CompletableFuture} that completes when enrichment has started
+     */
+    public CompletableFuture<Void> startOTelEnrichmentAsync() {
+        return getAsyncClient().startOTelEnrichment(StartOTelEnrichmentRequest.builder().build())
+            .handle((response, exception) -> {
+                if (exception != null) {
+                    throw new RuntimeException("Failed to start OTel enrichment: "
+                        + exception.getMessage(), exception);
+                }
+                logger.info("Started OTel enrichment for this account.");
+                return null;
+            });
+    }
+
+    /**
+     * Turns off OTel enrichment for the account. Existing PromQL alarms are not deleted,
+     * but vended metrics stop being enriched, so queries that select on the added labels
+     * stop matching.
+     *
+     * @return a {@link CompletableFuture} that completes when enrichment has stopped
+     */
+    public CompletableFuture<Void> stopOTelEnrichmentAsync() {
+        return getAsyncClient().stopOTelEnrichment(StopOTelEnrichmentRequest.builder().build())
+            .handle((response, exception) -> {
+                if (exception != null) {
+                    throw new RuntimeException("Failed to stop OTel enrichment: "
+                        + exception.getMessage(), exception);
+                }
+                logger.info("Stopped OTel enrichment for this account.");
+                return null;
+            });
+    }
+    // snippet-end:[cloudwatch.java2.scenario.otel.enrichment.main]
+
+    // snippet-start:[cloudwatch.java2.scenario.promql.alarm.main]
+    /**
+     * Creates an alarm that evaluates a PromQL query.
+     *
+     * <p>A PromQL alarm differs from a classic metric alarm in a few ways. The query can
+     * match many series at once, and each matching series is tracked separately as a
+     * contributor. Instead of counting breaching periods, you specify durations: a
+     * contributor moves to ALARM after it breaches continuously for the pending period,
+     * and back to OK after it stops breaching for the recovery period. A PromQL alarm
+     * starts in the OK state rather than INSUFFICIENT_DATA.
+     *
+     * <p>{@link EvaluationCriteria} is a union and is mutually exclusive with the classic
+     * {@code metricName} and {@code metrics} parameters. When you use it you must also set
+     * {@code evaluationInterval}, and you must not set {@code period}, {@code statistic},
+     * {@code threshold}, {@code comparisonOperator}, or {@code evaluationPeriods}.
+     *
+     * @param alarmName          the name of the alarm, unique within the Region
+     * @param query              the PromQL query to evaluate. The comparison belongs in
+     *                           the query itself; there is no separate threshold.
+     * @param evaluationInterval how often, in seconds, to run the query. Valid values are
+     *                           10, 20, 30, and any multiple of 60, up to 3600.
+     * @param pendingPeriod      how long, in seconds, a contributor must breach
+     *                           continuously before it moves to ALARM
+     * @param recoveryPeriod     how long, in seconds, a contributor must stop breaching
+     *                           before it moves back to OK
+     * @return a {@link CompletableFuture} that completes when the alarm is created
+     */
+    public CompletableFuture<Void> putPromQLMetricAlarmAsync(String alarmName, String query,
+            int evaluationInterval, int pendingPeriod, int recoveryPeriod) {
+        AlarmPromQLCriteria promQLCriteria = AlarmPromQLCriteria.builder()
+            .query(query)
+            .pendingPeriod(pendingPeriod)
+            .recoveryPeriod(recoveryPeriod)
+            .build();
+
+        PutMetricAlarmRequest request = PutMetricAlarmRequest.builder()
+            .alarmName(alarmName)
+            .alarmDescription("PromQL alarm created by the AWS SDK for Java 2.x Basics scenario.")
+            .evaluationCriteria(EvaluationCriteria.builder()
+                .promQLCriteria(promQLCriteria)
+                .build())
+            .evaluationInterval(evaluationInterval)
+            .build();
+
+        return getAsyncClient().putMetricAlarm(request).handle((response, exception) -> {
+            if (exception != null) {
+                throw new RuntimeException("Failed to create PromQL alarm: "
+                    + exception.getMessage(), exception);
+            }
+            logger.info("Created PromQL alarm {} for query {}.", alarmName, query);
+            return null;
+        });
+    }
+    // snippet-end:[cloudwatch.java2.scenario.promql.alarm.main]
+
+    // snippet-start:[cloudwatch.java2.scenario.contributors.main]
+    /**
+     * Gets the contributors for a PromQL alarm. Each contributor is one series that the
+     * alarm's query matched, identified by its label set. This is how you find out which
+     * hosts, services, or pods are breaching, rather than only that something is.
+     *
+     * <p>The paging loop continues until the next token is empty. A page can come back
+     * empty while still carrying a next token, so stopping at the first empty page would
+     * silently drop later results.
+     *
+     * @param alarmName the name of the PromQL alarm
+     * @return a {@link CompletableFuture} that completes with the list of contributors,
+     * which is empty when the query matched no series
+     */
+    public CompletableFuture<List<AlarmContributor>> describeAlarmContributorsAsync(String alarmName) {
+        List<AlarmContributor> contributors = new ArrayList<>();
+        return collectContributorsPage(alarmName, null, contributors);
+    }
+
+    private CompletableFuture<List<AlarmContributor>> collectContributorsPage(String alarmName,
+            String nextToken, List<AlarmContributor> accumulated) {
+        DescribeAlarmContributorsRequest request = DescribeAlarmContributorsRequest.builder()
+            .alarmName(alarmName)
+            .nextToken(nextToken)
+            .build();
+
+        return getAsyncClient().describeAlarmContributors(request)
+            .thenCompose(response -> {
+                accumulated.addAll(response.alarmContributors());
+                String token = response.nextToken();
+                if (token == null || token.isEmpty()) {
+                    return CompletableFuture.completedFuture(accumulated);
+                }
+                return collectContributorsPage(alarmName, token, accumulated);
+            })
+            .exceptionally(exception -> {
+                throw new RuntimeException("Failed to describe alarm contributors: "
+                    + exception.getMessage(), exception);
+            });
+    }
+    // snippet-end:[cloudwatch.java2.scenario.contributors.main]
+
+    // snippet-start:[cloudwatch.java2.scenario.mute.rule.main]
+    /**
+     * Creates or updates an alarm mute rule. While a mute rule is active the targeted
+     * alarms keep evaluating and keep changing state, but their configured actions do not
+     * fire. This is the supported way to suppress notifications during planned
+     * maintenance, instead of disabling alarm actions and relying on someone to turn them
+     * back on.
+     *
+     * @param name       the name of the mute rule
+     * @param expression when the rule activates. For a recurring window, a five-field
+     *                   cron expression, {@code cron(Minutes Hours Day-of-month Month
+     *                   Day-of-week)}, such as {@code cron(0 2 * * SUN)}. Note that this
+     *                   is five fields, not the six that Amazon EventBridge uses. For a
+     *                   one-time window, {@code at(yyyy-MM-ddThh:mm)}, such as
+     *                   {@code at(2026-09-05T02:00)}, with no seconds.
+     * @param duration   how long the window lasts once it activates, as an ISO 8601
+     *                   duration from {@code PT1M} to {@code P15D}. For example,
+     *                   {@code PT2H} is two hours. Plain forms such as {@code 2h} are
+     *                   rejected.
+     * @param timezone   a standard timezone identifier. Defaults to UTC when omitted.
+     * @param alarmNames the names of up to 100 alarms to mute. If empty, the rule applies
+     *                   to every alarm in the account.
+     * @return a {@link CompletableFuture} that completes when the rule is written
+     */
+    public CompletableFuture<Void> putAlarmMuteRuleAsync(String name, String expression,
+            String duration, String timezone, List<String> alarmNames) {
+        Schedule schedule = Schedule.builder()
+            .expression(expression)
+            .duration(duration)
+            .timezone(timezone)
+            .build();
+
+        PutAlarmMuteRuleRequest.Builder request = PutAlarmMuteRuleRequest.builder()
+            .name(name)
+            .description("Mute rule created by the AWS SDK for Java 2.x Basics scenario.")
+            .rule(Rule.builder().schedule(schedule).build());
+
+        if (alarmNames != null && !alarmNames.isEmpty()) {
+            request.muteTargets(MuteTargets.builder().alarmNames(alarmNames).build());
+        }
+
+        return getAsyncClient().putAlarmMuteRule(request.build()).handle((response, exception) -> {
+            if (exception != null) {
+                throw new RuntimeException("Failed to put alarm mute rule: "
+                    + exception.getMessage(), exception);
+            }
+            logger.info("Put alarm mute rule {}.", name);
+            return null;
+        });
+    }
+
+    /**
+     * Gets the full configuration of an alarm mute rule, including its schedule, the
+     * alarms it targets, and its current status.
+     *
+     * @param name the name of the mute rule
+     * @return a {@link CompletableFuture} that completes with the mute rule
+     */
+    public CompletableFuture<GetAlarmMuteRuleResponse> getAlarmMuteRuleAsync(String name) {
+        return getAsyncClient().getAlarmMuteRule(GetAlarmMuteRuleRequest.builder()
+                .alarmMuteRuleName(name)
+                .build())
+            .handle((response, exception) -> {
+                if (exception != null) {
+                    throw new RuntimeException("Failed to get alarm mute rule: "
+                        + exception.getMessage(), exception);
+                }
+                return response;
+            });
+    }
+
+    /**
+     * Lists the alarm mute rules in the account, optionally filtered to the rules that
+     * target one alarm.
+     *
+     * <p>Note that {@link AlarmMuteRuleSummary} carries no name field, only an ARN,
+     * status, mute type, and last-updated timestamp. To find a rule by name, match on the
+     * ARN suffix.
+     *
+     * @param alarmName when non-null, only rules that target this alarm are returned
+     * @return a {@link CompletableFuture} that completes with the mute rule summaries
+     */
+    public CompletableFuture<List<AlarmMuteRuleSummary>> listAlarmMuteRulesAsync(String alarmName) {
+        List<AlarmMuteRuleSummary> summaries = new ArrayList<>();
+        return collectMuteRulesPage(alarmName, null, summaries);
+    }
+
+    private CompletableFuture<List<AlarmMuteRuleSummary>> collectMuteRulesPage(String alarmName,
+            String nextToken, List<AlarmMuteRuleSummary> accumulated) {
+        ListAlarmMuteRulesRequest request = ListAlarmMuteRulesRequest.builder()
+            .alarmName(alarmName)
+            .nextToken(nextToken)
+            .build();
+
+        return getAsyncClient().listAlarmMuteRules(request)
+            .thenCompose(response -> {
+                accumulated.addAll(response.alarmMuteRuleSummaries());
+                String token = response.nextToken();
+                if (token == null || token.isEmpty()) {
+                    return CompletableFuture.completedFuture(accumulated);
+                }
+                return collectMuteRulesPage(alarmName, token, accumulated);
+            })
+            .exceptionally(exception -> {
+                throw new RuntimeException("Failed to list alarm mute rules: "
+                    + exception.getMessage(), exception);
+            });
+    }
+
+    /**
+     * Deletes an alarm mute rule. The alarms it targeted resume firing their actions.
+     *
+     * @param name the name of the mute rule
+     * @return a {@link CompletableFuture} that completes when the rule is deleted
+     */
+    public CompletableFuture<Void> deleteAlarmMuteRuleAsync(String name) {
+        return getAsyncClient().deleteAlarmMuteRule(DeleteAlarmMuteRuleRequest.builder()
+                .alarmMuteRuleName(name)
+                .build())
+            .handle((response, exception) -> {
+                if (exception != null) {
+                    throw new RuntimeException("Failed to delete alarm mute rule: "
+                        + exception.getMessage(), exception);
+                }
+                logger.info("Deleted alarm mute rule {}.", name);
+                return null;
+            });
+    }
+    // snippet-end:[cloudwatch.java2.scenario.mute.rule.main]
 
     public static String readFileAsString(String file) throws IOException {
         return new String(Files.readAllBytes(Paths.get(file)));
