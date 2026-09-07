@@ -325,7 +325,8 @@ class CloudWatchScenario:
             print(f"\tCould not get statistics: {error}")
 
         try:
-            body = self.build_dashboard_body(metric)
+            region = self.otel_wrapper.cloudwatch_client.meta.region_name
+            body = self.build_dashboard_body(metric, region)
             messages = self.cloudwatch_wrapper.put_dashboard(self.dashboard_name, body)
             self.dashboard_created = True
             for message in messages:
@@ -342,11 +343,13 @@ class CloudWatchScenario:
         print(DASHES)
 
     @staticmethod
-    def build_dashboard_body(metric):
+    def build_dashboard_body(metric, region):
         """
         Builds a single-widget dashboard body that charts the given metric.
 
         :param metric: A Boto3 CloudWatch Metric resource.
+        :param region: The region the metric is in. A metric widget must name its
+                       region, because a dashboard can chart metrics from several.
         :return: The dashboard body, as a JSON string.
         """
         metric_spec = [metric.namespace, metric.name]
@@ -378,6 +381,7 @@ class CloudWatchScenario:
                             "view": "timeSeries",
                             "stat": "Average",
                             "period": 300,
+                            "region": region,
                             "title": metric.name,
                         },
                     },

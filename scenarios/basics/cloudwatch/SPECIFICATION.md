@@ -64,6 +64,7 @@ The Amazon CloudWatch SDK Basics scenario follows these steps:
 6. **Get statistics and chart the metric on a dashboard**
    - **Description**: Retrieves aggregated values for a metric with `getMetricStatistics` over a recent time window, then creates a dashboard with `putDashboard` that charts it, and reads the dashboard back with `getDashboard` to confirm the widget JSON round-tripped.
    - **Rationale**: These are the classic operations worth keeping. Statistics and dashboards are how a reader visualizes what the alarm is evaluating, so they support the OTel narrative instead of competing with it.
+   - **Dashboard body requirement that must be reflected in every implementation**: a `metric` widget's `properties` must include `region`, set to the region the client is configured for. A dashboard can chart metrics from several regions, so the region is not inferred from the caller. Omitting it makes `putDashboard` fail with `InvalidParameterInput` and three validation errors, one of which misleadingly asks for `annotations`; supplying `region` resolves all three. Every implementation should read the region from its client configuration rather than hardcoding it.
    - **Exception Handling**: If a `ResourceNotFoundException` is thrown from `getDashboard`, display the error message and continue. If a `CloudWatchException` is thrown, display the error message and terminate the program.
 
 7. **Mute the alarm for a maintenance window**

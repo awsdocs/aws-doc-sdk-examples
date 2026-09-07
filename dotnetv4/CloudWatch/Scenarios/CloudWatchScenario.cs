@@ -65,6 +65,7 @@ public class CloudWatchScenario
     // enrichment that this run started.
     private static bool _startedEnrichment;
     private static bool _dashboardCreated;
+    private static string _region = null!;
 
     static async Task Main(string[] args)
     {
@@ -93,6 +94,11 @@ public class CloudWatchScenario
 
         _cloudWatchWrapper = host.Services.GetRequiredService<CloudWatchWrapper>();
         _otelWrapper = host.Services.GetRequiredService<CloudWatchOTelWrapper>();
+
+        // A metric widget must name its region, because a dashboard can chart
+        // metrics from several.
+        _region = host.Services.GetRequiredService<IAmazonCloudWatch>()
+            .Config.RegionEndpoint.SystemName;
 
         // Suffix the resource names so repeated runs do not collide.
         var suffix = new Random().Next(1000, 9999).ToString();
@@ -384,6 +390,7 @@ public class CloudWatchScenario
                 ""view"": ""timeSeries"",
                 ""stat"": ""Average"",
                 ""period"": 300,
+                ""region"": ""{_region}"",
                 ""title"": ""{metric.MetricName}""
             }}
         }}

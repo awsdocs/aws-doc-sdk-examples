@@ -177,8 +177,10 @@ end
 # Builds a single-widget dashboard body that charts the given metric.
 #
 # @param metric [Aws::CloudWatch::Types::Metric] The metric to chart.
+# @param region [String] The region the metric is in. A metric widget must name its
+#   region, because a dashboard can chart metrics from several.
 # @return [String] The dashboard body, as JSON.
-def dashboard_body(metric)
+def dashboard_body(metric, region)
   metric_spec = [metric.namespace, metric.metric_name]
   metric.dimensions.each { |dimension| metric_spec.push(dimension.name, dimension.value) }
 
@@ -199,6 +201,7 @@ def dashboard_body(metric)
           view: 'timeSeries',
           stat: 'Average',
           period: 300,
+          region: region,
           title: metric.metric_name
         }
       }
@@ -238,7 +241,7 @@ def chart_metric_on_dashboard(cloudwatch_client, dashboard_name, by_namespace)
 
   response = cloudwatch_client.put_dashboard(
     dashboard_name: dashboard_name,
-    dashboard_body: dashboard_body(metric)
+    dashboard_body: dashboard_body(metric, cloudwatch_client.config.region)
   )
   response.dashboard_validation_messages.each do |message|
     puts "\tDashboard validation message: #{message.message}"

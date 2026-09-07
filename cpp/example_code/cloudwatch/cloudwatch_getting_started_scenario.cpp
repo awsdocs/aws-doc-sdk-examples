@@ -355,9 +355,12 @@ namespace {
     //! Build a single-widget dashboard body that charts the given metric.
     /*!
       \param metric: The metric to chart.
+      \param region: The region the metric is in. A metric widget must name its
+       region, because a dashboard can chart metrics from several.
       \return Aws::String: The dashboard body, as JSON.
      */
-    Aws::String buildDashboardBody(const Aws::CloudWatch::Model::Metric &metric) {
+    Aws::String buildDashboardBody(const Aws::CloudWatch::Model::Metric &metric,
+                                   const Aws::String &region) {
         const auto &dimensions = metric.GetDimensions();
 
         // A metric is specified in a widget as a flat array,
@@ -393,6 +396,7 @@ namespace {
             .WithString("view", "timeSeries")
             .WithString("stat", "Average")
             .WithInteger("period", 300)
+            .WithString("region", region)
             .WithString("title", metric.GetMetricName());
 
         Aws::Utils::Json::JsonValue metricWidget;
@@ -425,6 +429,7 @@ namespace {
     bool getStatisticsAndChartMetric(const Aws::CloudWatch::CloudWatchClient &client,
                                      const Aws::CloudWatch::Model::Metric &metric,
                                      const Aws::String &dashboardName,
+                                     const Aws::String &region,
                                      bool &dashboardCreated) {
         std::cout << "6. Get statistics and chart the metric on a dashboard" << std::endl
                   << std::endl;
@@ -472,7 +477,7 @@ namespace {
 
         Aws::CloudWatch::Model::PutDashboardRequest putRequest;
         putRequest.SetDashboardName(dashboardName);
-        putRequest.SetDashboardBody(buildDashboardBody(metric));
+        putRequest.SetDashboardBody(buildDashboardBody(metric, region));
 
         auto putOutcome = client.PutDashboard(putRequest);
         if (!putOutcome.IsSuccess()) {
@@ -777,6 +782,7 @@ bool runCloudWatchScenario(const Aws::String &query,
     pressEnter();
 
     if (result && !getStatisticsAndChartMetric(client, metric, dashboardName,
+                                               clientConfig.region,
                                                dashboardCreated)) {
         result = false;
     }

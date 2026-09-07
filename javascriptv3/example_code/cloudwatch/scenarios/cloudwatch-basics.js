@@ -302,10 +302,11 @@ const sdkDashboard = new ScenarioAction(
       );
     }
 
+    const region = await state.client.config.region();
     const response = await state.client.send(
       new PutDashboardCommand({
         DashboardName: state.dashboardName,
-        DashboardBody: buildDashboardBody(metric),
+        DashboardBody: buildDashboardBody(metric, region),
       }),
     );
     state.dashboardCreated = true;
@@ -327,9 +328,11 @@ const sdkDashboard = new ScenarioAction(
 /**
  * Build a single-widget dashboard body that charts the given metric.
  * @param {import('@aws-sdk/client-cloudwatch').Metric} metric
+ * @param {string} region The region the metric is in. A metric widget must name
+ *   its region, because a dashboard can chart metrics from several.
  * @returns {string} The dashboard body, as JSON.
  */
-const buildDashboardBody = (metric) => {
+const buildDashboardBody = (metric, region) => {
   const metricSpec = [metric.Namespace, metric.MetricName];
   for (const dimension of metric.Dimensions ?? []) {
     metricSpec.push(dimension.Name, dimension.Value);
@@ -359,6 +362,7 @@ const buildDashboardBody = (metric) => {
           view: "timeSeries",
           stat: "Average",
           period: 300,
+          region,
           title: metric.MetricName,
         },
       },
