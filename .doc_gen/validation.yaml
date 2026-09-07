@@ -86,6 +86,8 @@ allow_list:
   - "aws/monitoring/model/DeleteAlarmsRequest"
   - "aws/monitoring/model/AlarmPromQLCriteria"
   - "aws/monitoring/model/AlarmMuteRuleStatus"
+  - "aws/monitoring/model/GetDashboardRequest"
+  - "aws/monitoring/model/PutDashboardRequest"
   - "aws/neptune/model/CreateDBClusterRequest"
   - "aws/neptune/model/DeleteDBClusterRequest"
   - "aws/neptune/model/ModifyDBClusterRequest"

@@ -46,29 +46,29 @@ Code examples that show you how to perform the essential operations within a ser
 Code excerpts that show you how to call individual service functions.
 
 - [DeleteAlarmMuteRule](src/main/java/com/example/cloudwatch/otel/CloudWatchOTelActions.java#L352)
-- [DeleteAlarms](src/main/java/com/example/cloudwatch/scenario/CloudWatchActions.java#L169)
-- [DeleteAnomalyDetector](src/main/java/com/example/cloudwatch/scenario/CloudWatchActions.java#L127)
-- [DeleteDashboards](src/main/java/com/example/cloudwatch/scenario/CloudWatchActions.java#L194)
+- [DeleteAlarms](src/main/java/com/example/cloudwatch/scenario/CloudWatchActions.java#L185)
+- [DeleteAnomalyDetector](src/main/java/com/example/cloudwatch/scenario/CloudWatchActions.java#L143)
+- [DeleteDashboards](src/main/java/com/example/cloudwatch/scenario/CloudWatchActions.java#L210)
 - [DescribeAlarmContributors](src/main/java/com/example/cloudwatch/otel/CloudWatchOTelActions.java#L184)
-- [DescribeAlarmHistory](src/main/java/com/example/cloudwatch/scenario/CloudWatchActions.java#L372)
-- [DescribeAlarms](src/main/java/com/example/cloudwatch/scenario/CloudWatchActions.java#L658)
-- [DescribeAlarmsForMetric](src/main/java/com/example/cloudwatch/scenario/CloudWatchActions.java#L433)
-- [DescribeAnomalyDetectors](src/main/java/com/example/cloudwatch/scenario/CloudWatchActions.java#L276)
+- [DescribeAlarmHistory](src/main/java/com/example/cloudwatch/scenario/CloudWatchActions.java#L388)
+- [DescribeAlarms](src/main/java/com/example/cloudwatch/scenario/CloudWatchActions.java#L674)
+- [DescribeAlarmsForMetric](src/main/java/com/example/cloudwatch/scenario/CloudWatchActions.java#L449)
+- [DescribeAnomalyDetectors](src/main/java/com/example/cloudwatch/scenario/CloudWatchActions.java#L292)
 - [DisableAlarmActions](src/main/java/com/example/cloudwatch/DisableAlarmActions.java#L6)
 - [EnableAlarmActions](src/main/java/com/example/cloudwatch/EnableAlarmActions.java#L6)
 - [GetAlarmMuteRule](src/main/java/com/example/cloudwatch/otel/CloudWatchOTelActions.java#L287)
-- [GetMetricData](src/main/java/com/example/cloudwatch/scenario/CloudWatchActions.java#L579)
-- [GetMetricStatistics](src/main/java/com/example/cloudwatch/scenario/CloudWatchActions.java#L940)
-- [GetMetricWidgetImage](src/main/java/com/example/cloudwatch/scenario/CloudWatchActions.java#L218)
+- [GetMetricData](src/main/java/com/example/cloudwatch/scenario/CloudWatchActions.java#L595)
+- [GetMetricStatistics](src/main/java/com/example/cloudwatch/scenario/CloudWatchActions.java#L956)
+- [GetMetricWidgetImage](src/main/java/com/example/cloudwatch/scenario/CloudWatchActions.java#L234)
 - [GetOTelEnrichment](src/main/java/com/example/cloudwatch/otel/CloudWatchOTelActions.java#L80)
 - [ListAlarmMuteRules](src/main/java/com/example/cloudwatch/otel/CloudWatchOTelActions.java#L314)
-- [ListDashboards](src/main/java/com/example/cloudwatch/scenario/CloudWatchActions.java#L828)
-- [ListMetrics](src/main/java/com/example/cloudwatch/scenario/CloudWatchActions.java#L990)
+- [ListDashboards](src/main/java/com/example/cloudwatch/scenario/CloudWatchActions.java#L844)
+- [ListMetrics](src/main/java/com/example/cloudwatch/scenario/CloudWatchActions.java#L1006)
 - [PutAlarmMuteRule](src/main/java/com/example/cloudwatch/otel/CloudWatchOTelActions.java#L231)
-- [PutAnomalyDetector](src/main/java/com/example/cloudwatch/scenario/CloudWatchActions.java#L325)
-- [PutDashboard](src/main/java/com/example/cloudwatch/scenario/CloudWatchActions.java#L850)
+- [PutAnomalyDetector](src/main/java/com/example/cloudwatch/scenario/CloudWatchActions.java#L341)
+- [PutDashboard](src/main/java/com/example/cloudwatch/scenario/CloudWatchActions.java#L866)
 - [PutMetricAlarm](src/main/java/com/example/cloudwatch/otel/CloudWatchOTelActions.java#L124)
-- [PutMetricData](src/main/java/com/example/cloudwatch/scenario/CloudWatchActions.java#L510)
+- [PutMetricData](src/main/java/com/example/cloudwatch/scenario/CloudWatchActions.java#L526)
 - [StartOTelEnrichment](src/main/java/com/example/cloudwatch/otel/CloudWatchOTelActions.java#L55)
 - [StopOTelEnrichment](src/main/java/com/example/cloudwatch/otel/CloudWatchOTelActions.java#L103)
 
@@ -101,12 +101,12 @@ This example shows you how to get started using CloudWatch.
 This example shows you how to do the following:
 
 - List CloudWatch namespaces and metrics.
-- Get statistics for a metric and for estimated billing.
-- Create and update a dashboard.
-- Create and add data to a metric.
-- Create and trigger an alarm, then view alarm history.
-- Add an anomaly detector.
-- Get a metric image, then clean up resources.
+- Start OpenTelemetry enrichment so CloudWatch correlates incoming OTLP metrics with the resources that produced them.
+- See how OTLP metrics reach the CloudWatch metrics endpoint. Metric ingestion over OTLP is not an AWS SDK operation.
+- Create an alarm that evaluates a PromQL query.
+- Inspect the alarm's contributors, the individual series that the query matched.
+- Get statistics for a metric and chart it on a dashboard.
+- Mute the alarm for a maintenance window, then clean up.
 
 <!--custom.basic_prereqs.cloudwatch_GetStartedMetricsDashboardsAlarms.start-->
 <!--custom.basic_prereqs.cloudwatch_GetStartedMetricsDashboardsAlarms.end-->
