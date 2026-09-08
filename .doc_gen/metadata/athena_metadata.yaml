@@ -1,0 +1,215 @@
+athena_Hello:
+  title: Hello &ATH;
+  title_abbrev: Hello &ATH;
+  synopsis: get started using &ATH;.
+  category: Hello
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/athena
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.athena.Hello
+  services:
+    athena: {ListWorkGroups}
+athena_CreateWorkGroup:
+  title: Create an &ATH; workgroup
+  title_abbrev: Create a workgroup
+  synopsis: create an &ATH; workgroup.
+  category: Actions
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/athena
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.athena.AthenaWrapper.decl
+                - python.example_code.athena.CreateWorkGroup
+  services:
+    athena: {CreateWorkGroup}
+athena_GetWorkGroup:
+  title: Get an &ATH; workgroup
+  title_abbrev: Get a workgroup
+  synopsis: get information about an &ATH; workgroup.
+  category: Actions
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/athena
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.athena.AthenaWrapper.decl
+                - python.example_code.athena.GetWorkGroup
+  services:
+    athena: {GetWorkGroup}
+athena_StartQueryExecution:
+  title: Start an &ATH; query execution
+  title_abbrev: Start a query execution
+  synopsis: start an &ATH; query execution.
+  category: Actions
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/athena
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.athena.AthenaWrapper.decl
+                - python.example_code.athena.StartQueryExecution
+  services:
+    athena: {StartQueryExecution}
+athena_GetQueryExecution:
+  title: Get an &ATH; query execution
+  title_abbrev: Get a query execution
+  synopsis: get the status of an &ATH; query execution.
+  category: Actions
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/athena
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.athena.AthenaWrapper.decl
+                - python.example_code.athena.GetQueryExecution
+  services:
+    athena: {GetQueryExecution}
+athena_GetQueryResults:
+  title: Get &ATH; query results
+  title_abbrev: Get query results
+  synopsis: get the results of an &ATH; query execution.
+  category: Actions
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/athena
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.athena.AthenaWrapper.decl
+                - python.example_code.athena.GetQueryResults
+  services:
+    athena: {GetQueryResults}
+athena_ListQueryExecutions:
+  title: List &ATH; query executions
+  title_abbrev: List query executions
+  synopsis: list &ATH; query executions for a workgroup.
+  category: Actions
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/athena
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.athena.AthenaWrapper.decl
+                - python.example_code.athena.ListQueryExecutions
+  services:
+    athena: {ListQueryExecutions}
+athena_CreateNamedQuery:
+  title: Create an &ATH; named query
+  title_abbrev: Create a named query
+  synopsis: create an &ATH; named query.
+  category: Actions
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/athena
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.athena.AthenaWrapper.decl
+                - python.example_code.athena.CreateNamedQuery
+  services:
+    athena: {CreateNamedQuery}
+athena_GetNamedQuery:
+  title: Get an &ATH; named query
+  title_abbrev: Get a named query
+  synopsis: get details about an &ATH; named query.
+  category: Actions
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/athena
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.athena.AthenaWrapper.decl
+                - python.example_code.athena.GetNamedQuery
+  services:
+    athena: {GetNamedQuery}
+athena_ListNamedQueries:
+  title: List &ATH; named queries
+  title_abbrev: List named queries
+  synopsis: list &ATH; named queries for a workgroup.
+  category: Actions
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/athena
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.athena.AthenaWrapper.decl
+                - python.example_code.athena.ListNamedQueries
+  services:
+    athena: {ListNamedQueries}
+athena_DeleteWorkGroup:
+  title: Delete an &ATH; workgroup
+  title_abbrev: Delete a workgroup
+  synopsis: delete an &ATH; workgroup.
+  category: Actions
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/athena
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.athena.AthenaWrapper.decl
+                - python.example_code.athena.DeleteWorkGroup
+  services:
+    athena: {DeleteWorkGroup}
+athena_Scenario:
+  title: Get started with &ATH; basics
+  title_abbrev: Get started with Athena basics
+  synopsis: learn the basics of &ATH; by creating workgroups, running queries, and managing named queries.
+  category: Scenarios
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/athena
+          excerpts:
+            - description: Create an Athena wrapper class to manage operations.
+              snippet_tags:
+                - python.example_code.athena.AthenaWrapper.decl
+                - python.example_code.athena.CreateWorkGroup
+                - python.example_code.athena.GetWorkGroup
+                - python.example_code.athena.StartQueryExecution
+                - python.example_code.athena.GetQueryExecution
+                - python.example_code.athena.GetQueryResults
+                - python.example_code.athena.ListQueryExecutions
+                - python.example_code.athena.CreateNamedQuery
+                - python.example_code.athena.GetNamedQuery
+                - python.example_code.athena.ListNamedQueries
+                - python.example_code.athena.DeleteWorkGroup
+            - description: Run an interactive scenario demonstrating Athena basics.
+              snippet_tags:
+                - python.example_code.athena.AthenaScenario
+  services:
+    athena: {CreateWorkGroup, GetWorkGroup, StartQueryExecution, GetQueryExecution, GetQueryResults, ListQueryExecutions, CreateNamedQuery, GetNamedQuery, ListNamedQueries, DeleteWorkGroup}
