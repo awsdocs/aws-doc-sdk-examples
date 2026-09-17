@@ -18,7 +18,7 @@ logger = logging.getLogger(__name__)
 class EcsWrapper:
     """Encapsulates Amazon ECS operations."""
 
-    def __init__(self, ecs_client: boto3.client):
+    def __init__(self, ecs_client: Any):
         """
         Initializes the EcsWrapper with an ECS client.
 

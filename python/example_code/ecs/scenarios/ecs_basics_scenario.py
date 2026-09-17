@@ -19,17 +19,21 @@ on Amazon ECS using AWS Fargate:
   11. Clean up all resources.
 
 Usage:
-    python scenario_ecs_basics.py
+    python ecs_basics_scenario.py
 """
 
 # snippet-start:[python.example_code.ecs.EcsScenario]
 import json
 import logging
-import time
+import os
+import sys
 
 import boto3
 from botocore.exceptions import ClientError, WaiterError
 
+# The EcsWrapper lives in the parent directory (python/example_code/ecs/).
+# Add it to the path so this scenario can be run directly from the scenarios/ folder.
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from ecs_wrapper import EcsWrapper
 
 logger = logging.getLogger(__name__)
@@ -154,14 +158,25 @@ def get_cfn_template():
 def deploy_stack(cfn_client):
     """Deploys the CloudFormation stack and returns outputs as a dict."""
     print(f"\nDeploying CloudFormation stack '{STACK_NAME}'...")
-    cfn_client.create_stack(
-        StackName=STACK_NAME,
-        TemplateBody=get_cfn_template(),
-        Capabilities=["CAPABILITY_IAM"],
-    )
-    waiter = cfn_client.get_waiter("stack_create_complete")
-    print("Waiting for stack creation to complete...")
-    waiter.wait(StackName=STACK_NAME, WaiterConfig={"Delay": 15, "MaxAttempts": 60})
+    try:
+        cfn_client.create_stack(
+            StackName=STACK_NAME,
+            TemplateBody=get_cfn_template(),
+            Capabilities=["CAPABILITY_IAM"],
+        )
+        waiter = cfn_client.get_waiter("stack_create_complete")
+        print("Waiting for stack creation to complete...")
+        waiter.wait(
+            StackName=STACK_NAME, WaiterConfig={"Delay": 15, "MaxAttempts": 60}
+        )
+    except ClientError as err:
+        if err.response["Error"]["Code"] == "AlreadyExistsException":
+            print(
+                f"Stack '{STACK_NAME}' already exists; reusing its outputs. "
+                "Delete it manually if you need a clean deployment."
+            )
+        else:
+            raise
 
     response = cfn_client.describe_stacks(StackName=STACK_NAME)
     outputs = response["Stacks"][0]["Outputs"]
@@ -276,8 +291,16 @@ def run_scenario():
         print(f"  Desired count: {service['desiredCount']}")
 
         # --- Step 6: List tasks in the service ---
-        print("\nWaiting for service tasks to start...")
-        time.sleep(20)
+        print("\nWaiting for the service to reach a steady state...")
+        try:
+            services_waiter = ecs_client.get_waiter("services_stable")
+            services_waiter.wait(
+                cluster=cluster_name,
+                services=[service_name],
+                WaiterConfig={"Delay": 15, "MaxAttempts": 40},
+            )
+        except WaiterError:
+            print("  Service did not stabilize within the timeout; continuing.")
         task_arns = wrapper.list_tasks(
             cluster=cluster_name, service_name=service_name
         )
@@ -339,7 +362,20 @@ def run_scenario():
                     service=service_name,
                     desired_count=0,
                 )
-                time.sleep(10)
+                # Wait for tasks to drain before deleting the service.
+                try:
+                    drain_waiter = ecs_client.get_waiter("services_stable")
+                    drain_waiter.wait(
+                        cluster=cluster_name,
+                        services=[service_name],
+                        WaiterConfig={"Delay": 15, "MaxAttempts": 40},
+                    )
+                except WaiterError:
+                    logger.warning(
+                        "Service '%s' did not drain within the timeout; "
+                        "attempting force delete.",
+                        service_name,
+                    )
                 print(f"Deleting service '{service_name}'...")
                 wrapper.delete_service(cluster=cluster_name, service=service_name)
                 print("  Service deleted.")

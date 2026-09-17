@@ -13,7 +13,7 @@ Usage:
 
 import pytest
 import boto3
-from botocore.stub import Stubber, ANY
+from botocore.stub import Stubber
 from botocore.exceptions import ClientError
 
 from ecs_wrapper import EcsWrapper
