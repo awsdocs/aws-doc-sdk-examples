@@ -155,9 +155,48 @@ def get_cfn_template():
     return json.dumps(template)
 
 
+# Stack states that cannot be reused or updated in place. A stack in one of
+# these states is the residue of a failed create/rollback and must be deleted
+# before a fresh stack can be created with the same name.
+_UNUSABLE_STACK_STATES = frozenset(
+    {"ROLLBACK_COMPLETE", "ROLLBACK_FAILED", "CREATE_FAILED", "DELETE_FAILED"}
+)
+
+
+def _delete_stack_if_unusable(cfn_client):
+    """
+    Deletes the stack if it exists in an unusable state from a prior failed run.
+
+    CloudFormation will not let you create a stack whose name is already taken,
+    and a stack stuck in ROLLBACK_COMPLETE (or similar) can neither be updated
+    nor reused. Removing it first makes the scenario safely re-entrant.
+    """
+    try:
+        response = cfn_client.describe_stacks(StackName=STACK_NAME)
+    except ClientError as err:
+        # No existing stack (or we can't read it): nothing to clean up.
+        if "does not exist" in err.response["Error"]["Message"]:
+            return
+        raise
+
+    status = response["Stacks"][0]["StackStatus"]
+    if status in _UNUSABLE_STACK_STATES:
+        print(
+            f"Stack '{STACK_NAME}' is in an unusable state ({status}) from a "
+            "previous run; deleting it before redeploying..."
+        )
+        delete_stack(cfn_client)
+
+
 def deploy_stack(cfn_client):
     """Deploys the CloudFormation stack and returns outputs as a dict."""
     print(f"\nDeploying CloudFormation stack '{STACK_NAME}'...")
+    # A stack left over from a previous failed run (e.g. ROLLBACK_COMPLETE or
+    # CREATE_FAILED) cannot be reused or updated in place; it has no usable
+    # outputs and must be deleted before we can create a fresh one. Clean it up
+    # first so the scenario is re-entrant.
+    _delete_stack_if_unusable(cfn_client)
+
     try:
         cfn_client.create_stack(
             StackName=STACK_NAME,
@@ -171,6 +210,8 @@ def deploy_stack(cfn_client):
         )
     except ClientError as err:
         if err.response["Error"]["Code"] == "AlreadyExistsException":
+            # The stack already exists in a usable (complete) state. Reuse its
+            # outputs rather than failing, so repeated runs are graceful.
             print(
                 f"Stack '{STACK_NAME}' already exists; reusing its outputs. "
                 "Delete it manually if you need a clean deployment."
@@ -178,8 +219,22 @@ def deploy_stack(cfn_client):
         else:
             raise
 
-    response = cfn_client.describe_stacks(StackName=STACK_NAME)
-    outputs = response["Stacks"][0]["Outputs"]
+    stack = cfn_client.describe_stacks(StackName=STACK_NAME)["Stacks"][0]
+
+    # Only a stack in a complete state exposes usable outputs. If it ended up in
+    # any other state (e.g. ROLLBACK_COMPLETE), "Outputs" is absent and blindly
+    # reading stack_outputs["TaskExecutionRoleArn"] later would raise a
+    # confusing KeyError. Fail fast here with a clear message instead.
+    status = stack["StackStatus"]
+    if status not in ("CREATE_COMPLETE", "UPDATE_COMPLETE"):
+        raise RuntimeError(
+            f"Stack '{STACK_NAME}' is in state '{status}', which has no usable "
+            "outputs. Delete the stack and re-run the scenario."
+        )
+
+    # CloudFormation omits the "Outputs" key entirely when a stack has none, so
+    # default to an empty list rather than indexing directly.
+    outputs = stack.get("Outputs", list())
     result = dict()
     for output in outputs:
         result[output["OutputKey"]] = output["OutputValue"]
@@ -255,6 +310,18 @@ def run_scenario():
             standalone_task_arn = tasks[0]["taskArn"]
             print(f"  Task ARN: {standalone_task_arn}")
             print(f"  Status: {tasks[0]['lastStatus']}")
+        else:
+            # run_task can return an empty task list when every task fails to
+            # start (see the 'failures' entry in the run_task response). Surface
+            # this clearly so the reader knows Step 4 was skipped intentionally
+            # rather than assuming the task launched successfully.
+            logger.warning(
+                "No tasks were started for '%s'. The task may have failed to "
+                "launch (check the 'failures' field in the run_task response). "
+                "Skipping the wait-and-describe step.",
+                task_def_arn,
+            )
+            print("  No tasks were started; skipping the wait-and-describe step.")
 
         # --- Step 4: Wait for task to run, then describe it ---
         if standalone_task_arn:

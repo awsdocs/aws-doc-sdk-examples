@@ -9,20 +9,25 @@ import logging
 from typing import Any, Dict, List, Optional
 
 import boto3
+from botocore.client import BaseClient
 from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)
 
 
+# snippet-start:[python.example_code.ecs.EcsWrapper.complete]
 # snippet-start:[python.example_code.ecs.EcsWrapper.decl]
 class EcsWrapper:
     """Encapsulates Amazon ECS operations."""
 
-    def __init__(self, ecs_client: Any):
+    def __init__(self, ecs_client: BaseClient):
         """
         Initializes the EcsWrapper with an ECS client.
 
-        :param ecs_client: A Boto3 Amazon ECS client.
+        :param ecs_client: A Boto3 Amazon ECS client. Boto3 clients are created
+            by the ``boto3.client`` factory function and are instances of
+            ``botocore.client.BaseClient``, which is the correct type to
+            annotate here (``boto3.client`` itself is a function, not a type).
         """
         self.ecs_client = ecs_client
 
@@ -542,6 +547,4 @@ class EcsWrapper:
     # snippet-end:[python.example_code.ecs.DeleteCluster]
 
 
-# snippet-start:[python.example_code.ecs.EcsWrapper.complete]
-# This is the complete EcsWrapper class — see individual snippet tags above.
 # snippet-end:[python.example_code.ecs.EcsWrapper.complete]
