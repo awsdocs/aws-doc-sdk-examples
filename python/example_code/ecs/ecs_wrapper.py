@@ -157,7 +157,7 @@ class EcsWrapper:
             clusters = response.get("clusters", list())
             for cluster in clusters:
                 logger.info(
-                    "Cluster '%s': status=%s, active_services=%d, running_tasks=%d",
+                    "Cluster '%s': status=%s, active_services=%s, running_tasks=%s",
                     cluster["clusterName"],
                     cluster["status"],
                     cluster["activeServicesCount"],
@@ -307,7 +307,7 @@ class EcsWrapper:
             )
             service = response["service"]
             logger.info(
-                "Created service '%s' (ARN: %s) with desired count %d",
+                "Created service '%s' (ARN: %s) with desired count %s",
                 service["serviceName"],
                 service["serviceArn"],
                 service["desiredCount"],
@@ -385,7 +385,7 @@ class EcsWrapper:
             services = response.get("services", list())
             for svc in services:
                 logger.info(
-                    "Service '%s': status=%s, desired=%d, running=%d",
+                    "Service '%s': status=%s, desired=%s, running=%s",
                     svc["serviceName"],
                     svc["status"],
                     svc["desiredCount"],
@@ -427,7 +427,7 @@ class EcsWrapper:
             )
             svc = response["service"]
             logger.info(
-                "Updated service '%s' desired count to %d",
+                "Updated service '%s' desired count to %s",
                 svc["serviceName"],
                 svc["desiredCount"],
             )
