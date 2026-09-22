@@ -1,117 +1,24 @@
-# zexi 0.4.0
 kms_Hello:
   title: Hello &KMSlong;
   title_abbrev: Hello &KMS;
-  synopsis: get started using &KMSlong;.
+  synopsis: get started using &KMS;.
   category: Hello
   languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.java2_list_keys.main
-    PHP:
+    Python:
       versions:
         - sdk_version: 3
-          github: php/example_code/kms
-          sdkguide:
+          github: python/example_code/kms
           excerpts:
             - description:
               snippet_tags:
-                - php.example_code.kms.basics.helloService
-    SAP ABAP:
-      versions:
-        - sdk_version: 1
-          github: sap-abap/services/kms
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.abapv1.list_keys
+                - python.example_code.kms.Hello
   services:
     kms: {ListKeys}
-kms_TagResource:
-  languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.java2_tag.main
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/kms
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.kms.KeyManager.decl
-                - python.example_code.kms.TagResource
-    PHP:
-      versions:
-        - sdk_version: 3
-          github: php/example_code/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - php.example_code.kms.service.tagResource
-    SAP ABAP:
-      versions:
-        - sdk_version: 1
-          github: sap-abap/services/kms
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.abapv1.tag_resource
-  services:
-    kms: {TagResource}
-kms_Sign:
-  languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.java2_sign.main
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/kms
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.kms.KeyEncrypt.decl
-                - python.example_code.kms.Sign
-    PHP:
-      versions:
-        - sdk_version: 3
-          github: php/example_code/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - php.example_code.kms.service.sign
-    SAP ABAP:
-      versions:
-        - sdk_version: 1
-          github: sap-abap/services/kms
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.abapv1.sign
-  services:
-    kms: {Sign}
-kms_Verify:
+kms_ListKeys:
+  title: List &KMS; keys using an &AWS; SDK
+  title_abbrev: List keys
+  synopsis: list &KMS; keys.
+  category: Actions
   languages:
     Python:
       versions:
@@ -120,47 +27,15 @@ kms_Verify:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.kms.KeyEncrypt.decl
-                - python.example_code.kms.Verify
-    SAP ABAP:
-      versions:
-        - sdk_version: 1
-          github: sap-abap/services/kms
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.abapv1.verify
+                - python.example_code.kms.ListKeys
   services:
-    kms: {Verify}
+    kms: {ListKeys}
 kms_CreateKey:
+  title: Create a &KMS; key using an &AWS; SDK
+  title_abbrev: Create a key
+  synopsis: create a &KMS; key.
+  category: Actions
   languages:
-    Kotlin:
-      versions:
-        - sdk_version: 1
-          github: kotlin/services/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.kotlin_create_key.main
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.java2_create_key.main
-    PHP:
-      versions:
-        - sdk_version: 3
-          github: php/example_code/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - php.example_code.kms.service.createKey
     Python:
       versions:
         - sdk_version: 3
@@ -168,364 +43,15 @@ kms_CreateKey:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.kms.KeyManager.decl
                 - python.example_code.kms.CreateKey
-    Ruby:
-      versions:
-        - sdk_version: 3
-          github: ruby/example_code/kms
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.ruby.createKey
-    .NET:
-      versions:
-        - sdk_version: 3
-          github: dotnetv3/KMS
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - KMS.dotnetv3.CreateKeyExample
-    Rust:
-      versions:
-        - sdk_version: 1
-          github: rustv1/examples/kms
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.rust.create-key
-    SAP ABAP:
-      versions:
-        - sdk_version: 1
-          github: sap-abap/services/kms
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.abapv1.create_key
   services:
     kms: {CreateKey}
-kms_Decrypt:
-  languages:
-    Kotlin:
-      versions:
-        - sdk_version: 1
-          github: kotlin/services/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.kotlin_encrypt_data.main
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.java2_decrypt_data.main
-    PHP:
-      versions:
-        - sdk_version: 3
-          github: php/example_code/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - php.example_code.kms.service.decrypt
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/kms
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.kms.KeyEncrypt.decl
-                - python.example_code.kms.Decrypt
-    Ruby:
-      versions:
-        - sdk_version: 3
-          github: ruby/example_code/kms
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.ruby.decryptBlob
-    Rust:
-      versions:
-        - sdk_version: 1
-          github: rustv1/examples/kms
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.rust.decrypt
-    SAP ABAP:
-      versions:
-        - sdk_version: 1
-          github: sap-abap/services/kms
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.abapv1.decrypt
-  services:
-    kms: {Decrypt}
-kms_Encrypt:
-  languages:
-    Kotlin:
-      versions:
-        - sdk_version: 1
-          github: kotlin/services/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.kotlin_encrypt_data.main
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.java2_encrypt_data.main
-    PHP:
-      versions:
-        - sdk_version: 3
-          github: php/example_code/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - php.example_code.kms.service.encrypt
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/kms
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.kms.KeyEncrypt.decl
-                - python.example_code.kms.Encrypt
-    Ruby:
-      versions:
-        - sdk_version: 3
-          github: ruby/example_code/kms
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.ruby.encryptBlob
-    Rust:
-      versions:
-        - sdk_version: 1
-          github: rustv1/examples/kms
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.rust.encrypt
-    SAP ABAP:
-      versions:
-        - sdk_version: 1
-          github: sap-abap/services/kms
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.abapv1.encrypt
-  services:
-    kms: {Encrypt}
-kms_GenerateDataKey:
-  languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/kms
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.kms.KeyManager.decl
-                - python.example_code.kms.GenerateDataKey
-    Rust:
-      versions:
-        - sdk_version: 1
-          github: rustv1/examples/kms
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.rust.generate-data-key
-    SAP ABAP:
-      versions:
-        - sdk_version: 1
-          github: sap-abap/services/kms
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.abapv1.generate_data_key
-  services:
-    kms: {GenerateDataKey}
-kms_GenerateDataKeyWithoutPlaintext:
-  languages:
-    Rust:
-      versions:
-        - sdk_version: 1
-          github: rustv1/examples/kms
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.rust.generate-data-key-without-plaintext
-  services:
-    kms: {GenerateDataKeyWithoutPlaintext}
-kms_GenerateRandom:
-  languages:
-    Rust:
-      versions:
-        - sdk_version: 1
-          github: rustv1/examples/kms
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.rust.generate-random
-  services:
-    kms: {GenerateRandom}
-kms_ListKeys:
-  languages:
-    Kotlin:
-      versions:
-        - sdk_version: 1
-          github: kotlin/services/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.kotlin_list_keys.main
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.java2_list_keys.main
-    .NET:
-      versions:
-        - sdk_version: 3
-          github: dotnetv3/KMS
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - KMS.dotnetv3.ListKeysExample
-    PHP:
-      versions:
-        - sdk_version: 3
-          github: php/example_code/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - php.example_code.kms.service.listKeys
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/kms
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.kms.KeyManager.decl
-                - python.example_code.kms.ListKeys
-    Rust:
-      versions:
-        - sdk_version: 1
-          github: rustv1/examples/kms
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.rust.list-keys
-    SAP ABAP:
-      versions:
-        - sdk_version: 1
-          github: sap-abap/services/kms
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.abapv1.list_keys
-  services:
-    kms: {ListKeys}
-kms_ReEncrypt:
-  languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/kms
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.kms.KeyEncrypt.decl
-                - python.example_code.kms.ReEncrypt
-    Rust:
-      versions:
-        - sdk_version: 1
-          github: rustv1/examples/kms
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.rust.reencrypt-data
-    Ruby:
-      versions:
-        - sdk_version: 3
-          github: ruby/example_code/kms
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.ruby.reEncryptData
-    SAP ABAP:
-      versions:
-        - sdk_version: 1
-          github: sap-abap/services/kms
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.abapv1.re_encrypt
-  services:
-    kms: {ReEncrypt}
 kms_CreateAlias:
+  title: Create a &KMS; alias using an &AWS; SDK
+  title_abbrev: Create an alias
+  synopsis: create a &KMS; alias.
+  category: Actions
   languages:
-    Kotlin:
-      versions:
-        - sdk_version: 1
-          github: kotlin/services/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.kotlin_create_alias.main
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.java2._create_alias.main
-    .NET:
-      versions:
-        - sdk_version: 3
-          github: dotnetv3/KMS
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.dotnetv3.CreateAliasExample
-    PHP:
-      versions:
-        - sdk_version: 3
-          github: php/example_code/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - php.example_code.kms.service.createAlias
     Python:
       versions:
         - sdk_version: 3
@@ -533,708 +59,178 @@ kms_CreateAlias:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.kms.AliasManager.decl
                 - python.example_code.kms.CreateAlias
-    SAP ABAP:
-      versions:
-        - sdk_version: 1
-          github: sap-abap/services/kms
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.abapv1.create_alias
   services:
     kms: {CreateAlias}
-kms_CreateGrant:
-  languages:
-    Kotlin:
-      versions:
-        - sdk_version: 1
-          github: kotlin/services/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.kotlin_create_grant.main
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.java2_create_grant.main
-    .NET:
-      versions:
-        - sdk_version: 3
-          github: dotnetv3/KMS
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - KMS.dotnetv3.CreateGrantExample
-    PHP:
-      versions:
-        - sdk_version: 3
-          github: php/example_code/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - php.example_code.kms.service.createGrant
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/kms
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.kms.GrantManager.decl
-                - python.example_code.kms.CreateGrant
-    SAP ABAP:
-      versions:
-        - sdk_version: 1
-          github: sap-abap/services/kms
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.abapv1.create_grant
-  services:
-    kms: {CreateGrant}
-kms_DescribeKey:
-  languages:
-    Kotlin:
-      versions:
-        - sdk_version: 1
-          github: kotlin/services/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.kotlin_describe_key.main
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.java2_describe_key.main
-    .NET:
-      versions:
-        - sdk_version: 3
-          github: dotnetv3/KMS
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - KMS.dotnetv3.DescribeKeyExample
-    PHP:
-      versions:
-        - sdk_version: 3
-          github: php/example_code/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - php.example_code.kms.service.describeKey
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/kms
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.kms.KeyManager.decl
-                - python.example_code.kms.DescribeKey
-    SAP ABAP:
-      versions:
-        - sdk_version: 1
-          github: sap-abap/services/kms
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.abapv1.describe_key
-  services:
-    kms: {DescribeKey}
-kms_DisableKey:
-  languages:
-    Kotlin:
-      versions:
-        - sdk_version: 1
-          github: kotlin/services/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.kotlin_disable_key.main
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.java2_disable_key.main
-    .NET:
-      versions:
-        - sdk_version: 3
-          github: dotnetv3/KMS
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - KMS.dotnetv3.DisableKeyExample
-    PHP:
-      versions:
-        - sdk_version: 3
-          github: php/example_code/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - php.example_code.kms.service.disableKey
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/kms
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.kms.KeyManager.decl
-                - python.example_code.kms.DisableKey
-    SAP ABAP:
-      versions:
-        - sdk_version: 1
-          github: sap-abap/services/kms
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.abapv1.disable_key
-  services:
-    kms: {DisableKey}
-kms_EnableKey:
-  languages:
-    Kotlin:
-      versions:
-        - sdk_version: 1
-          github: kotlin/services/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.kotlin_enable_key.main
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.java2_enable_key.main
-    .NET:
-      versions:
-        - sdk_version: 3
-          github: dotnetv3/KMS
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - KMS.dotnetv3.EnableKeyExample
-    PHP:
-      versions:
-        - sdk_version: 3
-          github: php/example_code/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - php.example_code.kms.service.enableKey
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/kms
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.kms.KeyManager.decl
-                - python.example_code.kms.EnableKey
-    SAP ABAP:
-      versions:
-        - sdk_version: 1
-          github: sap-abap/services/kms
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.abapv1.enable_key
-  services:
-    kms: {EnableKey}
-kms_ScheduleKeyDeletion:
-  languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.java2_delete_key.main
-    PHP:
-      versions:
-        - sdk_version: 3
-          github: php/example_code/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - php.example_code.kms.service.scheduleKeyDeletion
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.kms.KeyManager.decl
-                - python.example_code.kms.ScheduleKeyDeletion
-    SAP ABAP:
-      versions:
-        - sdk_version: 1
-          github: sap-abap/services/kms
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.abapv1.schedule_key_deletion
-  services:
-    kms: {ScheduleKeyDeletion}
-kms_ListAliases:
-  languages:
-    Kotlin:
-      versions:
-        - sdk_version: 1
-          github: kotlin/services/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.kotlin_list_aliases.main
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.java2_list_aliases.main
-    .NET:
-      versions:
-        - sdk_version: 3
-          github: dotnetv3/KMS
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - KMS.dotnetv3.ListAliasesExample
-    PHP:
-      versions:
-        - sdk_version: 3
-          github: php/example_code/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - php.example_code.kms.service.listAliases
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/kms
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.kms.AliasManager.decl
-                - python.example_code.kms.ListAliases
-    SAP ABAP:
-      versions:
-        - sdk_version: 1
-          github: sap-abap/services/kms
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.abapv1.list_aliases
-  services:
-    kms: {ListAliases}
-kms_UpdateAlias:
-  languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.kms.AliasManager.decl
-                - python.example_code.kms.UpdateAlias
-    SAP ABAP:
-      versions:
-        - sdk_version: 1
-          github: sap-abap/services/kms
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.abapv1.update_alias
-  services:
-    kms: {UpdateAlias}
-kms_DeleteAlias:
-  languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.java2_delete_alias.main
-    PHP:
-      versions:
-        - sdk_version: 3
-          github: php/example_code/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - php.example_code.kms.service.deleteAlias
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.kms.AliasManager.decl
-                - python.example_code.kms.DeleteAlias
-    SAP ABAP:
-      versions:
-        - sdk_version: 1
-          github: sap-abap/services/kms
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.abapv1.delete_alias
-  services:
-    kms: {DeleteAlias}
-kms_ListGrants:
-  languages:
-    Kotlin:
-      versions:
-        - sdk_version: 1
-          github: kotlin/services/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.kotlin_list_grant.main
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.java2_list_grant.main
-    .NET:
-      versions:
-        - sdk_version: 3
-          github: dotnetv3/KMS
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - KMS.dotnetv3.ListGrantsExample
-    PHP:
-      versions:
-        - sdk_version: 3
-          github: php/example_code/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - php.example_code.kms.service.listGrants
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/kms
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.kms.GrantManager.decl
-                - python.example_code.kms.ListGrants
-    SAP ABAP:
-      versions:
-        - sdk_version: 1
-          github: sap-abap/services/kms
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.abapv1.list_grants
-  services:
-    kms: {ListGrants}
-kms_RetireGrant:
-  languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.kms.GrantManager.decl
-                - python.example_code.kms.RetireGrant
-    SAP ABAP:
-      versions:
-        - sdk_version: 1
-          github: sap-abap/services/kms
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.abapv1.retire_grant
-  services:
-    kms: {RetireGrant}
-kms_RevokeGrant:
-  languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.java2_revoke_grant.main
-    PHP:
-      versions:
-        - sdk_version: 3
-          github: php/example_code/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - php.example_code.kms.service.revokeGrant
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.kms.GrantManager.decl
-                - python.example_code.kms.RevokeGrant
-    SAP ABAP:
-      versions:
-        - sdk_version: 1
-          github: sap-abap/services/kms
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.abapv1.revoke_grant
-  services:
-    kms: {RevokeGrant}
-kms_ListKeyPolicies:
-  languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.java2_get_policy.main
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.kms.KeyPolicy.decl
-                - python.example_code.kms.ListKeyPolicies
-    SAP ABAP:
-      versions:
-        - sdk_version: 1
-          github: sap-abap/services/kms
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.abapv1.list_key_policies
-  services:
-    kms: {ListKeyPolicies}
-kms_GetKeyPolicy:
-  languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.kms.KeyPolicy.decl
-                - python.example_code.kms.GetKeyPolicy
-    SAP ABAP:
-      versions:
-        - sdk_version: 1
-          github: sap-abap/services/kms
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.abapv1.get_key_policy
-  services:
-    kms: {GetKeyPolicy}
 kms_PutKeyPolicy:
+  title: Set a &KMS; key policy using an &AWS; SDK
+  title_abbrev: Set a key policy
+  synopsis: set a &KMS; key policy.
+  category: Actions
   languages:
-    PHP:
-      versions:
-        - sdk_version: 3
-          github: php/example_code/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - php.example_code.kms.service.putKeyPolicy
     Python:
       versions:
         - sdk_version: 3
           github: python/example_code/kms
-          sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.kms.KeyPolicy.decl
                 - python.example_code.kms.PutKeyPolicy
-    SAP ABAP:
-      versions:
-        - sdk_version: 1
-          github: sap-abap/services/kms
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.abapv1.put_key_policy
   services:
     kms: {PutKeyPolicy}
 kms_EnableKeyRotation:
+  title: Enable &KMS; key rotation using an &AWS; SDK
+  title_abbrev: Enable key rotation
+  synopsis: enable &KMS; automatic key rotation.
+  category: Actions
   languages:
     Python:
       versions:
         - sdk_version: 3
           github: python/example_code/kms
-          sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.kms.KeyManager.decl
                 - python.example_code.kms.EnableKeyRotation
-    SAP ABAP:
-      versions:
-        - sdk_version: 1
-          github: sap-abap/services/kms
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.abapv1.enable_key_rotation
   services:
     kms: {EnableKeyRotation}
-kms_Scenario_Basics:
-  synopsis_list:
-    - Create a &kms-key;.
-    - List &kms-keys; for your account and get details about them.
-    - Enable and disable &kms-keys;.
-    - Generate a symmetric data key that can be used for client-side encryption.
-    - Generate an asymmetric key used to digitally sign data.
-    - Tag keys.
-    - Delete &kms-keys;.
-  category: Basics
+kms_GenerateDataKey:
+  title: Generate a &KMS; data key using an &AWS; SDK
+  title_abbrev: Generate a data key
+  synopsis: generate a &KMS; data key.
+  category: Actions
   languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/kms
-          sdkguide:
-          excerpts:
-            - description: Run a scenario at a command prompt.
-              snippet_tags:
-                - kms.java2_scenario.main
-            - description: Define a class that wraps KMS actions.
-              snippet_tags:
-                - kms.java2_actions.main   
     Python:
       versions:
         - sdk_version: 3
           github: python/example_code/kms
-          sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.kms.kms_basics
-            - description: Wrapper class and methods for &kms-key; management.
-              snippet_tags:
-                - python.example_code.kms.KeyManager.decl
-                - python.example_code.kms.CreateKey
-                - python.example_code.kms.DescribeKey
-                - python.example_code.kms.EnableKeyRotation
-                - python.example_code.kms.CreateAsymmetricKey
-                - python.example_code.kms.TagResource
-                - python.example_code.kms.ScheduleKeyDeletion
-            - description: >
-                Wrapper class and methods for &kms-key; aliases.
-              snippet_tags:
-                - python.example_code.kms.AliasManager.decl
-                - python.example_code.kms.CreateAlias
-                - python.example_code.kms.ListAliases
-                - python.example_code.kms.DeleteAlias
-            - description: >
-                Wrapper class and methods for &kms-key; encryption.
-              snippet_tags:
-                - python.example_code.kms.KeyEncrypt.decl
-                - python.example_code.kms.Encrypt
-                - python.example_code.kms.Decrypt
-                - python.example_code.kms.Sign
-                - python.example_code.kms.Verify
-            - description: >
-                Wrapper class and methods for &kms-key; grants.
-              snippet_tags:
-                - python.example_code.kms.GrantManager.decl
-                - python.example_code.kms.CreateGrant
-                - python.example_code.kms.ListGrants
-                - python.example_code.kms.RevokeGrant
-            - description: >
-                Wrapper class and methods for &kms-key; policies.
-              snippet_tags:
-                - python.example_code.kms.KeyPolicy.decl
-                - python.example_code.kms.set_new_policy
-                - python.example_code.kms.GetKeyPolicy
-    PHP:
+                - python.example_code.kms.GenerateDataKey
+  services:
+    kms: {GenerateDataKey}
+kms_ReEncrypt:
+  title: Re-encrypt ciphertext with a &KMS; key using an &AWS; SDK
+  title_abbrev: Re-encrypt ciphertext
+  synopsis: re-encrypt ciphertext from one &KMS; key to another.
+  category: Actions
+  languages:
+    Python:
       versions:
         - sdk_version: 3
-          github: php/example_code/kms
-          sdkguide:
+          github: python/example_code/kms
           excerpts:
             - description:
               snippet_tags:
-                - php.example_code.kms.Basics
-                - php.example_code.kms.service.KmsService
+                - python.example_code.kms.ReEncrypt
   services:
-    kms: {CreateKey, Decrypt, Encrypt, ListAliases, CreateAlias, CreateGrant, DescribeKey, DisableKey, EnableKey, ListKeys, ListGrants, GetKeyPolicy, RevokeGrant, ListGrants, ScheduleKeyDeletion, TagResource, Sign}
+    kms: {ReEncrypt}
+kms_UpdateAlias:
+  title: Update a &KMS; alias using an &AWS; SDK
+  title_abbrev: Update an alias
+  synopsis: update a &KMS; alias.
+  category: Actions
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kms
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.kms.UpdateAlias
+  services:
+    kms: {UpdateAlias}
+kms_ListKeyPolicies:
+  title: List &KMS; key policies using an &AWS; SDK
+  title_abbrev: List key policies
+  synopsis: list &KMS; key policies.
+  category: Actions
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kms
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.kms.ListKeyPolicies
+  services:
+    kms: {ListKeyPolicies}
+kms_DisableKeyRotation:
+  title: Disable &KMS; key rotation using an &AWS; SDK
+  title_abbrev: Disable key rotation
+  synopsis: disable &KMS; automatic key rotation.
+  category: Actions
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kms
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.kms.DisableKeyRotation
+  services:
+    kms: {DisableKeyRotation}
+kms_DeleteAlias:
+  title: Delete a &KMS; alias using an &AWS; SDK
+  title_abbrev: Delete an alias
+  synopsis: delete a &KMS; alias.
+  category: Actions
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kms
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.kms.DeleteAlias
+  services:
+    kms: {DeleteAlias}
+kms_ScheduleKeyDeletion:
+  title: Schedule &KMS; key deletion using an &AWS; SDK
+  title_abbrev: Schedule key deletion
+  synopsis: schedule &KMS; key deletion.
+  category: Actions
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kms
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.kms.ScheduleKeyDeletion
+  services:
+    kms: {ScheduleKeyDeletion}
+kms_Scenario:
+  title: Learn &KMS; basics using an &AWS; SDK
+  title_abbrev: Learn the basics
+  synopsis: learn &KMS; basics.
+  category: Basics
+  synopsis_list:
+    - List existing KMS keys in the account.
+    - Create a symmetric encryption KMS key and assign an alias.
+    - Set a key policy and enable automatic key rotation.
+    - Generate a data key for envelope encryption.
+    - Re-encrypt a data key under a different KMS key.
+    - Update an alias to point to a new key.
+    - List key policies and disable key rotation.
+    - Clean up by deleting aliases and scheduling key deletion.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kms
+          excerpts:
+            - description: Run an interactive scenario at a command prompt.
+              snippet_tags:
+                - python.example_code.kms.KmsScenario
+            - description: Create a class that wraps KMS operations.
+              snippet_tags:
+                - python.example_code.kms.KmsWrapper.decl
+  services:
+    kms: {ListKeys, CreateKey, CreateAlias, PutKeyPolicy, EnableKeyRotation, GenerateDataKey, ReEncrypt, UpdateAlias, ListKeyPolicies, DisableKeyRotation, DeleteAlias, ScheduleKeyDeletion}
