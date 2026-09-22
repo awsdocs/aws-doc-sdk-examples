@@ -396,3 +396,79 @@ cloudwatch-logs_Scenario_BigQuery:
                 - python/example_code/cloudwatch-logs/scenarios/large-query/cloudwatch_query.py
   services:
     cloudwatch-logs: {StartQuery, GetQueryResults}
+cloudwatch-logs_Hello:
+  title: Hello &CWL;
+  title_abbrev: Hello CloudWatch Logs
+  synopsis: get started using &CWL;.
+  category: Hello
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/cloudwatch-logs/scenarios/syslog_ingestion
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.cloudwatchlogs.Hello
+  services:
+    cloudwatch-logs: {DescribeLogGroups}
+cloudwatch-logs_PutSyslogConfiguration:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/cloudwatch-logs/scenarios/syslog_ingestion
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.cloudwatchlogs.PutSyslogConfiguration
+  services:
+    cloudwatch-logs: {PutSyslogConfiguration}
+cloudwatch-logs_ListSyslogConfigurations:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/cloudwatch-logs/scenarios/syslog_ingestion
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.cloudwatchlogs.ListSyslogConfigurations
+  services:
+    cloudwatch-logs: {ListSyslogConfigurations}
+cloudwatch-logs_DeleteSyslogConfiguration:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/cloudwatch-logs/scenarios/syslog_ingestion
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.cloudwatchlogs.DeleteSyslogConfiguration
+  services:
+    cloudwatch-logs: {DeleteSyslogConfiguration}
+cloudwatch-logs_Scenario_SyslogIngestion:
+  title: Learn &CWL; syslog ingestion basics using an &AWS; SDK
+  title_abbrev: Learn syslog ingestion basics
+  category: Scenarios
+  synopsis_list:
+    - Deploy a CloudFormation stack that provisions a syslog VPC endpoint.
+    - Create a log group and add a resource policy for the syslog service.
+    - Create a syslog configuration with PutSyslogConfiguration.
+    - List syslog configurations with and without filters.
+    - Clean up by deleting the syslog configuration, log group, and stack.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/cloudwatch-logs/scenarios/syslog_ingestion
+          excerpts:
+            - description: Run an interactive scenario at a command prompt.
+              snippet_tags:
+                - python.example_code.cloudwatchlogs.SyslogScenario
+            - description: Create a class that wraps &CWL; operations.
+              snippet_tags:
+                - python.example_code.cloudwatchlogs.CloudWatchLogsWrapper.decl
+  services:
+    cloudwatch-logs: {CreateLogGroup, DescribeLogGroups, PutSyslogConfiguration, ListSyslogConfigurations, DeleteSyslogConfiguration, DeleteLogGroup}
