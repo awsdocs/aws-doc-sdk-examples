@@ -34,11 +34,19 @@ python -m pip install -r requirements.txt
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Get started
+
+- [Hello CloudWatch Logs](scenarios/syslog_ingestion/hello_cloudwatch_logs.py#L18) (`DescribeLogGroups`)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
+- [DeleteSyslogConfiguration](scenarios/syslog_ingestion/cloudwatch_logs_wrapper.py#L201)
 - [GetQueryResults](scenarios/large-query/cloudwatch_query.py#L204)
+- [ListSyslogConfigurations](scenarios/syslog_ingestion/cloudwatch_logs_wrapper.py#L151)
+- [PutSyslogConfiguration](scenarios/syslog_ingestion/cloudwatch_logs_wrapper.py#L112)
 - [StartQuery](scenarios/large-query/cloudwatch_query.py#L130)
 
 ### Scenarios
@@ -46,6 +54,7 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
+- [Learn syslog ingestion basics](scenarios/syslog_ingestion/syslog_ingestion_scenario.py)
 - [Run a large query](scenarios/large-query/exec.py)
 - [Use scheduled events to invoke a Lambda function](../../example_code/lambda)
 
@@ -61,7 +70,37 @@ functions within the same service.
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
+#### Hello CloudWatch Logs
 
+This example shows you how to get started using CloudWatch Logs.
+
+```
+python scenarios/syslog_ingestion/hello_cloudwatch_logs.py
+```
+
+
+#### Learn syslog ingestion basics
+
+This example shows you how to do the following:
+
+- Deploy a CloudFormation stack that provisions a syslog VPC endpoint.
+- Create a log group and add a resource policy for the syslog service.
+- Create a syslog configuration with PutSyslogConfiguration.
+- List syslog configurations with and without filters.
+- Clean up by deleting the syslog configuration, log group, and stack.
+
+<!--custom.scenario_prereqs.cloudwatch-logs_Scenario_SyslogIngestion.start-->
+<!--custom.scenario_prereqs.cloudwatch-logs_Scenario_SyslogIngestion.end-->
+
+Start the example by running the following at a command prompt:
+
+```
+python scenarios/syslog_ingestion/syslog_ingestion_scenario.py
+```
+
+
+<!--custom.scenarios.cloudwatch-logs_Scenario_SyslogIngestion.start-->
+<!--custom.scenarios.cloudwatch-logs_Scenario_SyslogIngestion.end-->
 
 #### Run a large query
 
