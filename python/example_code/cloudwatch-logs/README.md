@@ -43,10 +43,10 @@ python -m pip install -r requirements.txt
 
 Code excerpts that show you how to call individual service functions.
 
-- [DeleteSyslogConfiguration](scenarios/syslog_ingestion/cloudwatch_logs_wrapper.py#L201)
+- [DeleteSyslogConfiguration](scenarios/syslog_ingestion/cloudwatch_logs_wrapper.py#L200)
 - [GetQueryResults](scenarios/large-query/cloudwatch_query.py#L204)
-- [ListSyslogConfigurations](scenarios/syslog_ingestion/cloudwatch_logs_wrapper.py#L151)
-- [PutSyslogConfiguration](scenarios/syslog_ingestion/cloudwatch_logs_wrapper.py#L112)
+- [ListSyslogConfigurations](scenarios/syslog_ingestion/cloudwatch_logs_wrapper.py#L150)
+- [PutSyslogConfiguration](scenarios/syslog_ingestion/cloudwatch_logs_wrapper.py#L111)
 - [StartQuery](scenarios/large-query/cloudwatch_query.py#L130)
 
 ### Scenarios

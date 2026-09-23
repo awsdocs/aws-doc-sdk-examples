@@ -71,14 +71,14 @@ class CloudWatchLogsWrapper:
 
     # snippet-start:[python.example_code.cloudwatchlogs.DescribeLogGroups]
     def describe_log_groups(
-        self, log_group_name_prefix: Optional[str] = None, limit: int = 50
+        self, log_group_name_prefix: Optional[str] = None
     ) -> list[dict[str, Any]]:
         """
-        Describes log groups, optionally filtered by a name prefix.
+        Describes all log groups, optionally filtered by a name prefix. The
+        paginator fetches every page of results.
 
         :param log_group_name_prefix: When set, only log groups whose names
             start with this prefix are returned.
-        :param limit: The maximum number of log groups to return.
         :return: A list of log group description dictionaries.
         :raises ClientError: If the service is unavailable.
         """
@@ -86,7 +86,6 @@ class CloudWatchLogsWrapper:
             params = dict()
             if log_group_name_prefix is not None:
                 params["logGroupNamePrefix"] = log_group_name_prefix
-            params["limit"] = limit
 
             paginator = self.logs_client.get_paginator("describe_log_groups")
             log_groups = list()

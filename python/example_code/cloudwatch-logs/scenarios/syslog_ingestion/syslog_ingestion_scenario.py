@@ -97,9 +97,19 @@ class SyslogIngestionScenario:
                 TemplateBody=_load_cfn_template(),
                 Capabilities=["CAPABILITY_IAM"],
             )
+            # Only this run's own stack should be torn down in cleanup. Mark it
+            # as soon as creation is initiated so a stack that fails partway
+            # (e.g. ROLLBACK) is still cleaned up.
+            self.stack_deployed = True
         except ClientError as error:
             if error.response["Error"]["Code"] == "AlreadyExistsException":
-                print(f"Stack '{self.STACK_NAME}' already exists. Reusing.")
+                # The stack pre-existed this run. Reuse it but do NOT mark it
+                # for cleanup — deleting a stack we did not create could destroy
+                # infrastructure the user set up themselves.
+                print(
+                    f"Stack '{self.STACK_NAME}' already exists. Reusing it; it "
+                    "will not be deleted during cleanup."
+                )
             else:
                 raise
 
@@ -110,8 +120,20 @@ class SyslogIngestionScenario:
                 WaiterConfig={"Delay": 30, "MaxAttempts": 40},
             )
         except WaiterError:
-            # Stack may already be CREATE_COMPLETE if it existed before.
-            pass
+            # The waiter fails both when the stack genuinely failed
+            # (CREATE_FAILED, ROLLBACK_COMPLETE, ...) and, harmlessly, when the
+            # stack already existed in a completed state before this run.
+            # Inspect the actual status so a real failure surfaces clearly
+            # instead of as a confusing "missing outputs" error later.
+            status = self.cf_client.describe_stacks(StackName=self.STACK_NAME)[
+                "Stacks"
+            ][0]["StackStatus"]
+            if status not in ("CREATE_COMPLETE", "UPDATE_COMPLETE"):
+                raise RuntimeError(
+                    f"CloudFormation stack '{self.STACK_NAME}' did not reach a "
+                    f"successful state (status: {status}). Check the stack events "
+                    "in the CloudFormation console for the failure reason."
+                )
 
         response = self.cf_client.describe_stacks(StackName=self.STACK_NAME)
         outputs = response["Stacks"][0].get("Outputs", list())
@@ -127,7 +149,6 @@ class SyslogIngestionScenario:
                 "Check the CloudFormation stack for errors."
             )
 
-        self.stack_deployed = True
         self.vpc_endpoint_id = vpc_endpoint_id
         print(f"\nStack deployed. VPC Endpoint ID: {vpc_endpoint_id}")
         return vpc_endpoint_id
@@ -294,26 +315,36 @@ class SyslogIngestionScenario:
     # ------------------------------------------------------------------
     # Cleanup phase
     # ------------------------------------------------------------------
-    def cleanup(self) -> None:
+    def cleanup(self, prompt: bool = True) -> None:
         """
-        Cleans up all resources created during the scenario. Tolerates
-        resources that were never created or are already gone.
+        Cleans up the resources created during the scenario. Tolerates
+        resources that were never created or are already gone, so it is safe to
+        call after a partial failure.
+
+        :param prompt: When True (the normal end-of-scenario path), ask the user
+            to confirm before deleting. When False (best-effort cleanup after an
+            error), skip the prompt and delete whatever was created.
         """
         print("\n" + "=" * 68)
         print("Cleanup")
         print("=" * 68)
 
-        do_cleanup = q.ask(
-            "\nDo you want to delete all resources created during this "
-            "scenario? (y/n) ",
-            q.is_yesno,
-        )
-
-        # q.is_yesno converts the answer to a bool (True when the user answered
-        # 'y'); check it directly rather than calling string methods.
-        if not do_cleanup:
-            print("Skipping cleanup. Resources remain in your account.")
-            return
+        if prompt:
+            do_cleanup = q.ask(
+                "\nDo you want to delete all resources created during this "
+                "scenario? (y/n) ",
+                q.is_yesno,
+            )
+            # q.is_yesno converts the answer to a bool (True when the user
+            # answered 'y'); check it directly rather than calling string methods.
+            if not do_cleanup:
+                print("Skipping cleanup. Resources remain in your account.")
+                return
+        else:
+            print(
+                "\nAn error occurred; attempting best-effort cleanup of any "
+                "resources that were created..."
+            )
 
         # Delete syslog configuration
         if self.log_group_name and self.vpc_endpoint_id:
@@ -385,6 +416,7 @@ class SyslogIngestionScenario:
             "collection tier.\n"
         )
 
+        succeeded = False
         try:
             # Setup
             self.deploy_cfn_stack()
@@ -400,9 +432,15 @@ class SyslogIngestionScenario:
             self.list_all_configurations()
             self.list_configurations_by_log_group()
             self.list_configurations_by_vpc_endpoint()
+            succeeded = True
+
+            # On success, prompt before cleaning up.
+            self.cleanup(prompt=True)
         finally:
-            # Always attempt cleanup
-            self.cleanup()
+            # On failure, run best-effort cleanup without prompting so that
+            # partially-created resources are not left behind.
+            if not succeeded:
+                self.cleanup(prompt=False)
 
         print("\n" + "=" * 68)
         print("Scenario complete!")
