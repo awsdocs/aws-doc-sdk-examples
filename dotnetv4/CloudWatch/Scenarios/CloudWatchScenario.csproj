@@ -23,6 +23,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <!-- Lets the unit tests reach the scenario's internal helpers. -->
+    <InternalsVisibleTo Include="CloudWatchTests" />
+  </ItemGroup>
+
+  <ItemGroup>
 	  <Content Include="settings.json">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </Content>

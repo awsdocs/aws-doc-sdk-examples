@@ -1,10 +1,10 @@
-# AWS SDK for Python code examples
+# AWS SDK for Python v4 code examples
 
 ## Overview
 
-The code examples in this topic show you how to use the AWS SDK for Python with AWS.
+The code examples in this topic show you how to use the AWS SDK for Python v4 with AWS.
 
-The AWS SDK for Python provides a Python API for AWS infrastructure services.
+The AWS SDK for Python v4 provides a Python API for AWS infrastructure services.
 Using the SDK, you can build applications on top of AWS services such as Amazon Transcribe Streaming, Amazon Bedrock Runtime, and Amazon DynamoDB.
 
 **Note**:  Examples for AWS SDK for Python (Boto3) are in the [python](../python/) directory of this repo.
@@ -117,8 +117,7 @@ python -m pytest -m "integ"
 ```
 
 ## Additional resources
-
-* [AWS SDK for Python Documentation](https://docs.aws.amazon.com/sdk-for-python/v1/reference/)
+* [AWS SDK for Python v4 Documentation](https://docs.aws.amazon.com/sdk-for-python/v4/reference/)
 
 ---
 

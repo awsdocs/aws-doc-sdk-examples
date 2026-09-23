@@ -179,16 +179,16 @@ class CloudWatchStubber(ExampleStubber):
         )
 
     def stub_start_otel_enrichment(self, error_code=None):
-        self._stub_bifurcator("start_o_tel_enrichment", {}, {}, error_code=error_code)
+        self._stub_bifurcator("start_otel_enrichment", {}, {}, error_code=error_code)
 
     def stub_get_otel_enrichment(self, status, error_code=None):
         response = {"Status": status}
         self._stub_bifurcator(
-            "get_o_tel_enrichment", {}, response, error_code=error_code
+            "get_otel_enrichment", {}, response, error_code=error_code
         )
 
     def stub_stop_otel_enrichment(self, error_code=None):
-        self._stub_bifurcator("stop_o_tel_enrichment", {}, {}, error_code=error_code)
+        self._stub_bifurcator("stop_otel_enrichment", {}, {}, error_code=error_code)
 
     def stub_put_promql_metric_alarm(
         self,
@@ -297,4 +297,39 @@ class CloudWatchStubber(ExampleStubber):
         expected_params = {"AlarmNames": alarm_names}
         self._stub_bifurcator(
             "delete_alarms", expected_params, {}, error_code=error_code
+        )
+
+    def stub_list_all_metrics(self, metrics, error_code=None):
+        response = {
+            "Metrics": [
+                {"Namespace": metric.namespace, "MetricName": metric.name}
+                for metric in metrics
+            ]
+        }
+        self._stub_bifurcator("list_metrics", {}, response, error_code=error_code)
+
+    def stub_put_dashboard(self, name, body, validation_messages=None, error_code=None):
+        expected_params = {"DashboardName": name, "DashboardBody": body}
+        response = {}
+        if validation_messages is not None:
+            response["DashboardValidationMessages"] = validation_messages
+        self._stub_bifurcator(
+            "put_dashboard", expected_params, response, error_code=error_code
+        )
+
+    def stub_get_dashboard(self, name, body, error_code=None):
+        expected_params = {"DashboardName": name}
+        response = {
+            "DashboardName": name,
+            "DashboardBody": body,
+            "DashboardArn": f"arn:aws:cloudwatch::123456789012:dashboard/{name}",
+        }
+        self._stub_bifurcator(
+            "get_dashboard", expected_params, response, error_code=error_code
+        )
+
+    def stub_delete_dashboards(self, names, error_code=None):
+        expected_params = {"DashboardNames": names}
+        self._stub_bifurcator(
+            "delete_dashboards", expected_params, {}, error_code=error_code
         )

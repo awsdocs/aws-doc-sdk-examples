@@ -28,7 +28,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `kotli
 
 <!--custom.prerequisites.start-->
 
-To run these examples, you must have the following three JSON files: jsonWidgets.json, CloudDashboard.json, and settings.json. Find these files in this GitHub repository. The CloudWatch scenario depends on these files. In addition, to enable billing metrics and statistics for the scenario example, make sure billing alerts are enabled for your account. For more information, see [Enabling billing alerts](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/monitor_estimated_charges_with_cloudwatch.html#turning_on_billing_metrics).
+Some of these examples use the following JSON files, which you can find in this GitHub repository: jsonWidgets.json, CloudDashboard.json, and settings.json. The Basics scenario does not need them — it builds its dashboard from a metric it discovers at run time. In addition, to enable billing metrics and statistics for the scenario example, make sure billing alerts are enabled for your account. For more information, see [Enabling billing alerts](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/monitor_estimated_charges_with_cloudwatch.html#turning_on_billing_metrics).
 
 **Be very careful** when running an operation that deletes or modifies AWS resources in your account. We recommend creating separate test-only resources when experimenting with these examples.
 
@@ -51,29 +51,29 @@ Code examples that show you how to perform the essential operations within a ser
 Code excerpts that show you how to call individual service functions.
 
 - [DeleteAlarmMuteRule](src/main/kotlin/com/kotlin/cloudwatch/DeleteAlarmMuteRule.kt#L40)
-- [DeleteAlarms](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L298)
-- [DeleteAnomalyDetector](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L271)
-- [DeleteDashboards](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L312)
+- [DeleteAlarms](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L387)
+- [DeleteAnomalyDetector](src/main/kotlin/com/kotlin/cloudwatch/DeleteAnomalyDetector.kt#L41)
+- [DeleteDashboards](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L401)
 - [DescribeAlarmContributors](src/main/kotlin/com/kotlin/cloudwatch/DescribeAlarmContributors.kt#L43)
-- [DescribeAlarmHistory](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L412)
-- [DescribeAlarms](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L598)
-- [DescribeAlarmsForMetric](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L453)
-- [DescribeAnomalyDetectors](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L361)
+- [DescribeAlarmHistory](src/main/kotlin/com/kotlin/cloudwatch/DescribeAlarmHistory.kt#L41)
+- [DescribeAlarms](src/main/kotlin/com/kotlin/cloudwatch/DescribeAlarms.kt#L23)
+- [DescribeAlarmsForMetric](src/main/kotlin/com/kotlin/cloudwatch/DescribeAlarmsForMetric.kt#L40)
+- [DescribeAnomalyDetectors](src/main/kotlin/com/kotlin/cloudwatch/DescribeAnomalyDetectors.kt#L40)
 - [DisableAlarmActions](src/main/kotlin/com/kotlin/cloudwatch/DisableAlarmActions.kt#L39)
 - [EnableAlarmActions](src/main/kotlin/com/kotlin/cloudwatch/EnableAlarmActions.kt#L38)
 - [GetAlarmMuteRule](src/main/kotlin/com/kotlin/cloudwatch/GetAlarmMuteRule.kt#L42)
-- [GetMetricData](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L535)
-- [GetMetricStatistics](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L797)
-- [GetMetricWidgetImage](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L325)
+- [GetMetricData](src/main/kotlin/com/kotlin/cloudwatch/GetMetricData.kt#L25)
+- [GetMetricStatistics](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L497)
+- [GetMetricWidgetImage](src/main/kotlin/com/kotlin/cloudwatch/GetMetricWidgetImage.kt#L39)
 - [GetOTelEnrichment](src/main/kotlin/com/kotlin/cloudwatch/GetOTelEnrichment.kt#L25)
 - [ListAlarmMuteRules](src/main/kotlin/com/kotlin/cloudwatch/ListAlarmMuteRules.kt#L29)
-- [ListDashboards](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L710)
-- [ListMetrics](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L838)
+- [ListDashboards](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L414)
+- [ListMetrics](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L538)
 - [PutAlarmMuteRule](src/main/kotlin/com/kotlin/cloudwatch/PutAlarmMuteRule.kt#L48)
-- [PutAnomalyDetector](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L385)
-- [PutDashboard](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L724)
+- [PutAnomalyDetector](src/main/kotlin/com/kotlin/cloudwatch/PutAnomalyDetector.kt#L41)
+- [PutDashboard](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L428)
 - [PutMetricAlarm](src/main/kotlin/com/kotlin/cloudwatch/PutPromQlMetricAlarm.kt#L51)
-- [PutMetricData](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L487)
+- [PutMetricData](src/main/kotlin/com/kotlin/cloudwatch/PutMetricData.kt#L42)
 - [StartOTelEnrichment](src/main/kotlin/com/kotlin/cloudwatch/StartOTelEnrichment.kt#L35)
 - [StopOTelEnrichment](src/main/kotlin/com/kotlin/cloudwatch/StopOTelEnrichment.kt#L26)
 
@@ -99,12 +99,12 @@ This example shows you how to get started using CloudWatch.
 This example shows you how to do the following:
 
 - List CloudWatch namespaces and metrics.
-- Get statistics for a metric and for estimated billing.
-- Create and update a dashboard.
-- Create and add data to a metric.
-- Create and trigger an alarm, then view alarm history.
-- Add an anomaly detector.
-- Get a metric image, then clean up resources.
+- Start OpenTelemetry enrichment so CloudWatch correlates incoming OTLP metrics with the resources that produced them.
+- See how OTLP metrics reach the CloudWatch metrics endpoint. Metric ingestion over OTLP is not an AWS SDK operation.
+- Create an alarm that evaluates a PromQL query.
+- Inspect the alarm's contributors, the individual series that the query matched.
+- Get statistics for a metric and chart it on a dashboard.
+- Mute the alarm for a maintenance window, then clean up.
 
 <!--custom.basic_prereqs.cloudwatch_GetStartedMetricsDashboardsAlarms.start-->
 <!--custom.basic_prereqs.cloudwatch_GetStartedMetricsDashboardsAlarms.end-->

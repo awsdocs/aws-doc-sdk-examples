@@ -57,6 +57,7 @@ Code excerpts that show you how to call individual service functions.
 - [DeleteBucketLifecycle](s3_basics/bucket_wrapper.py#L329)
 - [DeleteBucketPolicy](s3_basics/bucket_wrapper.py#L263)
 - [DeleteObject](s3_basics/object_wrapper.py#L157)
+- [DeleteObjectAnnotation](scenarios/object_annotations/s3_wrapper.py#L257)
 - [DeleteObjects](s3_basics/object_wrapper.py#L180)
 - [GetBucketAcl](s3_basics/bucket_wrapper.py#L151)
 - [GetBucketCors](s3_basics/bucket_wrapper.py#L190)
@@ -64,10 +65,12 @@ Code excerpts that show you how to call individual service functions.
 - [GetBucketPolicy](s3_basics/bucket_wrapper.py#L243)
 - [GetObject](s3_basics/object_wrapper.py#L73)
 - [GetObjectAcl](s3_basics/object_wrapper.py#L264)
+- [GetObjectAnnotation](scenarios/object_annotations/s3_wrapper.py#L152)
 - [GetObjectLegalHold](scenarios/object-locking/s3_operations.py#L191)
 - [GetObjectLockConfiguration](scenarios/object-locking/cleanup.py#L17)
 - [HeadBucket](s3_basics/bucket_wrapper.py#L64)
 - [ListBuckets](s3_basics/bucket_wrapper.py#L85)
+- [ListObjectAnnotations](scenarios/object_annotations/s3_wrapper.py#L202)
 - [ListObjectsV2](s3_basics/object_wrapper.py#L99)
 - [PutBucketAcl](s3_basics/bucket_wrapper.py#L122)
 - [PutBucketCors](s3_basics/bucket_wrapper.py#L171)
@@ -75,6 +78,7 @@ Code excerpts that show you how to call individual service functions.
 - [PutBucketPolicy](s3_basics/bucket_wrapper.py#L226)
 - [PutObject](s3_basics/object_wrapper.py#L35)
 - [PutObjectAcl](s3_basics/object_wrapper.py#L237)
+- [PutObjectAnnotation](scenarios/object_annotations/s3_wrapper.py#L107)
 - [PutObjectLegalHold](scenarios/object-locking/s3_operations.py#L224)
 - [PutObjectLockConfiguration](scenarios/object-locking/cleanup.py#L193)
 - [PutObjectRetention](scenarios/object-locking/cleanup.py#L73)
@@ -90,6 +94,7 @@ functions within the same service.
 - [Detect objects in images](../../cross_service/photo_analyzer)
 - [Detect people and objects in a video](../../example_code/rekognition)
 - [Make conditional requests](scenarios/conditional_requests/scenario.py)
+- [Manage object annotations](scenarios/object_annotations/scenario_object_annotations.py)
 - [Manage versioned objects in batches with a Lambda function](../../example_code/s3/s3_versioning)
 - [Upload or download large files](file_transfer/file_transfer.py)
 - [Work with versioned objects](s3_versioning/versioning.py)
@@ -221,6 +226,31 @@ python scenarios/conditional_requests/scenario.py
 
 <!--custom.scenarios.s3_Scenario_ConditionalRequests.start-->
 <!--custom.scenarios.s3_Scenario_ConditionalRequests.end-->
+
+#### Manage object annotations
+
+This example shows you how to do the following:
+
+- Create an Amazon S3 bucket.
+- Upload a test object.
+- Attach multiple annotations to the object.
+- Retrieve and list annotations with optional prefix filtering.
+- Update an existing annotation.
+- Delete annotations and verify removal.
+- Clean up all resources.
+
+<!--custom.scenario_prereqs.s3_Scenario_ObjectAnnotations.start-->
+<!--custom.scenario_prereqs.s3_Scenario_ObjectAnnotations.end-->
+
+Start the example by running the following at a command prompt:
+
+```
+python scenarios/object_annotations/scenario_object_annotations.py
+```
+
+
+<!--custom.scenarios.s3_Scenario_ObjectAnnotations.start-->
+<!--custom.scenarios.s3_Scenario_ObjectAnnotations.end-->
 
 #### Manage versioned objects in batches with a Lambda function
 

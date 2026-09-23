@@ -8,6 +8,7 @@ Unit tests for cloudwatch_basics.py
 """
 
 from datetime import datetime, timedelta
+import json
 from unittest.mock import MagicMock
 import boto3
 from botocore.exceptions import ClientError
@@ -239,4 +240,107 @@ def test_delete_metric_alarms(make_stubber, error_code):
     else:
         with pytest.raises(ClientError) as exc_info:
             cw_wrapper.delete_metric_alarms(namespace, name)
+        assert exc_info.value.response["Error"]["Code"] == error_code
+
+
+@pytest.mark.parametrize("error_code", [None, "TestException"])
+def test_list_all_metrics(make_stubber, error_code):
+    cloudwatch_resource = boto3.resource("cloudwatch")
+    cloudwatch_stubber = make_stubber(cloudwatch_resource.meta.client)
+    cw_wrapper = CloudWatchWrapper(cloudwatch_resource)
+    metrics = [
+        cloudwatch_resource.Metric(f"test-namespace-{index}", f"test-name-{index}")
+        for index in range(5)
+    ]
+
+    cloudwatch_stubber.stub_list_all_metrics(metrics, error_code=error_code)
+
+    if error_code is None:
+        got_metrics = list(cw_wrapper.list_all_metrics())
+        assert got_metrics == metrics
+    else:
+        with pytest.raises(ClientError) as exc_info:
+            list(cw_wrapper.list_all_metrics())
+        assert exc_info.value.response["Error"]["Code"] == error_code
+
+
+@pytest.mark.parametrize("error_code", [None, "TestException"])
+def test_put_dashboard(make_stubber, error_code):
+    cloudwatch_resource = boto3.resource("cloudwatch")
+    cloudwatch_stubber = make_stubber(cloudwatch_resource.meta.client)
+    cw_wrapper = CloudWatchWrapper(cloudwatch_resource)
+    name = "test-dashboard"
+    body = json.dumps({"widgets": []})
+
+    cloudwatch_stubber.stub_put_dashboard(
+        name, body, validation_messages=[], error_code=error_code
+    )
+
+    if error_code is None:
+        assert cw_wrapper.put_dashboard(name, body) == []
+    else:
+        with pytest.raises(ClientError) as exc_info:
+            cw_wrapper.put_dashboard(name, body)
+        assert exc_info.value.response["Error"]["Code"] == error_code
+
+
+def test_put_dashboard_returns_validation_messages(make_stubber):
+    """A dashboard body can be accepted with warnings, and those must reach the caller."""
+    cloudwatch_resource = boto3.resource("cloudwatch")
+    cloudwatch_stubber = make_stubber(cloudwatch_resource.meta.client)
+    cw_wrapper = CloudWatchWrapper(cloudwatch_resource)
+    name = "test-dashboard"
+    body = json.dumps({"widgets": []})
+    messages = [{"DataPath": "/widgets/0", "Message": "Unknown property."}]
+
+    cloudwatch_stubber.stub_put_dashboard(name, body, validation_messages=messages)
+
+    assert cw_wrapper.put_dashboard(name, body) == messages
+
+
+def test_put_dashboard_without_validation_messages(make_stubber):
+    """An omitted DashboardValidationMessages field must not raise a KeyError."""
+    cloudwatch_resource = boto3.resource("cloudwatch")
+    cloudwatch_stubber = make_stubber(cloudwatch_resource.meta.client)
+    cw_wrapper = CloudWatchWrapper(cloudwatch_resource)
+    name = "test-dashboard"
+    body = json.dumps({"widgets": []})
+
+    cloudwatch_stubber.stub_put_dashboard(name, body)
+
+    assert cw_wrapper.put_dashboard(name, body) == []
+
+
+@pytest.mark.parametrize("error_code", [None, "TestException"])
+def test_get_dashboard(make_stubber, error_code):
+    cloudwatch_resource = boto3.resource("cloudwatch")
+    cloudwatch_stubber = make_stubber(cloudwatch_resource.meta.client)
+    cw_wrapper = CloudWatchWrapper(cloudwatch_resource)
+    name = "test-dashboard"
+    body = json.dumps({"widgets": [{"type": "metric"}]})
+
+    cloudwatch_stubber.stub_get_dashboard(name, body, error_code=error_code)
+
+    if error_code is None:
+        assert cw_wrapper.get_dashboard(name) == body
+    else:
+        with pytest.raises(ClientError) as exc_info:
+            cw_wrapper.get_dashboard(name)
+        assert exc_info.value.response["Error"]["Code"] == error_code
+
+
+@pytest.mark.parametrize("error_code", [None, "TestException"])
+def test_delete_dashboards(make_stubber, error_code):
+    cloudwatch_resource = boto3.resource("cloudwatch")
+    cloudwatch_stubber = make_stubber(cloudwatch_resource.meta.client)
+    cw_wrapper = CloudWatchWrapper(cloudwatch_resource)
+    names = ["test-dashboard-1", "test-dashboard-2"]
+
+    cloudwatch_stubber.stub_delete_dashboards(names, error_code=error_code)
+
+    if error_code is None:
+        cw_wrapper.delete_dashboards(names)
+    else:
+        with pytest.raises(ClientError) as exc_info:
+            cw_wrapper.delete_dashboards(names)
         assert exc_info.value.response["Error"]["Code"] == error_code

@@ -29,6 +29,13 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](scenarios/cloudwatch-basics.js)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -86,6 +93,25 @@ for that file.
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
+
+#### Learn the basics
+
+This example shows you how to do the following:
+
+- List CloudWatch namespaces and metrics.
+- Start OpenTelemetry enrichment so CloudWatch correlates incoming OTLP metrics with the resources that produced them.
+- See how OTLP metrics reach the CloudWatch metrics endpoint. Metric ingestion over OTLP is not an AWS SDK operation.
+- Create an alarm that evaluates a PromQL query.
+- Inspect the alarm's contributors, the individual series that the query matched.
+- Get statistics for a metric and chart it on a dashboard.
+- Mute the alarm for a maintenance window, then clean up.
+
+<!--custom.basic_prereqs.cloudwatch_GetStartedMetricsDashboardsAlarms.start-->
+<!--custom.basic_prereqs.cloudwatch_GetStartedMetricsDashboardsAlarms.end-->
+
+
+<!--custom.basics.cloudwatch_GetStartedMetricsDashboardsAlarms.start-->
+<!--custom.basics.cloudwatch_GetStartedMetricsDashboardsAlarms.end-->
 
 
 ### Tests

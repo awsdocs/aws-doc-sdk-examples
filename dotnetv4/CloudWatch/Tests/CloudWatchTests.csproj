@@ -39,6 +39,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\Actions\CloudWatchActions.csproj" />
+	  <ProjectReference Include="..\Scenarios\CloudWatchScenario.csproj" />
 	</ItemGroup>
 
 </Project>
