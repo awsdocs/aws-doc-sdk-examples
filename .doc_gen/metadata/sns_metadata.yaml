@@ -6,819 +6,827 @@ sns_Hello:
   languages:
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/cross-service/TopicsAndQueues
-          excerpts:
-            - snippet_tags:
-                - TopicsAndQueues.dotnetv3.HelloSNS
+      - sdk_version: 3
+        github: dotnetv3/cross-service/TopicsAndQueues
+        excerpts:
+        - snippet_tags:
+          - TopicsAndQueues.dotnetv3.HelloSNS
     Go:
       versions:
-        - sdk_version: 2
-          github: gov2/sns
-          excerpts:
-            - description:
-              snippet_tags:
-                - gov2.sns.Hello
+      - sdk_version: 2
+        github: gov2/sns
+        excerpts:
+        - description:
+          snippet_tags:
+          - gov2.sns.Hello
     Kotlin:
       versions:
-        - sdk_version: 1
-          github: kotlin/services/sns
-          sdkguide:
-          excerpts:
-            - snippet_tags:
-                - sns.kotlin.hello.main
+      - sdk_version: 1
+        github: kotlin/services/sns
+        sdkguide:
+        excerpts:
+        - snippet_tags:
+          - sns.kotlin.hello.main
     Java:
       versions:
-        - sdk_version: 2
-          github: javav2/example_code/sns
-          sdkguide:
-          excerpts:
-            - snippet_tags:
-                - sns.java2.hello.main
+      - sdk_version: 2
+        github: javav2/example_code/sns
+        sdkguide:
+        excerpts:
+        - snippet_tags:
+          - sns.java2.hello.main
     C++:
       versions:
-        - sdk_version: 1
-          github: cpp/example_code/sns/hello_sns
-          sdkguide:
-          excerpts:
-            - description: Code for the CMakeLists.txt CMake file.
-              snippet_tags:
-                - cpp.example_code.sns.hello_sns.cmake
-            - description: Code for the hello_sns.cpp source file.
-              snippet_tags:
-                - cpp.example_code.sns.hello_sns
+      - sdk_version: 1
+        github: cpp/example_code/sns/hello_sns
+        sdkguide:
+        excerpts:
+        - description: Code for the CMakeLists.txt CMake file.
+          snippet_tags:
+          - cpp.example_code.sns.hello_sns.cmake
+        - description: Code for the hello_sns.cpp source file.
+          snippet_tags:
+          - cpp.example_code.sns.hello_sns
     JavaScript:
       versions:
-        - sdk_version: 3
-          github: javascriptv3/example_code/sns
-          sdkguide:
-          excerpts:
-            - description: Initialize an SNS client and and list topics in your account.
-              snippet_tags:
-                - javascript.v3.sns.hello
+      - sdk_version: 3
+        github: javascriptv3/example_code/sns
+        sdkguide:
+        excerpts:
+        - description: Initialize an SNS client and and list topics in your account.
+          snippet_tags:
+          - javascript.v3.sns.hello
     Swift:
       versions:
-        - sdk_version: 1
-          github: swift/example_code/sns/basics
-          excerpts:
-            - description: The Package.swift file.
-              snippet_tags:
-                - swift.sns.basics.package
-            - description: The main Swift program.
-              snippet_tags:
-                - swift.sns.basics.hello
+      - sdk_version: 1
+        github: swift/example_code/sns/basics
+        excerpts:
+        - description: The Package.swift file.
+          snippet_tags:
+          - swift.sns.basics.package
+        - description: The main Swift program.
+          snippet_tags:
+          - swift.sns.basics.hello
+    Python:
+      versions:
+      - sdk_version: 3
+        github: python/example_code/sns
+        excerpts:
+        - description:
+          snippet_tags:
+          - python.example_code.sns.Hello
   services:
-    sns: {ListTopics}
+    sns: {ListTopics: null}
 sns_GetTopicAttributes:
   languages:
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/SNS
-          excerpts:
-            - snippet_tags:
-                - SNS.dotnetv3.GetTopicAttributesExample
+      - sdk_version: 3
+        github: dotnetv3/SNS
+        excerpts:
+        - snippet_tags:
+          - SNS.dotnetv3.GetTopicAttributesExample
     C++:
       versions:
-        - sdk_version: 1
-          github: cpp/example_code/sns
-          excerpts:
-            - snippet_tags:
-                - sns.cpp.get_topic_attributes.code
+      - sdk_version: 1
+        github: cpp/example_code/sns
+        excerpts:
+        - snippet_tags:
+          - sns.cpp.get_topic_attributes.code
     PHP:
       versions:
-        - sdk_version: 3
-          github: php/example_code/sns
-          sdkguide:
-          excerpts:
-            - snippet_tags:
-                - sns.php.get_topic_attributes.main
+      - sdk_version: 3
+        github: php/example_code/sns
+        sdkguide:
+        excerpts:
+        - snippet_tags:
+          - sns.php.get_topic_attributes.main
     Kotlin:
       versions:
-        - sdk_version: 1
-          github: kotlin/services/sns
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - sns.kotlin.GetTopicAttributes.main
+      - sdk_version: 1
+        github: kotlin/services/sns
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - sns.kotlin.GetTopicAttributes.main
     Java:
       versions:
-        - sdk_version: 2
-          github: javav2/example_code/sns
-          sdkguide:
-          excerpts:
-            - snippet_tags:
-                - sns.java2.GetTopicAttributes.main
+      - sdk_version: 2
+        github: javav2/example_code/sns
+        sdkguide:
+        excerpts:
+        - snippet_tags:
+          - sns.java2.GetTopicAttributes.main
     JavaScript:
       versions:
-        - sdk_version: 3
-          github: javascriptv3/example_code/sns
-          sdkguide: sdk-for-javascript/v3/developer-guide/sns-examples-managing-topics.html#sns-examples-managing-topicsgetttopicattributes
-          excerpts:
-            - description: Create the client in a separate module and export it.
-              snippet_tags:
-                - sns.JavaScript.createclientv3
-            - description: Import the SDK and client modules and call the API.
-              snippet_tags:
-                - sns.JavaScript.topics.getTopicAttributesV3
-        - sdk_version: 2
-          github: javascript/example_code/sns
-          sdkguide: sdk-for-javascript/v2/developer-guide/sns-examples-managing-topics.html#sns-examples-managing-topicsgetttopicattributes
-          excerpts:
-            - description: Import the SDK and client modules and call the API.
-              snippet_tags:
-                - sns.JavaScript.topics.getTopicAttributes
+      - sdk_version: 3
+        github: javascriptv3/example_code/sns
+        sdkguide: sdk-for-javascript/v3/developer-guide/sns-examples-managing-topics.html#sns-examples-managing-topicsgetttopicattributes
+        excerpts:
+        - description: Create the client in a separate module and export it.
+          snippet_tags:
+          - sns.JavaScript.createclientv3
+        - description: Import the SDK and client modules and call the API.
+          snippet_tags:
+          - sns.JavaScript.topics.getTopicAttributesV3
+      - sdk_version: 2
+        github: javascript/example_code/sns
+        sdkguide: sdk-for-javascript/v2/developer-guide/sns-examples-managing-topics.html#sns-examples-managing-topicsgetttopicattributes
+        excerpts:
+        - description: Import the SDK and client modules and call the API.
+          snippet_tags:
+          - sns.JavaScript.topics.getTopicAttributes
     SAP ABAP:
       versions:
-        - sdk_version: 1
-          github: sap-abap/services/sns
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - sns.abapv1.get_topic_attributes
+      - sdk_version: 1
+        github: sap-abap/services/sns
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - sns.abapv1.get_topic_attributes
   services:
-    sns: {GetTopicAttributes}
+    sns: {GetTopicAttributes: null}
 sns_ListSubscriptions:
   languages:
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/SNS
-          excerpts:
-            - snippet_tags:
-                - SNS.dotnetv3.ListSNSSubscriptionsExample
+      - sdk_version: 3
+        github: dotnetv3/SNS
+        excerpts:
+        - snippet_tags:
+          - SNS.dotnetv3.ListSNSSubscriptionsExample
     C++:
       versions:
-        - sdk_version: 1
-          github: cpp/example_code/sns
-          excerpts:
-            - snippet_tags:
-                - sns.cpp.list_subscriptions.code
+      - sdk_version: 1
+        github: cpp/example_code/sns
+        excerpts:
+        - snippet_tags:
+          - sns.cpp.list_subscriptions.code
     PHP:
       versions:
-        - sdk_version: 3
-          github: php/example_code/sns
-          sdkguide:
-          excerpts:
-            - snippet_tags:
-                - sns.php.list_subscriptions.complete
+      - sdk_version: 3
+        github: php/example_code/sns
+        sdkguide:
+        excerpts:
+        - snippet_tags:
+          - sns.php.list_subscriptions.complete
     Kotlin:
       versions:
-        - sdk_version: 1
-          github: kotlin/services/sns
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - sns.kotlin.ListSubscriptions.main
+      - sdk_version: 1
+        github: kotlin/services/sns
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - sns.kotlin.ListSubscriptions.main
     Java:
       versions:
-        - sdk_version: 2
-          github: javav2/example_code/sns
-          sdkguide:
-          excerpts:
-            - snippet_tags:
-                - sns.java2.ListSubscriptions.main
+      - sdk_version: 2
+        github: javav2/example_code/sns
+        sdkguide:
+        excerpts:
+        - snippet_tags:
+          - sns.java2.ListSubscriptions.main
     JavaScript:
       versions:
-        - sdk_version: 3
-          github: javascriptv3/example_code/sns
-          sdkguide: sdk-for-javascript/v3/developer-guide/sns-examples-managing-topics.html#sns-examples-managing-topicsgetttopicattributes
-          excerpts:
-            - description: Create the client in a separate module and export it.
-              snippet_tags:
-                - sns.JavaScript.createclientv3
-            - description: Import the SDK and client modules and call the API.
-              snippet_tags:
-                - sns.JavaScript.subscriptions.listSubscriptionsByTopicV3
+      - sdk_version: 3
+        github: javascriptv3/example_code/sns
+        sdkguide: sdk-for-javascript/v3/developer-guide/sns-examples-managing-topics.html#sns-examples-managing-topicsgetttopicattributes
+        excerpts:
+        - description: Create the client in a separate module and export it.
+          snippet_tags:
+          - sns.JavaScript.createclientv3
+        - description: Import the SDK and client modules and call the API.
+          snippet_tags:
+          - sns.JavaScript.subscriptions.listSubscriptionsByTopicV3
     Python:
       versions:
-        - sdk_version: 3
-          github: python/example_code/sns
-          excerpts:
-            - snippet_tags:
-                - python.example_code.sns.SnsWrapper
-                - python.example_code.sns.ListSubscriptions
+      - sdk_version: 3
+        github: python/example_code/sns
+        excerpts:
+        - snippet_tags:
+          - python.example_code.sns.SnsWrapper
+          - python.example_code.sns.ListSubscriptions
     Ruby:
       versions:
-        - sdk_version: 3
-          github: ruby/example_code/sns
-          sdkguide: sdk-for-ruby/v3/developer-guide/sns-example-show-subscriptions.html
-          excerpts:
-            - description:
-              snippet_tags:
-                - sns.Ruby.showSubscription
+      - sdk_version: 3
+        github: ruby/example_code/sns
+        sdkguide: sdk-for-ruby/v3/developer-guide/sns-example-show-subscriptions.html
+        excerpts:
+        - description:
+          snippet_tags:
+          - sns.Ruby.showSubscription
     SAP ABAP:
       versions:
-        - sdk_version: 1
-          github: sap-abap/services/sns
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - sns.abapv1.list_subscriptions
+      - sdk_version: 1
+        github: sap-abap/services/sns
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - sns.abapv1.list_subscriptions
   services:
-    sns: {ListSubscriptions}
+    sns: {ListSubscriptions: null}
 sns_ListTopics:
   languages:
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/SNS
-          excerpts:
-            - snippet_tags:
-                - SNS.dotnetv3.ListSNSTopicsExample
+      - sdk_version: 3
+        github: dotnetv3/SNS
+        excerpts:
+        - snippet_tags:
+          - SNS.dotnetv3.ListSNSTopicsExample
     C++:
       versions:
-        - sdk_version: 1
-          github: cpp/example_code/sns
-          excerpts:
-            - snippet_tags:
-                - sns.cpp.list_topics.code
+      - sdk_version: 1
+        github: cpp/example_code/sns
+        excerpts:
+        - snippet_tags:
+          - sns.cpp.list_topics.code
     Go:
       versions:
-        - sdk_version: 2
-          github: gov2/sns
-          excerpts:
-            - description:
-              snippet_tags:
-                - gov2.sns.Hello
+      - sdk_version: 2
+        github: gov2/sns
+        excerpts:
+        - description:
+          snippet_tags:
+          - gov2.sns.Hello
     PHP:
       versions:
-        - sdk_version: 3
-          github: php/example_code/sns
-          sdkguide:
-          excerpts:
-            - snippet_tags:
-                - sns.php.list_topics.complete
+      - sdk_version: 3
+        github: php/example_code/sns
+        sdkguide:
+        excerpts:
+        - snippet_tags:
+          - sns.php.list_topics.complete
     Kotlin:
       versions:
-        - sdk_version: 1
-          github: kotlin/services/sns
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - sns.kotlin.ListTopics.main
+      - sdk_version: 1
+        github: kotlin/services/sns
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - sns.kotlin.ListTopics.main
     Java:
       versions:
-        - sdk_version: 2
-          github: javav2/example_code/sns
-          sdkguide:
-          excerpts:
-            - snippet_tags:
-                - sns.java2.ListTopics.main
+      - sdk_version: 2
+        github: javav2/example_code/sns
+        sdkguide:
+        excerpts:
+        - snippet_tags:
+          - sns.java2.ListTopics.main
     JavaScript:
       versions:
-        - sdk_version: 3
-          github: javascriptv3/example_code/sns
-          sdkguide: sdk-for-javascript/v3/developer-guide/sns-examples-managing-topics.html#sns-examples-managing-topics-listtopics
-          excerpts:
-            - description: Create the client in a separate module and export it.
-              snippet_tags:
-                - sns.JavaScript.createclientv3
-            - description: Import the SDK and client modules and call the API.
-              snippet_tags:
-                - sns.JavaScript.topics.listTopicsV3
+      - sdk_version: 3
+        github: javascriptv3/example_code/sns
+        sdkguide: sdk-for-javascript/v3/developer-guide/sns-examples-managing-topics.html#sns-examples-managing-topics-listtopics
+        excerpts:
+        - description: Create the client in a separate module and export it.
+          snippet_tags:
+          - sns.JavaScript.createclientv3
+        - description: Import the SDK and client modules and call the API.
+          snippet_tags:
+          - sns.JavaScript.topics.listTopicsV3
     Python:
       versions:
-        - sdk_version: 3
-          github: python/example_code/sns
-          excerpts:
-            - snippet_tags:
-                - python.example_code.sns.SnsWrapper
-                - python.example_code.sns.ListTopics
+      - sdk_version: 3
+        github: python/example_code/sns
+        excerpts:
+        - snippet_tags:
+          - python.example_code.sns.SnsWrapper
+          - python.example_code.sns.ListTopics
     Ruby:
       versions:
-        - sdk_version: 3
-          github: ruby/example_code/sns
-          sdkguide: sdk-for-ruby/v3/developer-guide/sns-example-show-topics.html
-          excerpts:
-            - snippet_tags:
-                - sns.Ruby.showTopics
+      - sdk_version: 3
+        github: ruby/example_code/sns
+        sdkguide: sdk-for-ruby/v3/developer-guide/sns-example-show-topics.html
+        excerpts:
+        - snippet_tags:
+          - sns.Ruby.showTopics
     Rust:
       versions:
-        - sdk_version: 1
-          github: rustv1/examples/sns
-          excerpts:
-            - snippet_tags:
-                - sns.rust.list-topics
+      - sdk_version: 1
+        github: rustv1/examples/sns
+        excerpts:
+        - snippet_tags:
+          - sns.rust.list-topics
     Swift:
       versions:
-        - sdk_version: 1
-          github: swift/example_code/sns/basics
-          excerpts:
-            - snippet_tags:
-                - swift.sns.import
-                - swift.sns.ListTopics
+      - sdk_version: 1
+        github: swift/example_code/sns/basics
+        excerpts:
+        - snippet_tags:
+          - swift.sns.import
+          - swift.sns.ListTopics
     SAP ABAP:
       versions:
-        - sdk_version: 1
-          github: sap-abap/services/sns
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - sns.abapv1.list_topics
+      - sdk_version: 1
+        github: sap-abap/services/sns
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - sns.abapv1.list_topics
   services:
-    sns: {ListTopics}
+    sns: {ListTopics: null}
 sns_GetSMSAttributes:
   languages:
     C++:
       versions:
-        - sdk_version: 1
-          github: cpp/example_code/sns
-          excerpts:
-            - snippet_tags:
-                - sns.cpp.get_sms_type.code
+      - sdk_version: 1
+        github: cpp/example_code/sns
+        excerpts:
+        - snippet_tags:
+          - sns.cpp.get_sms_type.code
     PHP:
       versions:
-        - sdk_version: 3
-          github: php/example_code/sns
-          sdkguide: sdk-for-php/v3/developer-guide/sns-examples-sending-sms.html#get-sms-attributes
-          excerpts:
-            - snippet_tags:
-                - sns.php.get_sms_attributes.complete
+      - sdk_version: 3
+        github: php/example_code/sns
+        sdkguide: sdk-for-php/v3/developer-guide/sns-examples-sending-sms.html#get-sms-attributes
+        excerpts:
+        - snippet_tags:
+          - sns.php.get_sms_attributes.complete
     Java:
       versions:
-        - sdk_version: 2
-          github: javav2/example_code/sns
-          sdkguide:
-          excerpts:
-            - snippet_tags:
-                - sns.java2.GetSMSAtrributes.main
+      - sdk_version: 2
+        github: javav2/example_code/sns
+        sdkguide:
+        excerpts:
+        - snippet_tags:
+          - sns.java2.GetSMSAtrributes.main
     JavaScript:
       versions:
-        - sdk_version: 3
-          github: javascriptv3/example_code/sns
-          sdkguide: sdk-for-javascript/v3/developer-guide/sns-examples-subscribing-unubscribing-topics.html#sns-confirm-subscription-email
-          excerpts:
-            - description: Create the client in a separate module and export it.
-              snippet_tags:
-                - sns.JavaScript.createclientv3
-            - description: Import the SDK and client modules and call the API.
-              snippet_tags:
-                - sns.JavaScript.SMS.getSMSAttributesV3
+      - sdk_version: 3
+        github: javascriptv3/example_code/sns
+        sdkguide: sdk-for-javascript/v3/developer-guide/sns-examples-subscribing-unubscribing-topics.html#sns-confirm-subscription-email
+        excerpts:
+        - description: Create the client in a separate module and export it.
+          snippet_tags:
+          - sns.JavaScript.createclientv3
+        - description: Import the SDK and client modules and call the API.
+          snippet_tags:
+          - sns.JavaScript.SMS.getSMSAttributesV3
   services:
-    sns: {GetSMSAttributes}
+    sns: {GetSMSAttributes: null}
 sns_ConfirmSubscription:
   languages:
     PHP:
       versions:
-        - sdk_version: 3
-          github: php/example_code/sns
-          sdkguide:
-          excerpts:
-            - snippet_tags:
-                - sns.php.confirm_subscription.complete
+      - sdk_version: 3
+        github: php/example_code/sns
+        sdkguide:
+        excerpts:
+        - snippet_tags:
+          - sns.php.confirm_subscription.complete
     Java:
       versions:
-        - sdk_version: 2
-          github: javav2/example_code/sns
-          sdkguide:
-          excerpts:
-            - snippet_tags:
-                - sns.java2.ConfirmSubscription.main
+      - sdk_version: 2
+        github: javav2/example_code/sns
+        sdkguide:
+        excerpts:
+        - snippet_tags:
+          - sns.java2.ConfirmSubscription.main
     JavaScript:
       versions:
-        - sdk_version: 3
-          github: javascriptv3/example_code/sns
-          sdkguide: sdk-for-javascript/v3/developer-guide/sns-examples-sending-sms.html#sending-sms-getattributes
-          excerpts:
-            - description: Create the client in a separate module and export it.
-              snippet_tags:
-                - sns.JavaScript.createclientv3
-            - description: Import the SDK and client modules and call the API.
-              snippet_tags:
-                - sns.JavaScript.subscriptions.confirmSubscriptionV3
+      - sdk_version: 3
+        github: javascriptv3/example_code/sns
+        sdkguide: sdk-for-javascript/v3/developer-guide/sns-examples-sending-sms.html#sending-sms-getattributes
+        excerpts:
+        - description: Create the client in a separate module and export it.
+          snippet_tags:
+          - sns.JavaScript.createclientv3
+        - description: Import the SDK and client modules and call the API.
+          snippet_tags:
+          - sns.JavaScript.subscriptions.confirmSubscriptionV3
   services:
-    sns: {ConfirmSubscription}
+    sns: {ConfirmSubscription: null}
 sns_CheckIfPhoneNumberIsOptedOut:
   languages:
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/SNS
-          sdkguide:
-          excerpts:
-            - snippet_tags:
-                - SNS.dotnetv3.CheckIfOptedOut
+      - sdk_version: 3
+        github: dotnetv3/SNS
+        sdkguide:
+        excerpts:
+        - snippet_tags:
+          - SNS.dotnetv3.CheckIfOptedOut
     PHP:
       versions:
-        - sdk_version: 3
-          github: php/example_code/sns
-          sdkguide: sdk-for-php/v3/developer-guide/sns-examples-sending-sms.html#check-if-a-phone-number-has-opted-out
-          excerpts:
-            - snippet_tags:
-                - sns.php.check_opt_out.complete
+      - sdk_version: 3
+        github: php/example_code/sns
+        sdkguide: sdk-for-php/v3/developer-guide/sns-examples-sending-sms.html#check-if-a-phone-number-has-opted-out
+        excerpts:
+        - snippet_tags:
+          - sns.php.check_opt_out.complete
     Java:
       versions:
-        - sdk_version: 2
-          github: javav2/example_code/sns
-          sdkguide:
-          excerpts:
-            - snippet_tags:
-                - sns.java2.CheckOptOut.main
+      - sdk_version: 2
+        github: javav2/example_code/sns
+        sdkguide:
+        excerpts:
+        - snippet_tags:
+          - sns.java2.CheckOptOut.main
     JavaScript:
       versions:
-        - sdk_version: 3
-          github: javascriptv3/example_code/sns
-          sdkguide: sdk-for-javascript/v3/developer-guide/sns-examples-sending-sms.html#sending-sms-checkifphonenumberisoptedout
-          excerpts:
-            - description: Create the client in a separate module and export it.
-              snippet_tags:
-                - sns.JavaScript.createclientv3
-            - description: Import the SDK and client modules and call the API.
-              snippet_tags:
-                - sns.JavaScript.SMS.checkIfPhoneNumberIsOptedOutV3
+      - sdk_version: 3
+        github: javascriptv3/example_code/sns
+        sdkguide: sdk-for-javascript/v3/developer-guide/sns-examples-sending-sms.html#sending-sms-checkifphonenumberisoptedout
+        excerpts:
+        - description: Create the client in a separate module and export it.
+          snippet_tags:
+          - sns.JavaScript.createclientv3
+        - description: Import the SDK and client modules and call the API.
+          snippet_tags:
+          - sns.JavaScript.SMS.checkIfPhoneNumberIsOptedOutV3
   services:
-    sns: {CheckIfPhoneNumberIsOptedOut}
+    sns: {CheckIfPhoneNumberIsOptedOut: null}
 sns_TagResource:
   languages:
     Kotlin:
       versions:
-        - sdk_version: 1
-          github: kotlin/services/sns
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - sns.kotlin.add_tags.main
+      - sdk_version: 1
+        github: kotlin/services/sns
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - sns.kotlin.add_tags.main
     Java:
       versions:
-        - sdk_version: 2
-          github: javav2/example_code/sns
-          excerpts:
-            - snippet_tags:
-                - sns.java2.add_tags.main
+      - sdk_version: 2
+        github: javav2/example_code/sns
+        excerpts:
+        - snippet_tags:
+          - sns.java2.add_tags.main
   services:
-    sns: {TagResource}
+    sns: {TagResource: null}
 sns_CreateTopic:
   languages:
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/SNS
-          excerpts:
-            - description: Create a topic with a specific name.
-              snippet_tags:
-                - SNS.dotnetv3.CreateSNSTopic
-            - description: Create a new topic with a name and specific FIFO and de-duplication attributes.
-              snippet_tags:
-                - TopicsAndQueues.dotnetv3.CreateTopic
+      - sdk_version: 3
+        github: dotnetv3/SNS
+        excerpts:
+        - description: Create a topic with a specific name.
+          snippet_tags:
+          - SNS.dotnetv3.CreateSNSTopic
+        - description: Create a new topic with a name and specific FIFO and de-duplication attributes.
+          snippet_tags:
+          - TopicsAndQueues.dotnetv3.CreateTopic
     C++:
       versions:
-        - sdk_version: 1
-          github: cpp/example_code/sns
-          excerpts:
-            - snippet_tags:
-                - sns.cpp.create_topic.code
+      - sdk_version: 1
+        github: cpp/example_code/sns
+        excerpts:
+        - snippet_tags:
+          - sns.cpp.create_topic.code
     Go:
       versions:
-        - sdk_version: 2
-          github: gov2/workflows/topics_and_queues
-          excerpts:
-            - description:
-              snippet_tags:
-                - gov2.sns.SnsActions.struct
-                - gov2.sns.CreateTopic
+      - sdk_version: 2
+        github: gov2/workflows/topics_and_queues
+        excerpts:
+        - description:
+          snippet_tags:
+          - gov2.sns.SnsActions.struct
+          - gov2.sns.CreateTopic
     Kotlin:
       versions:
-        - sdk_version: 1
-          github: kotlin/services/sns
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - sns.kotlin.CreateTopic.main
+      - sdk_version: 1
+        github: kotlin/services/sns
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - sns.kotlin.CreateTopic.main
     Java:
       versions:
-        - sdk_version: 2
-          github: javav2/example_code/sns
-          sdkguide:
-          excerpts:
-            - snippet_tags:
-                - sns.java2.CreateTopic.main
+      - sdk_version: 2
+        github: javav2/example_code/sns
+        sdkguide:
+        excerpts:
+        - snippet_tags:
+          - sns.java2.CreateTopic.main
     JavaScript:
       versions:
-        - sdk_version: 3
-          github: javascriptv3/example_code/sns
-          sdkguide: sdk-for-javascript/v3/developer-guide/sns-examples-managing-topics.html#sns-examples-managing-topics-createtopic
-          excerpts:
-            - description: Create the client in a separate module and export it.
-              snippet_tags:
-                - sns.JavaScript.createclientv3
-            - description: Import the SDK and client modules and call the API.
-              snippet_tags:
-                - sns.JavaScript.topics.createTopicV3
+      - sdk_version: 3
+        github: javascriptv3/example_code/sns
+        sdkguide: sdk-for-javascript/v3/developer-guide/sns-examples-managing-topics.html#sns-examples-managing-topics-createtopic
+        excerpts:
+        - description: Create the client in a separate module and export it.
+          snippet_tags:
+          - sns.JavaScript.createclientv3
+        - description: Import the SDK and client modules and call the API.
+          snippet_tags:
+          - sns.JavaScript.topics.createTopicV3
     PHP:
       versions:
-        - sdk_version: 3
-          github: php/example_code/sns
-          sdkguide: sdk-for-php/v3/developer-guide/sns-examples-managing-topics.html#create-a-topic
-          excerpts:
-            - snippet_tags:
-                - sns.php.create_topic.complete
+      - sdk_version: 3
+        github: php/example_code/sns
+        sdkguide: sdk-for-php/v3/developer-guide/sns-examples-managing-topics.html#create-a-topic
+        excerpts:
+        - snippet_tags:
+          - sns.php.create_topic.complete
     Python:
       versions:
-        - sdk_version: 3
-          github: python/example_code/sns
-          excerpts:
-            - description: 
-              snippet_tags:
-                - python.example_code.sns.SnsWrapper
-                - python.example_code.sns.CreateTopic
-            - description: 
-              snippet_tags:
-                - python.example_code.sns.SnsWrapper.decl
-                - python.example_code.sns.CreateFifoTopic
+      - sdk_version: 3
+        github: python/example_code/sns
+        excerpts:
+        - description:
+          snippet_tags:
+          - python.example_code.sns.SnsWrapper
+          - python.example_code.sns.CreateTopic
+        - description:
+          snippet_tags:
+          - python.example_code.sns.SnsWrapper.decl
+          - python.example_code.sns.CreateFifoTopic
     Ruby:
       versions:
-        - sdk_version: 3
-          github: ruby/example_code/sns
-          sdkguide: sdk-for-ruby/v3/developer-guide/sns-example-create-topic.html
-          excerpts:
-            - snippet_tags:
-                - sns.Ruby.createTopic
+      - sdk_version: 3
+        github: ruby/example_code/sns
+        sdkguide: sdk-for-ruby/v3/developer-guide/sns-example-create-topic.html
+        excerpts:
+        - snippet_tags:
+          - sns.Ruby.createTopic
     Rust:
       versions:
-        - sdk_version: 1
-          github: rustv1/examples/sns
-          excerpts:
-            - snippet_tags:
-                - sns.rust.create-topic
+      - sdk_version: 1
+        github: rustv1/examples/sns
+        excerpts:
+        - snippet_tags:
+          - sns.rust.create-topic
     Swift:
       versions:
-        - sdk_version: 1
-          github: swift/example_code/sns
-          excerpts:
-            - snippet_tags:
-                - swift.sns.import
-                - swift.sns.CreateTopic
+      - sdk_version: 1
+        github: swift/example_code/sns
+        excerpts:
+        - snippet_tags:
+          - swift.sns.import
+          - swift.sns.CreateTopic
     SAP ABAP:
       versions:
-        - sdk_version: 1
-          github: sap-abap/services/sns
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - sns.abapv1.create_topic
+      - sdk_version: 1
+        github: sap-abap/services/sns
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - sns.abapv1.create_topic
   services:
-    sns: {CreateTopic}
+    sns: {CreateTopic: null}
 sns_DeleteTopic:
   languages:
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/cross-service/TopicsAndQueues
-          excerpts:
-            - description: Delete a topic by its topic ARN.
-              snippet_tags:
-                - TopicsAndQueues.dotnetv3.DeleteTopic
+      - sdk_version: 3
+        github: dotnetv3/cross-service/TopicsAndQueues
+        excerpts:
+        - description: Delete a topic by its topic ARN.
+          snippet_tags:
+          - TopicsAndQueues.dotnetv3.DeleteTopic
     C++:
       versions:
-        - sdk_version: 1
-          github: cpp/example_code/sns
-          excerpts:
-            - snippet_tags:
-                - sns.cpp.delete_topic.code
+      - sdk_version: 1
+        github: cpp/example_code/sns
+        excerpts:
+        - snippet_tags:
+          - sns.cpp.delete_topic.code
     Go:
       versions:
-        - sdk_version: 2
-          github: gov2/workflows/topics_and_queues
-          excerpts:
-            - description:
-              snippet_tags:
-                - gov2.sns.SnsActions.struct
-                - gov2.sns.DeleteTopic
+      - sdk_version: 2
+        github: gov2/workflows/topics_and_queues
+        excerpts:
+        - description:
+          snippet_tags:
+          - gov2.sns.SnsActions.struct
+          - gov2.sns.DeleteTopic
     Kotlin:
       versions:
-        - sdk_version: 1
-          github: kotlin/services/sns
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - sns.kotlin.DeleteTopic.main
+      - sdk_version: 1
+        github: kotlin/services/sns
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - sns.kotlin.DeleteTopic.main
     Java:
       versions:
-        - sdk_version: 2
-          github: javav2/example_code/sns
-          sdkguide:
-          excerpts:
-            - snippet_tags:
-                - sns.java2.DeleteTopic.main
+      - sdk_version: 2
+        github: javav2/example_code/sns
+        sdkguide:
+        excerpts:
+        - snippet_tags:
+          - sns.java2.DeleteTopic.main
     JavaScript:
       versions:
-        - sdk_version: 3
-          github: javascriptv3/example_code/sns
-          sdkguide: sdk-for-javascript/v3/developer-guide/sns-examples-managing-topics.html#sns-examples-managing-topics-deletetopic
-          excerpts:
-            - description: Create the client in a separate module and export it.
-              snippet_tags:
-                - sns.JavaScript.createclientv3
-            - description: Import the SDK and client modules and call the API.
-              snippet_tags:
-                - sns.JavaScript.topics.deleteTopicV3
+      - sdk_version: 3
+        github: javascriptv3/example_code/sns
+        sdkguide: sdk-for-javascript/v3/developer-guide/sns-examples-managing-topics.html#sns-examples-managing-topics-deletetopic
+        excerpts:
+        - description: Create the client in a separate module and export it.
+          snippet_tags:
+          - sns.JavaScript.createclientv3
+        - description: Import the SDK and client modules and call the API.
+          snippet_tags:
+          - sns.JavaScript.topics.deleteTopicV3
     PHP:
       versions:
-        - sdk_version: 3
-          github: php/example_code/sns
-          sdkguide:
-          excerpts:
-            - snippet_tags:
-                - sns.php.delete_topic.complete
+      - sdk_version: 3
+        github: php/example_code/sns
+        sdkguide:
+        excerpts:
+        - snippet_tags:
+          - sns.php.delete_topic.complete
     Python:
       versions:
-        - sdk_version: 3
-          github: python/example_code/sns
-          excerpts:
-            - description: 
-              snippet_tags:
-                - python.example_code.sns.SnsWrapper
-                - python.example_code.sns.DeleteTopic
-            - description: 
-              snippet_tags:
-                - python.example_code.sns.SnsWrapper.decl
-                - python.example_code.sns.DeleteFifoTopic
+      - sdk_version: 3
+        github: python/example_code/sns
+        excerpts:
+        - description:
+          snippet_tags:
+          - python.example_code.sns.SnsWrapper
+          - python.example_code.sns.DeleteTopic
+        - description:
+          snippet_tags:
+          - python.example_code.sns.SnsWrapper.decl
+          - python.example_code.sns.DeleteFifoTopic
     Swift:
       versions:
-        - sdk_version: 1
-          github: swift/example_code/sns
-          excerpts:
-            - snippet_tags:
-                - swift.sns.import
-                - swift.sns.DeleteTopic
+      - sdk_version: 1
+        github: swift/example_code/sns
+        excerpts:
+        - snippet_tags:
+          - swift.sns.import
+          - swift.sns.DeleteTopic
     SAP ABAP:
       versions:
-        - sdk_version: 1
-          github: sap-abap/services/sns
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - sns.abapv1.delete_topic
+      - sdk_version: 1
+        github: sap-abap/services/sns
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - sns.abapv1.delete_topic
   services:
-    sns: {DeleteTopic}
+    sns: {DeleteTopic: null}
 sns_ListPhoneNumbersOptedOut:
   languages:
     Java:
       versions:
-        - sdk_version: 2
-          github: javav2/example_code/sns
-          sdkguide:
-          excerpts:
-            - snippet_tags:
-                - sns.java2.ListOptOut.main
+      - sdk_version: 2
+        github: javav2/example_code/sns
+        sdkguide:
+        excerpts:
+        - snippet_tags:
+          - sns.java2.ListOptOut.main
     PHP:
       versions:
-        - sdk_version: 3
-          github: php/example_code/sns
-          sdkguide: sdk-for-php/v3/developer-guide/sns-examples-sending-sms.html#list-opted-out-phone-numbers
-          excerpts:
-            - snippet_tags:
-                - sns.php.list_optout.complete
+      - sdk_version: 3
+        github: php/example_code/sns
+        sdkguide: sdk-for-php/v3/developer-guide/sns-examples-sending-sms.html#list-opted-out-phone-numbers
+        excerpts:
+        - snippet_tags:
+          - sns.php.list_optout.complete
   services:
-    sns: {ListPhoneNumbersOptedOut}
+    sns: {ListPhoneNumbersOptedOut: null}
 sns_Publish:
   languages:
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/SNS
-          excerpts:
-            - description: Publish a message to a topic.
-              snippet_tags:
-                - SNS.dotnetv3.PublishToSNSTopicExample
-            - description: Publish a message to a topic with group, duplication, and attribute options.
-              snippet_tags:
-                - TopicsAndQueues.dotnetv3.PublishWithOptions
-            - description: Apply the user's selections to the publish action.
-              snippet_tags:
-                - TopicsAndQueues.dotnetv3.Publish
+      - sdk_version: 3
+        github: dotnetv3/SNS
+        excerpts:
+        - description: Publish a message to a topic.
+          snippet_tags:
+          - SNS.dotnetv3.PublishToSNSTopicExample
+        - description: Publish a message to a topic with group, duplication, and attribute options.
+          snippet_tags:
+          - TopicsAndQueues.dotnetv3.PublishWithOptions
+        - description: Apply the user's selections to the publish action.
+          snippet_tags:
+          - TopicsAndQueues.dotnetv3.Publish
     C++:
       versions:
-        - sdk_version: 1
-          github: cpp/example_code/sns
-          excerpts:
-            - snippet_tags:
-                - sns.cpp.publish_to_topic.code
-            - description: Publish a message with an attribute.
-              snippet_tags:
-                - cpp.example_code.cross-service.topics_and_queues.attribute_declare
-                - cpp.example_code.cross-service.topics_and_queues.config
-                - cpp.example_code.cross-service.topics_and_queues.sns_client
-                - cpp.example_code.cross-service.topics_and_queues.publish_message_with_attributes
-                - cpp.example_code.cross-service.topics_and_queues.publish_message_with_attributes2
+      - sdk_version: 1
+        github: cpp/example_code/sns
+        excerpts:
+        - snippet_tags:
+          - sns.cpp.publish_to_topic.code
+        - description: Publish a message with an attribute.
+          snippet_tags:
+          - cpp.example_code.cross-service.topics_and_queues.attribute_declare
+          - cpp.example_code.cross-service.topics_and_queues.config
+          - cpp.example_code.cross-service.topics_and_queues.sns_client
+          - cpp.example_code.cross-service.topics_and_queues.publish_message_with_attributes
+          - cpp.example_code.cross-service.topics_and_queues.publish_message_with_attributes2
     Go:
       versions:
-        - sdk_version: 2
-          github: gov2/workflows/topics_and_queues
-          excerpts:
-            - description:
-              snippet_tags:
-                - gov2.sns.SnsActions.struct
-                - gov2.sns.Publish
+      - sdk_version: 2
+        github: gov2/workflows/topics_and_queues
+        excerpts:
+        - description:
+          snippet_tags:
+          - gov2.sns.SnsActions.struct
+          - gov2.sns.Publish
     Kotlin:
       versions:
-        - sdk_version: 1
-          github: kotlin/services/sns
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - sns.kotlin.PublishTopic.main
+      - sdk_version: 1
+        github: kotlin/services/sns
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - sns.kotlin.PublishTopic.main
     Java:
       versions:
-        - sdk_version: 2
-          github: javav2/example_code/sns
-          sdkguide:
-          excerpts:
-            - snippet_tags:
-                - sns.java2.PublishTopic.main
+      - sdk_version: 2
+        github: javav2/example_code/sns
+        sdkguide:
+        excerpts:
+        - snippet_tags:
+          - sns.java2.PublishTopic.main
     JavaScript:
       versions:
-        - sdk_version: 3
-          github: javascriptv3/example_code/sns
-          sdkguide: sdk-for-javascript/v3/developer-guide/sns-examples-publishing-messages.html
-          excerpts:
-            - description: Create the client in a separate module and export it.
-              snippet_tags:
-                - sns.JavaScript.createclientv3
-            - description: Import the SDK and client modules and call the API.
-              snippet_tags:
-                - sns.JavaScript.topics.publishMessagesV3
-            - description: Publish a message to a topic with group, duplication, and attribute options.
-              snippet_tags:
-                - javascript.v3.wkflw.topicsandqueues.publish-messages
+      - sdk_version: 3
+        github: javascriptv3/example_code/sns
+        sdkguide: sdk-for-javascript/v3/developer-guide/sns-examples-publishing-messages.html
+        excerpts:
+        - description: Create the client in a separate module and export it.
+          snippet_tags:
+          - sns.JavaScript.createclientv3
+        - description: Import the SDK and client modules and call the API.
+          snippet_tags:
+          - sns.JavaScript.topics.publishMessagesV3
+        - description: Publish a message to a topic with group, duplication, and attribute options.
+          snippet_tags:
+          - javascript.v3.wkflw.topicsandqueues.publish-messages
     PHP:
       versions:
-        - sdk_version: 3
-          github: php/example_code/sns
-          sdkguide: sdk-for-php/v3/developer-guide/sns-examples-subscribing-unsubscribing-topics.html#publish-a-message-to-an-sns-topic
-          excerpts:
-            - snippet_tags:
-                - sns.php.publish_topic.complete
+      - sdk_version: 3
+        github: php/example_code/sns
+        sdkguide: sdk-for-php/v3/developer-guide/sns-examples-subscribing-unsubscribing-topics.html#publish-a-message-to-an-sns-topic
+        excerpts:
+        - snippet_tags:
+          - sns.php.publish_topic.complete
     Python:
       versions:
-        - sdk_version: 3
-          github: python/example_code/sns
-          excerpts:
-            - description: Publish a message with attributes so that a subscription can filter based on attributes.
-              snippet_tags:
-                - python.example_code.sns.SnsWrapper
-                - python.example_code.sns.Publish_MessageAttributes
-            - description: Publish a message that takes different forms based on the protocol of the subscriber.
-              snippet_tags:
-                - python.example_code.sns.SnsWrapper
-                - python.example_code.sns.Publish_MessageStructure
-            - description: 
-              snippet_tags:
-                - python.example_code.sns.SnsWrapper.decl
-                - python.example_code.sns.Publish
+      - sdk_version: 3
+        github: python/example_code/sns
+        excerpts:
+        - description: Publish a message with attributes so that a subscription can filter based on attributes.
+          snippet_tags:
+          - python.example_code.sns.SnsWrapper
+          - python.example_code.sns.Publish_MessageAttributes
+        - description: Publish a message that takes different forms based on the protocol of the subscriber.
+          snippet_tags:
+          - python.example_code.sns.SnsWrapper
+          - python.example_code.sns.Publish_MessageStructure
+        - description:
+          snippet_tags:
+          - python.example_code.sns.SnsWrapper.decl
+          - python.example_code.sns.Publish
     Ruby:
       versions:
-        - sdk_version: 3
-          github: ruby/example_code/sns
-          sdkguide: sdk-for-ruby/v3/developer-guide/sns-example-send-message.html
-          excerpts:
-            - snippet_tags:
-                - sns.Ruby.sendMessage
+      - sdk_version: 3
+        github: ruby/example_code/sns
+        sdkguide: sdk-for-ruby/v3/developer-guide/sns-example-send-message.html
+        excerpts:
+        - snippet_tags:
+          - sns.Ruby.sendMessage
     Rust:
       versions:
-        - sdk_version: 1
-          github: rustv1/examples/sns
-          excerpts:
-            - snippet_tags:
-                - sns.rust.sns-hello-world
+      - sdk_version: 1
+        github: rustv1/examples/sns
+        excerpts:
+        - snippet_tags:
+          - sns.rust.sns-hello-world
     Swift:
       versions:
-        - sdk_version: 1
-          github: swift/example_code/sns
-          excerpts:
-            - snippet_tags:
-                - swift.sns.import
-                - swift.sns.Publish
+      - sdk_version: 1
+        github: swift/example_code/sns
+        excerpts:
+        - snippet_tags:
+          - swift.sns.import
+          - swift.sns.Publish
     SAP ABAP:
       versions:
-        - sdk_version: 1
-          github: sap-abap/services/sns
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - sns.abapv1.publish_to_topic
-            - description: Publish a message with attributes to a topic.
-              snippet_tags:
-                - sns.abapv1.publish_message
-            - description: Publish a multi-format message to a topic.
-              snippet_tags:
-                - sns.abapv1.publish_multi_message
+      - sdk_version: 1
+        github: sap-abap/services/sns
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - sns.abapv1.publish_to_topic
+        - description: Publish a message with attributes to a topic.
+          snippet_tags:
+          - sns.abapv1.publish_message
+        - description: Publish a multi-format message to a topic.
+          snippet_tags:
+          - sns.abapv1.publish_multi_message
   services:
-    sns: {Publish}
+    sns: {Publish: null}
 sns_PublishTextSMS:
   title: Publish an &SNS; SMS text message using an &AWS; SDK
   title_abbrev: Publish an SMS text message
@@ -827,441 +835,441 @@ sns_PublishTextSMS:
   languages:
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/SNS
-          excerpts:
-            - snippet_tags:
-                - SNS.dotnetv3.SNSMessageExample
+      - sdk_version: 3
+        github: dotnetv3/SNS
+        excerpts:
+        - snippet_tags:
+          - SNS.dotnetv3.SNSMessageExample
     C++:
       versions:
-        - sdk_version: 1
-          github: cpp/example_code/sns
-          excerpts:
-            - snippet_tags:
-                - sns.cpp.publish_sms.code
+      - sdk_version: 1
+        github: cpp/example_code/sns
+        excerpts:
+        - snippet_tags:
+          - sns.cpp.publish_sms.code
     Kotlin:
       versions:
-        - sdk_version: 1
-          github: kotlin/services/sns
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - sns.kotlin.PublishTextSMS.main
+      - sdk_version: 1
+        github: kotlin/services/sns
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - sns.kotlin.PublishTextSMS.main
     Java:
       versions:
-        - sdk_version: 2
-          github: javav2/example_code/sns
-          sdkguide:
-          excerpts:
-            - snippet_tags:
-                - sns.java2.PublishTextSMS.main
+      - sdk_version: 2
+        github: javav2/example_code/sns
+        sdkguide:
+        excerpts:
+        - snippet_tags:
+          - sns.java2.PublishTextSMS.main
     PHP:
       versions:
-        - sdk_version: 3
-          github: php/example_code/sns
-          sdkguide: sdk-for-php/v3/developer-guide/sns-examples-sending-sms.html#publish-to-a-text-message-sms-message
-          excerpts:
-            - snippet_tags:
-                - sns.php.publish_text_SMS.complete
+      - sdk_version: 3
+        github: php/example_code/sns
+        sdkguide: sdk-for-php/v3/developer-guide/sns-examples-sending-sms.html#publish-to-a-text-message-sms-message
+        excerpts:
+        - snippet_tags:
+          - sns.php.publish_text_SMS.complete
     Python:
       versions:
-        - sdk_version: 3
-          github: python/example_code/sns
-          excerpts:
-            - snippet_tags:
-                - python.example_code.sns.SnsWrapper
-                - python.example_code.sns.Publish_TextMessage
+      - sdk_version: 3
+        github: python/example_code/sns
+        excerpts:
+        - snippet_tags:
+          - python.example_code.sns.SnsWrapper
+          - python.example_code.sns.Publish_TextMessage
     SAP ABAP:
       versions:
-        - sdk_version: 1
-          github: sap-abap/services/sns
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - sns.abapv1.publish_text_message
+      - sdk_version: 1
+        github: sap-abap/services/sns
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - sns.abapv1.publish_text_message
   services:
-    sns: {Publish}
+    sns: {Publish: null}
 sns_SetSMSAttributes:
   languages:
     C++:
       versions:
-        - sdk_version: 1
-          github: cpp/example_code/sns
-          excerpts:
-            - description: How to use &SNS; to set the DefaultSMSType attribute.
-              snippet_tags:
-                - sns.cpp.set_sms_type.code
+      - sdk_version: 1
+        github: cpp/example_code/sns
+        excerpts:
+        - description: How to use &SNS; to set the DefaultSMSType attribute.
+          snippet_tags:
+          - sns.cpp.set_sms_type.code
     Java:
       versions:
-        - sdk_version: 2
-          github: javav2/example_code/sns
-          sdkguide:
-          excerpts:
-            - snippet_tags:
-                - sns.java2.SetSMSAttributes.main
+      - sdk_version: 2
+        github: javav2/example_code/sns
+        sdkguide:
+        excerpts:
+        - snippet_tags:
+          - sns.java2.SetSMSAttributes.main
     JavaScript:
       versions:
-        - sdk_version: 3
-          github: javascriptv3/example_code/sns
-          sdkguide: sdk-for-javascript/v3/developer-guide/sns-examples-sending-sms.html#sending-sms-setattributes
-          excerpts:
-            - description: Create the client in a separate module and export it.
-              snippet_tags:
-                - sns.JavaScript.createclientv3
-            - description: Import the SDK and client modules and call the API.
-              snippet_tags:
-                - sns.JavaScript.SMS.setSMSAttributesV3
+      - sdk_version: 3
+        github: javascriptv3/example_code/sns
+        sdkguide: sdk-for-javascript/v3/developer-guide/sns-examples-sending-sms.html#sending-sms-setattributes
+        excerpts:
+        - description: Create the client in a separate module and export it.
+          snippet_tags:
+          - sns.JavaScript.createclientv3
+        - description: Import the SDK and client modules and call the API.
+          snippet_tags:
+          - sns.JavaScript.SMS.setSMSAttributesV3
     PHP:
       versions:
-        - sdk_version: 3
-          github: php/example_code/sns
-          sdkguide: sdk-for-php/v3/developer-guide/sns-examples-sending-sms.html#set-sms-attributes
-          excerpts:
-            - snippet_tags:
-                - sns.php.set_sms_attributes.main
+      - sdk_version: 3
+        github: php/example_code/sns
+        sdkguide: sdk-for-php/v3/developer-guide/sns-examples-sending-sms.html#set-sms-attributes
+        excerpts:
+        - snippet_tags:
+          - sns.php.set_sms_attributes.main
   services:
-    sns: {SetSMSAttributes}
+    sns: {SetSMSAttributes: null}
 sns_SetSubscriptionAttributes:
   languages:
     Java:
       versions:
-        - sdk_version: 2
-          github: javav2/example_code/sns
-          sdkguide:
-          excerpts:
-            - snippet_tags:
-                - sns.java2.message_policy.main
+      - sdk_version: 2
+        github: javav2/example_code/sns
+        sdkguide:
+        excerpts:
+        - snippet_tags:
+          - sns.java2.message_policy.main
     Python:
       versions:
-        - sdk_version: 3
-          github: python/example_code/sns
-          excerpts:
-            - snippet_tags:
-                - python.example_code.sns.SnsWrapper
-                - python.example_code.sns.SetSubscriptionAttributes
+      - sdk_version: 3
+        github: python/example_code/sns
+        excerpts:
+        - snippet_tags:
+          - python.example_code.sns.SnsWrapper
+          - python.example_code.sns.SetSubscriptionAttributes
     SAP ABAP:
       versions:
-        - sdk_version: 1
-          github: sap-abap/services/sns
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - sns.abapv1.add_subscription_filter
+      - sdk_version: 1
+        github: sap-abap/services/sns
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - sns.abapv1.add_subscription_filter
   services:
-    sns: {SetSubscriptionAttributes}
+    sns: {SetSubscriptionAttributes: null}
 sns_SetTopicAttributes:
   languages:
     Kotlin:
       versions:
-        - sdk_version: 1
-          github: kotlin/services/sns
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - sns.kotlin.SetTopicAttributes.main
+      - sdk_version: 1
+        github: kotlin/services/sns
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - sns.kotlin.SetTopicAttributes.main
     Java:
       versions:
-        - sdk_version: 2
-          github: javav2/example_code/sns
-          sdkguide:
-          excerpts:
-            - snippet_tags:
-                - sns.java2.SetTopicAttributes.main
+      - sdk_version: 2
+        github: javav2/example_code/sns
+        sdkguide:
+        excerpts:
+        - snippet_tags:
+          - sns.java2.SetTopicAttributes.main
     JavaScript:
       versions:
-        - sdk_version: 3
-          github: javascriptv3/example_code/sns
-          sdkguide: sdk-for-javascript/v3/developer-guide/sns-examples-managing-topics.html#sns-examples-managing-topicsstttopicattributes
-          excerpts:
-            - description: Create the client in a separate module and export it.
-              snippet_tags:
-                - sns.JavaScript.createclientv3
-            - description: Import the SDK and client modules and call the API.
-              snippet_tags:
-                - sns.JavaScript.topics.setTopicAttributesV3
+      - sdk_version: 3
+        github: javascriptv3/example_code/sns
+        sdkguide: sdk-for-javascript/v3/developer-guide/sns-examples-managing-topics.html#sns-examples-managing-topicsstttopicattributes
+        excerpts:
+        - description: Create the client in a separate module and export it.
+          snippet_tags:
+          - sns.JavaScript.createclientv3
+        - description: Import the SDK and client modules and call the API.
+          snippet_tags:
+          - sns.JavaScript.topics.setTopicAttributesV3
     PHP:
       versions:
-        - sdk_version: 3
-          github: php/example_code/sns
-          sdkguide:
-          excerpts:
-            - snippet_tags:
-                - sns.php.set_topic_attributes.complete
+      - sdk_version: 3
+        github: php/example_code/sns
+        sdkguide:
+        excerpts:
+        - snippet_tags:
+          - sns.php.set_topic_attributes.complete
     Ruby:
       versions:
-        - sdk_version: 3
-          github: ruby/example_code/sns
-          sdkguide: sdk-for-ruby/v3/developer-guide/sns-example-enable-resource.html
-          excerpts:
-            - snippet_tags:
-                - sns.Ruby.enableResource
+      - sdk_version: 3
+        github: ruby/example_code/sns
+        sdkguide: sdk-for-ruby/v3/developer-guide/sns-example-enable-resource.html
+        excerpts:
+        - snippet_tags:
+          - sns.Ruby.enableResource
     SAP ABAP:
       versions:
-        - sdk_version: 1
-          github: sap-abap/services/sns
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - sns.abapv1.set_topic_attributes
+      - sdk_version: 1
+        github: sap-abap/services/sns
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - sns.abapv1.set_topic_attributes
   services:
-    sns: {SetTopicAttributes}
+    sns: {SetTopicAttributes: null}
 sns_Subscribe:
   languages:
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/SNS
-          excerpts:
-            - description: Subscribe an email address to a topic.
-              snippet_tags:
-                - SNS.dotnetv3.TopicSubscribe
-            - description: Subscribe a queue to a topic with optional filters.
-              snippet_tags:
-                - TopicsAndQueues.dotnetv3.Subscribe
+      - sdk_version: 3
+        github: dotnetv3/SNS
+        excerpts:
+        - description: Subscribe an email address to a topic.
+          snippet_tags:
+          - SNS.dotnetv3.TopicSubscribe
+        - description: Subscribe a queue to a topic with optional filters.
+          snippet_tags:
+          - TopicsAndQueues.dotnetv3.Subscribe
     C++:
       versions:
-        - sdk_version: 1
-          github: cpp/example_code/sns
-          excerpts:
-            - description: Subscribe an email address to a topic.
-              snippet_tags:
-                - sns.cpp.subscribe_email.code
-            - description: Subscribe a mobile application to a topic.
-              snippet_tags:
-                - sns.cpp.subscribe_app.code
-            - description: Subscribe a &LAM; function to a topic.
-              snippet_tags:
-                - sns.cpp.subscribe_lamda.code
-            - description: Subscribe an SQS queue to a topic.
-              snippet_tags:
-                - cpp.example_code.cross-service.topics_and_queues.config
-                - cpp.example_code.cross-service.topics_and_queues.sns_client
-                - cpp.example_code.cross-service.topics_and_queues.subscribe_queue1
-                - cpp.example_code.cross-service.topics_and_queues.subscribe_queue2
-            - description: Subscribe with a filter to a topic.
-              snippet_tags:
-                - cpp.example_code.cross-service.topics_and_queues.attribute_declare
-                - cpp.example_code.cross-service.topics_and_queues.config
-                - cpp.example_code.cross-service.topics_and_queues.sns_client
-                - cpp.example_code.cross-service.topics_and_queues.subscribe_queue_with_filter
-                - cpp.example_code.cross-service.topics_and_queues.subscribe_queue_with_filter2
+      - sdk_version: 1
+        github: cpp/example_code/sns
+        excerpts:
+        - description: Subscribe an email address to a topic.
+          snippet_tags:
+          - sns.cpp.subscribe_email.code
+        - description: Subscribe a mobile application to a topic.
+          snippet_tags:
+          - sns.cpp.subscribe_app.code
+        - description: Subscribe a &LAM; function to a topic.
+          snippet_tags:
+          - sns.cpp.subscribe_lamda.code
+        - description: Subscribe an SQS queue to a topic.
+          snippet_tags:
+          - cpp.example_code.cross-service.topics_and_queues.config
+          - cpp.example_code.cross-service.topics_and_queues.sns_client
+          - cpp.example_code.cross-service.topics_and_queues.subscribe_queue1
+          - cpp.example_code.cross-service.topics_and_queues.subscribe_queue2
+        - description: Subscribe with a filter to a topic.
+          snippet_tags:
+          - cpp.example_code.cross-service.topics_and_queues.attribute_declare
+          - cpp.example_code.cross-service.topics_and_queues.config
+          - cpp.example_code.cross-service.topics_and_queues.sns_client
+          - cpp.example_code.cross-service.topics_and_queues.subscribe_queue_with_filter
+          - cpp.example_code.cross-service.topics_and_queues.subscribe_queue_with_filter2
     Go:
       versions:
-        - sdk_version: 2
-          github: gov2/workflows/topics_and_queues
-          excerpts:
-            - description: Subscribe a queue to a topic with optional filters.
-              snippet_tags:
-                - gov2.sns.SnsActions.struct
-                - gov2.sns.Subscribe
+      - sdk_version: 2
+        github: gov2/workflows/topics_and_queues
+        excerpts:
+        - description: Subscribe a queue to a topic with optional filters.
+          snippet_tags:
+          - gov2.sns.SnsActions.struct
+          - gov2.sns.Subscribe
     Kotlin:
       versions:
-        - sdk_version: 1
-          github: kotlin/services/sns
-          sdkguide:
-          excerpts:
-            - description: Subscribe an email address to a topic.
-              snippet_tags:
-                - sns.kotlin.SubscribeEmail.main
-            - description: Subscribe a &LAM; function to a topic.
-              snippet_tags:
-                - sns.kotlin.SubscribeLambda.main
+      - sdk_version: 1
+        github: kotlin/services/sns
+        sdkguide:
+        excerpts:
+        - description: Subscribe an email address to a topic.
+          snippet_tags:
+          - sns.kotlin.SubscribeEmail.main
+        - description: Subscribe a &LAM; function to a topic.
+          snippet_tags:
+          - sns.kotlin.SubscribeLambda.main
     Java:
       versions:
-        - sdk_version: 2
-          github: javav2/example_code/sns
-          sdkguide:
-          excerpts:
-            - description: Subscribe an email address to a topic.
-            - snippet_tags:
-                - sns.java2.SubscribeEmail.main
-            - description: Subscribe an HTTP endpoint to a topic.
-              snippet_tags:
-                - sns.java2.SubscribeHTTPS.main
-            - description: Subscribe a &LAM; function to a topic.
-              snippet_tags:
-                - sns.java2.SubscribeLambda.main
+      - sdk_version: 2
+        github: javav2/example_code/sns
+        sdkguide:
+        excerpts:
+        - description: Subscribe an email address to a topic.
+        - snippet_tags:
+          - sns.java2.SubscribeEmail.main
+        - description: Subscribe an HTTP endpoint to a topic.
+          snippet_tags:
+          - sns.java2.SubscribeHTTPS.main
+        - description: Subscribe a &LAM; function to a topic.
+          snippet_tags:
+          - sns.java2.SubscribeLambda.main
     JavaScript:
       versions:
-        - sdk_version: 3
-          github: javascriptv3/example_code/sns
-          sdkguide: sdk-for-javascript/v3/developer-guide/sns-examples-managing-topics.html#sns-examples-subscribing-email
-          excerpts:
-            - description: Create the client in a separate module and export it.
-              snippet_tags:
-                - sns.JavaScript.createclientv3
-            - description: Import the SDK and client modules and call the API.
-              snippet_tags:
-                - sns.JavaScript.subscriptions.subscribeEmailV3
-            - description: Subscribe a mobile application to a topic.
-              snippet_tags:
-                - sns.JavaScript.subscriptions.subscribeAppV3
-            - description: Subscribe a &LAM; function to a topic.
-              snippet_tags:
-                - sns.JavaScript.subscriptions.subscribeLambdaV3
-            - description: Subscribe an SQS queue to a topic.
-              snippet_tags:
-                - javascript.v3.sns.actions.subscribe-queue
-            - description: Subscribe with a filter to a topic.
-              snippet_tags:
-                - javascript.v3.sns.actions.subscribe-queue-filtered
+      - sdk_version: 3
+        github: javascriptv3/example_code/sns
+        sdkguide: sdk-for-javascript/v3/developer-guide/sns-examples-managing-topics.html#sns-examples-subscribing-email
+        excerpts:
+        - description: Create the client in a separate module and export it.
+          snippet_tags:
+          - sns.JavaScript.createclientv3
+        - description: Import the SDK and client modules and call the API.
+          snippet_tags:
+          - sns.JavaScript.subscriptions.subscribeEmailV3
+        - description: Subscribe a mobile application to a topic.
+          snippet_tags:
+          - sns.JavaScript.subscriptions.subscribeAppV3
+        - description: Subscribe a &LAM; function to a topic.
+          snippet_tags:
+          - sns.JavaScript.subscriptions.subscribeLambdaV3
+        - description: Subscribe an SQS queue to a topic.
+          snippet_tags:
+          - javascript.v3.sns.actions.subscribe-queue
+        - description: Subscribe with a filter to a topic.
+          snippet_tags:
+          - javascript.v3.sns.actions.subscribe-queue-filtered
     PHP:
       versions:
-        - sdk_version: 3
-          github: php/example_code/sns
-          sdkguide:
-          excerpts:
-            - description: Subscribe an email address to a topic.
-              snippet_tags:
-                - sns.php.subscribe_email.complete
-            - description: Subscribe an HTTP endpoint to a topic.
-              snippet_tags:
-                - sns.php.subscribe_HTTPS.complete
+      - sdk_version: 3
+        github: php/example_code/sns
+        sdkguide:
+        excerpts:
+        - description: Subscribe an email address to a topic.
+          snippet_tags:
+          - sns.php.subscribe_email.complete
+        - description: Subscribe an HTTP endpoint to a topic.
+          snippet_tags:
+          - sns.php.subscribe_HTTPS.complete
     Python:
       versions:
-        - sdk_version: 3
-          github: python/example_code/sns
-          excerpts:
-            - description: Subscribe an email address to a topic.
-              snippet_tags:
-                - python.example_code.sns.SnsWrapper
-                - python.example_code.sns.Subscribe
-            - description: Subscribe a queue to a topic with optional filters.
-              snippet_tags:
-                - python.example_code.sns.SnsWrapper.decl
-                - python.example_code.sns.SubscribeWithFilters
+      - sdk_version: 3
+        github: python/example_code/sns
+        excerpts:
+        - description: Subscribe an email address to a topic.
+          snippet_tags:
+          - python.example_code.sns.SnsWrapper
+          - python.example_code.sns.Subscribe
+        - description: Subscribe a queue to a topic with optional filters.
+          snippet_tags:
+          - python.example_code.sns.SnsWrapper.decl
+          - python.example_code.sns.SubscribeWithFilters
     Ruby:
       versions:
-        - sdk_version: 3
-          github: ruby/example_code/sns
-          sdkguide: sdk-for-ruby/v3/developer-guide/sns-example-create-subscription.html
-          excerpts:
-            - description: Subscribe an email address to a topic.
-              snippet_tags:
-                - sns.Ruby.createSubscription
+      - sdk_version: 3
+        github: ruby/example_code/sns
+        sdkguide: sdk-for-ruby/v3/developer-guide/sns-example-create-subscription.html
+        excerpts:
+        - description: Subscribe an email address to a topic.
+          snippet_tags:
+          - sns.Ruby.createSubscription
     Rust:
       versions:
-        - sdk_version: 1
-          github: rustv1/examples/sns
-          excerpts:
-            - description: Subscribe an email address to a topic.
-              snippet_tags:
-                - sns.rust.sns-hello-world
+      - sdk_version: 1
+        github: rustv1/examples/sns
+        excerpts:
+        - description: Subscribe an email address to a topic.
+          snippet_tags:
+          - sns.rust.sns-hello-world
     Swift:
       versions:
-        - sdk_version: 1
-          github: swift/example_code/sns
-          excerpts:
-            - description: Subscribe an email address to a topic.
-              snippet_tags:
-                - swift.sns.import
-                - swift.sns.SubscribeEmail
-            - description: Subscribe a phone number to a topic to receive notifications by SMS.
-              snippet_tags:
-                - swift.sns.import
-                - swift.sns.SubscribeSMS
+      - sdk_version: 1
+        github: swift/example_code/sns
+        excerpts:
+        - description: Subscribe an email address to a topic.
+          snippet_tags:
+          - swift.sns.import
+          - swift.sns.SubscribeEmail
+        - description: Subscribe a phone number to a topic to receive notifications by SMS.
+          snippet_tags:
+          - swift.sns.import
+          - swift.sns.SubscribeSMS
     SAP ABAP:
       versions:
-        - sdk_version: 1
-          github: sap-abap/services/sns
-          sdkguide:
-          excerpts:
-            - description: Subscribe an email address to a topic.
-              snippet_tags:
-                - sns.abapv1.subscribe_email
+      - sdk_version: 1
+        github: sap-abap/services/sns
+        sdkguide:
+        excerpts:
+        - description: Subscribe an email address to a topic.
+          snippet_tags:
+          - sns.abapv1.subscribe_email
   services:
-    sns: {Subscribe}
+    sns: {Subscribe: null}
 sns_Unsubscribe:
   languages:
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/cross-service/TopicsAndQueues
-          excerpts:
-            - description: Unsubscribe from a topic by a subscription ARN.
-              snippet_tags:
-                - TopicsAndQueues.dotnetv3.Unsubscribe
+      - sdk_version: 3
+        github: dotnetv3/cross-service/TopicsAndQueues
+        excerpts:
+        - description: Unsubscribe from a topic by a subscription ARN.
+          snippet_tags:
+          - TopicsAndQueues.dotnetv3.Unsubscribe
     C++:
       versions:
-        - sdk_version: 1
-          github: cpp/example_code/sns
-          excerpts:
-            - snippet_tags:
-                - sns.cpp.unsubscribe.code
+      - sdk_version: 1
+        github: cpp/example_code/sns
+        excerpts:
+        - snippet_tags:
+          - sns.cpp.unsubscribe.code
     Kotlin:
       versions:
-        - sdk_version: 1
-          github: kotlin/services/sns
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - sns.kotlin.Unsubscribe.main
+      - sdk_version: 1
+        github: kotlin/services/sns
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - sns.kotlin.Unsubscribe.main
     Java:
       versions:
-        - sdk_version: 2
-          github: javav2/example_code/sns
-          sdkguide:
-          excerpts:
-            - snippet_tags:
-                - sns.java2.Unsubscribe.main
+      - sdk_version: 2
+        github: javav2/example_code/sns
+        sdkguide:
+        excerpts:
+        - snippet_tags:
+          - sns.java2.Unsubscribe.main
     JavaScript:
       versions:
-        - sdk_version: 3
-          github: javascriptv3/example_code/sns
-          sdkguide: sdk-for-javascript/v3/developer-guide/sns-examples-managing-topics.html#sns-examples-unsubscribing
-          excerpts:
-            - description: Create the client in a separate module and export it.
-              snippet_tags:
-                - sns.JavaScript.createclientv3
-            - description: Import the SDK and client modules and call the API.
-              snippet_tags:
-                - sns.JavaScript.subscriptions.unsubscribeV3
+      - sdk_version: 3
+        github: javascriptv3/example_code/sns
+        sdkguide: sdk-for-javascript/v3/developer-guide/sns-examples-managing-topics.html#sns-examples-unsubscribing
+        excerpts:
+        - description: Create the client in a separate module and export it.
+          snippet_tags:
+          - sns.JavaScript.createclientv3
+        - description: Import the SDK and client modules and call the API.
+          snippet_tags:
+          - sns.JavaScript.subscriptions.unsubscribeV3
     PHP:
       versions:
-        - sdk_version: 3
-          github: php/example_code/sns
-          sdkguide: sdk-for-php/v3/developer-guide/sns-examples-subscribing-unsubscribing-topics.html#unsubscribe-from-a-topic
-          excerpts:
-            - snippet_tags:
-                - sns.php.unsubscribe.complete
+      - sdk_version: 3
+        github: php/example_code/sns
+        sdkguide: sdk-for-php/v3/developer-guide/sns-examples-subscribing-unsubscribing-topics.html#unsubscribe-from-a-topic
+        excerpts:
+        - snippet_tags:
+          - sns.php.unsubscribe.complete
     Python:
       versions:
-        - sdk_version: 3
-          github: python/example_code/sns
-          excerpts:
-            - description: 
-              snippet_tags:
-                - python.example_code.sns.SnsWrapper
-                - python.example_code.sns.Unsubscribe
-            - description: 
-              snippet_tags:
-                - python.example_code.sns.SnsWrapper.decl
-                - python.example_code.sns.UnsubscribeTopic
+      - sdk_version: 3
+        github: python/example_code/sns
+        excerpts:
+        - description:
+          snippet_tags:
+          - python.example_code.sns.SnsWrapper
+          - python.example_code.sns.Unsubscribe
+        - description:
+          snippet_tags:
+          - python.example_code.sns.SnsWrapper.decl
+          - python.example_code.sns.UnsubscribeTopic
     Swift:
       versions:
-        - sdk_version: 1
-          github: swift/example_code/sns
-          excerpts:
-            - snippet_tags:
-                - swift.sns.import
-                - swift.sns.Unsubscribe
+      - sdk_version: 1
+        github: swift/example_code/sns
+        excerpts:
+        - snippet_tags:
+          - swift.sns.import
+          - swift.sns.Unsubscribe
     SAP ABAP:
       versions:
-        - sdk_version: 1
-          github: sap-abap/services/sns
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - sns.abapv1.unsubscribe
+      - sdk_version: 1
+        github: sap-abap/services/sns
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - sns.abapv1.unsubscribe
   services:
-    sns: {Unsubscribe}
+    sns: {Unsubscribe: null}
 sns_PublishFifoTopic:
   title: Create and publish to a FIFO &SNS; topic using an &AWS; SDK
   title_abbrev: Create and publish to a FIFO topic
@@ -1270,50 +1278,48 @@ sns_PublishFifoTopic:
   languages:
     Java:
       versions:
-        - sdk_version: 2
-          github: javav2/example_code/sns
-          sdkguide:
-          excerpts:
-            - description: >-
-                This example</para>
-                <itemizedlist>
-                 <listitem>
-                   <para>creates an &SNS; FIFO topic, two &SQS; FIFO queues, and one Standard queue.</para>
-                  </listitem>
-                  <listitem>
-                   <para>subscribes the queues to the topic and publishes a message to the topic.</para>
-                  </listitem>
-                </itemizedlist>
-                 <para>The <ulink
-                   url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/sns/src/test/java/com/example/sns/PriceUpdateExampleTest.java"
-                   >test</ulink> verifies the receipt of the message to each queue. The <ulink
-                   url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/sns/src/main/java/com/example/sns/PriceUpdateExample.java"
-                   >complete example</ulink> also shows the addition of access policies and deletes the resources at
-                  the end.
-              snippet_tags:
-                - sns.java2.PriceUpdateExample.display
+      - sdk_version: 2
+        github: javav2/example_code/sns
+        sdkguide:
+        excerpts:
+        - description: >-
+            This example</para>
+            <itemizedlist>
+             <listitem>
+               <para>creates an &SNS; FIFO topic, two &SQS; FIFO queues, and one Standard queue.</para>
+              </listitem>
+              <listitem>
+               <para>subscribes the queues to the topic and publishes a message to the topic.</para>
+              </listitem>
+            </itemizedlist>
+             <para>The <ulink
+               url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/sns/src/test/java/com/example/sns/PriceUpdateExampleTest.java"
+               >test</ulink> verifies the receipt of the message to each queue. The <ulink
+               url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/sns/src/main/java/com/example/sns/PriceUpdateExample.java"
+               >complete example</ulink> also shows the addition of access policies and deletes the resources at
+              the end.
+          snippet_tags:
+          - sns.java2.PriceUpdateExample.display
     Python:
       versions:
-        - sdk_version: 3
-          github: python/example_code/sns
-          excerpts:
-            - description: Create an &SNS; FIFO topic, subscribe &SQS; FIFO and standard queues to the topic, and publish
-                a message to the topic.
-              snippet_tags:
-                - python.example_code.sns.Scenario_SubscribeFifoTopic
-                - python.example_code.sns.FifoTopicWrapper
+      - sdk_version: 3
+        github: python/example_code/sns
+        excerpts:
+        - description: Create an &SNS; FIFO topic, subscribe &SQS; FIFO and standard queues to the topic, and publish a message to the topic.
+          snippet_tags:
+          - python.example_code.sns.Scenario_SubscribeFifoTopic
+          - python.example_code.sns.FifoTopicWrapper
     SAP ABAP:
       versions:
-        - sdk_version: 1
-          github: sap-abap/services/sns
-          sdkguide:
-          excerpts:
-            - description: Create a FIFO topic, subscribe an &SQS; FIFO queue to the topic, and publish a message to an &SNS;
-                topic.
-              snippet_tags:
-                - sns.abapv1.publish_message_to_fifo_queue
+      - sdk_version: 1
+        github: sap-abap/services/sns
+        sdkguide:
+        excerpts:
+        - description: Create a FIFO topic, subscribe an &SQS; FIFO queue to the topic, and publish a message to an &SNS; topic.
+          snippet_tags:
+          - sns.abapv1.publish_message_to_fifo_queue
   services:
-    sns: {CreateTopic, Publish, Subscribe}
+    sns: {CreateTopic: null, Publish: null, Subscribe: null}
     sqs: {}
 sns_PublishLargeMessage:
   title: Publish a large message to &SNS; with &S3; using an &AWS; SDK
@@ -1323,28 +1329,27 @@ sns_PublishLargeMessage:
   languages:
     Java:
       versions:
-        - sdk_version: 1
-          github: java/example_code/sns
-          sdkguide:
-          excerpts:
-            - description: To publish a large message, use the &SNS; Extended Client Library for Java. The message that you
-                send references an &S3; object containing the actual message content.
-              snippet_tags:
-                - sns.java.publish_large_file
+      - sdk_version: 1
+        github: java/example_code/sns
+        sdkguide:
+        excerpts:
+        - description: To publish a large message, use the &SNS; Extended Client Library for Java. The message that you send references an &S3; object containing the actual message content.
+          snippet_tags:
+          - sns.java.publish_large_file
   services:
     sns: {}
 sns_SetSubscriptionAttributesRedrivePolicy:
   languages:
     Java:
       versions:
-        - sdk_version: 1
-          github: java/example_code/sns
-          sdkguide:
-          excerpts:
-            - snippet_tags:
-                - sns.java.redrive_policy
+      - sdk_version: 1
+        github: java/example_code/sns
+        sdkguide:
+        excerpts:
+        - snippet_tags:
+          - sns.java.redrive_policy
   services:
-    sns: {SetSubscriptionAttributesRedrivePolicy}
+    sns: {SetSubscriptionAttributesRedrivePolicy: null}
 sns_CreatePlatformEndpoint:
   title: Create a platform endpoint for &SNS; push notifications using an &AWS; SDK
   title_abbrev: Create a platform endpoint for push notifications
@@ -1353,43 +1358,43 @@ sns_CreatePlatformEndpoint:
   languages:
     Java:
       versions:
-        - sdk_version: 2
-          github: javav2/example_code/sns
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - sns.java2.reg.endpoint.main
+      - sdk_version: 2
+        github: javav2/example_code/sns
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - sns.java2.reg.endpoint.main
   services:
     sns: {}
 sns_UsageSmsTopic:
   title: Publish SMS messages to an &SNS; topic using an &AWS; SDK
   title_abbrev: Publish SMS messages to a topic
   synopsis_list:
-    - Create an &SNS; topic.
-    - Subscribe phone numbers to the topic.
-    - Publish SMS messages to the topic so that all subscribed phone numbers receive the message at once.
+  - Create an &SNS; topic.
+  - Subscribe phone numbers to the topic.
+  - Publish SMS messages to the topic so that all subscribed phone numbers receive the message at once.
   category: Scenarios
   languages:
     Java:
       versions:
-        - sdk_version: 2
-          github: javav2/example_code/sns
-          sdkguide:
-          excerpts:
-            - description: Create a topic and return its ARN.
-              snippet_tags:
-                - sns.java2.CreateTopic.main
-            - description: Subscribe an endpoint to a topic.
-              snippet_tags:
-                - sns.java2.SubscribeTextSMS.main
-            - description: |-
-                Set attributes on the message, such as the ID of the sender, the maximum price, and its type.
-                Message attributes are optional.
-              snippet_tags:
-                - sns.java2.SetSMSAttributes.main
-            - description: Publish a message to a topic. The message is sent to every subscriber.
-              snippet_tags:
-                - sns.java2.PublishTextSMS.main
+      - sdk_version: 2
+        github: javav2/example_code/sns
+        sdkguide:
+        excerpts:
+        - description: Create a topic and return its ARN.
+          snippet_tags:
+          - sns.java2.CreateTopic.main
+        - description: Subscribe an endpoint to a topic.
+          snippet_tags:
+          - sns.java2.SubscribeTextSMS.main
+        - description: |-
+            Set attributes on the message, such as the ID of the sender, the maximum price, and its type.
+            Message attributes are optional.
+          snippet_tags:
+          - sns.java2.SetSMSAttributes.main
+        - description: Publish a message to a topic. The message is sent to every subscriber.
+          snippet_tags:
+          - sns.java2.PublishTextSMS.main
   services:
     sns: {}
