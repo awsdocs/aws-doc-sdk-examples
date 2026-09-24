@@ -34,6 +34,11 @@ python -m pip install -r requirements.txt
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Get started
+
+- [Hello Amazon SNS](hello/hello_sns.py#L18) (`ListTopics`)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -77,6 +82,13 @@ python sns_basics.py
 ``` 
 <!--custom.instructions.end-->
 
+#### Hello Amazon SNS
+
+This example shows you how to get started using Amazon SNS.
+
+```
+python hello/hello_sns.py
+```
 
 
 #### Create an Amazon Textract explorer application
