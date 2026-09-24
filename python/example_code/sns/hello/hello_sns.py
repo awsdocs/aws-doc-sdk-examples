@@ -28,11 +28,14 @@ def hello_sns(sns_client):
     print("Hello, Amazon SNS! Let's list your topics:\n")
     try:
         response = sns_client.list_topics()
-        topics = response.get("Topics", list())
+        topics = response.get("Topics", [])
         if topics:
             for topic in topics:
                 print(f"  - {topic['TopicArn']}")
-            if response.get("NextToken", None):
+            if response.get("NextToken"):
+                # Only the first page of topics is shown here. In production,
+                # use a paginator to retrieve all topics:
+                # paginator = sns_client.get_paginator("list_topics")
                 print("\n  (Additional topics exist but are not shown.)")
         else:
             print("  You have no SNS topics in this region.")

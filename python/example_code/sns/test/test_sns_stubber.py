@@ -6,11 +6,6 @@ Unit tests for hello_sns.py using botocore Stubber.
 These tests run offline — no AWS credentials or network access required.
 """
 
-import sys
-import os
-
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
 import boto3
 import pytest
 from botocore.stub import Stubber
@@ -19,7 +14,7 @@ from botocore.exceptions import ClientError
 from hello_sns import hello_sns
 
 
-@pytest.mark.integ
+@pytest.mark.unit
 class TestHelloSns:
     """Tests for the hello_sns function."""
 
