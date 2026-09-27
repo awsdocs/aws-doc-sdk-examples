@@ -23,11 +23,18 @@ Usage:
 
 import json
 import logging
-import time
+import os
+import sys
 import uuid
 
 import boto3
+from botocore.client import BaseClient
 from botocore.exceptions import ClientError
+
+# Allow running this scenario directly from the scenarios/ subdirectory by
+# adding the parent example directory (which contains athena_wrapper.py) to
+# sys.path.
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from athena_wrapper import AthenaWrapper
 
@@ -45,8 +52,8 @@ class AthenaScenario:
     def __init__(
         self,
         athena_wrapper: AthenaWrapper,
-        cf_client: boto3.client,
-        s3_client: boto3.client,
+        cf_client: BaseClient,
+        s3_client: BaseClient,
     ) -> None:
         """
         Initializes the scenario.
@@ -200,14 +207,10 @@ class AthenaScenario:
         print("Waiting for query to complete...")
 
         result = self.athena_wrapper.wait_for_query_to_complete(execution_id)
-        exec_time = (
-            result.get("Statistics", dict()).get(
-                "EngineExecutionTimeInMillis", 0
-            )
+        exec_time = result.get("Statistics", dict()).get(
+            "EngineExecutionTimeInMillis", 0
         )
-        print(
-            f"Query completed successfully. (Execution time: {exec_time}ms)"
-        )
+        print(f"Query completed successfully. (Execution time: {exec_time}ms)")
         print(f"Database '{DATABASE_NAME}' created.")
         print(DASHES)
 
@@ -245,14 +248,10 @@ class AthenaScenario:
         print("Waiting for query to complete...")
 
         result = self.athena_wrapper.wait_for_query_to_complete(execution_id)
-        exec_time = (
-            result.get("Statistics", dict()).get(
-                "EngineExecutionTimeInMillis", 0
-            )
+        exec_time = result.get("Statistics", dict()).get(
+            "EngineExecutionTimeInMillis", 0
         )
-        print(
-            f"Query completed successfully. (Execution time: {exec_time}ms)"
-        )
+        print(f"Query completed successfully. (Execution time: {exec_time}ms)")
         print(f"Table '{DATABASE_NAME}.{TABLE_NAME}' created with sample data.")
         print(DASHES)
 
@@ -291,7 +290,7 @@ class AthenaScenario:
         columns = query_results["columns"]
         rows = query_results["rows"]
 
-        print(f"\nQuery Results:")
+        print("\nQuery Results:")
         header = " | ".join(f"{c:<30}" for c in columns)
         print(f"  {header}")
         print(f"  {'-' * len(header)}")
@@ -318,7 +317,7 @@ class AthenaScenario:
             ),
             work_group=self.workgroup_name,
         )
-        print(f"Named query 'top-rated-movies' created successfully.")
+        print("Named query 'top-rated-movies' created successfully.")
         print(f"Named Query ID: {self.named_query_id}")
         print("Description: Returns movies with a rating of 9.0 or higher")
         print(DASHES)
@@ -330,9 +329,7 @@ class AthenaScenario:
         print(DASHES)
         print("Step 6: Listing named queries in workgroup")
 
-        named_query_ids = self.athena_wrapper.list_named_queries(
-            self.workgroup_name
-        )
+        named_query_ids = self.athena_wrapper.list_named_queries(self.workgroup_name)
         print(
             f"Found {len(named_query_ids)} named query ID(s) in workgroup "
             f"'{self.workgroup_name}':"
@@ -350,11 +347,9 @@ class AthenaScenario:
         print(DASHES)
         print("Step 7: Executing the saved named query")
 
-        # Retrieve the query string from the named query.
-        query_string = (
-            "SELECT title, year, rating FROM movies "
-            "WHERE rating >= 9.0 ORDER BY rating DESC"
-        )
+        # Retrieve the query string from the saved named query.
+        named_query = self.athena_wrapper.get_named_query(self.named_query_id)
+        query_string = named_query["QueryString"]
         print("Running named query 'top-rated-movies'...")
 
         execution_id = self.athena_wrapper.start_query_execution(
@@ -370,7 +365,7 @@ class AthenaScenario:
         columns = query_results["columns"]
         rows = query_results["rows"]
 
-        print(f"\nResults:")
+        print("\nResults:")
         header = " | ".join(f"{c:<30}" for c in columns)
         print(f"  {header}")
         print(f"  {'-' * len(header)}")
@@ -387,9 +382,7 @@ class AthenaScenario:
         print(DASHES)
         print("Step 8: Listing query executions in workgroup")
 
-        execution_ids = self.athena_wrapper.list_query_executions(
-            self.workgroup_name
-        )
+        execution_ids = self.athena_wrapper.list_query_executions(self.workgroup_name)
         print(
             f"Found {len(execution_ids)} query execution(s) in workgroup "
             f"'{self.workgroup_name}':"

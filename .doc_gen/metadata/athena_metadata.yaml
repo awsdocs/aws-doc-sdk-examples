@@ -1,7 +1,7 @@
 athena_Hello:
-  title: Hello &ATH;
-  title_abbrev: Hello &ATH;
-  synopsis: get started using &ATH;.
+  title: Hello &ATE;
+  title_abbrev: Hello &ATE;
+  synopsis: get started using &ATE;.
   category: Hello
   languages:
     Python:
@@ -15,9 +15,6 @@ athena_Hello:
   services:
     athena: {ListWorkGroups}
 athena_CreateWorkGroup:
-  title: Create an &ATH; workgroup using an &AWS; SDK
-  title_abbrev: Create a workgroup
-  synopsis: create an &ATH; workgroup.
   languages:
     Python:
       versions:
@@ -30,9 +27,6 @@ athena_CreateWorkGroup:
   services:
     athena: {CreateWorkGroup}
 athena_GetWorkGroup:
-  title: Get &ATH; workgroup details using an &AWS; SDK
-  title_abbrev: Get workgroup details
-  synopsis: get &ATH; workgroup details.
   languages:
     Python:
       versions:
@@ -45,9 +39,6 @@ athena_GetWorkGroup:
   services:
     athena: {GetWorkGroup}
 athena_StartQueryExecution:
-  title: Start an &ATH; query execution using an &AWS; SDK
-  title_abbrev: Start a query execution
-  synopsis: start an &ATH; query execution.
   languages:
     Python:
       versions:
@@ -60,9 +51,6 @@ athena_StartQueryExecution:
   services:
     athena: {StartQueryExecution}
 athena_GetQueryExecution:
-  title: Get &ATH; query execution details using an &AWS; SDK
-  title_abbrev: Get query execution details
-  synopsis: get &ATH; query execution details.
   languages:
     Python:
       versions:
@@ -75,9 +63,6 @@ athena_GetQueryExecution:
   services:
     athena: {GetQueryExecution}
 athena_GetQueryResults:
-  title: Get &ATH; query results using an &AWS; SDK
-  title_abbrev: Get query results
-  synopsis: get &ATH; query results.
   languages:
     Python:
       versions:
@@ -90,9 +75,6 @@ athena_GetQueryResults:
   services:
     athena: {GetQueryResults}
 athena_ListQueryExecutions:
-  title: List &ATH; query executions using an &AWS; SDK
-  title_abbrev: List query executions
-  synopsis: list &ATH; query executions.
   languages:
     Python:
       versions:
@@ -105,9 +87,6 @@ athena_ListQueryExecutions:
   services:
     athena: {ListQueryExecutions}
 athena_CreateNamedQuery:
-  title: Create an &ATH; named query using an &AWS; SDK
-  title_abbrev: Create a named query
-  synopsis: create an &ATH; named query.
   languages:
     Python:
       versions:
@@ -119,10 +98,19 @@ athena_CreateNamedQuery:
                 - python.example_code.athena.CreateNamedQuery
   services:
     athena: {CreateNamedQuery}
+athena_GetNamedQuery:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/athena
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.athena.GetNamedQuery
+  services:
+    athena: {GetNamedQuery}
 athena_ListNamedQueries:
-  title: List &ATH; named queries using an &AWS; SDK
-  title_abbrev: List named queries
-  synopsis: list &ATH; named queries.
   languages:
     Python:
       versions:
@@ -135,9 +123,6 @@ athena_ListNamedQueries:
   services:
     athena: {ListNamedQueries}
 athena_DeleteNamedQuery:
-  title: Delete an &ATH; named query using an &AWS; SDK
-  title_abbrev: Delete a named query
-  synopsis: delete an &ATH; named query.
   languages:
     Python:
       versions:
@@ -150,9 +135,6 @@ athena_DeleteNamedQuery:
   services:
     athena: {DeleteNamedQuery}
 athena_DeleteWorkGroup:
-  title: Delete an &ATH; workgroup using an &AWS; SDK
-  title_abbrev: Delete a workgroup
-  synopsis: delete an &ATH; workgroup.
   languages:
     Python:
       versions:
@@ -165,9 +147,9 @@ athena_DeleteWorkGroup:
   services:
     athena: {DeleteWorkGroup}
 athena_Scenario:
-  title: Learn &ATH; basics using an &AWS; SDK
-  title_abbrev: Learn &ATH; basics
-  synopsis: learn &ATH; basics.
+  title: Learn &ATE; basics using an &AWS; SDK
+  title_abbrev: Learn &ATE; basics
+  synopsis: learn &ATE; basics.
   category: Basics
   synopsis_list:
     - Create an Athena workgroup.
@@ -199,6 +181,7 @@ athena_Scenario:
         GetQueryResults,
         ListQueryExecutions,
         CreateNamedQuery,
+        GetNamedQuery,
         ListNamedQueries,
         DeleteNamedQuery,
         DeleteWorkGroup,

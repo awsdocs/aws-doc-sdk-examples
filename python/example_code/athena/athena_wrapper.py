@@ -12,6 +12,7 @@ import time
 from typing import Any, Dict, List, Optional
 
 import boto3
+from botocore.client import BaseClient
 from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)
@@ -22,7 +23,7 @@ logger = logging.getLogger(__name__)
 class AthenaWrapper:
     """Encapsulates Amazon Athena operations."""
 
-    def __init__(self, athena_client: boto3.client) -> None:
+    def __init__(self, athena_client: BaseClient) -> None:
         """
         Initializes the AthenaWrapper with an Athena client.
 
@@ -130,9 +131,7 @@ class AthenaWrapper:
                 params["QueryExecutionContext"] = {"Database": database}
             response = self.athena_client.start_query_execution(**params)
             query_execution_id = response["QueryExecutionId"]
-            logger.info(
-                "Started query execution. ID: %s", query_execution_id
-            )
+            logger.info("Started query execution. ID: %s", query_execution_id)
             return query_execution_id
         except ClientError as err:
             if err.response["Error"]["Code"] == "InvalidRequestException":
@@ -179,6 +178,7 @@ class AthenaWrapper:
 
     # snippet-end:[python.example_code.athena.GetQueryExecution]
 
+    # snippet-start:[python.example_code.athena.WaitForQueryToComplete]
     def wait_for_query_to_complete(
         self, query_execution_id: str, max_wait_seconds: int = 120
     ) -> Dict[str, Any]:
@@ -198,9 +198,11 @@ class AthenaWrapper:
                 logger.info("Query '%s' succeeded.", query_execution_id)
                 return query_execution
             elif state in ("FAILED", "CANCELLED"):
-                reason = query_execution["Status"].get(
-                    "AthenaError", dict()
-                ).get("ErrorMessage", "Unknown error")
+                reason = (
+                    query_execution["Status"]
+                    .get("AthenaError", dict())
+                    .get("ErrorMessage", "Unknown error")
+                )
                 raise RuntimeError(
                     f"Query '{query_execution_id}' {state.lower()}: {reason}"
                 )
@@ -212,10 +214,10 @@ class AthenaWrapper:
                 )
             time.sleep(2)
 
+    # snippet-end:[python.example_code.athena.WaitForQueryToComplete]
+
     # snippet-start:[python.example_code.athena.GetQueryResults]
-    def get_query_results(
-        self, query_execution_id: str
-    ) -> Dict[str, Any]:
+    def get_query_results(self, query_execution_id: str) -> Dict[str, Any]:
         """
         Retrieves the results of a completed query execution using pagination.
 
@@ -226,9 +228,7 @@ class AthenaWrapper:
         """
         try:
             paginator = self.athena_client.get_paginator("get_query_results")
-            page_iterator = paginator.paginate(
-                QueryExecutionId=query_execution_id
-            )
+            page_iterator = paginator.paginate(QueryExecutionId=query_execution_id)
             columns = list()
             rows = list()
             first_page = True
@@ -236,21 +236,22 @@ class AthenaWrapper:
                 result_set = page.get("ResultSet", dict())
                 # Extract column names from metadata on first page
                 if first_page:
-                    column_info = result_set.get(
-                        "ResultSetMetadata", dict()
-                    ).get("ColumnInfo", list())
+                    column_info = result_set.get("ResultSetMetadata", dict()).get(
+                        "ColumnInfo", list()
+                    )
                     columns = [col["Name"] for col in column_info]
                     first_page = False
                 page_rows = result_set.get("Rows", list())
                 for row in page_rows:
                     data = row.get("Data", list())
-                    row_values = [
-                        datum.get("VarCharValue", "") for datum in data
-                    ]
+                    row_values = [datum.get("VarCharValue", "") for datum in data]
                     rows.append(row_values)
-            # The first row from Athena is the header row; skip it if it
-            # matches the column names.
-            if rows and rows[0] == columns:
+            # Athena always returns the column header as the first row of the
+            # result set for SELECT-style queries. Drop it unconditionally when
+            # there are named columns and at least one row, rather than
+            # comparing values (a data row could coincidentally match the
+            # header names).
+            if columns and rows:
                 rows = rows[1:]
             logger.info(
                 "Retrieved %d result rows for query '%s'.",
@@ -282,15 +283,11 @@ class AthenaWrapper:
         :raises ClientError: If the query executions could not be listed.
         """
         try:
-            paginator = self.athena_client.get_paginator(
-                "list_query_executions"
-            )
+            paginator = self.athena_client.get_paginator("list_query_executions")
             page_iterator = paginator.paginate(WorkGroup=work_group)
             execution_ids = list()
             for page in page_iterator:
-                execution_ids.extend(
-                    page.get("QueryExecutionIds", list())
-                )
+                execution_ids.extend(page.get("QueryExecutionIds", list()))
             logger.info(
                 "Found %d query execution(s) in workgroup '%s'.",
                 len(execution_ids),
@@ -339,9 +336,7 @@ class AthenaWrapper:
                 WorkGroup=work_group,
             )
             named_query_id = response["NamedQueryId"]
-            logger.info(
-                "Created named query '%s'. ID: %s", name, named_query_id
-            )
+            logger.info("Created named query '%s'. ID: %s", name, named_query_id)
             return named_query_id
         except ClientError as err:
             if err.response["Error"]["Code"] == "InvalidRequestException":
@@ -357,6 +352,34 @@ class AthenaWrapper:
 
     # snippet-end:[python.example_code.athena.CreateNamedQuery]
 
+    # snippet-start:[python.example_code.athena.GetNamedQuery]
+    def get_named_query(self, named_query_id: str) -> Dict[str, Any]:
+        """
+        Returns the details of a single named (saved) query, including its
+        SQL query string.
+
+        :param named_query_id: The unique ID of the named query.
+        :return: A dictionary containing the named query details.
+        :raises ClientError: If the named query could not be retrieved.
+        """
+        try:
+            response = self.athena_client.get_named_query(NamedQueryId=named_query_id)
+            named_query = response["NamedQuery"]
+            logger.info("Retrieved named query '%s'.", named_query_id)
+            return named_query
+        except ClientError as err:
+            if err.response["Error"]["Code"] == "InvalidRequestException":
+                logger.error(
+                    "Invalid request retrieving named query '%s'. "
+                    "The named query ID was not found or is invalid. %s: %s",
+                    named_query_id,
+                    err.response["Error"]["Code"],
+                    err.response["Error"]["Message"],
+                )
+            raise
+
+    # snippet-end:[python.example_code.athena.GetNamedQuery]
+
     # snippet-start:[python.example_code.athena.ListNamedQueries]
     def list_named_queries(self, work_group: str) -> List[str]:
         """
@@ -371,9 +394,7 @@ class AthenaWrapper:
             page_iterator = paginator.paginate(WorkGroup=work_group)
             named_query_ids = list()
             for page in page_iterator:
-                named_query_ids.extend(
-                    page.get("NamedQueryIds", list())
-                )
+                named_query_ids.extend(page.get("NamedQueryIds", list()))
             logger.info(
                 "Found %d named query ID(s) in workgroup '%s'.",
                 len(named_query_ids),
@@ -402,9 +423,7 @@ class AthenaWrapper:
         :raises ClientError: If the named query could not be deleted.
         """
         try:
-            self.athena_client.delete_named_query(
-                NamedQueryId=named_query_id
-            )
+            self.athena_client.delete_named_query(NamedQueryId=named_query_id)
             logger.info("Deleted named query '%s'.", named_query_id)
         except ClientError as err:
             if err.response["Error"]["Code"] == "InvalidRequestException":
@@ -420,9 +439,7 @@ class AthenaWrapper:
     # snippet-end:[python.example_code.athena.DeleteNamedQuery]
 
     # snippet-start:[python.example_code.athena.DeleteWorkGroup]
-    def delete_work_group(
-        self, name: str, recursive: bool = True
-    ) -> None:
+    def delete_work_group(self, name: str, recursive: bool = True) -> None:
         """
         Deletes the specified workgroup.
 
