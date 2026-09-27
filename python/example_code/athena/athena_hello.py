@@ -12,13 +12,14 @@ Usage:
 import logging
 
 import boto3
+from botocore.client import BaseClient
 from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)
 
 
 # snippet-start:[python.example_code.athena.Hello]
-def hello_athena(athena_client: boto3.client) -> None:
+def hello_athena(athena_client: BaseClient) -> None:
     """
     Lists Amazon Athena workgroups. Demonstrates basic connectivity to the
     Athena service.
