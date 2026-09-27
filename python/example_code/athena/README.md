@@ -36,7 +36,7 @@ python -m pip install -r requirements.txt
 
 ### Get started
 
-- [Hello Athena](athena_hello.py#L20) (`ListWorkGroups`)
+- [Hello Athena](athena_hello.py#L21) (`ListWorkGroups`)
 
 
 ### Basics
