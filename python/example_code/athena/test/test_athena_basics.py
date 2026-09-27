@@ -281,9 +281,7 @@ class TestAthenaBasics:
             test_resources["named_query_id"] = ""
 
             # Verify the named query is no longer listed.
-            remaining = wrapper.list_named_queries(
-                test_resources["workgroup_name"]
-            )
+            remaining = wrapper.list_named_queries(test_resources["workgroup_name"])
             assert nq_id not in remaining
 
     def test_hello_athena(self, test_resources):

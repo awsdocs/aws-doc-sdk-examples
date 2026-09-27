@@ -9,6 +9,7 @@ This factory is used by the make_stubber fixture found in the set of common fixt
 """
 
 from test_tools.acm_stubber import AcmStubber
+from test_tools.athena_stubber import AthenaStubber
 from test_tools.apigateway_stubber import ApiGatewayStubber
 from test_tools.apigatewaymanagementapi_stubber import ApiGatewayManagementApiStubber
 from test_tools.apigateway_v2_stubber import ApiGatewayV2Stubber
@@ -80,6 +81,8 @@ class StubberFactoryNotImplemented(Exception):
 def stubber_factory(service_name):
     if service_name == "acm":
         return AcmStubber
+    elif service_name == "athena":
+        return AthenaStubber
     elif service_name == "apigateway":
         return ApiGatewayStubber
     elif service_name == "apigatewaymanagementapi":
