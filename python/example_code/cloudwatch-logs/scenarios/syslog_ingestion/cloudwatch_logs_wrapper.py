@@ -74,12 +74,13 @@ class CloudWatchLogsWrapper:
         self, log_group_name_prefix: Optional[str] = None
     ) -> list[dict[str, Any]]:
         """
-        Describes all log groups, optionally filtered by a name prefix. The
-        paginator fetches every page of results.
+        Fetches every log group, paging through all results (no limit),
+        optionally filtered by a name prefix.
 
         :param log_group_name_prefix: When set, only log groups whose names
-            start with this prefix are returned.
-        :return: A list of log group description dictionaries.
+            start with this prefix are returned; otherwise all log groups are
+            returned.
+        :return: A list of all matching log group description dictionaries.
         :raises ClientError: If the service is unavailable.
         """
         try:
@@ -265,6 +266,7 @@ class CloudWatchLogsWrapper:
 
     # snippet-end:[python.example_code.cloudwatchlogs.DeleteLogGroup]
 
+    # snippet-start:[python.example_code.cloudwatchlogs.PutResourcePolicy]
     def put_resource_policy(
         self,
         log_group_arn: str,
@@ -316,3 +318,5 @@ class CloudWatchLogsWrapper:
                 error.response["Error"]["Message"],
             )
             raise
+
+    # snippet-end:[python.example_code.cloudwatchlogs.PutResourcePolicy]

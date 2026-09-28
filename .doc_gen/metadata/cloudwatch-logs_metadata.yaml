@@ -412,6 +412,18 @@ cloudwatch-logs_Hello:
                 - python.example_code.cloudwatchlogs.Hello
   services:
     cloudwatch-logs: {DescribeLogGroups}
+cloudwatch-logs_PutResourcePolicy:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/cloudwatch-logs/scenarios/syslog_ingestion
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.cloudwatchlogs.PutResourcePolicy
+  services:
+    cloudwatch-logs: {PutResourcePolicy}
 cloudwatch-logs_PutSyslogConfiguration:
   languages:
     Python:
@@ -471,4 +483,4 @@ cloudwatch-logs_Scenario_SyslogIngestion:
               snippet_tags:
                 - python.example_code.cloudwatchlogs.CloudWatchLogsWrapper.decl
   services:
-    cloudwatch-logs: {CreateLogGroup, DescribeLogGroups, PutSyslogConfiguration, ListSyslogConfigurations, DeleteSyslogConfiguration, DeleteLogGroup}
+    cloudwatch-logs: {CreateLogGroup, DescribeLogGroups, PutResourcePolicy, PutSyslogConfiguration, ListSyslogConfigurations, DeleteSyslogConfiguration, DeleteLogGroup}

@@ -26,7 +26,6 @@ logger = logging.getLogger(__name__)
 # ---------------------------------------------------------------------------
 
 UNIQUE_SUFFIX = uuid.uuid4().hex[:8]
-TEST_LOG_GROUP = f"/syslog/integ-test-{UNIQUE_SUFFIX}"
 
 
 @pytest.fixture(scope="module")
@@ -74,15 +73,17 @@ def test_run_scenario(logs_wrapper, capsys, input_mocker):
             pytest.skip("Syslog VPC endpoint service not available in this Region.")
         raise
     finally:
-        # Belt-and-suspenders cleanup in case the scenario's own cleanup
-        # was interrupted.
-        try:
-            logs_wrapper.delete_syslog_configuration(
-                log_group_identifier=log_group_name,
-                vpc_endpoint_id="vpce-00000000000000000",
-            )
-        except Exception:
-            pass
+        # Cleanup in case the scenario's own cleanup was interrupted. Use the
+        # actual endpoint the scenario created; it is None until the stack
+        # deploys, so guard before attempting to delete the configuration.
+        if scenario.vpc_endpoint_id:
+            try:
+                logs_wrapper.delete_syslog_configuration(
+                    log_group_identifier=log_group_name,
+                    vpc_endpoint_id=scenario.vpc_endpoint_id,
+                )
+            except Exception:
+                pass
         try:
             logs_wrapper.delete_log_group(log_group_name)
         except Exception:
