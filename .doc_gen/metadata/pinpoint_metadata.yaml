@@ -2,322 +2,486 @@ pinpoint_SendMessages:
   languages:
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/Pinpoint
-          sdkguide:
-          excerpts:
-            - description: Send an email message.
-              snippet_tags:
-                - pinpoint.dotnet.pinpoint_send_email_message_api.complete
-            - description: Send an SMS message.
-              snippet_tags:
-                - pinpoint.dotnet.pinpoint_send_sms_message_api.complete
+      - sdk_version: 3
+        github: dotnetv3/Pinpoint
+        sdkguide:
+        excerpts:
+        - description: Send an email message.
+          snippet_tags:
+          - pinpoint.dotnet.pinpoint_send_email_message_api.complete
+        - description: Send an SMS message.
+          snippet_tags:
+          - pinpoint.dotnet.pinpoint_send_sms_message_api.complete
     Kotlin:
       versions:
-        - sdk_version: 1
-          github: kotlin/services/pinpoint
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - pinpoint.kotlin.send_email.main
+      - sdk_version: 1
+        github: kotlin/services/pinpoint
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - pinpoint.kotlin.send_email.main
     Java:
       versions:
-        - sdk_version: 2
-          github: javav2/example_code/pinpoint
-          sdkguide:
-          excerpts:
-            - description: Send an email message.
-              snippet_tags:
-                - pinpoint.java2.send_email.main
-            - description: Send an email message with CC values.
-              snippet_tags:
-                - pinpoint.java2.send_emailcc.main
-            - description: Send an SMS message.
-              snippet_tags:
-                - pinpoint.java2.sendmsg.main
-            - description: Send batch SMS messages.
-              snippet_tags:
-                - pinpoint.java2.sendmsg.batch.main
+      - sdk_version: 2
+        github: javav2/example_code/pinpoint
+        sdkguide:
+        excerpts:
+        - description: Send an email message.
+          snippet_tags:
+          - pinpoint.java2.send_email.main
+        - description: Send an email message with CC values.
+          snippet_tags:
+          - pinpoint.java2.send_emailcc.main
+        - description: Send an SMS message.
+          snippet_tags:
+          - pinpoint.java2.sendmsg.main
+        - description: Send batch SMS messages.
+          snippet_tags:
+          - pinpoint.java2.sendmsg.batch.main
     Python:
       versions:
-        - sdk_version: 3
-          github: python/example_code/pinpoint
-          sdkguide:
-          excerpts:
-            - description: Send an email message.
-              snippet_tags:
-                - pinpoint.python.pinpoint_send_email_message_api.complete
-            - description: Send an SMS message.
-              snippet_tags:
-                - pinpoint.python.pinpoint_send_sms_message_api.complete
-            - description: Send an email message with an existing email template.
-              snippet_tags:
-                - pinpoint.python.pinpoint_send_templated_email_message.complete
-            - description: Send a text message with an existing SMS template.
-              snippet_tags:
-                - pinpoint.python.pinpoint_send_templated_sms_message.complete
+      - sdk_version: 3
+        github: python/example_code/pinpoint
+        sdkguide:
+        excerpts:
+        - description: Send an email message.
+          snippet_tags:
+          - pinpoint.python.pinpoint_send_email_message_api.complete
+        - description: Send an SMS message.
+          snippet_tags:
+          - pinpoint.python.pinpoint_send_sms_message_api.complete
+        - description: Send an email message with an existing email template.
+          snippet_tags:
+          - pinpoint.python.pinpoint_send_templated_email_message.complete
+        - description: Send a text message with an existing SMS template.
+          snippet_tags:
+          - pinpoint.python.pinpoint_send_templated_sms_message.complete
     JavaScript:
       versions:
-        - sdk_version: 3
-          github: javascriptv3/example_code/pinpoint
-          sdkguide:
-          excerpts:
-            - description: Create the client in a separate module and export it.
-              snippet_tags:
-                - pinpoint.JavaScript.createclientv3
-            - description: Send an email message.
-              snippet_tags:
-                - pinpoint.javascript.pinpoint_send_email_message_v3
-            - description: Send an SMS message.
-              snippet_tags:
-                - pinpoint.javascript.pinpoint_send_sms_message_V3
-        - sdk_version: 2
-          github: javascript/example_code/pinpoint
-          sdkguide:
-          excerpts:
-            - description: Send an email message.
-              snippet_tags:
-                - pinpoint.javascript.pinpoint_send_email_message_api.complete
-            - description: Send an SMS message.
-              snippet_tags:
-                - pinpoint.javascript.pinpoint_send_sms_message_api.complete
+      - sdk_version: 3
+        github: javascriptv3/example_code/pinpoint
+        sdkguide:
+        excerpts:
+        - description: Create the client in a separate module and export it.
+          snippet_tags:
+          - pinpoint.JavaScript.createclientv3
+        - description: Send an email message.
+          snippet_tags:
+          - pinpoint.javascript.pinpoint_send_email_message_v3
+        - description: Send an SMS message.
+          snippet_tags:
+          - pinpoint.javascript.pinpoint_send_sms_message_V3
+      - sdk_version: 2
+        github: javascript/example_code/pinpoint
+        sdkguide:
+        excerpts:
+        - description: Send an email message.
+          snippet_tags:
+          - pinpoint.javascript.pinpoint_send_email_message_api.complete
+        - description: Send an SMS message.
+          snippet_tags:
+          - pinpoint.javascript.pinpoint_send_sms_message_api.complete
     SAP ABAP:
       versions:
-        - sdk_version: 1
-          github: sap-abap/services/ppt
-          sdkguide:
-          excerpts:
-            - description: Send an email message.
-              snippet_tags:
-                - ppt.abapv1.send_email_message
-            - description: Send an SMS message.
-              snippet_tags:
-                - ppt.abapv1.send_sms_message
-            - description: Send an email message with an existing email template.
-              snippet_tags:
-                - ppt.abapv1.send_templated_email_message
-            - description: Send a text message with an existing SMS template.
-              snippet_tags:
-                - ppt.abapv1.send_templated_sms_message
+      - sdk_version: 1
+        github: sap-abap/services/ppt
+        sdkguide:
+        excerpts:
+        - description: Send an email message.
+          snippet_tags:
+          - ppt.abapv1.send_email_message
+        - description: Send an SMS message.
+          snippet_tags:
+          - ppt.abapv1.send_sms_message
+        - description: Send an email message with an existing email template.
+          snippet_tags:
+          - ppt.abapv1.send_templated_email_message
+        - description: Send a text message with an existing SMS template.
+          snippet_tags:
+          - ppt.abapv1.send_templated_sms_message
   services:
-    pinpoint: {SendMessages}
+    pinpoint: {SendMessages: null}
 pinpoint_CreateApp:
   languages:
     Kotlin:
       versions:
-        - sdk_version: 1
-          github: kotlin/services/pinpoint
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - pinpoint.kotlin.createapp.main
+      - sdk_version: 1
+        github: kotlin/services/pinpoint
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - pinpoint.kotlin.createapp.main
     Java:
       versions:
-        - sdk_version: 2
-          github: javav2/example_code/pinpoint
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - pinpoint.java2.createapp.main
+      - sdk_version: 2
+        github: javav2/example_code/pinpoint
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - pinpoint.java2.createapp.main
+    Python:
+      versions:
+      - sdk_version: 3
+        github: python/example_code/pinpoint
+        excerpts:
+        - description:
+          snippet_tags:
+          - python.example_code.pinpoint.CreateApp
   services:
-    pinpoint: {CreateApp}
+    pinpoint: {CreateApp: null}
 pinpoint_CreateCampaign:
   languages:
     Kotlin:
       versions:
-        - sdk_version: 1
-          github: kotlin/services/pinpoint
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - pinpoint.kotlin.createcampaign.main
+      - sdk_version: 1
+        github: kotlin/services/pinpoint
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - pinpoint.kotlin.createcampaign.main
     Java:
       versions:
-        - sdk_version: 2
-          github: javav2/example_code/pinpoint
-          sdkguide:
-          excerpts:
-            - description: Create a campaign.
-              snippet_tags:
-                - pinpoint.java2.createcampaign.main
+      - sdk_version: 2
+        github: javav2/example_code/pinpoint
+        sdkguide:
+        excerpts:
+        - description: Create a campaign.
+          snippet_tags:
+          - pinpoint.java2.createcampaign.main
+    Python:
+      versions:
+      - sdk_version: 3
+        github: python/example_code/pinpoint
+        excerpts:
+        - description:
+          snippet_tags:
+          - python.example_code.pinpoint.CreateCampaign
   services:
-    pinpoint: {CreateCampaign}
+    pinpoint: {CreateCampaign: null}
 pinpoint_UpdateEndpoint:
   languages:
     Java:
       versions:
-        - sdk_version: 2
-          github: javav2/example_code/pinpoint
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - pinpoint.java2.createendpoint.main
+      - sdk_version: 2
+        github: javav2/example_code/pinpoint
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - pinpoint.java2.createendpoint.main
   services:
-    pinpoint: {UpdateEndpoint}
+    pinpoint: {UpdateEndpoint: null}
 pinpoint_CreateSegment:
   languages:
     Kotlin:
       versions:
-        - sdk_version: 1
-          github: kotlin/services/pinpoint
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - pinpoint.kotlin.createsegment.main
+      - sdk_version: 1
+        github: kotlin/services/pinpoint
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - pinpoint.kotlin.createsegment.main
     Java:
       versions:
-        - sdk_version: 2
-          github: javav2/example_code/pinpoint
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - pinpoint.java2.createsegment.main
+      - sdk_version: 2
+        github: javav2/example_code/pinpoint
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - pinpoint.java2.createsegment.main
+    Python:
+      versions:
+      - sdk_version: 3
+        github: python/example_code/pinpoint
+        excerpts:
+        - description:
+          snippet_tags:
+          - python.example_code.pinpoint.CreateSegment
   services:
-    pinpoint: {CreateSegment}
+    pinpoint: {CreateSegment: null}
 pinpoint_DeleteApp:
   languages:
     Kotlin:
       versions:
-        - sdk_version: 1
-          github: kotlin/services/pinpoint
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - pinpoint.kotlin.deleteapp.main
+      - sdk_version: 1
+        github: kotlin/services/pinpoint
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - pinpoint.kotlin.deleteapp.main
     Java:
       versions:
-        - sdk_version: 2
-          github: javav2/example_code/pinpoint
-          sdkguide:
-          excerpts:
-            - description: Delete an application.
-              snippet_tags:
-                - pinpoint.java2.deleteapp.main
+      - sdk_version: 2
+        github: javav2/example_code/pinpoint
+        sdkguide:
+        excerpts:
+        - description: Delete an application.
+          snippet_tags:
+          - pinpoint.java2.deleteapp.main
+    Python:
+      versions:
+      - sdk_version: 3
+        github: python/example_code/pinpoint
+        excerpts:
+        - description:
+          snippet_tags:
+          - python.example_code.pinpoint.DeleteApp
   services:
-    pinpoint: {DeleteApp}
+    pinpoint: {DeleteApp: null}
 pinpoint_DeleteEndpoint:
   languages:
     Kotlin:
       versions:
-        - sdk_version: 1
-          github: kotlin/services/pinpoint
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - pinpoint.kotlin.deleteendpoint.main
+      - sdk_version: 1
+        github: kotlin/services/pinpoint
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - pinpoint.kotlin.deleteendpoint.main
     Java:
       versions:
-        - sdk_version: 2
-          github: javav2/example_code/pinpoint
-          sdkguide:
-          excerpts:
-            - description: Delete an endpoint.
-              snippet_tags:
-                - pinpoint.java2.deleteendpoint.main
+      - sdk_version: 2
+        github: javav2/example_code/pinpoint
+        sdkguide:
+        excerpts:
+        - description: Delete an endpoint.
+          snippet_tags:
+          - pinpoint.java2.deleteendpoint.main
   services:
-    pinpoint: {DeleteEndpoint}
+    pinpoint: {DeleteEndpoint: null}
 pinpoint_CreateExportJob:
   languages:
     Java:
       versions:
-        - sdk_version: 2
-          github: javav2/example_code/pinpoint
-          sdkguide:
-          excerpts:
-            - description: Export an endpoint.
-              snippet_tags:
-                - pinpoint.java2.export_endpoint.main
+      - sdk_version: 2
+        github: javav2/example_code/pinpoint
+        sdkguide:
+        excerpts:
+        - description: Export an endpoint.
+          snippet_tags:
+          - pinpoint.java2.export_endpoint.main
   services:
-    pinpoint: {CreateExportJob}
+    pinpoint: {CreateExportJob: null}
 pinpoint_CreateImportJob:
   languages:
     Java:
       versions:
-        - sdk_version: 2
-          github: javav2/example_code/pinpoint
-          sdkguide:
-          excerpts:
-            - description: Import a segment.
-              snippet_tags:
-                - pinpoint.java2.importsegment.main
+      - sdk_version: 2
+        github: javav2/example_code/pinpoint
+        sdkguide:
+        excerpts:
+        - description: Import a segment.
+          snippet_tags:
+          - pinpoint.java2.importsegment.main
   services:
-    pinpoint: {CreateImportJob}
+    pinpoint: {CreateImportJob: null}
 pinpoint_GetUserEndpoints:
   languages:
     Java:
       versions:
-        - sdk_version: 2
-          github: javav2/example_code/pinpoint
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - pinpoint.java2.list_endpoints.main
+      - sdk_version: 2
+        github: javav2/example_code/pinpoint
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - pinpoint.java2.list_endpoints.main
   services:
-    pinpoint: {GetUserEndpoints}
+    pinpoint: {GetUserEndpoints: null}
 pinpoint_GetSegments:
   languages:
     Kotlin:
       versions:
-        - sdk_version: 1
-          github: kotlin/services/pinpoint
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - pinpoint.kotlin.listsegments.main
+      - sdk_version: 1
+        github: kotlin/services/pinpoint
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - pinpoint.kotlin.listsegments.main
     Java:
       versions:
-        - sdk_version: 2
-          github: javav2/example_code/pinpoint
-          sdkguide:
-          excerpts:
-            - description: List segments.
-              snippet_tags:
-                - pinpoint.java2.listsegments.main
+      - sdk_version: 2
+        github: javav2/example_code/pinpoint
+        sdkguide:
+        excerpts:
+        - description: List segments.
+          snippet_tags:
+          - pinpoint.java2.listsegments.main
   services:
-    pinpoint: {GetSegments}
+    pinpoint: {GetSegments: null}
 pinpoint_GetEndpoint:
   languages:
     Kotlin:
       versions:
-        - sdk_version: 1
-          github: kotlin/services/pinpoint
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - pinpoint.kotlin.lookup.main
+      - sdk_version: 1
+        github: kotlin/services/pinpoint
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - pinpoint.kotlin.lookup.main
     Java:
       versions:
-        - sdk_version: 2
-          github: javav2/example_code/pinpoint
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - pinpoint.java2.lookup.main
+      - sdk_version: 2
+        github: javav2/example_code/pinpoint
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - pinpoint.java2.lookup.main
   services:
-    pinpoint: {GetEndpoint}
+    pinpoint: {GetEndpoint: null}
 pinpoint_GetSmsChannel:
   languages:
     Java:
       versions:
-        - sdk_version: 2
-          github: javav2/example_code/pinpoint
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - pinpoint.java2.updatechannel.main
+      - sdk_version: 2
+        github: javav2/example_code/pinpoint
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - pinpoint.java2.updatechannel.main
   services:
-    pinpoint: {GetSmsChannel}
+    pinpoint: {GetSmsChannel: null}
+pinpoint_Hello:
+  title: Hello &AMP;Pinpoint;
+  title_abbrev: Hello &AMP;Pinpoint;
+  synopsis: get started using &AMP;Pinpoint;.
+  languages:
+    Python:
+      versions:
+      - sdk_version: 3
+        github: python/example_code/pinpoint
+        excerpts:
+        - description:
+          snippet_tags:
+          - python.example_code.pinpoint.Hello
+  services:
+    pinpoint: {GetApps: null}
+pinpoint_GetApps:
+  title: Get &AMP;Pinpoint; applications using an &AWS; SDK
+  title_abbrev: Get applications
+  synopsis: get &AMP;Pinpoint; applications.
+  languages:
+    Python:
+      versions:
+      - sdk_version: 3
+        github: python/example_code/pinpoint
+        excerpts:
+        - description:
+          snippet_tags:
+          - python.example_code.pinpoint.GetApps
+  services:
+    pinpoint: {GetApps: null}
+pinpoint_UpdateEmailChannel:
+  title: Update &AMP;Pinpoint; email channel using an &AWS; SDK
+  title_abbrev: Update email channel
+  synopsis: update the &AMP;Pinpoint; email channel for an application.
+  languages:
+    Python:
+      versions:
+      - sdk_version: 3
+        github: python/example_code/pinpoint
+        excerpts:
+        - description:
+          snippet_tags:
+          - python.example_code.pinpoint.UpdateEmailChannel
+  services:
+    pinpoint: {UpdateEmailChannel: null}
+pinpoint_GetCampaign:
+  title: Get an &AMP;Pinpoint; campaign using an &AWS; SDK
+  title_abbrev: Get a campaign
+  synopsis: get information about an &AMP;Pinpoint; campaign.
+  languages:
+    Python:
+      versions:
+      - sdk_version: 3
+        github: python/example_code/pinpoint
+        excerpts:
+        - description:
+          snippet_tags:
+          - python.example_code.pinpoint.GetCampaign
+  services:
+    pinpoint: {GetCampaign: null}
+pinpoint_GetCampaignActivities:
+  title: Get &AMP;Pinpoint; campaign activities using an &AWS; SDK
+  title_abbrev: Get campaign activities
+  synopsis: get activities for an &AMP;Pinpoint; campaign.
+  languages:
+    Python:
+      versions:
+      - sdk_version: 3
+        github: python/example_code/pinpoint
+        excerpts:
+        - description:
+          snippet_tags:
+          - python.example_code.pinpoint.GetCampaignActivities
+  services:
+    pinpoint: {GetCampaignActivities: null}
+pinpoint_DeleteCampaign:
+  title: Delete an &AMP;Pinpoint; campaign using an &AWS; SDK
+  title_abbrev: Delete a campaign
+  synopsis: delete an &AMP;Pinpoint; campaign.
+  languages:
+    Python:
+      versions:
+      - sdk_version: 3
+        github: python/example_code/pinpoint
+        excerpts:
+        - description:
+          snippet_tags:
+          - python.example_code.pinpoint.DeleteCampaign
+  services:
+    pinpoint: {DeleteCampaign: null}
+pinpoint_DeleteSegment:
+  title: Delete an &AMP;Pinpoint; segment using an &AWS; SDK
+  title_abbrev: Delete a segment
+  synopsis: delete an &AMP;Pinpoint; segment.
+  languages:
+    Python:
+      versions:
+      - sdk_version: 3
+        github: python/example_code/pinpoint
+        excerpts:
+        - description:
+          snippet_tags:
+          - python.example_code.pinpoint.DeleteSegment
+  services:
+    pinpoint: {DeleteSegment: null}
+pinpoint_Scenario:
+  title: Learn &AMP;Pinpoint; basics using an &AWS; SDK
+  title_abbrev: Learn &AMP;Pinpoint; basics
+  synopsis: learn &AMP;Pinpoint; basics.
+  category: Basics
+  synopsis_list:
+  - Create an Amazon Pinpoint application.
+  - Configure the email channel with a verified SES identity.
+  - Create a segment targeting email subscribers.
+  - Create and launch an email campaign.
+  - Send a direct transactional email via SendMessages.
+  - Retrieve campaign details and activities.
+  - Clean up all resources.
+  languages:
+    Python:
+      versions:
+      - sdk_version: 3
+        github: python/example_code/pinpoint
+        excerpts:
+        - description: Run an interactive scenario at a command prompt.
+          snippet_tags:
+          - python.example_code.pinpoint.PinpointScenario
+        - description: Create a class that wraps Amazon Pinpoint operations.
+          snippet_tags:
+          - python.example_code.pinpoint.PinpointWrapper.decl
+  services:
+    pinpoint: {CreateApp: null, UpdateEmailChannel: null, CreateSegment: null, CreateCampaign: null, SendMessages: null, GetCampaign: null, GetCampaignActivities: null, DeleteCampaign: null, DeleteSegment: null, DeleteApp: null}
