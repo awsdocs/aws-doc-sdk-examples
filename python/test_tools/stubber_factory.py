@@ -35,6 +35,7 @@ from test_tools.emr_stubber import EmrStubber
 from test_tools.eventbridge_stubber import EventBridgeStubber
 from test_tools.glacier_stubber import GlacierStubber
 from test_tools.glue_stubber import GlueStubber
+from test_tools.greengrassv2_stubber import GreengrassV2Stubber
 from test_tools.iam_stubber import IamStubber
 from test_tools.iot_stubber import IoTStubber
 from test_tools.iot_sitewise_stubber import IoTSitewiseStubber
@@ -139,6 +140,8 @@ def stubber_factory(service_name):
         return GlacierStubber
     elif service_name == "glue":
         return GlueStubber
+    elif service_name == "greengrassv2":
+        return GreengrassV2Stubber
     elif service_name == "iam":
         return IamStubber
     elif service_name == "iot":

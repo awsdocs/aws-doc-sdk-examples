@@ -48,8 +48,20 @@ STEERING_DOCS_KB_ID = "63A2M1LZ2E"
 
 # Code file extensions to include in full-file context
 CODE_EXTENSIONS = {
-    ".py", ".java", ".js", ".ts", ".cs", ".go", ".rs",
-    ".swift", ".rb", ".php", ".cpp", ".h", ".kt", ".sh",
+    ".py",
+    ".java",
+    ".js",
+    ".ts",
+    ".cs",
+    ".go",
+    ".rs",
+    ".swift",
+    ".rb",
+    ".php",
+    ".cpp",
+    ".h",
+    ".kt",
+    ".sh",
 }
 
 REVIEW_CRITERIA = """
@@ -67,14 +79,38 @@ Evaluate the code against these criteria:
 4. **Quality relative to comparables**: How does this example compare to the premium reference examples? Does it follow the same structure, patterns, and idioms?
 5. **Specification compliance** (if a SPECIFICATION.md is provided): Does the implementation satisfy the requirements described in the specification?
 
+SEVERITY DEFINITIONS — label every issue with exactly one, and do not inflate:
+- **blocking**: A correctness, security, or won't-run defect — the code fails to
+  compile/execute, produces wrong results, leaks resources, or has a security
+  flaw. Reserve "blocking" for these. A concern is only blocking if you can
+  point to the specific code that causes it.
+- **nit**: Style, idiom, naming, type-annotation, or cosmetic suggestions. These
+  include things like a nullable type annotation on a never-null value, or
+  preferring one API over another. NEVER mark a nit as blocking.
+- **policy**: Team-process observations that are not code defects — e.g. "no
+  automated tests included". Note these as policy items, not blocking defects.
+  The presence or absence of tests is a policy call for a human, not a defect.
+
+EVIDENCE DISCIPLINE — avoid the most common false positives:
+- Only assert a defect you can verify from the code actually provided. If the
+  relevant code is truncated, not included, or you are inferring behavior you
+  cannot see, say so instead of asserting a problem.
+- Do NOT claim code is unreachable, that cleanup is missing, or that a function
+  is only called on an error path unless the call site proving it is present in
+  the provided context. For example, a `finally:` block runs on BOTH the success
+  and exception paths — do not describe `finally` cleanup as exception-only.
+- Verify identifiers against the shown source before flagging a typo or
+  NameError; do not infer a missing/renamed symbol from a truncated line.
+
 IMPORTANT: You must respond in valid JSON format with this structure:
 {
   "summary": "Overall pass/fail verdict in 1-2 sentences",
-  "detailed_review": "Full detailed analysis as a numbered list. Be specific and actionable. Reference filenames where possible. Include up to 10 points. Cover what's good AND what needs work.",
+  "detailed_review": "Full detailed analysis as a numbered list. Be specific and actionable. Reference filenames where possible. Include up to 10 points. Cover what's good AND what needs work. Prefix each point with its severity in brackets, e.g. '[blocking]', '[nit]', or '[policy]'.",
   "inline_comments": [
     {
       "path": "relative/path/to/file.py",
       "line": 42,
+      "severity": "nit",
       "body": "Specific actionable feedback for this line"
     }
   ]
@@ -92,22 +128,37 @@ Rules for detailed_review:
 - Be specific and actionable, referencing filenames and methods
 - Include up to 10 numbered points
 - Cover both strengths and issues
-- Note blocking issues vs. nice-to-haves
+- Prefix each point with its severity: [blocking], [nit], or [policy]
+- Apply the SEVERITY DEFINITIONS above strictly — do not inflate nits or policy
+  items to blocking
 - If the PR looks good overall, say so and note any minor improvements
 """
 
 INCREMENTAL_REVIEW_ADDENDUM = """
 ADDITIONAL CONTEXT: This is a follow-up review. The PR was previously reviewed and has new commits.
+The current code you are reviewing is at commit {head_sha}.
 Here is the previous review feedback:
 
 {previous_review}
 
-Focus your review on:
-1. Whether the previous suggestions have been addressed
-2. Any NEW issues introduced in the latest changes
-3. Do NOT repeat feedback that has already been addressed
+CRITICAL RE-VERIFICATION RULES:
+1. The previous feedback was written against an EARLIER commit. Before repeating
+   any prior item, re-verify it against the CURRENT code shown to you (diff and
+   full file contents at {head_sha}). If the current code no longer has the
+   issue, treat it as ADDRESSED — do not re-raise it.
+2. Never label an item "still unresolved" or "not addressed" unless you can point
+   to the specific current line at {head_sha} that still exhibits it. A prior
+   finding is not evidence; only the current code is.
+3. Do NOT re-emit a previously-raised finding as if it were "new". If it appeared
+   in earlier feedback, refer to it as a prior item and state whether it is now
+   addressed or still present (with current-line evidence).
+4. Your summary and your detailed points MUST agree. If your summary says an item
+   was addressed, do not also list it as unresolved.
 
-Mention in your summary which previous items were addressed and which (if any) remain.
+Focus your review on:
+1. Whether previous suggestions have been addressed (verified against current code)
+2. Any genuinely NEW issues introduced by the latest changes
+3. Do NOT repeat feedback that has already been addressed
 """
 
 
@@ -166,64 +217,69 @@ def detect_scenario_path(files):
     return None
 
 
-def get_specification(scenario_path, service, files):
-    """Try to find and read SPECIFICATION.md for a scenario.
+def _read_spec(path):
+    """Read a SPECIFICATION.md, returning (path, contents) or None."""
+    if path and os.path.isfile(path):
+        try:
+            with open(path, "r") as f:
+                return path, f.read()
+        except (IOError, OSError):
+            return None
+    return None
 
-    Searches in order:
-    1. SPECIFICATION.md included directly in the PR files
-    2. The detected scenario_path (e.g., scenarios/basics/s3/)
-    3. All scenarios/{category}/{service}/ directories matching the service name
-    4. Fuzzy match on service name variations
+
+def get_specification(scenario_path, service, files):
+    """Find and read the SPECIFICATION.md that actually belongs to this PR.
+
+    Resolution is deliberately conservative — a wrong spec is worse than no
+    spec, because it makes the reviewer evaluate the code against a different
+    service's requirements. We therefore only accept a spec that is tied to the
+    PR's own files or its detected scenario path, and never guess across
+    unrelated scenario directories by service-name prefix.
+
+    Returns a tuple of (resolved_path, contents), or None if no spec is
+    confidently associated with this PR.
+
+    Resolution order:
+    1. A SPECIFICATION.md included directly in the PR's changed files.
+    2. A SPECIFICATION.md sitting in the same directory as a changed file
+       (co-located with the code being reviewed).
+    3. The SPECIFICATION.md at the detected scenario_path.
     """
-    # 1. Check if a SPECIFICATION.md was included in the PR diff itself
+    # 1. A SPECIFICATION.md that is itself part of the PR diff.
     for file_path in files:
         if file_path.endswith("SPECIFICATION.md"):
-            if os.path.isfile(file_path):
-                try:
-                    with open(file_path, "r") as f:
-                        return f.read()
-                except (IOError, OSError):
-                    pass
+            result = _read_spec(file_path)
+            if result:
+                return result
 
-    # 2. Check the detected scenario path directly
+    # 2. A SPECIFICATION.md co-located with a changed file's directory.
+    #    Only consider directories that the PR actually touches, so we can't
+    #    wander into a different service's scenario.
+    seen_dirs = []
+    for file_path in files:
+        directory = os.path.dirname(file_path)
+        while directory and directory not in seen_dirs:
+            seen_dirs.append(directory)
+            candidate = os.path.join(directory, "SPECIFICATION.md")
+            result = _read_spec(candidate)
+            if result:
+                return result
+            # Walk up one level (e.g. .../scenarios/x/lang/ -> .../scenarios/x/)
+            parent = os.path.dirname(directory)
+            if parent == directory:
+                break
+            directory = parent
+
+    # 3. The detected scenario path directly.
     if scenario_path:
-        candidate = f"{scenario_path}/SPECIFICATION.md"
-        if os.path.isfile(candidate):
-            try:
-                with open(candidate, "r") as f:
-                    return f.read()
-            except (IOError, OSError):
-                pass
+        result = _read_spec(f"{scenario_path}/SPECIFICATION.md")
+        if result:
+            return result
 
-    # 3. Search scenarios/{category}/{service}/ by service name
-    if service:
-        scenarios_dir = "scenarios"
-        if os.path.isdir(scenarios_dir):
-            for category in os.listdir(scenarios_dir):
-                category_path = os.path.join(scenarios_dir, category)
-                if not os.path.isdir(category_path):
-                    continue
-                # Exact match
-                candidate = os.path.join(category_path, service, "SPECIFICATION.md")
-                if os.path.isfile(candidate):
-                    try:
-                        with open(candidate, "r") as f:
-                            return f.read()
-                    except (IOError, OSError):
-                        continue
-                # Partial match (e.g., service="s3" matches "s3_conditional_requests")
-                for entry in os.listdir(category_path):
-                    if entry.startswith(service) and entry != service:
-                        candidate = os.path.join(
-                            category_path, entry, "SPECIFICATION.md"
-                        )
-                        if os.path.isfile(candidate):
-                            try:
-                                with open(candidate, "r") as f:
-                                    return f.read()
-                            except (IOError, OSError):
-                                continue
-
+    # No spec confidently associated with this PR. Intentionally do NOT
+    # fall back to searching scenarios/ by service name — that fuzzy match
+    # historically pulled an unrelated service's spec into the review.
     return None
 
 
@@ -253,15 +309,12 @@ def load_previous_reviews(data_dir="/tmp"):
                         line_num = comment.get("line", "")
                         body = comment.get("body", "")
                         if path and body:
-                            inline_comments.append(
-                                f"- **{path}:{line_num}**: {body}"
-                            )
+                            inline_comments.append(f"- **{path}:{line_num}**: {body}")
                     except json.JSONDecodeError:
                         continue
                 if inline_comments:
                     parts.append(
-                        "### Previous Inline Comments:\n"
-                        + "\n".join(inline_comments)
+                        "### Previous Inline Comments:\n" + "\n".join(inline_comments)
                     )
     except FileNotFoundError:
         pass
@@ -333,10 +386,21 @@ def build_full_files_context(full_files, files):
 
     sections = []
     for filename, content in full_files.items():
-        # Truncate very large files
+        # Truncate very large files, and make the truncation explicit so the
+        # model does not raise defects about code it cannot actually see.
+        truncated = False
         if len(content) > 15000:
-            content = content[:15000] + "\n... [truncated]"
-        sections.append(f"### {filename}\n```\n{content}\n```")
+            content = content[:15000]
+            truncated = True
+        section = f"### {filename}\n```\n{content}\n```"
+        if truncated:
+            section += (
+                "\n> NOTE: This file was truncated for length; content beyond "
+                "the shown portion is NOT included. Do not raise defects about "
+                "code that is not visible here — if a concern depends on the "
+                "truncated region, say so instead of asserting a problem."
+            )
+        sections.append(section)
 
     if not sections:
         return ""
@@ -351,16 +415,19 @@ def invoke_claude(
     comparables,
     guidelines,
     specification,
+    specification_path,
     pr_title,
     pr_body,
     is_incremental,
     previous_review,
+    head_sha,
 ):
     """Send the review request to Claude."""
     system_prompt = REVIEW_CRITERIA
     if is_incremental and previous_review:
         system_prompt += INCREMENTAL_REVIEW_ADDENDUM.format(
-            previous_review=previous_review[:5000]
+            previous_review=previous_review[:5000],
+            head_sha=head_sha or "(unknown)",
         )
 
     user_message = f"""## PR: {pr_title}
@@ -385,6 +452,13 @@ def invoke_claude(
     if specification:
         user_message += f"""
 ### SPECIFICATION.md (requirements for this scenario)
+This specification was resolved from the path `{specification_path}`. It is the
+spec the repository tooling associated with the changed files. Before using it,
+confirm it actually describes the same service and scenario as the code under
+review. If the specification clearly covers a different service or feature than
+the code (a tooling mismatch), do NOT raise specification-compliance defects —
+instead note the apparent mismatch in `detailed_review` as an informational
+item and review the code on its own merits.
 ```markdown
 {specification[:10000]}
 ```
@@ -437,9 +511,15 @@ def build_review_payload(parsed_review, pr_files, head_sha):
     body = f"## 🤖 AI Code Example Review\n\n{summary}\n\n"
     if detailed_review:
         body += f"### Detailed Review\n\n{detailed_review}\n\n"
-    body += "---\n<sub>This review was generated automatically using Amazon Bedrock. "
+    body += "---\n"
+    if head_sha:
+        body += f"<sub>Reviewed at commit `{head_sha}`. "
+    else:
+        body += "<sub>"
+    body += "This review was generated automatically using Amazon Bedrock. "
     body += "It compares your changes against existing examples and coding guidelines. "
-    body += "Please use your judgment — this is advisory, not authoritative.</sub>"
+    body += "Findings are labeled by severity (blocking / nit / policy) and reflect "
+    body += "only the commit above. Please use your judgment — this is advisory, not authoritative.</sub>"
 
     # Build comments array for the API
     comments = []
@@ -451,12 +531,19 @@ def build_review_payload(parsed_review, pr_files, head_sha):
 
             # Validate the comment has required fields and path is in the PR
             if path and line and comment_body and path in pr_files:
-                comments.append({
-                    "path": path,
-                    "line": int(line),
-                    "side": "RIGHT",
-                    "body": f"🤖 {comment_body}",
-                })
+                severity = str(comment.get("severity", "")).strip().lower()
+                if severity in ("blocking", "nit", "policy"):
+                    prefix = f"🤖 [{severity}] "
+                else:
+                    prefix = "🤖 "
+                comments.append(
+                    {
+                        "path": path,
+                        "line": int(line),
+                        "side": "RIGHT",
+                        "body": f"{prefix}{comment_body}",
+                    }
+                )
     else:
         print("Warning: head_sha is empty, skipping inline comments")
 
@@ -540,19 +627,23 @@ def main():
         set_output("has_review", "false")
         sys.exit(0)
 
-    # Load full file contents
+    # Load full file contents. Files are stored under their full relative path
+    # (e.g. full_files/python/example_code/s3/foo.py) so that same-named files
+    # across languages/services do not collide.
     full_files_dir = os.path.join(data_dir, "full_files")
     full_files = {}
     if os.path.isdir(full_files_dir):
-        for filename in os.listdir(full_files_dir):
-            filepath = os.path.join(full_files_dir, filename)
-            try:
-                with open(filepath, "r") as f:
-                    content = f.read()
-                    if content.strip():
-                        full_files[filename] = content
-            except (IOError, UnicodeDecodeError):
-                continue
+        for root, _dirs, filenames in os.walk(full_files_dir):
+            for filename in filenames:
+                filepath = os.path.join(root, filename)
+                relpath = os.path.relpath(filepath, full_files_dir)
+                try:
+                    with open(filepath, "r") as f:
+                        content = f.read()
+                        if content.strip():
+                            full_files[relpath] = content
+                except (IOError, UnicodeDecodeError):
+                    continue
 
     print(f"Loaded {len(full_files)} full file(s) for context")
     full_files_context = build_full_files_context(full_files, files)
@@ -568,19 +659,19 @@ def main():
 
     # Check for SPECIFICATION.md
     scenario_path = detect_scenario_path(files)
-    specification = None
     if scenario_path:
         print(f"Detected scenario path: {scenario_path}")
-        specification = get_specification(scenario_path, service, files)
-        if specification:
-            print(f"Found SPECIFICATION.md ({len(specification)} chars)")
-        else:
-            print("No SPECIFICATION.md found for this scenario")
+    spec_result = get_specification(scenario_path, service, files)
+    specification = None
+    specification_path = None
+    if spec_result:
+        specification_path, specification = spec_result
+        print(
+            f"Found SPECIFICATION.md at {specification_path} "
+            f"({len(specification)} chars)"
+        )
     else:
-        # Even without a scenario path, try to find a spec by service name
-        specification = get_specification(None, service, files)
-        if specification:
-            print(f"Found SPECIFICATION.md by service name ({len(specification)} chars)")
+        print("No SPECIFICATION.md confidently associated with this PR")
 
     # Initialize Bedrock clients
     bedrock_agent_runtime = boto3.client("bedrock-agent-runtime", region_name=REGION)
@@ -617,10 +708,12 @@ def main():
         comparables,
         guidelines,
         specification,
+        specification_path,
         pr_title,
         pr_body,
         is_incremental,
         previous_review,
+        head_sha,
     )
 
     # Parse the structured response
@@ -638,7 +731,6 @@ def main():
 
     set_output("has_review", "true")
     print("Review generated successfully.")
-
 
 
 if __name__ == "__main__":

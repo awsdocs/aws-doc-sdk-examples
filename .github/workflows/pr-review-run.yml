@@ -81,8 +81,12 @@ jobs:
             case "$file" in
               *.py|*.java|*.js|*.ts|*.cs|*.go|*.rs|*.swift|*.rb|*.php|*.cpp|*.h|*.kt|*.sh)
                 echo "Fetching: $file"
+                # Preserve the full relative path so files with the same base
+                # name across languages/services don't overwrite each other.
+                dest="/tmp/pr-data/full_files/$file"
+                mkdir -p "$(dirname "$dest")"
                 gh api "repos/${{ github.repository }}/contents/${file}?ref=${PR_HEAD_SHA}" \
-                  --jq '.content' | base64 -d > "/tmp/pr-data/full_files/$(basename "$file")" 2>/dev/null || true
+                  --jq '.content' | base64 -d > "$dest" 2>/dev/null || true
                 ;;
             esac
           done
