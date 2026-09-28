@@ -93,7 +93,17 @@ def run_scenario(cognito_idp_client, user_pool_id, client_id):
     while challenge is not None:
         if challenge == "ADMIN_USER_PASSWORD_AUTH":
             response = cog_wrapper.start_sign_in(user_name, password)
-            challenge = response["ChallengeName"]
+            # start_sign_in may return an AuthenticationResult with no challenge
+            # (for example, when the user pool does not require MFA). Read the
+            # challenge defensively and stop if sign-in already succeeded.
+            challenge = response.get("ChallengeName")
+            if challenge is None:
+                auth_tokens = response.get("AuthenticationResult")
+                if auth_tokens is not None:
+                    print(f"You're signed in as {user_name}.")
+                    print("Here's your access token:")
+                    pp(auth_tokens["AccessToken"])
+                break
         elif response["ChallengeName"] == "MFA_SETUP":
             print("First, we need to set up an MFA application.")
             qr_img = qrcode.make(
@@ -167,6 +177,7 @@ def run_scenario(cognito_idp_client, user_pool_id, client_id):
     print("Don't forget to delete your user pool when you're done with this example.")
     print("\nThanks for watching!")
     print("-" * 88)
+    return user_name
 
 
 def main():
@@ -181,10 +192,26 @@ def main():
         "client_id", help="The ID of the client application to use for the example."
     )
     args = parser.parse_args()
+    client = boto3.client("cognito-idp")
+    created_user = None
     try:
-        run_scenario(boto3.client("cognito-idp"), args.user_pool_id, args.client_id)
+        created_user = run_scenario(client, args.user_pool_id, args.client_id)
     except Exception:
         logging.exception("Something went wrong with the demo.")
+    finally:
+        # Clean up the user this scenario created, on success or failure, so a
+        # run never leaves an orphaned user in the pool. Cleanup errors are
+        # logged but do not mask the original outcome.
+        if created_user is not None:
+            try:
+                client.admin_delete_user(
+                    UserPoolId=args.user_pool_id, Username=created_user
+                )
+                print(f"Deleted user {created_user}.")
+            except Exception:
+                logging.exception(
+                    "Couldn't delete user %s; delete it manually.", created_user
+                )
 
 
 if __name__ == "__main__":
