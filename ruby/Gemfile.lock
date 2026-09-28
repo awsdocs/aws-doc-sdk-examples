@@ -1503,7 +1503,7 @@ GEM
       rubocop (>= 1.72.1)
     ruby-progressbar (1.13.0)
     ruby2_keywords (0.0.5)
-    rubyzip (2.3.2)
+    rubyzip (3.4.0)
     securerandom (0.4.1)
     sequel (5.69.0)
     sinatra (4.2.0)
