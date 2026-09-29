@@ -370,9 +370,6 @@ pinpoint_Hello:
   services:
     pinpoint: {GetApps: null}
 pinpoint_UpdateEmailChannel:
-  title: Update &AMP;Pinpoint; email channel using an &AWS; SDK
-  title_abbrev: Update email channel
-  synopsis: update the &AMP;Pinpoint; email channel for an application.
   languages:
     Python:
       versions:
@@ -385,9 +382,6 @@ pinpoint_UpdateEmailChannel:
   services:
     pinpoint: {UpdateEmailChannel: null}
 pinpoint_GetCampaign:
-  title: Get an &AMP;Pinpoint; campaign using an &AWS; SDK
-  title_abbrev: Get a campaign
-  synopsis: get information about an &AMP;Pinpoint; campaign.
   languages:
     Python:
       versions:
@@ -400,9 +394,6 @@ pinpoint_GetCampaign:
   services:
     pinpoint: {GetCampaign: null}
 pinpoint_GetCampaignActivities:
-  title: Get &AMP;Pinpoint; campaign activities using an &AWS; SDK
-  title_abbrev: Get campaign activities
-  synopsis: get activities for an &AMP;Pinpoint; campaign.
   languages:
     Python:
       versions:
@@ -415,9 +406,6 @@ pinpoint_GetCampaignActivities:
   services:
     pinpoint: {GetCampaignActivities: null}
 pinpoint_DeleteCampaign:
-  title: Delete an &AMP;Pinpoint; campaign using an &AWS; SDK
-  title_abbrev: Delete a campaign
-  synopsis: delete an &AMP;Pinpoint; campaign.
   languages:
     Python:
       versions:
@@ -430,9 +418,6 @@ pinpoint_DeleteCampaign:
   services:
     pinpoint: {DeleteCampaign: null}
 pinpoint_DeleteSegment:
-  title: Delete an &AMP;Pinpoint; segment using an &AWS; SDK
-  title_abbrev: Delete a segment
-  synopsis: delete an &AMP;Pinpoint; segment.
   languages:
     Python:
       versions:
