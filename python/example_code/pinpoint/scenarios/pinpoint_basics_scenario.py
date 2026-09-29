@@ -24,17 +24,24 @@ Amazon Pinpoint. Steps:
 
 import json
 import logging
+import os
+import sys
 import time
 from typing import Any, Optional
 
 import boto3
 from botocore.exceptions import ClientError
 
+# Add the parent directory to the path so pinpoint_wrapper can be imported when
+# this script is run from the scenarios/ subdirectory.
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from pinpoint_wrapper import PinpointWrapper
 
 logger = logging.getLogger(__name__)
 
 STACK_NAME = "pinpoint-basics-ses-identity"
+APPLICATION_NAME = "PinpointBasicsExample"
 
 
 # snippet-start:[python.example_code.pinpoint.PinpointScenario]
@@ -100,6 +107,10 @@ class PinpointScenario:
                 StackName=STACK_NAME,
                 TemplateBody=template_body,
             )
+            # Set this immediately after create_stack returns so cleanup() will
+            # tear the stack down even if the waiter below fails (e.g. the stack
+            # enters ROLLBACK_COMPLETE) — the stack still exists and must be
+            # deleted.
             self.stack_deployed = True
             waiter = self.cf_client.get_waiter("stack_create_complete")
             print("Waiting for stack creation to complete...")
@@ -128,7 +139,7 @@ class PinpointScenario:
 
         # Step 1 — CreateApp
         print("\nStep 1: Creating a new Amazon Pinpoint application...")
-        app = self.pinpoint_wrapper.create_app("PinpointBasicsExample")
+        app = self.pinpoint_wrapper.create_app(APPLICATION_NAME)
         self.app_id = app.get("Id")
         print(
             f"  Name: {app.get('Name')}\n"
@@ -212,7 +223,10 @@ class PinpointScenario:
                 f"    Message ID:      {status.get('MessageId')}\n"
             )
 
-        # Brief pause so the campaign has time to execute.
+        # Brief wait for the IMMEDIATE campaign to be picked up by the
+        # scheduler before we query its status and activities. Campaign
+        # execution is asynchronous, so activities may still be empty for a
+        # newly created campaign; this short pause is best-effort for the demo.
         print("Waiting a moment for the campaign to execute...")
         time.sleep(5)
 
@@ -263,7 +277,9 @@ class PinpointScenario:
                 )
                 self.pinpoint_wrapper.delete_campaign(self.app_id, self.campaign_id)
                 print("Done.")
-            except ClientError:
+            except ClientError as err:
+                if err.response["Error"]["Code"] != "NotFoundException":
+                    raise
                 logger.info("Campaign may already be deleted.")
 
         if self.segment_id and self.app_id:
@@ -274,7 +290,9 @@ class PinpointScenario:
                 )
                 self.pinpoint_wrapper.delete_segment(self.app_id, self.segment_id)
                 print("Done.")
-            except ClientError:
+            except ClientError as err:
+                if err.response["Error"]["Code"] != "NotFoundException":
+                    raise
                 logger.info("Segment may already be deleted.")
 
         if self.app_id:
@@ -285,7 +303,9 @@ class PinpointScenario:
                 )
                 self.pinpoint_wrapper.delete_app(self.app_id)
                 print("Done.")
-            except ClientError:
+            except ClientError as err:
+                if err.response["Error"]["Code"] != "NotFoundException":
+                    raise
                 logger.info("Application may already be deleted.")
 
         if self.stack_deployed:
