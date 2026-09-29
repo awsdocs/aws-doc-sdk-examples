@@ -34,11 +34,32 @@ python -m pip install -r requirements.txt
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Get started
+
+- [Hello Amazon Pinpoint](pinpoint_hello.py#L20) (`GetApps`)
+
+
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn Amazon Pinpoint basics](scenarios/pinpoint_basics_scenario.py)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
+- [CreateApp](pinpoint_wrapper.py#L59)
+- [CreateCampaign](pinpoint_wrapper.py#L175)
+- [CreateSegment](pinpoint_wrapper.py#L133)
+- [DeleteApp](pinpoint_wrapper.py#L429)
+- [DeleteCampaign](pinpoint_wrapper.py#L371)
+- [DeleteSegment](pinpoint_wrapper.py#L400)
+- [GetCampaign](pinpoint_wrapper.py#L304)
+- [GetCampaignActivities](pinpoint_wrapper.py#L337)
 - [SendMessages](pinpoint_send_email_message_api.py#L11)
+- [UpdateEmailChannel](pinpoint_wrapper.py#L89)
 
 
 <!--custom.examples.start-->
@@ -58,6 +79,38 @@ python pinpoint_send_email_message_api.py
 ```  
 <!--custom.instructions.end-->
 
+#### Hello Amazon Pinpoint
+
+This example shows you how to get started using Amazon Pinpoint.
+
+```
+python pinpoint_hello.py
+```
+
+#### Learn Amazon Pinpoint basics
+
+This example shows you how to learn Amazon Pinpoint basics.
+
+- Create an Amazon Pinpoint application.
+- Configure the email channel with a verified SES identity.
+- Create a segment targeting email subscribers.
+- Create and launch an email campaign.
+- Send a direct transactional email via SendMessages.
+- Retrieve campaign details and activities.
+- Clean up all resources.
+
+<!--custom.basic_prereqs.pinpoint_Scenario.start-->
+<!--custom.basic_prereqs.pinpoint_Scenario.end-->
+
+Start the example by running the following at a command prompt:
+
+```
+python scenarios/pinpoint_basics_scenario.py
+```
+
+
+<!--custom.basics.pinpoint_Scenario.start-->
+<!--custom.basics.pinpoint_Scenario.end-->
 
 
 ### Tests

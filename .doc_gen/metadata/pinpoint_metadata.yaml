@@ -354,9 +354,9 @@ pinpoint_GetSmsChannel:
   services:
     pinpoint: {GetSmsChannel: null}
 pinpoint_Hello:
-  title: Hello &AMP;Pinpoint;
-  title_abbrev: Hello &AMP;Pinpoint;
-  synopsis: get started using &AMP;Pinpoint;.
+  title: Hello &PIN;
+  title_abbrev: Hello &PIN;
+  synopsis: get started using &PIN;.
   category: Hello
   languages:
     Python:
@@ -430,9 +430,9 @@ pinpoint_DeleteSegment:
   services:
     pinpoint: {DeleteSegment: null}
 pinpoint_Scenario:
-  title: Learn &AMP;Pinpoint; basics using an &AWS; SDK
-  title_abbrev: Learn &AMP;Pinpoint; basics
-  synopsis: learn &AMP;Pinpoint; basics.
+  title: Learn &PIN; basics using an &AWS; SDK
+  title_abbrev: Learn &PIN; basics
+  synopsis: learn &PIN; basics.
   category: Basics
   synopsis_list:
     - Create an Amazon Pinpoint application.

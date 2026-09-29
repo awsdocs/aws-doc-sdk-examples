@@ -52,16 +52,183 @@ class PinpointStubber(ExampleStubber):
             service_error_code=error_code,
         )
 
-    def stub_get_apps(self, apps):
-        self.add_response(
-            "get_apps",
-            expected_params={},
-            service_response={"ApplicationsResponse": {"Item": apps}},
+    def stub_get_apps(self, apps, page_size=25, error_code=None):
+        expected_params = {"PageSize": str(page_size)}
+        response = {"ApplicationsResponse": {"Item": apps}}
+        self._stub_bifurcator(
+            "get_apps", expected_params, response, error_code=error_code
         )
 
-    def stub_get_apps_error(self, error_code):
+    def stub_get_apps_error(self, error_code, page_size=25):
         self.add_client_error(
-            "get_apps", expected_params={}, service_error_code=error_code
+            "get_apps",
+            expected_params={"PageSize": str(page_size)},
+            service_error_code=error_code,
+        )
+
+    def stub_update_email_channel(
+        self, app_id, from_address, identity_arn, enabled=True, error_code=None
+    ):
+        expected_params = {
+            "ApplicationId": app_id,
+            "EmailChannelRequest": {
+                "FromAddress": from_address,
+                "Identity": identity_arn,
+                "Enabled": enabled,
+            },
+        }
+        response = {
+            "EmailChannelResponse": {
+                "ApplicationId": app_id,
+                "FromAddress": from_address,
+                "Identity": identity_arn,
+                "Enabled": enabled,
+                "Platform": "EMAIL",
+            }
+        }
+        self._stub_bifurcator(
+            "update_email_channel", expected_params, response, error_code=error_code
+        )
+
+    def stub_create_segment(self, app_id, segment_name, segment_id, error_code=None):
+        expected_params = {
+            "ApplicationId": app_id,
+            "WriteSegmentRequest": {
+                "Name": segment_name,
+                "Dimensions": {
+                    "Demographic": {
+                        "Channel": {
+                            "DimensionType": "INCLUSIVE",
+                            "Values": ["EMAIL"],
+                        }
+                    }
+                },
+            },
+        }
+        response = {
+            "SegmentResponse": {
+                "Id": segment_id,
+                "Name": segment_name,
+                "ApplicationId": app_id,
+                "SegmentType": "DIMENSIONAL",
+                "CreationDate": "2024-01-01T00:00:00.000Z",
+                "Arn": f"arn:aws:mobiletargeting:us-west-2:111122223333:apps/{app_id}/segments/{segment_id}",
+            }
+        }
+        self._stub_bifurcator(
+            "create_segment", expected_params, response, error_code=error_code
+        )
+
+    def stub_create_campaign(
+        self,
+        app_id,
+        campaign_name,
+        segment_id,
+        from_address,
+        subject,
+        html_body,
+        text_body,
+        campaign_id,
+        error_code=None,
+    ):
+        expected_params = {
+            "ApplicationId": app_id,
+            "WriteCampaignRequest": {
+                "Name": campaign_name,
+                "SegmentId": segment_id,
+                "MessageConfiguration": {
+                    "EmailMessage": {
+                        "Title": subject,
+                        "Body": text_body,
+                        "HtmlBody": html_body,
+                        "FromAddress": from_address,
+                    }
+                },
+                "Schedule": {"StartTime": "IMMEDIATE"},
+            },
+        }
+        response = {
+            "CampaignResponse": {
+                "Id": campaign_id,
+                "Name": campaign_name,
+                "ApplicationId": app_id,
+                "SegmentId": segment_id,
+                "SegmentVersion": 1,
+                "CreationDate": "2024-01-01T00:00:00.000Z",
+                "LastModifiedDate": "2024-01-01T00:00:00.000Z",
+                "State": {"CampaignStatus": "SCHEDULED"},
+                "Arn": f"arn:aws:mobiletargeting:us-west-2:111122223333:apps/{app_id}/campaigns/{campaign_id}",
+            }
+        }
+        self._stub_bifurcator(
+            "create_campaign", expected_params, response, error_code=error_code
+        )
+
+    def stub_get_campaign(
+        self, app_id, campaign_id, segment_id="seg-456", error_code=None
+    ):
+        expected_params = {"ApplicationId": app_id, "CampaignId": campaign_id}
+        response = {
+            "CampaignResponse": {
+                "Id": campaign_id,
+                "Name": "WelcomeCampaign",
+                "ApplicationId": app_id,
+                "SegmentId": segment_id,
+                "SegmentVersion": 1,
+                "CreationDate": "2024-01-01T00:00:00.000Z",
+                "LastModifiedDate": "2024-01-01T00:00:00.000Z",
+                "State": {"CampaignStatus": "COMPLETED"},
+                "Arn": f"arn:aws:mobiletargeting:us-west-2:111122223333:apps/{app_id}/campaigns/{campaign_id}",
+            }
+        }
+        self._stub_bifurcator(
+            "get_campaign", expected_params, response, error_code=error_code
+        )
+
+    def stub_get_campaign_activities(
+        self, app_id, campaign_id, activities, error_code=None
+    ):
+        expected_params = {"ApplicationId": app_id, "CampaignId": campaign_id}
+        response = {"ActivitiesResponse": {"Item": activities}}
+        self._stub_bifurcator(
+            "get_campaign_activities",
+            expected_params,
+            response,
+            error_code=error_code,
+        )
+
+    def stub_delete_campaign(self, app_id, campaign_id, error_code=None):
+        expected_params = {"ApplicationId": app_id, "CampaignId": campaign_id}
+        response = {
+            "CampaignResponse": {
+                "Id": campaign_id,
+                "Name": "WelcomeCampaign",
+                "ApplicationId": app_id,
+                "SegmentId": "seg-456",
+                "SegmentVersion": 1,
+                "CreationDate": "2024-01-01T00:00:00.000Z",
+                "LastModifiedDate": "2024-01-01T00:00:00.000Z",
+                "Arn": f"arn:aws:mobiletargeting:us-west-2:111122223333:apps/{app_id}/campaigns/{campaign_id}",
+            }
+        }
+        self._stub_bifurcator(
+            "delete_campaign", expected_params, response, error_code=error_code
+        )
+
+    def stub_delete_segment(self, app_id, segment_id, error_code=None):
+        expected_params = {"ApplicationId": app_id, "SegmentId": segment_id}
+        response = {
+            "SegmentResponse": {
+                "Id": segment_id,
+                "Name": "EmailSubscribers",
+                "ApplicationId": app_id,
+                "SegmentType": "DIMENSIONAL",
+                "CreationDate": "2024-01-01T00:00:00.000Z",
+                "Arn": f"arn:aws:mobiletargeting:us-west-2:111122223333:apps/{app_id}/segments/{segment_id}",
+            }
+        }
+        self._stub_bifurcator(
+            "delete_segment", expected_params, response, error_code=error_code
         )
 
     def stub_delete_app(self, app):
