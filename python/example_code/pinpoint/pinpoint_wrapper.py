@@ -6,7 +6,7 @@ Amazon Pinpoint wrapper class that encapsulates Amazon Pinpoint operations.
 """
 
 import logging
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List
 
 import boto3
 from botocore.exceptions import ClientError
@@ -19,7 +19,7 @@ logger = logging.getLogger(__name__)
 class PinpointWrapper:
     """Encapsulates Amazon Pinpoint operations."""
 
-    def __init__(self, pinpoint_client: boto3.client):
+    def __init__(self, pinpoint_client: Any):
         """
         Initializes the PinpointWrapper with a Boto3 Pinpoint client.
 
@@ -35,7 +35,6 @@ class PinpointWrapper:
 
     # snippet-end:[python.example_code.pinpoint.PinpointWrapper.decl]
 
-    # snippet-start:[python.example_code.pinpoint.GetApps]
     def get_apps(self, page_size: int = 25) -> List[Dict[str, Any]]:
         """
         Retrieves information about all applications (projects) associated
@@ -56,7 +55,6 @@ class PinpointWrapper:
                     err.response["Error"]["Message"],
                 )
             raise
-    # snippet-end:[python.example_code.pinpoint.GetApps]
 
     # snippet-start:[python.example_code.pinpoint.CreateApp]
     def create_app(self, app_name: str) -> Dict[str, Any]:
@@ -85,6 +83,7 @@ class PinpointWrapper:
                     err.response["Error"]["Message"],
                 )
             raise
+
     # snippet-end:[python.example_code.pinpoint.CreateApp]
 
     # snippet-start:[python.example_code.pinpoint.UpdateEmailChannel]
@@ -128,12 +127,11 @@ class PinpointWrapper:
                     err.response["Error"]["Message"],
                 )
             raise
+
     # snippet-end:[python.example_code.pinpoint.UpdateEmailChannel]
 
     # snippet-start:[python.example_code.pinpoint.CreateSegment]
-    def create_segment(
-        self, application_id: str, segment_name: str
-    ) -> Dict[str, Any]:
+    def create_segment(self, application_id: str, segment_name: str) -> Dict[str, Any]:
         """
         Creates a new segment targeting email subscribers for an application.
 
@@ -171,6 +169,7 @@ class PinpointWrapper:
                     err.response["Error"]["Message"],
                 )
             raise
+
     # snippet-end:[python.example_code.pinpoint.CreateSegment]
 
     # snippet-start:[python.example_code.pinpoint.CreateCampaign]
@@ -229,6 +228,7 @@ class PinpointWrapper:
                     err.response["Error"]["Message"],
                 )
             raise
+
     # snippet-end:[python.example_code.pinpoint.CreateCampaign]
 
     def send_messages(
@@ -302,9 +302,7 @@ class PinpointWrapper:
             raise
 
     # snippet-start:[python.example_code.pinpoint.GetCampaign]
-    def get_campaign(
-        self, application_id: str, campaign_id: str
-    ) -> Dict[str, Any]:
+    def get_campaign(self, application_id: str, campaign_id: str) -> Dict[str, Any]:
         """
         Retrieves information about the status, configuration, and other
         settings for a campaign.
@@ -333,6 +331,7 @@ class PinpointWrapper:
                     err.response["Error"]["Message"],
                 )
             raise
+
     # snippet-end:[python.example_code.pinpoint.GetCampaign]
 
     # snippet-start:[python.example_code.pinpoint.GetCampaignActivities]
@@ -351,9 +350,7 @@ class PinpointWrapper:
                 ApplicationId=application_id,
                 CampaignId=campaign_id,
             )
-            activities = response.get("ActivitiesResponse", dict()).get(
-                "Item", list()
-            )
+            activities = response.get("ActivitiesResponse", dict()).get("Item", list())
             logger.info(
                 "Retrieved %s activity(ies) for campaign '%s'.",
                 len(activities),
@@ -368,12 +365,11 @@ class PinpointWrapper:
                     err.response["Error"]["Message"],
                 )
             raise
+
     # snippet-end:[python.example_code.pinpoint.GetCampaignActivities]
 
     # snippet-start:[python.example_code.pinpoint.DeleteCampaign]
-    def delete_campaign(
-        self, application_id: str, campaign_id: str
-    ) -> None:
+    def delete_campaign(self, application_id: str, campaign_id: str) -> None:
         """
         Deletes a campaign from an application.
 
@@ -398,12 +394,11 @@ class PinpointWrapper:
                     err.response["Error"]["Message"],
                 )
             raise
+
     # snippet-end:[python.example_code.pinpoint.DeleteCampaign]
 
     # snippet-start:[python.example_code.pinpoint.DeleteSegment]
-    def delete_segment(
-        self, application_id: str, segment_id: str
-    ) -> None:
+    def delete_segment(self, application_id: str, segment_id: str) -> None:
         """
         Deletes a segment from an application.
 
@@ -428,6 +423,7 @@ class PinpointWrapper:
                     err.response["Error"]["Message"],
                 )
             raise
+
     # snippet-end:[python.example_code.pinpoint.DeleteSegment]
 
     # snippet-start:[python.example_code.pinpoint.DeleteApp]
@@ -448,6 +444,7 @@ class PinpointWrapper:
                     err.response["Error"]["Message"],
                 )
             raise
+
     # snippet-end:[python.example_code.pinpoint.DeleteApp]
 
 

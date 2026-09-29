@@ -37,13 +37,9 @@ def hello_pinpoint() -> None:
     except ClientError as err:
         error_code = err.response["Error"]["Code"]
         if error_code == "BadRequestException":
-            logger.error(
-                "Bad request: %s", err.response["Error"]["Message"]
-            )
+            logger.error("Bad request: %s", err.response["Error"]["Message"])
         elif error_code == "InternalServerErrorException":
-            logger.error(
-                "Internal server error: %s", err.response["Error"]["Message"]
-            )
+            logger.error("Internal server error: %s", err.response["Error"]["Message"])
         raise
 
 

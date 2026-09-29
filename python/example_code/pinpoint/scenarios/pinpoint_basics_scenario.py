@@ -24,9 +24,8 @@ Amazon Pinpoint. Steps:
 
 import json
 import logging
-import sys
 import time
-from typing import Optional
+from typing import Any, Optional
 
 import boto3
 from botocore.exceptions import ClientError
@@ -45,8 +44,8 @@ class PinpointScenario:
     def __init__(
         self,
         pinpoint_wrapper: PinpointWrapper,
-        cf_client: boto3.client,
-        sts_client: boto3.client,
+        cf_client: Any,
+        sts_client: Any,
     ):
         """
         :param pinpoint_wrapper: An instance of PinpointWrapper.
@@ -86,9 +85,11 @@ class PinpointScenario:
             }
         )
         print(
-            "\n" + "-" * 80
+            "\n"
+            + "-" * 80
             + "\nSetting up resources for the Amazon Pinpoint Basics scenario..."
-            + "\n" + "-" * 80
+            + "\n"
+            + "-" * 80
         )
         print(
             f"\nDeploying CloudFormation stack '{STACK_NAME}' to create "
@@ -199,8 +200,7 @@ class PinpointScenario:
                 "<p>This is a transactional email sent via the SendMessages API.</p>"
             ),
             text_body=(
-                "Hello! This is a transactional email sent via the "
-                "SendMessages API."
+                "Hello! This is a transactional email sent via the " "SendMessages API."
             ),
         )
         print("Message delivery results:")
@@ -261,9 +261,7 @@ class PinpointScenario:
                     f"Step 8: Deleting campaign '{self.campaign_id}'...",
                     end=" ",
                 )
-                self.pinpoint_wrapper.delete_campaign(
-                    self.app_id, self.campaign_id
-                )
+                self.pinpoint_wrapper.delete_campaign(self.app_id, self.campaign_id)
                 print("Done.")
             except ClientError:
                 logger.info("Campaign may already be deleted.")
@@ -274,9 +272,7 @@ class PinpointScenario:
                     f"Step 9: Deleting segment '{self.segment_id}'...",
                     end=" ",
                 )
-                self.pinpoint_wrapper.delete_segment(
-                    self.app_id, self.segment_id
-                )
+                self.pinpoint_wrapper.delete_segment(self.app_id, self.segment_id)
                 print("Done.")
             except ClientError:
                 logger.info("Segment may already be deleted.")

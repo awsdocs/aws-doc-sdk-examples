@@ -10,18 +10,16 @@ the main service client, fully offline.
 Run with:  pytest test_pinpoint_wrapper.py -v
 """
 
-import json
-
 import boto3
 import pytest
 from botocore.stub import Stubber
 
 from pinpoint_wrapper import PinpointWrapper
 
-
 # ---------------------------------------------------------------------------
 # Fixtures
 # ---------------------------------------------------------------------------
+
 
 @pytest.fixture
 def pinpoint_client():
@@ -47,6 +45,7 @@ def wrapper(pinpoint_client):
 # Test: get_apps (GetApps)
 # ---------------------------------------------------------------------------
 
+
 class TestGetApps:
     def test_get_apps_returns_list(self, pinpoint_stubber, wrapper):
         pinpoint_stubber.add_response(
@@ -54,8 +53,16 @@ class TestGetApps:
             {
                 "ApplicationsResponse": {
                     "Item": [
-                        {"Id": "app-111", "Name": "TestApp1", "Arn": "arn:aws:mobiletargeting:us-east-1:123456789012:apps/app-111"},
-                        {"Id": "app-222", "Name": "TestApp2", "Arn": "arn:aws:mobiletargeting:us-east-1:123456789012:apps/app-222"},
+                        {
+                            "Id": "app-111",
+                            "Name": "TestApp1",
+                            "Arn": "arn:aws:mobiletargeting:us-east-1:123456789012:apps/app-111",
+                        },
+                        {
+                            "Id": "app-222",
+                            "Name": "TestApp2",
+                            "Arn": "arn:aws:mobiletargeting:us-east-1:123456789012:apps/app-222",
+                        },
                     ]
                 }
             },
@@ -82,12 +89,15 @@ class TestGetApps:
         )
         with pytest.raises(Exception) as exc_info:
             wrapper.get_apps()
-        assert "BadRequestException" in str(exc_info.value) or "An error occurred" in str(exc_info.value)
+        assert "BadRequestException" in str(
+            exc_info.value
+        ) or "An error occurred" in str(exc_info.value)
 
 
 # ---------------------------------------------------------------------------
 # Test: create_app (CreateApp)
 # ---------------------------------------------------------------------------
+
 
 class TestCreateApp:
     def test_create_app_success(self, pinpoint_stubber, wrapper):
@@ -119,6 +129,7 @@ class TestCreateApp:
 # ---------------------------------------------------------------------------
 # Test: update_email_channel (UpdateEmailChannel)
 # ---------------------------------------------------------------------------
+
 
 class TestUpdateEmailChannel:
     def test_update_email_channel_success(self, pinpoint_stubber, wrapper):
@@ -163,6 +174,7 @@ class TestUpdateEmailChannel:
 # Test: create_segment (CreateSegment)
 # ---------------------------------------------------------------------------
 
+
 class TestCreateSegment:
     def test_create_segment_success(self, pinpoint_stubber, wrapper):
         app_id = "app-123"
@@ -174,6 +186,7 @@ class TestCreateSegment:
                     "Name": "EmailSubscribers",
                     "ApplicationId": app_id,
                     "SegmentType": "DIMENSIONAL",
+                    "CreationDate": "2024-01-01T00:00:00.000Z",
                     "Arn": "arn:aws:mobiletargeting:us-east-1:123456789012:apps/app-123/segments/seg-456",
                 }
             },
@@ -210,6 +223,7 @@ class TestCreateSegment:
 # Test: create_campaign (CreateCampaign)
 # ---------------------------------------------------------------------------
 
+
 class TestCreateCampaign:
     def test_create_campaign_success(self, pinpoint_stubber, wrapper):
         app_id = "app-123"
@@ -222,6 +236,9 @@ class TestCreateCampaign:
                     "Name": "WelcomeCampaign",
                     "ApplicationId": app_id,
                     "SegmentId": seg_id,
+                    "SegmentVersion": 1,
+                    "CreationDate": "2024-01-01T00:00:00.000Z",
+                    "LastModifiedDate": "2024-01-01T00:00:00.000Z",
                     "State": {"CampaignStatus": "SCHEDULED"},
                     "Arn": "arn:aws:mobiletargeting:us-east-1:123456789012:apps/app-123/campaigns/camp-789",
                 }
@@ -260,6 +277,7 @@ class TestCreateCampaign:
 # Test: send_messages (SendMessages) — no snippet tags but code still works
 # ---------------------------------------------------------------------------
 
+
 class TestSendMessages:
     def test_send_messages_success(self, pinpoint_stubber, wrapper):
         app_id = "app-123"
@@ -282,15 +300,16 @@ class TestSendMessages:
             {
                 "ApplicationId": app_id,
                 "MessageRequest": {
-                    "Addresses": {
-                        to_addr: {"ChannelType": "EMAIL"}
-                    },
+                    "Addresses": {to_addr: {"ChannelType": "EMAIL"}},
                     "MessageConfiguration": {
                         "EmailMessage": {
                             "FromAddress": from_addr,
                             "SimpleEmail": {
                                 "Subject": {"Charset": "UTF-8", "Data": "Test Subject"},
-                                "HtmlPart": {"Charset": "UTF-8", "Data": "<p>Hello</p>"},
+                                "HtmlPart": {
+                                    "Charset": "UTF-8",
+                                    "Data": "<p>Hello</p>",
+                                },
                                 "TextPart": {"Charset": "UTF-8", "Data": "Hello"},
                             },
                         }
@@ -312,14 +331,19 @@ class TestSendMessages:
         )
         with pytest.raises(Exception):
             wrapper.send_messages(
-                "app-123", "bad@example.com", ["r@example.com"],
-                "Subject", "<p>Body</p>", "Body"
+                "app-123",
+                "bad@example.com",
+                ["r@example.com"],
+                "Subject",
+                "<p>Body</p>",
+                "Body",
             )
 
 
 # ---------------------------------------------------------------------------
 # Test: get_campaign (GetCampaign)
 # ---------------------------------------------------------------------------
+
 
 class TestGetCampaign:
     def test_get_campaign_success(self, pinpoint_stubber, wrapper):
@@ -333,6 +357,9 @@ class TestGetCampaign:
                     "Name": "WelcomeCampaign",
                     "ApplicationId": app_id,
                     "SegmentId": "seg-456",
+                    "SegmentVersion": 1,
+                    "CreationDate": "2024-01-01T00:00:00.000Z",
+                    "LastModifiedDate": "2024-01-01T00:00:00.000Z",
                     "State": {"CampaignStatus": "COMPLETED"},
                     "Arn": "arn:aws:mobiletargeting:us-east-1:123456789012:apps/app-123/campaigns/camp-789",
                 }
@@ -357,6 +384,7 @@ class TestGetCampaign:
 # Test: get_campaign_activities (GetCampaignActivities)
 # ---------------------------------------------------------------------------
 
+
 class TestGetCampaignActivities:
     def test_get_campaign_activities_success(self, pinpoint_stubber, wrapper):
         app_id = "app-123"
@@ -368,6 +396,7 @@ class TestGetCampaignActivities:
                     "Item": [
                         {
                             "Id": "act-001",
+                            "ApplicationId": app_id,
                             "CampaignId": camp_id,
                             "State": "COMPLETED",
                             "SuccessfulEndpointCount": 1,
@@ -396,6 +425,7 @@ class TestGetCampaignActivities:
 # Test: delete_campaign (DeleteCampaign)
 # ---------------------------------------------------------------------------
 
+
 class TestDeleteCampaign:
     def test_delete_campaign_success(self, pinpoint_stubber, wrapper):
         app_id = "app-123"
@@ -407,6 +437,10 @@ class TestDeleteCampaign:
                     "Id": camp_id,
                     "Name": "WelcomeCampaign",
                     "ApplicationId": app_id,
+                    "SegmentId": "seg-456",
+                    "SegmentVersion": 1,
+                    "CreationDate": "2024-01-01T00:00:00.000Z",
+                    "LastModifiedDate": "2024-01-01T00:00:00.000Z",
                     "Arn": "arn:aws:mobiletargeting:us-east-1:123456789012:apps/app-123/campaigns/camp-789",
                 }
             },
@@ -428,6 +462,7 @@ class TestDeleteCampaign:
 # Test: delete_segment (DeleteSegment)
 # ---------------------------------------------------------------------------
 
+
 class TestDeleteSegment:
     def test_delete_segment_success(self, pinpoint_stubber, wrapper):
         app_id = "app-123"
@@ -440,6 +475,7 @@ class TestDeleteSegment:
                     "Name": "EmailSubscribers",
                     "ApplicationId": app_id,
                     "SegmentType": "DIMENSIONAL",
+                    "CreationDate": "2024-01-01T00:00:00.000Z",
                     "Arn": "arn:aws:mobiletargeting:us-east-1:123456789012:apps/app-123/segments/seg-456",
                 }
             },
@@ -460,6 +496,7 @@ class TestDeleteSegment:
 # ---------------------------------------------------------------------------
 # Test: delete_app (DeleteApp)
 # ---------------------------------------------------------------------------
+
 
 class TestDeleteApp:
     def test_delete_app_success(self, pinpoint_stubber, wrapper):
