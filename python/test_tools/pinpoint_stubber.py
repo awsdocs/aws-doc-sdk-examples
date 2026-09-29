@@ -32,17 +32,17 @@ class PinpointStubber(ExampleStubber):
         """
         super().__init__(client, use_stubs)
 
-    def stub_create_app(self, name):
-        self.add_response(
-            "create_app",
-            expected_params={"CreateApplicationRequest": {"Name": name}},
-            service_response={
-                "ApplicationResponse": {
-                    "Arn": "arn:aws:mobiletargeting:us-west-2:111122223333:apps/d41d8cd98f00b204e9800998ecf8427e",
-                    "Id": "d41d8cd98f00b204e9800998ecf8427e",
-                    "Name": name,
-                }
-            },
+    def stub_create_app(self, name, error_code=None):
+        expected_params = {"CreateApplicationRequest": {"Name": name}}
+        response = {
+            "ApplicationResponse": {
+                "Arn": "arn:aws:mobiletargeting:us-west-2:111122223333:apps/d41d8cd98f00b204e9800998ecf8427e",
+                "Id": "d41d8cd98f00b204e9800998ecf8427e",
+                "Name": name,
+            }
+        }
+        self._stub_bifurcator(
+            "create_app", expected_params, response, error_code=error_code
         )
 
     def stub_create_app_error(self, name, error_code):
@@ -229,6 +229,52 @@ class PinpointStubber(ExampleStubber):
         }
         self._stub_bifurcator(
             "delete_segment", expected_params, response, error_code=error_code
+        )
+
+    def stub_send_messages(
+        self,
+        app_id,
+        from_address,
+        to_addresses,
+        subject,
+        html_body,
+        text_body,
+        message_ids,
+        error_code=None,
+    ):
+        expected_params = {
+            "ApplicationId": app_id,
+            "MessageRequest": {
+                "Addresses": {
+                    to_address: {"ChannelType": "EMAIL"} for to_address in to_addresses
+                },
+                "MessageConfiguration": {
+                    "EmailMessage": {
+                        "FromAddress": from_address,
+                        "SimpleEmail": {
+                            "Subject": {"Charset": "UTF-8", "Data": subject},
+                            "HtmlPart": {"Charset": "UTF-8", "Data": html_body},
+                            "TextPart": {"Charset": "UTF-8", "Data": text_body},
+                        },
+                    }
+                },
+            },
+        }
+        response = {
+            "MessageResponse": {
+                "ApplicationId": app_id,
+                "Result": {
+                    to_address: {
+                        "MessageId": message_id,
+                        "DeliveryStatus": "SUCCESSFUL",
+                        "StatusCode": 200,
+                    }
+                    for to_address, message_id in zip(to_addresses, message_ids)
+                },
+            }
+        }
+        self._stub_bifurcator(
+            "send_messages", expected_params, response, error_code=error_code
         )
 
     def stub_delete_app(self, app):
