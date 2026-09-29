@@ -190,3 +190,61 @@ def test_scenario(make_stubber, stub_runner, monkeypatch, error_code, stop_on_me
         with pytest.raises(ClientError) as exc_info:
             scenario.run_scenario(cognito_idp_client, user_pool_id, client_id)
         assert exc_info.value.response["Error"]["Code"] == error_code
+
+
+def _run_to_device_step(monkeypatch, respond_device_info):
+    """
+    Drive the scenario through sign-up + MFA to the device-confirmation step,
+    returning the AdminRespondToAuthChallenge with the given device_info shape.
+    Uses a MagicMock wrapper (not the stubber) so the test can focus on the
+    scenario's device-tail branch handling rather than the SDK wire calls.
+    """
+    wrapper = MagicMock()
+    wrapper.sign_up_user.return_value = True  # confirmed -> skip email loop
+    wrapper.list_users.return_value = []
+    wrapper.start_sign_in.return_value = {
+        "ChallengeName": "SOFTWARE_TOKEN_MFA",
+        "Session": "test-session",
+    }
+    wrapper.verify_mfa.return_value = {"Status": "SUCCESS"}
+    tokens = {"AccessToken": "test-token"}
+    if respond_device_info is not None:
+        tokens["NewDeviceMetadata"] = respond_device_info
+    wrapper.respond_to_mfa_challenge.return_value = tokens
+    # scenario uses demo_tools.question.ask, which RE-PROMPTS on empty input.
+    # Stub it to return a non-empty answer so prompts resolve without looping.
+    monkeypatch.setattr(scenario.q, "ask", lambda *a, **k: "x")
+    monkeypatch.setattr(
+        scenario, "CognitoIdentityProviderWrapper", lambda *a, **k: wrapper
+    )
+    return wrapper
+
+
+def test_scenario_no_device_tracking(monkeypatch):
+    """
+    When the user pool does not track devices, AdminRespondToAuthChallenge
+    returns no NewDeviceMetadata. The scenario should skip the device steps
+    gracefully instead of raising KeyError.
+    """
+    _run_to_device_step(monkeypatch, respond_device_info=None)
+    # Must not raise (previously raised KeyError: 'NewDeviceMetadata').
+    scenario.run_scenario(MagicMock(), "test-pool", "test-client")
+
+
+def test_scenario_confirm_device_invalid_key(monkeypatch):
+    """
+    When sign-in uses the admin flow, ConfirmDevice can reject the device key
+    with InvalidParameterException ("Invalid device key given"). The scenario
+    should catch it, explain the USER_SRP_AUTH requirement, and finish cleanly
+    instead of crashing.
+    """
+    wrapper = _run_to_device_step(
+        monkeypatch,
+        respond_device_info={"DeviceKey": "us-east-1_x", "DeviceGroupKey": "-g"},
+    )
+    wrapper.confirm_mfa_device.side_effect = ClientError(
+        {"Error": {"Code": "InvalidParameterException", "Message": "Invalid device key given"}},
+        "ConfirmDevice",
+    )
+    # Must not raise (previously raised ClientError and aborted the demo).
+    scenario.run_scenario(MagicMock(), "test-pool", "test-client")
