@@ -67,6 +67,13 @@ sns_Hello:
             - description: The main Swift program.
               snippet_tags:
                 - swift.sns.basics.hello
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/sns
+          excerpts:
+            - snippet_tags:
+                - python.example_code.sns.Hello
   services:
     sns: {ListTopics}
 sns_GetTopicAttributes:
