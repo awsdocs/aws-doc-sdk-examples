@@ -1,0 +1,88 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: >
+  Prerequisite stack for the Amazon Cognito Client Token and Terms scenario.
+  Creates a user pool, resource server with custom scopes, an M2M-enabled
+  app client with a client secret, and terms-of-use / privacy-policy documents.
+
+Resources:
+
+  # ------------------------------------------------------------------
+  # 1. User Pool
+  # ------------------------------------------------------------------
+  CognitoUserPool:
+    Type: AWS::Cognito::UserPool
+    Properties:
+      UserPoolName: !Sub "m2m-demo-pool-${AWS::StackName}"
+      DeletionProtection: INACTIVE
+
+  # ------------------------------------------------------------------
+  # 2. Resource Server with custom scopes
+  # ------------------------------------------------------------------
+  ResourceServer:
+    Type: AWS::Cognito::UserPoolResourceServer
+    Properties:
+      UserPoolId: !Ref CognitoUserPool
+      Identifier: my-m2m-api
+      Name: M2M Demo API
+      Scopes:
+        - ScopeName: read
+          ScopeDescription: Read access to the API
+        - ScopeName: write
+          ScopeDescription: Write access to the API
+
+  # ------------------------------------------------------------------
+  # 3. App Client (M2M / client-credentials)
+  # ------------------------------------------------------------------
+  M2MAppClient:
+    DependsOn: ResourceServer
+    Type: AWS::Cognito::UserPoolClient
+    Properties:
+      UserPoolId: !Ref CognitoUserPool
+      ClientName: !Sub "m2m-demo-client-${AWS::StackName}"
+      GenerateSecret: true
+      ExplicitAuthFlows:
+        - ALLOW_CLIENT_TOKEN_AUTH
+      AllowedOAuthFlowsUserPoolClient: true
+      AllowedOAuthFlows:
+        - client_credentials
+      AllowedOAuthScopes:
+        - my-m2m-api/read
+        - my-m2m-api/write
+
+  # ------------------------------------------------------------------
+  # 4a. Terms document - terms-of-use
+  # ------------------------------------------------------------------
+  TermsOfUse:
+    Type: AWS::Cognito::Terms
+    Properties:
+      UserPoolId: !GetAtt CognitoUserPool.UserPoolId
+      ClientId: !GetAtt M2MAppClient.ClientId
+      TermsName: terms-of-use
+      Enforcement: NONE
+      TermsSource: LINK
+      Links:
+        "cognito:default": "https://example.com/terms/"
+
+  # ------------------------------------------------------------------
+  # 4b. Terms document - privacy-policy
+  # ------------------------------------------------------------------
+  PrivacyPolicy:
+    Type: AWS::Cognito::Terms
+    Properties:
+      UserPoolId: !GetAtt CognitoUserPool.UserPoolId
+      ClientId: !GetAtt M2MAppClient.ClientId
+      TermsName: privacy-policy
+      Enforcement: NONE
+      TermsSource: LINK
+      Links:
+        "cognito:default": "https://example.com/privacy/"
+
+Outputs:
+
+  UserPoolId:
+    Description: The ID of the Cognito user pool
+    Value: !GetAtt CognitoUserPool.UserPoolId
+
+  ClientId:
+    Description: The ID of the M2M app client
+    Value: !GetAtt M2MAppClient.ClientId
