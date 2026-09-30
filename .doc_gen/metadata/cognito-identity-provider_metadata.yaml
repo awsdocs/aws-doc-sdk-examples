@@ -1082,3 +1082,64 @@ cognito-identity-provider_Scenario_SignUpUserWithMfa:
   services:
     cognito-identity-provider: {ConfirmSignUp, ConfirmDevice, AssociateSoftwareToken, AdminGetUser, ListUsers, ResendConfirmationCode,
                                 RespondToAuthChallenge, AdminRespondToAuthChallenge, SignUp, InitiateAuth, AdminInitiateAuth, VerifySoftwareToken}
+cognito-identity-provider_DescribeUserPoolClient:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/cognito/scenarios/client_token
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.cognito-idp.DescribeUserPoolClient
+  services:
+    cognito-identity-provider: {DescribeUserPoolClient}
+cognito-identity-provider_GetClientToken:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/cognito/scenarios/client_token
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.cognito-idp.GetClientToken
+  services:
+    cognito-identity-provider: {GetClientToken}
+cognito-identity-provider_DescribeTermsByClient:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/cognito/scenarios/client_token
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.cognito-idp.DescribeTermsByClient
+  services:
+    cognito-identity-provider: {DescribeTermsByClient}
+cognito-identity-provider_Scenario_ClientTokenAndTerms:
+  title: Get M2M client tokens and discover Terms with &COG; using an &AWS; SDK
+  title_abbrev: Client token and Terms discovery
+  synopsis: use &COG; machine-to-machine (M2M) authorization and Terms discovery.
+  category: Scenarios
+  synopsis_list:
+    - Deploy a CloudFormation stack with Cognito resources (user pool, resource server, app client, Terms documents).
+    - Retrieve the app client secret with DescribeUserPoolClient.
+    - Obtain M2M access tokens with GetClientToken.
+    - Discover Terms documents with DescribeTermsByClient.
+    - Clean up by deleting the CloudFormation stack.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/cognito/scenarios/client_token
+          excerpts:
+            - description: Run an interactive scenario at a command prompt.
+              snippet_tags:
+                - python.example_code.cognito-idp.ClientTokenAndTermsScenario
+            - description: Create a class that wraps Amazon Cognito Identity Provider operations.
+              snippet_tags:
+                - python.example_code.cognito-idp.CognitoIdentityProviderWrapper.decl
+  services:
+    cognito-identity-provider: {DescribeUserPoolClient, GetClientToken, DescribeTermsByClient}
