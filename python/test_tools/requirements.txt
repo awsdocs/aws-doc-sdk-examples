@@ -1,6 +1,7 @@
 awscli>=1.27.81
 amazon-dax-client>=1.1.7
-boto3>=1.26.81
+boto3>=1.43.35
+botocore>=1.43.35
 cassandra-driver>=3.25.0
 cassandra-sigv4>=4.0.2
 chalice<=1.27.1
