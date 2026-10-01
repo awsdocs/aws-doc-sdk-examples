@@ -12,7 +12,7 @@ documents.
 import logging
 from typing import Any, Optional
 
-import boto3
+from botocore.client import BaseClient
 from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)
@@ -22,7 +22,7 @@ logger = logging.getLogger(__name__)
 class CognitoIdentityProviderWrapper:
     """Encapsulates Amazon Cognito Identity Provider actions."""
 
-    def __init__(self, cognito_idp_client: boto3.client):
+    def __init__(self, cognito_idp_client: BaseClient):
         """
         Initializes the CognitoIdentityProviderWrapper with an Amazon Cognito
         Identity Provider client.
@@ -32,42 +32,6 @@ class CognitoIdentityProviderWrapper:
         self.cognito_idp_client = cognito_idp_client
 
     # snippet-end:[python.example_code.cognito-idp.CognitoIdentityProviderWrapper.decl]
-
-    # snippet-start:[python.example_code.cognito-idp.ListUserPoolClients]
-    def list_user_pool_clients(
-        self, user_pool_id: str, max_results: int = 5
-    ) -> list[dict[str, Any]]:
-        """
-        Lists app clients in a user pool using pagination.
-
-        :param user_pool_id: The ID of the user pool to list clients for.
-        :param max_results: The maximum number of results per page.
-        :return: A list of app client descriptions.
-        """
-        try:
-            clients = list()
-            paginator = self.cognito_idp_client.get_paginator("list_user_pool_clients")
-            page_iterator = paginator.paginate(
-                UserPoolId=user_pool_id,
-                PaginationConfig={"PageSize": max_results},
-            )
-            for page in page_iterator:
-                clients.extend(page.get("UserPoolClients", list()))
-            logger.info(
-                "Listed %d app clients for user pool %s.",
-                len(clients),
-                user_pool_id,
-            )
-            return clients
-        except ClientError as err:
-            if err.response["Error"]["Code"] == "ResourceNotFoundException":
-                logger.error(
-                    "The user pool %s does not exist. Verify the user pool ID.",
-                    user_pool_id,
-                )
-            raise
-
-    # snippet-end:[python.example_code.cognito-idp.ListUserPoolClients]
 
     # snippet-start:[python.example_code.cognito-idp.DescribeUserPoolClient]
     def describe_user_pool_client(
@@ -132,7 +96,7 @@ class CognitoIdentityProviderWrapper:
             response = self.cognito_idp_client.get_client_token(**params)
             auth_result = response.get("ClientAuthenticationResult", dict())
             logger.info(
-                "Obtained M2M access token for client %s. Token type: %s, expires in: %d seconds.",
+                "Obtained M2M access token for client %s. Token type: %s, expires in: %s seconds.",
                 client_id,
                 auth_result.get("TokenType", "Unknown"),
                 auth_result.get("ExpiresIn", 0),

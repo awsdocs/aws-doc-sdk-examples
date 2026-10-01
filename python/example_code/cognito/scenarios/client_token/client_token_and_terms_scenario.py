@@ -23,6 +23,7 @@ import os
 import sys
 
 import boto3
+from botocore.client import BaseClient
 from botocore.exceptions import ClientError, WaiterError
 
 from cognito_idp_wrapper import CognitoIdentityProviderWrapper
@@ -48,7 +49,7 @@ class ClientTokenAndTermsScenario:
     def __init__(
         self,
         cognito_wrapper: CognitoIdentityProviderWrapper,
-        cfn_client: boto3.client,
+        cfn_client: BaseClient,
     ):
         """
         :param cognito_wrapper: An instance of the CognitoIdentityProviderWrapper class.
