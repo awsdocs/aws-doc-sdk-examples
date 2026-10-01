@@ -129,6 +129,8 @@ class ClientTokenAndTermsScenario:
 
     def _stack_exists(self, stack_name: str) -> bool:
         """Returns True if a stack with the given name exists and is not deleted."""
+        if not stack_name:
+            return False
         try:
             response = self.cfn_client.describe_stacks(StackName=stack_name)
             stacks = response.get("Stacks", list())
