@@ -129,6 +129,14 @@ kinesis_ListStreams:
             - description:
               snippet_tags:
                 - kns.abapv1.list_streams
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kinesis
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.kinesis.ListStreams
   services:
     kinesis: {ListStreams}
 kinesis_ListTagsForStream:
@@ -242,6 +250,14 @@ kinesis_PutRecords:
             - description:
               snippet_files:
                 - javascriptv3/example_code/kinesis/actions/put-records.js
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kinesis
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.kinesis.PutRecords
   services:
     kinesis: {PutRecords}
 kinesis_GetRecords:
@@ -327,3 +343,70 @@ kinesis_Scenario_GettingStarted:
                 - kns.abapv1.getting_started_with_kns
   services:
     kinesis: {CreateStream, PutRecord, GetShardIterator, GetRecords, DeleteStream}
+kinesis_Hello:
+  title: Hello &AKlong;
+  title_abbrev: Hello &AKlong;
+  synopsis: get started using &AKlong;.
+  category: Hello
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kinesis
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.kinesis.Hello
+  services:
+    kinesis: {ListStreams}
+kinesis_DescribeStreamSummary:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kinesis
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.kinesis.DescribeStreamSummary
+  services:
+    kinesis: {DescribeStreamSummary}
+kinesis_UpdateShardCount:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kinesis
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.kinesis.UpdateShardCount
+  services:
+    kinesis: {UpdateShardCount}
+kinesis_Scenario:
+  title: Learn &AKlong; basics using an &AWS; SDK
+  title_abbrev: Learn &AKlong; basics
+  synopsis: learn &AKlong; basics.
+  synopsis_list:
+    - List existing data streams.
+    - Create a provisioned-mode data stream with 2 shards.
+    - Write a single record and a batch of records.
+    - Read records back from a shard.
+    - Describe the stream summary.
+    - Scale the stream from 2 to 4 shards.
+    - Delete the stream.
+  category: Basics
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kinesis
+          excerpts:
+            - description: Run an interactive scenario at a command prompt.
+              snippet_tags:
+                - python.example_code.kinesis.KinesisScenario
+            - description: Create a class that wraps Kinesis Data Streams operations.
+              snippet_tags:
+                - python.example_code.kinesis.KinesisStreamWrapper.decl
+  services:
+    kinesis: {ListStreams, CreateStream, DescribeStream, PutRecord, PutRecords, GetShardIterator, GetRecords, DescribeStreamSummary, UpdateShardCount, DeleteStream}

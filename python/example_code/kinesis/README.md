@@ -34,6 +34,18 @@ python -m pip install -r requirements.txt
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Get started
+
+- [Hello Kinesis](kinesis_hello.py#L20) (`ListStreams`)
+
+
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn Amazon Kinesis basics](scenarios/kinesis_basics_scenario.py)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -41,8 +53,12 @@ Code excerpts that show you how to call individual service functions.
 - [CreateStream](streams/kinesis_stream.py#L46)
 - [DeleteStream](streams/kinesis_stream.py#L90)
 - [DescribeStream](streams/kinesis_stream.py#L69)
+- [DescribeStreamSummary](kinesis_wrapper.py#L286)
 - [GetRecords](streams/kinesis_stream.py#L128)
+- [ListStreams](kinesis_wrapper.py#L45)
 - [PutRecord](streams/kinesis_stream.py#L105)
+- [PutRecords](kinesis_wrapper.py#L183)
+- [UpdateShardCount](kinesis_wrapper.py#L312)
 
 
 <!--custom.examples.start-->
@@ -64,6 +80,38 @@ python kinesisanalyticsv2_demo.py
 ``` 
 <!--custom.instructions.end-->
 
+#### Hello Kinesis
+
+This example shows you how to get started using Kinesis.
+
+```
+python kinesis_hello.py
+```
+
+#### Learn Amazon Kinesis basics
+
+This example shows you how to learn Amazon Kinesis basics.
+
+- List existing data streams.
+- Create a provisioned-mode data stream with 2 shards.
+- Write a single record and a batch of records.
+- Read records back from a shard.
+- Describe the stream summary.
+- Scale the stream from 2 to 4 shards.
+- Delete the stream.
+
+<!--custom.basic_prereqs.kinesis_Scenario.start-->
+<!--custom.basic_prereqs.kinesis_Scenario.end-->
+
+Start the example by running the following at a command prompt:
+
+```
+python scenarios/kinesis_basics_scenario.py
+```
+
+
+<!--custom.basics.kinesis_Scenario.start-->
+<!--custom.basics.kinesis_Scenario.end-->
 
 
 ### Tests
