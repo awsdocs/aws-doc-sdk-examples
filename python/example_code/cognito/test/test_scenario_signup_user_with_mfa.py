@@ -229,22 +229,3 @@ def test_scenario_no_device_tracking(monkeypatch):
     _run_to_device_step(monkeypatch, respond_device_info=None)
     # Must not raise (previously raised KeyError: 'NewDeviceMetadata').
     scenario.run_scenario(MagicMock(), "test-pool", "test-client")
-
-
-def test_scenario_confirm_device_invalid_key(monkeypatch):
-    """
-    When sign-in uses the admin flow, ConfirmDevice can reject the device key
-    with InvalidParameterException ("Invalid device key given"). The scenario
-    should catch it, explain the USER_SRP_AUTH requirement, and finish cleanly
-    instead of crashing.
-    """
-    wrapper = _run_to_device_step(
-        monkeypatch,
-        respond_device_info={"DeviceKey": "us-east-1_x", "DeviceGroupKey": "-g"},
-    )
-    wrapper.confirm_mfa_device.side_effect = ClientError(
-        {"Error": {"Code": "InvalidParameterException", "Message": "Invalid device key given"}},
-        "ConfirmDevice",
-    )
-    # Must not raise (previously raised ClientError and aborted the demo).
-    scenario.run_scenario(MagicMock(), "test-pool", "test-client")

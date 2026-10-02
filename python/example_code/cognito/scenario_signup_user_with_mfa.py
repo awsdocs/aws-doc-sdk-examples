@@ -30,7 +30,6 @@ import sys
 import webbrowser
 
 import boto3
-from botocore.exceptions import ClientError
 import qrcode
 from pycognito import aws_srp
 
@@ -147,6 +146,11 @@ def run_scenario(cognito_idp_client, user_pool_id, client_id):
             raise Exception(f"Got unexpected challenge {response['ChallengeName']}")
     print("-" * 88)
 
+    # If sign-in returned neither a challenge nor an AuthenticationResult, there
+    # are no tokens to work with; nothing more to do.
+    if auth_tokens is None:
+        return user_name
+
     # respond_to_mfa_challenge returns NewDeviceMetadata only when the user pool
     # has device tracking configured. When it's absent, skip the device-confirmation
     # and tracked-device sign-in steps instead of failing on a missing key.
@@ -163,50 +167,32 @@ def run_scenario(cognito_idp_client, user_pool_id, client_id):
         device_key = device_metadata["DeviceKey"]
         device_password = base64.standard_b64encode(os.urandom(40)).decode("utf-8")
 
-        # Device confirmation requires a device key minted by the user-side SRP
-        # sign-in flow (USER_SRP_AUTH). Because this example signs in with the
-        # admin flow (ADMIN_USER_PASSWORD_AUTH), ConfirmDevice can reject the key
-        # with "Invalid device key given". Handle that case with an explanation
-        # instead of failing the whole scenario.
-        try:
-            print(
-                "Let's confirm your MFA device so you don't have re-enter MFA tokens for it."
-            )
-            q.ask("Press Enter when you're ready.")
-            cog_wrapper.confirm_mfa_device(
-                user_name,
-                device_key,
-                device_group_key,
-                device_password,
-                auth_tokens["AccessToken"],
-                aws_srp,
-            )
-            print(f"Your device {device_key} is confirmed.")
-            print("-" * 88)
+        print(
+            "Let's confirm your MFA device so you don't have to re-enter MFA tokens for it."
+        )
+        q.ask("Press Enter when you're ready.")
+        cog_wrapper.confirm_mfa_device(
+            user_name,
+            device_key,
+            device_group_key,
+            device_password,
+            auth_tokens["AccessToken"],
+            aws_srp,
+        )
+        print(f"Your device {device_key} is confirmed.")
+        print("-" * 88)
 
-            print(
-                f"Now let's sign in as {user_name} from your confirmed device {device_key}.\n"
-                f"Because this device is tracked by Amazon Cognito, you won't have to re-enter an MFA code."
-            )
-            q.ask("Press Enter when ready.")
-            auth_tokens = cog_wrapper.sign_in_with_tracked_device(
-                user_name, password, device_key, device_group_key, device_password, aws_srp
-            )
-            print("You're signed in. Your access token is:")
-            pp(auth_tokens["AccessToken"])
-            print("-" * 88)
-        except ClientError as error:
-            if error.response["Error"]["Code"] == "InvalidParameterException":
-                print(
-                    "Couldn't confirm the tracked device. Device confirmation "
-                    "requires a device key from the user-side sign-in flow "
-                    "(USER_SRP_AUTH), but this example signs in with the admin "
-                    "flow (ADMIN_USER_PASSWORD_AUTH). Skipping the tracked-device "
-                    "steps. To use device tracking, sign in with USER_SRP_AUTH."
-                )
-                print("-" * 88)
-            else:
-                raise
+        print(
+            f"Now let's sign in as {user_name} from your confirmed device {device_key}.\n"
+            f"Because this device is tracked by Amazon Cognito, you won't have to re-enter an MFA code."
+        )
+        q.ask("Press Enter when ready.")
+        auth_tokens = cog_wrapper.sign_in_with_tracked_device(
+            user_name, password, device_key, device_group_key, device_password, aws_srp
+        )
+        print("You're signed in. Your access token is:")
+        pp(auth_tokens["AccessToken"])
+        print("-" * 88)
 
     print("Don't forget to delete your user pool when you're done with this example.")
     print("\nThanks for watching!")
