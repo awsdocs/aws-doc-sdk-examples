@@ -93,7 +93,17 @@ def run_scenario(cognito_idp_client, user_pool_id, client_id):
     while challenge is not None:
         if challenge == "ADMIN_USER_PASSWORD_AUTH":
             response = cog_wrapper.start_sign_in(user_name, password)
-            challenge = response["ChallengeName"]
+            # start_sign_in may return an AuthenticationResult with no challenge
+            # (for example, when the user pool does not require MFA). Read the
+            # challenge defensively and stop if sign-in already succeeded.
+            challenge = response.get("ChallengeName")
+            if challenge is None:
+                auth_tokens = response.get("AuthenticationResult")
+                if auth_tokens is not None:
+                    print(f"You're signed in as {user_name}.")
+                    print("Here's your access token:")
+                    pp(auth_tokens["AccessToken"])
+                break
         elif response["ChallengeName"] == "MFA_SETUP":
             print("First, we need to set up an MFA application.")
             qr_img = qrcode.make(
@@ -128,45 +138,66 @@ def run_scenario(cognito_idp_client, user_pool_id, client_id):
             print(f"You're signed in as {user_name}.")
             print("Here's your access token:")
             pp(auth_tokens["AccessToken"])
-            print("And your device information:")
-            pp(auth_tokens["NewDeviceMetadata"])
+            if "NewDeviceMetadata" in auth_tokens:
+                print("And your device information:")
+                pp(auth_tokens["NewDeviceMetadata"])
             challenge = None
         else:
             raise Exception(f"Got unexpected challenge {response['ChallengeName']}")
     print("-" * 88)
 
-    device_group_key = auth_tokens["NewDeviceMetadata"]["DeviceGroupKey"]
-    device_key = auth_tokens["NewDeviceMetadata"]["DeviceKey"]
-    device_password = base64.standard_b64encode(os.urandom(40)).decode("utf-8")
+    # If sign-in returned neither a challenge nor an AuthenticationResult, there
+    # are no tokens to work with; nothing more to do.
+    if auth_tokens is None:
+        return user_name
 
-    print("Let's confirm your MFA device so you don't have re-enter MFA tokens for it.")
-    q.ask("Press Enter when you're ready.")
-    cog_wrapper.confirm_mfa_device(
-        user_name,
-        device_key,
-        device_group_key,
-        device_password,
-        auth_tokens["AccessToken"],
-        aws_srp,
-    )
-    print(f"Your device {device_key} is confirmed.")
-    print("-" * 88)
+    # respond_to_mfa_challenge returns NewDeviceMetadata only when the user pool
+    # has device tracking configured. When it's absent, skip the device-confirmation
+    # and tracked-device sign-in steps instead of failing on a missing key.
+    device_metadata = auth_tokens.get("NewDeviceMetadata")
+    if device_metadata is None:
+        print(
+            "This user pool doesn't track devices, so there's no device to confirm. "
+            "To try the tracked-device sign-in flow, enable device tracking on the "
+            "user pool and run this example again."
+        )
+        print("-" * 88)
+    else:
+        device_group_key = device_metadata["DeviceGroupKey"]
+        device_key = device_metadata["DeviceKey"]
+        device_password = base64.standard_b64encode(os.urandom(40)).decode("utf-8")
 
-    print(
-        f"Now let's sign in as {user_name} from your confirmed device {device_key}.\n"
-        f"Because this device is tracked by Amazon Cognito, you won't have to re-enter an MFA code."
-    )
-    q.ask("Press Enter when ready.")
-    auth_tokens = cog_wrapper.sign_in_with_tracked_device(
-        user_name, password, device_key, device_group_key, device_password, aws_srp
-    )
-    print("You're signed in. Your access token is:")
-    pp(auth_tokens["AccessToken"])
-    print("-" * 88)
+        print(
+            "Let's confirm your MFA device so you don't have to re-enter MFA tokens for it."
+        )
+        q.ask("Press Enter when you're ready.")
+        cog_wrapper.confirm_mfa_device(
+            user_name,
+            device_key,
+            device_group_key,
+            device_password,
+            auth_tokens["AccessToken"],
+            aws_srp,
+        )
+        print(f"Your device {device_key} is confirmed.")
+        print("-" * 88)
+
+        print(
+            f"Now let's sign in as {user_name} from your confirmed device {device_key}.\n"
+            f"Because this device is tracked by Amazon Cognito, you won't have to re-enter an MFA code."
+        )
+        q.ask("Press Enter when ready.")
+        auth_tokens = cog_wrapper.sign_in_with_tracked_device(
+            user_name, password, device_key, device_group_key, device_password, aws_srp
+        )
+        print("You're signed in. Your access token is:")
+        pp(auth_tokens["AccessToken"])
+        print("-" * 88)
 
     print("Don't forget to delete your user pool when you're done with this example.")
     print("\nThanks for watching!")
     print("-" * 88)
+    return user_name
 
 
 def main():
@@ -181,10 +212,26 @@ def main():
         "client_id", help="The ID of the client application to use for the example."
     )
     args = parser.parse_args()
+    client = boto3.client("cognito-idp")
+    created_user = None
     try:
-        run_scenario(boto3.client("cognito-idp"), args.user_pool_id, args.client_id)
+        created_user = run_scenario(client, args.user_pool_id, args.client_id)
     except Exception:
         logging.exception("Something went wrong with the demo.")
+    finally:
+        # Clean up the user this scenario created, on success or failure, so a
+        # run never leaves an orphaned user in the pool. Cleanup errors are
+        # logged but do not mask the original outcome.
+        if created_user is not None:
+            try:
+                client.admin_delete_user(
+                    UserPoolId=args.user_pool_id, Username=created_user
+                )
+                print(f"Deleted user {created_user}.")
+            except Exception:
+                logging.exception(
+                    "Couldn't delete user %s; delete it manually.", created_user
+                )
 
 
 if __name__ == "__main__":
