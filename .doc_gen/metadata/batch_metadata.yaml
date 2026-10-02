@@ -14,8 +14,16 @@ batch_Hello:
             - description:
               snippet_tags:
                 - batch.java2.hello.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/batch
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.batch.Hello
   services:
-    batch: {listJobsPaginator}
+    batch: {listJobsPaginator: null}
 
 batch_DescribeJobs:
   languages:
@@ -27,8 +35,16 @@ batch_DescribeJobs:
             - description:
               snippet_tags:
                 - batch.java2.retrieve.job.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/batch
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.batch.DescribeJobs
   services:
-    batch: {DescribeJobs}
+    batch: {DescribeJobs: null}
 batch_SubmitJob:
   languages:
     Java:
@@ -39,8 +55,16 @@ batch_SubmitJob:
             - description:
               snippet_tags:
                 - batch.java2.submit.job.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/batch
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.batch.SubmitJob
   services:
-    batch: {SubmitJob}
+    batch: {SubmitJob: null}
 batch_UpdateComputeEnvironment:
   languages:
     Java:
@@ -52,7 +76,7 @@ batch_UpdateComputeEnvironment:
               snippet_tags:
                 - batch.java2.disable.compute.environment.main
   services:
-    batch: {UpdateComputeEnvironment}
+    batch: {UpdateComputeEnvironment: null}
 batch_DescribeJobQueues:
   languages:
     Java:
@@ -64,7 +88,7 @@ batch_DescribeJobQueues:
               snippet_tags:
                 - batch.java2.describe.job.queue.main
   services:
-    batch: {DescribeJobQueues}
+    batch: {DescribeJobQueues: null}
 batch_DeleteJobQueue:
   languages:
     Java:
@@ -75,8 +99,16 @@ batch_DeleteJobQueue:
             - description:
               snippet_tags:
                 - batch.java2.delete.job.queue.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/batch
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.batch.DeleteJobQueue
   services:
-    batch: {DeleteJobQueue}
+    batch: {DeleteJobQueue: null}
 batch_UpdateJobQueue:
   languages:
     Java:
@@ -87,8 +119,16 @@ batch_UpdateJobQueue:
             - description:
               snippet_tags:
                 - batch.java2.disable.job.queue.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/batch
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.batch.UpdateJobQueue
   services:
-    batch: {UpdateJobQueue}
+    batch: {UpdateJobQueue: null}
 batch_DeregisterJobDefinition:
   languages:
     Java:
@@ -99,8 +139,16 @@ batch_DeregisterJobDefinition:
             - description:
               snippet_tags:
                 - batch.java2.deregister.job.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/batch
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.batch.DeregisterJobDefinition
   services:
-    batch: {DeregisterJobDefinition}
+    batch: {DeregisterJobDefinition: null}
 batch_RegisterJobDefinition:
   languages:
     Java:
@@ -111,8 +159,16 @@ batch_RegisterJobDefinition:
             - description:
               snippet_tags:
                 - batch.java2.register.job.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/batch
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.batch.RegisterJobDefinition
   services:
-    batch: {RegisterJobDefinition}
+    batch: {RegisterJobDefinition: null}
 batch_ListJobsPaginator:
   languages:
     Java:
@@ -124,7 +180,7 @@ batch_ListJobsPaginator:
               snippet_tags:
                 - batch.java2.create.list.jobs.main
   services:
-    batch: {ListJobsPaginator}
+    batch: {ListJobsPaginator: null}
 batch_CreateJobQueue:
   languages:
     Java:
@@ -135,8 +191,16 @@ batch_CreateJobQueue:
             - description:
               snippet_tags:
                 - batch.java2.create.job.queue.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/batch
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.batch.CreateJobQueue
   services:
-    batch: {CreateJobQueue}
+    batch: {CreateJobQueue: null}
 batch_DescribeComputeEnvironments:
   languages:
     Java:
@@ -147,8 +211,16 @@ batch_DescribeComputeEnvironments:
             - description:
               snippet_tags:
                 - batch.java2.check.status.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/batch
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.batch.DescribeComputeEnvironments
   services:
-    batch: {DescribeComputeEnvironments}
+    batch: {DescribeComputeEnvironments: null}
 batch_DeleteComputeEnvironment:
   languages:
     Java:
@@ -159,8 +231,16 @@ batch_DeleteComputeEnvironment:
             - description:
               snippet_tags:
                 - batch.java2.delete_compute.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/batch
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.batch.DeleteComputeEnvironment
   services:
-    batch: {DeleteComputeEnvironment}
+    batch: {DeleteComputeEnvironment: null}
 batch_CreateComputeEnvironment:
   languages:
     Java:
@@ -171,8 +251,16 @@ batch_CreateComputeEnvironment:
             - description:
               snippet_tags:
                 - batch.java2.create_compute.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/batch
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.batch.CreateComputeEnvironment
   services:
-    batch: {CreateComputeEnvironment}
+    batch: {CreateComputeEnvironment: null}
 batch_Scenario:
   synopsis_list:
     - Create an &BATCH; compute environment.
@@ -197,5 +285,28 @@ batch_Scenario:
             - description: A wrapper class for &BATCH; SDK methods.
               snippet_tags:
                 - batch.java2.actions.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/batch
+          excerpts:
+            - description: Run an interactive scenario at a command prompt.
+              snippet_tags:
+                - python.example_code.batch.BatchScenario
+            - description: Create a class that wraps Batch operations.
+              snippet_tags:
+                - python.example_code.batch.BatchWrapper.decl
   services:
-    batch: {CreateComputeEnvironment, DeleteComputeEnvironment, DescribeComputeEnvironments, CreateJobQueue, ListJobsPaginator, DescribeJobs, SubmitJob, UpdateComputeEnvironment, RegisterJobDefinition, DescribeJobQueues, DeleteJobQueue, DeregisterJobDefinition, UpdateJobQueue}
+    batch: {CreateComputeEnvironment: null, DeleteComputeEnvironment: null, DescribeComputeEnvironments: null, CreateJobQueue: null, ListJobsPaginator: null, DescribeJobs: null, SubmitJob: null, UpdateComputeEnvironment: null, RegisterJobDefinition: null, DescribeJobQueues: null, DeleteJobQueue: null, DeregisterJobDefinition: null, UpdateJobQueue: null}
+batch_ListJobs:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/batch
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.batch.ListJobs
+  services:
+    batch: {ListJobs: null}
