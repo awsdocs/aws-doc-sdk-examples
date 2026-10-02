@@ -1,0 +1,64 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: >
+  Provisions the network prerequisites for CloudWatch Logs syslog ingestion:
+  a VPC, subnet, security group, and interface VPC endpoint for the syslog
+  service.
+
+Resources:
+  SyslogVpc:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+      Tags:
+        - Key: Name
+          Value: syslog-demo-vpc
+
+  SyslogSubnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref SyslogVpc
+      CidrBlock: 10.0.1.0/24
+      Tags:
+        - Key: Name
+          Value: syslog-demo-subnet
+
+  SyslogSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow inbound syslog traffic
+      VpcId: !Ref SyslogVpc
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 6514
+          ToPort: 6514
+          CidrIp: 10.0.0.0/16
+        - IpProtocol: tcp
+          FromPort: 1514
+          ToPort: 1514
+          CidrIp: 10.0.0.0/16
+        - IpProtocol: udp
+          FromPort: 514
+          ToPort: 514
+          CidrIp: 10.0.0.0/16
+      Tags:
+        - Key: Name
+          Value: syslog-demo-sg
+
+  SyslogVpcEndpoint:
+    Type: AWS::EC2::VPCEndpoint
+    Properties:
+      VpcId: !Ref SyslogVpc
+      ServiceName: !Sub "com.amazonaws.${AWS::Region}.syslog-logs"
+      VpcEndpointType: Interface
+      SubnetIds:
+        - !Ref SyslogSubnet
+      SecurityGroupIds:
+        - !Ref SyslogSecurityGroup
+      PrivateDnsEnabled: false
+
+Outputs:
+  VpcEndpointId:
+    Description: The ID of the syslog VPC endpoint
+    Value: !Ref SyslogVpcEndpoint
