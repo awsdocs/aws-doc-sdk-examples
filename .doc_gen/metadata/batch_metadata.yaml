@@ -299,9 +299,6 @@ batch_Scenario:
   services:
     batch: {CreateComputeEnvironment: null, DeleteComputeEnvironment: null, DescribeComputeEnvironments: null, CreateJobQueue: null, ListJobsPaginator: null, DescribeJobs: null, SubmitJob: null, UpdateComputeEnvironment: null, RegisterJobDefinition: null, DescribeJobQueues: null, DeleteJobQueue: null, DeregisterJobDefinition: null, UpdateJobQueue: null}
 batch_ListJobs:
-  title: List &AWSBatch; jobs
-  title_abbrev: List jobs
-  synopsis: list &AWSBatch; jobs.
   languages:
     Python:
       versions:
