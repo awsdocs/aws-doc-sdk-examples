@@ -52,15 +52,15 @@ Code excerpts that show you how to call individual service functions.
 
 - [CreateComputeEnvironment](batch_wrapper.py#L64)
 - [CreateJobQueue](batch_wrapper.py#L109)
-- [DeleteComputeEnvironment](batch_wrapper.py#L362)
-- [DeleteJobQueue](batch_wrapper.py#L342)
-- [DeregisterJobDefinition](batch_wrapper.py#L295)
+- [DeleteComputeEnvironment](batch_wrapper.py#L400)
+- [DeleteJobQueue](batch_wrapper.py#L380)
+- [DeregisterJobDefinition](batch_wrapper.py#L300)
 - [DescribeComputeEnvironments](batch_wrapper.py#L36)
-- [DescribeJobs](batch_wrapper.py#L240)
-- [ListJobs](batch_wrapper.py#L262)
+- [DescribeJobs](batch_wrapper.py#L247)
+- [ListJobs](batch_wrapper.py#L269)
 - [RegisterJobDefinition](batch_wrapper.py#L152)
-- [SubmitJob](batch_wrapper.py#L205)
-- [UpdateJobQueue](batch_wrapper.py#L317)
+- [SubmitJob](batch_wrapper.py#L214)
+- [UpdateJobQueue](batch_wrapper.py#L320)
 
 
 <!--custom.examples.start-->
