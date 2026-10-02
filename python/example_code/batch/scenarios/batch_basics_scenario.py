@@ -15,6 +15,7 @@ This scenario demonstrates the complete lifecycle of an AWS Batch workload:
 """
 
 import logging
+import os
 import time
 
 import boto3
@@ -46,9 +47,7 @@ class BatchScenario:
         self.subnet_ids = None
         self.security_group_ids = None
 
-    def setup(
-        self, subnet_ids: list, security_group_ids: list, timestamp: str
-    ) -> None:
+    def setup(self, subnet_ids: list, security_group_ids: list, timestamp: str) -> None:
         """
         Sets up the prerequisite networking resource references.
 
@@ -81,9 +80,7 @@ class BatchScenario:
         print(f"Compute environment ARN: {self.ce_arn}")
 
         print("Waiting for compute environment to become VALID...")
-        env = self.batch_wrapper.wait_for_compute_environment_valid(
-            self.ce_name
-        )
+        env = self.batch_wrapper.wait_for_compute_environment_valid(self.ce_name)
         print(
             f"Compute environment is VALID.\n"
             f"  Name: {env['computeEnvironmentName']}\n"
@@ -160,7 +157,7 @@ class BatchScenario:
             print(f"  Status Reason: {reason}")
 
         print(f"  Final Status: {status}")
-        container = job.get("container", dict())
+        container = job.get("container", {})
         exit_code = container.get("exitCode", "N/A")
         print(f"  Exit Code: {exit_code}")
         print("-" * 80)
@@ -169,9 +166,7 @@ class BatchScenario:
         """Step 6: List jobs in the queue."""
         print("\n" + "-" * 80)
         print("Step 6: List jobs in the queue")
-        print(
-            f"Listing SUCCEEDED jobs in queue: {self.jq_name}"
-        )
+        print(f"Listing SUCCEEDED jobs in queue: {self.jq_name}")
 
         job_summaries = self.batch_wrapper.list_jobs(
             job_queue=self.jq_name, job_status="SUCCEEDED"
@@ -210,10 +205,11 @@ class BatchScenario:
         if self.jq_name:
             try:
                 print(f"Disabling job queue: {self.jq_name} ... ", end="")
-                self.batch_wrapper.update_job_queue(
-                    self.jq_name, state="DISABLED"
-                )
+                self.batch_wrapper.update_job_queue(self.jq_name, state="DISABLED")
                 print("done.")
+                # The queue must finish transitioning to DISABLED/VALID before
+                # it can be deleted, so wait for that before calling delete.
+                self.batch_wrapper.wait_for_job_queue_disabled(self.jq_name)
             except Exception as e:
                 logger.error("Error disabling job queue: %s", e)
                 print(f"error: {e}")
@@ -254,6 +250,8 @@ class BatchScenario:
         self.submit_job()
         self.monitor_job()
         self.list_jobs()
+
+
 # snippet-end:[python.example_code.batch.BatchScenario]
 
 
@@ -266,9 +264,22 @@ def main() -> None:
     scenario = BatchScenario(wrapper)
 
     timestamp = str(int(time.time()))
-    # In a real scenario, these would come from your VPC configuration.
-    subnet_ids = ["subnet-0abc1234", "subnet-0def5678"]
-    security_group_ids = ["sg-0aabbccdd"]
+    # Read the networking configuration from the environment so the scenario
+    # can run against a real account without editing the source. Provide
+    # comma-separated values, e.g.:
+    #   export BATCH_SUBNET_IDS=subnet-0abc1234,subnet-0def5678
+    #   export BATCH_SECURITY_GROUP_IDS=sg-0aabbccdd
+    subnet_ids = [s for s in os.environ.get("BATCH_SUBNET_IDS", "").split(",") if s]
+    security_group_ids = [
+        s for s in os.environ.get("BATCH_SECURITY_GROUP_IDS", "").split(",") if s
+    ]
+    if not subnet_ids or not security_group_ids:
+        print(
+            "Set BATCH_SUBNET_IDS and BATCH_SECURITY_GROUP_IDS (comma-separated) "
+            "to the subnet and security group IDs from your VPC before running "
+            "this scenario."
+        )
+        return
 
     try:
         scenario.setup(subnet_ids, security_group_ids, timestamp)

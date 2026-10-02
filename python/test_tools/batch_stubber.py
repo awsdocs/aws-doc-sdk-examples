@@ -109,24 +109,28 @@ class BatchStubber(ExampleStubber):
         command=None,
         vcpus="0.25",
         memory="512",
+        execution_role_arn=None,
         error_code=None,
     ):
         """Stub the register_job_definition function."""
         if command is None:
             command = ["echo", "Hello from AWS Batch!"]
+        container_properties = {
+            "image": image,
+            "command": command,
+            "resourceRequirements": [
+                {"type": "VCPU", "value": vcpus},
+                {"type": "MEMORY", "value": memory},
+            ],
+            "networkConfiguration": {"assignPublicIp": "ENABLED"},
+            "fargatePlatformConfiguration": {"platformVersion": "LATEST"},
+        }
+        if execution_role_arn is not None:
+            container_properties["executionRoleArn"] = execution_role_arn
         expected_params = {
             "jobDefinitionName": job_definition_name,
             "type": "container",
-            "containerProperties": {
-                "image": image,
-                "command": command,
-                "resourceRequirements": [
-                    {"type": "VCPU", "value": vcpus},
-                    {"type": "MEMORY", "value": memory},
-                ],
-                "networkConfiguration": {"assignPublicIp": "ENABLED"},
-                "fargatePlatformConfiguration": {"platformVersion": "LATEST"},
-            },
+            "containerProperties": container_properties,
         }
         response = {
             "jobDefinitionName": job_definition_name,
@@ -195,6 +199,27 @@ class BatchStubber(ExampleStubber):
         response = {"jobQueueName": job_queue_name, "jobQueueArn": job_queue_arn}
         self._stub_bifurcator(
             "update_job_queue", expected_params, response, error_code=error_code
+        )
+
+    def stub_describe_job_queues(
+        self, job_queue, state="DISABLED", status="VALID", error_code=None
+    ):
+        """Stub the describe_job_queues function."""
+        expected_params = {"jobQueues": [job_queue]}
+        response = {
+            "jobQueues": [
+                {
+                    "jobQueueName": job_queue,
+                    "jobQueueArn": job_queue,
+                    "state": state,
+                    "status": status,
+                    "priority": 1,
+                    "computeEnvironmentOrder": [],
+                }
+            ]
+        }
+        self._stub_bifurcator(
+            "describe_job_queues", expected_params, response, error_code=error_code
         )
 
     def stub_delete_job_queue(self, job_queue, error_code=None):

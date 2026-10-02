@@ -51,7 +51,6 @@ def scenario_data(make_stubber):
 @pytest.fixture
 def mock_wait(monkeypatch):
     """Patch the wrapper's time.sleep so polling waits are instantaneous."""
-    monkeypatch.setattr(batch_basics_scenario.time, "sleep", lambda x: None)
     import batch_wrapper
 
     monkeypatch.setattr(batch_wrapper.time, "sleep", lambda x: None)
