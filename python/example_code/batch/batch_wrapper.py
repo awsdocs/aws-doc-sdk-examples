@@ -45,20 +45,20 @@ class BatchWrapper:
         :return: A list of compute environment detail dictionaries.
         """
         try:
-            params = dict()
+            params = {}
             if compute_environment_names is not None:
                 params["computeEnvironments"] = compute_environment_names
             response = self.batch_client.describe_compute_environments(**params)
-            environments = response.get("computeEnvironments", list())
+            environments = response.get("computeEnvironments", [])
             logger.info("Described %d compute environment(s).", len(environments))
             return environments
         except ClientError as err:
-            if err.response["Error"]["Code"] == "ClientException":
-                logger.error(
-                    "Client error describing compute environments: %s",
-                    err.response["Error"]["Message"],
-                )
+            logger.error(
+                "Error describing compute environments: %s",
+                err.response["Error"]["Message"],
+            )
             raise
+
     # snippet-end:[python.example_code.batch.DescribeComputeEnvironments]
 
     # snippet-start:[python.example_code.batch.CreateComputeEnvironment]
@@ -97,13 +97,13 @@ class BatchWrapper:
             )
             return response
         except ClientError as err:
-            if err.response["Error"]["Code"] == "ClientException":
-                logger.error(
-                    "Client error creating compute environment %s: %s",
-                    compute_environment_name,
-                    err.response["Error"]["Message"],
-                )
+            logger.error(
+                "Error creating compute environment %s: %s",
+                compute_environment_name,
+                err.response["Error"]["Message"],
+            )
             raise
+
     # snippet-end:[python.example_code.batch.CreateComputeEnvironment]
 
     # snippet-start:[python.example_code.batch.CreateJobQueue]
@@ -140,13 +140,13 @@ class BatchWrapper:
             )
             return response
         except ClientError as err:
-            if err.response["Error"]["Code"] == "ClientException":
-                logger.error(
-                    "Client error creating job queue %s: %s",
-                    job_queue_name,
-                    err.response["Error"]["Message"],
-                )
+            logger.error(
+                "Error creating job queue %s: %s",
+                job_queue_name,
+                err.response["Error"]["Message"],
+            )
             raise
+
     # snippet-end:[python.example_code.batch.CreateJobQueue]
 
     # snippet-start:[python.example_code.batch.RegisterJobDefinition]
@@ -157,6 +157,7 @@ class BatchWrapper:
         command: Optional[list] = None,
         vcpus: str = "0.25",
         memory: str = "512",
+        execution_role_arn: Optional[str] = None,
     ) -> dict:
         """
         Registers a Fargate job definition.
@@ -166,24 +167,32 @@ class BatchWrapper:
         :param command: The command to run in the container.
         :param vcpus: The number of vCPUs (as a string).
         :param memory: The memory in MiB (as a string).
+        :param execution_role_arn: The ARN of the IAM execution role that
+            grants the Fargate agent permission to pull the container image
+            and write logs. This is required for Fargate jobs to run; without
+            it the job definition registers successfully but submitted jobs
+            fail at startup.
         :return: A dictionary with the job definition name, ARN, and revision.
         """
         if command is None:
             command = ["echo", "Hello from AWS Batch!"]
         try:
+            container_properties = {
+                "image": image,
+                "command": command,
+                "resourceRequirements": [
+                    {"type": "VCPU", "value": vcpus},
+                    {"type": "MEMORY", "value": memory},
+                ],
+                "networkConfiguration": {"assignPublicIp": "ENABLED"},
+                "fargatePlatformConfiguration": {"platformVersion": "LATEST"},
+            }
+            if execution_role_arn is not None:
+                container_properties["executionRoleArn"] = execution_role_arn
             response = self.batch_client.register_job_definition(
                 jobDefinitionName=job_definition_name,
                 type="container",
-                containerProperties={
-                    "image": image,
-                    "command": command,
-                    "resourceRequirements": [
-                        {"type": "VCPU", "value": vcpus},
-                        {"type": "MEMORY", "value": memory},
-                    ],
-                    "networkConfiguration": {"assignPublicIp": "ENABLED"},
-                    "fargatePlatformConfiguration": {"platformVersion": "LATEST"},
-                },
+                containerProperties=container_properties,
             )
             logger.info(
                 "Registered job definition %s revision %d: %s",
@@ -193,19 +202,17 @@ class BatchWrapper:
             )
             return response
         except ClientError as err:
-            if err.response["Error"]["Code"] == "ClientException":
-                logger.error(
-                    "Client error registering job definition %s: %s",
-                    job_definition_name,
-                    err.response["Error"]["Message"],
-                )
+            logger.error(
+                "Error registering job definition %s: %s",
+                job_definition_name,
+                err.response["Error"]["Message"],
+            )
             raise
+
     # snippet-end:[python.example_code.batch.RegisterJobDefinition]
 
     # snippet-start:[python.example_code.batch.SubmitJob]
-    def submit_job(
-        self, job_name: str, job_queue: str, job_definition: str
-    ) -> dict:
+    def submit_job(self, job_name: str, job_queue: str, job_definition: str) -> dict:
         """
         Submits a job to a job queue.
 
@@ -228,13 +235,13 @@ class BatchWrapper:
             )
             return response
         except ClientError as err:
-            if err.response["Error"]["Code"] == "ClientException":
-                logger.error(
-                    "Client error submitting job %s: %s",
-                    job_name,
-                    err.response["Error"]["Message"],
-                )
+            logger.error(
+                "Error submitting job %s: %s",
+                job_name,
+                err.response["Error"]["Message"],
+            )
             raise
+
     # snippet-end:[python.example_code.batch.SubmitJob]
 
     # snippet-start:[python.example_code.batch.DescribeJobs]
@@ -247,16 +254,16 @@ class BatchWrapper:
         """
         try:
             response = self.batch_client.describe_jobs(jobs=job_ids)
-            jobs = response.get("jobs", list())
+            jobs = response.get("jobs", [])
             logger.info("Described %d job(s).", len(jobs))
             return jobs
         except ClientError as err:
-            if err.response["Error"]["Code"] == "ClientException":
-                logger.error(
-                    "Client error describing jobs: %s",
-                    err.response["Error"]["Message"],
-                )
+            logger.error(
+                "Error describing jobs: %s",
+                err.response["Error"]["Message"],
+            )
             raise
+
     # snippet-end:[python.example_code.batch.DescribeJobs]
 
     # snippet-start:[python.example_code.batch.ListJobs]
@@ -270,11 +277,9 @@ class BatchWrapper:
         """
         try:
             paginator = self.batch_client.get_paginator("list_jobs")
-            job_summaries = list()
-            for page in paginator.paginate(
-                jobQueue=job_queue, jobStatus=job_status
-            ):
-                job_summaries.extend(page.get("jobSummaryList", list()))
+            job_summaries = []
+            for page in paginator.paginate(jobQueue=job_queue, jobStatus=job_status):
+                job_summaries.extend(page.get("jobSummaryList", []))
             logger.info(
                 "Listed %d %s job(s) in queue %s.",
                 len(job_summaries),
@@ -283,13 +288,13 @@ class BatchWrapper:
             )
             return job_summaries
         except ClientError as err:
-            if err.response["Error"]["Code"] == "ClientException":
-                logger.error(
-                    "Client error listing jobs in queue %s: %s",
-                    job_queue,
-                    err.response["Error"]["Message"],
-                )
+            logger.error(
+                "Error listing jobs in queue %s: %s",
+                job_queue,
+                err.response["Error"]["Message"],
+            )
             raise
+
     # snippet-end:[python.example_code.batch.ListJobs]
 
     # snippet-start:[python.example_code.batch.DeregisterJobDefinition]
@@ -300,18 +305,16 @@ class BatchWrapper:
         :param job_definition: The job definition name:revision or ARN.
         """
         try:
-            self.batch_client.deregister_job_definition(
-                jobDefinition=job_definition
-            )
+            self.batch_client.deregister_job_definition(jobDefinition=job_definition)
             logger.info("Deregistered job definition %s.", job_definition)
         except ClientError as err:
-            if err.response["Error"]["Code"] == "ClientException":
-                logger.error(
-                    "Client error deregistering job definition %s: %s",
-                    job_definition,
-                    err.response["Error"]["Message"],
-                )
+            logger.error(
+                "Error deregistering job definition %s: %s",
+                job_definition,
+                err.response["Error"]["Message"],
+            )
             raise
+
     # snippet-end:[python.example_code.batch.DeregisterJobDefinition]
 
     # snippet-start:[python.example_code.batch.UpdateJobQueue]
@@ -330,14 +333,49 @@ class BatchWrapper:
             logger.info("Updated job queue %s to state %s.", job_queue, state)
             return response
         except ClientError as err:
-            if err.response["Error"]["Code"] == "ClientException":
-                logger.error(
-                    "Client error updating job queue %s: %s",
-                    job_queue,
-                    err.response["Error"]["Message"],
-                )
+            logger.error(
+                "Error updating job queue %s: %s",
+                job_queue,
+                err.response["Error"]["Message"],
+            )
             raise
+
     # snippet-end:[python.example_code.batch.UpdateJobQueue]
+
+    def wait_for_job_queue_disabled(
+        self,
+        job_queue: str,
+        poll_interval: int = 5,
+        max_wait: int = 120,
+    ) -> None:
+        """
+        Polls until a job queue is both DISABLED and VALID so it can be deleted.
+
+        AWS Batch requires a job queue to finish transitioning to the DISABLED
+        state before it can be deleted; calling ``delete_job_queue`` too soon
+        raises a ClientError.
+
+        :param job_queue: The job queue name or ARN.
+        :param poll_interval: Seconds between polls (default 5).
+        :param max_wait: Maximum seconds to wait (default 120).
+        :raises TimeoutError: If the queue is not ready to delete in time.
+        """
+        elapsed = 0
+        while elapsed < max_wait:
+            response = self.batch_client.describe_job_queues(jobQueues=[job_queue])
+            queues = response.get("jobQueues", [])
+            if not queues:
+                return
+            queue = queues[0]
+            if queue.get("state") == "DISABLED" and queue.get("status") == "VALID":
+                logger.info("Job queue %s is disabled and ready to delete.", job_queue)
+                return
+            time.sleep(poll_interval)
+            elapsed += poll_interval
+        raise TimeoutError(
+            f"Job queue {job_queue} did not reach a deletable state within "
+            f"{max_wait} seconds."
+        )
 
     # snippet-start:[python.example_code.batch.DeleteJobQueue]
     def delete_job_queue(self, job_queue: str) -> None:
@@ -350,13 +388,13 @@ class BatchWrapper:
             self.batch_client.delete_job_queue(jobQueue=job_queue)
             logger.info("Deleted job queue %s.", job_queue)
         except ClientError as err:
-            if err.response["Error"]["Code"] == "ClientException":
-                logger.error(
-                    "Client error deleting job queue %s: %s",
-                    job_queue,
-                    err.response["Error"]["Message"],
-                )
+            logger.error(
+                "Error deleting job queue %s: %s",
+                job_queue,
+                err.response["Error"]["Message"],
+            )
             raise
+
     # snippet-end:[python.example_code.batch.DeleteJobQueue]
 
     # snippet-start:[python.example_code.batch.DeleteComputeEnvironment]
@@ -370,17 +408,15 @@ class BatchWrapper:
             self.batch_client.delete_compute_environment(
                 computeEnvironment=compute_environment
             )
-            logger.info(
-                "Deleted compute environment %s.", compute_environment
-            )
+            logger.info("Deleted compute environment %s.", compute_environment)
         except ClientError as err:
-            if err.response["Error"]["Code"] == "ClientException":
-                logger.error(
-                    "Client error deleting compute environment %s: %s",
-                    compute_environment,
-                    err.response["Error"]["Message"],
-                )
+            logger.error(
+                "Error deleting compute environment %s: %s",
+                compute_environment,
+                err.response["Error"]["Message"],
+            )
             raise
+
     # snippet-end:[python.example_code.batch.DeleteComputeEnvironment]
 
     def wait_for_compute_environment_valid(
@@ -454,6 +490,4 @@ class BatchWrapper:
                     return job
             time.sleep(poll_interval)
             elapsed += poll_interval
-        raise TimeoutError(
-            f"Job {job_id} did not complete within {max_wait} seconds."
-        )
+        raise TimeoutError(f"Job {job_id} did not complete within {max_wait} seconds.")

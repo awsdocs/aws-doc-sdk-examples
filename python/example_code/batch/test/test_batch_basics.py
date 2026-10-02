@@ -288,6 +288,8 @@ def test_run_scenario(scenario_data, stub_runner, mock_wait):
         runner.add(stubber.stub_deregister_job_definition, JD_ARN)
         # 9. Disable job queue
         runner.add(stubber.stub_update_job_queue, JQ_NAME, "DISABLED", JQ_NAME, JQ_ARN)
+        # 9b. Wait for the queue to be disabled before deletion
+        runner.add(stubber.stub_describe_job_queues, JQ_NAME)
         # 10. Delete job queue
         runner.add(stubber.stub_delete_job_queue, JQ_NAME)
         # 11. Delete compute environment

@@ -24,7 +24,7 @@ def hello_batch() -> None:
     print("Hello, AWS Batch! Let's list your compute environments:\n")
     try:
         response = batch_client.describe_compute_environments()
-        environments = response.get("computeEnvironments", list())
+        environments = response.get("computeEnvironments", [])
         if environments:
             print(f"Found {len(environments)} compute environment(s):")
             for env in environments:
@@ -37,14 +37,15 @@ def hello_batch() -> None:
         else:
             print("No compute environments found in your account.")
     except ClientError as err:
-        if err.response["Error"]["Code"] == "ClientException":
-            logger.error(
-                "Client error listing compute environments: %s",
-                err.response["Error"]["Message"],
-            )
+        logger.error(
+            "Error listing compute environments: %s",
+            err.response["Error"]["Message"],
+        )
         raise
 
     print("\nHello example complete.")
+
+
 # snippet-end:[python.example_code.batch.Hello]
 
 
