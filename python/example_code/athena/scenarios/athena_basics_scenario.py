@@ -41,7 +41,10 @@ from athena_wrapper import AthenaWrapper
 logger = logging.getLogger(__name__)
 
 DASHES = "-" * 80
-DATABASE_NAME = "athena_basics_db"
+# The Glue Data Catalog is account-wide, so the database name is suffixed with a
+# unique token per run (see setup()) to avoid collisions and to keep a failed
+# cleanup from blocking the next run with a "Table/Database already exists" error.
+DATABASE_PREFIX = "athena_basics_db"
 TABLE_NAME = "movies"
 
 
@@ -68,6 +71,7 @@ class AthenaScenario:
         self.stack_name = ""
         self.bucket_name = ""
         self.workgroup_name = ""
+        self.database_name = ""
         self.named_query_id = ""
 
     def run(self) -> None:
@@ -109,6 +113,7 @@ class AthenaScenario:
         unique_suffix = uuid.uuid4().hex[:8]
         self.stack_name = f"athena-basics-stack-{unique_suffix}"
         self.workgroup_name = f"athena-basics-wg-{unique_suffix}"
+        self.database_name = f"{DATABASE_PREFIX}_{unique_suffix}"
 
         template_body = json.dumps(
             {
@@ -195,9 +200,9 @@ class AthenaScenario:
     def step2_create_database(self) -> None:
         """Creates a database using a DDL query."""
         print(DASHES)
-        print(f"Step 2: Creating database '{DATABASE_NAME}'")
+        print(f"Step 2: Creating database '{self.database_name}'")
 
-        query = f"CREATE DATABASE IF NOT EXISTS {DATABASE_NAME}"
+        query = f"CREATE DATABASE IF NOT EXISTS {self.database_name}"
         print(f"Running query: {query}")
 
         execution_id = self.athena_wrapper.start_query_execution(
@@ -211,7 +216,7 @@ class AthenaScenario:
             "EngineExecutionTimeInMillis", 0
         )
         print(f"Query completed successfully. (Execution time: {exec_time}ms)")
-        print(f"Database '{DATABASE_NAME}' created.")
+        print(f"Database '{self.database_name}' created.")
         print(DASHES)
 
     # ---- Step 3 --------------------------------------------------------------
@@ -222,7 +227,7 @@ class AthenaScenario:
         print(f"Step 3: Creating table '{TABLE_NAME}' with sample data")
 
         query = f"""
-        CREATE TABLE {DATABASE_NAME}.{TABLE_NAME} AS
+        CREATE TABLE {self.database_name}.{TABLE_NAME} AS
         SELECT * FROM (
             VALUES
                 (1, 'The Shawshank Redemption', 1994, 9.3),
@@ -242,7 +247,7 @@ class AthenaScenario:
         execution_id = self.athena_wrapper.start_query_execution(
             query_string=query,
             work_group=self.workgroup_name,
-            database=DATABASE_NAME,
+            database=self.database_name,
         )
         print(f"Query execution ID: {execution_id}")
         print("Waiting for query to complete...")
@@ -252,7 +257,7 @@ class AthenaScenario:
             "EngineExecutionTimeInMillis", 0
         )
         print(f"Query completed successfully. (Execution time: {exec_time}ms)")
-        print(f"Table '{DATABASE_NAME}.{TABLE_NAME}' created with sample data.")
+        print(f"Table '{self.database_name}.{TABLE_NAME}' created with sample data.")
         print(DASHES)
 
     # ---- Step 4 --------------------------------------------------------------
@@ -263,7 +268,7 @@ class AthenaScenario:
         print("Step 4: Running analytical query")
 
         query = (
-            f"SELECT title, year, rating FROM {DATABASE_NAME}.{TABLE_NAME} "
+            f"SELECT title, year, rating FROM {self.database_name}.{TABLE_NAME} "
             "WHERE rating >= 9.0 ORDER BY rating DESC"
         )
         print(f"Query: {query}")
@@ -271,7 +276,7 @@ class AthenaScenario:
         execution_id = self.athena_wrapper.start_query_execution(
             query_string=query,
             work_group=self.workgroup_name,
-            database=DATABASE_NAME,
+            database=self.database_name,
         )
         print(f"Query execution ID: {execution_id}")
         print("Waiting for query to complete...")
@@ -310,7 +315,7 @@ class AthenaScenario:
         self.named_query_id = self.athena_wrapper.create_named_query(
             name="top-rated-movies",
             description="Returns movies with a rating of 9.0 or higher",
-            database=DATABASE_NAME,
+            database=self.database_name,
             query_string=(
                 "SELECT title, year, rating FROM movies "
                 "WHERE rating >= 9.0 ORDER BY rating DESC"
@@ -355,7 +360,7 @@ class AthenaScenario:
         execution_id = self.athena_wrapper.start_query_execution(
             query_string=query_string,
             work_group=self.workgroup_name,
-            database=DATABASE_NAME,
+            database=self.database_name,
         )
         print(f"Query execution ID: {execution_id}")
         self.athena_wrapper.wait_for_query_to_complete(execution_id)
@@ -411,9 +416,9 @@ class AthenaScenario:
         # 2. Drop the table and database via Athena queries.
         if self.workgroup_name:
             try:
-                print(f"\nDropping table '{DATABASE_NAME}.{TABLE_NAME}'...")
+                print(f"\nDropping table '{self.database_name}.{TABLE_NAME}'...")
                 drop_table_id = self.athena_wrapper.start_query_execution(
-                    query_string=f"DROP TABLE IF EXISTS {DATABASE_NAME}.{TABLE_NAME}",
+                    query_string=f"DROP TABLE IF EXISTS {self.database_name}.{TABLE_NAME}",
                     work_group=self.workgroup_name,
                 )
                 self.athena_wrapper.wait_for_query_to_complete(drop_table_id)
@@ -422,9 +427,9 @@ class AthenaScenario:
                 logger.error("Error dropping table: %s", err)
 
             try:
-                print(f"\nDropping database '{DATABASE_NAME}'...")
+                print(f"\nDropping database '{self.database_name}'...")
                 drop_db_id = self.athena_wrapper.start_query_execution(
-                    query_string=f"DROP DATABASE IF EXISTS {DATABASE_NAME}",
+                    query_string=f"DROP DATABASE IF EXISTS {self.database_name}",
                     work_group=self.workgroup_name,
                 )
                 self.athena_wrapper.wait_for_query_to_complete(drop_db_id)

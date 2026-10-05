@@ -28,7 +28,11 @@ from athena_wrapper import AthenaWrapper
 
 logger = logging.getLogger(__name__)
 
-DATABASE_NAME = "athena_integ_test_db"
+# The Glue Data Catalog is account-wide, so the database name is suffixed with a
+# unique token per run (see the test_resources fixture) to avoid collisions
+# between concurrent CI jobs and to keep a failed teardown from blocking the next
+# run with a "Table/Database already exists" error.
+DATABASE_PREFIX = "athena_integ_test_db"
 TABLE_NAME = "test_movies"
 
 
@@ -46,6 +50,7 @@ def test_resources():
     unique_suffix = uuid.uuid4().hex[:8]
     stack_name = f"athena-integ-test-{unique_suffix}"
     workgroup_name = f"athena-integ-wg-{unique_suffix}"
+    database_name = f"{DATABASE_PREFIX}_{unique_suffix}"
     bucket_name = ""
     named_query_id = ""
 
@@ -93,6 +98,7 @@ def test_resources():
         "stack_name": stack_name,
         "workgroup_name": workgroup_name,
         "bucket_name": bucket_name,
+        "database_name": database_name,
         "named_query_id": named_query_id,
     }
 
@@ -109,7 +115,7 @@ def test_resources():
         # Drop table and database.
         try:
             drop_table_id = wrapper.start_query_execution(
-                query_string=f"DROP TABLE IF EXISTS {DATABASE_NAME}.{TABLE_NAME}",
+                query_string=f"DROP TABLE IF EXISTS {database_name}.{TABLE_NAME}",
                 work_group=workgroup_name,
             )
             wrapper.wait_for_query_to_complete(drop_table_id)
@@ -118,7 +124,7 @@ def test_resources():
 
         try:
             drop_db_id = wrapper.start_query_execution(
-                query_string=f"DROP DATABASE IF EXISTS {DATABASE_NAME}",
+                query_string=f"DROP DATABASE IF EXISTS {database_name}",
                 work_group=workgroup_name,
             )
             wrapper.wait_for_query_to_complete(drop_db_id)
@@ -178,8 +184,9 @@ class TestAthenaBasics:
         """Tests creating a database via DDL query."""
         wrapper = test_resources["wrapper"]
         wg_name = test_resources["workgroup_name"]
+        db_name = test_resources["database_name"]
 
-        query = f"CREATE DATABASE IF NOT EXISTS {DATABASE_NAME}"
+        query = f"CREATE DATABASE IF NOT EXISTS {db_name}"
         execution_id = wrapper.start_query_execution(
             query_string=query, work_group=wg_name
         )
@@ -191,9 +198,10 @@ class TestAthenaBasics:
         """Tests creating a table using CTAS with inline data."""
         wrapper = test_resources["wrapper"]
         wg_name = test_resources["workgroup_name"]
+        db_name = test_resources["database_name"]
 
         query = f"""
-        CREATE TABLE {DATABASE_NAME}.{TABLE_NAME} AS
+        CREATE TABLE {db_name}.{TABLE_NAME} AS
         SELECT * FROM (
             VALUES
                 (1, 'The Shawshank Redemption', 1994, 9.3),
@@ -202,7 +210,7 @@ class TestAthenaBasics:
         ) AS t(id, title, year, rating)
         """
         execution_id = wrapper.start_query_execution(
-            query_string=query, work_group=wg_name, database=DATABASE_NAME
+            query_string=query, work_group=wg_name, database=db_name
         )
         result = wrapper.wait_for_query_to_complete(execution_id)
 
@@ -212,13 +220,14 @@ class TestAthenaBasics:
         """Tests running a SELECT query and retrieving results."""
         wrapper = test_resources["wrapper"]
         wg_name = test_resources["workgroup_name"]
+        db_name = test_resources["database_name"]
 
         query = (
-            f"SELECT title, year, rating FROM {DATABASE_NAME}.{TABLE_NAME} "
+            f"SELECT title, year, rating FROM {db_name}.{TABLE_NAME} "
             "WHERE rating >= 9.0 ORDER BY rating DESC"
         )
         execution_id = wrapper.start_query_execution(
-            query_string=query, work_group=wg_name, database=DATABASE_NAME
+            query_string=query, work_group=wg_name, database=db_name
         )
         wrapper.wait_for_query_to_complete(execution_id)
 
@@ -233,11 +242,12 @@ class TestAthenaBasics:
         """Tests creating a named query."""
         wrapper = test_resources["wrapper"]
         wg_name = test_resources["workgroup_name"]
+        db_name = test_resources["database_name"]
 
         named_query_id = wrapper.create_named_query(
             name="integ-test-query",
             description="Integration test named query",
-            database=DATABASE_NAME,
+            database=db_name,
             query_string="SELECT * FROM movies LIMIT 5",
             work_group=wg_name,
         )
