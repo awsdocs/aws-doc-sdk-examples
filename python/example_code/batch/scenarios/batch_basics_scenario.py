@@ -208,6 +208,10 @@ class BatchScenario:
         )
         self.jq_arn = response["jobQueueArn"]
         print(f"Job queue ARN: {self.jq_arn}")
+        # A newly created job queue is briefly in CREATING status; submit_job
+        # requires it to be VALID, so wait before continuing.
+        print("Waiting for job queue to become VALID...")
+        self.batch_wrapper.wait_for_job_queue_valid(self.jq_name)
         print("Job queue is ready.")
         print("-" * 80)
 

@@ -284,6 +284,8 @@ def test_run_scenario(scenario_data, stub_runner, mock_wait):
         )
         # 3. Create job queue
         runner.add(stubber.stub_create_job_queue, JQ_NAME, CE_NAME, JQ_ARN)
+        # 3b. Wait for the job queue to become VALID before submitting a job
+        runner.add(stubber.stub_describe_job_queues, JQ_NAME)
         # 4. Register job definition (execution role is required for Fargate)
         runner.add(
             stubber.stub_register_job_definition,
