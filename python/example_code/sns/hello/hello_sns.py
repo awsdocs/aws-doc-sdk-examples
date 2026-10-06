@@ -51,6 +51,8 @@ def hello_sns(sns_client):
         return topics
 
 
+# snippet-end:[python.example_code.sns.Hello]
+
+
 if __name__ == "__main__":
     hello_sns(boto3.client("sns"))
-# snippet-end:[python.example_code.sns.Hello]

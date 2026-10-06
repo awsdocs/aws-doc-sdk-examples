@@ -1,3 +1,3 @@
-boto3
-botocore
-pytest
+boto3>=1.26.79
+botocore>=1.29.79
+pytest>=7.2.1
