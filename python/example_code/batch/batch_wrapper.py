@@ -153,25 +153,25 @@ class BatchWrapper:
     def register_job_definition(
         self,
         job_definition_name: str,
+        execution_role_arn: str,
         image: str = "public.ecr.aws/amazonlinux/amazonlinux:2023",
         command: Optional[list] = None,
         vcpus: str = "0.25",
         memory: str = "512",
-        execution_role_arn: Optional[str] = None,
     ) -> dict:
         """
         Registers a Fargate job definition.
 
         :param job_definition_name: The name for the job definition.
+        :param execution_role_arn: The ARN of the IAM execution role that grants
+            the Fargate agent permission to pull the container image and write
+            logs. This is required for Fargate jobs; without it the API call
+            fails with "executionRoleArn is required for Fargate jobs."
         :param image: The container image to use.
         :param command: The command to run in the container.
-        :param vcpus: The number of vCPUs (as a string).
+        :param vcpus: The number of vCPUs (as a string). Fargate accepts
+            fractional values such as "0.25".
         :param memory: The memory in MiB (as a string).
-        :param execution_role_arn: The ARN of the IAM execution role that
-            grants the Fargate agent permission to pull the container image
-            and write logs. This is required for Fargate jobs to run; without
-            it the job definition registers successfully but submitted jobs
-            fail at startup.
         :return: A dictionary with the job definition name, ARN, and revision.
         """
         if command is None:
@@ -186,12 +186,14 @@ class BatchWrapper:
                 ],
                 "networkConfiguration": {"assignPublicIp": "ENABLED"},
                 "fargatePlatformConfiguration": {"platformVersion": "LATEST"},
+                "executionRoleArn": execution_role_arn,
             }
-            if execution_role_arn is not None:
-                container_properties["executionRoleArn"] = execution_role_arn
             response = self.batch_client.register_job_definition(
                 jobDefinitionName=job_definition_name,
                 type="container",
+                # platformCapabilities must be FARGATE; otherwise Batch treats
+                # this as an EC2 job definition and rejects fractional vCPUs.
+                platformCapabilities=["FARGATE"],
                 containerProperties=container_properties,
             )
             logger.info(
@@ -342,6 +344,41 @@ class BatchWrapper:
 
     # snippet-end:[python.example_code.batch.UpdateJobQueue]
 
+    def wait_for_job_queue_valid(
+        self,
+        job_queue: str,
+        poll_interval: int = 5,
+        max_wait: int = 120,
+    ) -> None:
+        """
+        Polls until a job queue reaches VALID status.
+
+        A newly created job queue is briefly in CREATING/UPDATING status.
+        Calling ``update_job_queue`` while it is still transitioning raises
+        ``ClientException: ... resource is being modified``. Wait for VALID
+        before attempting to disable it.
+
+        :param job_queue: The job queue name or ARN.
+        :param poll_interval: Seconds between polls (default 5).
+        :param max_wait: Maximum seconds to wait (default 120).
+        :raises TimeoutError: If the queue is not VALID in time.
+        """
+        elapsed = 0
+        while elapsed < max_wait:
+            response = self.batch_client.describe_job_queues(jobQueues=[job_queue])
+            queues = response.get("jobQueues", [])
+            if not queues:
+                return
+            if queues[0].get("status") == "VALID":
+                logger.info("Job queue %s is VALID.", job_queue)
+                return
+            time.sleep(poll_interval)
+            elapsed += poll_interval
+        raise TimeoutError(
+            f"Job queue {job_queue} did not reach VALID status within "
+            f"{max_wait} seconds."
+        )
+
     def wait_for_job_queue_disabled(
         self,
         job_queue: str,
@@ -396,6 +433,40 @@ class BatchWrapper:
             raise
 
     # snippet-end:[python.example_code.batch.DeleteJobQueue]
+
+    # snippet-start:[python.example_code.batch.UpdateComputeEnvironment]
+    def update_compute_environment(self, compute_environment: str, state: str) -> dict:
+        """
+        Updates a compute environment, such as disabling it before deletion.
+
+        A compute environment must be DISABLED before it can be deleted;
+        calling ``delete_compute_environment`` on an ENABLED environment raises
+        "Cannot delete an enabled compute environment, set the state to
+        DISABLED first."
+
+        :param compute_environment: The compute environment name or ARN.
+        :param state: The new state (ENABLED or DISABLED).
+        :return: The response dictionary.
+        """
+        try:
+            response = self.batch_client.update_compute_environment(
+                computeEnvironment=compute_environment, state=state
+            )
+            logger.info(
+                "Updated compute environment %s to state %s.",
+                compute_environment,
+                state,
+            )
+            return response
+        except ClientError as err:
+            logger.error(
+                "Error updating compute environment %s: %s",
+                compute_environment,
+                err.response["Error"]["Message"],
+            )
+            raise
+
+    # snippet-end:[python.example_code.batch.UpdateComputeEnvironment]
 
     # snippet-start:[python.example_code.batch.DeleteComputeEnvironment]
     def delete_compute_environment(self, compute_environment: str) -> None:
@@ -458,6 +529,46 @@ class BatchWrapper:
         raise TimeoutError(
             f"Compute environment {compute_environment_name} did not become "
             f"VALID within {max_wait} seconds."
+        )
+
+    def wait_for_compute_environment_disabled(
+        self,
+        compute_environment_name: str,
+        poll_interval: int = 10,
+        max_wait: int = 300,
+    ) -> None:
+        """
+        Polls until a compute environment is both DISABLED and VALID.
+
+        After ``update_compute_environment`` sets the state to DISABLED, the
+        environment briefly reports UPDATING status. ``delete_compute_environment``
+        must wait for it to settle to VALID, or it raises
+        "resource is being modified".
+
+        :param compute_environment_name: The name of the compute environment.
+        :param poll_interval: Seconds between polls (default 10).
+        :param max_wait: Maximum seconds to wait (default 300).
+        :raises TimeoutError: If the environment is not ready to delete in time.
+        """
+        elapsed = 0
+        while elapsed < max_wait:
+            environments = self.describe_compute_environments(
+                [compute_environment_name]
+            )
+            if not environments:
+                return
+            env = environments[0]
+            if env.get("state") == "DISABLED" and env.get("status") == "VALID":
+                logger.info(
+                    "Compute environment %s is disabled and ready to delete.",
+                    compute_environment_name,
+                )
+                return
+            time.sleep(poll_interval)
+            elapsed += poll_interval
+        raise TimeoutError(
+            f"Compute environment {compute_environment_name} did not reach a "
+            f"deletable state within {max_wait} seconds."
         )
 
     def wait_for_job_complete(

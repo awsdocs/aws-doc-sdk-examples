@@ -25,6 +25,7 @@ JQ_ARN = f"arn:aws:batch:{REGION}:{ACCOUNT_ID}:job-queue/{JQ_NAME}"
 JD_NAME = f"batch-basics-job-def-{TIMESTAMP}"
 JD_ARN = f"arn:aws:batch:{REGION}:{ACCOUNT_ID}:job-definition/{JD_NAME}:1"
 JD_REVISION = 1
+EXECUTION_ROLE_ARN = f"arn:aws:iam::{ACCOUNT_ID}:role/ecsTaskExecutionRole"
 JOB_ID = "a1b2c3d4-5678-90ab-cdef-111222333444"
 JOB_ARN = f"arn:aws:batch:{REGION}:{ACCOUNT_ID}:job/{JOB_ID}"
 JOB_NAME = "batch-basics-hello-job"
@@ -44,6 +45,12 @@ COMPUTE_ENVIRONMENT_VALID = {
         "subnets": SUBNET_IDS,
         "securityGroupIds": SECURITY_GROUP_IDS,
     },
+}
+
+COMPUTE_ENVIRONMENT_DISABLED = {
+    **COMPUTE_ENVIRONMENT_VALID,
+    "state": "DISABLED",
+    "status": "VALID",
 }
 
 JOB_DETAIL_SUCCEEDED = {
@@ -126,15 +133,17 @@ def test_create_job_queue(scenario_data, error_code):
 @pytest.mark.parametrize("error_code", [None, "TestException"])
 def test_register_job_definition(scenario_data, error_code):
     scenario_data.batch_stubber.stub_register_job_definition(
-        JD_NAME, JD_ARN, revision=JD_REVISION, error_code=error_code
+        JD_NAME, JD_ARN, EXECUTION_ROLE_ARN, revision=JD_REVISION, error_code=error_code
     )
     if error_code is None:
-        result = scenario_data.wrapper.register_job_definition(JD_NAME)
+        result = scenario_data.wrapper.register_job_definition(
+            JD_NAME, EXECUTION_ROLE_ARN
+        )
         assert result["revision"] == JD_REVISION
         assert result["jobDefinitionArn"] == JD_ARN
     else:
         with pytest.raises(ClientError) as exc_info:
-            scenario_data.wrapper.register_job_definition(JD_NAME)
+            scenario_data.wrapper.register_job_definition(JD_NAME, EXECUTION_ROLE_ARN)
         assert exc_info.value.response["Error"]["Code"] == error_code
 
 
@@ -210,6 +219,20 @@ def test_update_job_queue(scenario_data, error_code):
 
 
 @pytest.mark.parametrize("error_code", [None, "TestException"])
+def test_update_compute_environment(scenario_data, error_code):
+    scenario_data.batch_stubber.stub_update_compute_environment(
+        CE_NAME, "DISABLED", error_code=error_code
+    )
+    if error_code is None:
+        result = scenario_data.wrapper.update_compute_environment(CE_NAME, "DISABLED")
+        assert result["computeEnvironmentName"] == CE_NAME
+    else:
+        with pytest.raises(ClientError) as exc_info:
+            scenario_data.wrapper.update_compute_environment(CE_NAME, "DISABLED")
+        assert exc_info.value.response["Error"]["Code"] == error_code
+
+
+@pytest.mark.parametrize("error_code", [None, "TestException"])
 def test_delete_job_queue(scenario_data, error_code):
     scenario_data.batch_stubber.stub_delete_job_queue(JQ_NAME, error_code=error_code)
     if error_code is None:
@@ -261,11 +284,12 @@ def test_run_scenario(scenario_data, stub_runner, mock_wait):
         )
         # 3. Create job queue
         runner.add(stubber.stub_create_job_queue, JQ_NAME, CE_NAME, JQ_ARN)
-        # 4. Register job definition
+        # 4. Register job definition (execution role is required for Fargate)
         runner.add(
             stubber.stub_register_job_definition,
             JD_NAME,
             JD_ARN,
+            EXECUTION_ROLE_ARN,
             JD_REVISION,
         )
         # 5. Submit job (job_definition is "<name>:<revision>")
@@ -286,15 +310,33 @@ def test_run_scenario(scenario_data, stub_runner, mock_wait):
         # -- cleanup() --
         # 8. Deregister job definition
         runner.add(stubber.stub_deregister_job_definition, JD_ARN)
-        # 9. Disable job queue
-        runner.add(stubber.stub_update_job_queue, JQ_NAME, "DISABLED", JQ_NAME, JQ_ARN)
-        # 9b. Wait for the queue to be disabled before deletion
+        # 9. Wait for the queue to be VALID before disabling
         runner.add(stubber.stub_describe_job_queues, JQ_NAME)
-        # 10. Delete job queue
+        # 10. Disable job queue
+        runner.add(stubber.stub_update_job_queue, JQ_NAME, "DISABLED", JQ_NAME, JQ_ARN)
+        # 11. Wait for the queue to reach DISABLED/VALID before deletion
+        runner.add(stubber.stub_describe_job_queues, JQ_NAME)
+        # 12. Delete job queue
         runner.add(stubber.stub_delete_job_queue, JQ_NAME)
-        # 11. Delete compute environment
+        # 13. Wait for the queue to finish deleting
+        runner.add(stubber.stub_describe_job_queues, JQ_NAME)
+        # 14. Wait for the compute environment to be VALID before disabling
+        runner.add(
+            stubber.stub_describe_compute_environments,
+            [COMPUTE_ENVIRONMENT_VALID],
+            [CE_NAME],
+        )
+        # 15. Disable compute environment
+        runner.add(stubber.stub_update_compute_environment, CE_NAME, "DISABLED")
+        # 16. Wait for the compute environment to reach DISABLED/VALID
+        runner.add(
+            stubber.stub_describe_compute_environments,
+            [COMPUTE_ENVIRONMENT_DISABLED],
+            [CE_NAME],
+        )
+        # 17. Delete compute environment
         runner.add(stubber.stub_delete_compute_environment, CE_NAME)
 
-    scenario.setup(SUBNET_IDS, SECURITY_GROUP_IDS, TIMESTAMP)
+    scenario.setup(SUBNET_IDS, SECURITY_GROUP_IDS, EXECUTION_ROLE_ARN, TIMESTAMP)
     scenario.run()
     scenario.cleanup()

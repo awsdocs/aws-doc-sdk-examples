@@ -104,12 +104,12 @@ class BatchStubber(ExampleStubber):
         self,
         job_definition_name,
         job_definition_arn,
+        execution_role_arn,
         revision=1,
         image="public.ecr.aws/amazonlinux/amazonlinux:2023",
         command=None,
         vcpus="0.25",
         memory="512",
-        execution_role_arn=None,
         error_code=None,
     ):
         """Stub the register_job_definition function."""
@@ -124,12 +124,12 @@ class BatchStubber(ExampleStubber):
             ],
             "networkConfiguration": {"assignPublicIp": "ENABLED"},
             "fargatePlatformConfiguration": {"platformVersion": "LATEST"},
+            "executionRoleArn": execution_role_arn,
         }
-        if execution_role_arn is not None:
-            container_properties["executionRoleArn"] = execution_role_arn
         expected_params = {
             "jobDefinitionName": job_definition_name,
             "type": "container",
+            "platformCapabilities": ["FARGATE"],
             "containerProperties": container_properties,
         }
         response = {
@@ -228,6 +228,22 @@ class BatchStubber(ExampleStubber):
         response = {}
         self._stub_bifurcator(
             "delete_job_queue", expected_params, response, error_code=error_code
+        )
+
+    def stub_update_compute_environment(
+        self, compute_environment, state, error_code=None
+    ):
+        """Stub the update_compute_environment function."""
+        expected_params = {"computeEnvironment": compute_environment, "state": state}
+        response = {
+            "computeEnvironmentName": compute_environment,
+            "computeEnvironmentArn": compute_environment,
+        }
+        self._stub_bifurcator(
+            "update_compute_environment",
+            expected_params,
+            response,
+            error_code=error_code,
         )
 
     def stub_delete_compute_environment(self, compute_environment, error_code=None):

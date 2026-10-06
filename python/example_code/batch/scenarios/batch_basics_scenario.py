@@ -16,9 +16,15 @@ This scenario demonstrates the complete lifecycle of an AWS Batch workload:
 
 import logging
 import os
+import sys
 import time
 
 import boto3
+
+# When this script is run directly from the scenarios/ directory, only that
+# directory is on sys.path, so batch_wrapper.py in the parent directory is not
+# importable. Add the parent directory before importing the wrapper.
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from batch_wrapper import BatchWrapper
 
@@ -46,23 +52,34 @@ class BatchScenario:
         self.job_id = None
         self.subnet_ids = None
         self.security_group_ids = None
+        self.execution_role_arn = None
 
-    def setup(self, subnet_ids: list, security_group_ids: list, timestamp: str) -> None:
+    def setup(
+        self,
+        subnet_ids: list,
+        security_group_ids: list,
+        execution_role_arn: str,
+        timestamp: str,
+    ) -> None:
         """
-        Sets up the prerequisite networking resource references.
+        Sets up the prerequisite resource references.
 
         :param subnet_ids: Subnet IDs for the compute environment.
         :param security_group_ids: Security group IDs for the compute environment.
+        :param execution_role_arn: ARN of the ECS task execution role used by
+            the Fargate job definition.
         :param timestamp: A unique timestamp string for naming resources.
         """
         self.subnet_ids = subnet_ids
         self.security_group_ids = security_group_ids
+        self.execution_role_arn = execution_role_arn
         self.ce_name = f"batch-basics-fargate-ce-{timestamp}"
         self.jq_name = f"batch-basics-job-queue-{timestamp}"
         self.jd_name = f"batch-basics-job-def-{timestamp}"
         print(
             f"\nSubnets: {', '.join(subnet_ids)}"
             f"\nSecurity Group: {', '.join(security_group_ids)}"
+            f"\nExecution role: {execution_role_arn}"
         )
 
     def create_compute_environment(self) -> None:
@@ -112,7 +129,8 @@ class BatchScenario:
         print(f"Registering job definition: {self.jd_name}")
 
         response = self.batch_wrapper.register_job_definition(
-            job_definition_name=self.jd_name
+            job_definition_name=self.jd_name,
+            execution_role_arn=self.execution_role_arn,
         )
         self.jd_arn = response["jobDefinitionArn"]
         self.jd_revision = response["revision"]
@@ -186,12 +204,19 @@ class BatchScenario:
     def cleanup(self) -> None:
         """
         Cleans up all resources in reverse dependency order.
-        Uses only Batch service operations (no CloudFormation).
+
+        Uses only Batch service operations (no CloudFormation). Each resource
+        is waited into a stable state before the next transition so deletes do
+        not fail with "resource is being modified". A success message is only
+        printed when every step succeeds; otherwise the resources that could
+        not be removed are listed so the user can delete them manually.
         """
         print("\n" + "-" * 80)
         print("Cleaning up resources...")
 
-        # Deregister job definition
+        leftovers = []
+
+        # Deregister job definition.
         if self.jd_arn:
             try:
                 print(f"Deregistering job definition: {self.jd_arn} ... ", end="")
@@ -200,16 +225,18 @@ class BatchScenario:
             except Exception as e:
                 logger.error("Error deregistering job definition: %s", e)
                 print(f"error: {e}")
+                leftovers.append(f"job definition {self.jd_arn}")
 
-        # Disable and delete job queue
+        # Disable and delete the job queue. The queue must be VALID before it
+        # can be updated, and DISABLED/VALID before it can be deleted.
         if self.jq_name:
+            queue_deleted = False
             try:
                 print(f"Disabling job queue: {self.jq_name} ... ", end="")
+                self.batch_wrapper.wait_for_job_queue_valid(self.jq_name)
                 self.batch_wrapper.update_job_queue(self.jq_name, state="DISABLED")
-                print("done.")
-                # The queue must finish transitioning to DISABLED/VALID before
-                # it can be deleted, so wait for that before calling delete.
                 self.batch_wrapper.wait_for_job_queue_disabled(self.jq_name)
+                print("done.")
             except Exception as e:
                 logger.error("Error disabling job queue: %s", e)
                 print(f"error: {e}")
@@ -217,25 +244,53 @@ class BatchScenario:
             try:
                 print(f"Deleting job queue: {self.jq_name} ... ", end="")
                 self.batch_wrapper.delete_job_queue(self.jq_name)
+                # The queue is fully gone only after it leaves the DELETING
+                # state; wait so the compute environment can be deleted next.
+                self.batch_wrapper.wait_for_job_queue_disabled(self.jq_name)
                 print("done.")
+                queue_deleted = True
             except Exception as e:
                 logger.error("Error deleting job queue: %s", e)
                 print(f"error: {e}")
+            if not queue_deleted:
+                leftovers.append(f"job queue {self.jq_name}")
 
-        # Delete compute environment
+        # Disable and delete the compute environment. It must be DISABLED and
+        # VALID before deletion, otherwise AWS Batch rejects the delete.
         if self.ce_name:
+            ce_deleted = False
             try:
-                print(
-                    f"Deleting compute environment: {self.ce_name} ... ",
-                    end="",
+                print(f"Disabling compute environment: {self.ce_name} ... ", end="")
+                self.batch_wrapper.wait_for_compute_environment_valid(self.ce_name)
+                self.batch_wrapper.update_compute_environment(
+                    self.ce_name, state="DISABLED"
                 )
+                self.batch_wrapper.wait_for_compute_environment_disabled(self.ce_name)
+                print("done.")
+            except Exception as e:
+                logger.error("Error disabling compute environment: %s", e)
+                print(f"error: {e}")
+
+            try:
+                print(f"Deleting compute environment: {self.ce_name} ... ", end="")
                 self.batch_wrapper.delete_compute_environment(self.ce_name)
                 print("done.")
+                ce_deleted = True
             except Exception as e:
                 logger.error("Error deleting compute environment: %s", e)
                 print(f"error: {e}")
+            if not ce_deleted:
+                leftovers.append(f"compute environment {self.ce_name}")
 
-        print("All resources cleaned up successfully.")
+        if leftovers:
+            print(
+                "\nCleanup incomplete. The following resources were NOT deleted "
+                "and must be removed manually to avoid charges:"
+            )
+            for item in leftovers:
+                print(f"  - {item}")
+        else:
+            print("All resources cleaned up successfully.")
         print("-" * 80)
 
     def run(self) -> None:
@@ -264,25 +319,32 @@ def main() -> None:
     scenario = BatchScenario(wrapper)
 
     timestamp = str(int(time.time()))
-    # Read the networking configuration from the environment so the scenario
-    # can run against a real account without editing the source. Provide
-    # comma-separated values, e.g.:
+    # Read the configuration from the environment so the scenario can run
+    # against a real account without editing the source. Provide values, e.g.:
     #   export BATCH_SUBNET_IDS=subnet-0abc1234,subnet-0def5678
     #   export BATCH_SECURITY_GROUP_IDS=sg-0aabbccdd
+    #   export BATCH_EXECUTION_ROLE_ARN=arn:aws:iam::123456789012:role/ecsTaskExecutionRole
+    #
+    # BATCH_EXECUTION_ROLE_ARN must be an ECS task execution role (one that
+    # trusts ecs-tasks.amazonaws.com and has AmazonECSTaskExecutionRolePolicy).
+    # Fargate requires it so the job can pull its container image and write logs.
     subnet_ids = [s for s in os.environ.get("BATCH_SUBNET_IDS", "").split(",") if s]
     security_group_ids = [
         s for s in os.environ.get("BATCH_SECURITY_GROUP_IDS", "").split(",") if s
     ]
-    if not subnet_ids or not security_group_ids:
+    execution_role_arn = os.environ.get("BATCH_EXECUTION_ROLE_ARN", "")
+    if not subnet_ids or not security_group_ids or not execution_role_arn:
         print(
             "Set BATCH_SUBNET_IDS and BATCH_SECURITY_GROUP_IDS (comma-separated) "
-            "to the subnet and security group IDs from your VPC before running "
-            "this scenario."
+            "and BATCH_EXECUTION_ROLE_ARN to values from your account before "
+            "running this scenario. BATCH_EXECUTION_ROLE_ARN must be an ECS task "
+            "execution role (trusts ecs-tasks.amazonaws.com and has "
+            "AmazonECSTaskExecutionRolePolicy)."
         )
         return
 
     try:
-        scenario.setup(subnet_ids, security_group_ids, timestamp)
+        scenario.setup(subnet_ids, security_group_ids, execution_role_arn, timestamp)
         scenario.run()
     finally:
         scenario.cleanup()

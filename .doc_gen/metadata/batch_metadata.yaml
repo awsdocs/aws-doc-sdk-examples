@@ -75,6 +75,14 @@ batch_UpdateComputeEnvironment:
             - description:
               snippet_tags:
                 - batch.java2.disable.compute.environment.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/batch
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.batch.UpdateComputeEnvironment
   services:
     batch: {UpdateComputeEnvironment: null}
 batch_DescribeJobQueues:
