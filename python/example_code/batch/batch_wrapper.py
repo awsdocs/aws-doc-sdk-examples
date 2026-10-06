@@ -351,27 +351,37 @@ class BatchWrapper:
         max_wait: int = 120,
     ) -> None:
         """
-        Polls until a job queue reaches VALID status.
+        Polls until a job queue is VALID and ENABLED.
 
-        A newly created job queue is briefly in CREATING/UPDATING status.
-        Calling ``update_job_queue`` while it is still transitioning raises
-        ``ClientException: ... resource is being modified``. Wait for VALID
-        before attempting to disable it.
+        A newly created job queue is briefly in CREATING/UPDATING status and
+        cannot accept jobs or be updated until it finishes transitioning to
+        ``status=VALID``. Submitting a job too soon raises
+        ``ClientException: JobQueue ... not in VALID state`` and updating it too
+        soon raises ``... resource is being modified``.
 
         :param job_queue: The job queue name or ARN.
         :param poll_interval: Seconds between polls (default 5).
         :param max_wait: Maximum seconds to wait (default 120).
+        :raises RuntimeError: If the queue becomes INVALID.
         :raises TimeoutError: If the queue is not VALID in time.
         """
         elapsed = 0
         while elapsed < max_wait:
             response = self.batch_client.describe_job_queues(jobQueues=[job_queue])
             queues = response.get("jobQueues", [])
-            if not queues:
-                return
-            if queues[0].get("status") == "VALID":
-                logger.info("Job queue %s is VALID.", job_queue)
-                return
+            if queues:
+                queue = queues[0]
+                status = queue.get("status", "")
+                if status == "VALID" and queue.get("state") == "ENABLED":
+                    logger.info("Job queue %s is VALID and ENABLED.", job_queue)
+                    return
+                if status == "INVALID":
+                    raise RuntimeError(
+                        f"Job queue {job_queue} is INVALID: "
+                        f"{queue.get('statusReason', 'unknown')}"
+                    )
+            # Not ready yet (still CREATING/UPDATING or not yet returned by the
+            # API) — keep polling rather than assuming success.
             time.sleep(poll_interval)
             elapsed += poll_interval
         raise TimeoutError(

@@ -284,8 +284,8 @@ def test_run_scenario(scenario_data, stub_runner, mock_wait):
         )
         # 3. Create job queue
         runner.add(stubber.stub_create_job_queue, JQ_NAME, CE_NAME, JQ_ARN)
-        # 3b. Wait for the job queue to become VALID before submitting a job
-        runner.add(stubber.stub_describe_job_queues, JQ_NAME)
+        # 3b. Wait for the job queue to become VALID/ENABLED before submitting
+        runner.add(stubber.stub_describe_job_queues, JQ_NAME, "ENABLED")
         # 4. Register job definition (execution role is required for Fargate)
         runner.add(
             stubber.stub_register_job_definition,
@@ -312,8 +312,8 @@ def test_run_scenario(scenario_data, stub_runner, mock_wait):
         # -- cleanup() --
         # 8. Deregister job definition
         runner.add(stubber.stub_deregister_job_definition, JD_ARN)
-        # 9. Wait for the queue to be VALID before disabling
-        runner.add(stubber.stub_describe_job_queues, JQ_NAME)
+        # 9. Wait for the queue to be VALID/ENABLED before disabling
+        runner.add(stubber.stub_describe_job_queues, JQ_NAME, "ENABLED")
         # 10. Disable job queue
         runner.add(stubber.stub_update_job_queue, JQ_NAME, "DISABLED", JQ_NAME, JQ_ARN)
         # 11. Wait for the queue to reach DISABLED/VALID before deletion
