@@ -7,6 +7,8 @@ Contains common test fixtures used to run AWS Batch unit tests.
 
 import sys
 import os
+from unittest.mock import MagicMock
+
 import boto3
 import pytest
 
@@ -37,7 +39,16 @@ class ScenarioData:
         self.batch_client = batch_client
         self.batch_stubber = batch_stubber
         self.wrapper = BatchWrapper(self.batch_client)
-        self.scenario = batch_basics_scenario.BatchScenario(batch_wrapper=self.wrapper)
+        # IAM and EC2 provisioning are exercised with mocks so the Batch
+        # Stubber stays focused on Batch calls. The mocks return the minimal
+        # shapes the scenario reads.
+        self.iam_client = MagicMock()
+        self.ec2_client = MagicMock()
+        self.scenario = batch_basics_scenario.BatchScenario(
+            batch_wrapper=self.wrapper,
+            iam_client=self.iam_client,
+            ec2_client=self.ec2_client,
+        )
 
 
 @pytest.fixture
@@ -50,7 +61,8 @@ def scenario_data(make_stubber):
 
 @pytest.fixture
 def mock_wait(monkeypatch):
-    """Patch the wrapper's time.sleep so polling waits are instantaneous."""
+    """Patch the wrapper's and scenario's time.sleep so waits are instant."""
     import batch_wrapper
 
     monkeypatch.setattr(batch_wrapper.time, "sleep", lambda x: None)
+    monkeypatch.setattr(batch_basics_scenario.time, "sleep", lambda x: None)

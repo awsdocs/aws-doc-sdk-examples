@@ -268,11 +268,11 @@ def test_run_scenario(scenario_data, stub_runner, mock_wait):
     stubber = scenario_data.batch_stubber
 
     with stub_runner(None, None) as runner:
-        # 1. Create compute environment
+        # 1. Create compute environment (setup discovers a single subnet)
         runner.add(
             stubber.stub_create_compute_environment,
             CE_NAME,
-            SUBNET_IDS,
+            [SUBNET_IDS[0]],
             SECURITY_GROUP_IDS,
             CE_ARN,
         )
@@ -337,6 +337,24 @@ def test_run_scenario(scenario_data, stub_runner, mock_wait):
         # 17. Delete compute environment
         runner.add(stubber.stub_delete_compute_environment, CE_NAME)
 
-    scenario.setup(SUBNET_IDS, SECURITY_GROUP_IDS, EXECUTION_ROLE_ARN, TIMESTAMP)
+    # Configure the mocked IAM/EC2 clients the scenario uses to self-provision.
+    scenario_data.ec2_client.describe_vpcs.return_value = {
+        "Vpcs": [{"VpcId": "vpc-012345"}]
+    }
+    scenario_data.ec2_client.describe_subnets.return_value = {
+        "Subnets": [{"SubnetId": SUBNET_IDS[0]}]
+    }
+    scenario_data.ec2_client.describe_security_groups.return_value = {
+        "SecurityGroups": [{"GroupId": SECURITY_GROUP_IDS[0]}]
+    }
+    scenario_data.iam_client.create_role.return_value = {
+        "Role": {"Arn": EXECUTION_ROLE_ARN}
+    }
+
+    scenario.setup(TIMESTAMP)
+    # setup() discovers one subnet; align the Batch stubs that were queued
+    # with a single subnet so create_compute_environment matches.
+    assert scenario.subnet_ids == [SUBNET_IDS[0]]
+    assert scenario.execution_role_arn == EXECUTION_ROLE_ARN
     scenario.run()
     scenario.cleanup()

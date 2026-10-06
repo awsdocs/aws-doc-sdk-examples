@@ -14,12 +14,14 @@ This scenario demonstrates the complete lifecycle of an AWS Batch workload:
 7. Clean up all resources in reverse dependency order.
 """
 
+import json
 import logging
 import os
 import sys
 import time
 
 import boto3
+from botocore.exceptions import ClientError
 
 # When this script is run directly from the scenarios/ directory, only that
 # directory is on sys.path, so batch_wrapper.py in the parent directory is not
@@ -30,18 +32,47 @@ from batch_wrapper import BatchWrapper
 
 logger = logging.getLogger(__name__)
 
+# Trust policy for the ECS task execution role used by Fargate jobs.
+ECS_TASKS_TRUST_POLICY = {
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": {"Service": "ecs-tasks.amazonaws.com"},
+            "Action": "sts:AssumeRole",
+        }
+    ],
+}
+ECS_EXECUTION_POLICY_ARN = (
+    "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+)
+
 
 # snippet-start:[python.example_code.batch.BatchScenario]
 class BatchScenario:
     """Runs the AWS Batch Basics scenario."""
 
-    def __init__(self, batch_wrapper: BatchWrapper) -> None:
+    def __init__(
+        self,
+        batch_wrapper: BatchWrapper,
+        iam_client=None,
+        ec2_client=None,
+    ) -> None:
         """
-        Initializes the scenario with a BatchWrapper.
+        Initializes the scenario.
+
+        The scenario self-provisions the networking (default VPC subnet and
+        security group) and the ECS task execution role that Fargate jobs
+        require, so it can be run with only AWS credentials. All provisioned
+        resources are removed in ``cleanup``.
 
         :param batch_wrapper: A BatchWrapper instance for Batch operations.
+        :param iam_client: A Boto3 IAM client (created if not supplied).
+        :param ec2_client: A Boto3 EC2 client (created if not supplied).
         """
         self.batch_wrapper = batch_wrapper
+        self.iam_client = iam_client or boto3.client("iam")
+        self.ec2_client = ec2_client or boto3.client("ec2")
         self.ce_name = None
         self.ce_arn = None
         self.jq_name = None
@@ -52,35 +83,93 @@ class BatchScenario:
         self.job_id = None
         self.subnet_ids = None
         self.security_group_ids = None
+        self.execution_role_name = None
         self.execution_role_arn = None
 
-    def setup(
-        self,
-        subnet_ids: list,
-        security_group_ids: list,
-        execution_role_arn: str,
-        timestamp: str,
-    ) -> None:
+    def discover_networking(self) -> None:
         """
-        Sets up the prerequisite resource references.
+        Finds a subnet and security group in the default VPC.
 
-        :param subnet_ids: Subnet IDs for the compute environment.
-        :param security_group_ids: Security group IDs for the compute environment.
-        :param execution_role_arn: ARN of the ECS task execution role used by
-            the Fargate job definition.
+        This lets the scenario run without the user supplying networking IDs,
+        matching the self-contained behavior of the other Batch Basics examples.
+
+        :raises RuntimeError: If no default VPC or no subnet is found.
+        """
+        vpcs = self.ec2_client.describe_vpcs(
+            Filters=[{"Name": "isDefault", "Values": ["true"]}]
+        ).get("Vpcs", [])
+        if not vpcs:
+            raise RuntimeError(
+                "No default VPC found. Create a default VPC or run this scenario "
+                "in a region that has one."
+            )
+        vpc_id = vpcs[0]["VpcId"]
+
+        subnets = self.ec2_client.describe_subnets(
+            Filters=[{"Name": "vpc-id", "Values": [vpc_id]}]
+        ).get("Subnets", [])
+        if not subnets:
+            raise RuntimeError(f"No subnets found in default VPC {vpc_id}.")
+        # Prefer a subnet that assigns public IPs so the Fargate task can pull
+        # its public ECR image; fall back to the first subnet otherwise. One
+        # subnet is sufficient for the Basics scenario.
+        public_subnets = [s for s in subnets if s.get("MapPublicIpOnLaunch")]
+        chosen = public_subnets[0] if public_subnets else subnets[0]
+        self.subnet_ids = [chosen["SubnetId"]]
+
+        groups = self.ec2_client.describe_security_groups(
+            Filters=[
+                {"Name": "vpc-id", "Values": [vpc_id]},
+                {"Name": "group-name", "Values": ["default"]},
+            ]
+        ).get("SecurityGroups", [])
+        if not groups:
+            raise RuntimeError(f"No default security group found in VPC {vpc_id}.")
+        self.security_group_ids = [groups[0]["GroupId"]]
+
+    def create_execution_role(self) -> None:
+        """
+        Creates an ECS task execution role for Fargate jobs.
+
+        Fargate requires an execution role that trusts ecs-tasks.amazonaws.com
+        and has the AmazonECSTaskExecutionRolePolicy so the agent can pull the
+        container image and write logs. The role is deleted in ``cleanup``.
+        """
+        response = self.iam_client.create_role(
+            RoleName=self.execution_role_name,
+            AssumeRolePolicyDocument=json.dumps(ECS_TASKS_TRUST_POLICY),
+            Description="ECS task execution role for the Batch Basics scenario.",
+        )
+        self.execution_role_arn = response["Role"]["Arn"]
+        self.iam_client.attach_role_policy(
+            RoleName=self.execution_role_name,
+            PolicyArn=ECS_EXECUTION_POLICY_ARN,
+        )
+        # IAM is eventually consistent; give the role a moment to propagate
+        # before Batch/Fargate tries to assume it.
+        time.sleep(10)
+        print(f"Created execution role: {self.execution_role_arn}")
+
+    def setup(self, timestamp: str) -> None:
+        """
+        Provisions all prerequisites: networking discovery and the ECS task
+        execution role, and derives the resource names.
+
         :param timestamp: A unique timestamp string for naming resources.
         """
-        self.subnet_ids = subnet_ids
-        self.security_group_ids = security_group_ids
-        self.execution_role_arn = execution_role_arn
         self.ce_name = f"batch-basics-fargate-ce-{timestamp}"
         self.jq_name = f"batch-basics-job-queue-{timestamp}"
         self.jd_name = f"batch-basics-job-def-{timestamp}"
+        self.execution_role_name = f"batch-basics-exec-role-{timestamp}"
+
+        print("\nDiscovering default VPC networking...")
+        self.discover_networking()
         print(
-            f"\nSubnets: {', '.join(subnet_ids)}"
-            f"\nSecurity Group: {', '.join(security_group_ids)}"
-            f"\nExecution role: {execution_role_arn}"
+            f"  Subnets: {', '.join(self.subnet_ids)}\n"
+            f"  Security Group: {', '.join(self.security_group_ids)}"
         )
+        print("Creating ECS task execution role...")
+        self.create_execution_role()
 
     def create_compute_environment(self) -> None:
         """Step 1: Create a Fargate compute environment."""
@@ -282,6 +371,29 @@ class BatchScenario:
             if not ce_deleted:
                 leftovers.append(f"compute environment {self.ce_name}")
 
+        # Delete the ECS task execution role the scenario created. Detach the
+        # managed policy first; a role cannot be deleted while policies are
+        # attached.
+        if self.execution_role_name:
+            role_deleted = False
+            try:
+                print(
+                    f"Deleting execution role: {self.execution_role_name} ... ",
+                    end="",
+                )
+                self.iam_client.detach_role_policy(
+                    RoleName=self.execution_role_name,
+                    PolicyArn=ECS_EXECUTION_POLICY_ARN,
+                )
+                self.iam_client.delete_role(RoleName=self.execution_role_name)
+                print("done.")
+                role_deleted = True
+            except ClientError as e:
+                logger.error("Error deleting execution role: %s", e)
+                print(f"error: {e}")
+            if not role_deleted:
+                leftovers.append(f"IAM role {self.execution_role_name}")
+
         if leftovers:
             print(
                 "\nCleanup incomplete. The following resources were NOT deleted "
@@ -319,32 +431,11 @@ def main() -> None:
     scenario = BatchScenario(wrapper)
 
     timestamp = str(int(time.time()))
-    # Read the configuration from the environment so the scenario can run
-    # against a real account without editing the source. Provide values, e.g.:
-    #   export BATCH_SUBNET_IDS=subnet-0abc1234,subnet-0def5678
-    #   export BATCH_SECURITY_GROUP_IDS=sg-0aabbccdd
-    #   export BATCH_EXECUTION_ROLE_ARN=arn:aws:iam::123456789012:role/ecsTaskExecutionRole
-    #
-    # BATCH_EXECUTION_ROLE_ARN must be an ECS task execution role (one that
-    # trusts ecs-tasks.amazonaws.com and has AmazonECSTaskExecutionRolePolicy).
-    # Fargate requires it so the job can pull its container image and write logs.
-    subnet_ids = [s for s in os.environ.get("BATCH_SUBNET_IDS", "").split(",") if s]
-    security_group_ids = [
-        s for s in os.environ.get("BATCH_SECURITY_GROUP_IDS", "").split(",") if s
-    ]
-    execution_role_arn = os.environ.get("BATCH_EXECUTION_ROLE_ARN", "")
-    if not subnet_ids or not security_group_ids or not execution_role_arn:
-        print(
-            "Set BATCH_SUBNET_IDS and BATCH_SECURITY_GROUP_IDS (comma-separated) "
-            "and BATCH_EXECUTION_ROLE_ARN to values from your account before "
-            "running this scenario. BATCH_EXECUTION_ROLE_ARN must be an ECS task "
-            "execution role (trusts ecs-tasks.amazonaws.com and has "
-            "AmazonECSTaskExecutionRolePolicy)."
-        )
-        return
-
+    # The scenario provisions its own networking and ECS task execution role,
+    # so it runs with only AWS credentials configured. Everything it creates
+    # is removed in cleanup().
     try:
-        scenario.setup(subnet_ids, security_group_ids, execution_role_arn, timestamp)
+        scenario.setup(timestamp)
         scenario.run()
     finally:
         scenario.cleanup()
