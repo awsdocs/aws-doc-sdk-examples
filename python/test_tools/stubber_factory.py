@@ -15,6 +15,7 @@ from test_tools.apigatewaymanagementapi_stubber import ApiGatewayManagementApiSt
 from test_tools.apigateway_v2_stubber import ApiGatewayV2Stubber
 from test_tools.auditmanager_stubber import AuditManagerStubber
 from test_tools.autoscaling_stubber import AutoScalingStubber
+from test_tools.batch_stubber import BatchStubber
 from test_tools.bedrock_stubber import BedrockStubber
 from test_tools.bedrock_runtime_stubber import BedrockRuntimeStubber
 from test_tools.bedrock_agent_stubber import BedrockAgentStubber
@@ -93,6 +94,8 @@ def stubber_factory(service_name):
         return AuditManagerStubber
     elif service_name == "autoscaling":
         return AutoScalingStubber
+    elif service_name == "batch":
+        return BatchStubber
     elif service_name == "bedrock":
         return BedrockStubber
     elif service_name == "bedrock-runtime":
