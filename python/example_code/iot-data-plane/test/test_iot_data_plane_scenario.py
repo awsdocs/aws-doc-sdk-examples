@@ -2,18 +2,18 @@
 # SPDX-License-Identifier: Apache-2.0
 
 """
-Integration tests for the IoT Data Plane Basics scenario.
+Unit tests for the IoT Data Plane wrapper (iot_data_plane_wrapper.py).
 
-These tests verify all IoT Data Plane operations against the live AWS service.
-No mocking is used — all calls hit real AWS endpoints.
-
-Usage:
-    pytest test_iot_data_plane_scenario.py -v
+These tests use the botocore Stubber (via the shared ``make_stubber`` fixture
+from test_tools) to intercept AWS calls, so no live AWS resources are used.
+A separate set of integration tests, marked with ``@pytest.mark.integ``, runs
+the same operations against real AWS endpoints.
 """
 
-import sys
 import os
+import sys
 
+# Make the parent directory importable so the wrapper module resolves.
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import json
@@ -24,6 +24,188 @@ import pytest
 from botocore.exceptions import ClientError
 
 from iot_data_plane_wrapper import IoTDataPlaneWrapper
+
+# -----------------------------------------------------------------------------
+# Unit tests — use the botocore Stubber. No live AWS resources are used.
+# -----------------------------------------------------------------------------
+
+
+@pytest.mark.parametrize("error_code", [None, "InvalidRequestException"])
+def test_update_thing_shadow(make_stubber, error_code):
+    iot_data_client = boto3.client("iot-data")
+    stubber = make_stubber(iot_data_client)
+    wrapper = IoTDataPlaneWrapper(iot_data_client)
+    thing_name = "test-thing"
+    shadow_state = {"state": {"reported": {"temperature": 22.5}}}
+    returned_doc = {"state": {"reported": {"temperature": 22.5}}, "version": 1}
+
+    stubber.stub_update_thing_shadow(thing_name, returned_doc, error_code=error_code)
+
+    if error_code is None:
+        result = wrapper.update_thing_shadow(thing_name, shadow_state)
+        assert result["state"]["reported"]["temperature"] == 22.5
+    else:
+        with pytest.raises(ClientError) as exc_info:
+            wrapper.update_thing_shadow(thing_name, shadow_state)
+        assert exc_info.value.response["Error"]["Code"] == error_code
+
+
+@pytest.mark.parametrize("error_code", [None, "ResourceNotFoundException"])
+def test_update_named_thing_shadow(make_stubber, error_code):
+    iot_data_client = boto3.client("iot-data")
+    stubber = make_stubber(iot_data_client)
+    wrapper = IoTDataPlaneWrapper(iot_data_client)
+    thing_name = "test-thing"
+    shadow_name = "sensor-config"
+    shadow_state = {"state": {"desired": {"interval": 30}}}
+    returned_doc = {"state": {"desired": {"interval": 30}}, "version": 1}
+
+    stubber.stub_update_thing_shadow(
+        thing_name, returned_doc, shadow_name=shadow_name, error_code=error_code
+    )
+
+    if error_code is None:
+        result = wrapper.update_thing_shadow(
+            thing_name, shadow_state, shadow_name=shadow_name
+        )
+        assert result["version"] == 1
+    else:
+        with pytest.raises(ClientError) as exc_info:
+            wrapper.update_thing_shadow(
+                thing_name, shadow_state, shadow_name=shadow_name
+            )
+        assert exc_info.value.response["Error"]["Code"] == error_code
+
+
+@pytest.mark.parametrize("error_code", [None, "ResourceNotFoundException"])
+def test_get_thing_shadow(make_stubber, error_code):
+    iot_data_client = boto3.client("iot-data")
+    stubber = make_stubber(iot_data_client)
+    wrapper = IoTDataPlaneWrapper(iot_data_client)
+    thing_name = "test-thing"
+    returned_doc = {"state": {"reported": {"status": "online"}}, "version": 2}
+
+    stubber.stub_get_thing_shadow(thing_name, returned_doc, error_code=error_code)
+
+    if error_code is None:
+        result = wrapper.get_thing_shadow(thing_name)
+        assert result["state"]["reported"]["status"] == "online"
+        assert result["version"] == 2
+    else:
+        with pytest.raises(ClientError) as exc_info:
+            wrapper.get_thing_shadow(thing_name)
+        assert exc_info.value.response["Error"]["Code"] == error_code
+
+
+@pytest.mark.parametrize("error_code", [None, "ResourceNotFoundException"])
+def test_delete_thing_shadow(make_stubber, error_code):
+    iot_data_client = boto3.client("iot-data")
+    stubber = make_stubber(iot_data_client)
+    wrapper = IoTDataPlaneWrapper(iot_data_client)
+    thing_name = "test-thing"
+    shadow_name = "sensor-config"
+    returned_doc = {"version": 3, "timestamp": 1234567890}
+
+    stubber.stub_delete_thing_shadow(
+        thing_name, returned_doc, shadow_name=shadow_name, error_code=error_code
+    )
+
+    if error_code is None:
+        result = wrapper.delete_thing_shadow(thing_name, shadow_name=shadow_name)
+        assert result["version"] == 3
+    else:
+        with pytest.raises(ClientError) as exc_info:
+            wrapper.delete_thing_shadow(thing_name, shadow_name=shadow_name)
+        assert exc_info.value.response["Error"]["Code"] == error_code
+
+
+@pytest.mark.parametrize("error_code", [None, "ResourceNotFoundException"])
+def test_list_named_shadows_for_thing(make_stubber, error_code):
+    iot_data_client = boto3.client("iot-data")
+    stubber = make_stubber(iot_data_client)
+    wrapper = IoTDataPlaneWrapper(iot_data_client)
+    thing_name = "test-thing"
+    shadow_names = ["sensor-config", "firmware-config"]
+
+    stubber.stub_list_named_shadows_for_thing(
+        thing_name, shadow_names, error_code=error_code
+    )
+
+    if error_code is None:
+        result = wrapper.list_named_shadows_for_thing(thing_name)
+        assert result == shadow_names
+    else:
+        with pytest.raises(ClientError) as exc_info:
+            wrapper.list_named_shadows_for_thing(thing_name)
+        assert exc_info.value.response["Error"]["Code"] == error_code
+
+
+@pytest.mark.parametrize("error_code", [None, "InvalidRequestException"])
+def test_publish(make_stubber, error_code):
+    iot_data_client = boto3.client("iot-data")
+    stubber = make_stubber(iot_data_client)
+    wrapper = IoTDataPlaneWrapper(iot_data_client)
+    topic = "dt/sensors/test/temperature"
+    payload = json.dumps({"temperature": 23.1}).encode("utf-8")
+
+    stubber.stub_publish(topic, qos=1, retain=True, error_code=error_code)
+
+    if error_code is None:
+        # publish returns None on success.
+        assert wrapper.publish(topic, payload=payload, qos=1, retain=True) is None
+    else:
+        with pytest.raises(ClientError) as exc_info:
+            wrapper.publish(topic, payload=payload, qos=1, retain=True)
+        assert exc_info.value.response["Error"]["Code"] == error_code
+
+
+@pytest.mark.parametrize("error_code", [None, "ThrottlingException"])
+def test_list_retained_messages(make_stubber, error_code):
+    iot_data_client = boto3.client("iot-data")
+    stubber = make_stubber(iot_data_client)
+    wrapper = IoTDataPlaneWrapper(iot_data_client)
+    retained_topics = [
+        {"topic": "dt/sensors/test/temperature", "payloadSize": 42, "qos": 1}
+    ]
+
+    stubber.stub_list_retained_messages(retained_topics, error_code=error_code)
+
+    if error_code is None:
+        result = wrapper.list_retained_messages()
+        assert result == retained_topics
+    else:
+        with pytest.raises(ClientError) as exc_info:
+            wrapper.list_retained_messages()
+        assert exc_info.value.response["Error"]["Code"] == error_code
+
+
+@pytest.mark.parametrize("error_code", [None, "ResourceNotFoundException"])
+def test_get_retained_message(make_stubber, error_code):
+    iot_data_client = boto3.client("iot-data")
+    stubber = make_stubber(iot_data_client)
+    wrapper = IoTDataPlaneWrapper(iot_data_client)
+    topic = "dt/sensors/test/temperature"
+    payload = json.dumps({"temperature": 23.1})
+
+    stubber.stub_get_retained_message(
+        topic, payload, qos=1, last_modified_time=1234567890, error_code=error_code
+    )
+
+    if error_code is None:
+        result = wrapper.get_retained_message(topic)
+        assert result["topic"] == topic
+        assert result["qos"] == 1
+        assert json.loads(result["payload"])["temperature"] == 23.1
+    else:
+        with pytest.raises(ClientError) as exc_info:
+            wrapper.get_retained_message(topic)
+        assert exc_info.value.response["Error"]["Code"] == error_code
+
+
+# -----------------------------------------------------------------------------
+# Integration tests — hit live AWS endpoints. Marked with @pytest.mark.integ so
+# they are only run on demand (they may incur charges).
+# -----------------------------------------------------------------------------
 
 
 @pytest.fixture(scope="module")
@@ -70,8 +252,8 @@ def thing_name(iot_client, iot_data_wrapper):
 
 
 @pytest.mark.integ
-class TestIoTDataPlaneWrapper:
-    """Integration tests for IoTDataPlaneWrapper methods."""
+class TestIoTDataPlaneWrapperIntegration:
+    """Integration tests for IoTDataPlaneWrapper methods against live AWS."""
 
     def test_update_and_get_classic_shadow(self, iot_data_wrapper, thing_name):
         """Tests creating and retrieving the classic (unnamed) shadow."""
@@ -84,7 +266,6 @@ class TestIoTDataPlaneWrapper:
             }
         }
 
-        # Update the shadow.
         result = iot_data_wrapper.update_thing_shadow(
             thing_name=thing_name,
             shadow_state=shadow_state,
@@ -93,7 +274,6 @@ class TestIoTDataPlaneWrapper:
         assert "reported" in result["state"]
         assert result["state"]["reported"]["temperature"] == 22.5
 
-        # Get the shadow.
         shadow = iot_data_wrapper.get_thing_shadow(thing_name=thing_name)
         assert "state" in shadow
         assert shadow["state"]["reported"]["status"] == "online"
@@ -114,13 +294,11 @@ class TestIoTDataPlaneWrapper:
         )
         assert "state" in result
 
-        # Retrieve the named shadow.
         shadow = iot_data_wrapper.get_thing_shadow(
             thing_name=thing_name,
             shadow_name="test-config",
         )
         assert "state" in shadow
-        # Delta should exist because desired != reported.
         assert "delta" in shadow.get("state", dict())
 
     def test_list_named_shadows(self, iot_data_wrapper, thing_name):
@@ -129,7 +307,6 @@ class TestIoTDataPlaneWrapper:
             thing_name=thing_name,
         )
         assert isinstance(shadow_names, list)
-        # We created 'test-config' in the previous test.
         assert "test-config" in shadow_names
 
     def test_get_thing_shadow_not_found(self, iot_data_wrapper):
@@ -148,7 +325,6 @@ class TestIoTDataPlaneWrapper:
         }
 
         try:
-            # Publish with retain flag.
             iot_data_wrapper.publish(
                 topic=topic,
                 payload=json.dumps(message).encode("utf-8"),
@@ -156,20 +332,16 @@ class TestIoTDataPlaneWrapper:
                 retain=True,
             )
 
-            # Allow time for the retained message to be stored.
             time.sleep(3)
 
-            # List retained messages and check for our topic.
             retained = iot_data_wrapper.list_retained_messages(max_results=25)
             assert isinstance(retained, list)
 
-            # Get the specific retained message.
             result = iot_data_wrapper.get_retained_message(topic=topic)
             assert result["topic"] == topic
             payload = json.loads(result["payload"])
             assert payload["temperature"] == 25.0
         finally:
-            # Clean up: delete the retained message.
             try:
                 iot_data_wrapper.publish(
                     topic=topic,
@@ -177,14 +349,12 @@ class TestIoTDataPlaneWrapper:
                     qos=1,
                     retain=True,
                 )
-                # Allow time for deletion to propagate.
                 time.sleep(2)
             except ClientError:
                 pass
 
     def test_delete_named_shadow(self, iot_data_wrapper, thing_name):
         """Tests deleting a named shadow."""
-        # Ensure the named shadow exists.
         try:
             iot_data_wrapper.update_thing_shadow(
                 thing_name=thing_name,
@@ -200,7 +370,6 @@ class TestIoTDataPlaneWrapper:
         )
         assert isinstance(payload, dict)
 
-        # Verify the shadow is deleted.
         with pytest.raises(ClientError) as exc_info:
             iot_data_wrapper.get_thing_shadow(
                 thing_name=thing_name,
@@ -210,7 +379,6 @@ class TestIoTDataPlaneWrapper:
 
     def test_delete_classic_shadow(self, iot_data_wrapper, thing_name):
         """Tests deleting the classic shadow."""
-        # Ensure the classic shadow exists.
         try:
             iot_data_wrapper.update_thing_shadow(
                 thing_name=thing_name,
@@ -234,7 +402,7 @@ class TestIoTDataPlaneWrapper:
         assert exc_info.value.response["Error"]["Code"] == "InvalidRequestException"
 
     def test_get_retained_message_not_found(self, iot_data_wrapper):
-        """Tests that getting a nonexistent retained message raises ResourceNotFoundException."""
+        """Tests that getting a nonexistent retained message raises an error."""
         with pytest.raises(ClientError) as exc_info:
             iot_data_wrapper.get_retained_message(topic="nonexistent/topic/xyz/123456")
         assert exc_info.value.response["Error"]["Code"] == "ResourceNotFoundException"
@@ -254,25 +422,20 @@ class TestIoTDataPlaneHello:
         )
 
         try:
-            # Create thing.
             iot_client.create_thing(thingName=thing_name)
 
-            # Get shadow — should fail with ResourceNotFoundException.
             with pytest.raises(iot_data_client.exceptions.ResourceNotFoundException):
                 iot_data_client.get_thing_shadow(thingName=thing_name)
 
-            # Update shadow.
             shadow_doc = {"state": {"reported": {"status": "online"}}}
             iot_data_client.update_thing_shadow(
                 thingName=thing_name, payload=json.dumps(shadow_doc)
             )
 
-            # Get shadow — should succeed now.
             response = iot_data_client.get_thing_shadow(thingName=thing_name)
             shadow = json.loads(response["payload"].read())
             assert shadow["state"]["reported"]["status"] == "online"
         finally:
-            # Clean up.
             try:
                 iot_data_client.delete_thing_shadow(thingName=thing_name)
             except ClientError:

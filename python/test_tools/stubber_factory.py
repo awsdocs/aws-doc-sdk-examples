@@ -41,6 +41,7 @@ from test_tools.greengrassv2_stubber import GreengrassV2Stubber
 from test_tools.iam_stubber import IamStubber
 from test_tools.iot_stubber import IoTStubber
 from test_tools.iot_sitewise_stubber import IoTSitewiseStubber
+from test_tools.iot_data_plane_stubber import IoTDataPlaneStubber
 from test_tools.healthlake_stubber import HealthLakeStubber
 from test_tools.keyspaces_stubber import KeyspacesStubber
 from test_tools.kinesis_stubber import KinesisStubber
@@ -154,6 +155,8 @@ def stubber_factory(service_name):
         return IoTStubber
     elif service_name == "iotsitewise":
         return IoTSitewiseStubber
+    elif service_name == "iot-data":
+        return IoTDataPlaneStubber
     elif service_name == "healthlake":
         return HealthLakeStubber
     elif service_name == "keyspaces":
