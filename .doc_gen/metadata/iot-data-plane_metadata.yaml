@@ -1,44 +1,14 @@
-# This is a partial metadata file for the Python language entries ONLY.
-# Merge these entries into the existing iot-data-plane_metadata.yaml file,
-# adding the Python language block under each existing operation key alongside
-# any other SDK language entries that may already exist.
-
-iot-data-plane_GetThingShadow:
-  title: Get an &IoT; thing shadow using an &AWS; SDK
-  title_abbrev: GetThingShadow
-  synopsis: get an IoT thing shadow.
-  languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/iot-data-plane
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.iot-data-plane.GetThingShadow
-  services:
-    iot-data-plane: {GetThingShadow}
-
-iot-data-plane_UpdateThingShadow:
-  title: Update an &IoT; thing shadow using an &AWS; SDK
-  title_abbrev: UpdateThingShadow
-  synopsis: update an IoT thing shadow.
-  languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/iot-data-plane
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.iot-data-plane.UpdateThingShadow
-  services:
-    iot-data-plane: {UpdateThingShadow}
+# zexi 0.4.0
+# IoT Data Plane Python examples.
+#
+# Note: iot-data-plane_GetThingShadow and iot-data-plane_UpdateThingShadow are
+# intentionally not defined here. Those two actions already have Python (SDK v3)
+# entries in iot-data_metadata.yaml (python/example_code/iot). Redefining them
+# here would create a duplicate example for the same language and SDK version.
+# The wrapper in this example still implements both actions for use by the
+# Hello and Basics scenario examples below.
 
 iot-data-plane_DeleteThingShadow:
-  title: Delete an &IoT; thing shadow using an &AWS; SDK
-  title_abbrev: DeleteThingShadow
-  synopsis: delete an IoT thing shadow.
   languages:
     Python:
       versions:
@@ -52,9 +22,6 @@ iot-data-plane_DeleteThingShadow:
     iot-data-plane: {DeleteThingShadow}
 
 iot-data-plane_ListNamedShadowsForThing:
-  title: List named shadows for an &IoT; thing using an &AWS; SDK
-  title_abbrev: ListNamedShadowsForThing
-  synopsis: list named shadows for an IoT thing.
   languages:
     Python:
       versions:
@@ -68,9 +35,6 @@ iot-data-plane_ListNamedShadowsForThing:
     iot-data-plane: {ListNamedShadowsForThing}
 
 iot-data-plane_Publish:
-  title: Publish an MQTT message using an &AWS; SDK
-  title_abbrev: Publish
-  synopsis: publish an MQTT message to an IoT topic.
   languages:
     Python:
       versions:
@@ -84,9 +48,6 @@ iot-data-plane_Publish:
     iot-data-plane: {Publish}
 
 iot-data-plane_ListRetainedMessages:
-  title: List retained MQTT messages using an &AWS; SDK
-  title_abbrev: ListRetainedMessages
-  synopsis: list retained MQTT messages stored for the account.
   languages:
     Python:
       versions:
@@ -100,9 +61,6 @@ iot-data-plane_ListRetainedMessages:
     iot-data-plane: {ListRetainedMessages}
 
 iot-data-plane_GetRetainedMessage:
-  title: Get a retained MQTT message using an &AWS; SDK
-  title_abbrev: GetRetainedMessage
-  synopsis: get the details of a single retained MQTT message.
   languages:
     Python:
       versions:

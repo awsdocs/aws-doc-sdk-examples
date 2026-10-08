@@ -66,13 +66,9 @@ class IoTDataPlaneScenario:
         try:
             response = self.iot_client.create_thing(thingName=self.thing_name)
             self.thing_arn = response.get("thingArn", "")
-            print(
-                f"Created IoT thing: {self.thing_name} (ARN: {self.thing_arn})"
-            )
+            print(f"Created IoT thing: {self.thing_name} (ARN: {self.thing_arn})")
         except self.iot_client.exceptions.ResourceAlreadyExistsException:
-            print(
-                f"Thing '{self.thing_name}' already exists. Using existing thing."
-            )
+            print(f"Thing '{self.thing_name}' already exists. Using existing thing.")
             # Describe the thing to get the ARN.
             desc = self.iot_client.describe_thing(thingName=self.thing_name)
             self.thing_arn = desc.get("thingArn", "")
@@ -215,9 +211,7 @@ class IoTDataPlaneScenario:
             qos=1,
             retain=True,
         )
-        print(
-            f"Published retained MQTT message to topic '{self.topic}'"
-        )
+        print(f"Published retained MQTT message to topic '{self.topic}'")
         print(f"Message payload:\n{json.dumps(message, indent=2)}")
 
     def step_7_list_retained_messages(self) -> None:
@@ -249,7 +243,7 @@ class IoTDataPlaneScenario:
             )
             if topic_name == self.topic:
                 found = True
-                print(f"  ^ This is our sensor topic!")
+                print("  ^ This is our sensor topic!")
 
         if not found:
             print(
@@ -279,9 +273,7 @@ class IoTDataPlaneScenario:
     def step_9_update_named_shadow_apply_config(self) -> None:
         """Step 9: Update the named shadow to simulate device applying config."""
         print("\n" + "=" * 70)
-        print(
-            "Step 9: Update named shadow — simulate device applying configuration"
-        )
+        print("Step 9: Update named shadow — simulate device applying configuration")
         print("=" * 70)
 
         shadow_state = {
@@ -346,9 +338,7 @@ class IoTDataPlaneScenario:
                 qos=1,
                 retain=True,
             )
-            print(
-                f"Deleted retained message for topic '{self.topic}'"
-            )
+            print(f"Deleted retained message for topic '{self.topic}'")
         except ClientError as err:
             logger.error("Failed to delete retained message: %s", err)
 

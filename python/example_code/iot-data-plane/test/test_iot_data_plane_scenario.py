@@ -41,16 +41,17 @@ def iot_data_wrapper(iot_client):
 
 
 @pytest.fixture(scope="module")
-def thing_name(iot_client):
+def thing_name(iot_client, iot_data_wrapper):
     """
     Creates a unique IoT thing for testing and cleans it up after all tests.
     """
     name = f"test-iot-data-plane-{int(time.time())}"
     iot_client.create_thing(thingName=name)
     yield name
-    # Cleanup: delete all shadows and the thing.
+    # Cleanup: delete all shadows and the thing. Reuse the wrapper's client,
+    # which is configured with the account-specific Data-ATS endpoint.
+    iot_data_client = iot_data_wrapper.iot_data_client
     try:
-        iot_data_client = boto3.client("iot-data")
         try:
             iot_data_client.delete_thing_shadow(thingName=name)
         except ClientError:
@@ -134,9 +135,7 @@ class TestIoTDataPlaneWrapper:
     def test_get_thing_shadow_not_found(self, iot_data_wrapper):
         """Tests that getting a shadow for a nonexistent thing raises an error."""
         with pytest.raises(ClientError) as exc_info:
-            iot_data_wrapper.get_thing_shadow(
-                thing_name="nonexistent-thing-xyz-123456"
-            )
+            iot_data_wrapper.get_thing_shadow(thing_name="nonexistent-thing-xyz-123456")
         assert exc_info.value.response["Error"]["Code"] == "ResourceNotFoundException"
 
     def test_publish_and_retained_message(self, iot_data_wrapper, thing_name):
@@ -237,9 +236,7 @@ class TestIoTDataPlaneWrapper:
     def test_get_retained_message_not_found(self, iot_data_wrapper):
         """Tests that getting a nonexistent retained message raises ResourceNotFoundException."""
         with pytest.raises(ClientError) as exc_info:
-            iot_data_wrapper.get_retained_message(
-                topic="nonexistent/topic/xyz/123456"
-            )
+            iot_data_wrapper.get_retained_message(topic="nonexistent/topic/xyz/123456")
         assert exc_info.value.response["Error"]["Code"] == "ResourceNotFoundException"
 
 
@@ -261,9 +258,7 @@ class TestIoTDataPlaneHello:
             iot_client.create_thing(thingName=thing_name)
 
             # Get shadow — should fail with ResourceNotFoundException.
-            with pytest.raises(
-                iot_data_client.exceptions.ResourceNotFoundException
-            ):
+            with pytest.raises(iot_data_client.exceptions.ResourceNotFoundException):
                 iot_data_client.get_thing_shadow(thingName=thing_name)
 
             # Update shadow.

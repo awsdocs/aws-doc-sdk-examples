@@ -13,6 +13,7 @@ import logging
 from typing import Any, Dict, List, Optional
 
 import boto3
+from botocore.client import BaseClient
 from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)
@@ -24,7 +25,7 @@ class IoTDataPlaneWrapper:
 
     def __init__(
         self,
-        iot_data_client: boto3.client,
+        iot_data_client: BaseClient,
     ):
         """
         Initializes the IoTDataPlaneWrapper with an IoT Data Plane client.
@@ -46,8 +47,6 @@ class IoTDataPlaneWrapper:
             kwargs["endpoint_url"] = f"https://{endpoint_url}"
         iot_data_client = boto3.client("iot-data", **kwargs)
         return cls(iot_data_client)
-
-    # snippet-end:[python.example_code.iot-data-plane.IoTDataPlaneWrapper.decl]
 
     # snippet-start:[python.example_code.iot-data-plane.UpdateThingShadow]
     def update_thing_shadow(
@@ -361,9 +360,7 @@ class IoTDataPlaneWrapper:
             return result
         except ClientError as err:
             if err.response["Error"]["Code"] == "ResourceNotFoundException":
-                logger.error(
-                    "No retained message exists for topic '%s'.", topic
-                )
+                logger.error("No retained message exists for topic '%s'.", topic)
             else:
                 logger.error(
                     "Couldn't get retained message for topic '%s'. Here's why: %s: %s",
@@ -376,6 +373,4 @@ class IoTDataPlaneWrapper:
     # snippet-end:[python.example_code.iot-data-plane.GetRetainedMessage]
 
 
-# snippet-start:[python.example_code.iot-data-plane.IoTDataPlaneWrapper.class]
-# The IoTDataPlaneWrapper class is shown above — this tag covers the full class.
-# snippet-end:[python.example_code.iot-data-plane.IoTDataPlaneWrapper.class]
+# snippet-end:[python.example_code.iot-data-plane.IoTDataPlaneWrapper.decl]

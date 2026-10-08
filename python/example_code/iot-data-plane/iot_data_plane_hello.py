@@ -11,6 +11,7 @@ Purpose: Demonstrates basic GetThingShadow and UpdateThingShadow usage.
 
 import json
 import logging
+import time
 
 import boto3
 from botocore.exceptions import ClientError
@@ -26,7 +27,10 @@ def hello_iot_data_plane() -> None:
     Creates a temporary IoT thing, demonstrates shadow creation and retrieval,
     and then cleans up all resources.
     """
-    thing_name = "hello-iot-data-plane-thing"
+    # Use a timestamp suffix so repeat runs (or a prior run that failed before
+    # cleanup) don't collide with an existing thing and raise
+    # ResourceAlreadyExistsException from create_thing.
+    thing_name = f"hello-iot-data-plane-thing-{int(time.time())}"
 
     # Create IoT Control Plane client to manage things and get endpoint.
     iot_client = boto3.client("iot")
@@ -37,9 +41,7 @@ def hello_iot_data_plane() -> None:
     print(f"IoT Data-ATS endpoint: {endpoint_url}")
 
     # Create IoT Data Plane client configured with the custom endpoint.
-    iot_data_client = boto3.client(
-        "iot-data", endpoint_url=f"https://{endpoint_url}"
-    )
+    iot_data_client = boto3.client("iot-data", endpoint_url=f"https://{endpoint_url}")
 
     try:
         # Create a temporary thing.
