@@ -1,0 +1,158 @@
+# This is a partial metadata file for the Python language entries ONLY.
+# Merge these entries into the existing iot-data-plane_metadata.yaml file,
+# adding the Python language block under each existing operation key alongside
+# any other SDK language entries that may already exist.
+
+iot-data-plane_GetThingShadow:
+  title: Get an &IoT; thing shadow using an &AWS; SDK
+  title_abbrev: GetThingShadow
+  synopsis: get an IoT thing shadow.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iot-data-plane
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iot-data-plane.GetThingShadow
+  services:
+    iot-data-plane: {GetThingShadow}
+
+iot-data-plane_UpdateThingShadow:
+  title: Update an &IoT; thing shadow using an &AWS; SDK
+  title_abbrev: UpdateThingShadow
+  synopsis: update an IoT thing shadow.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iot-data-plane
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iot-data-plane.UpdateThingShadow
+  services:
+    iot-data-plane: {UpdateThingShadow}
+
+iot-data-plane_DeleteThingShadow:
+  title: Delete an &IoT; thing shadow using an &AWS; SDK
+  title_abbrev: DeleteThingShadow
+  synopsis: delete an IoT thing shadow.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iot-data-plane
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iot-data-plane.DeleteThingShadow
+  services:
+    iot-data-plane: {DeleteThingShadow}
+
+iot-data-plane_ListNamedShadowsForThing:
+  title: List named shadows for an &IoT; thing using an &AWS; SDK
+  title_abbrev: ListNamedShadowsForThing
+  synopsis: list named shadows for an IoT thing.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iot-data-plane
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iot-data-plane.ListNamedShadowsForThing
+  services:
+    iot-data-plane: {ListNamedShadowsForThing}
+
+iot-data-plane_Publish:
+  title: Publish an MQTT message using an &AWS; SDK
+  title_abbrev: Publish
+  synopsis: publish an MQTT message to an IoT topic.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iot-data-plane
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iot-data-plane.Publish
+  services:
+    iot-data-plane: {Publish}
+
+iot-data-plane_ListRetainedMessages:
+  title: List retained MQTT messages using an &AWS; SDK
+  title_abbrev: ListRetainedMessages
+  synopsis: list retained MQTT messages stored for the account.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iot-data-plane
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iot-data-plane.ListRetainedMessages
+  services:
+    iot-data-plane: {ListRetainedMessages}
+
+iot-data-plane_GetRetainedMessage:
+  title: Get a retained MQTT message using an &AWS; SDK
+  title_abbrev: GetRetainedMessage
+  synopsis: get the details of a single retained MQTT message.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iot-data-plane
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iot-data-plane.GetRetainedMessage
+  services:
+    iot-data-plane: {GetRetainedMessage}
+
+iot-data-plane_Hello:
+  title: Hello &IoTDataPlane;
+  title_abbrev: Hello IoT Data Plane
+  synopsis: get started using &IoTDataPlane;.
+  category: Hello
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iot-data-plane
+          excerpts:
+            - description: Verify connectivity to the IoT Data Plane by creating a thing shadow and retrieving it.
+              snippet_tags:
+                - python.example_code.iot-data-plane.Hello
+  services:
+    iot-data-plane: {GetThingShadow, UpdateThingShadow}
+
+iot-data-plane_Scenario:
+  title: Learn &IoTDataPlane; core operations using an &AWS; SDK
+  title_abbrev: Learn IoT Data Plane core operations
+  synopsis: learn core operations of the IoT Data Plane.
+  category: Basics
+  synopsis_list:
+    - Create and manage classic (unnamed) and named device shadows.
+    - Publish MQTT messages with the retain flag.
+    - List and retrieve retained messages.
+    - Delete shadows and clean up resources.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iot-data-plane
+          excerpts:
+            - description: Run an interactive scenario at a command prompt.
+              snippet_tags:
+                - python.example_code.iot-data-plane.IoTDataPlaneScenario
+            - description: Create a class that wraps IoT Data Plane operations.
+              snippet_tags:
+                - python.example_code.iot-data-plane.IoTDataPlaneWrapper.decl
+  services:
+    iot-data-plane: {UpdateThingShadow, GetThingShadow, ListNamedShadowsForThing, DeleteThingShadow, Publish, ListRetainedMessages, GetRetainedMessage}
