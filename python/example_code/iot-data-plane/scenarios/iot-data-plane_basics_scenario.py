@@ -23,11 +23,18 @@ Setup creates an IoT Thing, and cleanup removes all resources.
 
 import json
 import logging
+import os
+import sys
 import time
 from datetime import datetime, timezone
 
 import boto3
+from botocore.client import BaseClient
 from botocore.exceptions import ClientError
+
+# Make the parent directory importable so the wrapper module resolves even when
+# this script is run from outside the iot-data-plane/ directory.
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from iot_data_plane_wrapper import IoTDataPlaneWrapper
 
@@ -41,7 +48,7 @@ class IoTDataPlaneScenario:
     def __init__(
         self,
         iot_data_wrapper: IoTDataPlaneWrapper,
-        iot_client: boto3.client,
+        iot_client: BaseClient,
     ):
         """
         Initializes the scenario.
@@ -171,6 +178,14 @@ class IoTDataPlaneScenario:
             f"Found {count} named shadow(s) for thing '{self.thing_name}': "
             f"{shadow_names}"
         )
+
+        # Per the specification, also surface the response `timestamp` (the date
+        # and time the response was generated, in epoch seconds).
+        response = self.iot_data_wrapper.iot_data_client.list_named_shadows_for_thing(
+            thingName=self.thing_name,
+            pageSize=25,
+        )
+        print(f"Response timestamp (epoch seconds): {response.get('timestamp')}")
 
     def step_5_get_named_shadow_with_delta(self) -> None:
         """Step 5: Retrieve and inspect the named shadow with delta."""

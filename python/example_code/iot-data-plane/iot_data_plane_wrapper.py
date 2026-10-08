@@ -65,9 +65,7 @@ class IoTDataPlaneWrapper:
         :raises ClientError: If the request is invalid (InvalidRequestException).
         """
         try:
-            params = dict()
-            params["thingName"] = thing_name
-            params["payload"] = json.dumps(shadow_state)
+            params = {"thingName": thing_name, "payload": json.dumps(shadow_state)}
             if shadow_name is not None:
                 params["shadowName"] = shadow_name
             response = self.iot_data_client.update_thing_shadow(**params)
@@ -111,8 +109,7 @@ class IoTDataPlaneWrapper:
         :raises ClientError: If the shadow does not exist (ResourceNotFoundException).
         """
         try:
-            params = dict()
-            params["thingName"] = thing_name
+            params = {"thingName": thing_name}
             if shadow_name is not None:
                 params["shadowName"] = shadow_name
             response = self.iot_data_client.get_thing_shadow(**params)
@@ -161,9 +158,7 @@ class IoTDataPlaneWrapper:
             shadow_names = list()
             next_token = None
             while True:
-                params = dict()
-                params["thingName"] = thing_name
-                params["pageSize"] = page_size
+                params = {"thingName": thing_name, "pageSize": page_size}
                 if next_token is not None:
                     params["nextToken"] = next_token
                 response = self.iot_data_client.list_named_shadows_for_thing(**params)
@@ -209,8 +204,7 @@ class IoTDataPlaneWrapper:
         :raises ClientError: If the shadow does not exist (ResourceNotFoundException).
         """
         try:
-            params = dict()
-            params["thingName"] = thing_name
+            params = {"thingName": thing_name}
             if shadow_name is not None:
                 params["shadowName"] = shadow_name
             response = self.iot_data_client.delete_thing_shadow(**params)
@@ -258,10 +252,7 @@ class IoTDataPlaneWrapper:
         :raises ClientError: If the request is invalid (InvalidRequestException).
         """
         try:
-            params = dict()
-            params["topic"] = topic
-            params["qos"] = qos
-            params["retain"] = retain
+            params = {"topic": topic, "qos": qos, "retain": retain}
             if payload is not None:
                 params["payload"] = payload
             self.iot_data_client.publish(**params)

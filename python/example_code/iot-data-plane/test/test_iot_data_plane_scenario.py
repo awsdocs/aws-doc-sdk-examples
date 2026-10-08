@@ -303,6 +303,13 @@ class TestIoTDataPlaneWrapperIntegration:
 
     def test_list_named_shadows(self, iot_data_wrapper, thing_name):
         """Tests listing named shadows for a thing."""
+        # Ensure the named shadow exists so this test does not depend on the
+        # ordering of other tests in the class.
+        iot_data_wrapper.update_thing_shadow(
+            thing_name=thing_name,
+            shadow_state={"state": {"reported": {"key": "value"}}},
+            shadow_name="test-config",
+        )
         shadow_names = iot_data_wrapper.list_named_shadows_for_thing(
             thing_name=thing_name,
         )

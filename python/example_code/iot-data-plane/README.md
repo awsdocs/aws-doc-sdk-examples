@@ -50,12 +50,12 @@ Code examples that show you how to perform the essential operations within a ser
 
 Code excerpts that show you how to call individual service functions.
 
-- [DeleteThingShadow](iot_data_plane_wrapper.py#L197)
-- [GetRetainedMessage](iot_data_plane_wrapper.py#L333)
+- [DeleteThingShadow](iot_data_plane_wrapper.py#L192)
+- [GetRetainedMessage](iot_data_plane_wrapper.py#L324)
 - [GetThingShadow](../iot/iot_wrapper.py#L428)
-- [ListNamedShadowsForThing](iot_data_plane_wrapper.py#L144)
-- [ListRetainedMessages](iot_data_plane_wrapper.py#L292)
-- [Publish](iot_data_plane_wrapper.py#L242)
+- [ListNamedShadowsForThing](iot_data_plane_wrapper.py#L141)
+- [ListRetainedMessages](iot_data_plane_wrapper.py#L283)
+- [Publish](iot_data_plane_wrapper.py#L236)
 - [UpdateThingShadow](../iot/iot_wrapper.py#L401)
 
 

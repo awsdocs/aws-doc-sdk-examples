@@ -43,11 +43,12 @@ def hello_iot_data_plane() -> None:
     # Create IoT Data Plane client configured with the custom endpoint.
     iot_data_client = boto3.client("iot-data", endpoint_url=f"https://{endpoint_url}")
 
-    try:
-        # Create a temporary thing.
-        iot_client.create_thing(thingName=thing_name)
-        print(f"Created temporary IoT thing: '{thing_name}'")
+    # Create the temporary thing before the try block so cleanup only runs for a
+    # thing that was actually created.
+    iot_client.create_thing(thingName=thing_name)
+    print(f"Created temporary IoT thing: '{thing_name}'")
 
+    try:
         # Attempt to get the shadow — this will fail because no shadow exists yet.
         try:
             iot_data_client.get_thing_shadow(thingName=thing_name)
@@ -74,14 +75,14 @@ def hello_iot_data_plane() -> None:
         try:
             iot_data_client.delete_thing_shadow(thingName=thing_name)
             print(f"Deleted shadow for thing '{thing_name}'.")
-        except ClientError:
-            pass  # Shadow may not exist.
+        except ClientError as err:
+            logger.warning("Could not delete shadow for '%s': %s", thing_name, err)
 
         try:
             iot_client.delete_thing(thingName=thing_name)
             print(f"Deleted IoT thing: '{thing_name}'")
-        except ClientError:
-            pass  # Thing may not exist.
+        except ClientError as err:
+            logger.warning("Could not delete thing '%s': %s", thing_name, err)
 
     print("Hello IoT Data Plane completed successfully!")
 
