@@ -30,7 +30,7 @@ from datetime import datetime, timezone
 
 import boto3
 from botocore.client import BaseClient
-from botocore.exceptions import ClientError
+from botocore.exceptions import BotoCoreError, ClientError
 
 # Make the parent directory importable so the wrapper module resolves even when
 # this script is run from outside the iot-data-plane/ directory.
@@ -61,10 +61,14 @@ class IoTDataPlaneScenario:
         self.thing_name = ""
         self.thing_arn = ""
         self.topic = ""
+        self.thing_created = False
 
     def setup(self) -> None:
         """
         Sets up the scenario by creating an IoT thing.
+
+        Marks ``thing_created`` so cleanup only attempts to delete a thing that
+        was actually created (or confirmed to exist).
         """
         timestamp = int(time.time())
         self.thing_name = f"temp-sensor-{timestamp}"
@@ -73,12 +77,18 @@ class IoTDataPlaneScenario:
         try:
             response = self.iot_client.create_thing(thingName=self.thing_name)
             self.thing_arn = response.get("thingArn", "")
+            self.thing_created = True
             print(f"Created IoT thing: {self.thing_name} (ARN: {self.thing_arn})")
         except self.iot_client.exceptions.ResourceAlreadyExistsException:
             print(f"Thing '{self.thing_name}' already exists. Using existing thing.")
             # Describe the thing to get the ARN.
             desc = self.iot_client.describe_thing(thingName=self.thing_name)
             self.thing_arn = desc.get("thingArn", "")
+            self.thing_created = True
+        except (ClientError, BotoCoreError):
+            # Creation failed outright — there is nothing to clean up.
+            logger.exception("Failed to create IoT thing '%s'", self.thing_name)
+            raise
 
     def step_1_create_classic_shadow(self) -> None:
         """Step 1: Create the classic (unnamed) device shadow with initial state."""
@@ -340,12 +350,23 @@ class IoTDataPlaneScenario:
     def cleanup(self) -> None:
         """
         Cleans up all resources created during the scenario.
+
+        Each deletion is guarded independently so that a failure in one step
+        never prevents the remaining resources from being cleaned up. Both
+        ``ClientError`` and connection-level ``BotoCoreError`` exceptions are
+        handled, and the method reports whether every resource was removed.
         """
         print("\n" + "=" * 70)
         print("Cleanup")
         print("=" * 70)
 
-        # 1. Delete the retained message by publishing empty payload with retain=True.
+        if not self.thing_name:
+            print("Nothing to clean up — setup did not run.")
+            return
+
+        all_clean = True
+
+        # 1. Delete the retained message by publishing an empty payload with retain=True.
         try:
             self.iot_data_wrapper.publish(
                 topic=self.topic,
@@ -355,6 +376,13 @@ class IoTDataPlaneScenario:
             )
             print(f"Deleted retained message for topic '{self.topic}'")
         except ClientError as err:
+            if err.response["Error"]["Code"] == "ResourceNotFoundException":
+                print("No retained message to delete — continuing.")
+            else:
+                all_clean = False
+                logger.error("Failed to delete retained message: %s", err)
+        except BotoCoreError as err:
+            all_clean = False
             logger.error("Failed to delete retained message: %s", err)
 
         # 2. Delete the classic (unnamed) shadow.
@@ -367,7 +395,11 @@ class IoTDataPlaneScenario:
             if err.response["Error"]["Code"] == "ResourceNotFoundException":
                 print("Classic shadow already deleted — continuing.")
             else:
+                all_clean = False
                 logger.error("Failed to delete classic shadow: %s", err)
+        except BotoCoreError as err:
+            all_clean = False
+            logger.error("Failed to delete classic shadow: %s", err)
 
         # 3. Delete the named shadow (if not already deleted in Step 10).
         try:
@@ -382,19 +414,34 @@ class IoTDataPlaneScenario:
                     "Named shadow 'sensor-config' already deleted in Step 10 — continuing."
                 )
             else:
+                all_clean = False
                 logger.error("Failed to delete named shadow: %s", err)
+        except BotoCoreError as err:
+            all_clean = False
+            logger.error("Failed to delete named shadow: %s", err)
 
-        # 4. Delete the IoT thing.
-        try:
-            self.iot_client.delete_thing(thingName=self.thing_name)
-            print(f"Deleted IoT thing: {self.thing_name}")
-        except ClientError as err:
-            if err.response["Error"]["Code"] == "ResourceNotFoundException":
-                print(f"Thing '{self.thing_name}' already deleted — continuing.")
-            else:
+        # 4. Delete the IoT thing (only if one was created during setup).
+        if self.thing_created:
+            try:
+                self.iot_client.delete_thing(thingName=self.thing_name)
+                print(f"Deleted IoT thing: {self.thing_name}")
+            except ClientError as err:
+                if err.response["Error"]["Code"] == "ResourceNotFoundException":
+                    print(f"Thing '{self.thing_name}' already deleted — continuing.")
+                else:
+                    all_clean = False
+                    logger.error("Failed to delete thing: %s", err)
+            except BotoCoreError as err:
+                all_clean = False
                 logger.error("Failed to delete thing: %s", err)
 
-        print("All resources cleaned up successfully.")
+        if all_clean:
+            print("All resources cleaned up successfully.")
+        else:
+            print(
+                "Cleanup finished with errors — some resources may remain. "
+                "Review the logs above and remove any leftover resources manually."
+            )
 
     def run(self) -> None:
         """
