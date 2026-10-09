@@ -442,12 +442,12 @@ struct ExampleCommand: ParsableCommand {
     /// Perform the example's tasks.
     func basics() async throws {
         let iamClient = try await IAMClient(
-            config: IAMClient.IAMClientConfiguration(region: region)
+            config: IAMClient.IAMClientConfig(region: region)
         )
 
         // snippet-start:[swift.lambda-basics.LambdaClient]
         let lambdaClient = try await LambdaClient(
-            config: LambdaClient.LambdaClientConfiguration(region: region)
+            config: LambdaClient.LambdaClientConfig(region: region)
         )
         // snippet-end:[swift.lambda-basics.LambdaClient]
 

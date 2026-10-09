@@ -61,7 +61,7 @@ func queryJobStatus(
 func main() async throws {
     // Create a Bedrock Runtime client
     let config =
-        try await BedrockRuntimeClient.BedrockRuntimeClientConfiguration()
+        try await BedrockRuntimeClient.BedrockRuntimeClientConfig()
     let client = BedrockRuntimeClient(config: config)
 
     // Specify the S3 location for the output video

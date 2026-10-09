@@ -655,10 +655,10 @@ struct ExampleCommand: ParsableCommand {
         // https://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html
         let cron = "cron(15 12 * * ? *)"
 
-        let glueConfig = try await GlueClient.GlueClientConfiguration(region: awsRegion)
+        let glueConfig = try await GlueClient.GlueClientConfig(region: awsRegion)
         let glueClient = GlueClient(config: glueConfig)
 
-        let s3Config = try await S3Client.S3ClientConfiguration(region: awsRegion)
+        let s3Config = try await S3Client.S3ClientConfig(region: awsRegion)
         let s3Client = S3Client(config: s3Config)
 
         // Create random names for things that need them.

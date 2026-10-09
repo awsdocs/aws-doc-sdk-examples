@@ -27,7 +27,7 @@ struct ExampleCommand: ParsableCommand {
     /// Called by ``main()`` to run the bulk of the example.
     func runAsync() async throws {
         // snippet-start:[swift.sns.DeleteTopic]
-        let config = try await SNSClient.SNSClientConfiguration(region: region)
+        let config = try await SNSClient.SNSClientConfig(region: region)
         let snsClient = SNSClient(config: config)
 
         _ = try await snsClient.deleteTopic(

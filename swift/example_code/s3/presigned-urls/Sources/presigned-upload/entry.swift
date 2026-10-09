@@ -58,7 +58,7 @@ struct ExampleCommand: ParsableCommand {
         
         // Create an Amazon S3 client in the desired Region.
 
-        let config = try await S3Client.S3ClientConfiguration(region: region)
+        let config = try await S3Client.S3ClientConfig(region: region)
         let s3Client = S3Client(config: config)
     
         print("Uploading file from \(fileURL.path) to \(bucket)/\(fileName).")
@@ -109,7 +109,7 @@ struct ExampleCommand: ParsableCommand {
         
         // Create an Amazon S3 client in the desired Region.
 
-        let config = try await S3Client.S3ClientConfiguration(region: region)
+        let config = try await S3Client.S3ClientConfig(region: region)
         let s3Client = S3Client(config: config)
         
         // Look to see if the file already exists in the target bucket.
@@ -149,7 +149,7 @@ struct ExampleCommand: ParsableCommand {
         // will upload the file to Amazon S3. If no URL is generated, a
         // `TransferError.signingError` is thrown.
 
-        let putConfig = try await S3Client.S3ClientConfiguration(
+        let putConfig = try await S3Client.S3ClientConfig(
             maxAttempts: 6,
             region: region
         )

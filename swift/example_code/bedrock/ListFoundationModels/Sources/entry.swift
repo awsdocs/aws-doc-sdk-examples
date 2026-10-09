@@ -100,7 +100,7 @@ struct ExampleCommand: ParsableCommand {
     func runAsync() async throws {
         // snippet-start:[swift.bedrock.ListFoundationModels]
         // Always use the Region "us-east-1" to have access to the most models.
-        let config = try await BedrockClient.BedrockClientConfiguration(region: "us-east-1")
+        let config = try await BedrockClient.BedrockClientConfig(region: "us-east-1")
         let bedrockClient = BedrockClient(config: config)
 
         let output = try await bedrockClient.listFoundationModels(

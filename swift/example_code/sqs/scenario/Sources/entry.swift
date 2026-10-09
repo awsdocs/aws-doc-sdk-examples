@@ -357,10 +357,10 @@ struct ExampleCommand: ParsableCommand {
 
         // 0. Create SNS and SQS clients.
 
-        let snsConfig = try await SNSClient.SNSClientConfiguration(region: region)
+        let snsConfig = try await SNSClient.SNSClientConfig(region: region)
         let snsClient = SNSClient(config: snsConfig)
 
-        let sqsConfig = try await SQSClient.SQSClientConfiguration(region: region)
+        let sqsConfig = try await SQSClient.SQSClientConfig(region: region)
         let sqsClient = SQSClient(config: sqsConfig)
 
         // 1. Ask the user whether to create a FIFO topic. If so, ask whether

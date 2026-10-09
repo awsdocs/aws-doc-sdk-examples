@@ -19,7 +19,7 @@ import ClientRuntime
 
 /// A class containing all the code that interacts with the AWS SDK for Swift.
 public class ServiceHandler {
-    let configuration: S3Client.S3ClientConfiguration
+    let configuration: S3Client.S3ClientConfig
     let client: S3Client
 
     enum HandlerError: Error {
@@ -36,8 +36,9 @@ public class ServiceHandler {
     // snippet-start:[s3.swift.basics.handler.init]
     public init() async throws {
         do {
-            configuration = try await S3Client.S3ClientConfiguration() 
-         //   configuration.region = "us-east-2" // Uncomment this to set the region programmatically.
+            // To set the Region programmatically, pass it to the initializer:
+            //   configuration = try await S3Client.S3ClientConfig(region: "us-east-2")
+            configuration = try await S3Client.S3ClientConfig()
             client = S3Client(config: configuration)
         }
         catch {
