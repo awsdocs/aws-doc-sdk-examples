@@ -58,7 +58,7 @@ public class ServiceHandlerIAM {
                 // provider. Then create a new `IAMClient` using those
                 // permissions.
 
-                let iamConfig = try await IAMClient.IAMClientConfiguration(
+                let iamConfig = try await IAMClient.IAMClientConfig(
                     awsCredentialIdentityResolver: identityResolver
                 )
                 iamClient = IAMClient(config: iamConfig)
@@ -96,7 +96,7 @@ public class ServiceHandlerIAM {
 
             // Create a new `IAMClient` using the new identity resolver.
 
-            let iamConfig = try await IAMClient.IAMClientConfiguration(
+            let iamConfig = try await IAMClient.IAMClientConfig(
                 awsCredentialIdentityResolver: identityResolver
             )
 

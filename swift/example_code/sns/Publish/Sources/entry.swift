@@ -28,7 +28,7 @@ struct ExampleCommand: ParsableCommand {
     /// Called by ``main()`` to run the bulk of the example.
     func runAsync() async throws {
         // snippet-start:[swift.sns.Publish]
-        let config = try await SNSClient.SNSClientConfiguration(region: region)
+        let config = try await SNSClient.SNSClientConfig(region: region)
         let snsClient = SNSClient(config: config)
 
         let output = try await snsClient.publish(

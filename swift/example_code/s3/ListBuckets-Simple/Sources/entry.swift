@@ -20,8 +20,9 @@ func getBucketNames() async throws -> [String] {
     do {
         // Get an S3Client with which to access Amazon S3.
         // snippet-start:[s3.swift.intro.client-init]
-        let configuration = try await S3Client.S3ClientConfiguration()
-        //   configuration.region = "us-east-2" // Uncomment this to set the region programmatically.
+        // To set the Region programmatically, pass it to the initializer:
+        //   let configuration = try await S3Client.S3ClientConfig(region: "us-east-2")
+        let configuration = try await S3Client.S3ClientConfig()
         let client = S3Client(config: configuration)
         // snippet-end:[s3.swift.intro.client-init]
 

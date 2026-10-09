@@ -14,7 +14,7 @@ class Scenario {
     init(region: String) async throws {
         self.region = region
 
-        let supportConfig = try await SupportClient.SupportClientConfiguration(region: region)
+        let supportConfig = try await SupportClient.SupportClientConfig(region: region)
         supportClient = SupportClient(config: supportConfig)
     }
 

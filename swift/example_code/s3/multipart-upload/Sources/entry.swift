@@ -59,7 +59,7 @@ struct ExampleCommand: ParsableCommand {
 
         // Create an Amazon S3 client in the desired Region.
 
-        let config = try await S3Client.S3ClientConfiguration(region: region)
+        let config = try await S3Client.S3ClientConfig(region: region)
         let s3Client = S3Client(config: config)
     
         print("Uploading file from \(fileURL.path) to \(bucket)/\(fileName).")
