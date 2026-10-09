@@ -117,7 +117,7 @@ struct ExampleCommand: ParsableCommand {
     ///   assigned.
     func assumeRole(identityResolver: (any AWSCredentialIdentityResolver)?,
                     roleArn: String) async throws -> AWSCredentialIdentity {
-        let stsConfiguration = try await STSClient.STSClientConfiguration(
+        let stsConfiguration = try await STSClient.STSClientConfig(
             awsCredentialIdentityResolver: identityResolver,
             region: region
         )
@@ -171,7 +171,7 @@ struct ExampleCommand: ParsableCommand {
         do {
             // Get an S3Client with which to access Amazon S3.
             // snippet-start:[swift.sts.AssumeRole.use-resolver]
-            let s3Configuration = try await S3Client.S3ClientConfiguration(
+            let s3Configuration = try await S3Client.S3ClientConfig(
                 awsCredentialIdentityResolver: identityResolver,
                 region: region
             )

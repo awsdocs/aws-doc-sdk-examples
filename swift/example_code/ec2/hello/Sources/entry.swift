@@ -78,7 +78,7 @@ struct ExampleCommand: ParsableCommand {
 
     /// Called by ``main()`` to run the bulk of the example.
     func runAsync() async throws {
-        let ec2Config = try await EC2Client.EC2ClientConfiguration(region: awsRegion)
+        let ec2Config = try await EC2Client.EC2ClientConfig(region: awsRegion)
         let ec2Client = EC2Client(config: ec2Config)
 
         let groupNames = await getSecurityGroupNames(ec2Client: ec2Client)

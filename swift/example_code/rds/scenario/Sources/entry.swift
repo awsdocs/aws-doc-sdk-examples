@@ -52,7 +52,7 @@ class Example {
     var selectedEngineVersion: String?
 
     init(region: String, username: String, password: String) async throws{
-        let rdsConfig = try await RDSClient.RDSClientConfiguration(region: region)
+        let rdsConfig = try await RDSClient.RDSClientConfig(region: region)
         rdsClient = RDSClient(config: rdsConfig)
 
         dbUsername = username

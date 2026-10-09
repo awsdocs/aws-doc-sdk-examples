@@ -21,10 +21,10 @@ class Example {
 
     init(region: String, username: String, activityName: String, stateMachineName: String,
                 definitionPath: String) async throws {
-        let sfnConfig = try await SFNClient.SFNClientConfiguration(region: region)
+        let sfnConfig = try await SFNClient.SFNClientConfig(region: region)
         sfnClient = SFNClient(config: sfnConfig)
 
-        let iamConfig = try await IAMClient.IAMClientConfiguration(region: region)
+        let iamConfig = try await IAMClient.IAMClientConfig(region: region)
         iamClient = IAMClient(config: iamConfig)
 
         self.username = username

@@ -22,8 +22,8 @@ class Example {
     /// The body of the example.
     func run() async throws {
         // snippet-start:[swift.s3tm.getbucket.config-create]
-        // Create an S3ClientConfiguration object.
-        let s3Config = try await S3Client.S3ClientConfiguration(
+        // Create an S3ClientConfig object.
+        let s3Config = try await S3Client.S3ClientConfig(
             region: region
         )
         

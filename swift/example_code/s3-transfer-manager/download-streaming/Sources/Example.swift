@@ -24,7 +24,7 @@ class Example {
     /// The body of the example.
     func run() async throws {
         // snippet-start:[swift.s3tm.streaming.config-create]
-        let s3Config = try await S3Client.S3ClientConfiguration(
+        let s3Config = try await S3Client.S3ClientConfig(
             region: region
         )
         

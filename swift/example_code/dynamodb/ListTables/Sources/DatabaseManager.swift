@@ -39,7 +39,7 @@ public struct DynamoDBSession: DatabaseSession {
     ///
     init(region: String? = nil) async throws {
         do {
-            let config = try await DynamoDBClient.DynamoDBClientConfiguration()
+            var config = try await DynamoDBClient.DynamoDBClientConfig()
             if let region = region {
                 config.region = region
             }
