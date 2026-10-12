@@ -35,7 +35,7 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `gov2` fo
 
 ### Amazon Nova
 
-- [Converse](actions/converse.go#L53)
+- [Converse](actions/converse.go#L55)
 
 ### Amazon Titan Image Generator
 
