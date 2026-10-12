@@ -63,6 +63,7 @@ impl ListObjects for S3ListObjects {
 
 // snippet-start:[testing.rust.traits-fake]
 #[derive(Clone, Debug)]
+#[allow(dead_code)] // Demonstration fake used by the documentation snippet.
 pub struct TestListObjects {
     expected_bucket: String,
     expected_prefix: String,
