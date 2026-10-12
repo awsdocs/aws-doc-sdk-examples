@@ -39,7 +39,7 @@ functions within the same service.
 
 - [Converse](src/bin/converse.rs#L43)
 - [ConverseStream](src/bin/converse-stream.rs#L70)
-- [Scenario: Tool use with the Converse API](src/bin/tool-use.rs#L242)
+- [Scenario: Tool use with the Converse API](src/bin/tool-use.rs#L244)
 
 
 <!--custom.examples.start-->
