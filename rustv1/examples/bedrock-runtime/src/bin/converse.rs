@@ -9,8 +9,10 @@ use aws_sdk_bedrockruntime::{
     Client,
 };
 
-// Set the model ID, e.g., Claude 3 Haiku.
-const MODEL_ID: &str = "anthropic.claude-3-haiku-20240307-v1:0";
+// Set the model ID, e.g., Claude Haiku 4.5.
+// Claude Haiku 4.5 is available through an inference profile, so this uses the
+// "us." cross-Region profile ID that matches CLAUDE_REGION below.
+const MODEL_ID: &str = "us.anthropic.claude-haiku-4-5-20251001-v1:0";
 const CLAUDE_REGION: &str = "us-east-1";
 
 // Start a conversation with the user message.

@@ -31,7 +31,9 @@ func (wrapper ConverseWrapper) ConverseClaude(ctx context.Context, prompt string
 		Content: []types.ContentBlock{&content},
 		Role:    "user",
 	}
-	modelId := "anthropic.claude-3-haiku-20240307-v1:0"
+	// Claude Haiku 4.5 is available through an inference profile, so this uses
+	// the "us." cross-Region profile ID.
+	modelId := "us.anthropic.claude-haiku-4-5-20251001-v1:0"
 	var converseInput = bedrockruntime.ConverseInput{
 		ModelId:  aws.String(modelId),
 		Messages: []types.Message{message},

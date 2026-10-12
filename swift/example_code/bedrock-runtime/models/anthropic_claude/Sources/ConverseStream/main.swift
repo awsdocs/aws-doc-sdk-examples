@@ -15,7 +15,9 @@ func printConverseStream(_ textPrompt: String) async throws {
     let client = BedrockRuntimeClient(config: config)
 
     // Set the model ID.
-    let modelId = "anthropic.claude-3-haiku-20240307-v1:0"
+    // Claude Haiku 4.5 is available through an inference profile, so this uses
+    // the "us." cross-Region profile ID that matches the default Region.
+    let modelId = "us.anthropic.claude-haiku-4-5-20251001-v1:0"
 
     // Start a conversation with the user message.
     let message = BedrockRuntimeClientTypes.Message(
@@ -28,8 +30,7 @@ func printConverseStream(_ textPrompt: String) async throws {
         BedrockRuntimeClientTypes.InferenceConfiguration(
             maxTokens: 512,
             stopSequences: ["END"],
-            temperature: 0.5,
-            topp: 0.9
+            temperature: 0.5
         )
 
     // Create the ConverseStreamInput to send to the model.
