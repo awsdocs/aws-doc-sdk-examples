@@ -22,8 +22,10 @@ logging.basicConfig(level=environ.get("LOG_LEVEL", "WARN").upper(), force=True)
 # Create a Bedrock Runtime client in the AWS Region you want to use.
 client = boto3.client("bedrock-runtime", region_name="us-east-1")
 
-# Set the model ID, e.g., Claude 3 Haiku.
-model_id = "anthropic.claude-3-haiku-20240307-v1:0"
+# Set the model ID, e.g., Claude Haiku 4.5.
+# Claude Haiku 4.5 is available through an inference profile, so this uses the
+# "us." cross-Region profile ID that matches the us-east-1 Region set above.
+model_id = "us.anthropic.claude-haiku-4-5-20251001-v1:0"
 
 
 async def converse_stream(user_message: str) -> AsyncIterator[str]:
@@ -42,7 +44,7 @@ async def converse_stream(user_message: str) -> AsyncIterator[str]:
         response = client.converse_stream(
             modelId=model_id,
             messages=conversation,
-            inferenceConfig={"maxTokens": 512, "temperature": 0.5, "topP": 0.9},
+            inferenceConfig={"maxTokens": 512, "temperature": 0.5},
         )
 
         for chunk in response["stream"]:
