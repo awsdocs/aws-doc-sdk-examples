@@ -42,6 +42,7 @@ functions within the same service.
 - [Scenario: Tool use with the Converse API](src/bin/tool-use.rs#L244)
 
 
+
 <!--custom.examples.start-->
 <!--custom.examples.end-->
 

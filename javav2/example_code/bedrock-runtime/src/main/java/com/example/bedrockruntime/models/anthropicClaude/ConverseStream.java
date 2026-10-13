@@ -28,8 +28,10 @@ public class ConverseStream {
                 .region(Region.US_EAST_1)
                 .build();
 
-        // Set the model ID, e.g., Claude 3 Haiku.
-        var modelId = "anthropic.claude-3-haiku-20240307-v1:0";
+        // Set the model ID, e.g., Claude Haiku 5.5.
+        // Claude Haiku 5.5 is available through an inference profile, so this uses
+        // the "us." cross-Region profile ID that matches the Region set above.
+        var modelId = "us.anthropic.claude-haiku-5-5";
 
         // Create the input text and embed it in a message object with the user role.
         var inputText = "Describe the purpose of a 'hello world' program in one line.";
@@ -55,8 +57,6 @@ public class ConverseStream {
                     .messages(message)
                     .inferenceConfig(config -> config
                             .maxTokens(512)
-                            .temperature(0.5F)
-                            .topP(0.9F)
                     ), responseStreamHandler).get();
 
         } catch (ExecutionException | InterruptedException e) {

@@ -16,7 +16,7 @@ import (
 	"testing"
 )
 
-const CONVERSE_CLAUDE_MODEL_ID = "anthropic.claude-3-haiku-20240307-v1:0"
+const CONVERSE_CLAUDE_MODEL_ID = "us.anthropic.claude-haiku-5-5"
 const CONVERSE_NOVA_MODEL_ID = "amazon.nova-lite-v1:0"
 const CONVERSE_PROMPT = "Converse test prompt"
 
