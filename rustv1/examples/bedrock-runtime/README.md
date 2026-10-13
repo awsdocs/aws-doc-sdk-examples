@@ -37,10 +37,9 @@ functions within the same service.
 
 ### Anthropic Claude
 
-- [Converse](src/bin/converse.rs#L43)
-- [ConverseStream](src/bin/converse-stream.rs#L70)
+- [Converse](src/bin/converse.rs#L45)
+- [ConverseStream](src/bin/converse-stream.rs#L72)
 - [Scenario: Tool use with the Converse API](src/bin/tool-use.rs#L244)
-
 
 
 <!--custom.examples.start-->
