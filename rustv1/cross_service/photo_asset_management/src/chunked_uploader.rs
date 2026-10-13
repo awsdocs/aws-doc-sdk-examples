@@ -118,7 +118,7 @@ impl<'a> ZipUploadBuilder<'a> {
 
 impl ZipUpload<'_> {
     // Start a builder for the ZipUpload.
-    pub fn builder(common: &Common) -> ZipUploadBuilder {
+    pub fn builder(common: &Common) -> ZipUploadBuilder<'_> {
         ZipUploadBuilder {
             key: None,
             bucket: None,

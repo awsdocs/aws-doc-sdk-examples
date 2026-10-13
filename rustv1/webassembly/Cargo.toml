@@ -18,7 +18,7 @@ aws-smithy-runtime-api = { version = "1.0.1" }
 aws-smithy-types = { version = "1.0.1" }
 async-trait = "0.1.63"
 console_error_panic_hook = "0.1.7"
-http = "0.2.8"
+http = "1"
 js-sys = "0.3.60"
 serde = { version = "1.0.152", features = ["derive"] }
 serde-wasm-bindgen = "0.6.0"
