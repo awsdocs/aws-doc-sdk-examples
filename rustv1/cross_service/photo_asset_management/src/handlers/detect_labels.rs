@@ -49,7 +49,7 @@ fn prepare_update_expression(
         )
 }
 
-async fn detect_record<'a>(
+async fn detect_record(
     common: &Common,
     bucket: &String,
     object: &String,

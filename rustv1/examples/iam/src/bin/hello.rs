@@ -16,7 +16,7 @@ struct HelloScenarioArgs {
 }
 
 #[tokio::main]
-async fn main() -> Result<(), SdkError<ListPoliciesError>> {
+async fn main() -> Result<(), Box<SdkError<ListPoliciesError>>> {
     let sdk_config = aws_config::load_from_env().await;
     let client = aws_sdk_iam::Client::new(&sdk_config);
 
