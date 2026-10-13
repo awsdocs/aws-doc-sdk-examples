@@ -23,10 +23,10 @@ use aws_smithy_runtime_api::http::Response;
 use aws_smithy_types::Document;
 use tracing::debug;
 
-// Set the model ID, e.g., Claude Haiku 4.5.
-// Claude Haiku 4.5 is available through an inference profile, so this uses the
+// Set the model ID, e.g., Claude Haiku 5.5.
+// Claude Haiku 5.5 is available through an inference profile, so this uses the
 // "us." cross-Region profile ID that matches CLAUDE_REGION below.
-const MODEL_ID: &str = "us.anthropic.claude-haiku-4-5-20251001-v1:0";
+const MODEL_ID: &str = "us.anthropic.claude-haiku-5-5";
 const CLAUDE_REGION: &str = "us-east-1";
 
 const SYSTEM_PROMPT: &str = "You are a weather assistant that provides current weather data for user-specified locations using only

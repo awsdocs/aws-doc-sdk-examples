@@ -124,7 +124,7 @@ to solve a problem or achieve a specific goal. The flow follows these steps:
 **Step 1: 🛠️ Initialization**
 
 - Set up the system prompt and tool configuration.
-- Specify the AI model to be used (e.g., Anthropic Claude Haiku 4.5).
+- Specify the AI model to be used (e.g., Anthropic Claude Haiku 5.5).
 - Create a client to interact with Amazon Bedrock.
 
 **Step 2: 💬 User interaction**

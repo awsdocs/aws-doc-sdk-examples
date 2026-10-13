@@ -24,15 +24,17 @@ AWS_REGION = "us-east-1"
 #
 # These are cross-Region inference profiles (the "us." prefix), which is how the
 # current Claude and Nova models are invoked. They match the us-east-1 Region above.
+
+
 class SupportedModels(Enum):
-    CLAUDE_OPUS = "us.anthropic.claude-opus-4-5-20251101-v1:0"
-    CLAUDE_SONNET = "us.anthropic.claude-sonnet-4-6"
-    CLAUDE_HAIKU = "us.anthropic.claude-haiku-4-5-20251001-v1:0"
+    CLAUDE_OPUS = "us.anthropic.claude-opus-5-5"
+    CLAUDE_SONNET = "us.anthropic.claude-sonnet-5-5"
+    CLAUDE_HAIKU = "us.anthropic.claude-haiku-5-5"
     NOVA_LITE = "us.amazon.nova-lite-v1:0"
     NOVA_PRO = "us.amazon.nova-pro-v1:0"
 
 
-# Set the model ID, e.g., Claude Haiku 4.5.
+# Set the model ID, e.g., Claude Haiku 5.5.
 MODEL_ID = SupportedModels.CLAUDE_HAIKU.value
 
 SYSTEM_PROMPT = """
