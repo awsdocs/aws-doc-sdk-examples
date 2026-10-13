@@ -12,10 +12,10 @@ import {
 // Create a Bedrock Runtime client in the AWS Region you want to use.
 const client = new BedrockRuntimeClient({ region: "us-east-1" });
 
-// Set the model ID, e.g., Claude Haiku 4.5.
-// Claude Haiku 4.5 is available through an inference profile, so this uses the
+// Set the model ID, e.g., Claude Haiku 5.5.
+// Claude Haiku 5.5 is available through an inference profile, so this uses the
 // "us." cross-Region profile ID that matches the Region set above.
-const modelId = "us.anthropic.claude-haiku-4-5-20251001-v1:0";
+const modelId = "us.anthropic.claude-haiku-5-5";
 
 // Start a conversation with the user message.
 const userMessage =
@@ -31,7 +31,7 @@ const conversation = [
 const command = new ConverseStreamCommand({
   modelId,
   messages: conversation,
-  inferenceConfig: { maxTokens: 512, temperature: 0.5 },
+  inferenceConfig: { maxTokens: 512 },
 });
 
 try {

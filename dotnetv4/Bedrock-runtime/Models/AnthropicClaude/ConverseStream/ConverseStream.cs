@@ -15,10 +15,10 @@ using Amazon.BedrockRuntime.Model;
 // Create a Bedrock Runtime client in the AWS Region you want to use.
 var client = new AmazonBedrockRuntimeClient(RegionEndpoint.USEast1);
 
-// Set the model ID, e.g., Claude Haiku 4.5.
-// Claude Haiku 4.5 is available through an inference profile, so this uses the
+// Set the model ID, e.g., Claude Haiku 5.5.
+// Claude Haiku 5.5 is available through an inference profile, so this uses the
 // "us." cross-Region profile ID that matches the Region set above.
-var modelId = "us.anthropic.claude-haiku-4-5-20251001-v1:0";
+var modelId = "us.anthropic.claude-haiku-5-5";
 
 // Define the user message.
 var userMessage = "Describe the purpose of a 'hello world' program in one line.";
@@ -37,8 +37,7 @@ var request = new ConverseStreamRequest
     },
     InferenceConfig = new InferenceConfiguration()
     {
-        MaxTokens = 512,
-        Temperature = 0.5F
+        MaxTokens = 512
     }
 };
 
