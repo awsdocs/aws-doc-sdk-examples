@@ -30,8 +30,6 @@
 	<ItemGroup>
 		<ProjectReference Include="..\Models\AnthropicClaude\ConverseStream\ConverseStream.csproj" />
 		<ProjectReference Include="..\Models\AnthropicClaude\Converse\Converse.csproj" />
-		<ProjectReference Include="..\Models\CohereCommand\ConverseStream\ConverseStream.csproj" />
-		<ProjectReference Include="..\Models\CohereCommand\Converse\Converse.csproj" />
 		<ProjectReference Include="..\Models\MetaLlama\ConverseStream\ConverseStream.csproj" />
 		<ProjectReference Include="..\Models\MetaLlama\Converse\Converse.csproj" />
 		<ProjectReference Include="..\Models\Mistral\ConverseStream\ConverseStream.csproj" />
