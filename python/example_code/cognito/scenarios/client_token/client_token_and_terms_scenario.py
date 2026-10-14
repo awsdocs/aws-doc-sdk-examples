@@ -29,7 +29,10 @@ from botocore.exceptions import ClientError, WaiterError
 from cognito_idp_wrapper import CognitoIdentityProviderWrapper
 
 # Add relative path to include demo_tools in this code example without need for setup.
-sys.path.append("../../../..")
+# Resolve the path from this file (not the current working directory) so the
+# scenario can be started from any directory, including the one the README
+# documents (python/example_code/cognito).
+sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../../.."))
 import demo_tools.question as q  # noqa: E402
 
 logger = logging.getLogger(__name__)
