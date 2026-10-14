@@ -8,7 +8,6 @@ public class ActionTest_Converse
     [Theory, Trait("Category", "Integration")]
     [InlineData(typeof(Mistral.Converse))]
     [InlineData(typeof(MetaLlama.Converse))]
-    [InlineData(typeof(CohereCommand.Converse))]
     [InlineData(typeof(AnthropicClaude.Converse))]
     [InlineData(typeof(AmazonNovaText.Converse))]
 

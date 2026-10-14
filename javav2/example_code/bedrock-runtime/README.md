@@ -67,11 +67,6 @@ functions within the same service.
 - [Reasoning](src/main/java/com/example/bedrockruntime/models/anthropicClaude/ReasoningAsync.java#L6)
 - [Reasoning with a streaming response](src/main/java/com/example/bedrockruntime/models/anthropicClaude/ReasoningStream.java#L6)
 
-### Cohere Command
-
-- [Converse](src/main/java/com/example/bedrockruntime/models/cohereCommand/Converse.java#L6)
-- [ConverseStream](src/main/java/com/example/bedrockruntime/models/cohereCommand/ConverseStream.java#L6)
-
 ### Meta Llama
 
 - [Converse](src/main/java/com/example/bedrockruntime/models/metaLlama/Converse.java#L6)

@@ -8,7 +8,6 @@ public class ActionTest_ConverseStream
     [Theory, Trait("Category", "Integration")]
     [InlineData(typeof(Mistral.ConverseStream))]
     [InlineData(typeof(MetaLlama.ConverseStream))]
-    [InlineData(typeof(CohereCommand.ConverseStream))]
     [InlineData(typeof(AnthropicClaude.ConverseStream))]
     [InlineData(typeof(AmazonNovaText.ConverseStream))]
     public void ConverseStreamDoesNotThrow(Type type)
