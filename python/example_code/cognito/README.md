@@ -49,6 +49,9 @@ Code excerpts that show you how to call individual service functions.
 - [AssociateSoftwareToken](cognito_idp_actions.py#L241)
 - [ConfirmDevice](cognito_idp_actions.py#L342)
 - [ConfirmSignUp](cognito_idp_actions.py#L131)
+- [DescribeTermsByClient](scenarios/client_token/cognito_idp_wrapper.py#L117)
+- [DescribeUserPoolClient](scenarios/client_token/cognito_idp_wrapper.py#L36)
+- [GetClientToken](scenarios/client_token/cognito_idp_wrapper.py#L70)
 - [InitiateAuth](cognito_idp_actions.py#L407)
 - [ListUsers](cognito_idp_actions.py#L164)
 - [ResendConfirmationCode](cognito_idp_actions.py#L104)
@@ -61,6 +64,7 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
+- [Client token and Terms discovery](scenarios/client_token/client_token_and_terms_scenario.py)
 - [Sign up a user with a user pool that requires MFA](cognito_idp_actions.py)
 - [Use Amazon Cognito identity pools](../../example_code/cognito/scenarios/identity_pools_example_demo)
 
@@ -84,6 +88,29 @@ This example shows you how to get started using Amazon Cognito Identity Provider
 python hello/hello_cognito.py
 ```
 
+
+#### Client token and Terms discovery
+
+This example shows you how to use Amazon Cognito machine-to-machine (M2M) authorization and Terms discovery.
+
+- Deploy a CloudFormation stack with Cognito resources (user pool, resource server, app client, Terms documents).
+- Retrieve the app client secret with DescribeUserPoolClient.
+- Obtain M2M access tokens with GetClientToken.
+- Discover Terms documents with DescribeTermsByClient.
+- Clean up by deleting the CloudFormation stack.
+
+<!--custom.scenario_prereqs.cognito-identity-provider_Scenario_ClientTokenAndTerms.start-->
+<!--custom.scenario_prereqs.cognito-identity-provider_Scenario_ClientTokenAndTerms.end-->
+
+Start the example by running the following at a command prompt:
+
+```
+python scenarios/client_token/client_token_and_terms_scenario.py
+```
+
+
+<!--custom.scenarios.cognito-identity-provider_Scenario_ClientTokenAndTerms.start-->
+<!--custom.scenarios.cognito-identity-provider_Scenario_ClientTokenAndTerms.end-->
 
 #### Sign up a user with a user pool that requires MFA
 
