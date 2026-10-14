@@ -181,7 +181,7 @@ class Example {
         //======================================================================
 
         // snippet-start:[swift.identity.cognito.s3]
-        let s3Config = try await S3Client.S3ClientConfiguration(
+        let s3Config = try await S3Client.S3ClientConfig(
             awsCredentialIdentityResolver: cognitoCredentialResolver,
             region: region
         )

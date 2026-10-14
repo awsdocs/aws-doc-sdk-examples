@@ -16,7 +16,7 @@ import SmithyRetriesAPI
 struct RetryExample {
     static func main() async {
         // snippet-start:[retry.swift.setup]
-        let config: S3Client.S3ClientConfiguration
+        let config: S3Client.S3ClientConfig
 
         // Create an Amazon S3 client configuration object that specifies the
         // adaptive retry mode and sets the maximum number of attempts to 3.
@@ -24,14 +24,14 @@ struct RetryExample {
 
         do {
             // snippet-start:[retry.swift.configure]
-            config = try await S3Client.S3ClientConfiguration(
+            config = try await S3Client.S3ClientConfig(
                 awsRetryMode: .adaptive,
                 maxAttempts: 3
             )
             // snippet-end:[retry.swift.configure]
         } catch {
             do {
-                config = try await S3Client.S3ClientConfiguration()
+                config = try await S3Client.S3ClientConfig()
             } catch {
                 print("Error: Unable to configure Amazon S3.")
                 dump(error)

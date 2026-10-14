@@ -65,7 +65,7 @@ struct ExampleCommand: ParsableCommand {
 
     /// Called by ``main()`` to run the bulk of the example.
     func runAsync() async throws {
-        let supportConfig = try await SupportClient.SupportClientConfiguration(region: awsRegion)
+        let supportConfig = try await SupportClient.SupportClientConfig(region: awsRegion)
         let supportClient = SupportClient(config: supportConfig)
 
         let services = await getSupportServices(supportClient: supportClient)

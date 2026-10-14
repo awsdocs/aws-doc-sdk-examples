@@ -29,7 +29,7 @@ struct ExampleCommand: ParsableCommand {
     /// Called by ``main()`` to run the bulk of the example.
     func runAsync() async throws {
         // snippet-start:[swift.http-config.headers]
-        let config = try await S3Client.S3ClientConfiguration(
+        let config = try await S3Client.S3ClientConfig(
             region: region,
             httpClientConfiguration: HttpClientConfiguration(
                 defaultHeaders: Headers(
@@ -51,7 +51,7 @@ struct ExampleCommand: ParsableCommand {
         
         // snippet-start:[swift.http-config.timeouts]
         do {
-            let config = try await S3Client.S3ClientConfiguration(
+            let config = try await S3Client.S3ClientConfig(
                 region: region,
                 httpClientConfiguration: HttpClientConfiguration(
                     connectTimeout: 2,

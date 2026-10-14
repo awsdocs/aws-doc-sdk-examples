@@ -246,7 +246,7 @@ class ViewModel: ObservableObject {
         // Create an Amazon S3 client configuration that uses the
         // credential identity resolver created from the JWT token
         // returned by Sign In With Apple.
-        let config = try await S3Client.S3ClientConfiguration(
+        let config = try await S3Client.S3ClientConfig(
             awsCredentialIdentityResolver: identityResolver,
             region: "us-east-1"
         )

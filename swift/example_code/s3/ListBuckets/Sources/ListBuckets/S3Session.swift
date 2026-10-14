@@ -35,7 +35,7 @@ public struct S3Session: S3SessionProtocol {
     /// - Parameter region: The optional AWS Region to use.
     init(region: String? = nil) async throws {
         do {
-            let config = try await S3Client.S3ClientConfiguration()
+            var config = try await S3Client.S3ClientConfig()
             if let region = region {
                 config.region = region
             }
