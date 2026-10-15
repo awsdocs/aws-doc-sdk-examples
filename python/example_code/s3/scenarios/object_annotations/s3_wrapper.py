@@ -2,13 +2,13 @@
 # SPDX-License-Identifier: Apache-2.0
 
 """
-Wrapper class for Amazon S3 Object Annotations operations.
-
-This module encapsulates S3 client calls for the Object Annotations feature,
-including creating buckets, uploading objects, and managing annotations
-(put, get, list, delete).
+Purpose
+    Wraps Amazon S3 object annotation actions, including creating, retrieving,
+    listing, updating, and deleting annotations on S3 objects. Also wraps
+    basic S3 bucket and object operations used by the scenario.
 """
 
+import json
 import logging
 from typing import Optional
 
@@ -20,11 +20,11 @@ logger = logging.getLogger(__name__)
 
 # snippet-start:[python.example_code.s3.S3AnnotationsWrapper.decl]
 class S3AnnotationsWrapper:
-    """Encapsulates Amazon S3 Object Annotations operations."""
+    """Encapsulates Amazon S3 object annotation operations."""
 
     def __init__(self, s3_client):
         """
-        Initializes the S3AnnotationsWrapper with an S3 client.
+        Initializes the S3AnnotationsWrapper with a Boto3 S3 client.
 
         :param s3_client: A Boto3 S3 client.
         """
@@ -33,24 +33,24 @@ class S3AnnotationsWrapper:
     @classmethod
     def from_client(cls):
         """
-        Creates an S3AnnotationsWrapper using a default Boto3 S3 client.
+        Creates an S3AnnotationsWrapper instance using a default Boto3 S3 client.
 
-        :return: An initialized S3AnnotationsWrapper instance.
+        :return: A new S3AnnotationsWrapper instance.
         """
         s3_client = boto3.client("s3")
         return cls(s3_client)
 
     # snippet-end:[python.example_code.s3.S3AnnotationsWrapper.decl]
 
-    def create_bucket(self, bucket_name: str, region: Optional[str] = None) -> None:
+    # snippet-start:[python.example_code.s3.CreateBucket]
+    def create_bucket(self, bucket_name: str, region: Optional[str] = None) -> str:
         """
-        Creates an S3 general purpose bucket.
+        Creates an Amazon S3 bucket.
 
         :param bucket_name: The name of the bucket to create.
-        :param region: The AWS Region in which to create the bucket. If None,
-                       the client's configured region is used.
-        :raises ClientError: If the bucket already exists and is owned by you
-                             (BucketAlreadyOwnedByYou) or another error occurs.
+        :param region: The AWS Region in which to create the bucket. If not
+                       specified, the bucket is created in the default Region.
+        :return: The name of the created bucket.
         """
         try:
             if region is None:
@@ -64,45 +64,42 @@ class S3AnnotationsWrapper:
                 )
             logger.info("Created bucket '%s' in region '%s'.", bucket_name, region)
         except ClientError as err:
-            if err.response["Error"]["Code"] == "BucketAlreadyOwnedByYou":
+            if err.response["Error"]["Code"] == "BucketAlreadyExists":
                 logger.error(
-                    "Bucket '%s' already exists and is owned by you. "
-                    "Please choose a different name.",
-                    bucket_name,
+                    "Bucket name '%s' is already taken. Use a unique name.", bucket_name
                 )
             raise
+        return bucket_name
 
+    # snippet-end:[python.example_code.s3.CreateBucket]
+
+    # snippet-start:[python.example_code.s3.PutObject]
     def put_object(self, bucket_name: str, object_key: str, body: str) -> dict:
         """
-        Uploads an object to an S3 bucket.
+        Uploads an object to an Amazon S3 bucket.
 
-        :param bucket_name: The name of the bucket to upload to.
-        :param object_key: The key to assign to the uploaded object.
-        :param body: The content of the object to upload.
-        :return: A dict containing the response from PutObject, including ETag.
-        :raises ClientError: If the bucket does not exist (NoSuchBucket) or
-                             another error occurs.
+        :param bucket_name: The name of the bucket to upload the object to.
+        :param object_key: The key name for the object.
+        :param body: The content of the object.
+        :return: The response from S3.
         """
         try:
             response = self.s3_client.put_object(
-                Bucket=bucket_name,
-                Key=object_key,
-                Body=body,
+                Bucket=bucket_name, Key=object_key, Body=body
             )
             logger.info(
-                "Uploaded object '%s' to bucket '%s'. ETag: %s",
-                object_key,
-                bucket_name,
-                response.get("ETag", "N/A"),
+                "Uploaded object '%s' to bucket '%s'.", object_key, bucket_name
             )
             return response
         except ClientError as err:
             if err.response["Error"]["Code"] == "NoSuchBucket":
                 logger.error(
-                    "Bucket '%s' does not exist. Verify bucket creation succeeded.",
+                    "Bucket '%s' does not exist. Verify the bucket was created.",
                     bucket_name,
                 )
             raise
+
+    # snippet-end:[python.example_code.s3.PutObject]
 
     # snippet-start:[python.example_code.s3.PutObjectAnnotation]
     def put_object_annotation(
@@ -113,25 +110,24 @@ class S3AnnotationsWrapper:
         annotation_payload: str,
     ) -> dict:
         """
-        Attaches a named annotation payload to an S3 object.
+        Attaches a named annotation payload to an S3 object. If an annotation
+        with the same name already exists, it is overwritten.
 
         :param bucket_name: The name of the bucket containing the object.
         :param object_key: The key of the object to annotate.
         :param annotation_name: The name of the annotation (1-512 bytes).
-        :param annotation_payload: The annotation content (1 byte to 1 MiB).
-        :return: A dict containing the PutObjectAnnotation response with ETag.
-        :raises ClientError: If the annotation name is invalid
-                             (InvalidAnnotationName) or another error occurs.
+        :param annotation_payload: The annotation body (1 byte to 1 MiB).
+        :return: The response from S3, including the annotation ETag.
         """
         try:
             response = self.s3_client.put_object_annotation(
                 Bucket=bucket_name,
                 Key=object_key,
                 AnnotationName=annotation_name,
-                AnnotationPayload=annotation_payload.encode("utf-8"),
+                AnnotationPayload=annotation_payload,
             )
             logger.info(
-                "Put annotation '%s' on object '%s' in bucket '%s'. ETag: %s",
+                "Attached annotation '%s' to object '%s' in bucket '%s'. ETag: %s",
                 annotation_name,
                 object_key,
                 bucket_name,
@@ -139,11 +135,12 @@ class S3AnnotationsWrapper:
             )
             return response
         except ClientError as err:
-            if err.response["Error"]["Code"] == "InvalidAnnotationName":
+            if err.response["Error"]["Code"] == "NoSuchKey":
                 logger.error(
-                    "Annotation name '%s' is invalid. Names must be 1-512 bytes, "
-                    "UTF-8 encoded, and cannot start with 'aws' or 's3'.",
-                    annotation_name,
+                    "Object '%s' does not exist in bucket '%s'. Verify the object "
+                    "exists before attaching an annotation.",
+                    object_key,
+                    bucket_name,
                 )
             raise
 
@@ -151,10 +148,7 @@ class S3AnnotationsWrapper:
 
     # snippet-start:[python.example_code.s3.GetObjectAnnotation]
     def get_object_annotation(
-        self,
-        bucket_name: str,
-        object_key: str,
-        annotation_name: str,
+        self, bucket_name: str, object_key: str, annotation_name: str
     ) -> dict:
         """
         Retrieves a specific annotation by name from an S3 object.
@@ -162,24 +156,19 @@ class S3AnnotationsWrapper:
         :param bucket_name: The name of the bucket containing the object.
         :param object_key: The key of the object.
         :param annotation_name: The name of the annotation to retrieve.
-        :return: A dict containing the annotation payload (decoded), ETag,
-                 ContentLength, and LastModified.
-        :raises ClientError: If the annotation does not exist
-                             (NoSuchAnnotation) or another error occurs.
+        :return: A dict with annotation details including the payload.
         """
         try:
             response = self.s3_client.get_object_annotation(
-                Bucket=bucket_name,
-                Key=object_key,
-                AnnotationName=annotation_name,
+                Bucket=bucket_name, Key=object_key, AnnotationName=annotation_name
             )
+            # Read the streaming body for the annotation payload.
             payload = response["AnnotationPayload"].read().decode("utf-8")
-            result = dict(
-                Payload=payload,
-                ETag=response.get("ETag", "N/A"),
-                ContentLength=response.get("ContentLength", 0),
-                LastModified=response.get("LastModified", None),
-            )
+            result = dict()
+            result["AnnotationPayload"] = payload
+            result["ETag"] = response.get("ETag", "")
+            result["LastModified"] = response.get("LastModified", None)
+            result["ContentLength"] = response.get("ContentLength", 0)
             logger.info(
                 "Retrieved annotation '%s' from object '%s' in bucket '%s'.",
                 annotation_name,
@@ -207,46 +196,43 @@ class S3AnnotationsWrapper:
         annotation_prefix: Optional[str] = None,
     ) -> list:
         """
-        Lists annotations attached to an S3 object. Uses a paginator to
-        handle results that span multiple pages.
+        Lists all annotations on an S3 object. Uses the paginator for
+        automatic handling of paginated results.
 
         :param bucket_name: The name of the bucket containing the object.
         :param object_key: The key of the object.
-        :param annotation_prefix: Optional prefix to filter annotation names.
-        :return: A list of annotation entry dicts, each containing
-                 AnnotationName, Size, ETag, and LastModified.
-        :raises ClientError: If the object does not exist (NoSuchKey) or
-                             another error occurs.
+        :param annotation_prefix: Optional prefix to filter annotations by name.
+        :return: A list of annotation entries.
         """
         try:
             annotations = list()
             paginator = self.s3_client.get_paginator("list_object_annotations")
-            params = dict(Bucket=bucket_name, Key=object_key)
+            params = dict()
+            params["Bucket"] = bucket_name
+            params["Key"] = object_key
             if annotation_prefix is not None:
                 params["AnnotationPrefix"] = annotation_prefix
+
             for page in paginator.paginate(**params):
                 page_annotations = page.get("Annotations", list())
-                for annotation in page_annotations:
-                    annotations.append(
-                        dict(
-                            AnnotationName=annotation.get("AnnotationName", ""),
-                            Size=annotation.get("Size", 0),
-                            ETag=annotation.get("ETag", ""),
-                            LastModified=annotation.get("LastModified", None),
-                        )
-                    )
+                annotations.extend(page_annotations)
+
+            prefix_msg = (
+                f" with prefix '{annotation_prefix}'" if annotation_prefix else ""
+            )
             logger.info(
                 "Listed %d annotation(s) on object '%s' in bucket '%s'%s.",
                 len(annotations),
                 object_key,
                 bucket_name,
-                f" with prefix '{annotation_prefix}'" if annotation_prefix else "",
+                prefix_msg,
             )
             return annotations
         except ClientError as err:
             if err.response["Error"]["Code"] == "NoSuchKey":
                 logger.error(
-                    "Object '%s' does not exist in bucket '%s'.",
+                    "Object '%s' does not exist in bucket '%s'. Verify the object "
+                    "key is correct.",
                     object_key,
                     bucket_name,
                 )
@@ -256,25 +242,19 @@ class S3AnnotationsWrapper:
 
     # snippet-start:[python.example_code.s3.DeleteObjectAnnotation]
     def delete_object_annotation(
-        self,
-        bucket_name: str,
-        object_key: str,
-        annotation_name: str,
+        self, bucket_name: str, object_key: str, annotation_name: str
     ) -> None:
         """
-        Permanently deletes a specific annotation from an S3 object.
+        Permanently removes a specific annotation from an S3 object.
+        Annotation deletion is permanent and irreversible.
 
         :param bucket_name: The name of the bucket containing the object.
         :param object_key: The key of the object.
         :param annotation_name: The name of the annotation to delete.
-        :raises ClientError: If the annotation does not exist
-                             (NoSuchAnnotation) or another error occurs.
         """
         try:
             self.s3_client.delete_object_annotation(
-                Bucket=bucket_name,
-                Key=object_key,
-                AnnotationName=annotation_name,
+                Bucket=bucket_name, Key=object_key, AnnotationName=annotation_name
             )
             logger.info(
                 "Deleted annotation '%s' from object '%s' in bucket '%s'.",
@@ -283,26 +263,23 @@ class S3AnnotationsWrapper:
                 bucket_name,
             )
         except ClientError as err:
-            if err.response["Error"]["Code"] == "NoSuchAnnotation":
+            if err.response["Error"]["Code"] == "NoSuchBucket":
                 logger.error(
-                    "Annotation '%s' has already been deleted or does not exist "
-                    "on object '%s' in bucket '%s'.",
-                    annotation_name,
-                    object_key,
+                    "Bucket '%s' does not exist. Verify the bucket exists before "
+                    "attempting to delete an annotation.",
                     bucket_name,
                 )
             raise
 
     # snippet-end:[python.example_code.s3.DeleteObjectAnnotation]
 
+    # snippet-start:[python.example_code.s3.DeleteObject]
     def delete_object(self, bucket_name: str, object_key: str) -> None:
         """
         Deletes an object from an S3 bucket.
 
-        :param bucket_name: The name of the bucket containing the object.
+        :param bucket_name: The name of the bucket.
         :param object_key: The key of the object to delete.
-        :raises ClientError: If the object does not exist (NoSuchKey) or
-                             another error occurs.
         """
         try:
             self.s3_client.delete_object(Bucket=bucket_name, Key=object_key)
@@ -311,29 +288,33 @@ class S3AnnotationsWrapper:
             )
         except ClientError as err:
             if err.response["Error"]["Code"] == "NoSuchKey":
-                logger.error(
-                    "Object '%s' does not exist in bucket '%s'. "
-                    "It may have already been deleted.",
+                logger.warning(
+                    "Object '%s' not found in bucket '%s'. It may have already "
+                    "been deleted.",
                     object_key,
                     bucket_name,
                 )
             raise
 
+    # snippet-end:[python.example_code.s3.DeleteObject]
+
+    # snippet-start:[python.example_code.s3.DeleteBucket]
     def delete_bucket(self, bucket_name: str) -> None:
         """
-        Deletes an S3 bucket.
+        Deletes an S3 bucket. The bucket must be empty first.
 
         :param bucket_name: The name of the bucket to delete.
-        :raises ClientError: If the bucket does not exist (NoSuchBucket) or
-                             another error occurs.
         """
         try:
             self.s3_client.delete_bucket(Bucket=bucket_name)
             logger.info("Deleted bucket '%s'.", bucket_name)
         except ClientError as err:
-            if err.response["Error"]["Code"] == "NoSuchBucket":
+            if err.response["Error"]["Code"] == "BucketNotEmpty":
                 logger.error(
-                    "Bucket '%s' does not exist. It may have already been deleted.",
+                    "Bucket '%s' is not empty. Delete all objects and annotations "
+                    "before deleting the bucket.",
                     bucket_name,
                 )
             raise
+
+    # snippet-end:[python.example_code.s3.DeleteBucket]
