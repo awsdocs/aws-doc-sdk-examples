@@ -48,7 +48,7 @@ public class ServiceHandlerSTS {
         do {
             self.region = region
 
-            let stsConfig = try await STSClient.STSClientConfiguration()
+            var stsConfig = try await STSClient.STSClientConfig()
             if let region = self.region {
                 stsConfig.region = region
             }
@@ -112,7 +112,7 @@ public class ServiceHandlerSTS {
 
             // Create a new AWS STS client with the specified access credentials.
 
-            let stsConfig = try await STSClient.STSClientConfiguration(
+            var stsConfig = try await STSClient.STSClientConfig(
                 awsCredentialIdentityResolver: identityResolver
             )
 
@@ -134,7 +134,7 @@ public class ServiceHandlerSTS {
     // snippet-start:[iam.swift.basics.sts.resetcredentials]
     public func resetCredentials() async throws {
         do {
-            let stsConfig = try await STSClient.STSClientConfiguration()
+            var stsConfig = try await STSClient.STSClientConfig()
             if let region = region {
                 stsConfig.region = region
             }

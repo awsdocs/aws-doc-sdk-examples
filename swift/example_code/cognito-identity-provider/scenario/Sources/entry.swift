@@ -437,7 +437,7 @@ struct ExampleCommand: ParsableCommand {
 
     /// Called by ``main()`` to run the bulk of the example.
     func runAsync() async throws {
-        let config = try await CognitoIdentityProviderClient.CognitoIdentityProviderClientConfiguration(region: region)
+        let config = try await CognitoIdentityProviderClient.CognitoIdentityProviderClientConfig(region: region)
         let cipClient = CognitoIdentityProviderClient(config: config)
 
         print("""

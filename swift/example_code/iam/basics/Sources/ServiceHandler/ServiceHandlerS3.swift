@@ -41,7 +41,7 @@ public class ServiceHandlerS3 {
     {
         do {
             self.region = region
-            let s3Config = try await S3Client.S3ClientConfiguration()
+            var s3Config = try await S3Client.S3ClientConfig()
 
             if let region = self.region {
                 s3Config.region = region
@@ -73,7 +73,7 @@ public class ServiceHandlerS3 {
                 // Create an Amazon S3 configuration specifying the credentials
                 // provider. Then create a new `S3Client` using those permissions.
 
-                let s3Config = try await S3Client.S3ClientConfiguration(
+                let s3Config = try await S3Client.S3ClientConfig(
                     awsCredentialIdentityResolver: identityResolver,
                     region: self.region
                 )
@@ -114,7 +114,7 @@ public class ServiceHandlerS3 {
             // Create an Amazon S3 configuration specifying the credentials
             // provider. Then create a new `S3Client` using those permissions.
 
-            let s3Config = try await S3Client.S3ClientConfiguration(
+            var s3Config = try await S3Client.S3ClientConfig(
                 awsCredentialIdentityResolver: identityResolver
             )
 
@@ -136,7 +136,7 @@ public class ServiceHandlerS3 {
     // snippet-start:[iam.swift.basics.s3.resetcredentials]
     public func resetCredentials() async throws {
         do {
-            let s3Config = try await S3Client.S3ClientConfiguration()
+            var s3Config = try await S3Client.S3ClientConfig()
 
             if let region = region {
                 s3Config.region = region

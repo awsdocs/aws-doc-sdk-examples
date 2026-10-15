@@ -29,7 +29,7 @@ struct ExampleCommand: ParsableCommand {
     /// Called by ``main()`` to run the bulk of the example.
     func runAsync() async throws {
         // snippet-start:[swift.sqs.ReceiveMessage]
-        let config = try await SQSClient.SQSClientConfiguration(region: region)
+        let config = try await SQSClient.SQSClientConfig(region: region)
         let sqsClient = SQSClient(config: config)
 
         let output = try await sqsClient.receiveMessage(

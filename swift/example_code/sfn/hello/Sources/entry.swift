@@ -30,7 +30,7 @@ struct ExampleCommand: ParsableCommand {
 
     /// Called by ``main()`` to run the bulk of the example.
     func runAsync() async throws {
-        let sfnConfig = try await SFNClient.SFNClientConfiguration(region: awsRegion)
+        let sfnConfig = try await SFNClient.SFNClientConfig(region: awsRegion)
         let sfnClient = SFNClient(config: sfnConfig)
 
         // snippet-start:[swift.sfn.hello.ListStateMachines]

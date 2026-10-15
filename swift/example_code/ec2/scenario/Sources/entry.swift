@@ -47,10 +47,10 @@ struct ExampleCommand: ParsableCommand {
 
     /// Called by ``main()`` to run the bulk of the example.
     func runAsync() async throws {
-        let ssmConfig = try await SSMClient.SSMClientConfiguration(region: awsRegion)
+        let ssmConfig = try await SSMClient.SSMClientConfig(region: awsRegion)
         let ssmClient = SSMClient(config: ssmConfig)
 
-        let ec2Config = try await EC2Client.EC2ClientConfiguration(region: awsRegion)
+        let ec2Config = try await EC2Client.EC2ClientConfig(region: awsRegion)
         let ec2Client = EC2Client(config: ec2Config)
 
         let example = Example(ec2Client: ec2Client, ssmClient: ssmClient)
