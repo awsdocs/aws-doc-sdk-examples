@@ -1002,7 +1002,7 @@ rds_GenerateRDSAuthToken:
               snippet_tags:
                 - rds.java2.create_token.main
   services:
-    rds: {GenerateRDSAuthToken}
+    rds: {}
 rds_Scenario_GetStartedInstances:
   synopsis_list:
     - Create a custom DB parameter group and set parameter values.
