@@ -988,7 +988,7 @@ rds_DescribeOrderableDBInstanceOptions:
                 - swift.rds.DescribeOrderableDBInstanceOptions
   services:
     rds: {DescribeOrderableDBInstanceOptions}
-rds_GenerateRDSAuthToken:
+rds_Utilities:
   languages:
     Java:
       versions:
@@ -996,13 +996,11 @@ rds_GenerateRDSAuthToken:
           github: javav2/example_code/rds
           sdkguide:
           excerpts:
-            - description: Use the <ulink 
-                url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/rds/RdsUtilities.html">RdsUtilities</ulink>
-                class to generate the authentication token.
+            - description: Returns a RdsUtilities object that generates the authentication token.
               snippet_tags:
                 - rds.java2.create_token.main
   services:
-    rds: {GenerateRDSAuthToken}
+    rds: {Utilities}
 rds_Scenario_GetStartedInstances:
   synopsis_list:
     - Create a custom DB parameter group and set parameter values.
