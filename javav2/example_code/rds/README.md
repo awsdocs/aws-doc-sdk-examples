@@ -55,10 +55,10 @@ Code excerpts that show you how to call individual service functions.
 - [DescribeDBInstances](src/main/java/com/example/rds/DescribeDBInstances.java#L6)
 - [DescribeDBParameterGroups](src/main/java/com/example/rds/RDSScenario.java#L530)
 - [DescribeDBParameters](src/main/java/com/example/rds/RDSScenario.java#L490)
-- [GenerateRDSAuthToken](src/main/java/com/example/rds/GenerateRDSAuthToken.java#L15)
 - [ModifyDBInstance](src/main/java/com/example/rds/ModifyDBInstance.java#L6)
 - [ModifyDBParameterGroup](src/main/java/com/example/rds/RDSScenario.java#L463)
 - [RebootDBInstance](src/main/java/com/example/rds/RebootDBInstance.java#L6)
+- [Utilities](src/main/java/com/example/rds/GenerateRDSAuthToken.java#L15)
 
 
 <!--custom.examples.start-->
