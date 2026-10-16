@@ -998,11 +998,11 @@ rds_GenerateRDSAuthToken:
           excerpts:
             - description: Use the <ulink 
                 url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/rds/RdsUtilities.html">RdsUtilities</ulink>
-                class to generate an authentication token.
+                class to generate the authentication token.
               snippet_tags:
                 - rds.java2.create_token.main
   services:
-    rds: {}
+    rds: {GenerateRDSAuthToken}
 rds_Scenario_GetStartedInstances:
   synopsis_list:
     - Create a custom DB parameter group and set parameter values.
