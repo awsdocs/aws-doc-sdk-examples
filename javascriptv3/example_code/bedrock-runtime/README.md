@@ -60,11 +60,6 @@ functions within the same service.
 - [Converse](models/anthropicClaude/converse.js#L4)
 - [ConverseStream](models/anthropicClaude/converseStream.js#L4)
 
-### Cohere Command
-
-- [Converse](models/cohereCommand/converse.js#L4)
-- [ConverseStream](models/cohereCommand/converseStream.js#L4)
-
 ### Meta Llama
 
 - [Converse](models/metaLlama/converse.js#L4)

@@ -11,7 +11,6 @@ describe("Converse with text generation models", () => {
   const models = {
     amazonNovaText: "Amazon Nova",
     anthropicClaude: "Anthropic Claude",
-    cohereCommand: "Cohere Command",
     metaLlama: "Meta Llama",
     mistral: "Mistral",
   };

@@ -8,7 +8,6 @@ import sys
 files_under_test = [
     "models/amazon_nova/amazon_nova_text/converse.py",
     "models/anthropic_claude/converse.py",
-    "models/cohere_command/converse.py",
     "models/meta_llama/converse.py",
     "models/mistral_ai/converse.py",
 ]

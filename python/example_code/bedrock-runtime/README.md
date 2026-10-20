@@ -79,13 +79,6 @@ functions within the same service.
 - [Document understanding](models/anthropic_claude/document_understanding.py#L4)
 - [Scenario: Tool use with the Converse API](cross-model-scenarios/tool_use_demo/tool_use_demo.py)
 
-### Cohere Command
-
-- [Converse](models/cohere_command/converse.py#L4)
-- [ConverseStream](models/cohere_command/converse_stream.py#L4)
-- [Document understanding](models/cohere_command/document_understanding.py#L4)
-- [Scenario: Tool use with the Converse API](cross-model-scenarios/tool_use_demo/tool_use_demo.py)
-
 ### DeepSeek
 
 - [Document understanding](models/deepseek/document_understanding.py#L4)
