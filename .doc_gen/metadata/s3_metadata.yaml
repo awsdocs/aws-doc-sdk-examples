@@ -4031,6 +4031,21 @@ s3_Scenario_ObjectAnnotations:
     - Update an existing annotation.
     - Delete annotations and verify removal.
     - Clean up all resources.
+  availability_description: "S3 annotations complement existing metadata mechanisms (system-defined metadata, user-defined metadata, and object tags) at a fundamentally different scale and flexibility. With annotations, you can attach up to 1,000 named annotations per object, each up to 1 MiB in size, in flexible formats like JSON, XML, and YAML. Common use cases include storing machine learning inference results, AI-generated embeddings, content moderation labels, document classification output, data lineage and audit trails, compliance records such as PII flags or retention policies, and ETL pipeline status."
+  available_since: "2026-06-16"
+  available_since_version:
+    .NET: {version: "4.0.25.0", major: "4"}
+    C++: {version: "1.11.830", major: "1"}
+    CLI: {version: "2.35.6", major: "2"}
+    Go: {version: "1.104.0", major: "2"}
+    JavaScript: {version: "3.1070.0", major: "3"}
+    Kotlin: {version: "1.6.97", major: "1"}
+    PHP: {version: "3.384.11", major: "3"}
+    PowerShell: {version: "5.0.235", major: "5"}
+    Python: {version: "1.43.31", major: "3"}
+    Ruby: {version: "1.226.0", major: "1"}
+    Rust: {version: "1.137.0", major: "1"}
+    Swift: {version: "1.7.21", major: "1"}
   languages:
     Python:
       versions:
