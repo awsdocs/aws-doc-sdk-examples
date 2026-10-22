@@ -32,8 +32,14 @@ jobs:
 
       - name: Determine PR number
         id: pr-info
+        env:
+          PR_NUMBER_INPUT: ${{ github.event.inputs.pr_number }}
         run: |
-          echo "pr_number=${{ github.event.inputs.pr_number }}" >> "$GITHUB_OUTPUT"
+          if [[ ! "$PR_NUMBER_INPUT" =~ ^[0-9]+$ ]]; then
+            echo "::error::Invalid PR number: '$PR_NUMBER_INPUT' (expected a positive integer)"
+            exit 1
+          fi
+          echo "pr_number=$PR_NUMBER_INPUT" >> "$GITHUB_OUTPUT"
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v5
