@@ -22,9 +22,7 @@ This scenario demonstrates advanced Kinesis Data Streams management:
 import json
 import logging
 import time
-from datetime import datetime, timezone
 
-import boto3
 from botocore.exceptions import ClientError
 
 from kinesis_wrapper import KinesisWrapper
@@ -34,6 +32,7 @@ logger = logging.getLogger(__name__)
 DASHES = "-" * 80
 
 
+# snippet-start:[python.example_code.kinesis.Scenario]
 def run_scenario(kinesis_wrapper):
     """
     Runs the Kinesis Data Streams basics scenario.
@@ -119,13 +118,33 @@ def run_scenario(kinesis_wrapper):
         print(DASHES)
 
         # --- Step 4: PutRecords ---
-        print(f"\nStep 4: Putting 5 records into the stream using PutRecords...")
+        print("\nStep 4: Putting 5 records into the stream using PutRecords...")
         sensor_data = [
-            {"sensor_id": "sensor-001", "temperature": 72.5, "timestamp": "2024-01-15T10:00:00Z"},
-            {"sensor_id": "sensor-002", "temperature": 68.3, "timestamp": "2024-01-15T10:00:01Z"},
-            {"sensor_id": "sensor-001", "temperature": 73.1, "timestamp": "2024-01-15T10:00:02Z"},
-            {"sensor_id": "sensor-003", "temperature": 75.8, "timestamp": "2024-01-15T10:00:03Z"},
-            {"sensor_id": "sensor-002", "temperature": 67.9, "timestamp": "2024-01-15T10:00:04Z"},
+            {
+                "sensor_id": "sensor-001",
+                "temperature": 72.5,
+                "timestamp": "2024-01-15T10:00:00Z",
+            },
+            {
+                "sensor_id": "sensor-002",
+                "temperature": 68.3,
+                "timestamp": "2024-01-15T10:00:01Z",
+            },
+            {
+                "sensor_id": "sensor-001",
+                "temperature": 73.1,
+                "timestamp": "2024-01-15T10:00:02Z",
+            },
+            {
+                "sensor_id": "sensor-003",
+                "temperature": 75.8,
+                "timestamp": "2024-01-15T10:00:03Z",
+            },
+            {
+                "sensor_id": "sensor-002",
+                "temperature": 67.9,
+                "timestamp": "2024-01-15T10:00:04Z",
+            },
         ]
         records = [
             {
@@ -182,10 +201,10 @@ def run_scenario(kinesis_wrapper):
 
         # --- Step 7: List Tags ---
         print("\nStep 7: Listing tags for the stream...")
-        tag_list = kinesis_wrapper.list_tags_for_stream(stream_name)
+        tag_list, has_more_tags = kinesis_wrapper.list_tags_for_stream(stream_name)
         for tag in tag_list:
             print(f"  Tag: {tag.get('Key')} = {tag.get('Value')}")
-        print(f"Found {len(tag_list)} tag(s).")
+        print(f"Found {len(tag_list)} tag(s). HasMoreTags: {has_more_tags}")
         print(DASHES)
 
         # --- Step 8: Remove Tags ---
@@ -193,7 +212,7 @@ def run_scenario(kinesis_wrapper):
         kinesis_wrapper.remove_tags_from_stream(stream_name, ["CostCenter"])
         print("Tag removed successfully.")
         print("Verifying remaining tags...")
-        remaining_tags = kinesis_wrapper.list_tags_for_stream(stream_name)
+        remaining_tags, _ = kinesis_wrapper.list_tags_for_stream(stream_name)
         for tag in remaining_tags:
             print(f"  Tag: {tag.get('Key')} = {tag.get('Value')}")
         print(f"Confirmed: {len(remaining_tags)} tag(s) remaining after removal.")
@@ -201,9 +220,7 @@ def run_scenario(kinesis_wrapper):
 
         # --- Step 9: Register Consumer ---
         print("\nStep 9: Registering an enhanced fan-out consumer...")
-        consumer = kinesis_wrapper.register_stream_consumer(
-            stream_arn, consumer_name
-        )
+        consumer = kinesis_wrapper.register_stream_consumer(stream_arn, consumer_name)
         consumer_arn = consumer.get("ConsumerARN", "")
         print(f"  Consumer Name: {consumer.get('ConsumerName')}")
         print(f"  Consumer ARN: {consumer_arn}")
@@ -269,3 +286,4 @@ if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
     wrapper = KinesisWrapper.from_client()
     run_scenario(wrapper)
+# snippet-end:[python.example_code.kinesis.Scenario]

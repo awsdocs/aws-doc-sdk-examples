@@ -36,34 +36,34 @@ python -m pip install -r requirements.txt
 
 ### Get started
 
-- [Hello Kinesis](kinesis_wrapper.py#L49) (`ListStreams`)
+- [Hello Kinesis](hello/hello_kinesis.py#L10) (`ListStreams`)
 
 
 ### Basics
 
 Code examples that show you how to perform the essential operations within a service.
 
-- [Learn the basics](kinesis_wrapper.py)
+- [Learn the basics](scenarios/kinesis_basics_scenario.py)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [AddTagsToStream](kinesis_wrapper.py#L194)
+- [AddTagsToStream](kinesis_wrapper.py#L201)
 - [CreateStream](streams/kinesis_stream.py#L46)
 - [DeleteStream](streams/kinesis_stream.py#L90)
-- [DeregisterStreamConsumer](kinesis_wrapper.py#L298)
+- [DeregisterStreamConsumer](kinesis_wrapper.py#L296)
 - [DescribeStream](streams/kinesis_stream.py#L69)
-- [DescribeStreamSummary](kinesis_wrapper.py#L77)
+- [DescribeStreamSummary](kinesis_wrapper.py#L80)
 - [GetRecords](streams/kinesis_stream.py#L128)
-- [GetShardIterator](kinesis_wrapper.py#L161)
-- [ListShards](kinesis_wrapper.py#L104)
-- [ListStreams](kinesis_wrapper.py#L49)
-- [ListTagsForStream](kinesis_wrapper.py#L217)
+- [GetShardIterator](kinesis_wrapper.py#L167)
+- [ListShards](kinesis_wrapper.py#L108)
+- [ListStreams](kinesis_wrapper.py#L48)
+- [ListTagsForStream](kinesis_wrapper.py#L219)
 - [PutRecord](streams/kinesis_stream.py#L105)
-- [PutRecords](kinesis_wrapper.py#L132)
-- [RegisterStreamConsumer](kinesis_wrapper.py#L269)
+- [PutRecords](kinesis_wrapper.py#L137)
+- [RegisterStreamConsumer](kinesis_wrapper.py#L266)
 - [RemoveTagsFromStream](kinesis_wrapper.py#L246)
 
 
@@ -91,7 +91,7 @@ python kinesisanalyticsv2_demo.py
 This example shows you how to get started using Kinesis.
 
 ```
-python kinesis_wrapper.py
+python hello/hello_kinesis.py
 ```
 
 #### Learn the basics
@@ -117,7 +117,7 @@ This example shows you how to do the following:
 Start the example by running the following at a command prompt:
 
 ```
-python kinesis_wrapper.py
+python scenarios/kinesis_basics_scenario.py
 ```
 
 
