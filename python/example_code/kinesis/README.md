@@ -111,8 +111,8 @@ This example shows you how to do the following:
 - Deregister the consumer.
 - Clean up all resources.
 
-<!--custom.basic_prereqs.kinesis_Scenario.start-->
-<!--custom.basic_prereqs.kinesis_Scenario.end-->
+<!--custom.basic_prereqs.kinesis_Scenario_GettingStarted.start-->
+<!--custom.basic_prereqs.kinesis_Scenario_GettingStarted.end-->
 
 Start the example by running the following at a command prompt:
 
@@ -121,8 +121,8 @@ python scenarios/kinesis_basics_scenario.py
 ```
 
 
-<!--custom.basics.kinesis_Scenario.start-->
-<!--custom.basics.kinesis_Scenario.end-->
+<!--custom.basics.kinesis_Scenario_GettingStarted.start-->
+<!--custom.basics.kinesis_Scenario_GettingStarted.end-->
 
 
 ### Tests
