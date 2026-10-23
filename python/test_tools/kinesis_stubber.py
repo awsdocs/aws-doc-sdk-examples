@@ -112,3 +112,131 @@ class KinesisStubber(ExampleStubber):
         self._stub_bifurcator(
             "get_records", expected_params, response, error_code=error_code
         )
+
+    def stub_put_records_batch(self, stream_name, records, error_code=None):
+        expected_params = {"StreamName": stream_name, "Records": records}
+        response = {
+            "Records": [
+                {"ShardId": "shardId-000000000000", "SequenceNumber": str(index)}
+                for index, _ in enumerate(records)
+            ],
+        }
+        self._stub_bifurcator(
+            "put_records", expected_params, response, error_code=error_code
+        )
+
+    def stub_list_streams(self, stream_names, limit=100, error_code=None):
+        expected_params = {"Limit": limit}
+        response = {
+            "StreamNames": stream_names,
+            "HasMoreStreams": False,
+            "StreamSummaries": [
+                {
+                    "StreamName": name,
+                    "StreamARN": f"arn:aws:kinesis:us-east-1:123456789012:stream/{name}",
+                    "StreamStatus": "ACTIVE",
+                }
+                for name in stream_names
+            ],
+        }
+        self._stub_bifurcator(
+            "list_streams", expected_params, response, error_code=error_code
+        )
+
+    def stub_describe_stream_summary(
+        self, stream_name, stream_arn, status="ACTIVE", error_code=None
+    ):
+        expected_params = {"StreamName": stream_name}
+        response = {
+            "StreamDescriptionSummary": {
+                "StreamName": stream_name,
+                "StreamARN": stream_arn,
+                "StreamStatus": status,
+                "RetentionPeriodHours": 24,
+                "StreamCreationTimestamp": datetime.datetime.now(),
+                "EnhancedMonitoring": [],
+                "OpenShardCount": 1,
+            }
+        }
+        self._stub_bifurcator(
+            "describe_stream_summary", expected_params, response, error_code=error_code
+        )
+
+    def stub_list_shards(self, stream_name, shard_ids, error_code=None):
+        expected_params = {"StreamName": stream_name}
+        response = {
+            "Shards": [
+                {
+                    "ShardId": shard_id,
+                    "HashKeyRange": {
+                        "StartingHashKey": "0",
+                        "EndingHashKey": "340282366920938463463374607431768211455",
+                    },
+                    "SequenceNumberRange": {"StartingSequenceNumber": "0"},
+                }
+                for shard_id in shard_ids
+            ],
+        }
+        self._stub_bifurcator(
+            "list_shards", expected_params, response, error_code=error_code
+        )
+
+    def stub_add_tags_to_stream(self, stream_name, tags, error_code=None):
+        expected_params = {"StreamName": stream_name, "Tags": tags}
+        response = {}
+        self._stub_bifurcator(
+            "add_tags_to_stream", expected_params, response, error_code=error_code
+        )
+
+    def stub_list_tags_for_stream(
+        self, stream_name, tags, has_more=False, error_code=None
+    ):
+        expected_params = {"StreamName": stream_name}
+        response = {
+            "Tags": [{"Key": k, "Value": v} for k, v in tags.items()],
+            "HasMoreTags": has_more,
+        }
+        self._stub_bifurcator(
+            "list_tags_for_stream", expected_params, response, error_code=error_code
+        )
+
+    def stub_remove_tags_from_stream(self, stream_name, tag_keys, error_code=None):
+        expected_params = {"StreamName": stream_name, "TagKeys": tag_keys}
+        response = {}
+        self._stub_bifurcator(
+            "remove_tags_from_stream", expected_params, response, error_code=error_code
+        )
+
+    def stub_register_stream_consumer(
+        self,
+        stream_arn,
+        consumer_name,
+        consumer_arn,
+        status="CREATING",
+        error_code=None,
+    ):
+        expected_params = {"StreamARN": stream_arn, "ConsumerName": consumer_name}
+        response = {
+            "Consumer": {
+                "ConsumerName": consumer_name,
+                "ConsumerARN": consumer_arn,
+                "ConsumerStatus": status,
+                "ConsumerCreationTimestamp": datetime.datetime.now(),
+            }
+        }
+        self._stub_bifurcator(
+            "register_stream_consumer",
+            expected_params,
+            response,
+            error_code=error_code,
+        )
+
+    def stub_deregister_stream_consumer(self, consumer_arn, error_code=None):
+        expected_params = {"ConsumerARN": consumer_arn}
+        response = {}
+        self._stub_bifurcator(
+            "deregister_stream_consumer",
+            expected_params,
+            response,
+            error_code=error_code,
+        )

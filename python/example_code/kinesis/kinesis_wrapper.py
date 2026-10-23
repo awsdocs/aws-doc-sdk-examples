@@ -12,10 +12,8 @@ This module provides a wrapper around the Kinesis Data Streams client that demon
 - Registering and deregistering enhanced fan-out consumers
 """
 
-import json
 import logging
 import time
-from datetime import datetime, timezone
 
 import boto3
 from botocore.exceptions import ClientError
@@ -44,7 +42,8 @@ class KinesisWrapper:
         """
         kinesis_client = boto3.client("kinesis")
         return cls(kinesis_client)
-# snippet-end:[python.example_code.kinesis.KinesisWrapper.decl]
+
+    # snippet-end:[python.example_code.kinesis.KinesisWrapper.decl]
 
     # snippet-start:[python.example_code.kinesis.ListStreams]
     def list_streams(self, limit=100):
@@ -59,7 +58,10 @@ class KinesisWrapper:
             response = self.kinesis_client.list_streams(Limit=limit)
             streams.extend(response.get("StreamSummaries", list()))
             while response.get("HasMoreStreams", False):
-                next_name = response["StreamSummaries"][-1]["StreamName"]
+                summaries = response.get("StreamSummaries", list())
+                if not summaries:
+                    break
+                next_name = summaries[-1]["StreamName"]
                 response = self.kinesis_client.list_streams(
                     Limit=limit, ExclusiveStartStreamName=next_name
                 )
@@ -72,6 +74,7 @@ class KinesisWrapper:
                     "Request rate too high for ListStreams. Retry after a brief delay."
                 )
             raise
+
     # snippet-end:[python.example_code.kinesis.ListStreams]
 
     # snippet-start:[python.example_code.kinesis.DescribeStreamSummary]
@@ -99,6 +102,7 @@ class KinesisWrapper:
                     "Stream '%s' not found. Verify the stream name.", stream_name
                 )
             raise
+
     # snippet-end:[python.example_code.kinesis.DescribeStreamSummary]
 
     # snippet-start:[python.example_code.kinesis.ListShards]
@@ -127,6 +131,7 @@ class KinesisWrapper:
                     stream_name,
                 )
             raise
+
     # snippet-end:[python.example_code.kinesis.ListShards]
 
     # snippet-start:[python.example_code.kinesis.PutRecords]
@@ -156,6 +161,7 @@ class KinesisWrapper:
                     "Invalid argument for PutRecords. Check record sizes and parameters."
                 )
             raise
+
     # snippet-end:[python.example_code.kinesis.PutRecords]
 
     # snippet-start:[python.example_code.kinesis.GetShardIterator]
@@ -189,6 +195,7 @@ class KinesisWrapper:
                     shard_id,
                 )
             raise
+
     # snippet-end:[python.example_code.kinesis.GetShardIterator]
 
     # snippet-start:[python.example_code.kinesis.AddTagsToStream]
@@ -200,18 +207,13 @@ class KinesisWrapper:
         :param tags: A dictionary of tag key-value pairs.
         """
         try:
-            self.kinesis_client.add_tags_to_stream(
-                StreamName=stream_name, Tags=tags
-            )
-            logger.info(
-                "Added %s tag(s) to stream '%s'.", len(tags), stream_name
-            )
+            self.kinesis_client.add_tags_to_stream(StreamName=stream_name, Tags=tags)
+            logger.info("Added %s tag(s) to stream '%s'.", len(tags), stream_name)
         except ClientError as err:
             if err.response["Error"]["Code"] == "ResourceNotFoundException":
-                logger.error(
-                    "Stream '%s' not found. Cannot add tags.", stream_name
-                )
+                logger.error("Stream '%s' not found. Cannot add tags.", stream_name)
             raise
+
     # snippet-end:[python.example_code.kinesis.AddTagsToStream]
 
     # snippet-start:[python.example_code.kinesis.ListTagsForStream]
@@ -220,12 +222,11 @@ class KinesisWrapper:
         Lists the tags for a Kinesis data stream.
 
         :param stream_name: The name of the stream whose tags to list.
-        :return: A list of tag dictionaries with 'Key' and 'Value'.
+        :return: A tuple of (list of tag dictionaries with 'Key' and 'Value',
+                 bool indicating whether more tags are available).
         """
         try:
-            response = self.kinesis_client.list_tags_for_stream(
-                StreamName=stream_name
-            )
+            response = self.kinesis_client.list_tags_for_stream(StreamName=stream_name)
             tags = response.get("Tags", list())
             has_more = response.get("HasMoreTags", False)
             logger.info(
@@ -234,13 +235,12 @@ class KinesisWrapper:
                 stream_name,
                 has_more,
             )
-            return tags
+            return tags, has_more
         except ClientError as err:
             if err.response["Error"]["Code"] == "ResourceNotFoundException":
-                logger.error(
-                    "Stream '%s' not found when listing tags.", stream_name
-                )
+                logger.error("Stream '%s' not found when listing tags.", stream_name)
             raise
+
     # snippet-end:[python.example_code.kinesis.ListTagsForStream]
 
     # snippet-start:[python.example_code.kinesis.RemoveTagsFromStream]
@@ -255,15 +255,12 @@ class KinesisWrapper:
             self.kinesis_client.remove_tags_from_stream(
                 StreamName=stream_name, TagKeys=tag_keys
             )
-            logger.info(
-                "Removed tag(s) %s from stream '%s'.", tag_keys, stream_name
-            )
+            logger.info("Removed tag(s) %s from stream '%s'.", tag_keys, stream_name)
         except ClientError as err:
             if err.response["Error"]["Code"] == "ResourceNotFoundException":
-                logger.error(
-                    "Stream '%s' not found for tag removal.", stream_name
-                )
+                logger.error("Stream '%s' not found for tag removal.", stream_name)
             raise
+
     # snippet-end:[python.example_code.kinesis.RemoveTagsFromStream]
 
     # snippet-start:[python.example_code.kinesis.RegisterStreamConsumer]
@@ -293,6 +290,7 @@ class KinesisWrapper:
                     consumer_name,
                 )
             raise
+
     # snippet-end:[python.example_code.kinesis.RegisterStreamConsumer]
 
     # snippet-start:[python.example_code.kinesis.DeregisterStreamConsumer]
@@ -303,9 +301,7 @@ class KinesisWrapper:
         :param consumer_arn: The ARN of the consumer to deregister.
         """
         try:
-            self.kinesis_client.deregister_stream_consumer(
-                ConsumerARN=consumer_arn
-            )
+            self.kinesis_client.deregister_stream_consumer(ConsumerARN=consumer_arn)
             logger.info("Deregistered consumer with ARN '%s'.", consumer_arn)
         except ClientError as err:
             if err.response["Error"]["Code"] == "ResourceNotFoundException":
@@ -313,6 +309,7 @@ class KinesisWrapper:
                     "Consumer not found. It may have already been deregistered."
                 )
             raise
+
     # snippet-end:[python.example_code.kinesis.DeregisterStreamConsumer]
 
     def wait_for_stream_active(self, stream_name, max_wait=60, poll_interval=2):

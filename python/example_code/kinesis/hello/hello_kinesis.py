@@ -7,6 +7,7 @@ Hello Amazon Kinesis Data Streams — minimal example to verify connectivity.
 This example lists Kinesis data streams in your account and displays their names.
 """
 
+# snippet-start:[python.example_code.kinesis.Hello]
 import logging
 
 import boto3
@@ -24,11 +25,11 @@ def hello_kinesis():
     print("Hello, Amazon Kinesis! Let's list some of your streams:\n")
     try:
         response = kinesis_client.list_streams(Limit=10)
-        stream_names = response.get("StreamNames", list())
-        if stream_names:
-            for name in stream_names:
-                print(f"  Stream: {name}")
-            print(f"\nFound {len(stream_names)} stream(s).")
+        stream_summaries = response.get("StreamSummaries", list())
+        if stream_summaries:
+            for summary in stream_summaries:
+                print(f"  Stream: {summary['StreamName']}")
+            print(f"\nFound {len(stream_summaries)} stream(s).")
         else:
             print("No streams found in your account.")
     except ClientError as err:
@@ -45,3 +46,4 @@ def hello_kinesis():
 
 if __name__ == "__main__":
     hello_kinesis()
+# snippet-end:[python.example_code.kinesis.Hello]

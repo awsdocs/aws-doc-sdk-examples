@@ -388,7 +388,7 @@ kinesis_Hello:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.kinesis.ListStreams
+                - python.example_code.kinesis.Hello
   services:
     kinesis: {ListStreams}
 kinesis_DescribeStreamSummary:
@@ -463,6 +463,9 @@ kinesis_Scenario:
           github: python/example_code/kinesis
           excerpts:
             - description: Run the Kinesis Data Streams basics scenario.
+              snippet_tags:
+                - python.example_code.kinesis.Scenario
+            - description: Define a wrapper class that is called by the scenario to manage Kinesis actions.
               snippet_tags:
                 - python.example_code.kinesis.KinesisWrapper.decl
                 - python.example_code.kinesis.ListStreams
