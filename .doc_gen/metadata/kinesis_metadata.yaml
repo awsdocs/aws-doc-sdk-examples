@@ -379,6 +379,7 @@ kinesis_Hello:
   title: Hello &AWSKinesis;
   title_abbrev: Hello &AWSKinesis;
   synopsis: get started using &AWSKinesis;.
+  category: Hello
   languages:
     Python:
       versions:
@@ -391,9 +392,6 @@ kinesis_Hello:
   services:
     kinesis: {ListStreams}
 kinesis_DescribeStreamSummary:
-  title: Describe an &AWSKinesis; stream summary
-  title_abbrev: Describe stream summary
-  synopsis: describe an &AWSKinesis; stream summary.
   languages:
     Python:
       versions:
@@ -406,9 +404,6 @@ kinesis_DescribeStreamSummary:
   services:
     kinesis: {DescribeStreamSummary}
 kinesis_ListShards:
-  title: List shards of an &AWSKinesis; stream
-  title_abbrev: List shards
-  synopsis: list shards of an &AWSKinesis; stream.
   languages:
     Python:
       versions:
@@ -421,9 +416,6 @@ kinesis_ListShards:
   services:
     kinesis: {ListShards}
 kinesis_GetShardIterator:
-  title: Get a shard iterator for an &AWSKinesis; stream
-  title_abbrev: Get shard iterator
-  synopsis: get a shard iterator for an &AWSKinesis; stream.
   languages:
     Python:
       versions:
@@ -436,9 +428,6 @@ kinesis_GetShardIterator:
   services:
     kinesis: {GetShardIterator}
 kinesis_RemoveTagsFromStream:
-  title: Remove tags from an &AWSKinesis; stream
-  title_abbrev: Remove tags from stream
-  synopsis: remove tags from an &AWSKinesis; stream.
   languages:
     Python:
       versions:
@@ -451,8 +440,8 @@ kinesis_RemoveTagsFromStream:
   services:
     kinesis: {RemoveTagsFromStream}
 kinesis_Scenario:
-  title: &AWSKinesis; Data Streams basics scenario
-  title_abbrev: Basics scenario
+  title: Learn &AWSKinesis; Data Streams basics using an &AWS; SDK
+  title_abbrev: Learn the basics
   category: Basics
   synopsis_list:
     - Create a stream and wait for it to become ACTIVE.
