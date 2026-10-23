@@ -65,9 +65,18 @@ Code excerpts that show you how to call individual service functions.
 
 This example shows you how to do the following:
 
-- Create a stream and put a record in it.
-- Create a shard iterator.
-- Read the record, then clean up resources.
+- Create a stream and wait for it to become ACTIVE.
+- List streams and verify creation.
+- Describe stream summary to get metadata.
+- List shards in the stream.
+- Batch put records using PutRecords.
+- Get a shard iterator and read records.
+- Add tags to the stream.
+- List tags for the stream.
+- Remove tags from the stream.
+- Register an enhanced fan-out consumer.
+- Deregister the consumer.
+- Clean up all resources.
 
 <!--custom.basic_prereqs.kinesis_Scenario_GettingStarted.start-->
 <!--custom.basic_prereqs.kinesis_Scenario_GettingStarted.end-->
