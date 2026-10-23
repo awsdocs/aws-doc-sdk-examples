@@ -358,23 +358,6 @@ kinesis_AddTagsToStream:
                 - python.example_code.kinesis.AddTagsToStream
   services:
     kinesis: {AddTagsToStream}
-kinesis_Scenario_GettingStarted:
-  synopsis_list:
-    - Create a stream and put a record in it.
-    - Create a shard iterator.
-    - Read the record, then clean up resources.
-  category: Basics
-  languages:
-    SAP ABAP:
-      versions:
-        - sdk_version: 1
-          github: sap-abap/services/kns
-          excerpts:
-            - description:
-              snippet_tags:
-                - kns.abapv1.getting_started_with_kns
-  services:
-    kinesis: {CreateStream, PutRecord, GetShardIterator, GetRecords, DeleteStream}
 kinesis_Hello:
   title: Hello &AWSKinesis;
   title_abbrev: Hello &AWSKinesis;
@@ -439,7 +422,7 @@ kinesis_RemoveTagsFromStream:
                 - python.example_code.kinesis.RemoveTagsFromStream
   services:
     kinesis: {RemoveTagsFromStream}
-kinesis_Scenario:
+kinesis_Scenario_GettingStarted:
   title: Learn &AWSKinesis; Data Streams basics using an &AWS; SDK
   title_abbrev: Learn the basics
   category: Basics
@@ -478,17 +461,29 @@ kinesis_Scenario:
                 - python.example_code.kinesis.RemoveTagsFromStream
                 - python.example_code.kinesis.RegisterStreamConsumer
                 - python.example_code.kinesis.DeregisterStreamConsumer
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/kns
+          excerpts:
+            - description:
+              snippet_tags:
+                - kns.abapv1.getting_started_with_kns
   services:
     kinesis:
       {
+        CreateStream,
         ListStreams,
         DescribeStreamSummary,
         ListShards,
+        PutRecord,
         PutRecords,
         GetShardIterator,
+        GetRecords,
         AddTagsToStream,
         ListTagsForStream,
         RemoveTagsFromStream,
         RegisterStreamConsumer,
         DeregisterStreamConsumer,
+        DeleteStream,
       }
