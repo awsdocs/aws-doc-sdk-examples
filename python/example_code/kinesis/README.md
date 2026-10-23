@@ -34,15 +34,37 @@ python -m pip install -r requirements.txt
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Get started
+
+- [Hello Kinesis](kinesis_wrapper.py#L49) (`ListStreams`)
+
+
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](kinesis_wrapper.py)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
+- [AddTagsToStream](kinesis_wrapper.py#L194)
 - [CreateStream](streams/kinesis_stream.py#L46)
 - [DeleteStream](streams/kinesis_stream.py#L90)
+- [DeregisterStreamConsumer](kinesis_wrapper.py#L298)
 - [DescribeStream](streams/kinesis_stream.py#L69)
+- [DescribeStreamSummary](kinesis_wrapper.py#L77)
 - [GetRecords](streams/kinesis_stream.py#L128)
+- [GetShardIterator](kinesis_wrapper.py#L161)
+- [ListShards](kinesis_wrapper.py#L104)
+- [ListStreams](kinesis_wrapper.py#L49)
+- [ListTagsForStream](kinesis_wrapper.py#L217)
 - [PutRecord](streams/kinesis_stream.py#L105)
+- [PutRecords](kinesis_wrapper.py#L132)
+- [RegisterStreamConsumer](kinesis_wrapper.py#L269)
+- [RemoveTagsFromStream](kinesis_wrapper.py#L246)
 
 
 <!--custom.examples.start-->
@@ -64,6 +86,43 @@ python kinesisanalyticsv2_demo.py
 ``` 
 <!--custom.instructions.end-->
 
+#### Hello Kinesis
+
+This example shows you how to get started using Kinesis.
+
+```
+python kinesis_wrapper.py
+```
+
+#### Learn the basics
+
+This example shows you how to do the following:
+
+- Create a stream and wait for it to become ACTIVE.
+- List streams and verify creation.
+- Describe stream summary to get metadata.
+- List shards in the stream.
+- Batch put records using PutRecords.
+- Get a shard iterator and read records.
+- Add tags to the stream.
+- List tags for the stream.
+- Remove tags from the stream.
+- Register an enhanced fan-out consumer.
+- Deregister the consumer.
+- Clean up all resources.
+
+<!--custom.basic_prereqs.kinesis_Scenario.start-->
+<!--custom.basic_prereqs.kinesis_Scenario.end-->
+
+Start the example by running the following at a command prompt:
+
+```
+python kinesis_wrapper.py
+```
+
+
+<!--custom.basics.kinesis_Scenario.start-->
+<!--custom.basics.kinesis_Scenario.end-->
 
 
 ### Tests
