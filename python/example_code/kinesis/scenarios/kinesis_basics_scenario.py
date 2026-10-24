@@ -25,7 +25,7 @@ import os
 import sys
 import time
 
-from botocore.exceptions import ClientError
+from botocore.exceptions import ClientError, WaiterError
 
 # Add the parent directory so this scenario can import kinesis_wrapper when run
 # directly (e.g. `python scenarios/kinesis_basics_scenario.py`).
@@ -268,15 +268,16 @@ def run_scenario(kinesis_wrapper):
                 StreamName=stream_name, EnforceConsumerDeletion=True
             )
             print("Waiting for stream deletion to complete...")
-            while True:
-                try:
-                    kinesis_wrapper.describe_stream_summary(stream_name)
-                    time.sleep(2)
-                except ClientError as err:
-                    if err.response["Error"]["Code"] == "ResourceNotFoundException":
-                        break
-                    raise
+            # Use the built-in waiter so the expected "not found" result
+            # isn't logged as an error while polling.
+            waiter = kinesis_wrapper.kinesis_client.get_waiter("stream_not_exists")
+            waiter.wait(
+                StreamName=stream_name,
+                WaiterConfig={"Delay": 2, "MaxAttempts": 60},
+            )
             print("Stream deleted successfully.")
+        except WaiterError as err:
+            logger.error("Timed out waiting for stream deletion: %s", err)
         except ClientError as err:
             if err.response["Error"]["Code"] == "ResourceNotFoundException":
                 print("Stream already deleted.")
