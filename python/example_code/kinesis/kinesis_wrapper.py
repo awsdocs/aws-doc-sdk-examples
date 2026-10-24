@@ -111,9 +111,10 @@ class KinesisWrapper:
         Lists the shards in a Kinesis data stream.
 
         A freshly created stream can report ACTIVE via DescribeStreamSummary
-        before its shards are listable, so ListShards may briefly raise
-        ResourceInUseException ("in state CREATING"). This method retries on
-        that error until the shards become available or ``max_wait`` elapses.
+        before its shards are listable. Because ListShards is eventually
+        consistent, it may briefly raise ResourceInUseException ("in state
+        CREATING") or ResourceNotFoundException. This method retries on those
+        errors until the shards become available or ``max_wait`` elapses.
 
         :param stream_name: The name of the stream whose shards to list.
         :param max_wait: Maximum seconds to retry while the stream is still
@@ -138,7 +139,8 @@ class KinesisWrapper:
                 return shards
             except ClientError as err:
                 code = err.response["Error"]["Code"]
-                if code == "ResourceInUseException" and elapsed < max_wait:
+                retryable = ("ResourceInUseException", "ResourceNotFoundException")
+                if code in retryable and elapsed < max_wait:
                     logger.info(
                         "Stream '%s' not ready for ListShards yet. Retrying...",
                         stream_name,
