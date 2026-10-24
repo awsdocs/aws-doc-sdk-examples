@@ -81,6 +81,46 @@ def test_list_shards(make_stubber, error_code):
         assert exc_info.value.response["Error"]["Code"] == error_code
 
 
+def test_list_shards_retries_on_resource_in_use(make_stubber):
+    """
+    A freshly created stream can report ACTIVE before its shards are listable,
+    so ListShards may transiently raise ResourceInUseException. The wrapper
+    should retry and succeed once the shards become available.
+    """
+    kinesis_client = boto3.client("kinesis")
+    kinesis_stubber = make_stubber(kinesis_client)
+    wrapper = KinesisWrapper(kinesis_client)
+    shard_ids = [SHARD_ID]
+
+    # First call fails with ResourceInUseException, second call succeeds.
+    kinesis_stubber.stub_list_shards(
+        STREAM_NAME, shard_ids, error_code="ResourceInUseException"
+    )
+    kinesis_stubber.stub_list_shards(STREAM_NAME, shard_ids)
+
+    # poll_interval=0 keeps the test fast (no real sleep).
+    shards = wrapper.list_shards(STREAM_NAME, max_wait=10, poll_interval=0)
+    assert [s["ShardId"] for s in shards] == shard_ids
+
+
+def test_list_shards_gives_up_after_max_wait(make_stubber):
+    """
+    If ResourceInUseException persists past max_wait, the error should surface.
+    """
+    kinesis_client = boto3.client("kinesis")
+    kinesis_stubber = make_stubber(kinesis_client)
+    wrapper = KinesisWrapper(kinesis_client)
+
+    # Only one stubbed response; max_wait=0 means no retry is attempted.
+    kinesis_stubber.stub_list_shards(
+        STREAM_NAME, [SHARD_ID], error_code="ResourceInUseException"
+    )
+
+    with pytest.raises(ClientError) as exc_info:
+        wrapper.list_shards(STREAM_NAME, max_wait=0, poll_interval=0)
+    assert exc_info.value.response["Error"]["Code"] == "ResourceInUseException"
+
+
 @pytest.mark.parametrize("error_code", [None, "InvalidArgumentException"])
 def test_put_records(make_stubber, error_code):
     kinesis_client = boto3.client("kinesis")
