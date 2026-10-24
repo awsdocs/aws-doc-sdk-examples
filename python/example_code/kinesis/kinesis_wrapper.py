@@ -106,31 +106,52 @@ class KinesisWrapper:
     # snippet-end:[python.example_code.kinesis.DescribeStreamSummary]
 
     # snippet-start:[python.example_code.kinesis.ListShards]
-    def list_shards(self, stream_name):
+    def list_shards(self, stream_name, max_wait=30, poll_interval=2):
         """
         Lists the shards in a Kinesis data stream.
 
+        A freshly created stream can report ACTIVE via DescribeStreamSummary
+        before its shards are listable, so ListShards may briefly raise
+        ResourceInUseException ("in state CREATING"). This method retries on
+        that error until the shards become available or ``max_wait`` elapses.
+
         :param stream_name: The name of the stream whose shards to list.
+        :param max_wait: Maximum seconds to retry while the stream is still
+                         settling after creation.
+        :param poll_interval: Seconds between retries.
         :return: A list of shard dictionaries.
         """
-        try:
-            shards = list()
-            response = self.kinesis_client.list_shards(StreamName=stream_name)
-            shards.extend(response.get("Shards", list()))
-            while "NextToken" in response:
-                response = self.kinesis_client.list_shards(
-                    NextToken=response["NextToken"]
-                )
+        elapsed = 0
+        while True:
+            try:
+                shards = list()
+                response = self.kinesis_client.list_shards(StreamName=stream_name)
                 shards.extend(response.get("Shards", list()))
-            logger.info("Listed %s shard(s) for stream '%s'.", len(shards), stream_name)
-            return shards
-        except ClientError as err:
-            if err.response["Error"]["Code"] == "ResourceNotFoundException":
-                logger.error(
-                    "Stream '%s' not found. Verify the stream is ACTIVE.",
-                    stream_name,
+                while "NextToken" in response:
+                    response = self.kinesis_client.list_shards(
+                        NextToken=response["NextToken"]
+                    )
+                    shards.extend(response.get("Shards", list()))
+                logger.info(
+                    "Listed %s shard(s) for stream '%s'.", len(shards), stream_name
                 )
-            raise
+                return shards
+            except ClientError as err:
+                code = err.response["Error"]["Code"]
+                if code == "ResourceInUseException" and elapsed < max_wait:
+                    logger.info(
+                        "Stream '%s' not ready for ListShards yet. Retrying...",
+                        stream_name,
+                    )
+                    time.sleep(poll_interval)
+                    elapsed += poll_interval
+                    continue
+                if code == "ResourceNotFoundException":
+                    logger.error(
+                        "Stream '%s' not found. Verify the stream is ACTIVE.",
+                        stream_name,
+                    )
+                raise
 
     # snippet-end:[python.example_code.kinesis.ListShards]
 

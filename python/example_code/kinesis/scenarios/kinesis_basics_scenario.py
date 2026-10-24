@@ -21,10 +21,15 @@ This scenario demonstrates advanced Kinesis Data Streams management:
 
 import json
 import logging
+import os
+import sys
 import time
 
 from botocore.exceptions import ClientError
 
+# Add the parent directory so this scenario can import kinesis_wrapper when run
+# directly (e.g. `python scenarios/kinesis_basics_scenario.py`).
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from kinesis_wrapper import KinesisWrapper
 
 logger = logging.getLogger(__name__)
