@@ -50,21 +50,21 @@ Code examples that show you how to perform the essential operations within a ser
 
 Code excerpts that show you how to call individual service functions.
 
-- [AddTagsToStream](kinesis_wrapper.py#L201)
+- [AddTagsToStream](kinesis_wrapper.py#L222)
 - [CreateStream](streams/kinesis_stream.py#L46)
 - [DeleteStream](streams/kinesis_stream.py#L90)
-- [DeregisterStreamConsumer](kinesis_wrapper.py#L296)
+- [DeregisterStreamConsumer](kinesis_wrapper.py#L317)
 - [DescribeStream](streams/kinesis_stream.py#L69)
 - [DescribeStreamSummary](kinesis_wrapper.py#L80)
 - [GetRecords](streams/kinesis_stream.py#L128)
-- [GetShardIterator](kinesis_wrapper.py#L167)
+- [GetShardIterator](kinesis_wrapper.py#L188)
 - [ListShards](kinesis_wrapper.py#L108)
 - [ListStreams](kinesis_wrapper.py#L48)
-- [ListTagsForStream](kinesis_wrapper.py#L219)
+- [ListTagsForStream](kinesis_wrapper.py#L240)
 - [PutRecord](streams/kinesis_stream.py#L105)
-- [PutRecords](kinesis_wrapper.py#L137)
-- [RegisterStreamConsumer](kinesis_wrapper.py#L266)
-- [RemoveTagsFromStream](kinesis_wrapper.py#L246)
+- [PutRecords](kinesis_wrapper.py#L158)
+- [RegisterStreamConsumer](kinesis_wrapper.py#L287)
+- [RemoveTagsFromStream](kinesis_wrapper.py#L267)
 
 
 <!--custom.examples.start-->
