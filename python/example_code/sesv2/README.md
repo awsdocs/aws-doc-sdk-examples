@@ -43,15 +43,22 @@ python -m pip install -r requirements.txt
 
 Code excerpts that show you how to call individual service functions.
 
+- [CreateConfigurationSet](search_filter_scenario/sesv2_wrapper.py#L199)
 - [CreateContact](newsletter_scenario/newsletter.py#L155)
 - [CreateContactList](newsletter_scenario/newsletter.py#L105)
 - [CreateEmailIdentity](attachments_scenario/sesv2_wrapper.py#L73)
 - [CreateEmailTemplate](attachments_scenario/sesv2_wrapper.py#L109)
+- [CreateTenant](search_filter_scenario/sesv2_wrapper.py#L259)
+- [DeleteConfigurationSet](search_filter_scenario/sesv2_wrapper.py#L289)
 - [DeleteContactList](newsletter_scenario/newsletter.py#L258)
 - [DeleteEmailIdentity](attachments_scenario/sesv2_wrapper.py#L321)
 - [DeleteEmailTemplate](attachments_scenario/sesv2_wrapper.py#L291)
+- [DeleteTenant](search_filter_scenario/sesv2_wrapper.py#L344)
 - [GetEmailIdentity](attachments_scenario/sesv2_wrapper.py#L42)
+- [ListConfigurationSets](search_filter_scenario/sesv2_wrapper.py#L44)
 - [ListContacts](newsletter_scenario/newsletter.py#L198)
+- [ListEmailIdentities](search_filter_scenario/sesv2_wrapper.py#L95)
+- [ListTenants](search_filter_scenario/sesv2_wrapper.py#L146)
 - [SendBulkEmail](attachments_scenario/sesv2_wrapper.py#L227)
 - [SendEmail](attachments_scenario/sesv2_wrapper.py#L155)
 
@@ -62,6 +69,7 @@ functions within the same service.
 
 - [Email Attachments Scenario](attachments_scenario/scenario_sesv2_email_attachments.py)
 - [Newsletter scenario](newsletter_scenario/newsletter.py)
+- [Search and filter SES resources](search_filter_scenario/scenario_sesv2_search_filter_basics.py)
 
 
 <!--custom.examples.start-->
@@ -131,6 +139,33 @@ python newsletter_scenario/newsletter.py
 
 <!--custom.scenarios.sesv2_NewsletterWorkflow.start-->
 <!--custom.scenarios.sesv2_NewsletterWorkflow.end-->
+
+#### Search and filter SES resources
+
+This example shows you how to do the following:
+
+- Create multiple configuration sets, email identities, and tenants.
+- List all configuration sets (unfiltered).
+- Filter configuration sets by name substring.
+- List all email identities (unfiltered).
+- Filter email identities by name substring.
+- List all tenants (unfiltered).
+- Filter tenants by name substring.
+- Demonstrate pagination with filters.
+- Clean up all created resources.
+
+<!--custom.scenario_prereqs.sesv2_SearchFilterBasics.start-->
+<!--custom.scenario_prereqs.sesv2_SearchFilterBasics.end-->
+
+Start the example by running the following at a command prompt:
+
+```
+python search_filter_scenario/scenario_sesv2_search_filter_basics.py
+```
+
+
+<!--custom.scenarios.sesv2_SearchFilterBasics.start-->
+<!--custom.scenarios.sesv2_SearchFilterBasics.end-->
 
 ### Tests
 
