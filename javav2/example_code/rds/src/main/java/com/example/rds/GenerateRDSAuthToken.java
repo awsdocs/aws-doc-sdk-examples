@@ -18,10 +18,10 @@ public class GenerateRDSAuthToken {
         final String usage = """
 
                 Usage:
-                    <dbInstanceIdentifier> <masterUsername>
+                    <dbEndpoint> <masterUsername>
 
                 Where:
-                    dbInstanceIdentifier - The database instance identifier.\s
+                    dbEndpoint - The DB instance endpoint, for example rdsmysql.123456789012.us-west-2.rds.amazonaws.com.\s
                     masterUsername - The master user name.\s
                 """;
 
@@ -30,18 +30,18 @@ public class GenerateRDSAuthToken {
             System.exit(1);
         }
 
-        String dbInstanceIdentifier = args[0];
+        String dbEndpoint = args[0];
         String masterUsername = args[1];
         Region region = Region.US_WEST_2;
         RdsClient rdsClient = RdsClient.builder()
                 .region(region)
                 .build();
 
-        String token = getAuthToken(rdsClient, dbInstanceIdentifier, masterUsername);
+        String token = getAuthToken(rdsClient, dbEndpoint, masterUsername);
         System.out.println("The token response is " + token);
     }
 
-    public static String getAuthToken(RdsClient rdsClient, String dbInstanceIdentifier, String masterUsername) {
+    public static String getAuthToken(RdsClient rdsClient, String dbEndpoint, String masterUsername) {
 
         RdsUtilities utilities = rdsClient.utilities();
         try {
@@ -49,7 +49,7 @@ public class GenerateRDSAuthToken {
                     .credentialsProvider(ProfileCredentialsProvider.create())
                     .username(masterUsername)
                     .port(3306)
-                    .hostname(dbInstanceIdentifier)
+                    .hostname(dbEndpoint)
                     .build();
 
             return utilities.generateAuthenticationToken(tokenRequest);
