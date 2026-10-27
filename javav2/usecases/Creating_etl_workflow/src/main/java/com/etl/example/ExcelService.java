@@ -210,6 +210,9 @@ public class ExcelService {
     private static String convertToString(Document xml) {
         try {
             TransformerFactory transformerFactory = getSecureTransformerFactory();
+            // Block external DTD and stylesheet access to prevent XXE attacks.
+            transformerFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+            transformerFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
             Transformer transformer = transformerFactory.newTransformer();
             StreamResult result = new StreamResult(new StringWriter());
             DOMSource source = new DOMSource(xml);
