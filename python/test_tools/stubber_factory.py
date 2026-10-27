@@ -61,6 +61,7 @@ from test_tools.s3_stubber import S3Stubber
 from test_tools.s3control_stubber import S3ControlStubber
 from test_tools.secretsmanager_stubber import SecretsManagerStubber
 from test_tools.ses_stubber import SesStubber
+from test_tools.sesv2_stubber import Sesv2Stubber
 from test_tools.sns_stubber import SnsStubber
 from test_tools.sqs_stubber import SqsStubber
 from test_tools.ssm_stubber import SsmStubber
@@ -202,6 +203,8 @@ def stubber_factory(service_name):
         return SecretsManagerStubber
     elif service_name == "ses":
         return SesStubber
+    elif service_name == "sesv2":
+        return Sesv2Stubber
     elif service_name == "sns":
         return SnsStubber
     elif service_name == "sqs":
