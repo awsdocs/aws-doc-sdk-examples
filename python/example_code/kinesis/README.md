@@ -34,15 +34,37 @@ python -m pip install -r requirements.txt
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Get started
+
+- [Hello Kinesis](hello/hello_kinesis.py#L10) (`ListStreams`)
+
+
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](scenarios/kinesis_basics_scenario.py)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
+- [AddTagsToStream](kinesis_wrapper.py#L224)
 - [CreateStream](streams/kinesis_stream.py#L46)
 - [DeleteStream](streams/kinesis_stream.py#L90)
+- [DeregisterStreamConsumer](kinesis_wrapper.py#L319)
 - [DescribeStream](streams/kinesis_stream.py#L69)
+- [DescribeStreamSummary](kinesis_wrapper.py#L80)
 - [GetRecords](streams/kinesis_stream.py#L128)
+- [GetShardIterator](kinesis_wrapper.py#L190)
+- [ListShards](kinesis_wrapper.py#L108)
+- [ListStreams](kinesis_wrapper.py#L48)
+- [ListTagsForStream](kinesis_wrapper.py#L242)
 - [PutRecord](streams/kinesis_stream.py#L105)
+- [PutRecords](kinesis_wrapper.py#L160)
+- [RegisterStreamConsumer](kinesis_wrapper.py#L289)
+- [RemoveTagsFromStream](kinesis_wrapper.py#L269)
 
 
 <!--custom.examples.start-->
@@ -64,6 +86,43 @@ python kinesisanalyticsv2_demo.py
 ``` 
 <!--custom.instructions.end-->
 
+#### Hello Kinesis
+
+This example shows you how to get started using Kinesis.
+
+```
+python hello/hello_kinesis.py
+```
+
+#### Learn the basics
+
+This example shows you how to do the following:
+
+- Create a stream and wait for it to become ACTIVE.
+- List streams and verify creation.
+- Describe stream summary to get metadata.
+- List shards in the stream.
+- Batch put records using PutRecords.
+- Get a shard iterator and read records.
+- Add tags to the stream.
+- List tags for the stream.
+- Remove tags from the stream.
+- Register an enhanced fan-out consumer.
+- Deregister the consumer.
+- Clean up all resources.
+
+<!--custom.basic_prereqs.kinesis_Scenario_GettingStarted.start-->
+<!--custom.basic_prereqs.kinesis_Scenario_GettingStarted.end-->
+
+Start the example by running the following at a command prompt:
+
+```
+python scenarios/kinesis_basics_scenario.py
+```
+
+
+<!--custom.basics.kinesis_Scenario_GettingStarted.start-->
+<!--custom.basics.kinesis_Scenario_GettingStarted.end-->
 
 
 ### Tests
