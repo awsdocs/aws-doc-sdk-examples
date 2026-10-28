@@ -15,6 +15,7 @@ import time
 
 import boto3
 import pytest
+from botocore.exceptions import ClientError
 
 from inspector2_hello import hello_inspector
 from inspector_wrapper import Inspector2Wrapper
@@ -52,9 +53,20 @@ def test_list_findings_and_details(wrapper):
     findings = wrapper.list_findings(max_results=10)
     assert isinstance(findings, list)
     assert len(findings) <= 10
-    if findings:
-        details = wrapper.batch_get_finding_details([findings[0]["findingArn"]])
-        assert isinstance(details, list)
+
+    # Only active findings have details available. Findings for resource
+    # types that were disabled can still be listed but are denied.
+    active = [f for f in findings if f.get("status") == "ACTIVE"]
+    if not active:
+        pytest.skip("No active findings in this account to fetch details for.")
+
+    try:
+        details = wrapper.batch_get_finding_details([active[0]["findingArn"]])
+    except ClientError as err:
+        if err.response["Error"]["Code"] == "AccessDeniedException":
+            pytest.skip(f"Account cannot fetch finding details: {err}")
+        raise
+    assert isinstance(details, list)
 
 
 @pytest.mark.integ
