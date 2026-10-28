@@ -13,12 +13,13 @@ administrator account.
 import logging
 
 import boto3
+from botocore.client import BaseClient
 from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)
 
 
-def hello_inspector(inspector2_client) -> None:
+def hello_inspector(inspector2_client: BaseClient) -> None:
     """
     Lists the member accounts associated with the current Amazon Inspector
     administrator account.

@@ -11,14 +11,33 @@ set up stubs and passes all calls through to the Boto 3 client.
 from datetime import datetime
 from typing import Any, Optional
 
-from boto3 import client
+from botocore.client import BaseClient
 
 from test_tools.example_stubber import ExampleStubber
 
 
 def _state(status: str) -> dict[str, str]:
-    """Builds an Inspector2 State shape (all three members are required)."""
-    return {"status": status, "errorCode": "ALREADY_ENABLED", "errorMessage": "None"}
+    """
+    Builds an Inspector2 State shape.
+
+    The service model marks status, errorCode, and errorMessage as required
+    (errorMessage must be non-empty), so each status maps to the error code and
+    message that the service reports for that state.
+    """
+    error_code, error_message = _STATE_DETAILS.get(
+        status, ("INTERNAL_ERROR", f"Unexpected status {status}.")
+    )
+    return {"status": status, "errorCode": error_code, "errorMessage": error_message}
+
+
+_STATE_DETAILS = {
+    "ENABLED": ("ALREADY_ENABLED", "Inspector is enabled."),
+    "ENABLING": ("ENABLE_IN_PROGRESS", "Inspector is being enabled."),
+    "DISABLING": ("DISABLE_IN_PROGRESS", "Inspector is being disabled."),
+    "DISABLED": ("RESOURCE_NOT_FOUND", "Inspector is not enabled."),
+    "SUSPENDING": ("SUSPEND_IN_PROGRESS", "Inspector is being suspended."),
+    "SUSPENDED": ("RESOURCE_NOT_FOUND", "Inspector is suspended."),
+}
 
 
 def _low_severity_criteria() -> dict[str, Any]:
@@ -32,9 +51,14 @@ class Inspector2Stubber(ExampleStubber):
     The stubbed functions expect certain parameters to be passed to them as
     part of the tests, and raise errors when the actual parameters differ from
     the expected.
+
+    The wrapper calls list operations through paginators with
+    PaginationConfig={"PageSize": n}. Botocore translates PageSize into the
+    operation's maxResults parameter before sending the request, so the list
+    stubs expect {"maxResults": n}.
     """
 
-    def __init__(self, inspector2_client: client, use_stubs: bool = True) -> None:
+    def __init__(self, inspector2_client: BaseClient, use_stubs: bool = True) -> None:
         """
         Initializes the object with a specific client and configures it for
         stubbing or AWS passthrough.

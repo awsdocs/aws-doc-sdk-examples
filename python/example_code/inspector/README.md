@@ -50,17 +50,17 @@ Code examples that show you how to perform the essential operations within a ser
 
 Code excerpts that show you how to call individual service functions.
 
-- [BatchGetAccountStatus](inspector_wrapper.py#L47)
-- [BatchGetFindingDetails](inspector_wrapper.py#L214)
-- [CreateFilter](inspector_wrapper.py#L247)
-- [DeleteFilter](inspector_wrapper.py#L342)
-- [Disable](inspector_wrapper.py#L370)
-- [Enable](inspector_wrapper.py#L76)
-- [ListCoverage](inspector_wrapper.py#L108)
-- [ListCoverageStatistics](inspector_wrapper.py#L140)
-- [ListFilters](inspector_wrapper.py#L286)
-- [ListFindings](inspector_wrapper.py#L180)
-- [ListUsageTotals](inspector_wrapper.py#L310)
+- [BatchGetAccountStatus](inspector_wrapper.py#L48)
+- [BatchGetFindingDetails](inspector_wrapper.py#L215)
+- [CreateFilter](inspector_wrapper.py#L248)
+- [DeleteFilter](inspector_wrapper.py#L343)
+- [Disable](inspector_wrapper.py#L371)
+- [Enable](inspector_wrapper.py#L77)
+- [ListCoverage](inspector_wrapper.py#L109)
+- [ListCoverageStatistics](inspector_wrapper.py#L141)
+- [ListFilters](inspector_wrapper.py#L287)
+- [ListFindings](inspector_wrapper.py#L181)
+- [ListUsageTotals](inspector_wrapper.py#L311)
 
 
 <!--custom.examples.start-->
