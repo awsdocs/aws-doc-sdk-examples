@@ -5,18 +5,23 @@
 Contains common test fixtures used to run unit tests.
 """
 
+import os
 import sys
 from types import SimpleNamespace
 
 import boto3
 import pytest
 
-from inspector_wrapper import Inspector2Wrapper
-import scenario_inspector_basics
+# Build the import paths from this file's location so the tests work from any
+# working directory: the example folder (wrapper and scenario) and the python
+# folder (test_tools and demo_tools).
+script_dir = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(os.path.dirname(script_dir))
+sys.path.append(os.path.join(script_dir, "../../.."))
 
-# This is needed so Python can find test_tools on the path.
-sys.path.append("../..")
-from test_tools.fixtures.common import *
+from inspector_wrapper import Inspector2Wrapper  # noqa: E402
+import scenario_inspector_basics  # noqa: E402
+from test_tools.fixtures.common import *  # noqa: E402,F401,F403
 
 # The scenario names its filter with a timestamp, so tests pin the clock.
 TEST_TIMESTAMP = 1700000000

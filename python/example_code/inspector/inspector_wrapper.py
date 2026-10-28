@@ -14,6 +14,7 @@ import logging
 from typing import Any, Optional
 
 import boto3
+from botocore.client import BaseClient
 from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)
@@ -26,7 +27,7 @@ RESOURCE_TYPES = ["EC2", "ECR", "LAMBDA", "LAMBDA_CODE"]
 class Inspector2Wrapper:
     """Encapsulates Amazon Inspector (Inspector2) operations."""
 
-    def __init__(self, inspector2_client: boto3.client) -> None:
+    def __init__(self, inspector2_client: BaseClient) -> None:
         """
         :param inspector2_client: A Boto3 Amazon Inspector2 client.
         """

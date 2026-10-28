@@ -294,12 +294,14 @@ class InspectorScenario:
             try:
                 self.inspector_wrapper.delete_filter(self.filter_arn)
                 print("Cleanup: Filter deleted.")
+                self.filter_arn = None
             except ClientError as err:
                 logger.warning("Failed to delete filter during cleanup: %s", err)
         if self.enabled_types:
             try:
                 self.inspector_wrapper.disable(self.enabled_types)
                 print("Cleanup: Inspector disabled.")
+                self.enabled_types = list()
             except ClientError as err:
                 logger.warning("Failed to disable Inspector during cleanup: %s", err)
 

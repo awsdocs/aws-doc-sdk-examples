@@ -126,4 +126,6 @@ def test_run_scenario_error_cleans_up(mock_mgr, caplog):
     assert exc_info.value.response["Error"]["Code"] == error
 
     assert error in caplog.text
-    assert mock_mgr.scenario_data.scenario.filter_arn == mock_mgr.filter_arn
+    # The error path deletes the filter and clears the ARN, like cleanup() does.
+    assert mock_mgr.scenario_data.scenario.filter_arn is None
+    assert mock_mgr.scenario_data.scenario.enabled_types == []
