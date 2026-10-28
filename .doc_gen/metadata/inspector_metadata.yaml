@@ -7,182 +7,375 @@ inspector_Hello:
   languages:
     Java:
       versions:
-        - sdk_version: 2
-          github: javav2/example_code/inspector
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - inspector.java2.hello.main
+      - sdk_version: 2
+        github: javav2/example_code/inspector
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - inspector.java2.hello.main
   services:
-    inspector: {ListMembers}
+    inspector: {ListMembers: null}
 inspector_BatchGetFindingDetails:
   languages:
     Java:
       versions:
-        - sdk_version: 2
-          github: javav2/example_code/inspector
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - inspector.java2.finding.details.main
+      - sdk_version: 2
+        github: javav2/example_code/inspector
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - inspector.java2.finding.details.main
   services:
-    inspector: {BatchGetFindingDetails}
+    inspector: {BatchGetFindingDetails: null}
 inspector_DeleteFilter:
   languages:
     Java:
       versions:
-        - sdk_version: 2
-          github: javav2/example_code/inspector
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - inspector.java2.delete.filter.main
+      - sdk_version: 2
+        github: javav2/example_code/inspector
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - inspector.java2.delete.filter.main
   services:
-    inspector: {DeleteFilter}
+    inspector: {DeleteFilter: null}
 inspector_Disable:
   languages:
     Java:
       versions:
-        - sdk_version: 2
-          github: javav2/example_code/inspector
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - inspector.java2.disable.main
+      - sdk_version: 2
+        github: javav2/example_code/inspector
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - inspector.java2.disable.main
   services:
-    inspector: {Disable}
+    inspector: {Disable: null}
 inspector_Enable:
   languages:
     Java:
       versions:
-        - sdk_version: 2
-          github: javav2/example_code/inspector
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - inspector.java2.enable.main
+      - sdk_version: 2
+        github: javav2/example_code/inspector
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - inspector.java2.enable.main
   services:
-    inspector: {Enable}
+    inspector: {Enable: null}
 inspector_CreateFilter:
   languages:
     Java:
       versions:
-        - sdk_version: 2
-          github: javav2/example_code/inspector
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - inspector.java2.create.filter.main
+      - sdk_version: 2
+        github: javav2/example_code/inspector
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - inspector.java2.create.filter.main
   services:
-    inspector: {CreateFilter}
+    inspector: {CreateFilter: null}
 inspector_GetAccountStatus:
   languages:
     Java:
       versions:
-        - sdk_version: 2
-          github: javav2/example_code/inspector
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - inspector.java2.get_account_status.main
+      - sdk_version: 2
+        github: javav2/example_code/inspector
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - inspector.java2.get_account_status.main
   services:
-    inspector: {BatchGetAccountStatus}
+    inspector: {BatchGetAccountStatus: null}
 inspector_ListFindings:
   languages:
     Java:
       versions:
-        - sdk_version: 2
-          github: javav2/example_code/inspector
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - inspector.java2.list_findings.main
+      - sdk_version: 2
+        github: javav2/example_code/inspector
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - inspector.java2.list_findings.main
   services:
-    inspector: {ListFindings}
+    inspector: {ListFindings: null}
 inspector_ListCoverageStatistics:
   languages:
     Java:
       versions:
-        - sdk_version: 2
-          github: javav2/example_code/inspector
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - inspector.java2.list_coverage.stats.main
+      - sdk_version: 2
+        github: javav2/example_code/inspector
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - inspector.java2.list_coverage.stats.main
   services:
-    inspector: {ListCoverageStatistics}
+    inspector: {ListCoverageStatistics: null}
 inspector_ListCoverage:
   languages:
     Java:
       versions:
-        - sdk_version: 2
-          github: javav2/example_code/inspector
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - inspector.java2.list_coverage.main
+      - sdk_version: 2
+        github: javav2/example_code/inspector
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - inspector.java2.list_coverage.main
   services:
-    inspector: {ListCoverage}
+    inspector: {ListCoverage: null}
 inspector_ListUsageTotals:
   languages:
     Java:
       versions:
-        - sdk_version: 2
-          github: javav2/example_code/inspector
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - inspector.java2.list_usage_totals.main
+      - sdk_version: 2
+        github: javav2/example_code/inspector
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - inspector.java2.list_usage_totals.main
   services:
-    inspector: {ListUsageTotals}
+    inspector: {ListUsageTotals: null}
 inspector_ListFilters:
   languages:
     Java:
       versions:
-        - sdk_version: 2
-          github: javav2/example_code/inspector
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - inspector.java2.list_filters.main
+      - sdk_version: 2
+        github: javav2/example_code/inspector
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - inspector.java2.list_filters.main
   services:
-    inspector: {ListFilters}
+    inspector: {ListFilters: null}
 inspector_Scenario:
   synopsis_list:
-    - Check Inspector account status.
-    - Ensure Inspector is enabled.
-    - Analyze security findings.
-    - Check scan coverage.
-    - Create a findings filter.
-    - List existing filters.
-    - Check usage and costs.
-    - Get coverage statistics.
-    - Delete a filter.
+  - Check Inspector account status.
+  - Ensure Inspector is enabled.
+  - Analyze security findings.
+  - Check scan coverage.
+  - Create a findings filter.
+  - List existing filters.
+  - Check usage and costs.
+  - Get coverage statistics.
+  - Delete a filter.
   category: Basics
   languages:
     Java:
       versions:
-        - sdk_version: 2
-          github: javav2/example_code/inspector
-          sdkguide:
-          excerpts:
-            - description: Run an interactive scenario demonstrating &Inspector; features.
-              snippet_tags:
-                - inspector.java2_scenario.main
-            - description: A wrapper class for &Inspector; SDK methods.
-              snippet_tags:
-                - inspector.java2_actions.main
+      - sdk_version: 2
+        github: javav2/example_code/inspector
+        sdkguide:
+        excerpts:
+        - description: Run an interactive scenario demonstrating &Inspector; features.
+          snippet_tags:
+          - inspector.java2_scenario.main
+        - description: A wrapper class for &Inspector; SDK methods.
+          snippet_tags:
+          - inspector.java2_actions.main
   services:
-    inspector: {BatchGetAccountStatus, BatchGetFindingDetails, DeleteFilter, Enable, ListFindings, ListCoverage, CreateFilter, ListFilters, ListUsageTotals, ListCoverageStatistics}
+    inspector: {BatchGetAccountStatus: null, BatchGetFindingDetails: null, DeleteFilter: null, Enable: null, ListFindings: null, ListCoverage: null, CreateFilter: null, ListFilters: null, ListUsageTotals: null, ListCoverageStatistics: null}
+inspector2_Hello:
+  title: Hello &INS;
+  title_abbrev: Hello &INS;
+  synopsis: get started using &INS;.
+  languages:
+    Python:
+      versions:
+      - sdk_version: 3
+        github: python/example_code/inspector2
+        excerpts:
+        - description:
+          snippet_tags:
+          - python.example_code.inspector2.Hello
+  services:
+    inspector2: {ListAccountPermissions: null}
+inspector2_Enable:
+  title: Enable &INS; scans using an &AWS; SDK
+  title_abbrev: Enable Inspector scans
+  synopsis: enable &INS; scans for one or more accounts.
+  languages:
+    Python:
+      versions:
+      - sdk_version: 3
+        github: python/example_code/inspector2
+        excerpts:
+        - description:
+          snippet_tags:
+          - python.example_code.inspector2.Enable
+  services:
+    inspector2: {Enable: null}
+inspector2_BatchGetAccountStatus:
+  title: Get &INS; account status using an &AWS; SDK
+  title_abbrev: Get account status
+  synopsis: retrieve &INS; account status.
+  languages:
+    Python:
+      versions:
+      - sdk_version: 3
+        github: python/example_code/inspector2
+        excerpts:
+        - description:
+          snippet_tags:
+          - python.example_code.inspector2.BatchGetAccountStatus
+  services:
+    inspector2: {BatchGetAccountStatus: null}
+inspector2_GetConfiguration:
+  title: Get &INS; scan configuration using an &AWS; SDK
+  title_abbrev: Get scan configuration
+  synopsis: retrieve &INS; scan configuration settings.
+  languages:
+    Python:
+      versions:
+      - sdk_version: 3
+        github: python/example_code/inspector2
+        excerpts:
+        - description:
+          snippet_tags:
+          - python.example_code.inspector2.GetConfiguration
+  services:
+    inspector2: {GetConfiguration: null}
+inspector2_UpdateConfiguration:
+  title: Update &INS; scan configuration using an &AWS; SDK
+  title_abbrev: Update scan configuration
+  synopsis: update &INS; scan configuration settings.
+  languages:
+    Python:
+      versions:
+      - sdk_version: 3
+        github: python/example_code/inspector2
+        excerpts:
+        - description:
+          snippet_tags:
+          - python.example_code.inspector2.UpdateConfiguration
+  services:
+    inspector2: {UpdateConfiguration: null}
+inspector2_ListFindingAggregations:
+  title: List &INS; finding aggregations using an &AWS; SDK
+  title_abbrev: List finding aggregations
+  synopsis: list aggregated finding data for &INS;.
+  languages:
+    Python:
+      versions:
+      - sdk_version: 3
+        github: python/example_code/inspector2
+        excerpts:
+        - description:
+          snippet_tags:
+          - python.example_code.inspector2.ListFindingAggregations
+  services:
+    inspector2: {ListFindingAggregations: null}
+inspector2_CreateFindingsReport:
+  title: Create &INS; findings report using an &AWS; SDK
+  title_abbrev: Create findings report
+  synopsis: create an &INS; findings report.
+  languages:
+    Python:
+      versions:
+      - sdk_version: 3
+        github: python/example_code/inspector2
+        excerpts:
+        - description:
+          snippet_tags:
+          - python.example_code.inspector2.CreateFindingsReport
+  services:
+    inspector2: {CreateFindingsReport: null}
+inspector2_GetFindingsReportStatus:
+  title: Get &INS; findings report status using an &AWS; SDK
+  title_abbrev: Get findings report status
+  synopsis: get the status of an &INS; findings report.
+  languages:
+    Python:
+      versions:
+      - sdk_version: 3
+        github: python/example_code/inspector2
+        excerpts:
+        - description:
+          snippet_tags:
+          - python.example_code.inspector2.GetFindingsReportStatus
+  services:
+    inspector2: {GetFindingsReportStatus: null}
+inspector2_SearchVulnerabilities:
+  title: Search &INS; vulnerabilities using an &AWS; SDK
+  title_abbrev: Search vulnerabilities
+  synopsis: search for vulnerabilities using &INS;.
+  languages:
+    Python:
+      versions:
+      - sdk_version: 3
+        github: python/example_code/inspector2
+        excerpts:
+        - description:
+          snippet_tags:
+          - python.example_code.inspector2.SearchVulnerabilities
+  services:
+    inspector2: {SearchVulnerabilities: null}
+inspector2_ListAccountPermissions:
+  title: List &INS; account permissions using an &AWS; SDK
+  title_abbrev: List account permissions
+  synopsis: list account permissions for &INS;.
+  languages:
+    Python:
+      versions:
+      - sdk_version: 3
+        github: python/example_code/inspector2
+        excerpts:
+        - description:
+          snippet_tags:
+          - python.example_code.inspector2.ListAccountPermissions
+  services:
+    inspector2: {ListAccountPermissions: null}
+inspector2_Disable:
+  title: Disable &INS; scans using an &AWS; SDK
+  title_abbrev: Disable Inspector scans
+  synopsis: disable &INS; scans for one or more accounts.
+  languages:
+    Python:
+      versions:
+      - sdk_version: 3
+        github: python/example_code/inspector2
+        excerpts:
+        - description:
+          snippet_tags:
+          - python.example_code.inspector2.Disable
+  services:
+    inspector2: {Disable: null}
+inspector2_Scenario:
+  title: Learn &INS; basics using an &AWS; SDK
+  title_abbrev: Learn Inspector basics
+  synopsis: learn &INS; basics.
+  category: Basics
+  synopsis_list:
+  - Enable Amazon Inspector for EC2 and ECR scanning.
+  - Verify account status and scan configuration.
+  - Update scan configuration settings.
+  - List finding aggregations.
+  - Search for specific vulnerabilities.
+  - Generate and export findings reports.
+  - List account permissions.
+  - Disable Amazon Inspector.
+  languages:
+    Python:
+      versions:
+      - sdk_version: 3
+        github: python/example_code/inspector2
+        excerpts:
+        - description: Run an interactive scenario at a command prompt.
+          snippet_tags:
+          - python.example_code.inspector2.Inspector2Scenario
+        - description: Create a class that wraps Inspector2 operations.
+          snippet_tags:
+          - python.example_code.inspector2.Inspector2Wrapper.decl
+  services:
+    inspector2: {Enable: null, BatchGetAccountStatus: null, GetConfiguration: null, UpdateConfiguration: null, ListFindingAggregations: null, CreateFindingsReport: null, GetFindingsReportStatus: null, SearchVulnerabilities: null, ListAccountPermissions: null, Disable: null}
