@@ -157,6 +157,8 @@ class Inspector2Wrapper:
                 params["groupBy"] = group_by
             paginator = self.inspector2_client.get_paginator("list_coverage_statistics")
             for page in paginator.paginate(**params):
+                # totalCounts is the service-wide total, repeated on every page,
+                # so it is assigned rather than summed across pages.
                 stats["totalCounts"] = page.get("totalCounts", 0)
                 stats["countsByGroup"].extend(page.get("countsByGroup", list()))
             return stats
@@ -190,6 +192,9 @@ class Inspector2Wrapper:
         try:
             findings = list()
             paginator = self.inspector2_client.get_paginator("list_findings")
+            # This intentionally returns at most max_results findings. MaxItems
+            # caps the total, and PageSize requests that many in a single call,
+            # so only one request is made.
             for page in paginator.paginate(
                 PaginationConfig={"MaxItems": max_results, "PageSize": max_results}
             ):
