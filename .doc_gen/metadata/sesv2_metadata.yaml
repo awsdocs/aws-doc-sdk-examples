@@ -776,7 +776,7 @@ sesv2_CreateConfigurationSet:
         - sdk_version: 3
           github: python/example_code/sesv2/search_filter_scenario
           excerpts:
-            - description:
+            - description: Create a configuration set to use in the &SESv2; search-and-filter scenario.
               snippet_tags:
                 - python.example_code.sesv2.SearchFilterWrapper.decl
                 - python.example_code.sesv2.CreateConfigurationSet
@@ -790,7 +790,7 @@ sesv2_CreateTenant:
         - sdk_version: 3
           github: python/example_code/sesv2/search_filter_scenario
           excerpts:
-            - description:
+            - description: Create a tenant to use in the &SESv2; search-and-filter scenario.
               snippet_tags:
                 - python.example_code.sesv2.SearchFilterWrapper.decl
                 - python.example_code.sesv2.CreateTenant
@@ -804,7 +804,7 @@ sesv2_DeleteConfigurationSet:
         - sdk_version: 3
           github: python/example_code/sesv2/search_filter_scenario
           excerpts:
-            - description:
+            - description: Delete a configuration set that was created by the &SESv2; search-and-filter scenario.
               snippet_tags:
                 - python.example_code.sesv2.SearchFilterWrapper.decl
                 - python.example_code.sesv2.DeleteConfigurationSet
@@ -818,7 +818,7 @@ sesv2_DeleteTenant:
         - sdk_version: 3
           github: python/example_code/sesv2/search_filter_scenario
           excerpts:
-            - description:
+            - description: Delete a tenant that was created by the &SESv2; search-and-filter scenario.
               snippet_tags:
                 - python.example_code.sesv2.SearchFilterWrapper.decl
                 - python.example_code.sesv2.DeleteTenant
