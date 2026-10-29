@@ -15,7 +15,7 @@ Amazon SES v2:
 5. Step 4: Filter email identities by name substring.
 6. Step 5: List all tenants (unfiltered).
 7. Step 6: Filter tenants by name substring.
-8. Step 7: Demonstrate pagination with filters.
+8. Step 7: Page through filtered configuration sets one result at a time.
 9. Cleanup: Delete all resources created during setup.
 """
 
@@ -31,6 +31,7 @@ logger = logging.getLogger(__name__)
 # Resource names used in the scenario.
 CONFIGURATION_SET_NAMES = [
     "marketing-campaign-set",
+    "marketing-newsletter-set",
     "transactional-email-set",
     "test-filter-set",
 ]
@@ -45,11 +46,17 @@ TENANT_NAMES = [
     "internal-testing",
 ]
 
+# Filter values used by the filter steps.
+CONFIG_SET_FILTER = "marketing"
+IDENTITY_FILTER = "marketing"
+TENANT_FILTER = "customer"
+
 # Server-side filter indexing is eventually consistent. A newly created
-# resource can take several seconds to become visible to filtered list calls,
-# even though it is returned immediately by an unfiltered list. Wait briefly
-# after setup so the filter steps below return meaningful results.
-FILTER_INDEX_SETTLE_SECONDS = 15
+# resource can take several seconds to appear in filtered results, even though
+# an unfiltered list returns it right away. Setup repeats the filtered calls
+# until the new resources appear.
+FILTER_WAIT_ATTEMPTS = 12
+FILTER_WAIT_DELAY_SECONDS = 5
 
 
 # snippet-start:[python.example_code.sesv2.SearchFilterBasicsScenario]
@@ -81,16 +88,15 @@ class SearchFilterBasicsScenario:
 
         try:
             # --- Setup ---
+            # Each setup helper adds resources to its list as they're created,
+            # so cleanup can delete them even if setup fails partway through.
             print("--- Setup: Creating resources ---")
-            created_config_sets = self._setup_configuration_sets()
-            created_identities = self._setup_email_identities()
-            created_tenants = self._setup_tenants()
-            print()
-            print(
-                f"Waiting {FILTER_INDEX_SETTLE_SECONDS}s for the filter index to "
-                "catch up with the newly created resources..."
+            self._setup_configuration_sets(created_config_sets)
+            self._setup_email_identities(created_identities)
+            self._setup_tenants(created_tenants)
+            self._wait_for_filtered_results(
+                created_config_sets, created_identities, created_tenants
             )
-            time.sleep(FILTER_INDEX_SETTLE_SECONDS)
             print()
 
             # --- Step 1: Unfiltered configuration sets ---
@@ -102,14 +108,17 @@ class SearchFilterBasicsScenario:
             print()
 
             # --- Step 2: Filtered configuration sets ---
-            filter_value = "test"
             print(
-                f'--- Step 2: Filter configuration sets (name contains "{filter_value}") ---'
+                "--- Step 2: Filter configuration sets "
+                f'(name contains "{CONFIG_SET_FILTER}") ---'
             )
             filtered_config_sets = self.sesv2_wrapper.list_configuration_sets(
-                filter_params={"CONFIGURATION_SET_NAME_CONTAINS": filter_value}
+                filter_params={"CONFIGURATION_SET_NAME_CONTAINS": CONFIG_SET_FILTER}
             )
-            print(f"Found {len(filtered_config_sets)} matching configuration set(s):")
+            print(
+                f"Found {len(filtered_config_sets)} of {len(all_config_sets)} "
+                "configuration set(s):"
+            )
             for name in filtered_config_sets:
                 print(f"  - {name}")
             print()
@@ -127,14 +136,17 @@ class SearchFilterBasicsScenario:
             print()
 
             # --- Step 4: Filtered email identities ---
-            identity_filter_value = "example"
             print(
-                f'--- Step 4: Filter email identities (name contains "{identity_filter_value}") ---'
+                "--- Step 4: Filter email identities "
+                f'(name contains "{IDENTITY_FILTER}") ---'
             )
             filtered_identities = self.sesv2_wrapper.list_email_identities(
-                filter_params={"IDENTITY_NAME_CONTAINS": identity_filter_value}
+                filter_params={"IDENTITY_NAME_CONTAINS": IDENTITY_FILTER}
             )
-            print(f"Found {len(filtered_identities)} matching identity(ies):")
+            print(
+                f"Found {len(filtered_identities)} of {len(all_identities)} "
+                "email identity(ies):"
+            )
             for identity in filtered_identities:
                 print(
                     f"  - {identity.get('IdentityName', 'N/A')} "
@@ -154,14 +166,11 @@ class SearchFilterBasicsScenario:
             print()
 
             # --- Step 6: Filtered tenants ---
-            tenant_filter_value = "customer"
-            print(
-                f'--- Step 6: Filter tenants (name contains "{tenant_filter_value}") ---'
-            )
+            print(f'--- Step 6: Filter tenants (name contains "{TENANT_FILTER}") ---')
             filtered_tenants = self.sesv2_wrapper.list_tenants(
-                filter_params={"TENANT_NAME_CONTAINS": tenant_filter_value}
+                filter_params={"TENANT_NAME_CONTAINS": TENANT_FILTER}
             )
-            print(f"Found {len(filtered_tenants)} matching tenant(s):")
+            print(f"Found {len(filtered_tenants)} of {len(all_tenants)} tenant(s):")
             for tenant in filtered_tenants:
                 print(
                     f"  - {tenant.get('TenantName', 'N/A')} "
@@ -170,21 +179,25 @@ class SearchFilterBasicsScenario:
             print()
 
             # --- Step 7: Pagination with filters ---
-            print("--- Step 7: Demonstrate pagination with filters ---")
+            print("--- Step 7: Page through filtered configuration sets ---")
             print(
-                "Listing configuration sets with filter and PageSize=1 to "
-                "demonstrate paginated filtering..."
+                "Listing configuration sets whose name contains "
+                f'"{CONFIG_SET_FILTER}" with PageSize=1.\n'
+                "Each response holds one result and a NextToken that requests "
+                "the next page."
             )
-            paginated_results = self.sesv2_wrapper.list_configuration_sets(
-                filter_params={"CONFIGURATION_SET_NAME_CONTAINS": "set"},
-                page_size=1,
-            )
-            print(
-                f"Retrieved {len(paginated_results)} configuration set(s) "
-                "across multiple pages:"
-            )
-            for name in paginated_results:
-                print(f"  - {name}")
+            page_number = 0
+            next_token = None
+            while True:
+                page, next_token = self.sesv2_wrapper.list_configuration_sets_page(
+                    {"CONFIGURATION_SET_NAME_CONTAINS": CONFIG_SET_FILTER},
+                    page_size=1,
+                    next_token=next_token,
+                )
+                page_number += 1
+                print(f"  Page {page_number}: {', '.join(page) or '(empty)'}")
+                if not next_token:
+                    break
             print()
 
             print("-" * 88)
@@ -196,25 +209,27 @@ class SearchFilterBasicsScenario:
             print()
             print("--- Cleanup: Removing resources created during setup ---")
             self._cleanup(created_config_sets, created_identities, created_tenants)
-            print("Cleanup complete.")
             print("-" * 88)
 
     # ------------------------------------------------------------------
     # Setup helpers
     # ------------------------------------------------------------------
 
-    def _setup_configuration_sets(self) -> list:
-        """Creates configuration sets for the scenario and returns names."""
-        created = list()
+    def _setup_configuration_sets(self, created: list) -> None:
+        """
+        Creates configuration sets for the scenario and adds each new one to
+        created. A configuration set that already exists isn't added, so
+        cleanup won't delete it.
+        """
         for name in CONFIGURATION_SET_NAMES:
-            self.sesv2_wrapper.create_configuration_set(name)
-            created.append(name)
-            print(f"  Created configuration set: {name}")
-        return created
+            if self.sesv2_wrapper.create_configuration_set(name):
+                created.append(name)
+                print(f"  Created configuration set: {name}")
+            else:
+                print(f"  Configuration set {name} already exists. Using it as is.")
 
-    def _setup_email_identities(self) -> list:
-        """Creates email identities for the scenario and returns names."""
-        created = list()
+    def _setup_email_identities(self, created: list) -> None:
+        """Creates email identities and adds each new one to created."""
         for identity in EMAIL_IDENTITIES:
             try:
                 response = self.sesv2_wrapper.create_email_identity(identity)
@@ -227,11 +242,9 @@ class SearchFilterBasicsScenario:
                 )
             except ClientError:
                 logger.warning("Could not create identity '%s'. Continuing.", identity)
-        return created
 
-    def _setup_tenants(self) -> list:
-        """Creates tenants for the scenario and returns names."""
-        created = list()
+    def _setup_tenants(self, created: list) -> None:
+        """Creates tenants and adds each new one to created."""
         for name in TENANT_NAMES:
             try:
                 response = self.sesv2_wrapper.create_tenant(name)
@@ -240,7 +253,52 @@ class SearchFilterBasicsScenario:
                 print(f"  Created tenant: {name} (ID: {tenant_id})")
             except ClientError:
                 logger.warning("Could not create tenant '%s'. Continuing.", name)
-        return created
+
+    def _wait_for_filtered_results(
+        self, config_set_names: list, identity_names: list, tenant_names: list
+    ) -> None:
+        """
+        Repeats the scenario's filtered list calls until each one includes the
+        new resources that match its filter. Each resource type is checked
+        with its own filtered call, because one list operation being up to
+        date doesn't mean the others are.
+        """
+        expected_config_sets = {n for n in config_set_names if CONFIG_SET_FILTER in n}
+        expected_identities = {i for i in identity_names if IDENTITY_FILTER in i}
+        expected_tenants = {n for n in tenant_names if TENANT_FILTER in n}
+
+        print("Waiting for the new resources to appear in filtered results...")
+        for attempt in range(1, FILTER_WAIT_ATTEMPTS + 1):
+            config_sets = set(
+                self.sesv2_wrapper.list_configuration_sets(
+                    filter_params={"CONFIGURATION_SET_NAME_CONTAINS": CONFIG_SET_FILTER}
+                )
+            )
+            identities = {
+                i["IdentityName"]
+                for i in self.sesv2_wrapper.list_email_identities(
+                    filter_params={"IDENTITY_NAME_CONTAINS": IDENTITY_FILTER}
+                )
+            }
+            tenants = {
+                t["TenantName"]
+                for t in self.sesv2_wrapper.list_tenants(
+                    filter_params={"TENANT_NAME_CONTAINS": TENANT_FILTER}
+                )
+            }
+            if (
+                expected_config_sets <= config_sets
+                and expected_identities <= identities
+                and expected_tenants <= tenants
+            ):
+                print("  The new resources are available in filtered results.")
+                return
+            if attempt < FILTER_WAIT_ATTEMPTS:
+                time.sleep(FILTER_WAIT_DELAY_SECONDS)
+        print(
+            "  Some new resources still aren't in filtered results. "
+            "The filter steps may show fewer results than expected."
+        )
 
     # ------------------------------------------------------------------
     # Cleanup
@@ -252,18 +310,41 @@ class SearchFilterBasicsScenario:
         identity_names: list,
         tenant_names: list,
     ) -> None:
-        """Deletes all resources created during setup."""
-        for name in config_set_names:
-            self.sesv2_wrapper.delete_configuration_set(name)
-            print(f"  Deleted configuration set: {name}")
+        """
+        Deletes all resources created during setup. Each delete is attempted
+        on its own, so one failure doesn't leave the rest in the account.
+        """
+        not_deleted = list()
+        for kind, names, delete in (
+            (
+                "configuration set",
+                config_set_names,
+                self.sesv2_wrapper.delete_configuration_set,
+            ),
+            (
+                "email identity",
+                identity_names,
+                self.sesv2_wrapper.delete_email_identity,
+            ),
+            ("tenant", tenant_names, self.sesv2_wrapper.delete_tenant),
+        ):
+            for name in names:
+                try:
+                    delete(name)
+                    print(f"  Deleted {kind}: {name}")
+                except ClientError as err:
+                    print(
+                        f"  Couldn't delete {kind} {name}: "
+                        f"{err.response['Error']['Message']}"
+                    )
+                    not_deleted.append(f"{kind} {name}")
 
-        for identity in identity_names:
-            self.sesv2_wrapper.delete_email_identity(identity)
-            print(f"  Deleted email identity: {identity}")
-
-        for name in tenant_names:
-            self.sesv2_wrapper.delete_tenant(name)
-            print(f"  Deleted tenant: {name}")
+        if not_deleted:
+            print("These resources weren't deleted. Delete them manually:")
+            for item in not_deleted:
+                print(f"  - {item}")
+        else:
+            print("Cleanup complete.")
 
 
 # snippet-end:[python.example_code.sesv2.SearchFilterBasicsScenario]
