@@ -1093,3 +1093,89 @@ rds_Scenario_GetStartedInstances:
     rds: {CreateDBInstance, CreateDBParameterGroup, CreateDBSnapshot, DeleteDBInstance, DeleteDBParameterGroup, DescribeDBInstances,
           DescribeDBEngineVersions, DescribeDBParameterGroups, DescribeDBParameters, DescribeDBSnapshots, DescribeOrderableDBInstanceOptions,
           ModifyDBParameterGroup}
+rds_CreateBlueGreenDeployment:
+  title: Create a &BGD; with &RDS;
+  title_abbrev: CreateBlueGreenDeployment
+  synopsis: create a Blue/Green Deployment with TargetResourceConfigurations to specify a different KMS key for the green environment.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/rds/blue_green_encryption_migration_scenario
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.rds.CreateBlueGreenDeployment
+  services:
+    rds: {CreateBlueGreenDeployment}
+rds_DescribeBlueGreenDeployments:
+  title: Describe &BGDs; with &RDS;
+  title_abbrev: DescribeBlueGreenDeployments
+  synopsis: describe Blue/Green Deployments to monitor status and details.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/rds/blue_green_encryption_migration_scenario
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.rds.DescribeBlueGreenDeployments
+  services:
+    rds: {DescribeBlueGreenDeployments}
+rds_SwitchoverBlueGreenDeployment:
+  title: Switch over a &BGD; with &RDS;
+  title_abbrev: SwitchoverBlueGreenDeployment
+  synopsis: switch over a Blue/Green Deployment, promoting the green environment to production.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/rds/blue_green_encryption_migration_scenario
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.rds.SwitchoverBlueGreenDeployment
+  services:
+    rds: {SwitchoverBlueGreenDeployment}
+rds_DeleteBlueGreenDeployment:
+  title: Delete a &BGD; with &RDS;
+  title_abbrev: DeleteBlueGreenDeployment
+  synopsis: delete a Blue/Green Deployment after switchover completes.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/rds/blue_green_encryption_migration_scenario
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.rds.DeleteBlueGreenDeployment
+  services:
+    rds: {DeleteBlueGreenDeployment}
+rds_BlueGreenEncryptionMigration:
+  title: Migrate &RDS; encryption key using &BGDs;
+  title_abbrev: Blue/Green encryption key migration scenario
+  category: Scenarios
+  synopsis_list:
+    - Create an encrypted RDS DB instance with an original KMS key.
+    - Create a Blue/Green Deployment with TargetResourceConfigurations to specify a new KMS key.
+    - Monitor the deployment until the green environment is available.
+    - Verify the green environment uses the target KMS key.
+    - Switch over production traffic from blue to green with near-zero downtime.
+    - Confirm the production database now uses the new KMS encryption key.
+    - Clean up the Blue/Green Deployment and old DB instances.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/rds/blue_green_encryption_migration_scenario
+          excerpts:
+            - description: Run an interactive scenario at a command prompt.
+              snippet_tags:
+                - python.example_code.rds.BlueGreenEncryptionMigrationScenario
+            - description: Create a wrapper class for Blue/Green Deployment operations.
+              snippet_tags:
+                - python.example_code.rds.BlueGreenEncryptionMigrationWrapper.decl
+  services:
+    rds: {CreateDBInstance, DescribeDBInstances, CreateBlueGreenDeployment, DescribeBlueGreenDeployments, SwitchoverBlueGreenDeployment, DeleteBlueGreenDeployment, DeleteDBInstance}
