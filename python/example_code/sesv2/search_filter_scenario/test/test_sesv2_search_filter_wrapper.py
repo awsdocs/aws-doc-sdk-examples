@@ -100,11 +100,36 @@ def test_create_configuration_set(scenario_data, error_code):
         name, error_code=error_code
     )
 
-    if error_code == "AlreadyExistsException":
-        # The wrapper logs and returns without raising for this error.
-        scenario_data.wrapper.create_configuration_set(name)
-    else:
-        scenario_data.wrapper.create_configuration_set(name)
+    created = scenario_data.wrapper.create_configuration_set(name)
+
+    # The wrapper doesn't raise for AlreadyExistsException. It returns False so
+    # callers know they didn't create the configuration set.
+    assert created is (error_code is None)
+
+
+def test_list_configuration_sets_page(scenario_data):
+    """Test list_configuration_sets_page returns one page and its NextToken."""
+    filter_params = {"CONFIGURATION_SET_NAME_CONTAINS": "marketing"}
+    scenario_data.sesv2_stubber.stub_list_configuration_sets(
+        ["marketing-campaign-set"],
+        filter_params=filter_params,
+        page_size=1,
+        response_next_token="token-2",
+    )
+    scenario_data.sesv2_stubber.stub_list_configuration_sets(
+        ["marketing-newsletter-set"],
+        filter_params=filter_params,
+        page_size=1,
+        next_token="token-2",
+    )
+
+    first = scenario_data.wrapper.list_configuration_sets_page(filter_params, 1)
+    second = scenario_data.wrapper.list_configuration_sets_page(
+        filter_params, 1, next_token="token-2"
+    )
+
+    assert first == (["marketing-campaign-set"], "token-2")
+    assert second == (["marketing-newsletter-set"], None)
 
 
 @pytest.mark.parametrize("error_code", [None, "TooManyRequestsException"])

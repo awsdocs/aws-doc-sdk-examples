@@ -14,7 +14,7 @@ import pytest
 
 # Make test_tools importable (python/ root) and the wrapper importable (the
 # scenario directory one level up from this test directory).
-sys.path.append("../../../..")
+sys.path.append(os.path.join(os.path.dirname(__file__), "..", "..", "..", ".."))
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 from test_tools.fixtures.common import *

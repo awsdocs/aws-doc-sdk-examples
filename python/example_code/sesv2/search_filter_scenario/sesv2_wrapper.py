@@ -8,7 +8,7 @@ tenants.
 """
 
 import logging
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
 
 import boto3
 from botocore.exceptions import ClientError
@@ -197,23 +197,27 @@ class SearchFilterWrapper:
     # snippet-end:[python.example_code.sesv2.ListTenants]
 
     # snippet-start:[python.example_code.sesv2.CreateConfigurationSet]
-    def create_configuration_set(self, configuration_set_name: str) -> None:
+    def create_configuration_set(self, configuration_set_name: str) -> bool:
         """
         Creates a configuration set with the specified name.
 
         :param configuration_set_name: The name for the new configuration set.
+        :return: True if the configuration set was created, or False if a
+            configuration set with that name already existed.
         """
         try:
             self.sesv2_client.create_configuration_set(
                 ConfigurationSetName=configuration_set_name
             )
             logger.info("Created configuration set '%s'.", configuration_set_name)
+            return True
         except ClientError as err:
             if err.response["Error"]["Code"] == "AlreadyExistsException":
                 logger.warning(
                     "Configuration set '%s' already exists. Skipping creation.",
                     configuration_set_name,
                 )
+                return False
             else:
                 logger.error(
                     "Error creating configuration set '%s': %s",
@@ -224,7 +228,6 @@ class SearchFilterWrapper:
 
     # snippet-end:[python.example_code.sesv2.CreateConfigurationSet]
 
-    # snippet-start:[python.example_code.sesv2.CreateEmailIdentity]
     def create_email_identity(self, email_identity: str) -> Dict[str, Any]:
         """
         Creates an email identity (email address or domain) for verification.
@@ -253,8 +256,6 @@ class SearchFilterWrapper:
                     err.response["Error"]["Message"],
                 )
             raise
-
-    # snippet-end:[python.example_code.sesv2.CreateEmailIdentity]
 
     # snippet-start:[python.example_code.sesv2.CreateTenant]
     def create_tenant(self, tenant_name: str) -> Dict[str, Any]:
@@ -315,7 +316,6 @@ class SearchFilterWrapper:
 
     # snippet-end:[python.example_code.sesv2.DeleteConfigurationSet]
 
-    # snippet-start:[python.example_code.sesv2.DeleteEmailIdentity]
     def delete_email_identity(self, email_identity: str) -> None:
         """
         Deletes an email identity.
@@ -338,8 +338,6 @@ class SearchFilterWrapper:
                     err.response["Error"]["Message"],
                 )
                 raise
-
-    # snippet-end:[python.example_code.sesv2.DeleteEmailIdentity]
 
     # snippet-start:[python.example_code.sesv2.DeleteTenant]
     def delete_tenant(self, tenant_name: str) -> None:
@@ -366,6 +364,36 @@ class SearchFilterWrapper:
                 raise
 
     # snippet-end:[python.example_code.sesv2.DeleteTenant]
+
+    def list_configuration_sets_page(
+        self,
+        filter_params: Dict[str, str],
+        page_size: int,
+        next_token: Optional[str] = None,
+    ) -> Tuple[List[str], Optional[str]]:
+        """
+        Gets one page of filtered configuration sets. Use this instead of
+        list_configuration_sets to work with each page separately.
+
+        :param filter_params: The filter to apply.
+        :param page_size: The maximum number of results in the page.
+        :param next_token: The NextToken from the previous page, or None for the
+            first page.
+        :return: The configuration set names in this page, and the NextToken for
+            the next page, or None if this is the last page.
+        """
+        kwargs = {"Filter": filter_params, "PageSize": page_size}
+        if next_token is not None:
+            kwargs["NextToken"] = next_token
+        try:
+            response = self.sesv2_client.list_configuration_sets(**kwargs)
+        except ClientError as err:
+            logger.error(
+                "Error listing configuration sets: %s",
+                err.response["Error"]["Message"],
+            )
+            raise
+        return response.get("ConfigurationSets", list()), response.get("NextToken")
 
 
 # snippet-end:[python.example_code.sesv2.SearchFilterWrapper.class]
