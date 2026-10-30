@@ -14,6 +14,15 @@ inspector_Hello:
             - description:
               snippet_tags:
                 - inspector.java2.hello.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/inspector
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.inspector2.Hello
   services:
     inspector: {ListMembers}
 inspector_BatchGetFindingDetails:
@@ -27,6 +36,16 @@ inspector_BatchGetFindingDetails:
             - description:
               snippet_tags:
                 - inspector.java2.finding.details.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/inspector
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.inspector2.Inspector2Wrapper.decl
+                - python.example_code.inspector2.BatchGetFindingDetails
   services:
     inspector: {BatchGetFindingDetails}
 inspector_DeleteFilter:
@@ -40,6 +59,16 @@ inspector_DeleteFilter:
             - description:
               snippet_tags:
                 - inspector.java2.delete.filter.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/inspector
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.inspector2.Inspector2Wrapper.decl
+                - python.example_code.inspector2.DeleteFilter
   services:
     inspector: {DeleteFilter}
 inspector_Disable:
@@ -53,6 +82,16 @@ inspector_Disable:
             - description:
               snippet_tags:
                 - inspector.java2.disable.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/inspector
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.inspector2.Inspector2Wrapper.decl
+                - python.example_code.inspector2.Disable
   services:
     inspector: {Disable}
 inspector_Enable:
@@ -66,6 +105,16 @@ inspector_Enable:
             - description:
               snippet_tags:
                 - inspector.java2.enable.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/inspector
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.inspector2.Inspector2Wrapper.decl
+                - python.example_code.inspector2.Enable
   services:
     inspector: {Enable}
 inspector_CreateFilter:
@@ -79,6 +128,16 @@ inspector_CreateFilter:
             - description:
               snippet_tags:
                 - inspector.java2.create.filter.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/inspector
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.inspector2.Inspector2Wrapper.decl
+                - python.example_code.inspector2.CreateFilter
   services:
     inspector: {CreateFilter}
 inspector_GetAccountStatus:
@@ -92,6 +151,16 @@ inspector_GetAccountStatus:
             - description:
               snippet_tags:
                 - inspector.java2.get_account_status.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/inspector
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.inspector2.Inspector2Wrapper.decl
+                - python.example_code.inspector2.BatchGetAccountStatus
   services:
     inspector: {BatchGetAccountStatus}
 inspector_ListFindings:
@@ -105,6 +174,16 @@ inspector_ListFindings:
             - description:
               snippet_tags:
                 - inspector.java2.list_findings.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/inspector
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.inspector2.Inspector2Wrapper.decl
+                - python.example_code.inspector2.ListFindings
   services:
     inspector: {ListFindings}
 inspector_ListCoverageStatistics:
@@ -118,6 +197,16 @@ inspector_ListCoverageStatistics:
             - description:
               snippet_tags:
                 - inspector.java2.list_coverage.stats.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/inspector
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.inspector2.Inspector2Wrapper.decl
+                - python.example_code.inspector2.ListCoverageStatistics
   services:
     inspector: {ListCoverageStatistics}
 inspector_ListCoverage:
@@ -131,6 +220,16 @@ inspector_ListCoverage:
             - description:
               snippet_tags:
                 - inspector.java2.list_coverage.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/inspector
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.inspector2.Inspector2Wrapper.decl
+                - python.example_code.inspector2.ListCoverage
   services:
     inspector: {ListCoverage}
 inspector_ListUsageTotals:
@@ -144,6 +243,16 @@ inspector_ListUsageTotals:
             - description:
               snippet_tags:
                 - inspector.java2.list_usage_totals.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/inspector
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.inspector2.Inspector2Wrapper.decl
+                - python.example_code.inspector2.ListUsageTotals
   services:
     inspector: {ListUsageTotals}
 inspector_ListFilters:
@@ -157,6 +266,16 @@ inspector_ListFilters:
             - description:
               snippet_tags:
                 - inspector.java2.list_filters.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/inspector
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.inspector2.Inspector2Wrapper.decl
+                - python.example_code.inspector2.ListFilters
   services:
     inspector: {ListFilters}
 inspector_Scenario:
@@ -184,5 +303,28 @@ inspector_Scenario:
             - description: A wrapper class for &Inspector; SDK methods.
               snippet_tags:
                 - inspector.java2_actions.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/inspector
+          sdkguide:
+          excerpts:
+            - description: Run an interactive scenario demonstrating &Inspector; features.
+              snippet_tags:
+                - python.example_code.inspector2.Inspector2Scenario
+            - description: A wrapper class for &Inspector; SDK methods.
+              snippet_tags:
+                - python.example_code.inspector2.Inspector2Wrapper.decl
+                - python.example_code.inspector2.Enable
+                - python.example_code.inspector2.Disable
+                - python.example_code.inspector2.BatchGetAccountStatus
+                - python.example_code.inspector2.ListFindings
+                - python.example_code.inspector2.ListCoverage
+                - python.example_code.inspector2.ListCoverageStatistics
+                - python.example_code.inspector2.ListUsageTotals
+                - python.example_code.inspector2.CreateFilter
+                - python.example_code.inspector2.ListFilters
+                - python.example_code.inspector2.DeleteFilter
+                - python.example_code.inspector2.BatchGetFindingDetails
   services:
     inspector: {BatchGetAccountStatus, BatchGetFindingDetails, DeleteFilter, Enable, ListFindings, ListCoverage, CreateFilter, ListFilters, ListUsageTotals, ListCoverageStatistics}
