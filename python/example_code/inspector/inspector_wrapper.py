@@ -111,14 +111,16 @@ class Inspector2Wrapper:
         """
         Lists coverage details for the resources that Amazon Inspector scans.
 
-        :param max_results: The page size to request.
+        :param max_results: The maximum number of items to return.
         :return: The covered resources. If a ValidationException occurs, it is
                  logged and an empty list is returned.
         """
         try:
             covered_resources = list()
             paginator = self.inspector2_client.get_paginator("list_coverage")
-            for page in paginator.paginate(PaginationConfig={"PageSize": max_results}):
+            for page in paginator.paginate(
+                PaginationConfig={"MaxItems": max_results, "PageSize": max_results}
+            ):
                 covered_resources.extend(page.get("coveredResources", list()))
             return covered_resources
         except ClientError as err:
@@ -294,13 +296,15 @@ class Inspector2Wrapper:
         """
         Lists the findings filters in the current account.
 
-        :param max_results: The page size to request.
+        :param max_results: The maximum number of items to return.
         :return: The filters.
         """
         try:
             filters = list()
             paginator = self.inspector2_client.get_paginator("list_filters")
-            for page in paginator.paginate(PaginationConfig={"PageSize": max_results}):
+            for page in paginator.paginate(
+                PaginationConfig={"MaxItems": max_results, "PageSize": max_results}
+            ):
                 filters.extend(page.get("filters", list()))
             return filters
         except ClientError as err:
@@ -318,14 +322,16 @@ class Inspector2Wrapper:
         """
         Lists Amazon Inspector usage totals for the current account.
 
-        :param max_results: The page size to request.
+        :param max_results: The maximum number of items to return.
         :return: The usage totals. If a ValidationException occurs, it is logged
                  and an empty list is returned.
         """
         try:
             totals = list()
             paginator = self.inspector2_client.get_paginator("list_usage_totals")
-            for page in paginator.paginate(PaginationConfig={"PageSize": max_results}):
+            for page in paginator.paginate(
+                PaginationConfig={"MaxItems": max_results, "PageSize": max_results}
+            ):
                 totals.extend(page.get("totals", list()))
             return totals
         except ClientError as err:

@@ -51,16 +51,16 @@ Code examples that show you how to perform the essential operations within a ser
 Code excerpts that show you how to call individual service functions.
 
 - [BatchGetAccountStatus](inspector_wrapper.py#L48)
-- [BatchGetFindingDetails](inspector_wrapper.py#L220)
-- [CreateFilter](inspector_wrapper.py#L253)
-- [DeleteFilter](inspector_wrapper.py#L348)
-- [Disable](inspector_wrapper.py#L376)
+- [BatchGetFindingDetails](inspector_wrapper.py#L222)
+- [CreateFilter](inspector_wrapper.py#L255)
+- [DeleteFilter](inspector_wrapper.py#L354)
+- [Disable](inspector_wrapper.py#L382)
 - [Enable](inspector_wrapper.py#L77)
 - [ListCoverage](inspector_wrapper.py#L109)
-- [ListCoverageStatistics](inspector_wrapper.py#L141)
-- [ListFilters](inspector_wrapper.py#L292)
-- [ListFindings](inspector_wrapper.py#L183)
-- [ListUsageTotals](inspector_wrapper.py#L316)
+- [ListCoverageStatistics](inspector_wrapper.py#L143)
+- [ListFilters](inspector_wrapper.py#L294)
+- [ListFindings](inspector_wrapper.py#L185)
+- [ListUsageTotals](inspector_wrapper.py#L320)
 
 
 <!--custom.examples.start-->
