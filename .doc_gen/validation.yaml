@@ -16,6 +16,7 @@ allow_list:
   - "AssociateSigninDelegateGroupsWithAccount"
   - "AvailableProvisionedConcurrentExecutions"
   - "BatchAssociateClientDeviceWithCoreDevice"
+  - "BlueGreenDeploymentIdentifier=deployment"
   - "CancelExportTaskExample/CancelExportTask"
   - "CertificateAuthorityExpiryInMilliseconds"
   - "CertificateTransparencyLoggingPreference"

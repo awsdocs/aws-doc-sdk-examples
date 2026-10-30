@@ -1094,9 +1094,6 @@ rds_Scenario_GetStartedInstances:
           DescribeDBEngineVersions, DescribeDBParameterGroups, DescribeDBParameters, DescribeDBSnapshots, DescribeOrderableDBInstanceOptions,
           ModifyDBParameterGroup}
 rds_CreateBlueGreenDeployment:
-  title: Create a &BGD; with &RDS;
-  title_abbrev: CreateBlueGreenDeployment
-  synopsis: create a Blue/Green Deployment with TargetResourceConfigurations to specify a different KMS key for the green environment.
   languages:
     Python:
       versions:
@@ -1109,9 +1106,6 @@ rds_CreateBlueGreenDeployment:
   services:
     rds: {CreateBlueGreenDeployment}
 rds_DescribeBlueGreenDeployments:
-  title: Describe &BGDs; with &RDS;
-  title_abbrev: DescribeBlueGreenDeployments
-  synopsis: describe Blue/Green Deployments to monitor status and details.
   languages:
     Python:
       versions:
@@ -1124,9 +1118,6 @@ rds_DescribeBlueGreenDeployments:
   services:
     rds: {DescribeBlueGreenDeployments}
 rds_SwitchoverBlueGreenDeployment:
-  title: Switch over a &BGD; with &RDS;
-  title_abbrev: SwitchoverBlueGreenDeployment
-  synopsis: switch over a Blue/Green Deployment, promoting the green environment to production.
   languages:
     Python:
       versions:
@@ -1139,9 +1130,6 @@ rds_SwitchoverBlueGreenDeployment:
   services:
     rds: {SwitchoverBlueGreenDeployment}
 rds_DeleteBlueGreenDeployment:
-  title: Delete a &BGD; with &RDS;
-  title_abbrev: DeleteBlueGreenDeployment
-  synopsis: delete a Blue/Green Deployment after switchover completes.
   languages:
     Python:
       versions:
