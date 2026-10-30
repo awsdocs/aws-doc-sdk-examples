@@ -167,13 +167,14 @@ class RdsStubber(ExampleStubber):
             error_code=error_code,
         )
 
-    def stub_describe_db_instances(self, instance_id, error_code=None):
+    def stub_describe_db_instances(
+        self, instance_id, status="available", instance_details=None, error_code=None
+    ):
         expected_params = {"DBInstanceIdentifier": instance_id}
-        response = {
-            "DBInstances": [
-                {"DBInstanceIdentifier": instance_id, "DBInstanceStatus": "available"}
-            ]
-        }
+        db_instance = {"DBInstanceIdentifier": instance_id, "DBInstanceStatus": status}
+        if instance_details is not None:
+            db_instance.update(instance_details)
+        response = {"DBInstances": [db_instance]}
         self._stub_bifurcator(
             "describe_db_instances", expected_params, response, error_code=error_code
         )
@@ -191,6 +192,9 @@ class RdsStubber(ExampleStubber):
         allocated_storage=None,
         admin_name=None,
         admin_password=None,
+        storage_encrypted=None,
+        kms_key_id=None,
+        backup_retention_period=None,
         error_code=None,
     ):
         expected_params = {
@@ -214,6 +218,12 @@ class RdsStubber(ExampleStubber):
             expected_params["MasterUsername"] = admin_name
         if admin_password is not None:
             expected_params["MasterUserPassword"] = admin_password
+        if storage_encrypted is not None:
+            expected_params["StorageEncrypted"] = storage_encrypted
+        if kms_key_id is not None:
+            expected_params["KmsKeyId"] = kms_key_id
+        if backup_retention_period is not None:
+            expected_params["BackupRetentionPeriod"] = backup_retention_period
         response = {
             "DBInstance": {
                 "DBInstanceIdentifier": instance_id,
@@ -361,4 +371,122 @@ class RdsStubber(ExampleStubber):
         }
         self._stub_bifurcator(
             "describe_db_snapshots", expected_params, response, error_code=error_code
+        )
+
+    @staticmethod
+    def _blue_green_deployment(
+        deployment_id,
+        deployment_name,
+        status,
+        source_arn=None,
+        target_arn=None,
+        switchover_details=None,
+    ):
+        """Builds a BlueGreenDeployment response structure."""
+        deployment = {
+            "BlueGreenDeploymentIdentifier": deployment_id,
+            "BlueGreenDeploymentName": deployment_name,
+            "Status": status,
+            "SwitchoverDetails": switchover_details or [],
+            "Tasks": [],
+        }
+        if source_arn is not None:
+            deployment["Source"] = source_arn
+        if target_arn is not None:
+            deployment["Target"] = target_arn
+        return deployment
+
+    def stub_create_blue_green_deployment(
+        self,
+        deployment_name,
+        source_arn,
+        target_kms_key_id,
+        deployment_id,
+        error_code=None,
+    ):
+        expected_params = {
+            "BlueGreenDeploymentName": deployment_name,
+            "Source": source_arn,
+            "TargetResourceConfigurations": [
+                {"SourceArn": source_arn, "TargetKmsKeyId": target_kms_key_id}
+            ],
+        }
+        response = {
+            "BlueGreenDeployment": self._blue_green_deployment(
+                deployment_id, deployment_name, "PROVISIONING", source_arn=source_arn
+            )
+        }
+        self._stub_bifurcator(
+            "create_blue_green_deployment",
+            expected_params,
+            response,
+            error_code=error_code,
+        )
+
+    def stub_describe_blue_green_deployments(
+        self,
+        deployment_id,
+        deployment_name,
+        status,
+        source_arn=None,
+        target_arn=None,
+        switchover_details=None,
+        error_code=None,
+    ):
+        expected_params = {"BlueGreenDeploymentIdentifier": deployment_id}
+        response = {
+            "BlueGreenDeployments": [
+                self._blue_green_deployment(
+                    deployment_id,
+                    deployment_name,
+                    status,
+                    source_arn=source_arn,
+                    target_arn=target_arn,
+                    switchover_details=switchover_details,
+                )
+            ]
+        }
+        self._stub_bifurcator(
+            "describe_blue_green_deployments",
+            expected_params,
+            response,
+            error_code=error_code,
+        )
+
+    def stub_switchover_blue_green_deployment(
+        self, deployment_id, deployment_name, switchover_timeout, error_code=None
+    ):
+        expected_params = {
+            "BlueGreenDeploymentIdentifier": deployment_id,
+            "SwitchoverTimeout": switchover_timeout,
+        }
+        response = {
+            "BlueGreenDeployment": self._blue_green_deployment(
+                deployment_id, deployment_name, "SWITCHOVER_IN_PROGRESS"
+            )
+        }
+        self._stub_bifurcator(
+            "switchover_blue_green_deployment",
+            expected_params,
+            response,
+            error_code=error_code,
+        )
+
+    def stub_delete_blue_green_deployment(
+        self, deployment_id, deployment_name, delete_target, error_code=None
+    ):
+        expected_params = {
+            "BlueGreenDeploymentIdentifier": deployment_id,
+            "DeleteTarget": delete_target,
+        }
+        response = {
+            "BlueGreenDeployment": self._blue_green_deployment(
+                deployment_id, deployment_name, "DELETING"
+            )
+        }
+        self._stub_bifurcator(
+            "delete_blue_green_deployment",
+            expected_params,
+            response,
+            error_code=error_code,
         )
