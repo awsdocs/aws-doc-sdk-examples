@@ -50,11 +50,14 @@ Code examples that show you how to perform the essential operations within a ser
 
 Code excerpts that show you how to call individual service functions.
 
+- [CreateBlueGreenDeployment](blue_green_encryption_migration_scenario/rds_blue_green_encryption_migration_wrapper.py#L158)
 - [CreateDBInstance](instance_wrapper.py#L333)
 - [CreateDBParameterGroup](instance_wrapper.py#L69)
 - [CreateDBSnapshot](instance_wrapper.py#L189)
+- [DeleteBlueGreenDeployment](blue_green_encryption_migration_scenario/rds_blue_green_encryption_migration_wrapper.py#L364)
 - [DeleteDBInstance](instance_wrapper.py#L389)
 - [DeleteDBParameterGroup](instance_wrapper.py#L102)
+- [DescribeBlueGreenDeployments](blue_green_encryption_migration_scenario/rds_blue_green_encryption_migration_wrapper.py#L206)
 - [DescribeDBEngineVersions](instance_wrapper.py#L242)
 - [DescribeDBInstances](instance_wrapper.py#L304)
 - [DescribeDBParameterGroups](instance_wrapper.py#L40)
@@ -62,12 +65,14 @@ Code excerpts that show you how to call individual service functions.
 - [DescribeDBSnapshots](instance_wrapper.py#L216)
 - [DescribeOrderableDBInstanceOptions](instance_wrapper.py#L273)
 - [ModifyDBParameterGroup](instance_wrapper.py#L163)
+- [SwitchoverBlueGreenDeployment](blue_green_encryption_migration_scenario/rds_blue_green_encryption_migration_wrapper.py#L328)
 
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
+- [Blue/Green encryption key migration scenario](blue_green_encryption_migration_scenario/rds_blue_green_encryption_migration_scenario.py)
 - [Create an Aurora Serverless work item tracker](../../cross_service/aurora_item_tracker)
 
 
@@ -112,6 +117,31 @@ python scenario_get_started_instances.py
 <!--custom.basics.rds_Scenario_GetStartedInstances.start-->
 <!--custom.basics.rds_Scenario_GetStartedInstances.end-->
 
+
+#### Blue/Green encryption key migration scenario
+
+This example shows you how to do the following:
+
+- Create an encrypted RDS DB instance with an original KMS key.
+- Create a Blue/Green Deployment with TargetResourceConfigurations to specify a new KMS key.
+- Monitor the deployment until the green environment is available.
+- Verify the green environment uses the target KMS key.
+- Switch over production traffic from blue to green with near-zero downtime.
+- Confirm the production database now uses the new KMS encryption key.
+- Clean up the Blue/Green Deployment and old DB instances.
+
+<!--custom.scenario_prereqs.rds_BlueGreenEncryptionMigration.start-->
+<!--custom.scenario_prereqs.rds_BlueGreenEncryptionMigration.end-->
+
+Start the example by running the following at a command prompt:
+
+```
+python blue_green_encryption_migration_scenario/rds_blue_green_encryption_migration_scenario.py
+```
+
+
+<!--custom.scenarios.rds_BlueGreenEncryptionMigration.start-->
+<!--custom.scenarios.rds_BlueGreenEncryptionMigration.end-->
 
 #### Create an Aurora Serverless work item tracker
 
