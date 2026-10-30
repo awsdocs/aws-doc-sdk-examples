@@ -129,7 +129,7 @@ class InspectorScenario:
         Lists coverage details, displays overall coverage statistics, and
         reviews the scan status of covered resources.
         """
-        print("Coverage Assessment: Listing coverage details...")
+        print("Coverage Assessment: Listing coverage details (up to 5 resources)...")
         resources = self.inspector_wrapper.list_coverage(max_results=5)
         if not resources:
             print("  No coverage information found.")

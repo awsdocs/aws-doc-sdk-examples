@@ -157,10 +157,13 @@ class Inspector2Stubber(ExampleStubber):
         self,
         covered_resources: list[dict[str, Any]],
         max_results: int = 5,
+        next_token: Optional[str] = None,
         error_code: Optional[str] = None,
     ) -> None:
         expected_params = {"maxResults": max_results}
         response = {"coveredResources": covered_resources}
+        if next_token is not None:
+            response["nextToken"] = next_token
         self._stub_bifurcator(
             "list_coverage", expected_params, response, error_code=error_code
         )
@@ -235,6 +238,7 @@ class Inspector2Stubber(ExampleStubber):
         self,
         filters: list[dict[str, str]],
         max_results: int = 10,
+        next_token: Optional[str] = None,
         error_code: Optional[str] = None,
     ) -> None:
         """
@@ -256,6 +260,8 @@ class Inspector2Stubber(ExampleStubber):
                 for f in filters
             ]
         }
+        if next_token is not None:
+            response["nextToken"] = next_token
         self._stub_bifurcator(
             "list_filters", expected_params, response, error_code=error_code
         )
@@ -273,10 +279,13 @@ class Inspector2Stubber(ExampleStubber):
         self,
         totals: list[dict[str, Any]],
         max_results: int = 10,
+        next_token: Optional[str] = None,
         error_code: Optional[str] = None,
     ) -> None:
         expected_params = {"maxResults": max_results}
         response = {"totals": totals}
+        if next_token is not None:
+            response["nextToken"] = next_token
         self._stub_bifurcator(
             "list_usage_totals", expected_params, response, error_code=error_code
         )
