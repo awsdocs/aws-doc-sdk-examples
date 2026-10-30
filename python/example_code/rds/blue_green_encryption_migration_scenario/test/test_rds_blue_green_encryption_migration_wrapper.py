@@ -2,443 +2,211 @@
 # SPDX-License-Identifier: Apache-2.0
 
 """
-Unit tests for rds_blue_green_encryption_migration_wrapper.py
-
-Uses botocore.stub.Stubber to stub every AWS call. Each wrapper method has
-a success test and an error test that verifies the specific exception from the
-specification is raised.
+Unit tests for rds_blue_green_encryption_migration_wrapper.py.
 """
 
-import sys
-import os
-
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
 import pytest
-import boto3
-from botocore.stub import Stubber, ANY
 from botocore.exceptions import ClientError
 
-from rds_blue_green_encryption_migration_wrapper import (
-    BlueGreenEncryptionMigrationWrapper,
+ACCOUNT = "123456789012"
+DB_ID = "test-db"
+DB_ARN = f"arn:aws:rds:us-east-1:{ACCOUNT}:db:{DB_ID}"
+ORIGINAL_KMS = f"arn:aws:kms:us-east-1:{ACCOUNT}:key/original-key"
+TARGET_KMS = f"arn:aws:kms:us-east-1:{ACCOUNT}:key/target-key"
+BGD_ID = "bgd-abc123"
+BGD_NAME = "test-migration"
+
+
+@pytest.mark.parametrize("error_code", [None, "DBInstanceAlreadyExistsFault"])
+def test_create_db_instance(scenario_data, error_code):
+    scenario_data.stubber.stub_create_db_instance(
+        DB_ID,
+        "mysql",
+        "db.t3.micro",
+        allocated_storage=20,
+        admin_name="admin",
+        admin_password="test-password",
+        storage_encrypted=True,
+        kms_key_id=ORIGINAL_KMS,
+        backup_retention_period=1,
+        error_code=error_code,
+    )
+    kwargs = {
+        "db_instance_identifier": DB_ID,
+        "db_instance_class": "db.t3.micro",
+        "engine": "mysql",
+        "master_username": "admin",
+        "master_user_password": "test-password",
+        "allocated_storage": 20,
+        "kms_key_id": ORIGINAL_KMS,
+    }
+
+    if error_code is None:
+        got = scenario_data.wrapper.create_db_instance(**kwargs)
+        assert got["DBInstanceIdentifier"] == DB_ID
+    else:
+        with pytest.raises(ClientError) as exc_info:
+            scenario_data.wrapper.create_db_instance(**kwargs)
+        assert exc_info.value.response["Error"]["Code"] == error_code
+
+
+@pytest.mark.parametrize("error_code", [None, "DBInstanceNotFoundFault"])
+def test_describe_db_instance(scenario_data, error_code):
+    details = {"StorageEncrypted": True, "KmsKeyId": ORIGINAL_KMS}
+    scenario_data.stubber.stub_describe_db_instances(
+        DB_ID, instance_details=details, error_code=error_code
+    )
+
+    if error_code is None:
+        got = scenario_data.wrapper.describe_db_instance(DB_ID)
+        assert got["DBInstanceStatus"] == "available"
+        assert got["KmsKeyId"] == ORIGINAL_KMS
+    else:
+        with pytest.raises(ClientError) as exc_info:
+            scenario_data.wrapper.describe_db_instance(DB_ID)
+        assert exc_info.value.response["Error"]["Code"] == error_code
+
+
+def test_wait_for_db_instance_available(scenario_data):
+    scenario_data.stubber.stub_describe_db_instances(DB_ID, status="creating")
+    scenario_data.stubber.stub_describe_db_instances(DB_ID)
+
+    got = scenario_data.wrapper.wait_for_db_instance_available(DB_ID, wait_seconds=1)
+
+    assert got["DBInstanceStatus"] == "available"
+
+
+def test_wait_for_db_instance_available_timeout(scenario_data):
+    scenario_data.stubber.stub_describe_db_instances(DB_ID, status="creating")
+
+    with pytest.raises(TimeoutError):
+        scenario_data.wrapper.wait_for_db_instance_available(
+            DB_ID, wait_seconds=1, max_wait=1
+        )
+
+
+@pytest.mark.parametrize("error_code", [None, "SourceDatabaseNotSupportedFault"])
+def test_create_blue_green_deployment(scenario_data, error_code):
+    scenario_data.stubber.stub_create_blue_green_deployment(
+        BGD_NAME, DB_ARN, TARGET_KMS, BGD_ID, error_code=error_code
+    )
+
+    if error_code is None:
+        got = scenario_data.wrapper.create_blue_green_deployment(
+            BGD_NAME, DB_ARN, TARGET_KMS
+        )
+        assert got["BlueGreenDeploymentIdentifier"] == BGD_ID
+        assert got["Status"] == "PROVISIONING"
+    else:
+        with pytest.raises(ClientError) as exc_info:
+            scenario_data.wrapper.create_blue_green_deployment(
+                BGD_NAME, DB_ARN, TARGET_KMS
+            )
+        assert exc_info.value.response["Error"]["Code"] == error_code
+
+
+@pytest.mark.parametrize("error_code", [None, "BlueGreenDeploymentNotFoundFault"])
+def test_describe_blue_green_deployment(scenario_data, error_code):
+    scenario_data.stubber.stub_describe_blue_green_deployments(
+        BGD_ID, BGD_NAME, "AVAILABLE", source_arn=DB_ARN, error_code=error_code
+    )
+
+    if error_code is None:
+        got = scenario_data.wrapper.describe_blue_green_deployment(BGD_ID)
+        assert got["BlueGreenDeploymentIdentifier"] == BGD_ID
+        assert got["Status"] == "AVAILABLE"
+    else:
+        with pytest.raises(ClientError) as exc_info:
+            scenario_data.wrapper.describe_blue_green_deployment(BGD_ID)
+        assert exc_info.value.response["Error"]["Code"] == error_code
+
+
+@pytest.mark.parametrize(
+    "statuses, expected",
+    [
+        (["PROVISIONING", "AVAILABLE"], "AVAILABLE"),
+        (["INVALID_CONFIGURATION"], RuntimeError),
+        (["PROVISIONING"], TimeoutError),
+    ],
 )
-
-
-# ---------------------------------------------------------------------------
-# Fixtures
-# ---------------------------------------------------------------------------
-
-@pytest.fixture
-def rds_client():
-    """Create a boto3 RDS client."""
-    return boto3.client("rds", region_name="us-east-1")
-
-
-@pytest.fixture
-def rds_stubber(rds_client):
-    """Create and activate a Stubber for the RDS client."""
-    with Stubber(rds_client) as stubber:
-        yield stubber
-        stubber.assert_no_pending_responses()
-
-
-@pytest.fixture
-def wrapper(rds_client):
-    """Create a wrapper instance with the stubbed client."""
-    return BlueGreenEncryptionMigrationWrapper(rds_client)
-
-
-# ---------------------------------------------------------------------------
-# create_db_instance
-# ---------------------------------------------------------------------------
-
-class TestCreateDbInstance:
-    """Tests for create_db_instance wrapper method."""
-
-    def test_create_db_instance_success(self, wrapper, rds_stubber):
-        rds_stubber.add_response(
-            "create_db_instance",
-            {
-                "DBInstance": {
-                    "DBInstanceIdentifier": "test-db",
-                    "DBInstanceStatus": "creating",
-                    "Engine": "mysql",
-                    "StorageEncrypted": True,
-                    "KmsKeyId": "arn:aws:kms:us-east-1:123456789012:key/original-key",
-                    "DBInstanceArn": "arn:aws:rds:us-east-1:123456789012:db:test-db",
-                }
-            },
-            expected_params={
-                "DBInstanceIdentifier": "test-db",
-                "DBInstanceClass": "db.t3.micro",
-                "Engine": "mysql",
-                "MasterUsername": "admin",
-                "MasterUserPassword": "testpass123",
-                "AllocatedStorage": 20,
-                "StorageEncrypted": True,
-                "KmsKeyId": "arn:aws:kms:us-east-1:123456789012:key/original-key",
-                "BackupRetentionPeriod": 1,
-            },
+def test_wait_for_deployment_available(scenario_data, statuses, expected):
+    for status in statuses:
+        scenario_data.stubber.stub_describe_blue_green_deployments(
+            BGD_ID, BGD_NAME, status
         )
 
-        result = wrapper.create_db_instance(
-            db_instance_identifier="test-db",
-            db_instance_class="db.t3.micro",
-            engine="mysql",
-            master_username="admin",
-            master_user_password="testpass123",
-            allocated_storage=20,
-            kms_key_id="arn:aws:kms:us-east-1:123456789012:key/original-key",
+    if isinstance(expected, str):
+        got = scenario_data.wrapper.wait_for_deployment_available(
+            BGD_ID, wait_seconds=1
         )
-        assert result["DBInstanceIdentifier"] == "test-db"
-        assert result["DBInstanceStatus"] == "creating"
-        assert result["StorageEncrypted"] is True
-
-    def test_create_db_instance_already_exists(self, wrapper, rds_stubber):
-        rds_stubber.add_client_error(
-            "create_db_instance",
-            service_error_code="DBInstanceAlreadyExistsFault",
-            service_message="DB instance already exists.",
-            expected_params={
-                "DBInstanceIdentifier": "test-db",
-                "DBInstanceClass": "db.t3.micro",
-                "Engine": "mysql",
-                "MasterUsername": "admin",
-                "MasterUserPassword": "testpass123",
-                "AllocatedStorage": 20,
-                "StorageEncrypted": True,
-                "KmsKeyId": "arn:aws:kms:us-east-1:123456789012:key/original-key",
-                "BackupRetentionPeriod": 1,
-            },
-        )
-
-        with pytest.raises(ClientError) as exc_info:
-            wrapper.create_db_instance(
-                db_instance_identifier="test-db",
-                db_instance_class="db.t3.micro",
-                engine="mysql",
-                master_username="admin",
-                master_user_password="testpass123",
-                allocated_storage=20,
-                kms_key_id="arn:aws:kms:us-east-1:123456789012:key/original-key",
+        assert got["Status"] == expected
+    else:
+        with pytest.raises(expected):
+            scenario_data.wrapper.wait_for_deployment_available(
+                BGD_ID, wait_seconds=1, max_wait=1
             )
-        assert exc_info.value.response["Error"]["Code"] == "DBInstanceAlreadyExistsFault"
 
 
-# ---------------------------------------------------------------------------
-# describe_db_instance
-# ---------------------------------------------------------------------------
+def test_wait_for_switchover_completed(scenario_data):
+    scenario_data.stubber.stub_describe_blue_green_deployments(
+        BGD_ID, BGD_NAME, "SWITCHOVER_IN_PROGRESS"
+    )
+    scenario_data.stubber.stub_describe_blue_green_deployments(
+        BGD_ID, BGD_NAME, "SWITCHOVER_COMPLETED"
+    )
 
-class TestDescribeDbInstance:
-    """Tests for describe_db_instance wrapper method."""
+    got = scenario_data.wrapper.wait_for_switchover_completed(BGD_ID, wait_seconds=1)
 
-    def test_describe_db_instance_success(self, wrapper, rds_stubber):
-        rds_stubber.add_response(
-            "describe_db_instances",
-            {
-                "DBInstances": [
-                    {
-                        "DBInstanceIdentifier": "test-db",
-                        "DBInstanceStatus": "available",
-                        "StorageEncrypted": True,
-                        "KmsKeyId": "arn:aws:kms:us-east-1:123456789012:key/original-key",
-                        "DBInstanceArn": "arn:aws:rds:us-east-1:123456789012:db:test-db",
-                        "Engine": "mysql",
-                    }
-                ]
-            },
-            expected_params={"DBInstanceIdentifier": "test-db"},
-        )
+    assert got["Status"] == "SWITCHOVER_COMPLETED"
 
-        result = wrapper.describe_db_instance("test-db")
-        assert result["DBInstanceIdentifier"] == "test-db"
-        assert result["DBInstanceStatus"] == "available"
-        assert result["StorageEncrypted"] is True
 
-    def test_describe_db_instance_not_found(self, wrapper, rds_stubber):
-        rds_stubber.add_client_error(
-            "describe_db_instances",
-            service_error_code="DBInstanceNotFoundFault",
-            service_message="DB instance not found.",
-            expected_params={"DBInstanceIdentifier": "nonexistent-db"},
-        )
+@pytest.mark.parametrize("error_code", [None, "InvalidBlueGreenDeploymentStateFault"])
+def test_switchover_blue_green_deployment(scenario_data, error_code):
+    scenario_data.stubber.stub_switchover_blue_green_deployment(
+        BGD_ID, BGD_NAME, 300, error_code=error_code
+    )
 
+    if error_code is None:
+        got = scenario_data.wrapper.switchover_blue_green_deployment(BGD_ID)
+        assert got["Status"] == "SWITCHOVER_IN_PROGRESS"
+    else:
         with pytest.raises(ClientError) as exc_info:
-            wrapper.describe_db_instance("nonexistent-db")
-        assert exc_info.value.response["Error"]["Code"] == "DBInstanceNotFoundFault"
+            scenario_data.wrapper.switchover_blue_green_deployment(BGD_ID)
+        assert exc_info.value.response["Error"]["Code"] == error_code
 
 
-# ---------------------------------------------------------------------------
-# create_blue_green_deployment
-# ---------------------------------------------------------------------------
+@pytest.mark.parametrize("error_code", [None, "InvalidBlueGreenDeploymentStateFault"])
+def test_delete_blue_green_deployment(scenario_data, error_code):
+    scenario_data.stubber.stub_delete_blue_green_deployment(
+        BGD_ID, BGD_NAME, False, error_code=error_code
+    )
 
-class TestCreateBlueGreenDeployment:
-    """Tests for create_blue_green_deployment wrapper method."""
-
-    def test_create_blue_green_deployment_success(self, wrapper, rds_stubber):
-        source_arn = "arn:aws:rds:us-east-1:123456789012:db:test-db"
-        target_kms = "arn:aws:kms:us-east-1:123456789012:key/target-key"
-
-        rds_stubber.add_response(
-            "create_blue_green_deployment",
-            {
-                "BlueGreenDeployment": {
-                    "BlueGreenDeploymentIdentifier": "bgd-abc123",
-                    "BlueGreenDeploymentName": "test-migration",
-                    "Status": "PROVISIONING",
-                    "Source": source_arn,
-                    "SwitchoverDetails": list(),
-                    "Tasks": list(),
-                }
-            },
-            expected_params={
-                "BlueGreenDeploymentName": "test-migration",
-                "Source": source_arn,
-                "TargetResourceConfigurations": [
-                    {
-                        "SourceArn": source_arn,
-                        "TargetKmsKeyId": target_kms,
-                    }
-                ],
-            },
-        )
-
-        result = wrapper.create_blue_green_deployment(
-            deployment_name="test-migration",
-            source_arn=source_arn,
-            target_kms_key_id=target_kms,
-        )
-        assert result["BlueGreenDeploymentIdentifier"] == "bgd-abc123"
-        assert result["Status"] == "PROVISIONING"
-
-    def test_create_blue_green_deployment_source_not_supported(
-        self, wrapper, rds_stubber
-    ):
-        source_arn = "arn:aws:rds:us-east-1:123456789012:db:test-db"
-        target_kms = "arn:aws:kms:us-east-1:123456789012:key/target-key"
-
-        rds_stubber.add_client_error(
-            "create_blue_green_deployment",
-            service_error_code="SourceDatabaseNotSupportedFault",
-            service_message="Source DB instance is not supported.",
-            expected_params={
-                "BlueGreenDeploymentName": "test-migration",
-                "Source": source_arn,
-                "TargetResourceConfigurations": [
-                    {
-                        "SourceArn": source_arn,
-                        "TargetKmsKeyId": target_kms,
-                    }
-                ],
-            },
-        )
-
+    if error_code is None:
+        got = scenario_data.wrapper.delete_blue_green_deployment(BGD_ID)
+        assert got["Status"] == "DELETING"
+    else:
         with pytest.raises(ClientError) as exc_info:
-            wrapper.create_blue_green_deployment(
-                deployment_name="test-migration",
-                source_arn=source_arn,
-                target_kms_key_id=target_kms,
-            )
-        assert (
-            exc_info.value.response["Error"]["Code"]
-            == "SourceDatabaseNotSupportedFault"
-        )
+            scenario_data.wrapper.delete_blue_green_deployment(BGD_ID)
+        assert exc_info.value.response["Error"]["Code"] == error_code
 
 
-# ---------------------------------------------------------------------------
-# describe_blue_green_deployment
-# ---------------------------------------------------------------------------
+@pytest.mark.parametrize("error_code", [None, "DBInstanceNotFoundFault"])
+def test_delete_db_instance(scenario_data, error_code):
+    scenario_data.stubber.stub_delete_db_instance(DB_ID, error_code=error_code)
 
-class TestDescribeBlueGreenDeployment:
-    """Tests for describe_blue_green_deployment wrapper method."""
-
-    def test_describe_blue_green_deployment_success(self, wrapper, rds_stubber):
-        rds_stubber.add_response(
-            "describe_blue_green_deployments",
-            {
-                "BlueGreenDeployments": [
-                    {
-                        "BlueGreenDeploymentIdentifier": "bgd-abc123",
-                        "BlueGreenDeploymentName": "test-migration",
-                        "Status": "AVAILABLE",
-                        "Source": "arn:aws:rds:us-east-1:123456789012:db:test-db",
-                        "Target": "arn:aws:rds:us-east-1:123456789012:db:test-db-green-xyz",
-                        "SwitchoverDetails": [
-                            {
-                                "SourceMember": "arn:aws:rds:us-east-1:123456789012:db:test-db",
-                                "TargetMember": "arn:aws:rds:us-east-1:123456789012:db:test-db-green-xyz",
-                                "Status": "AVAILABLE",
-                            }
-                        ],
-                        "Tasks": [
-                            {"Name": "CREATING_READ_REPLICA_OF_SOURCE", "Status": "COMPLETED"},
-                            {"Name": "CONFIGURE_BACKUPS", "Status": "COMPLETED"},
-                        ],
-                    }
-                ]
-            },
-            expected_params={"BlueGreenDeploymentIdentifier": "bgd-abc123"},
-        )
-
-        result = wrapper.describe_blue_green_deployment("bgd-abc123")
-        assert result["BlueGreenDeploymentIdentifier"] == "bgd-abc123"
-        assert result["Status"] == "AVAILABLE"
-
-    def test_describe_blue_green_deployment_not_found(self, wrapper, rds_stubber):
-        rds_stubber.add_client_error(
-            "describe_blue_green_deployments",
-            service_error_code="BlueGreenDeploymentNotFoundFault",
-            service_message="Blue/Green Deployment not found.",
-            expected_params={
-                "BlueGreenDeploymentIdentifier": "bgd-nonexistent"
-            },
-        )
-
+    if error_code is None:
+        got = scenario_data.wrapper.delete_db_instance(DB_ID)
+        assert got["DBInstanceStatus"] == "deleting"
+    else:
         with pytest.raises(ClientError) as exc_info:
-            wrapper.describe_blue_green_deployment("bgd-nonexistent")
-        assert (
-            exc_info.value.response["Error"]["Code"]
-            == "BlueGreenDeploymentNotFoundFault"
-        )
+            scenario_data.wrapper.delete_db_instance(DB_ID)
+        assert exc_info.value.response["Error"]["Code"] == error_code
 
 
-# ---------------------------------------------------------------------------
-# switchover_blue_green_deployment
-# ---------------------------------------------------------------------------
+def test_wait_for_db_instance_deleted(scenario_data):
+    scenario_data.stubber.stub_describe_db_instances(DB_ID, status="deleting")
+    scenario_data.stubber.stub_describe_db_instances(
+        DB_ID, error_code="DBInstanceNotFoundFault"
+    )
 
-class TestSwitchoverBlueGreenDeployment:
-    """Tests for switchover_blue_green_deployment wrapper method."""
-
-    def test_switchover_success(self, wrapper, rds_stubber):
-        rds_stubber.add_response(
-            "switchover_blue_green_deployment",
-            {
-                "BlueGreenDeployment": {
-                    "BlueGreenDeploymentIdentifier": "bgd-abc123",
-                    "BlueGreenDeploymentName": "test-migration",
-                    "Status": "SWITCHOVER_IN_PROGRESS",
-                    "Source": "arn:aws:rds:us-east-1:123456789012:db:test-db",
-                    "Target": "arn:aws:rds:us-east-1:123456789012:db:test-db-green-xyz",
-                    "SwitchoverDetails": list(),
-                    "Tasks": list(),
-                }
-            },
-            expected_params={
-                "BlueGreenDeploymentIdentifier": "bgd-abc123",
-                "SwitchoverTimeout": 300,
-            },
-        )
-
-        result = wrapper.switchover_blue_green_deployment("bgd-abc123")
-        assert result["Status"] == "SWITCHOVER_IN_PROGRESS"
-
-    def test_switchover_invalid_state(self, wrapper, rds_stubber):
-        rds_stubber.add_client_error(
-            "switchover_blue_green_deployment",
-            service_error_code="InvalidBlueGreenDeploymentStateFault",
-            service_message="Deployment cannot be switched over.",
-            expected_params={
-                "BlueGreenDeploymentIdentifier": "bgd-abc123",
-                "SwitchoverTimeout": 300,
-            },
-        )
-
-        with pytest.raises(ClientError) as exc_info:
-            wrapper.switchover_blue_green_deployment("bgd-abc123")
-        assert (
-            exc_info.value.response["Error"]["Code"]
-            == "InvalidBlueGreenDeploymentStateFault"
-        )
-
-
-# ---------------------------------------------------------------------------
-# delete_blue_green_deployment
-# ---------------------------------------------------------------------------
-
-class TestDeleteBlueGreenDeployment:
-    """Tests for delete_blue_green_deployment wrapper method."""
-
-    def test_delete_success(self, wrapper, rds_stubber):
-        rds_stubber.add_response(
-            "delete_blue_green_deployment",
-            {
-                "BlueGreenDeployment": {
-                    "BlueGreenDeploymentIdentifier": "bgd-abc123",
-                    "BlueGreenDeploymentName": "test-migration",
-                    "Status": "DELETING",
-                    "Source": "arn:aws:rds:us-east-1:123456789012:db:test-db-old1",
-                    "Target": "arn:aws:rds:us-east-1:123456789012:db:test-db",
-                    "SwitchoverDetails": list(),
-                    "Tasks": list(),
-                }
-            },
-            expected_params={
-                "BlueGreenDeploymentIdentifier": "bgd-abc123",
-                "DeleteTarget": False,
-            },
-        )
-
-        result = wrapper.delete_blue_green_deployment("bgd-abc123")
-        assert result["Status"] == "DELETING"
-
-    def test_delete_invalid_state(self, wrapper, rds_stubber):
-        rds_stubber.add_client_error(
-            "delete_blue_green_deployment",
-            service_error_code="InvalidBlueGreenDeploymentStateFault",
-            service_message="Deployment cannot be deleted.",
-            expected_params={
-                "BlueGreenDeploymentIdentifier": "bgd-abc123",
-                "DeleteTarget": False,
-            },
-        )
-
-        with pytest.raises(ClientError) as exc_info:
-            wrapper.delete_blue_green_deployment("bgd-abc123")
-        assert (
-            exc_info.value.response["Error"]["Code"]
-            == "InvalidBlueGreenDeploymentStateFault"
-        )
-
-
-# ---------------------------------------------------------------------------
-# delete_db_instance
-# ---------------------------------------------------------------------------
-
-class TestDeleteDbInstance:
-    """Tests for delete_db_instance wrapper method."""
-
-    def test_delete_db_instance_success(self, wrapper, rds_stubber):
-        rds_stubber.add_response(
-            "delete_db_instance",
-            {
-                "DBInstance": {
-                    "DBInstanceIdentifier": "test-db-old1",
-                    "DBInstanceStatus": "deleting",
-                    "Engine": "mysql",
-                }
-            },
-            expected_params={
-                "DBInstanceIdentifier": "test-db-old1",
-                "SkipFinalSnapshot": True,
-                "DeleteAutomatedBackups": True,
-            },
-        )
-
-        result = wrapper.delete_db_instance("test-db-old1")
-        assert result["DBInstanceStatus"] == "deleting"
-
-    def test_delete_db_instance_not_found(self, wrapper, rds_stubber):
-        rds_stubber.add_client_error(
-            "delete_db_instance",
-            service_error_code="DBInstanceNotFoundFault",
-            service_message="DB instance not found.",
-            expected_params={
-                "DBInstanceIdentifier": "nonexistent-db",
-                "SkipFinalSnapshot": True,
-                "DeleteAutomatedBackups": True,
-            },
-        )
-
-        with pytest.raises(ClientError) as exc_info:
-            wrapper.delete_db_instance("nonexistent-db")
-        assert exc_info.value.response["Error"]["Code"] == "DBInstanceNotFoundFault"
+    scenario_data.wrapper.wait_for_db_instance_deleted(DB_ID, wait_seconds=1)
