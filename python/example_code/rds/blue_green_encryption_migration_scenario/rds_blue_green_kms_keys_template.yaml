@@ -1,0 +1,63 @@
+# Generated from resources/cdk/rds_blue_green_kms_keys (cdk synth).
+# Do not edit by hand; regenerate with the command in that folder's README.
+Resources:
+  OriginalKmsKey152B30B8:
+    Type: AWS::KMS::Key
+    Properties:
+      Description: Original KMS key used to encrypt the source RDS DB instance in the Blue/Green encryption migration example.
+      EnableKeyRotation: true
+      KeyPolicy:
+        Statement:
+          - Action: kms:*
+            Effect: Allow
+            Principal:
+              AWS:
+                Fn::Join:
+                  - ""
+                  - - "arn:"
+                    - Ref: AWS::Partition
+                    - ":iam::"
+                    - Ref: AWS::AccountId
+                    - :root
+            Resource: "*"
+        Version: "2012-10-17"
+      PendingWindowInDays: 7
+    UpdateReplacePolicy: Delete
+    DeletionPolicy: Delete
+  TargetKmsKeyAEC52770:
+    Type: AWS::KMS::Key
+    Properties:
+      Description: Target KMS key used to encrypt the green RDS DB instance in the Blue/Green encryption migration example.
+      EnableKeyRotation: true
+      KeyPolicy:
+        Statement:
+          - Action: kms:*
+            Effect: Allow
+            Principal:
+              AWS:
+                Fn::Join:
+                  - ""
+                  - - "arn:"
+                    - Ref: AWS::Partition
+                    - ":iam::"
+                    - Ref: AWS::AccountId
+                    - :root
+            Resource: "*"
+        Version: "2012-10-17"
+      PendingWindowInDays: 7
+    UpdateReplacePolicy: Delete
+    DeletionPolicy: Delete
+Outputs:
+  OriginalKmsKeyArn:
+    Description: ARN of the original KMS key for the source RDS DB instance.
+    Value:
+      Fn::GetAtt:
+        - OriginalKmsKey152B30B8
+        - Arn
+  TargetKmsKeyArn:
+    Description: ARN of the target KMS key for the green RDS DB instance.
+    Value:
+      Fn::GetAtt:
+        - TargetKmsKeyAEC52770
+        - Arn
+

@@ -77,6 +77,7 @@ functions within the same service.
 
 
 <!--custom.examples.start-->
+- [Migrate a DB instance to a new KMS key with Blue/Green Deployments](blue_green_encryption_migration_scenario/rds_blue_green_encryption_migration_scenario.py)
 <!--custom.examples.end-->
 
 ## Run the examples
@@ -85,6 +86,31 @@ functions within the same service.
 
 
 <!--custom.instructions.start-->
+#### Migrate a DB instance to a new KMS key with Blue/Green Deployments
+
+This example shows you how to do the following:
+
+- Setup: deploy an AWS CloudFormation stack (`RdsBlueGreenKmsKeysStack`) that creates two KMS keys (original and target).
+- Create an encrypted DB instance with the original KMS key.
+- Create a Blue/Green Deployment that uses `TargetResourceConfigurations` to encrypt the green environment with the target KMS key.
+- Switch over to the green environment and verify the new KMS key.
+- Cleanup: you're asked whether to delete the resources. If you answer yes, the RDS resources are deleted first, then the stack. The KMS keys are scheduled for deletion after a 7-day pending window.
+
+You don't need to create any KMS keys or enter any ARNs. The stack template
+(`blue_green_encryption_migration_scenario/rds_blue_green_kms_keys_template.yaml`)
+is synthesized from the AWS CDK app in
+[resources/cdk/rds_blue_green_kms_keys](../../../resources/cdk/rds_blue_green_kms_keys).
+You don't need the CDK installed to run the scenario.
+
+Your credentials need permissions for Amazon RDS, AWS KMS, and AWS CloudFormation.
+This scenario creates DB instances and KMS keys, which might result in charges.
+
+Start the example by running the following at a command prompt:
+
+```
+python -m pip install -r blue_green_encryption_migration_scenario/requirements.txt
+python blue_green_encryption_migration_scenario/rds_blue_green_encryption_migration_scenario.py
+```
 <!--custom.instructions.end-->
 
 #### Hello Amazon RDS
