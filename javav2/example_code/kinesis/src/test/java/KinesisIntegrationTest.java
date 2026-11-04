@@ -4,6 +4,7 @@
 import com.example.kinesis.HelloKinesis;
 import com.example.kinesis.basics.KinesisActions;
 import com.example.kinesis.basics.KinesisScenario;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Tag;
@@ -45,6 +46,11 @@ public class KinesisIntegrationTest {
     private static final Logger logger = LoggerFactory.getLogger(KinesisIntegrationTest.class);
     private final KinesisActions actions = new KinesisActions();
 
+    @AfterAll
+    public void closeClient() {
+        actions.close();
+    }
+
     @Test
     @Tag("IntegrationTest")
     @Order(1)
@@ -68,7 +74,7 @@ public class KinesisIntegrationTest {
                 actions.waitForStreamActiveAsync(streamName).join();
 
                 StreamDescriptionSummary summary = actions.describeStreamSummaryAsync(streamName).join();
-                assertEquals("ACTIVE", summary.streamStatusAsString());
+                assertEquals("ACTIVE", summary.streamStatusAsString(), "The new stream should be ACTIVE.");
 
                 List<Shard> shards = actions.listShardsAsync(streamName).join();
                 assertFalse(shards.isEmpty(), "The stream should have at least one shard.");
@@ -78,26 +84,29 @@ public class KinesisIntegrationTest {
                         .partitionKey("sensor-001")
                         .data(SdkBytes.fromUtf8String("{\"sensor_id\": \"sensor-001\"}"))
                         .build())).join();
-                assertEquals(0, putResponse.failedRecordCount());
+                assertEquals(0, putResponse.failedRecordCount(), "PutRecords should not fail any records.");
 
                 String iterator = actions.getShardIteratorAsync(streamName, shards.get(0).shardId(),
                     ShardIteratorType.TRIM_HORIZON).join();
-                assertNotNull(iterator);
+                assertNotNull(iterator, "GetShardIterator should return a shard iterator.");
                 actions.getRecordsAsync(iterator, 10).join();
 
                 actions.addTagsToStreamAsync(streamName, Map.of("Project", "kinesis-demo",
                     "CostCenter", "12345")).join();
                 actions.removeTagsFromStreamAsync(streamName, List.of("CostCenter")).join();
                 List<software.amazon.awssdk.services.kinesis.model.Tag> tags = actions.listTagsForStreamAsync(streamName).join();
-                assertTrue(tags.stream().anyMatch(t -> "Project".equals(t.key())));
-                assertFalse(tags.stream().anyMatch(t -> "CostCenter".equals(t.key())));
+                assertTrue(tags.stream().anyMatch(t -> "Project".equals(t.key())),
+                    "The Project tag should remain after removing CostCenter.");
+                assertFalse(tags.stream().anyMatch(t -> "CostCenter".equals(t.key())),
+                    "The CostCenter tag should be removed.");
 
                 assertTrue(actions.listStreamsAsync().join().stream()
-                    .anyMatch(s -> streamName.equals(s.streamName())));
+                    .anyMatch(s -> streamName.equals(s.streamName())),
+                    "ListStreams should include the new stream.");
 
                 String consumerArn = actions.registerStreamConsumerAsync(summary.streamARN(),
                     "sdk-integ-consumer").join().consumerARN();
-                assertNotNull(consumerArn);
+                assertNotNull(consumerArn, "RegisterStreamConsumer should return a consumer ARN.");
                 actions.deregisterStreamConsumerAsync(consumerArn).join();
             });
         } finally {

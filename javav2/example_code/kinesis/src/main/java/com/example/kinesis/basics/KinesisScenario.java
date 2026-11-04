@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.CompletionException;
 
 // snippet-start:[kinesis.java2.scenario.main]
@@ -42,8 +43,7 @@ public class KinesisScenario {
     private static final String CONSUMER_NAME = "sdk-example-consumer";
 
     public static void main(String[] args) {
-        KinesisActions actions = new KinesisActions();
-        try {
+        try (KinesisActions actions = new KinesisActions()) {
             runScenario(actions);
         } catch (RuntimeException e) {
             logger.error("The Kinesis scenario failed: {}", e.getMessage());
@@ -56,7 +56,7 @@ public class KinesisScenario {
      * @param actions the {@link KinesisActions} wrapper used to call Kinesis
      */
     public static void runScenario(KinesisActions actions) {
-        String streamName = "sdk-example-stream-" + System.currentTimeMillis();
+        String streamName = "sdk-example-stream-" + UUID.randomUUID().toString().substring(0, 8);
         boolean streamCreated = false;
         String consumerArn = null;
 

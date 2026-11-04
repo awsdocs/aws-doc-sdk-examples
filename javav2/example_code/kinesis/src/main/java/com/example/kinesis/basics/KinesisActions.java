@@ -20,12 +20,15 @@ import software.amazon.awssdk.services.kinesis.model.DeleteStreamResponse;
 import software.amazon.awssdk.services.kinesis.model.DeregisterStreamConsumerRequest;
 import software.amazon.awssdk.services.kinesis.model.DeregisterStreamConsumerResponse;
 import software.amazon.awssdk.services.kinesis.model.DescribeStreamConsumerRequest;
+import software.amazon.awssdk.services.kinesis.model.DescribeStreamConsumerResponse;
 import software.amazon.awssdk.services.kinesis.model.DescribeStreamRequest;
 import software.amazon.awssdk.services.kinesis.model.DescribeStreamResponse;
 import software.amazon.awssdk.services.kinesis.model.DescribeStreamSummaryRequest;
+import software.amazon.awssdk.services.kinesis.model.DescribeStreamSummaryResponse;
 import software.amazon.awssdk.services.kinesis.model.GetRecordsRequest;
 import software.amazon.awssdk.services.kinesis.model.GetRecordsResponse;
 import software.amazon.awssdk.services.kinesis.model.GetShardIteratorRequest;
+import software.amazon.awssdk.services.kinesis.model.GetShardIteratorResponse;
 import software.amazon.awssdk.services.kinesis.model.InvalidArgumentException;
 import software.amazon.awssdk.services.kinesis.model.LimitExceededException;
 import software.amazon.awssdk.services.kinesis.model.ListShardsRequest;
@@ -35,6 +38,7 @@ import software.amazon.awssdk.services.kinesis.model.PutRecordsRequest;
 import software.amazon.awssdk.services.kinesis.model.PutRecordsRequestEntry;
 import software.amazon.awssdk.services.kinesis.model.PutRecordsResponse;
 import software.amazon.awssdk.services.kinesis.model.RegisterStreamConsumerRequest;
+import software.amazon.awssdk.services.kinesis.model.RegisterStreamConsumerResponse;
 import software.amazon.awssdk.services.kinesis.model.RemoveTagsFromStreamRequest;
 import software.amazon.awssdk.services.kinesis.model.RemoveTagsFromStreamResponse;
 import software.amazon.awssdk.services.kinesis.model.ResourceInUseException;
@@ -47,6 +51,7 @@ import software.amazon.awssdk.services.kinesis.model.Tag;
 
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
@@ -62,8 +67,12 @@ import java.util.concurrent.CompletionException;
  * {@link CompletionException} with an actionable message, and the original
  * service exception is kept as the cause.
  * </p>
+ * <p>
+ * All instances share one client. Call {@link #close()} when you are done so
+ * that the client releases its HTTP connections and threads.
+ * </p>
  */
-public class KinesisActions {
+public class KinesisActions implements AutoCloseable {
 
     private static KinesisAsyncClient kinesisAsyncClient;
 
@@ -93,6 +102,19 @@ public class KinesisActions {
                 .build();
         }
         return kinesisAsyncClient;
+    }
+
+    /**
+     * Closes the shared Kinesis client. A later call creates a new client.
+     */
+    @Override
+    public void close() {
+        synchronized (KinesisActions.class) {
+            if (kinesisAsyncClient != null) {
+                kinesisAsyncClient.close();
+                kinesisAsyncClient = null;
+            }
+        }
     }
 
     /**
@@ -149,7 +171,8 @@ public class KinesisActions {
             .limit(100)
             .build();
 
-        List<StreamSummary> streams = new ArrayList<>();
+        // The subscriber callback runs on SDK threads, so collect into a thread-safe list.
+        List<StreamSummary> streams = Collections.synchronizedList(new ArrayList<>());
         return getAsyncClient().listStreamsPaginator(request)
             .streamSummaries()
             .subscribe(streams::add)
@@ -188,7 +211,7 @@ public class KinesisActions {
                 }
                 throw new CompletionException("Failed to describe stream: " + cause.getMessage(), cause);
             })
-            .thenApply(response -> response.streamDescriptionSummary());
+            .thenApply(DescribeStreamSummaryResponse::streamDescriptionSummary);
     }
     // snippet-end:[kinesis.java2.describe_stream.main]
 
@@ -284,7 +307,7 @@ public class KinesisActions {
                 }
                 throw new CompletionException("Failed to get shard iterator: " + cause.getMessage(), cause);
             })
-            .thenApply(response -> response.shardIterator());
+            .thenApply(GetShardIteratorResponse::shardIterator);
     }
     // snippet-end:[kinesis.java2.get_shard_iterator.main]
 
@@ -425,7 +448,7 @@ public class KinesisActions {
                 }
                 throw new CompletionException("Failed to register consumer: " + cause.getMessage(), cause);
             })
-            .thenApply(response -> response.consumer());
+            .thenApply(RegisterStreamConsumerResponse::consumer);
     }
     // snippet-end:[kinesis.java2.register_consumer.main]
 
@@ -445,7 +468,7 @@ public class KinesisActions {
                 Throwable cause = unwrap(exception);
                 throw new CompletionException("Failed to describe consumer: " + cause.getMessage(), cause);
             })
-            .thenApply(response -> response.consumerDescription());
+            .thenApply(DescribeStreamConsumerResponse::consumerDescription);
     }
 
     // snippet-start:[kinesis.java2.deregister_consumer.main]
