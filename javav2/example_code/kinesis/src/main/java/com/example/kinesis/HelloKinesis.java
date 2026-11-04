@@ -3,92 +3,64 @@
 
 package com.example.kinesis;
 
-import software.amazon.awssdk.core.client.config.ClientOverrideConfiguration;
-import software.amazon.awssdk.core.retry.RetryMode;
-import software.amazon.awssdk.http.async.SdkAsyncHttpClient;
-import software.amazon.awssdk.http.nio.netty.NettyNioAsyncHttpClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.services.kinesis.KinesisAsyncClient;
 import software.amazon.awssdk.services.kinesis.model.LimitExceededException;
 import software.amazon.awssdk.services.kinesis.model.ListStreamsRequest;
-import software.amazon.awssdk.services.kinesis.paginators.ListStreamsPublisher;
 
-import java.time.Duration;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
+import java.util.concurrent.atomic.AtomicInteger;
 
 // snippet-start:[kinesis.java2.hello.main]
 /**
- * A minimal introduction that uses {@link KinesisAsyncClient} to list all
- * Kinesis data streams in the account using the {@code listStreamsPaginator}
- * for full pagination.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
+ * <p>
+ * For more information, see the following documentation topic:
+ * <p>
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class HelloKinesis {
 
+    private static final Logger logger = LoggerFactory.getLogger(HelloKinesis.class);
+
     public static void main(String[] args) {
-        SdkAsyncHttpClient httpClient = NettyNioAsyncHttpClient.builder()
-            .maxConcurrency(100)
-            .connectionTimeout(Duration.ofSeconds(60))
-            .readTimeout(Duration.ofSeconds(60))
-            .writeTimeout(Duration.ofSeconds(60))
-            .build();
-
-        ClientOverrideConfiguration overrideConfig = ClientOverrideConfiguration.builder()
-            .apiCallTimeout(Duration.ofMinutes(2))
-            .apiCallAttemptTimeout(Duration.ofSeconds(90))
-            .retryStrategy(RetryMode.STANDARD)
-            .build();
-
-        KinesisAsyncClient kinesisClient = KinesisAsyncClient.builder()
-            .httpClient(httpClient)
-            .overrideConfiguration(overrideConfig)
-            .build();
-
-        try {
+        try (KinesisAsyncClient kinesisClient = KinesisAsyncClient.create()) {
             listStreams(kinesisClient);
-        } finally {
-            kinesisClient.close();
         }
     }
 
     /**
-     * Lists all Kinesis data streams in the current account/region using the
-     * asynchronous paginator.
+     * Lists up to 10 Kinesis data streams in the current account and Region.
      *
      * @param kinesisClient the {@link KinesisAsyncClient} to use
      */
     public static void listStreams(KinesisAsyncClient kinesisClient) {
-        System.out.println("--- Amazon Kinesis Data Streams Hello ---");
-        System.out.println("Listing all streams in your account:");
+        logger.info("Hello, Amazon Kinesis! Let's list some of your streams:");
+        ListStreamsRequest request = ListStreamsRequest.builder()
+            .limit(10)
+            .build();
 
-        ListStreamsRequest request = ListStreamsRequest.builder().build();
-        ListStreamsPublisher publisher = kinesisClient.listStreamsPaginator(request);
-
-        List<String> streamNames = Collections.synchronizedList(new ArrayList<>());
-
+        AtomicInteger count = new AtomicInteger();
         try {
-            CompletableFuture<Void> future = publisher.subscribe(response -> {
-                if (response.streamNames() != null) {
-                    for (String name : response.streamNames()) {
-                        System.out.println("  Stream: " + name);
-                        streamNames.add(name);
-                    }
-                }
-            });
+            kinesisClient.listStreamsPaginator(request)
+                .streamNames()
+                .limit(10)
+                .subscribe(name -> {
+                    logger.info("  Stream: {}", name);
+                    count.incrementAndGet();
+                })
+                .join();
 
-            future.join();
-
-            if (streamNames.isEmpty()) {
-                System.out.println("No streams found in this account/region.");
+            if (count.get() == 0) {
+                logger.info("No streams found in your account.");
             } else {
-                System.out.println("Found " + streamNames.size() + " stream(s).");
+                logger.info("Found {} stream(s).", count.get());
             }
         } catch (CompletionException e) {
-            Throwable cause = e.getCause();
-            if (cause instanceof LimitExceededException) {
-                System.err.println("Request rate limit exceeded. Please retry after a delay.");
+            if (e.getCause() instanceof LimitExceededException) {
+                logger.error("The request rate is too high. Wait briefly and then retry.");
             }
             throw e;
         }

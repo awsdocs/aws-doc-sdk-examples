@@ -3,291 +3,316 @@
 
 package com.example.kinesis.basics;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.core.SdkBytes;
-import software.amazon.awssdk.services.kinesis.model.DescribeStreamRequest;
-import software.amazon.awssdk.services.kinesis.model.DescribeStreamSummaryResponse;
+import software.amazon.awssdk.services.kinesis.model.Consumer;
+import software.amazon.awssdk.services.kinesis.model.ConsumerStatus;
 import software.amazon.awssdk.services.kinesis.model.GetRecordsResponse;
-import software.amazon.awssdk.services.kinesis.model.GetShardIteratorResponse;
-import software.amazon.awssdk.services.kinesis.model.PutRecordResponse;
 import software.amazon.awssdk.services.kinesis.model.PutRecordsRequestEntry;
 import software.amazon.awssdk.services.kinesis.model.PutRecordsResponse;
+import software.amazon.awssdk.services.kinesis.model.PutRecordsResultEntry;
 import software.amazon.awssdk.services.kinesis.model.Record;
-import software.amazon.awssdk.services.kinesis.model.ResourceInUseException;
 import software.amazon.awssdk.services.kinesis.model.ResourceNotFoundException;
 import software.amazon.awssdk.services.kinesis.model.Shard;
 import software.amazon.awssdk.services.kinesis.model.ShardIteratorType;
 import software.amazon.awssdk.services.kinesis.model.StreamDescriptionSummary;
+import software.amazon.awssdk.services.kinesis.model.StreamSummary;
 import software.amazon.awssdk.services.kinesis.model.Tag;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import java.util.concurrent.CompletionException;
 
 // snippet-start:[kinesis.java2.scenario.main]
 /**
- * Demonstrates the full lifecycle of a Kinesis data stream:
- * create, describe, tag, write, read, and delete — using 10 distinct API operations.
+ * Demonstrates Amazon Kinesis Data Streams basics: list and inspect streams
+ * and shards, write a batch of records, read them back with a shard iterator,
+ * manage tags, and register and deregister an enhanced fan-out consumer.
  * <p>
- * All API calls go through {@link KinesisActions} methods. No interactive input is used.
+ * The scenario creates a stream during setup and deletes it during cleanup.
  * </p>
  */
 public class KinesisScenario {
 
-    public static void main(String[] args) {
-        String randomSuffix = generateRandomSuffix(6);
-        String streamName = "kinesis-basics-" + randomSuffix;
+    private static final Logger logger = LoggerFactory.getLogger(KinesisScenario.class);
+    private static final String DASHES = "-".repeat(80);
+    private static final String CONSUMER_NAME = "sdk-example-consumer";
 
-        System.out.println("==========================================================");
-        System.out.println("  Amazon Kinesis Data Streams — Basics Scenario");
-        System.out.println("==========================================================");
-        System.out.println("Stream name: " + streamName);
-        System.out.println();
+    public static void main(String[] args) {
+        KinesisActions actions = new KinesisActions();
+        try {
+            runScenario(actions);
+        } catch (RuntimeException e) {
+            logger.error("The Kinesis scenario failed: {}", e.getMessage());
+        }
+    }
+
+    /**
+     * Runs the scenario steps in order and always cleans up the resources it created.
+     *
+     * @param actions the {@link KinesisActions} wrapper used to call Kinesis
+     */
+    public static void runScenario(KinesisActions actions) {
+        String streamName = "sdk-example-stream-" + System.currentTimeMillis();
+        boolean streamCreated = false;
+        String consumerArn = null;
+
+        logger.info(DASHES);
+        logger.info("Welcome to the Amazon Kinesis Data Streams Scenario.");
+        logger.info("This scenario demonstrates advanced stream management, batch data");
+        logger.info("ingestion, shard inspection, tagging, and enhanced fan-out consumers.");
+        logger.info(DASHES);
 
         try {
-            // Step 1 — Create the data stream
-            System.out.println("Step 1: Creating stream: " + streamName + "...");
-            try {
-                KinesisActions.createStreamAsync(streamName).join();
-            } catch (CompletionException e) {
-                if (e.getCause() instanceof ResourceInUseException) {
-                    System.out.println("Stream already exists. Proceeding...");
-                } else {
-                    throw e;
-                }
+            // Setup: create a stream with one shard and wait for it to become ACTIVE.
+            logger.info("Setting up resources...");
+            logger.info("Creating Kinesis stream: {}", streamName);
+            actions.createStreamAsync(streamName, 1).join();
+            streamCreated = true;
+            logger.info("Waiting for stream to become ACTIVE...");
+            actions.waitForStreamActiveAsync(streamName).join();
+            logger.info("Stream is now ACTIVE.");
+            logger.info(DASHES);
+
+            // Step 1: List streams and verify that the new stream is present.
+            logger.info("Step 1: Listing streams in your account...");
+            List<StreamSummary> streams = actions.listStreamsAsync().join();
+            boolean found = false;
+            for (StreamSummary stream : streams) {
+                logger.info("  Stream: {} (Status: {}, Mode: {})", stream.streamName(),
+                    stream.streamStatus(), stream.streamModeDetails().streamMode());
+                found = found || streamName.equals(stream.streamName());
             }
+            logger.info("Found {} stream(s). Our scenario stream is {}.", streams.size(),
+                found ? "present" : "not yet listed");
+            logger.info(DASHES);
 
-            // Wait for stream to become ACTIVE using the SDK waiter.
-            // The waiter polls DescribeStream (requires DescribeStreamRequest).
-            System.out.println("Waiting for stream to become ACTIVE...");
-            DescribeStreamRequest describeStreamRequest = DescribeStreamRequest.builder()
-                .streamName(streamName)
-                .build();
-
-            // Access the client's waiter through the actions setter is not available;
-            // we build a temporary client reference through KinesisActions for the waiter.
-            // The waiter is on the async client: waitUntilStreamExists(DescribeStreamRequest).
-            waitForStreamExists(streamName);
-            System.out.println("Stream " + streamName + " is now ACTIVE.");
-            System.out.println();
-
-            // Step 2 — Describe the stream
-            System.out.println("Step 2: Describing stream...");
-            DescribeStreamSummaryResponse describeResponse =
-                KinesisActions.describeStreamSummaryAsync(streamName).join();
-            StreamDescriptionSummary summary = describeResponse.streamDescriptionSummary();
+            // Step 2: Describe the stream summary and save the stream ARN.
+            logger.info("Step 2: Describing stream summary...");
+            StreamDescriptionSummary summary = actions.describeStreamSummaryAsync(streamName).join();
             String streamArn = summary.streamARN();
-            System.out.println("  Stream ARN       : " + streamArn);
-            System.out.println("  Stream Status    : " + summary.streamStatus());
-            System.out.println("  Stream Mode      : " + summary.streamModeDetails().streamMode());
-            System.out.println("  Retention (hours): " + summary.retentionPeriodHours());
-            System.out.println("  Open Shard Count : " + summary.openShardCount());
-            System.out.println();
+            logger.info("  Stream Name: {}", summary.streamName());
+            logger.info("  Stream ARN: {}", streamArn);
+            logger.info("  Status: {}", summary.streamStatus());
+            logger.info("  Retention Period: {} hours", summary.retentionPeriodHours());
+            logger.info("  Open Shard Count: {}", summary.openShardCount());
+            logger.info("  Encryption: {}", summary.encryptionType());
+            logger.info("  Stream Mode: {}", summary.streamModeDetails().streamMode());
+            logger.info(DASHES);
 
-            // Step 3 — Tag the stream
-            System.out.println("Step 3: Adding tags to stream...");
-            Map<String, String> tags = new LinkedHashMap<>();
-            tags.put("Environment", "Development");
-            tags.put("Project", "KinesisBasics");
-            KinesisActions.addTagsToStreamAsync(streamName, tags).join();
-            System.out.println("Added tags to stream " + streamName + ".");
-            System.out.println();
-
-            // Step 4 — List the stream's tags
-            System.out.println("Step 4: Listing tags for stream...");
-            List<Tag> tagList = KinesisActions.listTagsForStreamAsync(streamName).join();
-            for (Tag tag : tagList) {
-                System.out.println("  Tag: " + tag.key() + " = " + tag.value());
+            // Step 3: List the shards and save the first shard ID.
+            logger.info("Step 3: Listing shards in the stream...");
+            List<Shard> shards = actions.listShardsAsync(streamName).join();
+            for (Shard shard : shards) {
+                logger.info("  Shard ID: {}", shard.shardId());
+                logger.info("    Hash Key Range: {} - {}", shard.hashKeyRange().startingHashKey(),
+                    shard.hashKeyRange().endingHashKey());
+                logger.info("    Starting Sequence Number: {}",
+                    shard.sequenceNumberRange().startingSequenceNumber());
             }
-            System.out.println();
+            logger.info("Found {} shard(s).", shards.size());
+            String shardId = shards.get(0).shardId();
+            logger.info(DASHES);
 
-            // Step 5 — Put a single record
-            System.out.println("Step 5: Putting a single record...");
-            SdkBytes singleData = SdkBytes.fromUtf8String("Hello Kinesis - single record");
-            PutRecordResponse putRecordResponse =
-                KinesisActions.putRecordAsync(streamName, "partitionKey-1", singleData).join();
-            System.out.println("  Shard ID       : " + putRecordResponse.shardId());
-            System.out.println("  Sequence Number: " + putRecordResponse.sequenceNumber());
-            System.out.println();
-
-            // Step 6 — Put multiple records in a batch
-            System.out.println("Step 6: Putting batch records (5 records)...");
-            List<PutRecordsRequestEntry> batchRecords = new ArrayList<>();
-            for (int i = 1; i <= 5; i++) {
-                batchRecords.add(PutRecordsRequestEntry.builder()
-                    .data(SdkBytes.fromUtf8String("Batch record #" + i))
-                    .partitionKey("partitionKey-" + i)
+            // Step 4: Write a batch of simulated sensor readings with PutRecords.
+            logger.info("Step 4: Putting 5 records into the stream using PutRecords...");
+            List<PutRecordsRequestEntry> entries = new ArrayList<>();
+            for (String[] reading : sensorReadings()) {
+                entries.add(PutRecordsRequestEntry.builder()
+                    .partitionKey(reading[0])
+                    .data(SdkBytes.fromUtf8String(reading[1]))
                     .build());
             }
-            PutRecordsResponse putRecordsResponse =
-                KinesisActions.putRecordsAsync(streamName, batchRecords).join();
-            if (putRecordsResponse.failedRecordCount() > 0) {
-                System.out.println("  WARNING: " + putRecordsResponse.failedRecordCount()
-                    + " record(s) failed.");
-            }
-            System.out.println("  Successfully wrote "
-                + (putRecordsResponse.records().size() - putRecordsResponse.failedRecordCount())
-                + " record(s).");
-            System.out.println();
-
-            // Step 7 — List shards (manual pagination)
-            System.out.println("Step 7: Listing shards...");
-            List<Shard> shards = KinesisActions.listShardsAsync(streamName).join();
-            for (Shard shard : shards) {
-                System.out.println("  Shard: " + shard.shardId()
-                    + " | Hash range: " + shard.hashKeyRange().startingHashKey()
-                    + " - " + shard.hashKeyRange().endingHashKey());
-            }
-            String firstShardId = shards.get(0).shardId();
-            System.out.println();
-
-            // Step 8 — Get a shard iterator
-            System.out.println("Step 8: Getting shard iterator for shard " + firstShardId + "...");
-            GetShardIteratorResponse shardIteratorResponse =
-                KinesisActions.getShardIteratorAsync(streamName, firstShardId,
-                    ShardIteratorType.TRIM_HORIZON).join();
-            String shardIterator = shardIteratorResponse.shardIterator();
-            System.out.println("Obtained shard iterator for shard " + firstShardId + ".");
-            System.out.println();
-
-            // Step 9 — Get records (retry up to 3 times if empty)
-            System.out.println("Step 9: Reading records from shard...");
-            int maxAttempts = 3;
-            String currentIterator = shardIterator;
-            for (int attempt = 1; attempt <= maxAttempts; attempt++) {
-                GetRecordsResponse getRecordsResponse =
-                    KinesisActions.getRecordsAsync(currentIterator, 25).join();
-                List<Record> records = getRecordsResponse.records();
-
-                if (!records.isEmpty()) {
-                    for (Record record : records) {
-                        System.out.println("  Record: partitionKey=" + record.partitionKey()
-                            + ", data=" + record.data().asUtf8String()
-                            + ", seq=" + record.sequenceNumber()
-                            + ", arrival=" + record.approximateArrivalTimestamp());
-                    }
-                    System.out.println("  Total records retrieved: " + records.size());
-                    System.out.println("  Millis behind latest: "
-                        + getRecordsResponse.millisBehindLatest());
-                    break;
+            PutRecordsResponse putResponse = actions.putRecordsAsync(streamName, entries).join();
+            List<PutRecordsResultEntry> results = putResponse.records();
+            for (int i = 0; i < results.size(); i++) {
+                PutRecordsResultEntry result = results.get(i);
+                if (result.errorCode() == null) {
+                    logger.info("  Record {}: ShardId={}, SequenceNumber={}", i + 1, result.shardId(),
+                        result.sequenceNumber());
                 } else {
-                    System.out.println("  Attempt " + attempt + ": No records yet. Waiting 1 second...");
-                    if (attempt < maxAttempts) {
-                        try {
-                            Thread.sleep(1000);
-                        } catch (InterruptedException ie) {
-                            Thread.currentThread().interrupt();
-                            break;
-                        }
-                        currentIterator = getRecordsResponse.nextShardIterator();
-                    }
+                    logger.warn("  Record {} failed: {} - {}", i + 1, result.errorCode(),
+                        result.errorMessage());
                 }
             }
-            System.out.println();
+            logger.info("Successfully put {} record(s) with {} failures.",
+                results.size() - putResponse.failedRecordCount(), putResponse.failedRecordCount());
+            logger.info(DASHES);
 
+            // Step 5: Get a shard iterator and read the records back.
+            logger.info("Step 5: Getting shard iterator (TRIM_HORIZON) and reading records...");
+            String shardIterator = actions.getShardIteratorAsync(streamName, shardId,
+                ShardIteratorType.TRIM_HORIZON).join();
+            logger.info("  Obtained shard iterator for {}.", shardId);
+            logger.info("  Reading records from the stream...");
+            int recordsRead = readRecords(actions, shardIterator, entries.size());
+            logger.info("Read {} record(s) from the stream.", recordsRead);
+            logger.info(DASHES);
+
+            // Step 6: Add tags to the stream.
+            logger.info("Step 6: Adding tags to the stream...");
+            Map<String, String> tags = new LinkedHashMap<>();
+            tags.put("Project", "kinesis-demo");
+            tags.put("Environment", "development");
+            tags.put("CostCenter", "12345");
+            actions.addTagsToStreamAsync(streamName, tags).join();
+            tags.forEach((key, value) -> logger.info("  Added tag: {} = {}", key, value));
+            logger.info("Tags added successfully. Tags help you organize and track costs for streams.");
+            logger.info(DASHES);
+
+            // Step 7: List the tags on the stream.
+            logger.info("Step 7: Listing tags for the stream...");
+            List<Tag> streamTags = actions.listTagsForStreamAsync(streamName).join();
+            streamTags.forEach(tag -> logger.info("  Tag: {} = {}", tag.key(), tag.value()));
+            logger.info("Found {} tag(s).", streamTags.size());
+            logger.info(DASHES);
+
+            // Step 8: Remove a tag and verify the remaining tags.
+            logger.info("Step 8: Removing the CostCenter tag from the stream...");
+            actions.removeTagsFromStreamAsync(streamName, List.of("CostCenter")).join();
+            logger.info("Tag removed successfully.");
+            logger.info("Verifying remaining tags...");
+            List<Tag> remainingTags = actions.listTagsForStreamAsync(streamName).join();
+            remainingTags.forEach(tag -> logger.info("  Tag: {} = {}", tag.key(), tag.value()));
+            logger.info("Confirmed: {} tag(s) remaining after removal.", remainingTags.size());
+            logger.info(DASHES);
+
+            // Step 9: Register an enhanced fan-out consumer and wait for it to become ACTIVE.
+            logger.info("Step 9: Registering an enhanced fan-out consumer...");
+            Consumer consumer = actions.registerStreamConsumerAsync(streamArn, CONSUMER_NAME).join();
+            consumerArn = consumer.consumerARN();
+            logger.info("  Consumer Name: {}", consumer.consumerName());
+            logger.info("  Consumer ARN: {}", consumerArn);
+            logger.info("  Status: {}", consumer.consumerStatus());
+            logger.info("Waiting for consumer to become ACTIVE...");
+            waitForConsumerActive(actions, consumerArn);
+            logger.info("Enhanced fan-out consumer registered successfully.");
+            logger.info("Each enhanced fan-out consumer gets dedicated read throughput of "
+                + "2 MiB/second per shard.");
+            logger.info(DASHES);
+
+            // Step 10: Deregister the consumer.
+            logger.info("Step 10: Deregistering the enhanced fan-out consumer...");
+            actions.deregisterStreamConsumerAsync(consumerArn).join();
+            consumerArn = null;
+            logger.info("Consumer '{}' deregistered successfully.", CONSUMER_NAME);
+            logger.info("Enhanced fan-out charges will stop for this consumer.");
+            logger.info(DASHES);
+
+        } catch (RuntimeException e) {
+            logger.error("The scenario encountered an error: {}", e.getMessage());
+            throw e;
         } finally {
-            // Cleanup — Step 10: Delete the stream
-            System.out.println("Step 10: Deleting stream " + streamName + "...");
-            try {
-                KinesisActions.deleteStreamAsync(streamName).join();
-                System.out.println("Waiting for stream to be deleted...");
-                waitForStreamNotExists(streamName);
-                System.out.println("Stream " + streamName + " has been deleted.");
-            } catch (CompletionException e) {
-                if (e.getCause() instanceof ResourceNotFoundException) {
-                    System.out.println("Stream already deleted.");
-                } else {
-                    System.err.println("Error during cleanup: " + e.getCause().getMessage());
-                }
-            }
+            cleanUp(actions, streamName, streamCreated, consumerArn);
         }
 
-        System.out.println();
-        System.out.println("==========================================================");
-        System.out.println("  Kinesis Basics Scenario completed successfully.");
-        System.out.println("==========================================================");
+        logger.info("Amazon Kinesis Data Streams scenario complete!");
     }
 
     /**
-     * Waits for the stream to reach ACTIVE state using a polling loop with
-     * DescribeStreamSummary. The SDK waiter {@code waitUntilStreamExists}
-     * requires {@link DescribeStreamRequest}.
+     * Reads records with GetRecords until the expected number of records is
+     * returned or the attempts are used up.
      */
-    private static void waitForStreamExists(String streamName) {
-        int maxWaitSeconds = 120;
-        int pollIntervalSeconds = 5;
-        int elapsed = 0;
-        while (elapsed < maxWaitSeconds) {
-            try {
-                DescribeStreamSummaryResponse response =
-                    KinesisActions.describeStreamSummaryAsync(streamName).join();
-                String status = response.streamDescriptionSummary().streamStatus().toString();
-                if ("ACTIVE".equals(status)) {
-                    return;
-                }
-                System.out.println("  Stream status: " + status + " — waiting...");
-            } catch (CompletionException e) {
-                if (e.getCause() instanceof ResourceNotFoundException) {
-                    System.out.println("  Stream not yet visible — waiting...");
-                } else {
-                    throw e;
-                }
+    private static int readRecords(KinesisActions actions, String shardIterator, int expected) {
+        int recordsRead = 0;
+        String iterator = shardIterator;
+        for (int attempt = 0; attempt < 10 && recordsRead < expected && iterator != null; attempt++) {
+            GetRecordsResponse response = actions.getRecordsAsync(iterator, 25).join();
+            for (Record record : response.records()) {
+                recordsRead++;
+                logger.info("  Record {}: {}", recordsRead, record.data().asUtf8String());
             }
-            try {
-                Thread.sleep(pollIntervalSeconds * 1000L);
-            } catch (InterruptedException ie) {
-                Thread.currentThread().interrupt();
-                return;
+            iterator = response.nextShardIterator();
+            if (recordsRead < expected) {
+                // Newly written records can take a moment to become readable, and a
+                // GetRecords call can return an empty batch, so pause before polling again.
+                sleep(1000);
             }
-            elapsed += pollIntervalSeconds;
         }
-        throw new RuntimeException("Stream " + streamName + " did not become ACTIVE within "
-            + maxWaitSeconds + " seconds.");
+        return recordsRead;
     }
 
     /**
-     * Waits for the stream to be fully deleted using a polling loop with
-     * DescribeStreamSummary. When the stream no longer exists,
-     * a {@link ResourceNotFoundException} is thrown, indicating deletion is complete.
+     * Polls DescribeStreamConsumer until the consumer is ACTIVE. The SDK has no
+     * waiter for stream consumers.
      */
-    private static void waitForStreamNotExists(String streamName) {
-        int maxWaitSeconds = 120;
-        int pollIntervalSeconds = 5;
-        int elapsed = 0;
-        while (elapsed < maxWaitSeconds) {
-            try {
-                DescribeStreamSummaryResponse response =
-                    KinesisActions.describeStreamSummaryAsync(streamName).join();
-                String status = response.streamDescriptionSummary().streamStatus().toString();
-                System.out.println("  Stream status: " + status + " — waiting for deletion...");
-            } catch (CompletionException e) {
-                if (e.getCause() instanceof ResourceNotFoundException) {
-                    return; // Stream is gone
-                }
-                throw e;
-            }
-            try {
-                Thread.sleep(pollIntervalSeconds * 1000L);
-            } catch (InterruptedException ie) {
-                Thread.currentThread().interrupt();
+    private static void waitForConsumerActive(KinesisActions actions, String consumerArn) {
+        for (int attempt = 0; attempt < 30; attempt++) {
+            ConsumerStatus status = actions.describeStreamConsumerAsync(consumerArn).join().consumerStatus();
+            if (status == ConsumerStatus.ACTIVE) {
+                logger.info("  Consumer status: {}", status);
                 return;
             }
-            elapsed += pollIntervalSeconds;
+            // Consumer registration takes several seconds, so wait between status checks.
+            sleep(2000);
         }
-        throw new RuntimeException("Stream " + streamName + " was not deleted within "
-            + maxWaitSeconds + " seconds.");
+        throw new IllegalStateException("Consumer did not become ACTIVE within 60 seconds.");
     }
 
-    private static String generateRandomSuffix(int length) {
-        String chars = "abcdefghijklmnopqrstuvwxyz0123456789";
-        Random random = new Random();
-        StringBuilder sb = new StringBuilder(length);
-        for (int i = 0; i < length; i++) {
-            sb.append(chars.charAt(random.nextInt(chars.length())));
+    /**
+     * Deletes the resources that the scenario created. Each step has its own
+     * try/catch so that a failure does not hide the original error.
+     */
+    private static void cleanUp(KinesisActions actions, String streamName, boolean streamCreated,
+                                String consumerArn) {
+        logger.info(DASHES);
+        logger.info("Cleaning up resources...");
+        if (consumerArn != null) {
+            logger.info("Ensuring consumer is deregistered...");
+            try {
+                actions.deregisterStreamConsumerAsync(consumerArn).join();
+                logger.info("  Consumer deregistered.");
+            } catch (CompletionException e) {
+                if (e.getCause() instanceof ResourceNotFoundException) {
+                    logger.info("  Consumer already deregistered.");
+                } else {
+                    logger.warn("  Failed to deregister consumer: {}", e.getMessage());
+                }
+            }
         }
-        return sb.toString();
+        if (streamCreated) {
+            try {
+                logger.info("Deleting stream: {}", streamName);
+                actions.deleteStreamAsync(streamName).join();
+                logger.info("Waiting for stream deletion to complete...");
+                actions.waitForStreamDeletedAsync(streamName).join();
+                logger.info("Stream deleted successfully.");
+            } catch (CompletionException e) {
+                logger.warn("Failed to delete stream {}: {}", streamName, e.getMessage());
+            }
+        }
+        logger.info(DASHES);
+    }
+
+    /**
+     * Returns simulated IoT sensor readings as {partition key, JSON payload} pairs.
+     * The sensor ID is the partition key so that readings from the same sensor
+     * go to the same shard.
+     */
+    private static List<String[]> sensorReadings() {
+        return List.of(
+            new String[]{"sensor-001",
+                "{\"sensor_id\": \"sensor-001\", \"temperature\": 72.5, \"timestamp\": \"2024-01-15T10:00:00Z\"}"},
+            new String[]{"sensor-002",
+                "{\"sensor_id\": \"sensor-002\", \"temperature\": 68.3, \"timestamp\": \"2024-01-15T10:00:01Z\"}"},
+            new String[]{"sensor-001",
+                "{\"sensor_id\": \"sensor-001\", \"temperature\": 73.1, \"timestamp\": \"2024-01-15T10:00:02Z\"}"},
+            new String[]{"sensor-003",
+                "{\"sensor_id\": \"sensor-003\", \"temperature\": 75.8, \"timestamp\": \"2024-01-15T10:00:03Z\"}"},
+            new String[]{"sensor-002",
+                "{\"sensor_id\": \"sensor-002\", \"temperature\": 67.9, \"timestamp\": \"2024-01-15T10:00:04Z\"}"});
+    }
+
+    private static void sleep(long millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            throw new IllegalStateException("Interrupted while waiting.", e);
+        }
     }
 }
 // snippet-end:[kinesis.java2.scenario.main]

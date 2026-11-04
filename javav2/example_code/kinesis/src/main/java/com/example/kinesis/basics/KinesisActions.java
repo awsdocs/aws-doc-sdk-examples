@@ -3,41 +3,46 @@
 
 package com.example.kinesis.basics;
 
-import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.core.client.config.ClientOverrideConfiguration;
 import software.amazon.awssdk.core.retry.RetryMode;
+import software.amazon.awssdk.core.waiters.WaiterResponse;
 import software.amazon.awssdk.http.async.SdkAsyncHttpClient;
 import software.amazon.awssdk.http.nio.netty.NettyNioAsyncHttpClient;
 import software.amazon.awssdk.services.kinesis.KinesisAsyncClient;
 import software.amazon.awssdk.services.kinesis.model.AddTagsToStreamRequest;
 import software.amazon.awssdk.services.kinesis.model.AddTagsToStreamResponse;
+import software.amazon.awssdk.services.kinesis.model.Consumer;
+import software.amazon.awssdk.services.kinesis.model.ConsumerDescription;
 import software.amazon.awssdk.services.kinesis.model.CreateStreamRequest;
 import software.amazon.awssdk.services.kinesis.model.CreateStreamResponse;
 import software.amazon.awssdk.services.kinesis.model.DeleteStreamRequest;
 import software.amazon.awssdk.services.kinesis.model.DeleteStreamResponse;
+import software.amazon.awssdk.services.kinesis.model.DeregisterStreamConsumerRequest;
+import software.amazon.awssdk.services.kinesis.model.DeregisterStreamConsumerResponse;
+import software.amazon.awssdk.services.kinesis.model.DescribeStreamConsumerRequest;
+import software.amazon.awssdk.services.kinesis.model.DescribeStreamRequest;
+import software.amazon.awssdk.services.kinesis.model.DescribeStreamResponse;
 import software.amazon.awssdk.services.kinesis.model.DescribeStreamSummaryRequest;
-import software.amazon.awssdk.services.kinesis.model.DescribeStreamSummaryResponse;
-import software.amazon.awssdk.services.kinesis.model.ExpiredIteratorException;
 import software.amazon.awssdk.services.kinesis.model.GetRecordsRequest;
 import software.amazon.awssdk.services.kinesis.model.GetRecordsResponse;
 import software.amazon.awssdk.services.kinesis.model.GetShardIteratorRequest;
-import software.amazon.awssdk.services.kinesis.model.GetShardIteratorResponse;
+import software.amazon.awssdk.services.kinesis.model.InvalidArgumentException;
+import software.amazon.awssdk.services.kinesis.model.LimitExceededException;
 import software.amazon.awssdk.services.kinesis.model.ListShardsRequest;
-import software.amazon.awssdk.services.kinesis.model.ListShardsResponse;
+import software.amazon.awssdk.services.kinesis.model.ListStreamsRequest;
 import software.amazon.awssdk.services.kinesis.model.ListTagsForStreamRequest;
-import software.amazon.awssdk.services.kinesis.model.ListTagsForStreamResponse;
-import software.amazon.awssdk.services.kinesis.model.ProvisionedThroughputExceededException;
-import software.amazon.awssdk.services.kinesis.model.PutRecordRequest;
-import software.amazon.awssdk.services.kinesis.model.PutRecordResponse;
 import software.amazon.awssdk.services.kinesis.model.PutRecordsRequest;
 import software.amazon.awssdk.services.kinesis.model.PutRecordsRequestEntry;
 import software.amazon.awssdk.services.kinesis.model.PutRecordsResponse;
+import software.amazon.awssdk.services.kinesis.model.RegisterStreamConsumerRequest;
+import software.amazon.awssdk.services.kinesis.model.RemoveTagsFromStreamRequest;
+import software.amazon.awssdk.services.kinesis.model.RemoveTagsFromStreamResponse;
 import software.amazon.awssdk.services.kinesis.model.ResourceInUseException;
 import software.amazon.awssdk.services.kinesis.model.ResourceNotFoundException;
 import software.amazon.awssdk.services.kinesis.model.Shard;
 import software.amazon.awssdk.services.kinesis.model.ShardIteratorType;
-import software.amazon.awssdk.services.kinesis.model.StreamModeDetails;
-import software.amazon.awssdk.services.kinesis.model.StreamMode;
+import software.amazon.awssdk.services.kinesis.model.StreamDescriptionSummary;
+import software.amazon.awssdk.services.kinesis.model.StreamSummary;
 import software.amazon.awssdk.services.kinesis.model.Tag;
 
 import java.time.Duration;
@@ -49,19 +54,25 @@ import java.util.concurrent.CompletionException;
 
 // snippet-start:[kinesis.java2.actions.main]
 /**
- * Wrapper class for Amazon Kinesis Data Streams async operations.
+ * Wrapper class for Amazon Kinesis Data Streams operations that uses the
+ * asynchronous {@link KinesisAsyncClient}.
  * <p>
- * All methods are static and return {@link CompletableFuture}. Failures are
- * handled in {@code .whenComplete()} — the cause is unwrapped, checked for the
- * specific SDK v2 exception, logged, and rethrown as a
- * {@link CompletionException}.
+ * Each method returns a {@link CompletableFuture}. Failures are handled in
+ * {@code exceptionally()}: the most relevant service exception is rethrown as a
+ * {@link CompletionException} with an actionable message, and the original
+ * service exception is kept as the cause.
  * </p>
  */
 public class KinesisActions {
 
-    private static volatile KinesisAsyncClient kinesisAsyncClient;
+    private static KinesisAsyncClient kinesisAsyncClient;
 
-    private static KinesisAsyncClient getAsyncClient() {
+    /**
+     * Retrieves an asynchronous Kinesis client, creating it on first use.
+     *
+     * @return the shared {@link KinesisAsyncClient}
+     */
+    private static synchronized KinesisAsyncClient getAsyncClient() {
         if (kinesisAsyncClient == null) {
             SdkAsyncHttpClient httpClient = NettyNioAsyncHttpClient.builder()
                 .maxConcurrency(100)
@@ -85,258 +96,179 @@ public class KinesisActions {
     }
 
     /**
-     * Creates a Kinesis data stream in ON_DEMAND mode.
+     * Creates a provisioned Kinesis data stream.
      *
      * @param streamName the name of the stream to create
-     * @return a {@link CompletableFuture} containing the {@link CreateStreamResponse}
+     * @param shardCount the number of shards for the stream
+     * @return a {@link CompletableFuture} that contains the {@link CreateStreamResponse}
      */
-    public static CompletableFuture<CreateStreamResponse> createStreamAsync(String streamName) {
+    public CompletableFuture<CreateStreamResponse> createStreamAsync(String streamName, int shardCount) {
         CreateStreamRequest request = CreateStreamRequest.builder()
             .streamName(streamName)
-            .streamModeDetails(StreamModeDetails.builder()
-                .streamMode(StreamMode.ON_DEMAND)
-                .build())
+            .shardCount(shardCount)
             .build();
 
         return getAsyncClient().createStream(request)
-            .whenComplete((response, exception) -> {
-                if (exception != null) {
-                    Throwable cause = exception.getCause() != null ? exception.getCause() : exception;
-                    if (cause instanceof ResourceInUseException) {
-                        System.err.println("Stream '" + streamName + "' already exists: " + cause.getMessage());
-                    }
-                    throw new CompletionException(cause);
+            .exceptionally(exception -> {
+                Throwable cause = unwrap(exception);
+                if (cause instanceof ResourceInUseException) {
+                    throw new CompletionException(
+                        "Stream '" + streamName + "' already exists or is being created.", cause);
                 }
-                System.out.println("CreateStream request accepted for: " + streamName);
+                throw new CompletionException("Failed to create stream: " + cause.getMessage(), cause);
             });
     }
 
+    /**
+     * Waits until a stream is ACTIVE by using the SDK waiter.
+     *
+     * @param streamName the name of the stream
+     * @return a {@link CompletableFuture} that completes when the stream is ACTIVE
+     */
+    public CompletableFuture<WaiterResponse<DescribeStreamResponse>> waitForStreamActiveAsync(String streamName) {
+        DescribeStreamRequest request = DescribeStreamRequest.builder()
+            .streamName(streamName)
+            .build();
+
+        return getAsyncClient().waiter().waitUntilStreamExists(request)
+            .exceptionally(exception -> {
+                Throwable cause = unwrap(exception);
+                throw new CompletionException(
+                    "Stream '" + streamName + "' did not become ACTIVE: " + cause.getMessage(), cause);
+            });
+    }
+
+    // snippet-start:[kinesis.java2.list_streams.main]
+    /**
+     * Lists all streams in the account and Region by using the async paginator.
+     *
+     * @return a {@link CompletableFuture} that contains the list of {@link StreamSummary} objects
+     */
+    public CompletableFuture<List<StreamSummary>> listStreamsAsync() {
+        ListStreamsRequest request = ListStreamsRequest.builder()
+            .limit(100)
+            .build();
+
+        List<StreamSummary> streams = new ArrayList<>();
+        return getAsyncClient().listStreamsPaginator(request)
+            .streamSummaries()
+            .subscribe(streams::add)
+            .handle((ignored, exception) -> {
+                if (exception != null) {
+                    Throwable cause = unwrap(exception);
+                    if (cause instanceof LimitExceededException) {
+                        throw new CompletionException(
+                            "The request rate is too high. Wait briefly and then retry.", cause);
+                    }
+                    throw new CompletionException("Failed to list streams: " + cause.getMessage(), cause);
+                }
+                return streams;
+            });
+    }
+    // snippet-end:[kinesis.java2.list_streams.main]
+
     // snippet-start:[kinesis.java2.describe_stream.main]
     /**
-     * Describes a Kinesis data stream summary.
+     * Gets a summary description of a stream without listing its shards.
      *
      * @param streamName the name of the stream to describe
-     * @return a {@link CompletableFuture} containing the {@link DescribeStreamSummaryResponse}
+     * @return a {@link CompletableFuture} that contains the {@link StreamDescriptionSummary}
      */
-    public static CompletableFuture<DescribeStreamSummaryResponse> describeStreamSummaryAsync(String streamName) {
+    public CompletableFuture<StreamDescriptionSummary> describeStreamSummaryAsync(String streamName) {
         DescribeStreamSummaryRequest request = DescribeStreamSummaryRequest.builder()
             .streamName(streamName)
             .build();
 
         return getAsyncClient().describeStreamSummary(request)
-            .whenComplete((response, exception) -> {
-                if (exception != null) {
-                    Throwable cause = exception.getCause() != null ? exception.getCause() : exception;
-                    if (cause instanceof ResourceNotFoundException) {
-                        System.err.println("Stream '" + streamName + "' not found: " + cause.getMessage());
-                    }
-                    throw new CompletionException(cause);
+            .exceptionally(exception -> {
+                Throwable cause = unwrap(exception);
+                if (cause instanceof ResourceNotFoundException) {
+                    throw new CompletionException(
+                        "Stream '" + streamName + "' was not found. Check the stream name.", cause);
                 }
-                System.out.println("Described stream: " + streamName);
-            });
+                throw new CompletionException("Failed to describe stream: " + cause.getMessage(), cause);
+            })
+            .thenApply(response -> response.streamDescriptionSummary());
     }
     // snippet-end:[kinesis.java2.describe_stream.main]
 
-    // snippet-start:[kinesis.java2.add_tags.main]
+    // snippet-start:[kinesis.java2.list_shards.main]
     /**
-     * Adds tags to a Kinesis data stream.
+     * Lists all shards in a stream. The async client has no paginator for
+     * ListShards, so this method follows {@code nextToken} manually.
      *
-     * @param streamName the name of the stream to tag
-     * @param tags       the map of tag key-value pairs
-     * @return a {@link CompletableFuture} containing the {@link AddTagsToStreamResponse}
+     * @param streamName the name of the stream
+     * @return a {@link CompletableFuture} that contains the list of {@link Shard} objects
      */
-    public static CompletableFuture<AddTagsToStreamResponse> addTagsToStreamAsync(String streamName,
-                                                                                   Map<String, String> tags) {
-        AddTagsToStreamRequest request = AddTagsToStreamRequest.builder()
-            .streamName(streamName)
-            .tags(tags)
-            .build();
-
-        return getAsyncClient().addTagsToStream(request)
-            .whenComplete((response, exception) -> {
-                if (exception != null) {
-                    Throwable cause = exception.getCause() != null ? exception.getCause() : exception;
-                    if (cause instanceof ResourceNotFoundException) {
-                        System.err.println("Stream '" + streamName + "' not found for tagging: " + cause.getMessage());
-                    }
-                    throw new CompletionException(cause);
-                }
-                System.out.println("Added tags to stream: " + streamName);
-            });
-    }
-    // snippet-end:[kinesis.java2.add_tags.main]
-
-    // snippet-start:[kinesis.java2.list_tags.main]
-    /**
-     * Lists all tags on a Kinesis data stream using manual pagination
-     * (chaining futures with {@code thenCompose}).
-     *
-     * @param streamName the name of the stream whose tags to list
-     * @return a {@link CompletableFuture} containing the list of {@link Tag} objects
-     */
-    public static CompletableFuture<List<Tag>> listTagsForStreamAsync(String streamName) {
-        List<Tag> allTags = new ArrayList<>();
-
-        return listTagsPage(streamName, null, allTags);
+    public CompletableFuture<List<Shard>> listShardsAsync(String streamName) {
+        return listShardsPage(streamName, null, new ArrayList<>());
     }
 
-    private static CompletableFuture<List<Tag>> listTagsPage(String streamName,
-                                                              String exclusiveStartTagKey,
-                                                              List<Tag> accumulator) {
-        ListTagsForStreamRequest.Builder requestBuilder = ListTagsForStreamRequest.builder()
-            .streamName(streamName);
+    private CompletableFuture<List<Shard>> listShardsPage(String streamName, String nextToken,
+                                                          List<Shard> shards) {
+        // A request that includes nextToken must not also include the stream name.
+        ListShardsRequest request = nextToken == null
+            ? ListShardsRequest.builder().streamName(streamName).build()
+            : ListShardsRequest.builder().nextToken(nextToken).build();
 
-        if (exclusiveStartTagKey != null) {
-            requestBuilder.exclusiveStartTagKey(exclusiveStartTagKey);
-        }
-
-        return getAsyncClient().listTagsForStream(requestBuilder.build())
-            .whenComplete((response, exception) -> {
-                if (exception != null) {
-                    Throwable cause = exception.getCause() != null ? exception.getCause() : exception;
-                    if (cause instanceof ResourceNotFoundException) {
-                        System.err.println("Stream '" + streamName + "' not found for listing tags: "
-                            + cause.getMessage());
-                    }
-                    throw new CompletionException(cause);
+        return getAsyncClient().listShards(request)
+            .exceptionally(exception -> {
+                Throwable cause = unwrap(exception);
+                if (cause instanceof ResourceNotFoundException) {
+                    throw new CompletionException(
+                        "Stream '" + streamName + "' was not found. Verify that it is ACTIVE.", cause);
                 }
+                throw new CompletionException("Failed to list shards: " + cause.getMessage(), cause);
             })
             .thenCompose(response -> {
-                if (response.tags() != null) {
-                    accumulator.addAll(response.tags());
+                shards.addAll(response.shards());
+                if (response.nextToken() != null) {
+                    return listShardsPage(streamName, response.nextToken(), shards);
                 }
-                if (response.hasMoreTags() != null && response.hasMoreTags()) {
-                    // Get the last tag key for the next page
-                    String lastTagKey = response.tags().get(response.tags().size() - 1).key();
-                    return listTagsPage(streamName, lastTagKey, accumulator);
-                }
-                return CompletableFuture.completedFuture(accumulator);
+                return CompletableFuture.completedFuture(shards);
             });
     }
-    // snippet-end:[kinesis.java2.list_tags.main]
-
-    /**
-     * Writes a single data record to a Kinesis data stream.
-     *
-     * @param streamName   the name of the stream
-     * @param partitionKey the partition key for the record
-     * @param data         the data payload as {@link SdkBytes}
-     * @return a {@link CompletableFuture} containing the {@link PutRecordResponse}
-     */
-    public static CompletableFuture<PutRecordResponse> putRecordAsync(String streamName,
-                                                                       String partitionKey,
-                                                                       SdkBytes data) {
-        PutRecordRequest request = PutRecordRequest.builder()
-            .streamName(streamName)
-            .partitionKey(partitionKey)
-            .data(data)
-            .build();
-
-        return getAsyncClient().putRecord(request)
-            .whenComplete((response, exception) -> {
-                if (exception != null) {
-                    Throwable cause = exception.getCause() != null ? exception.getCause() : exception;
-                    if (cause instanceof ProvisionedThroughputExceededException) {
-                        System.err.println("Write throughput exceeded for stream '"
-                            + streamName + "': " + cause.getMessage());
-                    }
-                    throw new CompletionException(cause);
-                }
-                System.out.println("Put record to shard: " + response.shardId()
-                    + ", seq: " + response.sequenceNumber());
-            });
-    }
+    // snippet-end:[kinesis.java2.list_shards.main]
 
     // snippet-start:[kinesis.java2.put_records.main]
     /**
-     * Writes multiple data records in a batch to a Kinesis data stream.
+     * Writes a batch of records to a stream in a single call.
      *
      * @param streamName the name of the stream
-     * @param records    the list of {@link PutRecordsRequestEntry} to write
-     * @return a {@link CompletableFuture} containing the {@link PutRecordsResponse}
+     * @param records    the records to write
+     * @return a {@link CompletableFuture} that contains the {@link PutRecordsResponse}
      */
-    public static CompletableFuture<PutRecordsResponse> putRecordsAsync(String streamName,
-                                                                         List<PutRecordsRequestEntry> records) {
+    public CompletableFuture<PutRecordsResponse> putRecordsAsync(String streamName,
+                                                                 List<PutRecordsRequestEntry> records) {
         PutRecordsRequest request = PutRecordsRequest.builder()
             .streamName(streamName)
             .records(records)
             .build();
 
         return getAsyncClient().putRecords(request)
-            .whenComplete((response, exception) -> {
-                if (exception != null) {
-                    Throwable cause = exception.getCause() != null ? exception.getCause() : exception;
-                    if (cause instanceof ProvisionedThroughputExceededException) {
-                        System.err.println("Batch write throughput exceeded for stream '"
-                            + streamName + "': " + cause.getMessage());
-                    }
-                    throw new CompletionException(cause);
+            .exceptionally(exception -> {
+                Throwable cause = unwrap(exception);
+                if (cause instanceof InvalidArgumentException) {
+                    throw new CompletionException(
+                        "A parameter is invalid. Each record must be 1 MiB or less, "
+                            + "and each request 5 MiB or less.", cause);
                 }
-                System.out.println("PutRecords: " + response.records().size()
-                    + " record(s), " + response.failedRecordCount() + " failed.");
+                throw new CompletionException("Failed to put records: " + cause.getMessage(), cause);
             });
     }
     // snippet-end:[kinesis.java2.put_records.main]
 
-    // snippet-start:[kinesis.java2.list_shards.main]
-    /**
-     * Lists all shards in a Kinesis data stream using manual pagination
-     * (the SDK does not have a {@code listShardsPaginator} for the async client).
-     *
-     * @param streamName the name of the stream
-     * @return a {@link CompletableFuture} containing the list of {@link Shard} objects
-     */
-    public static CompletableFuture<List<Shard>> listShardsAsync(String streamName) {
-        List<Shard> allShards = new ArrayList<>();
-        return listShardsPage(streamName, null, allShards);
-    }
-
-    private static CompletableFuture<List<Shard>> listShardsPage(String streamName,
-                                                                  String nextToken,
-                                                                  List<Shard> accumulator) {
-        ListShardsRequest.Builder requestBuilder = ListShardsRequest.builder();
-
-        if (nextToken != null) {
-            // When using nextToken, do NOT set streamName — the token encodes the stream.
-            requestBuilder.nextToken(nextToken);
-        } else {
-            requestBuilder.streamName(streamName);
-        }
-
-        return getAsyncClient().listShards(requestBuilder.build())
-            .whenComplete((response, exception) -> {
-                if (exception != null) {
-                    Throwable cause = exception.getCause() != null ? exception.getCause() : exception;
-                    if (cause instanceof ResourceNotFoundException) {
-                        System.err.println("Stream '" + streamName + "' not found for listing shards: "
-                            + cause.getMessage());
-                    }
-                    throw new CompletionException(cause);
-                }
-            })
-            .thenCompose(response -> {
-                if (response.shards() != null) {
-                    accumulator.addAll(response.shards());
-                }
-                if (response.nextToken() != null && !response.nextToken().isEmpty()) {
-                    return listShardsPage(streamName, response.nextToken(), accumulator);
-                }
-                return CompletableFuture.completedFuture(accumulator);
-            });
-    }
-    // snippet-end:[kinesis.java2.list_shards.main]
-
     // snippet-start:[kinesis.java2.get_shard_iterator.main]
     /**
-     * Obtains a shard iterator for reading records from a specific shard.
+     * Gets a shard iterator for reading records from a shard.
      *
      * @param streamName        the name of the stream
-     * @param shardId           the shard identifier
-     * @param shardIteratorType the type of shard iterator (e.g., TRIM_HORIZON)
-     * @return a {@link CompletableFuture} containing the {@link GetShardIteratorResponse}
+     * @param shardId           the ID of the shard
+     * @param shardIteratorType where in the shard to start reading
+     * @return a {@link CompletableFuture} that contains the shard iterator
      */
-    public static CompletableFuture<GetShardIteratorResponse> getShardIteratorAsync(
-            String streamName, String shardId, ShardIteratorType shardIteratorType) {
+    public CompletableFuture<String> getShardIteratorAsync(String streamName, String shardId,
+                                                           ShardIteratorType shardIteratorType) {
         GetShardIteratorRequest request = GetShardIteratorRequest.builder()
             .streamName(streamName)
             .shardId(shardId)
@@ -344,69 +276,253 @@ public class KinesisActions {
             .build();
 
         return getAsyncClient().getShardIterator(request)
-            .whenComplete((response, exception) -> {
-                if (exception != null) {
-                    Throwable cause = exception.getCause() != null ? exception.getCause() : exception;
-                    if (cause instanceof ResourceNotFoundException) {
-                        System.err.println("Stream or shard not found: " + cause.getMessage());
-                    }
-                    throw new CompletionException(cause);
+            .exceptionally(exception -> {
+                Throwable cause = unwrap(exception);
+                if (cause instanceof ResourceNotFoundException) {
+                    throw new CompletionException(
+                        "Stream or shard '" + shardId + "' was not found. Verify the shard ID.", cause);
                 }
-                System.out.println("Obtained shard iterator for shard: " + shardId);
-            });
+                throw new CompletionException("Failed to get shard iterator: " + cause.getMessage(), cause);
+            })
+            .thenApply(response -> response.shardIterator());
     }
     // snippet-end:[kinesis.java2.get_shard_iterator.main]
 
     /**
-     * Reads data records from a shard using a shard iterator.
+     * Reads records from a shard by using a shard iterator.
      *
      * @param shardIterator the shard iterator
      * @param limit         the maximum number of records to return
-     * @return a {@link CompletableFuture} containing the {@link GetRecordsResponse}
+     * @return a {@link CompletableFuture} that contains the {@link GetRecordsResponse}
      */
-    public static CompletableFuture<GetRecordsResponse> getRecordsAsync(String shardIterator, int limit) {
+    public CompletableFuture<GetRecordsResponse> getRecordsAsync(String shardIterator, int limit) {
         GetRecordsRequest request = GetRecordsRequest.builder()
             .shardIterator(shardIterator)
             .limit(limit)
             .build();
 
         return getAsyncClient().getRecords(request)
-            .whenComplete((response, exception) -> {
-                if (exception != null) {
-                    Throwable cause = exception.getCause() != null ? exception.getCause() : exception;
-                    if (cause instanceof ExpiredIteratorException) {
-                        System.err.println("Shard iterator expired. Obtain a new one: " + cause.getMessage());
-                    }
-                    throw new CompletionException(cause);
-                }
-                System.out.println("GetRecords returned " + response.records().size() + " record(s).");
+            .exceptionally(exception -> {
+                Throwable cause = unwrap(exception);
+                throw new CompletionException("Failed to get records: " + cause.getMessage(), cause);
             });
     }
 
+    // snippet-start:[kinesis.java2.add_tags.main]
     /**
-     * Deletes a Kinesis data stream.
+     * Adds or updates tags on a stream.
+     *
+     * @param streamName the name of the stream
+     * @param tags       the tag keys and values to add
+     * @return a {@link CompletableFuture} that contains the {@link AddTagsToStreamResponse}
+     */
+    public CompletableFuture<AddTagsToStreamResponse> addTagsToStreamAsync(String streamName,
+                                                                           Map<String, String> tags) {
+        AddTagsToStreamRequest request = AddTagsToStreamRequest.builder()
+            .streamName(streamName)
+            .tags(tags)
+            .build();
+
+        return getAsyncClient().addTagsToStream(request)
+            .exceptionally(exception -> {
+                Throwable cause = unwrap(exception);
+                if (cause instanceof ResourceNotFoundException) {
+                    throw new CompletionException(
+                        "Stream '" + streamName + "' does not exist for tagging.", cause);
+                }
+                throw new CompletionException("Failed to add tags: " + cause.getMessage(), cause);
+            });
+    }
+    // snippet-end:[kinesis.java2.add_tags.main]
+
+    // snippet-start:[kinesis.java2.list_tags.main]
+    /**
+     * Lists all tags on a stream. ListTagsForStream has no paginator, so this
+     * method requests the next page while {@code hasMoreTags} is true.
+     *
+     * @param streamName the name of the stream
+     * @return a {@link CompletableFuture} that contains the list of {@link Tag} objects
+     */
+    public CompletableFuture<List<Tag>> listTagsForStreamAsync(String streamName) {
+        return listTagsPage(streamName, null, new ArrayList<>());
+    }
+
+    private CompletableFuture<List<Tag>> listTagsPage(String streamName, String exclusiveStartTagKey,
+                                                      List<Tag> tags) {
+        ListTagsForStreamRequest request = ListTagsForStreamRequest.builder()
+            .streamName(streamName)
+            .exclusiveStartTagKey(exclusiveStartTagKey)
+            .build();
+
+        return getAsyncClient().listTagsForStream(request)
+            .exceptionally(exception -> {
+                Throwable cause = unwrap(exception);
+                if (cause instanceof ResourceNotFoundException) {
+                    throw new CompletionException(
+                        "Stream '" + streamName + "' was not found when listing tags.", cause);
+                }
+                throw new CompletionException("Failed to list tags: " + cause.getMessage(), cause);
+            })
+            .thenCompose(response -> {
+                tags.addAll(response.tags());
+                if (Boolean.TRUE.equals(response.hasMoreTags()) && !response.tags().isEmpty()) {
+                    String lastKey = response.tags().get(response.tags().size() - 1).key();
+                    return listTagsPage(streamName, lastKey, tags);
+                }
+                return CompletableFuture.completedFuture(tags);
+            });
+    }
+    // snippet-end:[kinesis.java2.list_tags.main]
+
+    // snippet-start:[kinesis.java2.remove_tags.main]
+    /**
+     * Removes tags from a stream.
+     *
+     * @param streamName the name of the stream
+     * @param tagKeys    the keys of the tags to remove
+     * @return a {@link CompletableFuture} that contains the {@link RemoveTagsFromStreamResponse}
+     */
+    public CompletableFuture<RemoveTagsFromStreamResponse> removeTagsFromStreamAsync(String streamName,
+                                                                                     List<String> tagKeys) {
+        RemoveTagsFromStreamRequest request = RemoveTagsFromStreamRequest.builder()
+            .streamName(streamName)
+            .tagKeys(tagKeys)
+            .build();
+
+        return getAsyncClient().removeTagsFromStream(request)
+            .exceptionally(exception -> {
+                Throwable cause = unwrap(exception);
+                if (cause instanceof ResourceNotFoundException) {
+                    throw new CompletionException(
+                        "Stream '" + streamName + "' does not exist for tag removal.", cause);
+                }
+                throw new CompletionException("Failed to remove tags: " + cause.getMessage(), cause);
+            });
+    }
+    // snippet-end:[kinesis.java2.remove_tags.main]
+
+    // snippet-start:[kinesis.java2.register_consumer.main]
+    /**
+     * Registers an enhanced fan-out consumer with a stream.
+     *
+     * @param streamArn    the ARN of the stream
+     * @param consumerName the name of the consumer
+     * @return a {@link CompletableFuture} that contains the registered {@link Consumer}
+     */
+    public CompletableFuture<Consumer> registerStreamConsumerAsync(String streamArn, String consumerName) {
+        RegisterStreamConsumerRequest request = RegisterStreamConsumerRequest.builder()
+            .streamARN(streamArn)
+            .consumerName(consumerName)
+            .build();
+
+        return getAsyncClient().registerStreamConsumer(request)
+            .exceptionally(exception -> {
+                Throwable cause = unwrap(exception);
+                if (cause instanceof ResourceInUseException) {
+                    throw new CompletionException(
+                        "Consumer '" + consumerName + "' already exists or the stream is not available.",
+                        cause);
+                }
+                throw new CompletionException("Failed to register consumer: " + cause.getMessage(), cause);
+            })
+            .thenApply(response -> response.consumer());
+    }
+    // snippet-end:[kinesis.java2.register_consumer.main]
+
+    /**
+     * Describes a registered stream consumer.
+     *
+     * @param consumerArn the ARN of the consumer
+     * @return a {@link CompletableFuture} that contains the {@link ConsumerDescription}
+     */
+    public CompletableFuture<ConsumerDescription> describeStreamConsumerAsync(String consumerArn) {
+        DescribeStreamConsumerRequest request = DescribeStreamConsumerRequest.builder()
+            .consumerARN(consumerArn)
+            .build();
+
+        return getAsyncClient().describeStreamConsumer(request)
+            .exceptionally(exception -> {
+                Throwable cause = unwrap(exception);
+                throw new CompletionException("Failed to describe consumer: " + cause.getMessage(), cause);
+            })
+            .thenApply(response -> response.consumerDescription());
+    }
+
+    // snippet-start:[kinesis.java2.deregister_consumer.main]
+    /**
+     * Deregisters an enhanced fan-out consumer from a stream.
+     *
+     * @param consumerArn the ARN of the consumer
+     * @return a {@link CompletableFuture} that contains the {@link DeregisterStreamConsumerResponse}
+     */
+    public CompletableFuture<DeregisterStreamConsumerResponse> deregisterStreamConsumerAsync(String consumerArn) {
+        DeregisterStreamConsumerRequest request = DeregisterStreamConsumerRequest.builder()
+            .consumerARN(consumerArn)
+            .build();
+
+        return getAsyncClient().deregisterStreamConsumer(request)
+            .exceptionally(exception -> {
+                Throwable cause = unwrap(exception);
+                if (cause instanceof ResourceNotFoundException) {
+                    throw new CompletionException(
+                        "The consumer was already deregistered or does not exist.", cause);
+                }
+                throw new CompletionException("Failed to deregister consumer: " + cause.getMessage(), cause);
+            });
+    }
+    // snippet-end:[kinesis.java2.deregister_consumer.main]
+
+    /**
+     * Deletes a stream, including any registered consumers.
      *
      * @param streamName the name of the stream to delete
-     * @return a {@link CompletableFuture} containing the {@link DeleteStreamResponse}
+     * @return a {@link CompletableFuture} that contains the {@link DeleteStreamResponse}
      */
-    public static CompletableFuture<DeleteStreamResponse> deleteStreamAsync(String streamName) {
+    public CompletableFuture<DeleteStreamResponse> deleteStreamAsync(String streamName) {
         DeleteStreamRequest request = DeleteStreamRequest.builder()
             .streamName(streamName)
             .enforceConsumerDeletion(true)
             .build();
 
         return getAsyncClient().deleteStream(request)
-            .whenComplete((response, exception) -> {
-                if (exception != null) {
-                    Throwable cause = exception.getCause() != null ? exception.getCause() : exception;
-                    if (cause instanceof ResourceNotFoundException) {
-                        System.err.println("Stream '" + streamName
-                            + "' not found for deletion (may already be deleted): " + cause.getMessage());
-                    }
-                    throw new CompletionException(cause);
+            .exceptionally(exception -> {
+                Throwable cause = unwrap(exception);
+                if (cause instanceof ResourceNotFoundException) {
+                    throw new CompletionException(
+                        "Stream '" + streamName + "' was not found. It may already be deleted.", cause);
                 }
-                System.out.println("DeleteStream request accepted for: " + streamName);
+                throw new CompletionException("Failed to delete stream: " + cause.getMessage(), cause);
             });
+    }
+
+    /**
+     * Waits until a stream is deleted by using the SDK waiter.
+     *
+     * @param streamName the name of the stream
+     * @return a {@link CompletableFuture} that completes when the stream no longer exists
+     */
+    public CompletableFuture<WaiterResponse<DescribeStreamResponse>> waitForStreamDeletedAsync(String streamName) {
+        DescribeStreamRequest request = DescribeStreamRequest.builder()
+            .streamName(streamName)
+            .build();
+
+        return getAsyncClient().waiter().waitUntilStreamNotExists(request)
+            .exceptionally(exception -> {
+                Throwable cause = unwrap(exception);
+                throw new CompletionException(
+                    "Stream '" + streamName + "' was not deleted: " + cause.getMessage(), cause);
+            });
+    }
+
+    /**
+     * Returns the underlying cause of an async failure, which the SDK wraps
+     * in a {@link CompletionException}.
+     */
+    private static Throwable unwrap(Throwable exception) {
+        if (exception instanceof CompletionException && exception.getCause() != null) {
+            return exception.getCause();
+        }
+        return exception;
     }
 }
 // snippet-end:[kinesis.java2.actions.main]
