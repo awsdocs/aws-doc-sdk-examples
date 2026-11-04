@@ -110,7 +110,9 @@ public class KinesisIntegrationTest {
                 actions.deregisterStreamConsumerAsync(consumerArn).join();
             });
         } finally {
-            // Deleting the stream also deletes any consumer still registered with it.
+            // Cleanup is intentionally outside assertDoesNotThrow so that it always runs and
+            // a cleanup problem doesn't hide the original failure. Deleting the stream also
+            // deletes any consumer still registered with it.
             try {
                 actions.deleteStreamAsync(streamName).join();
                 actions.waitForStreamDeletedAsync(streamName).join();

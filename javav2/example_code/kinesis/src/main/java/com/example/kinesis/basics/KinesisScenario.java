@@ -288,7 +288,8 @@ public class KinesisScenario {
     }
 
     /**
-     * Returns simulated IoT sensor readings as {partition key, JSON payload} pairs.
+     * Returns static sample IoT sensor readings (not live data) as
+     * {partition key, JSON payload} pairs.
      * The sensor ID is the partition key so that readings from the same sensor
      * go to the same shard.
      */

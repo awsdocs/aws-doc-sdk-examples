@@ -38,6 +38,8 @@ public class HelloKinesis {
      */
     public static void listStreams(KinesisAsyncClient kinesisClient) {
         logger.info("Hello, Amazon Kinesis! Let's list some of your streams:");
+        // The request limit sets the page size. The paginator would still fetch every
+        // page, so the publisher limit below stops after the first 10 stream names.
         ListStreamsRequest request = ListStreamsRequest.builder()
             .limit(10)
             .build();
