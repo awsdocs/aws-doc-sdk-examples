@@ -85,15 +85,6 @@ public class KinesisActions {
     }
 
     /**
-     * Sets the async client. <b>For tests only.</b>
-     *
-     * @param client the {@link KinesisAsyncClient} to inject
-     */
-    public static void setAsyncClient(KinesisAsyncClient client) {
-        kinesisAsyncClient = client;
-    }
-
-    /**
      * Creates a Kinesis data stream in ON_DEMAND mode.
      *
      * @param streamName the name of the stream to create
