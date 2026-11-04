@@ -36,7 +36,7 @@ python -m pip install -r requirements.txt
 
 ### Get started
 
-- [Hello Amazon Inspector](inspector2_hello.py#L12) (`ListMembers`)
+- [Hello Amazon Inspector](inspector2_hello.py#L12) (`BatchGetAccountStatus`)
 
 
 ### Basics
