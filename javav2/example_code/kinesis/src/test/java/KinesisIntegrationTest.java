@@ -1,9 +1,9 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-package com.example.kinesis.basics;
-
 import com.example.kinesis.HelloKinesis;
+import com.example.kinesis.basics.KinesisActions;
+import com.example.kinesis.basics.KinesisScenario;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Tag;
