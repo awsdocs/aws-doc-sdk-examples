@@ -6,183 +6,288 @@ athena_Hello:
   languages:
     Python:
       versions:
-        - sdk_version: 3
-          github: python/example_code/athena
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.athena.Hello
+      - sdk_version: 3
+        github: python/example_code/athena
+        excerpts:
+        - description:
+          snippet_tags:
+          - python.example_code.athena.Hello
+    Java:
+      versions:
+      - sdk_version: "2"
+        github: javav2/example_code/athena
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - athena.java2.hello.main
   services:
-    athena: {ListWorkGroups}
+    athena: {ListWorkGroups: null}
 athena_CreateWorkGroup:
   languages:
     Python:
       versions:
-        - sdk_version: 3
-          github: python/example_code/athena
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.athena.CreateWorkGroup
+      - sdk_version: 3
+        github: python/example_code/athena
+        excerpts:
+        - description:
+          snippet_tags:
+          - python.example_code.athena.CreateWorkGroup
+    Java:
+      versions:
+      - sdk_version: "2"
+        github: javav2/example_code/athena
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - athena.java2.CreateWorkGroup.main
   services:
-    athena: {CreateWorkGroup}
+    athena: {CreateWorkGroup: null}
 athena_GetWorkGroup:
   languages:
     Python:
       versions:
-        - sdk_version: 3
-          github: python/example_code/athena
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.athena.GetWorkGroup
+      - sdk_version: 3
+        github: python/example_code/athena
+        excerpts:
+        - description:
+          snippet_tags:
+          - python.example_code.athena.GetWorkGroup
+    Java:
+      versions:
+      - sdk_version: "2"
+        github: javav2/example_code/athena
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - athena.java2.GetWorkGroup.main
   services:
-    athena: {GetWorkGroup}
+    athena: {GetWorkGroup: null}
 athena_StartQueryExecution:
   languages:
     Python:
       versions:
-        - sdk_version: 3
-          github: python/example_code/athena
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.athena.StartQueryExecution
+      - sdk_version: 3
+        github: python/example_code/athena
+        excerpts:
+        - description:
+          snippet_tags:
+          - python.example_code.athena.StartQueryExecution
+    Java:
+      versions:
+      - sdk_version: "2"
+        github: javav2/example_code/athena
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - athena.java2.StartQueryExecution.main
   services:
-    athena: {StartQueryExecution}
+    athena: {StartQueryExecution: null}
 athena_GetQueryExecution:
   languages:
     Python:
       versions:
-        - sdk_version: 3
-          github: python/example_code/athena
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.athena.GetQueryExecution
+      - sdk_version: 3
+        github: python/example_code/athena
+        excerpts:
+        - description:
+          snippet_tags:
+          - python.example_code.athena.GetQueryExecution
+    Java:
+      versions:
+      - sdk_version: "2"
+        github: javav2/example_code/athena
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - athena.java2.GetQueryExecution.main
   services:
-    athena: {GetQueryExecution}
+    athena: {GetQueryExecution: null}
 athena_GetQueryResults:
   languages:
     Python:
       versions:
-        - sdk_version: 3
-          github: python/example_code/athena
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.athena.GetQueryResults
+      - sdk_version: 3
+        github: python/example_code/athena
+        excerpts:
+        - description:
+          snippet_tags:
+          - python.example_code.athena.GetQueryResults
+    Java:
+      versions:
+      - sdk_version: "2"
+        github: javav2/example_code/athena
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - athena.java2.GetQueryResults.main
   services:
-    athena: {GetQueryResults}
+    athena: {GetQueryResults: null}
 athena_ListQueryExecutions:
   languages:
     Python:
       versions:
-        - sdk_version: 3
-          github: python/example_code/athena
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.athena.ListQueryExecutions
+      - sdk_version: 3
+        github: python/example_code/athena
+        excerpts:
+        - description:
+          snippet_tags:
+          - python.example_code.athena.ListQueryExecutions
+    Java:
+      versions:
+      - sdk_version: "2"
+        github: javav2/example_code/athena
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - athena.java2.ListQueryExecutions.main
   services:
-    athena: {ListQueryExecutions}
+    athena: {ListQueryExecutions: null}
 athena_CreateNamedQuery:
   languages:
     Python:
       versions:
-        - sdk_version: 3
-          github: python/example_code/athena
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.athena.CreateNamedQuery
+      - sdk_version: 3
+        github: python/example_code/athena
+        excerpts:
+        - description:
+          snippet_tags:
+          - python.example_code.athena.CreateNamedQuery
+    Java:
+      versions:
+      - sdk_version: "2"
+        github: javav2/example_code/athena
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - athena.java2.CreateNamedQuery.main
   services:
-    athena: {CreateNamedQuery}
+    athena: {CreateNamedQuery: null}
 athena_GetNamedQuery:
   languages:
     Python:
       versions:
-        - sdk_version: 3
-          github: python/example_code/athena
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.athena.GetNamedQuery
+      - sdk_version: 3
+        github: python/example_code/athena
+        excerpts:
+        - description:
+          snippet_tags:
+          - python.example_code.athena.GetNamedQuery
   services:
-    athena: {GetNamedQuery}
+    athena: {GetNamedQuery: null}
 athena_ListNamedQueries:
   languages:
     Python:
       versions:
-        - sdk_version: 3
-          github: python/example_code/athena
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.athena.ListNamedQueries
+      - sdk_version: 3
+        github: python/example_code/athena
+        excerpts:
+        - description:
+          snippet_tags:
+          - python.example_code.athena.ListNamedQueries
   services:
-    athena: {ListNamedQueries}
+    athena: {ListNamedQueries: null}
 athena_DeleteNamedQuery:
   languages:
     Python:
       versions:
-        - sdk_version: 3
-          github: python/example_code/athena
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.athena.DeleteNamedQuery
+      - sdk_version: 3
+        github: python/example_code/athena
+        excerpts:
+        - description:
+          snippet_tags:
+          - python.example_code.athena.DeleteNamedQuery
+    Java:
+      versions:
+      - sdk_version: "2"
+        github: javav2/example_code/athena
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - athena.java2.DeleteNamedQuery.main
   services:
-    athena: {DeleteNamedQuery}
+    athena: {DeleteNamedQuery: null}
 athena_DeleteWorkGroup:
   languages:
     Python:
       versions:
-        - sdk_version: 3
-          github: python/example_code/athena
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.athena.DeleteWorkGroup
+      - sdk_version: 3
+        github: python/example_code/athena
+        excerpts:
+        - description:
+          snippet_tags:
+          - python.example_code.athena.DeleteWorkGroup
+    Java:
+      versions:
+      - sdk_version: "2"
+        github: javav2/example_code/athena
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - athena.java2.DeleteWorkGroup.main
   services:
-    athena: {DeleteWorkGroup}
+    athena: {DeleteWorkGroup: null}
 athena_Scenario:
   title: Learn &ATE; basics using an &AWS; SDK
   title_abbrev: Learn &ATE; basics
   synopsis: learn &ATE; basics.
   category: Basics
   synopsis_list:
-    - Create an Athena workgroup.
-    - Verify the workgroup configuration.
-    - Create a database and table using DDL queries.
-    - Run SELECT queries and retrieve results.
-    - Create, list, and delete named queries.
-    - List query executions.
-    - Clean up all resources.
+  - Create an Athena workgroup.
+  - Verify the workgroup configuration.
+  - Create a database and table using DDL queries.
+  - Run SELECT queries and retrieve results.
+  - Create, list, and delete named queries.
+  - List query executions.
+  - Clean up all resources.
   languages:
     Python:
       versions:
-        - sdk_version: 3
-          github: python/example_code/athena
-          excerpts:
-            - description: Run an interactive scenario at a command prompt.
-              snippet_tags:
-                - python.example_code.athena.AthenaScenario
-            - description: Create a class that wraps Athena operations.
-              snippet_tags:
-                - python.example_code.athena.AthenaWrapper.decl
+      - sdk_version: 3
+        github: python/example_code/athena
+        excerpts:
+        - description: Run an interactive scenario at a command prompt.
+          snippet_tags:
+          - python.example_code.athena.AthenaScenario
+        - description: Create a class that wraps Athena operations.
+          snippet_tags:
+          - python.example_code.athena.AthenaWrapper.decl
+    Java:
+      versions:
+      - sdk_version: "2"
+        github: javav2/example_code/athena
+        sdkguide:
+        excerpts:
+        - description: Run an interactive scenario demonstrating &AMAthena; features.
+          snippet_tags:
+          - athena.java2.scenario.main
+        - description: A wrapper class for &AMAthena; SDK methods.
+          snippet_tags:
+          - athena.java2.actions.main
   services:
-    athena:
-      {
-        CreateWorkGroup,
-        GetWorkGroup,
-        StartQueryExecution,
-        GetQueryExecution,
-        GetQueryResults,
-        ListQueryExecutions,
-        CreateNamedQuery,
-        GetNamedQuery,
-        ListNamedQueries,
-        DeleteNamedQuery,
-        DeleteWorkGroup,
-      }
+    athena: {CreateWorkGroup: null, GetWorkGroup: null, StartQueryExecution: null, GetQueryExecution: null, GetQueryResults: null, ListQueryExecutions: null, CreateNamedQuery: null, GetNamedQuery: null, ListNamedQueries: null, DeleteNamedQuery: null, DeleteWorkGroup: null}
+athena_CreatePreparedStatement:
+  title: Create an &AMAthena; prepared statement
+  title_abbrev: Create a prepared statement
+  synopsis: create an &AMAthena; prepared statement.
+  languages:
+    Java:
+      versions:
+      - sdk_version: "2"
+        github: javav2/example_code/athena
+        sdkguide:
+        excerpts:
+        - description:
+          snippet_tags:
+          - athena.java2.CreatePreparedStatement.main
+  services:
+    athena: {CreatePreparedStatement: null}
