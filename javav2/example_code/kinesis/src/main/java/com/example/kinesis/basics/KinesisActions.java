@@ -3,6 +3,8 @@
 
 package com.example.kinesis.basics;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.core.client.config.ClientOverrideConfiguration;
 import software.amazon.awssdk.core.retry.RetryMode;
 import software.amazon.awssdk.core.waiters.WaiterResponse;
@@ -56,6 +58,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
+import java.util.concurrent.Executor;
+import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
 
 // snippet-start:[kinesis.java2.actions.main]
 /**
@@ -73,6 +78,10 @@ import java.util.concurrent.CompletionException;
  * </p>
  */
 public class KinesisActions implements AutoCloseable {
+
+    private static final Logger logger = LoggerFactory.getLogger(KinesisActions.class);
+    private static final int LIST_SHARDS_MAX_ATTEMPTS = 16;
+    private static final Duration LIST_SHARDS_RETRY_DELAY = Duration.ofSeconds(2);
 
     private static KinesisAsyncClient kinesisAsyncClient;
 
@@ -219,12 +228,53 @@ public class KinesisActions implements AutoCloseable {
     /**
      * Lists all shards in a stream. The async client has no paginator for
      * ListShards, so this method follows {@code nextToken} manually.
+     * <p>
+     * A newly created stream can report ACTIVE before its shards can be listed.
+     * ListShards is eventually consistent, so for a short time it can fail with
+     * {@link ResourceInUseException} (the stream is still CREATING) or
+     * {@link ResourceNotFoundException}. This method retries on those errors
+     * every 2 seconds, for up to 30 seconds.
+     * </p>
      *
      * @param streamName the name of the stream
      * @return a {@link CompletableFuture} that contains the list of {@link Shard} objects
      */
     public CompletableFuture<List<Shard>> listShardsAsync(String streamName) {
-        return listShardsPage(streamName, null, new ArrayList<>());
+        return listShardsWithRetry(streamName, 1)
+            .exceptionally(exception -> {
+                Throwable cause = unwrap(exception);
+                if (cause instanceof ResourceNotFoundException) {
+                    throw new CompletionException(
+                        "Stream '" + streamName + "' was not found. Verify that it is ACTIVE.", cause);
+                }
+                if (cause instanceof ResourceInUseException) {
+                    throw new CompletionException(
+                        "Stream '" + streamName + "' is still being created. Wait and then retry.", cause);
+                }
+                throw new CompletionException("Failed to list shards: " + cause.getMessage(), cause);
+            });
+    }
+
+    private CompletableFuture<List<Shard>> listShardsWithRetry(String streamName, int attempt) {
+        return listShardsPage(streamName, null, new ArrayList<>())
+            .handle((shards, exception) -> {
+                if (exception == null) {
+                    return CompletableFuture.completedFuture(shards);
+                }
+                Throwable cause = unwrap(exception);
+                boolean notReady = cause instanceof ResourceInUseException
+                    || cause instanceof ResourceNotFoundException;
+                if (notReady && attempt < LIST_SHARDS_MAX_ATTEMPTS) {
+                    logger.info("Stream '{}' is not ready for ListShards yet. Retrying...", streamName);
+                    // Wait without blocking a thread, then list the shards again from the first page.
+                    Executor delay = CompletableFuture.delayedExecutor(
+                        LIST_SHARDS_RETRY_DELAY.toMillis(), TimeUnit.MILLISECONDS);
+                    return CompletableFuture.runAsync(() -> { }, delay)
+                        .thenCompose(ignored -> listShardsWithRetry(streamName, attempt + 1));
+                }
+                return CompletableFuture.<List<Shard>>failedFuture(cause);
+            })
+            .thenCompose(Function.identity());
     }
 
     private CompletableFuture<List<Shard>> listShardsPage(String streamName, String nextToken,
@@ -235,14 +285,6 @@ public class KinesisActions implements AutoCloseable {
             : ListShardsRequest.builder().nextToken(nextToken).build();
 
         return getAsyncClient().listShards(request)
-            .exceptionally(exception -> {
-                Throwable cause = unwrap(exception);
-                if (cause instanceof ResourceNotFoundException) {
-                    throw new CompletionException(
-                        "Stream '" + streamName + "' was not found. Verify that it is ACTIVE.", cause);
-                }
-                throw new CompletionException("Failed to list shards: " + cause.getMessage(), cause);
-            })
             .thenCompose(response -> {
                 shards.addAll(response.shards());
                 if (response.nextToken() != null) {

@@ -45,20 +45,20 @@ Code examples that show you how to perform the essential operations within a ser
 
 Code excerpts that show you how to call individual service functions.
 
-- [AddTagsToStream](src/main/java/com/example/kinesis/basics/KinesisActions.java#L334)
+- [AddTagsToStream](src/main/java/com/example/kinesis/basics/KinesisActions.java#L376)
 - [CreateStream](src/main/java/com/example/kinesis/CreateDataStream.java#L6)
 - [DeleteStream](src/main/java/com/example/kinesis/DeleteDataStream.java#L6)
-- [DeregisterStreamConsumer](src/main/java/com/example/kinesis/basics/KinesisActions.java#L474)
-- [DescribeStreamSummary](src/main/java/com/example/kinesis/basics/KinesisActions.java#L193)
+- [DeregisterStreamConsumer](src/main/java/com/example/kinesis/basics/KinesisActions.java#L516)
+- [DescribeStreamSummary](src/main/java/com/example/kinesis/basics/KinesisActions.java#L202)
 - [GetRecords](src/main/java/com/example/kinesis/GetRecords.java#L6)
-- [GetShardIterator](src/main/java/com/example/kinesis/basics/KinesisActions.java#L284)
-- [ListShards](src/main/java/com/example/kinesis/basics/KinesisActions.java#L218)
-- [ListStreams](src/main/java/com/example/kinesis/basics/KinesisActions.java#L163)
-- [ListTagsForStream](src/main/java/com/example/kinesis/basics/KinesisActions.java#L361)
+- [GetShardIterator](src/main/java/com/example/kinesis/basics/KinesisActions.java#L326)
+- [ListShards](src/main/java/com/example/kinesis/basics/KinesisActions.java#L227)
+- [ListStreams](src/main/java/com/example/kinesis/basics/KinesisActions.java#L172)
+- [ListTagsForStream](src/main/java/com/example/kinesis/basics/KinesisActions.java#L403)
 - [PutRecord](src/main/java/com/example/kinesis/StockTradesWriter.java#L6)
-- [PutRecords](src/main/java/com/example/kinesis/basics/KinesisActions.java#L256)
-- [RegisterStreamConsumer](src/main/java/com/example/kinesis/basics/KinesisActions.java#L427)
-- [RemoveTagsFromStream](src/main/java/com/example/kinesis/basics/KinesisActions.java#L400)
+- [PutRecords](src/main/java/com/example/kinesis/basics/KinesisActions.java#L298)
+- [RegisterStreamConsumer](src/main/java/com/example/kinesis/basics/KinesisActions.java#L469)
+- [RemoveTagsFromStream](src/main/java/com/example/kinesis/basics/KinesisActions.java#L442)
 
 
 <!--custom.examples.start-->

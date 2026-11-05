@@ -149,7 +149,13 @@ public class KinesisScenario {
             logger.info("  Obtained shard iterator for {}.", shardId);
             logger.info("  Reading records from the stream...");
             int recordsRead = readRecords(actions, shardIterator, entries.size());
-            logger.info("Read {} record(s) from the stream.", recordsRead);
+            if (recordsRead < entries.size()) {
+                logger.info("Read {} of {} record(s). Fewer records than written were returned "
+                    + "because new records can take a few seconds to become readable.",
+                    recordsRead, entries.size());
+            } else {
+                logger.info("Read {} record(s) from the stream.", recordsRead);
+            }
             logger.info(DASHES);
 
             // Step 6: Add tags to the stream.
