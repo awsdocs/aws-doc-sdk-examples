@@ -5,17 +5,12 @@ package com.example.athena;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import software.amazon.awssdk.core.client.config.ClientOverrideConfiguration;
-import software.amazon.awssdk.core.retry.RetryMode;
-import software.amazon.awssdk.http.async.SdkAsyncHttpClient;
-import software.amazon.awssdk.http.nio.netty.NettyNioAsyncHttpClient;
 import software.amazon.awssdk.services.athena.AthenaAsyncClient;
 import software.amazon.awssdk.services.athena.model.InvalidRequestException;
 import software.amazon.awssdk.services.athena.model.ListWorkGroupsRequest;
 import software.amazon.awssdk.services.athena.model.WorkGroupSummary;
 import software.amazon.awssdk.services.athena.paginators.ListWorkGroupsPublisher;
 
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -36,23 +31,9 @@ public class HelloAthena {
      * Lists all Athena workgroups using the async paginator.
      */
     public static void listWorkGroups() {
-        SdkAsyncHttpClient httpClient = NettyNioAsyncHttpClient.builder()
-            .maxConcurrency(100)
-            .connectionTimeout(Duration.ofSeconds(60))
-            .readTimeout(Duration.ofSeconds(60))
-            .writeTimeout(Duration.ofSeconds(60))
-            .build();
-
-        ClientOverrideConfiguration overrideConfig = ClientOverrideConfiguration.builder()
-            .apiCallTimeout(Duration.ofMinutes(2))
-            .apiCallAttemptTimeout(Duration.ofSeconds(90))
-            .retryStrategy(RetryMode.STANDARD)
-            .build();
-
-        AthenaAsyncClient athenaAsyncClient = AthenaAsyncClient.builder()
-            .httpClient(httpClient)
-            .overrideConfiguration(overrideConfig)
-            .build();
+        // The default client is sufficient for this simple example. See
+        // AthenaActions for an example of custom HTTP and timeout settings.
+        AthenaAsyncClient athenaAsyncClient = AthenaAsyncClient.create();
 
         try {
             logger.info("Listing Athena workgroups...");

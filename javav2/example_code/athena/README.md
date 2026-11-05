@@ -31,7 +31,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 ### Get started
 
-- [Hello Athena](src/main/java/com/example/athena/HelloAthena.java#L27) (`ListWorkGroups`)
+- [Hello Athena](src/main/java/com/example/athena/HelloAthena.java#L22) (`ListWorkGroups`)
 
 
 ### Basics
