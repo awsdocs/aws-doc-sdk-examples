@@ -6,12 +6,14 @@ package com.example.athena.basics;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.services.athena.model.CreateNamedQueryResponse;
+import software.amazon.awssdk.services.athena.model.Datum;
 import software.amazon.awssdk.services.athena.model.GetQueryExecutionResponse;
 import software.amazon.awssdk.services.athena.model.GetWorkGroupResponse;
 import software.amazon.awssdk.services.athena.model.Row;
 import software.amazon.awssdk.services.athena.model.StartQueryExecutionResponse;
 import software.amazon.awssdk.services.athena.model.WorkGroup;
 import software.amazon.awssdk.services.cloudformation.CloudFormationAsyncClient;
+import software.amazon.awssdk.services.cloudformation.model.CloudFormationException;
 import software.amazon.awssdk.services.cloudformation.model.CreateStackRequest;
 import software.amazon.awssdk.services.cloudformation.model.DeleteStackRequest;
 import software.amazon.awssdk.services.cloudformation.model.DescribeStacksRequest;
@@ -41,6 +43,7 @@ public class AthenaScenario {
         String bucketName = "athena-results-" + uniqueId;
         String workGroupName = "athena-basics-" + uniqueId;
         String namedQueryId = null;
+        boolean workGroupCreated = false;
 
         CloudFormationAsyncClient cfnClient = CloudFormationAsyncClient.builder().build();
         S3AsyncClient s3Client = S3AsyncClient.builder().build();
@@ -86,6 +89,7 @@ public class AthenaScenario {
             // Step 1: Create a workgroup
             logger.info("\nStep 1: Creating workgroup '{}'...", workGroupName);
             actions.createWorkGroupAsync(workGroupName, "Athena Basics demo workgroup", s3OutputLocation).join();
+            workGroupCreated = true;
             logger.info("Workgroup '{}' created.", workGroupName);
 
             // Step 2: Get workgroup details
@@ -148,12 +152,12 @@ public class AthenaScenario {
                 // First row is the header
                 Row header = rows.get(0);
                 logger.info("Columns: {}", header.data().stream()
-                    .map(d -> d.varCharValue())
+                    .map(Datum::varCharValue)
                     .reduce((a, b) -> a + ", " + b).orElse(""));
                 for (int i = 1; i < rows.size(); i++) {
                     Row row = rows.get(i);
                     logger.info("Row {}: {}", i, row.data().stream()
-                        .map(d -> d.varCharValue())
+                        .map(Datum::varCharValue)
                         .reduce((a, b) -> a + ", " + b).orElse(""));
                 }
             }
@@ -189,12 +193,14 @@ public class AthenaScenario {
                 }
             }
 
-            // Delete workgroup
-            try {
-                actions.deleteWorkGroupAsync(workGroupName).join();
-                logger.info("Deleted workgroup: {}", workGroupName);
-            } catch (Exception e) {
-                logger.warn("Could not delete workgroup: {}", e.getMessage());
+            // Delete workgroup (only if it was created)
+            if (workGroupCreated) {
+                try {
+                    actions.deleteWorkGroupAsync(workGroupName).join();
+                    logger.info("Deleted workgroup: {}", workGroupName);
+                } catch (Exception e) {
+                    logger.warn("Could not delete workgroup: {}", e.getMessage());
+                }
             }
 
             // Empty and delete the S3 bucket, then delete the stack
@@ -268,8 +274,14 @@ public class AthenaScenario {
                 }
                 Thread.sleep(5000);
             } catch (CompletionException e) {
-                // Stack not found means deleted
-                return;
+                // DescribeStacks returns a ValidationError when the stack no longer
+                // exists, which means deletion is complete. Rethrow anything else.
+                if (e.getCause() instanceof CloudFormationException cfnEx
+                        && cfnEx.getMessage() != null
+                        && cfnEx.getMessage().contains("does not exist")) {
+                    return;
+                }
+                throw e;
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 throw new RuntimeException(e);
