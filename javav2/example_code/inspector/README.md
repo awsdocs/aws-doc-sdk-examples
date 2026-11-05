@@ -31,7 +31,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 ### Get started
 
-- [Hello Amazon Inspector](src/main/java/com/java/inspector/HelloInspector.java#L29) (`ListMembers`)
+- [Hello Amazon Inspector](src/main/java/com/java/inspector/HelloInspector.java#L29) (`BatchGetAccountStatus`)
 
 
 ### Basics
