@@ -79,6 +79,8 @@ public class HelloAthena {
             }
             throw e;
         } finally {
+            // Closing the service client also closes the SdkAsyncHttpClient
+            // passed to its builder, so the HTTP client needs no separate close().
             athenaAsyncClient.close();
         }
     }

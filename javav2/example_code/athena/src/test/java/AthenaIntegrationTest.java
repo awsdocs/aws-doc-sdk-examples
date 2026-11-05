@@ -57,6 +57,10 @@ class AthenaIntegrationTest {
 
     private String namedQueryId;
     private String queryExecutionId;
+    // Track which resources still exist so @AfterAll only cleans up what
+    // testCleanup didn't already delete (for example, after an earlier failure).
+    private boolean bucketCreated;
+    private boolean workGroupCreated;
 
     @BeforeAll
     void setup() {
@@ -77,25 +81,30 @@ class AthenaIntegrationTest {
         }
 
         // Delete workgroup (recursive)
-        try {
-            actions.deleteWorkGroupAsync(workGroupName).join();
-        } catch (Exception e) {
-            System.err.println("Cleanup: Could not delete workgroup: " + e.getMessage());
+        if (workGroupCreated) {
+            try {
+                actions.deleteWorkGroupAsync(workGroupName).join();
+            } catch (Exception e) {
+                System.err.println("Cleanup: Could not delete workgroup: " + e.getMessage());
+            }
         }
 
         // Empty and delete the S3 bucket
-        try {
-            emptyBucket(bucketName);
-            s3Client.deleteBucket(DeleteBucketRequest.builder()
-                .bucket(bucketName)
-                .build()).join();
-        } catch (Exception e) {
-            System.err.println("Cleanup: Could not delete bucket: " + e.getMessage());
+        if (bucketCreated) {
+            try {
+                emptyBucket(bucketName);
+                s3Client.deleteBucket(DeleteBucketRequest.builder()
+                    .bucket(bucketName)
+                    .build()).join();
+            } catch (Exception e) {
+                System.err.println("Cleanup: Could not delete bucket: " + e.getMessage());
+            }
         }
 
         if (s3Client != null) {
             s3Client.close();
         }
+        AthenaActions.closeClient();
     }
 
     private void emptyBucket(String bucket) {
@@ -134,6 +143,7 @@ class AthenaIntegrationTest {
         s3Client.createBucket(CreateBucketRequest.builder()
             .bucket(bucketName)
             .build()).join();
+        bucketCreated = true;
     }
 
     @Test
@@ -141,6 +151,7 @@ class AthenaIntegrationTest {
     void testCreateWorkGroup() {
         actions.createWorkGroupAsync(workGroupName,
             "Integration test workgroup", s3OutputLocation).join();
+        workGroupCreated = true;
     }
 
     @Test
@@ -182,6 +193,7 @@ class AthenaIntegrationTest {
     void testStartQueryExecution() {
         StartQueryExecutionResponse response = actions.startQueryExecutionAsync(
             "SELECT 1 AS id, 'Hello Athena' AS message",
+            null,
             workGroupName
         ).join();
         queryExecutionId = response.queryExecutionId();
@@ -226,11 +238,13 @@ class AthenaIntegrationTest {
 
         // Delete workgroup
         actions.deleteWorkGroupAsync(workGroupName).join();
+        workGroupCreated = false; // Prevent double-delete in @AfterAll
 
         // Clean S3
         emptyBucket(bucketName);
         s3Client.deleteBucket(DeleteBucketRequest.builder()
             .bucket(bucketName)
             .build()).join();
+        bucketCreated = false; // Prevent double-delete in @AfterAll
     }
 }

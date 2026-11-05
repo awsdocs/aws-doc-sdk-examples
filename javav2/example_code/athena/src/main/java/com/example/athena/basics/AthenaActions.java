@@ -55,26 +55,35 @@ public class AthenaActions {
      * Returns the singleton AthenaAsyncClient, creating it lazily if needed.
      */
     private static AthenaAsyncClient getAsyncClient() {
-        if (athenaAsyncClient == null) {
-            SdkAsyncHttpClient httpClient = NettyNioAsyncHttpClient.builder()
-                .maxConcurrency(100)
-                .connectionTimeout(Duration.ofSeconds(60))
-                .readTimeout(Duration.ofSeconds(60))
-                .writeTimeout(Duration.ofSeconds(60))
-                .build();
+        // Double-checked locking so that concurrent callers never create
+        // more than one client (and leak its Netty thread pool).
+        AthenaAsyncClient client = athenaAsyncClient;
+        if (client == null) {
+            synchronized (AthenaActions.class) {
+                client = athenaAsyncClient;
+                if (client == null) {
+                    SdkAsyncHttpClient httpClient = NettyNioAsyncHttpClient.builder()
+                        .maxConcurrency(100)
+                        .connectionTimeout(Duration.ofSeconds(60))
+                        .readTimeout(Duration.ofSeconds(60))
+                        .writeTimeout(Duration.ofSeconds(60))
+                        .build();
 
-            ClientOverrideConfiguration overrideConfig = ClientOverrideConfiguration.builder()
-                .apiCallTimeout(Duration.ofMinutes(2))
-                .apiCallAttemptTimeout(Duration.ofSeconds(90))
-                .retryStrategy(RetryMode.STANDARD)
-                .build();
+                    ClientOverrideConfiguration overrideConfig = ClientOverrideConfiguration.builder()
+                        .apiCallTimeout(Duration.ofMinutes(2))
+                        .apiCallAttemptTimeout(Duration.ofSeconds(90))
+                        .retryStrategy(RetryMode.STANDARD)
+                        .build();
 
-            athenaAsyncClient = AthenaAsyncClient.builder()
-                .httpClient(httpClient)
-                .overrideConfiguration(overrideConfig)
-                .build();
+                    client = AthenaAsyncClient.builder()
+                        .httpClient(httpClient)
+                        .overrideConfiguration(overrideConfig)
+                        .build();
+                    athenaAsyncClient = client;
+                }
+            }
         }
-        return athenaAsyncClient;
+        return client;
     }
 
     /**
@@ -82,8 +91,19 @@ public class AthenaActions {
      *
      * @param client the AthenaAsyncClient to inject, or null to reset
      */
-    public static void setAsyncClient(AthenaAsyncClient client) {
+    public static synchronized void setAsyncClient(AthenaAsyncClient client) {
         athenaAsyncClient = client;
+    }
+
+    /**
+     * Closes the shared AthenaAsyncClient, if one was created, and releases
+     * its HTTP client resources (including the Netty event loop threads).
+     */
+    public static synchronized void closeClient() {
+        if (athenaAsyncClient != null) {
+            athenaAsyncClient.close();
+            athenaAsyncClient = null;
+        }
     }
 
     // snippet-start:[athena.java2.CreateWorkGroup.main]
@@ -232,19 +252,23 @@ public class AthenaActions {
      * Starts a query execution in a workgroup.
      *
      * @param queryString   the SQL query
+     * @param database      the database to run the query in, or null to omit
+     *                      the query execution context
      * @param workGroupName the workgroup name
      * @return a CompletableFuture with the StartQueryExecutionResponse
      */
     public CompletableFuture<StartQueryExecutionResponse> startQueryExecutionAsync(
-            String queryString, String workGroupName) {
+            String queryString, String database, String workGroupName) {
 
-        StartQueryExecutionRequest request = StartQueryExecutionRequest.builder()
+        StartQueryExecutionRequest.Builder requestBuilder = StartQueryExecutionRequest.builder()
             .queryString(queryString)
-            .workGroup(workGroupName)
-            .queryExecutionContext(QueryExecutionContext.builder()
-                .database("default")
-                .build())
-            .build();
+            .workGroup(workGroupName);
+        if (database != null) {
+            requestBuilder.queryExecutionContext(QueryExecutionContext.builder()
+                .database(database)
+                .build());
+        }
+        StartQueryExecutionRequest request = requestBuilder.build();
 
         return getAsyncClient().startQueryExecution(request)
             .whenComplete((response, exception) -> {

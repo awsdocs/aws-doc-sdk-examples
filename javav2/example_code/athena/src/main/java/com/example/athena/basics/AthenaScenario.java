@@ -16,8 +16,6 @@ import software.amazon.awssdk.services.cloudformation.model.CreateStackRequest;
 import software.amazon.awssdk.services.cloudformation.model.DeleteStackRequest;
 import software.amazon.awssdk.services.cloudformation.model.DescribeStacksRequest;
 import software.amazon.awssdk.services.cloudformation.model.DescribeStacksResponse;
-import software.amazon.awssdk.services.cloudformation.model.Output;
-import software.amazon.awssdk.services.cloudformation.model.Stack;
 import software.amazon.awssdk.services.cloudformation.model.StackStatus;
 import software.amazon.awssdk.services.s3.S3AsyncClient;
 import software.amazon.awssdk.services.s3.model.DeleteBucketRequest;
@@ -53,22 +51,26 @@ public class AthenaScenario {
             logger.info("=== Amazon Athena Basics Scenario ===");
             logger.info("Setting up resources...");
 
-            String template = "{\n" +
-                "  \"AWSTemplateFormatVersion\": \"2010-09-09\",\n" +
-                "  \"Resources\": {\n" +
-                "    \"AthenaBucket\": {\n" +
-                "      \"Type\": \"AWS::S3::Bucket\",\n" +
-                "      \"Properties\": {\n" +
-                "        \"BucketName\": \"" + bucketName + "\"\n" +
-                "      }\n" +
-                "    }\n" +
-                "  },\n" +
-                "  \"Outputs\": {\n" +
-                "    \"BucketName\": {\n" +
-                "      \"Value\": {\"Ref\": \"AthenaBucket\"}\n" +
-                "    }\n" +
-                "  }\n" +
-                "}";
+            // The bucket name is generated from a UUID, so it contains only
+            // characters that are safe to embed in the JSON template.
+            String template = """
+                {
+                  "AWSTemplateFormatVersion": "2010-09-09",
+                  "Resources": {
+                    "AthenaBucket": {
+                      "Type": "AWS::S3::Bucket",
+                      "Properties": {
+                        "BucketName": "%s"
+                      }
+                    }
+                  },
+                  "Outputs": {
+                    "BucketName": {
+                      "Value": {"Ref": "AthenaBucket"}
+                    }
+                  }
+                }
+                """.formatted(bucketName);
 
             cfnClient.createStack(CreateStackRequest.builder()
                 .stackName(stackName)
@@ -118,8 +120,10 @@ public class AthenaScenario {
 
             // Step 5: Start a query execution
             logger.info("\nStep 5: Starting query execution...");
+            // This query selects literal values, so it doesn't need a database context.
             StartQueryExecutionResponse startResp = actions.startQueryExecutionAsync(
                 "SELECT 1 AS id, 'Hello Athena' AS message",
+                null,
                 workGroupName
             ).join();
             String queryExecutionId = startResp.queryExecutionId();
@@ -208,6 +212,7 @@ public class AthenaScenario {
 
             cfnClient.close();
             s3Client.close();
+            AthenaActions.closeClient();
 
             logger.info("\nAmazon Athena Basics scenario complete!");
             logger.info("Successfully demonstrated:");
@@ -270,6 +275,7 @@ public class AthenaScenario {
                 throw new RuntimeException(e);
             }
         }
+        throw new RuntimeException("Timed out waiting for stack " + stackName + " to be deleted");
     }
 
     private static void emptyBucket(S3AsyncClient s3Client, String bucketName) {
