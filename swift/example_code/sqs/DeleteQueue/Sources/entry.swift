@@ -3,7 +3,7 @@
 //
 // An example demonstrating how to delete an Amazon SQS queue.
 
-// snippet-start:[swift.sqs.basics]
+// snippet-start:[swift.sqs.DeleteQueue.main]
 import ArgumentParser
 import AWSClientRuntime
 import AWSSQS
@@ -58,4 +58,4 @@ struct Main {
         }
     }    
 }
-// snippet-end:[swift.sqs.basics]
+// snippet-end:[swift.sqs.DeleteQueue.main]

@@ -28,7 +28,7 @@ class FifoTopicWrapper:
         """
         self.sns_resource = sns_resource
 
-    # snippet-start:[python.example_code.sns.CreateFifoTopic]
+    # snippet-start:[python.example_code.sns.FifoTopicWrapper.CreateFifoTopic]
     def create_fifo_topic(self, topic_name):
         """
         Create a FIFO topic.
@@ -54,7 +54,7 @@ class FifoTopicWrapper:
             logger.exception("Couldn't create topic with name=%s!", topic_name)
             raise error
 
-    # snippet-end:[python.example_code.sns.CreateFifoTopic]
+    # snippet-end:[python.example_code.sns.FifoTopicWrapper.CreateFifoTopic]
 
     # snippet-start:[python.example_code.sns.AddTopicPolicy]
     @staticmethod

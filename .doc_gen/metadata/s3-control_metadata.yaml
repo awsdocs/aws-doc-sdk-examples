@@ -276,6 +276,9 @@ s3-control_Basics:
             - description: Learn S3 Batch Basics Scenario.
               snippet_tags:
                 - python.example_code.s3control.helper.S3BatchScenario
+            - description: Create a class that wraps S3 Batch Operations actions.
+              snippet_tags:
+                - python.example_code.s3control.helper.S3BatchWrapper
   services:
     s3-control:
       {

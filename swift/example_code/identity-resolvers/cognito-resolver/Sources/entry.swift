@@ -4,7 +4,7 @@
 /// A simple example that shows how to use the AWS SDK for Swift to
 /// authenticate using Amazon Cognito.
 
-// snippet-start:[swift.identity.cognito.imports]
+// snippet-start:[swift.identity.cognito.entry.imports]
 import ArgumentParser
 import AWSCognitoIdentity
 import AWSIAM
@@ -12,7 +12,7 @@ import AWSS3
 import AWSSDKIdentity
 import Foundation
 import SmithyIdentity
-// snippet-end:[swift.identity.cognito.imports]
+// snippet-end:[swift.identity.cognito.entry.imports]
 
 struct ExampleCommand: ParsableCommand {
     @Option(help: "AWS Region name")
