@@ -11,7 +11,7 @@ from typing import Dict, List, Any
 import boto3
 from botocore.exceptions import ClientError
 
-# snippet-start:[python.example_code.s3control.helper.S3BatchScenario]
+# snippet-start:[python.example_code.s3control.helper.S3BatchWrapper]
 class S3BatchWrapper:
     """Wrapper class for managing S3 Batch Operations."""
 
@@ -498,4 +498,4 @@ class S3BatchWrapper:
         except ClientError as e:
             print(f"Error in cleanup: {e}")
             raise
-# snippet-end:[python.example_code.s3control.helper.S3BatchScenario]
+# snippet-end:[python.example_code.s3control.helper.S3BatchWrapper]
