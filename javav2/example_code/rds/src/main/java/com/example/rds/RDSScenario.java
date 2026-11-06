@@ -394,7 +394,7 @@ public class RDSScenario {
                 .dbName(dbName)
                 .engine("mysql")
                 .dbInstanceClass("db.t3.medium") // Updated to a supported class
-                .engineVersion("8.0.32")         // Updated to a supported version
+                .engineVersion("8.0.46")         // Updated to a supported version
                 .storageType("gp2")             // Changed to General Purpose SSD (gp2)
                 .masterUsername(userName)
                 .masterUserPassword(userPassword)
