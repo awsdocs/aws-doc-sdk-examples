@@ -7,7 +7,8 @@ on:  # yamllint disable-line rule:truthy
 jobs:
   black:
     name: Flake8 Linting & Black Formatting
-    runs-on: ubuntu-latest
+    # Pinned: Python 3.9 builds are not published for newer ubuntu-latest images.
+    runs-on: ubuntu-24.04
 
     steps:
       - name: Checkout Repository
@@ -20,9 +21,9 @@ jobs:
           files: "**.py"
 
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v5
         with:
-          python-version: 3.9
+          python-version: "3.9"
 
       - name: Install dependencies
         run: |
