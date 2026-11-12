@@ -12,6 +12,14 @@ athena_Hello:
             - description:
               snippet_tags:
                 - python.example_code.athena.Hello
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/athena
+          excerpts:
+            - description:
+              snippet_tags:
+                - athena.java2.hello.main
   services:
     athena: {ListWorkGroups}
 athena_CreateWorkGroup:
@@ -24,6 +32,14 @@ athena_CreateWorkGroup:
             - description:
               snippet_tags:
                 - python.example_code.athena.CreateWorkGroup
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/athena
+          excerpts:
+            - description:
+              snippet_tags:
+                - athena.java2.CreateWorkGroup.main
   services:
     athena: {CreateWorkGroup}
 athena_GetWorkGroup:
@@ -36,6 +52,14 @@ athena_GetWorkGroup:
             - description:
               snippet_tags:
                 - python.example_code.athena.GetWorkGroup
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/athena
+          excerpts:
+            - description:
+              snippet_tags:
+                - athena.java2.GetWorkGroup.main
   services:
     athena: {GetWorkGroup}
 athena_StartQueryExecution:
@@ -48,6 +72,14 @@ athena_StartQueryExecution:
             - description:
               snippet_tags:
                 - python.example_code.athena.StartQueryExecution
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/athena
+          excerpts:
+            - description:
+              snippet_tags:
+                - athena.java2.StartQueryExecution.main
   services:
     athena: {StartQueryExecution}
 athena_GetQueryExecution:
@@ -60,6 +92,14 @@ athena_GetQueryExecution:
             - description:
               snippet_tags:
                 - python.example_code.athena.GetQueryExecution
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/athena
+          excerpts:
+            - description:
+              snippet_tags:
+                - athena.java2.GetQueryExecution.main
   services:
     athena: {GetQueryExecution}
 athena_GetQueryResults:
@@ -72,6 +112,14 @@ athena_GetQueryResults:
             - description:
               snippet_tags:
                 - python.example_code.athena.GetQueryResults
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/athena
+          excerpts:
+            - description:
+              snippet_tags:
+                - athena.java2.GetQueryResults.main
   services:
     athena: {GetQueryResults}
 athena_ListQueryExecutions:
@@ -84,6 +132,14 @@ athena_ListQueryExecutions:
             - description:
               snippet_tags:
                 - python.example_code.athena.ListQueryExecutions
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/athena
+          excerpts:
+            - description:
+              snippet_tags:
+                - athena.java2.ListQueryExecutions.main
   services:
     athena: {ListQueryExecutions}
 athena_CreateNamedQuery:
@@ -96,6 +152,14 @@ athena_CreateNamedQuery:
             - description:
               snippet_tags:
                 - python.example_code.athena.CreateNamedQuery
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/athena
+          excerpts:
+            - description:
+              snippet_tags:
+                - athena.java2.CreateNamedQuery.main
   services:
     athena: {CreateNamedQuery}
 athena_GetNamedQuery:
@@ -132,6 +196,14 @@ athena_DeleteNamedQuery:
             - description:
               snippet_tags:
                 - python.example_code.athena.DeleteNamedQuery
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/athena
+          excerpts:
+            - description:
+              snippet_tags:
+                - athena.java2.DeleteNamedQuery.main
   services:
     athena: {DeleteNamedQuery}
 athena_DeleteWorkGroup:
@@ -144,6 +216,14 @@ athena_DeleteWorkGroup:
             - description:
               snippet_tags:
                 - python.example_code.athena.DeleteWorkGroup
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/athena
+          excerpts:
+            - description:
+              snippet_tags:
+                - athena.java2.DeleteWorkGroup.main
   services:
     athena: {DeleteWorkGroup}
 athena_Scenario:
@@ -171,6 +251,17 @@ athena_Scenario:
             - description: Create a class that wraps Athena operations.
               snippet_tags:
                 - python.example_code.athena.AthenaWrapper.decl
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/athena
+          excerpts:
+            - description: Run a scenario that demonstrates &ATE; features.
+              snippet_tags:
+                - athena.java2.scenario.main
+            - description: Create a class that wraps &ATE; operations.
+              snippet_tags:
+                - athena.java2.actions.main
   services:
     athena:
       {
@@ -186,3 +277,15 @@ athena_Scenario:
         DeleteNamedQuery,
         DeleteWorkGroup,
       }
+athena_CreatePreparedStatement:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/athena
+          excerpts:
+            - description:
+              snippet_tags:
+                - athena.java2.CreatePreparedStatement.main
+  services:
+    athena: {CreatePreparedStatement}
