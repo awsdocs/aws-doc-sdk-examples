@@ -1,8 +1,8 @@
-# Amazon QuickSight Java code examples
+# AWS Quick Sight Java code examples
 
-This README discusses how to run and test the Java code examples for Amazon QuickSight.
+This README discusses how to run and test the Java code examples for AWS Quick Sight.
 
-## Running the Amazon QuickSight Java files
+## Running the AWS Quick Sight Java files
 
 **IMPORTANT**
 
@@ -12,9 +12,9 @@ To run these examples, you can setup your development environment to use Apache 
 see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html).
 
 
- ## Testing the Amazon QuickSight Java files
+ ## Testing the AWS Quick Sight Java files
 
-You can test the Java code examples for Amazon QuickSight by running a test file named **QuickSightTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
+You can test the Java code examples for AWS Quick Sight by running a test file named **QuickSightTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
 
 You can run the JUnit tests from a Java IDE, such as IntelliJ, or from the command line by using Maven. As each test runs, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that Test 3 passed.
 
@@ -23,18 +23,18 @@ You can run the JUnit tests from a Java IDE, such as IntelliJ, or from the comma
 **WARNING**: _Running these JUnit tests manipulates real Amazon resources and may incur charges on your account._
 
  ### Properties file
-Before running the Amazon QuickSight JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to run the JUnit tests. For example, you define a **analysisId** identifier value used in the tests. If you do not define all of these values, the JUnit tests fail.
+Before running the AWS Quick Sight JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to run the JUnit tests. For example, you define a **analysisId** identifier value used in the tests. If you do not define all of these values, the JUnit tests fail.
 
 Define these values to successfully run the JUnit tests:
 
 - **account** - the ID of the AWS account.   
 - **analysisId** - the ARN of an existing analysis.
-- **dashboardId** - the ID of the Amazon QuickSight Dashboard.
-- **templateId** - the ID of the Amazon QuickSight template.
+- **dashboardId** - the ID of the AWS Quick Sight Dashboard.
+- **templateId** - the ID of the AWS Quick Sight template.
 - **dataSetArn** - the ARN of the dataset.
 - **analysisArn** - the ARN of an existing analysis.
 
-**Note**: Before testing these Java code examples, create these Amazon QuickSight resources by following [Getting Started with Data Analysis in Amazon QuickSight](https://docs.aws.amazon.com/quicksight/latest/user/getting-started.html).
+**Note**: Before testing these Java code examples, create these AWS Quick Sight resources by following [Getting Started with Data Analysis in Amazon QuickSight](https://docs.aws.amazon.com/quicksight/latest/user/getting-started.html).
 
 ### Command line
 To run the JUnit tests from the command line, you can use the following command.
