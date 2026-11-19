@@ -569,9 +569,6 @@ ssm_Scenario:
     ssm: {CreateOpsItem, CreateMaintenanceWindow, CreateDocument, SendCommand, ListCommandInvocations, DeleteMaintenanceWindow,
           UpdateOpsItem}
 ssm_ModifyDocumentPermission:
-  title: Modify SSM document permissions using an &AWS; SDK
-  title_abbrev: Modify document permissions
-  synopsis: modify SSM document permissions.
   languages:
     Python:
       versions:
@@ -584,9 +581,6 @@ ssm_ModifyDocumentPermission:
   services:
     ssm: {ModifyDocumentPermission}
 ssm_DescribeDocumentPermission:
-  title: Describe SSM document permissions using an &AWS; SDK
-  title_abbrev: Describe document permissions
-  synopsis: describe SSM document permissions.
   languages:
     Python:
       versions:
@@ -599,9 +593,6 @@ ssm_DescribeDocumentPermission:
   services:
     ssm: {DescribeDocumentPermission}
 ssm_ListDocuments:
-  title: List SSM documents using an &AWS; SDK
-  title_abbrev: List documents
-  synopsis: list SSM documents.
   languages:
     Python:
       versions:
