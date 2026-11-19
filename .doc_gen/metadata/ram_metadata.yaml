@@ -1,7 +1,4 @@
 ram_CreateResourceShare:
-  title: Create a RAM resource share using an &AWS; SDK
-  title_abbrev: Create a resource share
-  synopsis: create a RAM resource share.
   languages:
     Python:
       versions:
@@ -14,9 +11,6 @@ ram_CreateResourceShare:
   services:
     ram: {CreateResourceShare}
 ram_AssociateResourceShare:
-  title: Associate principals with a RAM resource share using an &AWS; SDK
-  title_abbrev: Associate a resource share
-  synopsis: associate principals with a RAM resource share.
   languages:
     Python:
       versions:
@@ -29,9 +23,6 @@ ram_AssociateResourceShare:
   services:
     ram: {AssociateResourceShare}
 ram_GetResourceShares:
-  title: Get RAM resource shares using an &AWS; SDK
-  title_abbrev: Get resource shares
-  synopsis: get RAM resource shares.
   languages:
     Python:
       versions:
@@ -44,9 +35,6 @@ ram_GetResourceShares:
   services:
     ram: {GetResourceShares}
 ram_DisassociateResourceShare:
-  title: Disassociate principals from a RAM resource share using an &AWS; SDK
-  title_abbrev: Disassociate a resource share
-  synopsis: disassociate principals from a RAM resource share.
   languages:
     Python:
       versions:
@@ -59,9 +47,6 @@ ram_DisassociateResourceShare:
   services:
     ram: {DisassociateResourceShare}
 ram_DeleteResourceShare:
-  title: Delete a RAM resource share using an &AWS; SDK
-  title_abbrev: Delete a resource share
-  synopsis: delete a RAM resource share.
   languages:
     Python:
       versions:
