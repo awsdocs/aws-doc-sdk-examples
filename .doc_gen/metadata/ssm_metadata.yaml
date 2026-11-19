@@ -568,3 +568,88 @@ ssm_Scenario:
   services:
     ssm: {CreateOpsItem, CreateMaintenanceWindow, CreateDocument, SendCommand, ListCommandInvocations, DeleteMaintenanceWindow,
           UpdateOpsItem}
+ssm_ModifyDocumentPermission:
+  title: Modify SSM document permissions using an &AWS; SDK
+  title_abbrev: Modify document permissions
+  synopsis: modify SSM document permissions.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ssm/scenarios/ssm_document_sharing
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.ssm.ModifyDocumentPermission
+  services:
+    ssm: {ModifyDocumentPermission}
+ssm_DescribeDocumentPermission:
+  title: Describe SSM document permissions using an &AWS; SDK
+  title_abbrev: Describe document permissions
+  synopsis: describe SSM document permissions.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ssm/scenarios/ssm_document_sharing
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.ssm.DescribeDocumentPermission
+  services:
+    ssm: {DescribeDocumentPermission}
+ssm_ListDocuments:
+  title: List SSM documents using an &AWS; SDK
+  title_abbrev: List documents
+  synopsis: list SSM documents.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ssm/scenarios/ssm_document_sharing
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.ssm.ListDocuments
+  services:
+    ssm: {ListDocuments}
+ssm_ShareDocuments_Scenario:
+  title: Share SSM documents with organizations and OUs using an &AWS; SDK
+  title_abbrev: Share SSM documents with organizations and OUs
+  synopsis: share SSM documents with organizations and OUs using RAM.
+  category: Basics
+  synopsis_list:
+    - Create an organization and two OUs with a CloudFormation stack, if the account has none.
+    - Create an SSM Automation document for sharing.
+    - Share the document with an organization or OU via a RAM resource share.
+    - Verify the resource share from RAM.
+    - Add additional OU principals to the resource share.
+    - Compare RAM-based sharing with account-level sharing on a second document.
+    - List documents to confirm visibility.
+    - Clean up all resources in the correct dependency order.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ssm/scenarios/ssm_document_sharing
+          excerpts:
+            - description: Run an interactive scenario at a command prompt.
+              snippet_tags:
+                - python.example_code.ssm.ShareDocumentsScenario
+            - description: Create a class that wraps SSM document operations.
+              snippet_tags:
+                - python.example_code.ssm.SsmDocumentWrapper.decl
+                - python.example_code.ssm.ModifyDocumentPermission
+                - python.example_code.ssm.DescribeDocumentPermission
+                - python.example_code.ssm.ListDocuments
+            - description: Create a class that wraps RAM operations.
+              snippet_tags:
+                - python.example_code.ram.RamWrapper.decl
+                - python.example_code.ram.CreateResourceShare
+                - python.example_code.ram.AssociateResourceShare
+                - python.example_code.ram.GetResourceShares
+                - python.example_code.ram.DisassociateResourceShare
+                - python.example_code.ram.DeleteResourceShare
+  services:
+    ssm: {CreateDocument, DescribeDocument, ModifyDocumentPermission, DescribeDocumentPermission, ListDocuments, DeleteDocument}
+    ram: {CreateResourceShare, AssociateResourceShare, GetResourceShares, DisassociateResourceShare, DeleteResourceShare}
