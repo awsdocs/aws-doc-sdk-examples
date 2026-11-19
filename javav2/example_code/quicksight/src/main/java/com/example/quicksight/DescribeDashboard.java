@@ -29,7 +29,7 @@ public class DescribeDashboard {
 
                 Where:
                   account - The ID of the AWS account.
-                  dashboardId - The ID of the Amazon QuickSight Dashboard to describe.
+                  dashboardId - The ID of the AWS Quick Sight Dashboard to describe.
                 """;
 
         if (args.length != 2) {
