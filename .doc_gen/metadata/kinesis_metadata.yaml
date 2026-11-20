@@ -65,6 +65,15 @@ kinesis_DeregisterStreamConsumer:
             - description:
               snippet_tags:
                 - python.example_code.kinesis.DeregisterStreamConsumer
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/kinesis
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - kinesis.java2.deregister_consumer.main
   services:
     kinesis: {DeregisterStreamConsumer}
 kinesis_DescribeStream:
@@ -145,6 +154,15 @@ kinesis_ListStreams:
             - description:
               snippet_tags:
                 - python.example_code.kinesis.ListStreams
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/kinesis
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - kinesis.java2.list_streams.main
   services:
     kinesis: {ListStreams}
 kinesis_ListTagsForStream:
@@ -166,6 +184,15 @@ kinesis_ListTagsForStream:
             - description:
               snippet_tags:
                 - python.example_code.kinesis.ListTagsForStream
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/kinesis
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - kinesis.java2.list_tags.main
   services:
     kinesis: {ListTagsForStream}
 kinesis_DeleteStream:
@@ -274,6 +301,15 @@ kinesis_PutRecords:
             - description:
               snippet_tags:
                 - python.example_code.kinesis.PutRecords
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/kinesis
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - kinesis.java2.put_records.main
   services:
     kinesis: {PutRecords}
 kinesis_GetRecords:
@@ -335,6 +371,15 @@ kinesis_RegisterStreamConsumer:
             - description:
               snippet_tags:
                 - python.example_code.kinesis.RegisterStreamConsumer
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/kinesis
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - kinesis.java2.register_consumer.main
   services:
     kinesis: {RegisterStreamConsumer}
 kinesis_AddTagsToStream:
@@ -356,12 +401,21 @@ kinesis_AddTagsToStream:
             - description:
               snippet_tags:
                 - python.example_code.kinesis.AddTagsToStream
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/kinesis
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - kinesis.java2.add_tags.main
   services:
     kinesis: {AddTagsToStream}
 kinesis_Hello:
-  title: Hello &AWSKinesis;
-  title_abbrev: Hello &AWSKinesis;
-  synopsis: get started using &AWSKinesis;.
+  title: Hello &AK;
+  title_abbrev: Hello &AK;
+  synopsis: get started using &AK;.
   category: Hello
   languages:
     Python:
@@ -372,6 +426,15 @@ kinesis_Hello:
             - description:
               snippet_tags:
                 - python.example_code.kinesis.Hello
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/kinesis
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - kinesis.java2.hello.main
   services:
     kinesis: {ListStreams}
 kinesis_DescribeStreamSummary:
@@ -384,6 +447,15 @@ kinesis_DescribeStreamSummary:
             - description:
               snippet_tags:
                 - python.example_code.kinesis.DescribeStreamSummary
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/kinesis
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - kinesis.java2.describe_stream.main
   services:
     kinesis: {DescribeStreamSummary}
 kinesis_ListShards:
@@ -396,6 +468,15 @@ kinesis_ListShards:
             - description:
               snippet_tags:
                 - python.example_code.kinesis.ListShards
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/kinesis
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - kinesis.java2.list_shards.main
   services:
     kinesis: {ListShards}
 kinesis_GetShardIterator:
@@ -408,6 +489,15 @@ kinesis_GetShardIterator:
             - description:
               snippet_tags:
                 - python.example_code.kinesis.GetShardIterator
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/kinesis
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - kinesis.java2.get_shard_iterator.main
   services:
     kinesis: {GetShardIterator}
 kinesis_RemoveTagsFromStream:
@@ -420,10 +510,19 @@ kinesis_RemoveTagsFromStream:
             - description:
               snippet_tags:
                 - python.example_code.kinesis.RemoveTagsFromStream
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/kinesis
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - kinesis.java2.remove_tags.main
   services:
     kinesis: {RemoveTagsFromStream}
 kinesis_Scenario_GettingStarted:
-  title: Learn &AWSKinesis; Data Streams basics using an &AWS; SDK
+  title: Learn &AK; Data Streams basics using an &AWS; SDK
   title_abbrev: Learn the basics
   category: Basics
   synopsis_list:
@@ -469,6 +568,18 @@ kinesis_Scenario_GettingStarted:
             - description:
               snippet_tags:
                 - kns.abapv1.getting_started_with_kns
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/kinesis
+          sdkguide:
+          excerpts:
+            - description: Run a scenario that demonstrates Kinesis Data Streams basics.
+              snippet_tags:
+                - kinesis.java2.scenario.main
+            - description: A wrapper class for Kinesis SDK methods.
+              snippet_tags:
+                - kinesis.java2.actions.main
   services:
     kinesis:
       {

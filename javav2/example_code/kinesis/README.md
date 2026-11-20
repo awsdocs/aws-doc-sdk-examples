@@ -29,14 +29,36 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Get started
+
+- [Hello Kinesis](src/main/java/com/example/kinesis/HelloKinesis.java#L15) (`ListStreams`)
+
+
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](src/main/java/com/example/kinesis/basics/KinesisScenario.java)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
+- [AddTagsToStream](src/main/java/com/example/kinesis/basics/KinesisActions.java#L376)
 - [CreateStream](src/main/java/com/example/kinesis/CreateDataStream.java#L6)
 - [DeleteStream](src/main/java/com/example/kinesis/DeleteDataStream.java#L6)
+- [DeregisterStreamConsumer](src/main/java/com/example/kinesis/basics/KinesisActions.java#L516)
+- [DescribeStreamSummary](src/main/java/com/example/kinesis/basics/KinesisActions.java#L202)
 - [GetRecords](src/main/java/com/example/kinesis/GetRecords.java#L6)
+- [GetShardIterator](src/main/java/com/example/kinesis/basics/KinesisActions.java#L326)
+- [ListShards](src/main/java/com/example/kinesis/basics/KinesisActions.java#L227)
+- [ListStreams](src/main/java/com/example/kinesis/basics/KinesisActions.java#L172)
+- [ListTagsForStream](src/main/java/com/example/kinesis/basics/KinesisActions.java#L403)
 - [PutRecord](src/main/java/com/example/kinesis/StockTradesWriter.java#L6)
+- [PutRecords](src/main/java/com/example/kinesis/basics/KinesisActions.java#L298)
+- [RegisterStreamConsumer](src/main/java/com/example/kinesis/basics/KinesisActions.java#L469)
+- [RemoveTagsFromStream](src/main/java/com/example/kinesis/basics/KinesisActions.java#L442)
 
 
 <!--custom.examples.start-->
@@ -50,6 +72,34 @@ Code excerpts that show you how to call individual service functions.
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
+#### Hello Kinesis
+
+This example shows you how to get started using Kinesis.
+
+
+#### Learn the basics
+
+This example shows you how to do the following:
+
+- Create a stream and wait for it to become ACTIVE.
+- List streams and verify creation.
+- Describe stream summary to get metadata.
+- List shards in the stream.
+- Batch put records using PutRecords.
+- Get a shard iterator and read records.
+- Add tags to the stream.
+- List tags for the stream.
+- Remove tags from the stream.
+- Register an enhanced fan-out consumer.
+- Deregister the consumer.
+- Clean up all resources.
+
+<!--custom.basic_prereqs.kinesis_Scenario_GettingStarted.start-->
+<!--custom.basic_prereqs.kinesis_Scenario_GettingStarted.end-->
+
+
+<!--custom.basics.kinesis_Scenario_GettingStarted.start-->
+<!--custom.basics.kinesis_Scenario_GettingStarted.end-->
 
 
 ### Tests
