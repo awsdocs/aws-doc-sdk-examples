@@ -1,67 +1,87 @@
-
-# Amazon S3 Object Annotations Feature Scenario for the SDK for Python (boto3)
+# Amazon S3 Object Annotations - Python SDK Example
 
 ## Overview
 
-This example demonstrates how to use the AWS SDK for Python (boto3) to work with the Amazon Simple Storage Service (Amazon S3) object annotations feature. The scenario walks through the full lifecycle of annotations: attaching named payloads to an object, retrieving and listing them (with prefix filtering), updating an annotation, and deleting annotations.
+Amazon S3 Object Annotations are named payloads of 1 byte to 1 MiB that you attach to S3 objects without modifying the objects themselves. With annotations, you can attach up to 1,000 named annotations per object in flexible formats like JSON, XML, and YAML. Common use cases include storing machine learning inference results, AI-generated embeddings, content moderation labels, document classification output, data lineage and audit trails, compliance records such as PII flags or retention policies, and ETL pipeline status.
 
-[Amazon S3 Object Annotations](https://docs.aws.amazon.com/AmazonS3/latest/userguide/annotations-overview.html) are named payloads of 1 byte to 1 MiB that you can attach to an S3 object without modifying the object itself. Each object can have up to 1,000 annotations.
+This example demonstrates how to use the AWS SDK for Python (Boto3) to manage S3 object annotations through their complete lifecycle.
 
-## ⚠ Important
+## Scenario Steps
 
-- Running this code might result in charges to your AWS account. For more details, see [AWS Pricing](https://aws.amazon.com/pricing/) and [Free Tier](https://aws.amazon.com/free/).
-- Running the tests might result in charges to your AWS account.
-- We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
-- This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
+1. **Create an S3 bucket** and upload a test object.
+2. **Add annotations** — attach classification, compliance PII scan, and compliance retention annotations with structured JSON payloads.
+3. **Retrieve annotations** — get a specific annotation by name and list all annotations on the object.
+4. **Filter by prefix** — use `AnnotationPrefix` to list only the `compliance.*` annotations.
+5. **Update an annotation** — overwrite the classification annotation with updated data and verify the ETag changed.
+6. **Delete annotations** — remove an annotation and verify it no longer appears in the listing.
+7. **Cleanup** — delete all remaining annotations, the test object, and the bucket.
 
-## Code examples
+## Prerequisites
 
-### Prerequisites
+- Python 3.9 or later
+- AWS SDK for Python (Boto3) version 1.43.31 or later
+- An AWS account with permissions for S3 operations including:
+  - `s3:CreateBucket`, `s3:DeleteBucket`
+  - `s3:PutObject`, `s3:DeleteObject`
+  - `s3:PutObjectAnnotation`, `s3:GetObjectAnnotation`
+  - `s3:ListObjectAnnotations`, `s3:DeleteObjectAnnotation`
 
-To run these examples, you need:
+## Setup
 
-- Python 3.x installed.
-- Run `python pip install -r requirements.txt`
-- AWS credentials configured. For more information, see [Configuring the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html).
+Install dependencies:
 
-### Scenario
-
-This example uses a feature scenario to demonstrate the S3 object annotations lifecycle. The scenario is divided into these stages:
-
-1. **Setup**: Create a bucket and upload a test object.
-2. **Attach**: Attach several annotations to the object, using a period (`.`) as a namespace delimiter (for example, `ml.sentiment-analysis`).
-3. **Retrieve and list**: Retrieve a specific annotation, list all annotations, and list annotations filtered by a name prefix.
-4. **Update**: Overwrite an existing annotation and verify the change.
-5. **Delete**: Delete annotations, confirm removal by handling the `NoSuchAnnotation` error, and verify the object has no remaining annotations.
-6. **Clean up**: Delete the object and the bucket.
-
-> **Note:** Annotation names must be 1-512 bytes and may contain only Unicode letters, digits, underscores (`_`), periods (`.`), and hyphens (`-`). They cannot start with `aws` or `s3`, and cannot contain a forward slash (`/`).
-
-#### Running the scenario
-To run this feature scenario, run the command below from this directory:
-
+```bash
+pip install -r requirements.txt
 ```
+
+## Running the Examples
+
+### Hello S3
+
+Verify S3 connectivity by listing your buckets:
+
+```bash
+python s3_hello.py
+```
+
+### Object Annotations Scenario
+
+Run the interactive scenario:
+
+```bash
 python scenario_object_annotations.py
 ```
 
-## Tests
+### Integration Tests
 
-⚠ Running the tests might result in charges to your AWS account.
+Run the integration tests (requires live AWS credentials):
 
-To run the integration test for this scenario, run the following command from this directory:
-
-```
-python -m pytest -m integ
+```bash
+python -m pytest test_object_annotations.py -v -m integ
 ```
 
-## Additional resources
+## File Structure
 
-- [Amazon S3 Object Annotations overview](https://docs.aws.amazon.com/AmazonS3/latest/userguide/annotations-overview.html)
-- [Amazon S3 API Reference](https://docs.aws.amazon.com/AmazonS3/latest/API/Welcome.html)
-- [boto3 Amazon S3 reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html)
+```
+├── s3_hello.py                      # Hello S3 example (ListBuckets)
+├── s3_wrapper.py                    # Wrapper class for S3 annotation operations
+├── scenario_object_annotations.py   # Interactive scenario
+├── test_object_annotations.py       # Integration tests
+├── s3_metadata.yaml                 # Metadata for doc generation
+├── requirements.txt                 # Python dependencies
+└── README.md                        # This file
+```
+
+## Additional Resources
+
+- [Annotating your objects](https://docs.aws.amazon.com/AmazonS3/latest/userguide/annotations-overview.html)
+- [PutObjectAnnotation API Reference](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObjectAnnotation.html)
+- [GetObjectAnnotation API Reference](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectAnnotation.html)
+- [ListObjectAnnotations API Reference](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListObjectAnnotations.html)
+- [DeleteObjectAnnotation API Reference](https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteObjectAnnotation.html)
+- [Analyze Amazon S3 annotations at scale with materialized views](https://aws.amazon.com/blogs/storage/analyze-amazon-s3-annotations-at-scale-with-materialized-views/)
 
 ---
 
-© Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
