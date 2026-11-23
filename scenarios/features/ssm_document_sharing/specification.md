@@ -338,3 +338,4 @@ Scenario complete!
 | RAM DisassociateResourceShare | ram_metadata.yaml | ram_DisassociateResourceShare |
 | RAM DeleteResourceShare | ram_metadata.yaml | ram_DeleteResourceShare |
 | Share SSM Documents with Organizations Scenario | ssm_metadata.yaml | ssm_ShareDocuments_Scenario |
+| Share Documents with Organizations Scenario (RAM) | ram_metadata.yaml | ram_ShareDocuments_Scenario |
