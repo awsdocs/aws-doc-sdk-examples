@@ -96,6 +96,7 @@ class ShareSsmDocumentsScenario:
         self.second_ou_arn = None
         self.direct_share_account_id = None
         self.direct_document_name = None
+        self.account_id = None
         self.stack_name = None
         self.created_organization = False
         self.principal_arn = None
@@ -138,6 +139,16 @@ class ShareSsmDocumentsScenario:
         print("Scenario complete!")
         print("=" * 70)
 
+    def _get_account_id(self) -> str:
+        """
+        Gets the ID of the current account. The ID is looked up once and reused.
+
+        :return: The account ID.
+        """
+        if self.account_id is None:
+            self.account_id = self.sts_client.get_caller_identity()["Account"]
+        return self.account_id
+
     def _setup_organization(self) -> None:
         """
         Makes sure an organization with OUs is available to share with. If the
@@ -148,7 +159,7 @@ class ShareSsmDocumentsScenario:
         """
         print("\n--- Setup: Organization Resources ---\n")
 
-        account_id = self.sts_client.get_caller_identity()["Account"]
+        account_id = self._get_account_id()
         organization = self.org_setup.get_organization()
 
         if organization is None:
@@ -160,9 +171,7 @@ class ShareSsmDocumentsScenario:
                 "If you choose cleanup at the end, the stack and the organization are\n"
                 "deleted. If you skip cleanup, they remain until you delete the stack.\n"
             )
-            create = q.ask(
-                "Create an organization and two OUs now? (y/n) ", q.is_yesno
-            )
+            create = q.ask("Create an organization and two OUs now? (y/n) ", q.is_yesno)
             if not create:
                 print("Skipping. You will be asked for existing ARNs instead.")
                 return
@@ -212,7 +221,7 @@ class ShareSsmDocumentsScenario:
         """
         print("\n--- Setup: Creating an SSM Automation Document ---\n")
 
-        account_id = self.sts_client.get_caller_identity()["Account"]
+        account_id = self._get_account_id()
         region = self.ssm_wrapper.ssm_client.meta.region_name
         print(f"Current account: {account_id}")
         print(f"Current region:  {region}\n")
@@ -256,14 +265,18 @@ class ShareSsmDocumentsScenario:
             "and the ARN of the target organization or OU.\n"
         )
 
-        account_id = self.sts_client.get_caller_identity()["Account"]
+        account_id = self._get_account_id()
         region = self.ssm_wrapper.ssm_client.meta.region_name
-        document_arn = f"arn:aws:ssm:{region}:{account_id}:document/{self.document_name}"
+        document_arn = (
+            f"arn:aws:ssm:{region}:{account_id}:document/{self.document_name}"
+        )
         print(f"SSM Document ARN: {document_arn}\n")
 
         if self.principal_arn:
             principal_arn = self.principal_arn
-            print(f"Sharing with the OU created for this scenario:\n  {principal_arn}\n")
+            print(
+                f"Sharing with the OU created for this scenario:\n  {principal_arn}\n"
+            )
         else:
             principal_arn = q.ask(
                 "Enter the ARN of the target organization or OU\n"
@@ -289,6 +302,8 @@ class ShareSsmDocumentsScenario:
                     resource_arns=[document_arn],
                     principals=[principal_arn],
                     allow_external_principals=False,
+                    # RAM tags use lowercase "key" and "value". SSM tags, as used
+                    # when creating the document, use "Key" and "Value".
                     tags=[{"key": "Feature", "value": "SsmDocumentSharing"}],
                 )
                 break
@@ -357,7 +372,9 @@ class ShareSsmDocumentsScenario:
 
         if self.suggested_second_ou_arn:
             self.second_ou_arn = self.suggested_second_ou_arn
-            print(f"Using the second OU created for this scenario:\n  {self.second_ou_arn}")
+            print(
+                f"Using the second OU created for this scenario:\n  {self.second_ou_arn}"
+            )
         else:
             self.second_ou_arn = q.ask(
                 "\nEnter the ARN of the second OU\n"
@@ -467,6 +484,7 @@ class ShareSsmDocumentsScenario:
         print(f"Document is now shared with accounts: {account_ids}")
 
         q.ask("\nPress Enter to continue...")
+
     def _step6_list_documents(self) -> None:
         """
         Step 6: List documents to confirm visibility.
@@ -519,7 +537,9 @@ class ShareSsmDocumentsScenario:
         if self.resource_share_arn:
             print(f"\nDeleting RAM resource share '{self.resource_share_arn}'...")
             try:
-                success = self.ram_wrapper.delete_resource_share(self.resource_share_arn)
+                success = self.ram_wrapper.delete_resource_share(
+                    self.resource_share_arn
+                )
                 print(f"  Deletion successful: {success}")
                 time.sleep(3)
             except ClientError as err:

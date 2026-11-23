@@ -16,16 +16,19 @@ deletes them when it finishes. It is skipped in any other account so that it
 never creates or deletes an organization.
 """
 
+import logging
 import uuid
 
 import boto3
 import pytest
-from botocore.exceptions import ClientError
+from botocore.exceptions import ClientError, WaiterError
 
 from organization_setup import OrganizationSetup
 from ram_wrapper import RamWrapper
 from scenario_share_ssm_documents import ShareSsmDocumentsScenario
 from ssm_wrapper import SsmDocumentWrapper
+
+logger = logging.getLogger(__name__)
 
 
 @pytest.mark.integ
@@ -106,8 +109,10 @@ def test_run_share_ssm_documents_scenario_integ(input_mocker, capsys):
                     pass
         if scenario.stack_name:
             try:
-                org_setup.cloudformation_client.delete_stack(
-                    StackName=scenario.stack_name
+                org_setup.delete_stack(scenario.stack_name)
+            except (ClientError, WaiterError):
+                logger.warning(
+                    "Cleanup: couldn't delete stack '%s'. Delete it in the "
+                    "AWS CloudFormation console.",
+                    scenario.stack_name,
                 )
-            except ClientError:
-                pass
