@@ -57,7 +57,10 @@ class RamWrapper:
         :param resource_arns: List of ARNs of resources to include in the share.
         :param principals: List of principal ARNs (orgs, OUs, or accounts) to share with.
         :param allow_external_principals: Whether to allow sharing outside the org.
-        :param tags: Optional list of tags to attach to the resource share.
+        :param tags: Optional list of tags to attach to the resource share. RAM tags
+                     use lowercase keys, such as {"key": "Name", "value": "Demo"}.
+                     SSM tags use capitalized keys, such as
+                     {"Key": "Name", "Value": "Demo"}.
         :return: The resource share object from the response.
         """
         if resource_arns is None:
@@ -80,7 +83,8 @@ class RamWrapper:
             resource_share = response.get("resourceShare", dict())
             logger.info(
                 "Created RAM resource share '%s' with status '%s'.",
-                name, resource_share.get("status"),
+                name,
+                resource_share.get("status"),
             )
             return resource_share
         except ClientError as err:
@@ -125,7 +129,8 @@ class RamWrapper:
             associations = response.get("resourceShareAssociations", list())
             logger.info(
                 "Associated %d item(s) with resource share '%s'.",
-                len(associations), resource_share_arn,
+                len(associations),
+                resource_share_arn,
             )
             return associations
         except ClientError as err:
@@ -148,7 +153,7 @@ class RamWrapper:
     ) -> List[Dict[str, Any]]:
         """
         Retrieves details about resource shares you own or that are shared
-        with you.
+        with you. Uses a paginator, so the results include every page.
 
         :param resource_owner: 'SELF' for owned shares, 'OTHER-ACCOUNTS' for shares
                                received from others.
@@ -162,8 +167,10 @@ class RamWrapper:
             params["resourceOwner"] = resource_owner
             if resource_share_arns:
                 params["resourceShareArns"] = resource_share_arns
-            response = self.ram_client.get_resource_shares(**params)
-            shares = response.get("resourceShares", list())
+            shares = list()
+            paginator = self.ram_client.get_paginator("get_resource_shares")
+            for page in paginator.paginate(**params):
+                shares.extend(page.get("resourceShares", list()))
             logger.info("Retrieved %d resource share(s).", len(shares))
             return shares
         except ClientError as err:
@@ -206,7 +213,8 @@ class RamWrapper:
             associations = response.get("resourceShareAssociations", list())
             logger.info(
                 "Disassociated %d item(s) from resource share '%s'.",
-                len(associations), resource_share_arn,
+                len(associations),
+                resource_share_arn,
             )
             return associations
         except ClientError as err:
@@ -214,7 +222,8 @@ class RamWrapper:
                 logger.error(
                     "Resource share or principal not found. Verify the resource "
                     "share ARN '%s' exists and the principal is currently "
-                    "associated.", resource_share_arn,
+                    "associated.",
+                    resource_share_arn,
                 )
             raise
 
@@ -233,9 +242,7 @@ class RamWrapper:
                 resourceShareArn=resource_share_arn
             )
             success = response.get("returnValue", False)
-            logger.info(
-                "Deleted resource share '%s': %s.", resource_share_arn, success
-            )
+            logger.info("Deleted resource share '%s': %s.", resource_share_arn, success)
             return success
         except ClientError as err:
             if err.response["Error"]["Code"] == "InvalidStateTransitionException":

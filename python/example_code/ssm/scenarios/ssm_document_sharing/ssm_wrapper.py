@@ -72,17 +72,20 @@ class SsmDocumentWrapper:
                 params["Tags"] = tags
             response = self.ssm_client.create_document(**params)
             document_description = response.get("DocumentDescription", dict())
-            logger.info("Created SSM document '%s' with status '%s'.",
-                        name, document_description.get("Status"))
+            logger.info(
+                "Created SSM document '%s' with status '%s'.",
+                name,
+                document_description.get("Status"),
+            )
             return document_description
         except ClientError as err:
             if err.response["Error"]["Code"] == "DocumentAlreadyExists":
                 logger.error(
                     "Document '%s' already exists. Use a unique name or delete "
-                    "the existing document first.", name
+                    "the existing document first.",
+                    name,
                 )
             raise
-
 
     def describe_document(self, name: str) -> Dict[str, Any]:
         """
@@ -107,10 +110,10 @@ class SsmDocumentWrapper:
             if err.response["Error"]["Code"] == "InvalidDocument":
                 logger.error(
                     "Document '%s' not found. Verify the name is correct and "
-                    "the document exists in the current Region.", name
+                    "the document exists in the current Region.",
+                    name,
                 )
             raise
-
 
     # snippet-start:[python.example_code.ssm.ModifyDocumentPermission]
     def modify_document_permission(
@@ -143,14 +146,17 @@ class SsmDocumentWrapper:
             self.ssm_client.modify_document_permission(**params)
             logger.info(
                 "Modified document permissions for '%s'. Added: %s, Removed: %s.",
-                name, account_ids_to_add, account_ids_to_remove,
+                name,
+                account_ids_to_add,
+                account_ids_to_remove,
             )
         except ClientError as err:
             if err.response["Error"]["Code"] == "DocumentPermissionLimit":
                 logger.error(
                     "Document '%s' cannot be shared with more accounts. "
                     "Max 1,000 accounts total, 20 per call. Use RAM for "
-                    "organization/OU-level sharing instead.", name
+                    "organization/OU-level sharing instead.",
+                    name,
                 )
             raise
 
@@ -175,7 +181,8 @@ class SsmDocumentWrapper:
             sharing_info = response.get("AccountSharingInfoList", list())
             logger.info(
                 "Document '%s' is shared with %d account(s).",
-                name, len(account_ids),
+                name,
+                len(account_ids),
             )
             return {
                 "AccountIds": account_ids,
@@ -237,10 +244,10 @@ class SsmDocumentWrapper:
                 logger.error(
                     "Cannot delete document '%s'. It may still be shared. "
                     "Remove all sharing permissions and delete RAM resource "
-                    "shares before deleting the document.", name
+                    "shares before deleting the document.",
+                    name,
                 )
             raise
-
 
 
 # snippet-end:[python.example_code.ssm.SsmDocumentWrapper.class]
