@@ -29,7 +29,7 @@ public class DescribeTemplate {
 
                 Where:
                   account - The ID of the AWS account.
-                  templateId - The ID of the Amazon QuickSight template to describe.
+                  templateId - The ID of the AWS Quick Sight template to describe.
                 """;
 
         if (args.length != 2) {
