@@ -72,6 +72,8 @@ class RamWrapper:
         try:
             params = dict()
             params["name"] = name
+            # Always send this value. The RAM default is true, so leaving it out
+            # would allow sharing with accounts outside your organization.
             params["allowExternalPrincipals"] = allow_external_principals
             if resource_arns:
                 params["resourceArns"] = resource_arns

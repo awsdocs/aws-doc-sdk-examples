@@ -1,3 +1,4 @@
 boto3>=1.34.0
 botocore>=1.34.0
+# Test dependency
 pytest>=7.0.0

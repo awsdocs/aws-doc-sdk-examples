@@ -295,6 +295,7 @@ class ShareSsmDocumentsScenario:
         # organization itself right after sharing is turned on. Until then,
         # CreateResourceShare fails with UnknownResourceException, so retry.
         max_attempts = 24
+        resource_share = dict()  # The loop either sets this or raises.
         for attempt in range(1, max_attempts + 1):
             try:
                 resource_share = self.ram_wrapper.create_resource_share(
@@ -316,13 +317,13 @@ class ShareSsmDocumentsScenario:
                 print(
                     "RAM doesn't recognize the OU yet. This is normal for a few "
                     "minutes after an OU is created or sharing is enabled.\n"
-                    f"Waiting 15 seconds and trying again "
+                    "Waiting 15 seconds and trying again "
                     f"(attempt {attempt} of {max_attempts})..."
                 )
                 time.sleep(15)
         self.resource_share_arn = resource_share.get("resourceShareArn")
         share_status = resource_share.get("status")
-        print(f"Resource share created:")
+        print("Resource share created:")
         print(f"  ARN:    {self.resource_share_arn}")
         print(f"  Status: {share_status}")
         q.ask("\nPress Enter to continue...")

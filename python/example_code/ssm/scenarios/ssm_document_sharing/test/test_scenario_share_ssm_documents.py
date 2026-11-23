@@ -90,12 +90,12 @@ def test_run_share_ssm_documents_scenario_integ(input_mocker, capsys):
 
     try:
         scenario.run_scenario()
-        capt = capsys.readouterr()
-        assert "Cleanup complete." in capt.out
-        assert "Scenario complete!" in capt.out
     finally:
-        # Delete anything the scenario's own cleanup didn't reach, for example
-        # if the scenario failed before its cleanup prompt.
+        # Best-effort cleanup for anything the scenario's own cleanup didn't
+        # reach, for example if the scenario failed before its cleanup prompt.
+        # The order matches the scenario's cleanup: the resource share first,
+        # then the documents, then the stack that holds the OUs. Each step
+        # ignores errors so that one failure doesn't stop the others.
         if scenario.resource_share_arn:
             try:
                 scenario.ram_wrapper.delete_resource_share(scenario.resource_share_arn)
@@ -116,3 +116,8 @@ def test_run_share_ssm_documents_scenario_integ(input_mocker, capsys):
                     "AWS CloudFormation console.",
                     scenario.stack_name,
                 )
+
+    # Reached only if the scenario finished without raising.
+    capt = capsys.readouterr()
+    assert "Cleanup complete." in capt.out
+    assert "Scenario complete!" in capt.out
