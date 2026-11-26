@@ -12,7 +12,7 @@ Digital Imaging and Communications in Medicine (DICOM) is a technical standard f
 
 ### Prerequisites
 
-For prerequisites, see the [README](../../README.md#Prerequisites) in the `python` folder.
+For prerequisites, see the [README](../../../README.md#Prerequisites) in the `python` folder.
 
 Install the packages required by these examples by running the following in a virtual environment:
 
