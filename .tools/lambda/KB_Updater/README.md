@@ -22,7 +22,8 @@ change to `main`. You don't need to edit the KBs or their S3 buckets directly.
 The workflow also syncs the `premium-ex.md` paths for javascriptv3, gov2,
 rustv1, swift, ruby, php, cpp and kotlin to their own
 `codeloom-<language>-premium-codeloomdev` buckets. These languages don't have a
-KB yet, so their content is uploaded but not indexed.
+KB yet, so their content is uploaded but not indexed. To change that, see
+[Adding a KB for a new language](#things-to-know).
 
 ## How it works
 
@@ -30,8 +31,9 @@ Two GitHub Actions workflows handle the sync.
 
 - **`.github/workflows/sync-S3-KB.yml`** runs on every push to `main`. It runs
   one job per target. Each job collects the source files, mirrors them to the
-  target's S3 bucket with `aws s3 sync --delete`, and then invokes the
-  `KB_Updater` Lambda function.
+  target's S3 bucket with `aws s3 sync --delete` (some deletions aren't
+  applied for the premium KBs, see [Things to know](#things-to-know)), and then
+  invokes the `KB_Updater` Lambda function.
 - **`.tools/lambda/KB_Updater/lambda_function.py`** maps the target to a KB ID
   (`KB_IDS`), starts a Bedrock ingestion job for that KB's S3 data source, and
   waits for the job to finish. `.github/workflows/KB_Updater.yml` deploys the
@@ -49,6 +51,9 @@ Both workflows can also be run manually from the **Actions** tab
   `<sdk>/premium-ex.md`. Paths go under one of three headings: `## basics:`,
   `## feature-scenario:` or `## complex-feature-scenario:`. Each path starts
   with `/` and is relative to the SDK folder. End the file with a newline.
+  The heading names are case-sensitive, and the colon is required. A heading
+  with any other text after the colon isn't recognized, and its paths are
+  ignored.
 - **Coding standards:** edit the wiki page. Wiki edits don't trigger the
   workflow, so the KB picks up the change on the next push to `main`. To
   update it sooner, run **syncS3andKB** manually with `coding-standards`.
@@ -65,10 +70,12 @@ Both workflows can also be run manually from the **Actions** tab
   heading in `premium-ex.md`, that level is skipped, so its old content also
   stays. Removing that content needs a manual cleanup of the bucket.
 - **A green run doesn't mean the KB updated.** The job passes as long as the
-  Lambda function can be invoked. A missing KB, or an ingestion job that ends
-  `FAILED`, appears only in the response printed by the
-  **Sync Knowledge Base Data Source** step. Check that step's output if a
-  change doesn't show up in the KB.
+  Lambda function can be invoked. A missing KB (`statusCode` 400), an ingestion
+  job that ends `FAILED`, or a job that is still running when the function
+  stops waiting (about 8 minutes, reported as `UNKNOWN`) appears only in the
+  response printed by the **Sync Knowledge Base Data Source** step. If a
+  change doesn't show up in the KB, check that output: `statusCode` is 200 even
+  when ingestion fails, so look at `status` under `ingestion_job` in `body`.
 - **Adding a KB for a new language** means creating the KB, then adding its
   ID to `KB_IDS` in `lambda_function.py`. On the next sync, the Lambda function
   creates the S3 data source for the language's bucket if the KB doesn't have
