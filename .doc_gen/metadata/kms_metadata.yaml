@@ -1237,4 +1237,4 @@ kms_Scenario_Basics:
                 - php.example_code.kms.Basics
                 - php.example_code.kms.service.KmsService
   services:
-    kms: {CreateKey, Decrypt, Encrypt, ListAliases, CreateAlias, CreateGrant, DescribeKey, DisableKey, EnableKey, ListKeys, ListGrants, GetKeyPolicy, RevokeGrant, ListGrants, ScheduleKeyDeletion, TagResource, Sign}
+    kms: {CreateKey, Decrypt, Encrypt, ListAliases, CreateAlias, CreateGrant, DescribeKey, DisableKey, EnableKey, ListKeys, ListGrants, GetKeyPolicy, RevokeGrant, ScheduleKeyDeletion, TagResource, Sign}

@@ -28,7 +28,7 @@ public class DescribeAnalysis {
 
                 Where:
                    account - The ID of the AWS account that contains the analysis.
-                   queueName - The ID of the Amazon QuickSight Analysis that you're describing.
+                   queueName - The ID of the AWS Quick Sight Analysis that you're describing.
 
                 """;
 
