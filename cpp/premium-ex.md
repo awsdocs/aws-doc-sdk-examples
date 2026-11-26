@@ -1,4 +1,5 @@
 //Add paths for premium examples here which will be consumed by workflow to update KB with quality code 
+//See [the KB sync README](../.tools/lambda/KB_Updater/README.md) for how this file is synced to the knowledge base
 
 ## basics:
 /example_code/s3/s3_getting_started_scenario.cpp
