@@ -56,11 +56,21 @@ Code excerpts that show you how to call individual service functions.
 - [DeleteDocument](document.py#L59)
 - [DeleteMaintenanceWindow](maintenance_window.py#L73)
 - [DeleteOpsItem](ops_item.py#L73)
+- [DescribeDocumentPermission](scenarios/ssm_document_sharing/ssm_wrapper.py#L165)
 - [DescribeOpsItems](ops_item.py#L95)
 - [ListCommandInvocations](document.py#L159)
+- [ListDocuments](scenarios/ssm_document_sharing/ssm_wrapper.py#L200)
+- [ModifyDocumentPermission](scenarios/ssm_document_sharing/ssm_wrapper.py#L118)
 - [SendCommand](document.py#L82)
 - [UpdateMaintenanceWindow](maintenance_window.py#L97)
 - [UpdateOpsItem](ops_item.py#L126)
+
+### Scenarios
+
+Code examples that show you how to accomplish a specific task by calling multiple
+functions within the same service.
+
+- [Share documents with organizations](scenarios/ssm_document_sharing/scenario_share_ssm_documents.py)
 
 
 <!--custom.examples.start-->
@@ -107,6 +117,32 @@ python ssm_getting_started.py
 <!--custom.basics.ssm_Scenario.start-->
 <!--custom.basics.ssm_Scenario.end-->
 
+
+#### Share documents with organizations
+
+This example shows you how to share documents with organizations and organizational units by using resource shares.
+
+- Create an organization and two organizational units, if the account has none.
+- Create a document to share.
+- Share the document with an organization or organizational unit by using a resource share.
+- Verify the resource share.
+- Add a second organizational unit to the resource share.
+- Compare sharing with a resource share to sharing with individual accounts, using a second document.
+- List documents to confirm visibility.
+- Clean up all resources in the correct dependency order.
+
+<!--custom.scenario_prereqs.ssm_ShareDocuments_Scenario.start-->
+<!--custom.scenario_prereqs.ssm_ShareDocuments_Scenario.end-->
+
+Start the example by running the following at a command prompt:
+
+```
+python scenarios/ssm_document_sharing/scenario_share_ssm_documents.py
+```
+
+
+<!--custom.scenarios.ssm_ShareDocuments_Scenario.start-->
+<!--custom.scenarios.ssm_ShareDocuments_Scenario.end-->
 
 ### Tests
 
